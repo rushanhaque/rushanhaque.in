@@ -1,52 +1,75 @@
-/* Reviews shown on the site.
- * Managed with admin.html — open it, edit or add a review, download this
- * file, and drop it back into data/.
- * Loaded as a plain script (not fetch) so it works on file:// and any host.
- *
- * Shape of each entry:
- * {
- *   "name":   "Jane Doe",
- *   "role":   "Product Lead, Acme",
- *   "rating": 5,                       // 1-5
- *   "text":   "What it was like working together.",
- *   "image":  "img/rh/reviews/jane.jpg", // optional; initials shown if absent
- *   "date":   "2026-07-01"             // newest first
- * }
- *
- * The four entries below are PLACEHOLDERS so the section looks right while
- * you collect real ones. Replace or delete them in admin.html.
- */
+/* Reviews shown on the site. Managed with admin.html. */
 window.RH_REVIEWS = [
   {
-    "name": "Placeholder Name",
-    "role": "Founder, Company",
+    "name": "Laiba Masood",
+    "role": "SIAAM logistics / Saudi Arab",
     "rating": 5,
-    "text": "Replace this with a real review. Rushan took the brief, came back with something sharper than what we asked for, and shipped it on time.",
+    "text": "Excellent overall experience. very thoughtful, collaborative and impressive.\nThank you so much Rushan",
     "image": "",
-    "date": "2026-08-01"
+    "date": "2025-12-20"
   },
   {
-    "name": "Placeholder Name",
-    "role": "Product Lead, Company",
+    "name": "Danish Faiz",
+    "role": "Erfolg Living / India",
     "rating": 5,
-    "text": "Replace this with a real review. Clear communication the whole way through — no chasing, no surprises, and the handover was properly documented.",
+    "text": "Completely transformed erfolg’s online presence, great working with you",
     "image": "",
-    "date": "2026-07-15"
+    "date": "2025-11-17"
   },
   {
-    "name": "Placeholder Name",
-    "role": "Marketing Director",
+    "name": "Kanishka",
+    "role": "Nublin / Poland",
     "rating": 5,
-    "text": "Replace this with a real review. The site does exactly what we needed it to do, and it still looks good six months on.",
+    "text": "Amazing person amazing work, Loved it🤩",
     "image": "",
-    "date": "2026-06-20"
+    "date": "2026-04-17"
   },
   {
-    "name": "Placeholder Name",
-    "role": "Editor",
+    "name": "MO. Ubaid",
+    "role": "Sr. Merchandiser / Oliver McInroy & Co",
     "rating": 5,
-    "text": "Replace this with a real review. Rare to find someone who can write as carefully as they build.",
+    "text": "Good work👍🏻👍🏻",
     "image": "",
-    "date": "2026-05-30"
+    "date": "2026-03-17"
+  },
+  {
+    "name": "Hammad",
+    "role": "Velora International / India",
+    "rating": 5,
+    "text": "Good work and amazing design",
+    "image": "",
+    "date": "2026-08-17"
+  },
+  {
+    "name": "MO. Saud",
+    "role": "AF International / India",
+    "rating": 5,
+    "text": "I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going",
+    "image": "",
+    "date": "2026-04-01"
+  },
+  {
+    "name": "Sufiyan",
+    "role": "Casa&Crop / India",
+    "rating": 5,
+    "text": "quite creative, very impressive",
+    "image": "",
+    "date": "2026-01-15"
+  },
+  {
+    "name": "Kanchan",
+    "role": "/ Nepal",
+    "rating": 5,
+    "text": "good tool really helps alot👍🏻",
+    "image": "",
+    "date": "2026-04-17"
+  },
+  {
+    "name": "Rafay Zahid",
+    "role": "Barha / India",
+    "rating": 5,
+    "text": "Really happy with my website\nGood work",
+    "image": "",
+    "date": "2026-02-28"
   }
 ];
