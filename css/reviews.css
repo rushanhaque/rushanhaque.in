@@ -1,0 +1,177 @@
+/*! reviews.css — Rushan Haque portfolio
+ *  The review CARDS use the template's own .mxd-testimonials-card styling.
+ *  This file only adds: grid spacing, a star row, an initials fallback avatar,
+ *  an empty state, and the submission form. */
+
+/* ---------------- grid spacing ---------------- */
+.mxd-reviews-item { margin-bottom: 1.5rem; }
+@media only screen and (min-width: 768px) {
+  .mxd-reviews-item { padding-right: 1.5rem; }
+}
+
+/* ---------------- star row ---------------- */
+.mxd-reviews-stars {
+  display: flex;
+  gap: 0.15rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  line-height: 1;
+}
+.mxd-reviews-stars .is-empty { opacity: 0.22; }
+
+/* ---------------- initials fallback in the template photo slot ---------------- */
+.mxd-testimonials-card__photo .mxd-reviews-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--base-opp);
+  color: var(--base);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ---------------- empty state ---------------- */
+.mxd-reviews-empty {
+  padding: 3.5rem 2rem;
+  margin-bottom: 3rem;
+  border: 1px dashed rgba(var(--base-opp-rgb), 0.18);
+  border-radius: 1.25rem;
+  text-align: center;
+  color: var(--t-muted);
+}
+.mxd-reviews-empty p { margin: 0; font-size: 1rem; }
+
+/* ---------------- plain card (no photo, no stars, no quote icon) ----------- */
+.rh-review-card-plain {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.10);
+  border-radius: 1.25rem;
+  background-color: var(--base-tint);
+}
+.rh-review-card-plain .mxd-testimonials-card__descr {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--t-body);
+}
+.rh-review-author-plain {
+  border-top: 1px solid rgba(var(--base-opp-rgb), 0.08);
+  padding-top: 1.25rem;
+}
+.rh-review-author-plain .mxd-testimonials-card__name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.15rem;
+  color: var(--t-bright);
+}
+.rh-review-designation {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--t-muted);
+  letter-spacing: 0.02em;
+}
+.rh-review-company {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--accent, var(--t-muted));
+  letter-spacing: 0.02em;
+}
+
+/* ---------------- submission form ---------------- */
+.rh-review-form {
+  margin-top: 2rem;
+  padding: 2.5rem;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.10);
+  border-radius: 1.5rem;
+  background-color: var(--base-tint);
+}
+@media only screen and (min-width: 768px) { .rh-review-form { padding: 3rem; } }
+
+.rh-review-form__title { margin: 0 0 0.5rem; font-size: 1.5rem; line-height: 1.2; color: var(--t-bright); }
+.rh-review-form__note  { margin: 0 0 2rem; font-size: 0.95rem; color: var(--t-muted); }
+
+.rh-form-grid { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
+@media only screen and (min-width: 768px) {
+  .rh-form-grid { grid-template-columns: 1fr 1fr; }
+  .rh-form-grid .rh-field--full { grid-column: 1 / -1; }
+}
+
+.rh-field { display: flex; flex-direction: column; gap: 0.5rem; }
+.rh-field label { font-size: 0.85rem; font-weight: 500; color: var(--t-medium); }
+
+.rh-field input,
+.rh-field textarea {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.14);
+  border-radius: 0.75rem;
+  background-color: var(--base);
+  color: var(--t-bright);
+  font-family: inherit;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  transition: border-color 0.25s var(--_animbezier), box-shadow 0.25s var(--_animbezier);
+}
+.rh-field textarea { min-height: 130px; resize: vertical; }
+.rh-field input::placeholder,
+.rh-field textarea::placeholder { color: var(--t-muted-extra); }
+.rh-field input:focus,
+.rh-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(var(--base-opp-rgb), 0.06);
+}
+
+/* star picker */
+.rh-stars-input { display: flex; gap: 0.35rem; }
+.rh-stars-input button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgba(var(--base-opp-rgb), 0.22);
+  cursor: pointer;
+  transition: color 0.2s var(--_animbezier), transform 0.2s var(--_animbezier);
+}
+.rh-stars-input button.is-on { color: var(--accent); }
+.no-touch .rh-stars-input button:hover { transform: scale(1.15); }
+.rh-stars-input button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.rh-review-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1.75rem;
+}
+
+.rh-submit {
+  padding: 0.95rem 2rem;
+  border: 0;
+  border-radius: 100px;
+  background-color: var(--base-opp);
+  color: var(--base);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.25s var(--_animbezier), transform 0.25s var(--_animbezier);
+}
+.no-touch .rh-submit:hover { opacity: 0.86; transform: translateY(-2px); }
+.rh-submit[disabled] { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.rh-form-msg { margin: 0; font-size: 0.9rem; line-height: 1.4; }
+.rh-form-msg.is-ok    { color: #1a7f4b; }
+.rh-form-msg.is-error { color: #c0392b; }

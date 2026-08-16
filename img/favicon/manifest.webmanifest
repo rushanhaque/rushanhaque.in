@@ -1,0 +1,11 @@
+{
+  "name": "Rushan Haque — Developer & Writer",
+  "short_name": "Rushan Haque",
+  "icons": [
+    { "src": "/img/favicon/android-icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/img/favicon/android-icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "display": "standalone"
+}

@@ -1,0 +1,118 @@
+/*! cards.css — Rushan Haque portfolio
+ *  Shared card grid used by Works and Personal projects. */
+
+.rh-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media only screen and (min-width: 700px)  { .rh-cards { grid-template-columns: repeat(2, 1fr); } }
+@media only screen and (min-width: 1200px) { .rh-cards { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+
+/* two-up variant for short lists (client work) */
+.rh-cards.is-wide { grid-template-columns: 1fr; }
+@media only screen and (min-width: 700px) { .rh-cards.is-wide { grid-template-columns: repeat(2, 1fr); } }
+
+.rh-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.10);
+  border-radius: 1.25rem;
+  background-color: var(--base-tint);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.35s var(--_animbezier),
+              transform 0.35s var(--_animbezier),
+              box-shadow 0.35s var(--_animbezier);
+}
+.no-touch a.rh-card:hover {
+  border-color: rgba(var(--base-opp-rgb), 0.22);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 38px rgba(var(--base-opp-rgb), 0.08);
+}
+
+/* media */
+.rh-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--base);
+  display: grid;
+  place-items: center;
+}
+.rh-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--_animbezier);
+}
+.no-touch a.rh-card:hover .rh-card__media img { transform: scale(1.04); }
+
+.rh-card__videowrap { position: absolute; inset: 0; }
+.rh-card__video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.rh-card__glyph {
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(var(--base-opp-rgb), 0.13);
+}
+
+/* body */
+.rh-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.5rem;
+  flex: 1;
+}
+.rh-card__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--t-bright);
+}
+.rh-card__descr {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--t-muted);
+}
+.rh-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+}
+
+/* empty */
+.rh-cards__empty {
+  grid-column: 1 / -1;
+  padding: 3.5rem 2rem;
+  border: 1px dashed rgba(var(--base-opp-rgb), 0.18);
+  border-radius: 1.25rem;
+  text-align: center;
+  color: var(--t-muted);
+}
+.rh-cards__empty p { margin: 0; font-size: 1rem; }
+
+/* badge on blog cards */
+.rh-card__badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background-color: var(--base);
+  border: 1px solid rgba(var(--base-opp-rgb), 0.12);
+  color: var(--t-medium);
+}

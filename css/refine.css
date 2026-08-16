@@ -1,0 +1,926 @@
+/*! ------------------------------------------------
+ * File name: refine.css
+ * Project:   Rushan Haque - Portfolio
+ * Purpose:   Loaded LAST. Three fixes + a site-wide design pass.
+ *
+ *   01. Palette - beige / warm neutral (replaces the blue accent)
+ *   02. Fix - text clipped at the bottom of animated reveal masks
+ *   03. Fix - opaque section backgrounds so pinned sections can't show through
+ *   04. Typography and rhythm
+ *   05. Layout and containers
+ *   06. Header / navigation
+ *   07. Buttons and links
+ *   08. Cards and media
+ *   09. Section titles, stats, lists
+ *   10. Forms
+ *   11. Footer
+ *   11b. Journey timeline
+ *   12. Accessibility and motion
+ * ------------------------------------------------ */
+
+/* ==================================================
+   01. Palette - pure black & white
+   --------------------------------------------------
+   No colour anywhere: every token below is a shade of
+   grey between #000 and #FFF. "Accent" is pure black
+   (or pure white on dark surfaces) rather than a tint,
+   so emphasis reads through weight/contrast the way
+   Apple's own black-and-white UI chrome does.
+   ================================================== */
+:root {
+  /* --- light (the only scheme this site ships) --- */
+  --base--light: #FFFFFF;
+  --base-rgb--light: 255, 255, 255;
+  --base-tint--light: #F5F5F5;
+  --base-tint-rgb--light: 245, 245, 245;
+  --base-bright--light: #FFFFFF;
+  --base-bright-rgb--light: 255, 255, 255;
+  --accent--light: #000000;
+  --highlight--light: #333333;
+  --base-opp--light: #000000;
+  --base-opp-rgb--light: 0, 0, 0;
+  --t-bright--light: #000000;
+  --t-medium--light: #4D4D4D;
+  --t-muted--light: #8A8A8A;
+  --t-muted-extra--light: #E3E3E3;
+  --t-opp-bright--light: #FFFFFF;
+  --t-opp-medium--light: #B3B3B3;
+  --t-opp-muted--light: #666666;
+  --t-opp-muted-extra--light: #333333;
+  --st-muted--light: #DADADA;
+  --st-medium--light: #B3B3B3;
+  --st-bright--light: #000000;
+
+  /* --- dark (inverted, same neutral scale) --- */
+  --base--dark: #000000;
+  --base-rgb--dark: 0, 0, 0;
+  --base-tint--dark: #141414;
+  --base-tint-rgb--dark: 20, 20, 20;
+  --base-bright--dark: #000000;
+  --base-bright-rgb--dark: 0, 0, 0;
+  --accent--dark: #FFFFFF;
+  --highlight--dark: #CCCCCC;
+  --base-opp--dark: #FFFFFF;
+  --base-opp-rgb--dark: 255, 255, 255;
+  --t-bright--dark: #FFFFFF;
+  --t-medium--dark: #B3B3B3;
+  --t-muted--dark: #757575;
+  --t-muted-extra--dark: #262626;
+  --t-opp-bright--dark: #000000;
+  --t-opp-medium--dark: #4D4D4D;
+  --t-opp-muted--dark: #8A8A8A;
+  --t-opp-muted-extra--dark: #E3E3E3;
+  --st-muted--dark: #262626;
+  --st-medium--dark: #4D4D4D;
+  --st-bright--dark: #FFFFFF;
+
+  /* --- permanent tokens used on accent (dark) surfaces --- */
+  --pt-base: #FFFFFF;
+  --pt-base-dark: #000000;
+  --pt-t-accent-bright: #FFFFFF;
+  --pt-t-accent-medium: #D9D9D9;
+  --pt-t-accent-muted: #BFBFBF;
+
+  /* --- local design tokens --- */
+  --rh-mask-pad: 0.28em;          /* bottom room for descenders inside reveal masks */
+  --rh-radius-s: 0.625rem;
+  --rh-radius-m: 1rem;
+  --rh-radius-l: 1.5rem;
+  --rh-hairline: rgba(var(--base-opp-rgb), 0.10);
+  --rh-hairline-strong: rgba(var(--base-opp-rgb), 0.18);
+  --rh-shadow-s: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 14px rgba(0, 0, 0, 0.05);
+  --rh-shadow-m: 0 2px 6px rgba(0, 0, 0, 0.05), 0 18px 44px rgba(0, 0, 0, 0.08);
+  --rh-ease: cubic-bezier(0.23, 0.65, 0.74, 1.09);
+  /* Apple's characteristic decelerate curve - snappy start, soft landing */
+  --rh-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --rh-maxw: 1560px;
+
+  /* --- liquid glass surface (header, floating chrome) --- */
+  --rh-glass-bg: rgba(255, 255, 255, 0.28);
+  --rh-glass-bg-strong: rgba(255, 255, 255, 0.48);
+  --rh-glass-border: rgba(255, 255, 255, 0.38);
+  --rh-glass-blur: saturate(200%) blur(32px);
+}
+
+html,
+body { background-color: var(--base); }
+
+::selection { background-color: var(--accent); color: var(--base); }
+::-moz-selection { background-color: var(--accent); color: var(--base); }
+
+/* ==================================================
+   02. Fix - text clipped at the bottom of reveal masks
+   --------------------------------------------------
+   GSAP SplitText wraps each line/word/char in a mask carrying
+   inline `overflow: clip`, sized to the line-height. The
+   headings here run at line-height 0.8-1.0, tighter than the
+   font's descender, so g / j / p / q / y were sliced off.
+
+   Fix: grow the *inner* element downwards. The mask's content
+   box grows with it (so the clip region now reaches past the
+   descender), the reveal still starts fully hidden because
+   yPercent:100 scales with the taller element, and the mask's
+   matching negative margin keeps surrounding layout identical.
+   ================================================== */
+.line-mask > *,
+.word-mask > *,
+.char-mask > * {
+  padding-bottom: var(--rh-mask-pad);
+}
+
+.line-mask,
+.word-mask,
+.char-mask {
+  margin-bottom: calc(var(--rh-mask-pad) * -1);
+}
+
+/* Same problem without a mask: tight leading on very large type.
+   Give the block the room rather than loosening the leading. */
+h1, h2, h3,
+.mxd-split-lines,
+.hero-10-headline__content,
+.inner-headline__title,
+.fw-mark__content,
+.fullwidth-text__content,
+.mxd-stats-lines__number,
+.rh-corde__name {
+  padding-bottom: 0.06em;
+}
+
+.fw-mark__wrap,
+.fullwidth-text__wrap { overflow: visible; }
+
+/* ==================================================
+   03. Fix - opaque sections (pinned-stack overlap)
+   --------------------------------------------------
+   `.pinned-section` is pinned by ScrollTrigger with
+   pinSpacing:false, then slides up and scales down while the
+   next section travels over it. Every section was transparent,
+   so the pinned headline showed straight through the incoming
+   one. Painting each section on its own opaque ground fixes it;
+   DOM order already gives the later section the higher paint
+   position.
+   ================================================== */
+/* NOTE: ScrollTrigger wraps every pinned section in a `.pin-spacer`,
+   so the pinned ones are grandchildren, not children. Both are matched. */
+.mxd-page-content > .mxd-section,
+.mxd-page-content > .pin-spacer > .mxd-section,
+.mxd-page-content > section,
+#mxd-footer {
+  background-color: var(--base);
+}
+
+.mxd-page-content > .mxd-section,
+.mxd-page-content > .pin-spacer > .mxd-section { position: relative; }
+
+/* an un-pinned section must paint over the pinned one it slides across */
+.mxd-page-content > .pin-spacer { z-index: 0; }
+.mxd-page-content > .mxd-section:not(.pinned-section) { z-index: 1; }
+#mxd-footer { position: relative; z-index: 2; }
+
+/* alternating warm ground gives the stack a visible seam */
+#insights,
+#reviews { background-color: var(--base-tint); }
+
+.rh-marquee-white-section,
+.rh-marquee-white-section .mxd-stack-cards.rh-divider-stack {
+  background-color: var(--base) !important;
+}
+.rh-marquee-white-section .mxd-stack-cards.rh-divider-stack .marquee__text {
+  color: rgba(0, 0, 0, 0.88) !important;
+}
+/* prevent the scroll-based intro-card animation from fading the marquee text
+   in this section — the fade is meant for the hero card, not the divider strip */
+.rh-divider-stack .card__marquees { opacity: 1 !important; }
+
+.mxd-hero-section { background-color: var(--base); }
+
+/* ==================================================
+   04. Typography and rhythm
+   ================================================== */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 { letter-spacing: -0.02em; }
+h1 { letter-spacing: -0.035em; }
+
+p { text-wrap: pretty; }
+h1, h2, h3, h4 { text-wrap: balance; }
+
+/* a comfortable measure for body copy */
+.mxd-section-info__descr p,
+.mxd-section-subtitle__tagline,
+.inner-headline__caption p {
+  max-width: 62ch;
+}
+
+/* small-caps / label type */
+.tag-text,
+.mxd-socials-line__link,
+.rh-corde__tune,
+.footer-data,
+.breadcrumbs__nav {
+  letter-spacing: 0.08em;
+}
+
+/* --- hero aphorism, with the strobing word --- */
+.mxd-hero-10__aphorism { position: relative; }
+
+.rh-aphorism {
+  margin: 0;
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--t-muted);
+}
+@media only screen and (min-width: 1200px) {
+  .rh-aphorism { text-align: right; }
+}
+
+/* flicker.js swaps the typeface here every 80ms; the inline width it
+   sets is the widest face, so the line above never reflows */
+.rh-flicker {
+  display: inline-block;
+  text-align: center;
+  color: var(--t-bright);
+  font-weight: 600;
+}
+
+/* ==================================================
+   05. Layout and containers
+   ================================================== */
+.mxd-container { max-width: var(--rh-maxw); }
+
+@media only screen and (min-width: 1600px) {
+  .mxd-container { padding: 0 6rem; }
+  .mxd-container.grid-l-container { padding: 0 4rem; }
+  .mxd-container.grid-s-container { padding: 0 5.5rem; }
+}
+
+/* nothing should be able to scroll the page sideways */
+html,
+body { overflow-x: clip; }
+
+/* a little extra clearance under the now-floating header */
+.mxd-hero-section { padding-top: 7rem; }
+@media only screen and (min-width: 992px) { .mxd-hero-section { padding-top: 8.5rem; } }
+.mxd-section.mxd-inner-headline,
+.mxd-inner-headline { padding-top: 8.5rem; }
+
+/* the stock vertical rhythm is very generous on small screens */
+@media only screen and (max-width: 767px) {
+  .mxd-section.padding-top-default    { padding-top: 8rem; }
+  .mxd-section.padding-top-number     { padding-top: 7.5rem; }
+  .mxd-section.padding-top-title      { padding-top: 7.5rem; }
+  .mxd-section.padding-top-subtitle   { padding-top: 7.5rem; }
+  .mxd-section.padding-bottom-default { padding-bottom: 8rem; }
+  .mxd-section.padding-bottom-tag-m   { padding-bottom: 7rem; }
+  .mxd-grid-item { padding: 0 1.5rem; }
+}
+
+/* ==================================================
+   06. Header / navigation
+   ================================================== */
+.mxd-header {
+  /* floating liquid-glass bar, inset from the viewport edges rather than
+     flush against them -- the glass, the rounding and the gap from the
+     top are the same idea Apple's own floating toolbars use (Safari's
+     compact tab bar, visionOS window chrome): a pane of frosted material
+     that reads as a distinct object sitting above the page, not a strip
+     welded to it. */
+  top: 0.85rem;
+  left: 0.85rem;
+  right: 0.85rem;
+  width: auto;
+  border-radius: 2rem;
+  padding: 1rem 1.4rem;
+  background-color: var(--rh-glass-bg);
+  border: 1px solid var(--rh-glass-border);
+  -webkit-backdrop-filter: var(--rh-glass-blur) !important;
+          backdrop-filter: var(--rh-glass-blur) !important;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.03),
+    0 10px 34px rgba(0, 0, 0, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition: top 0.5s var(--rh-ease-spring),
+              padding 0.5s var(--rh-ease-spring),
+              transform 0.62s var(--rh-ease-spring),
+              opacity 0.42s var(--rh-ease),
+              background-color 0.4s var(--rh-ease),
+              box-shadow 0.4s var(--rh-ease),
+              border-radius 0.4s var(--rh-ease);
+}
+
+/* specular sheen -- the bright top edge and falloff that makes real
+   glass read as curved rather than as a flat translucent rectangle */
+.mxd-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.12) 38%,
+    rgba(255, 255, 255, 0) 72%
+  );
+}
+.mxd-header > * { position: relative; z-index: 1; }
+
+/* "Say Hello" removed — nav is the sole right-side element; push it
+   flush to the right edge of the glass bar. Override space-between from
+   main.css so the logo stays left and nav goes right regardless of how
+   many flex children are present. */
+.mxd-header {
+  justify-content: space-between;
+}
+.mxd-header .rh-nav {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* prevent text/link drag on the navbar — stops the browser ghost-drag
+   tooltip appearing when the user tries to drag the pill */
+.mxd-header,
+.rh-nav__list,
+.rh-nav__link {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .mxd-header { top: 1.15rem; left: 1.5rem; right: 1.5rem; padding: 1.1rem 2rem; }
+}
+@media only screen and (min-width: 1600px) {
+  .mxd-header { left: 3rem; right: 3rem; padding: 1.15rem 2.5rem; }
+}
+
+/* compacts and clarifies once the page scrolls under it, the way a
+   translucent macOS toolbar gains material as content passes beneath */
+.mxd-header.rh-scrolled {
+  top: 0.6rem;
+  background-color: var(--rh-glass-bg-strong);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 14px 40px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+@media only screen and (min-width: 768px) {
+  .mxd-header.rh-scrolled { top: 0.85rem; padding-top: 0.9rem; padding-bottom: 0.9rem; }
+}
+
+/* --- landing page: header is absent over the hero, then slides in --- */
+.mxd-header.rh-header-reveal {
+  transform: translateY(calc(-100% - 2rem));
+  opacity: 0;
+  pointer-events: none;
+}
+.mxd-header.rh-header-reveal.rh-shown {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- navigation: Apple-style segmented pill --- */
+.rh-nav__list {
+  position: relative;
+  gap: 0.3rem;
+  padding: 0.4rem;
+  border-radius: 999px;
+  background-color: rgba(var(--base-opp-rgb), 0.035);
+  box-shadow: inset 0 0 0 1px rgba(var(--base-opp-rgb), 0.05);
+}
+
+/* The travelling selection. navbar.js drives it by setting `left` and
+   `right` with *different* durations depending on travel direction, so
+   the leading edge arrives first and the trailing edge catches up --
+   the pill stretches out of the old slot and squashes into the new one.
+   That lead/lag, plus the overshoot in the bezier, is the wobble iOS
+   segmented controls have. */
+.rh-nav__pill {
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0;
+  right: 100%;
+  z-index: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+.rh-nav__pill.is-ready { opacity: 1; }
+
+.rh-nav__link {
+  position: relative;
+  z-index: 1;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-size: 1.7rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--t-medium);
+  transition: color 0.3s var(--rh-ease-spring);
+}
+/* the pill replaces the old underline + dot markers */
+.rh-nav__link::after,
+.rh-nav__link::before { display: none !important; }
+
+/* the pill supplies the background now -- these only carry the text */
+.no-touch .rh-nav__link:hover,
+.rh-nav__link.is-active { color: var(--t-bright); }
+
+/* no pill, no travel: fall back to a plain highlight */
+.rh-nav__list:not(.has-pill) .rh-nav__link.is-active {
+  background-color: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-nav__pill { transition: none !important; }
+}
+
+@media only screen and (min-width: 992px) {
+  .mxd-header__link {
+    padding: 1rem 2.2rem;
+    border-radius: 999px;
+    border-color: var(--rh-hairline-strong);
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    color: var(--t-bright);
+    transition: background-color 0.35s var(--rh-ease-spring),
+                border-color 0.35s var(--rh-ease-spring),
+                color 0.35s var(--rh-ease-spring),
+                transform 0.35s var(--rh-ease-spring);
+  }
+  .no-touch .mxd-header__link:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--base);
+    transform: translateY(-1px);
+  }
+  .no-touch .mxd-header__link:hover svg { fill: var(--base); }
+  .no-touch .mxd-header__link:active { transform: translateY(0) scale(0.97); }
+}
+
+/* ==================================================
+   07. Buttons and links
+   ================================================== */
+.btn-default-accent {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--base);
+  transition: background-color 0.3s var(--rh-ease-spring),
+              transform 0.3s var(--rh-ease-spring),
+              box-shadow 0.3s var(--rh-ease-spring);
+}
+.no-touch .btn-default-accent:hover {
+  background-color: #2B2B2B;
+  border-color: #2B2B2B;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+.no-touch .btn-default-accent:active { transform: translateY(0) scale(0.98); }
+
+.btn-line-default {
+  color: var(--t-bright);
+  transition: opacity 0.3s var(--rh-ease);
+}
+.no-touch .btn-line-default:hover { opacity: 0.55; }
+
+a { color: inherit; text-underline-offset: 0.22em; }
+
+/* ==================================================
+   08. Cards and media
+   ================================================== */
+.mxd-project-item__media,
+.mxd-blog-item__media,
+.mxd-cpb-list__image {
+  border-radius: var(--rh-radius-m);
+  overflow: hidden;
+  background-color: var(--base-tint);
+}
+
+.mxd-project-item__media img,
+.mxd-blog-item__media img,
+.mxd-cpb-list__image img {
+  border-radius: inherit;
+}
+
+/* a quiet lift on hover, replacing the zoom that was disabled */
+.mxd-project-item,
+.mxd-blog-item,
+.mxd-cpb-list__item {
+  transition: transform 0.5s var(--rh-ease-spring);
+}
+.no-touch .mxd-project-item:hover,
+.no-touch .mxd-blog-item:hover { transform: translateY(-6px) scale(1.008); }
+
+.mxd-project-item__media,
+.mxd-blog-item__media {
+  transition: box-shadow 0.45s var(--rh-ease);
+}
+.no-touch .mxd-project-item:hover .mxd-project-item__media,
+.no-touch .mxd-blog-item:hover .mxd-blog-item__media {
+  box-shadow: var(--rh-shadow-m);
+}
+
+.tag-bg.accent { background-color: var(--accent); color: #FFFFFF; }
+.tag-bg.muted  { background-color: var(--st-muted); color: var(--t-bright); }
+
+/* "coming soon" cards should read as deliberate, not broken */
+.rh-coming-soon-card .mxd-blog-item__media,
+.rh-coming-soon-card .mxd-project-item__media {
+  background-color: var(--base-tint);
+  border: 1px solid var(--rh-hairline);
+}
+
+/* ==================================================
+   09. Section titles, stats, lists
+   ================================================== */
+.mxd-section-title__title h2 { line-height: 0.95; }
+
+/* Insights: nudge heading down so its baseline aligns with the first stats divider */
+@media only screen and (min-width: 1200px) {
+  #insights .mxd-section-title__data { padding-top: 82px !important; }
+}
+
+/* Showcase archive rows: inline description replaces tag chips */
+.rh-archive-desc {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--t-base);
+  max-width: 58ch;
+}
+
+.mxd-stats-lines__item { border-color: var(--rh-hairline); }
+.mxd-stats-lines__number { color: var(--t-bright); letter-spacing: -0.04em; }
+.mxd-stats-lines__caption { color: var(--t-muted); }
+
+/* ==================================================
+   10. Forms
+   ================================================== */
+.rh-review-form {
+  border-color: var(--rh-hairline);
+  background-color: var(--base-tint);
+  border-radius: var(--rh-radius-l);
+}
+
+.rh-field input,
+.rh-field textarea {
+  border-radius: var(--rh-radius-s);
+  border-color: var(--rh-hairline-strong);
+  background-color: var(--base);
+}
+.rh-field input:focus,
+.rh-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.rh-submit { background-color: var(--accent); color: #FFFFFF; }
+.no-touch .rh-submit:hover { background-color: var(--base-opp); opacity: 1; }
+
+.rh-form-msg.is-ok    { color: #2F6B45; }
+.rh-form-msg.is-error { color: #A33A2B; }
+
+/* --- contact page: the whole "Let's make it happen" block as one card ---
+   `has-medium-title` pads the top to clear the fixed header. On a card that
+   gap belongs outside the surface, so it becomes margin and the padding
+   goes back to being even on all four sides. */
+.inner-headline__content.rh-contact-card {
+  margin-top: 9.2rem;
+  padding: 3rem 2rem;
+  border-radius: 2.4rem;
+  background-color: var(--base-tint);
+  border: 1px solid var(--rh-hairline);
+  box-shadow: var(--rh-shadow-m);
+}
+@media only screen and (min-width: 768px) {
+  .inner-headline__content.rh-contact-card {
+    margin-top: 12.7rem;
+    padding: 5rem 4rem;
+    border-radius: 3.2rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .inner-headline__content.rh-contact-card {
+    margin-top: 10.4rem;
+    padding: 6.5rem 5.5rem;
+    border-radius: 4rem;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .inner-headline__content.rh-contact-card {
+    margin-top: 9.4rem;
+    padding: 7.5rem 7rem;
+  }
+}
+
+/* the card already supplies the page gutter its children were padding for */
+@media only screen and (min-width: 1200px) {
+  .rh-contact-card > .container-fluid > .row > [class*="col-"] > .mxd-grid-item,
+  .rh-contact-card > .container-fluid > .row > [class*="col-"].mxd-grid-item {
+    padding-left: 0;
+  }
+}
+
+.mxd-reviews-stars { color: var(--accent); }
+.rh-stars-input button.is-on { color: var(--accent); }
+
+.mxd-reviews-empty {
+  border-color: var(--rh-hairline-strong);
+  border-radius: var(--rh-radius-l);
+  background-color: var(--base-tint);
+}
+
+/* the dark review card sitting on the marquee -- a fixed near-black
+   chip regardless of page theme, so its colours are hardcoded rather
+   than theme-relative */
+.rh-review-marquee-card {
+  background: #0A0A0A;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-radius: var(--rh-radius-l);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+}
+.rh-review-marquee-card .rh-field input,
+.rh-review-marquee-card .rh-field textarea {
+  background-color: #1A1A1A;
+  border-color: rgba(255, 255, 255, 0.18);
+  border-radius: var(--rh-radius-s);
+  color: #FFFFFF;
+}
+.rh-review-marquee-card .rh-field input:focus,
+.rh-review-marquee-card .rh-field textarea:focus {
+  border-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.16);
+}
+.rh-review-marquee-card .rh-submit {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+.rh-review-marquee-card .rh-submit:hover { background-color: #E5E5E5; }
+.rh-review-card__title { color: #FFFFFF; }
+.rh-review-card__note  { color: rgba(255, 255, 255, 0.62); }
+.rh-review-marquee-card .rh-stars-input button { color: rgba(255, 255, 255, 0.28); }
+.rh-review-marquee-card .rh-stars-input button.is-on { color: #FFFFFF; }
+
+/* contact page form */
+.form input,
+.form textarea {
+  border-color: var(--rh-hairline-strong);
+  transition: border-color 0.25s var(--rh-ease), box-shadow 0.25s var(--rh-ease);
+}
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 1px 0 var(--accent);
+  outline: none;
+}
+.reply__icon { color: var(--accent); }
+
+/* ==================================================
+   11. Footer
+   ================================================== */
+#mxd-footer { border-top: 1px solid var(--rh-hairline); }
+
+.rh-footer-top { padding-top: 2rem; }
+
+.footer-data { color: var(--t-muted); }
+.footer-data a { color: var(--t-bright); transition: opacity 0.3s var(--rh-ease); }
+.no-touch .footer-data a:hover { opacity: 0.55; }
+
+.fw-mark__content span { color: var(--t-bright); }
+
+/* ==================================================
+   11b. Journey timeline
+   --------------------------------------------------
+   Replaces the old "pluckable string" list. A single hairline rail
+   runs the height of each group; every row hangs a marker off it.
+   Current roles get a filled accent marker with a soft halo so the
+   eye lands on "what I'm doing now" first.
+   ================================================== */
+.rh-jr__group + .rh-jr__group { margin-top: 5rem; }
+
+.rh-jr__label { margin: 0 0 2rem; }
+
+.rh-jr__list {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+/* the rail */
+.rh-jr__list::before {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(var(--base-opp-rgb), 0.16) 8%,
+    rgba(var(--base-opp-rgb), 0.16) 92%,
+    transparent
+  );
+}
+
+.rh-jr__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.75rem 1fr auto;
+  align-items: baseline;
+  gap: 0 1.5rem;
+  padding: 1.6rem 0;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rh-hairline);
+  transition: background-color 0.4s var(--rh-ease),
+              padding-left 0.4s var(--rh-ease);
+}
+.rh-jr__row:last-child { border-bottom: 0; }
+
+/* marker sitting on the rail */
+.rh-jr__marker {
+  position: absolute;
+  top: 2.15rem;
+  left: -1.75rem;
+  width: 7px;
+  height: 7px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background-color: var(--base);
+  box-shadow: inset 0 0 0 1px rgba(var(--base-opp-rgb), 0.32);
+  transition: background-color 0.4s var(--rh-ease),
+              box-shadow 0.4s var(--rh-ease);
+}
+
+.rh-jr__row.is-current .rh-jr__marker {
+  background-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent),
+              0 0 0 4px rgba(var(--base-opp-rgb), 0.12);
+}
+
+.rh-jr__no {
+  font-family: var(--_font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--st-medium);
+  padding-top: 0.35rem;
+}
+
+.rh-jr__body { min-width: 0; }
+
+.rh-jr__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.9rem;
+}
+
+.rh-jr__role {
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--t-bright);
+  transition: color 0.35s var(--rh-ease);
+}
+
+/* the company reads as a distinct, quieter voice next to the role */
+.rh-jr__org {
+  position: relative;
+  padding-left: 1.05rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--t-muted);
+  white-space: nowrap;
+}
+.rh-jr__org::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.55rem;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.5;
+}
+
+.rh-jr__note {
+  display: block;
+  margin-top: 0.5rem;
+  max-width: 56ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--t-muted);
+}
+
+.rh-jr__period {
+  font-family: var(--_font-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--t-muted);
+  padding-top: 0.3rem;
+}
+
+.rh-jr__row.is-current .rh-jr__period { color: var(--accent); }
+
+/* hover: the row tints and nudges, the rail marker fills */
+.no-touch a.rh-jr__row:hover {
+  background-color: rgba(var(--base-opp-rgb), 0.03);
+  padding-left: 0.75rem;
+}
+.no-touch a.rh-jr__row:hover .rh-jr__marker {
+  background-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent),
+              0 0 0 4px rgba(var(--base-opp-rgb), 0.12);
+}
+
+@media only screen and (max-width: 767px) {
+  .rh-jr__group + .rh-jr__group { margin-top: 3.5rem; }
+  .rh-jr__list { padding-left: 1.35rem; }
+  .rh-jr__row {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+    padding: 1.35rem 0;
+  }
+  .rh-jr__marker { top: 1.8rem; left: -1.35rem; }
+  .rh-jr__no { display: none; }
+  .rh-jr__org { white-space: normal; }
+  .rh-jr__period {
+    order: -1;
+    padding-top: 0;
+    font-size: 0.7rem;
+  }
+  .rh-jr__note { margin-top: 0.4rem; font-size: 0.9rem; }
+}
+
+/* ==================================================
+   12. Accessibility and motion
+   ================================================== */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee__text { animation: none !important; }
+}
+
+/* ==================================================
+   13. Page transition — iOS-style sliding cover
+   ================================================== */
+/* The page content never moves; only this panel travels. That keeps
+   ScrollTrigger pins and the pinned hero from being disturbed. */
+html { overflow-x: hidden; }
+
+/* .mxd-page-transition is left alone on purpose — it is the black
+   backdrop the loader draws its light text on top of. Page switching
+   uses its own element below so the two never interfere. */
+
+/* Clean minimal crossfade. Nothing moves; only opacity changes, so
+   ScrollTrigger pins and fixed elements are never disturbed. */
+.rh-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-color: var(--base);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* Stamped on <html> by the pre-paint head script when the document was
+   reached from an in-site link, so the incoming page starts covered and
+   is never seen mid-layout. JS fades it back out. */
+html.rh-nav-in .rh-fade {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-fade { display: none; }
+}

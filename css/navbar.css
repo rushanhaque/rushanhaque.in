@@ -1,0 +1,193 @@
+/*! File name: navbar.css
+ * Project Name: Rushan Haque — Portfolio
+ * Description: Premium fixed horizontal navbar (replaces the hamburger-only header on desktop).
+ * Author: Rushan Haque
+ * Author URI: https://rushanhaque.online */
+
+/* ---------------------------------------------------------
+   1. Header becomes a real fixed navbar
+   --------------------------------------------------------- */
+.mxd-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 3rem;
+  align-items: center;
+  gap: 2rem;
+  z-index: 20;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.35s var(--_animbezier),
+              border-color 0.35s var(--_animbezier),
+              padding 0.35s var(--_animbezier),
+              box-shadow 0.35s var(--_animbezier);
+}
+
+@media only screen and (min-width: 768px) {
+  .mxd-header { left: 0; width: 100%; padding: 1.75rem 6rem; }
+}
+@media only screen and (min-width: 1600px) {
+  .mxd-header { left: 0; width: 100%; padding: 1.75rem 10rem; }
+}
+
+/* never let the template's scroll-hide collapse the bar */
+.mxd-header.is-hidden {
+  transform: none;
+  opacity: 1;
+}
+
+/* solid state once the page is scrolled */
+.mxd-header.rh-scrolled {
+  background-color: var(--base);
+  border-bottom-color: rgba(var(--base-opp-rgb), 0.10);
+  box-shadow: 0 1px 24px rgba(var(--base-opp-rgb), 0.06);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* push page content below the fixed bar */
+body { padding-top: 0; }
+
+/* ---------------------------------------------------------
+   2. The nav itself
+   --------------------------------------------------------- */
+.rh-nav {
+  display: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (min-width: 992px) {
+  .rh-nav { display: block; }
+}
+
+.rh-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rh-nav__link {
+  position: relative;
+  display: inline-block;
+  padding: 0.35rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--t-medium);
+  text-decoration: none;
+  transition: color 0.3s var(--_animbezier);
+}
+
+/* animated underline */
+.rh-nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.4s var(--_animbezier);
+}
+
+.no-touch .rh-nav__link:hover {
+  color: var(--t-bright);
+}
+.no-touch .rh-nav__link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* current page */
+.rh-nav__link.is-active {
+  color: var(--t-bright);
+}
+.rh-nav__link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+  background-color: var(--accent);
+  height: 2px;
+}
+
+/* small dot marker for the active item */
+.rh-nav__link.is-active::before {
+  content: "";
+  position: absolute;
+  top: -0.35rem;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  margin-left: -1.5px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  opacity: 0;
+  animation: rhDotIn 0.5s var(--_animbezier) 0.2s forwards;
+}
+
+@keyframes rhDotIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------
+   3. Right-hand controls
+   --------------------------------------------------------- */
+.mxd-header__controls {
+  align-items: center;
+  gap: 1.25rem;
+  margin-left: 0;
+}
+
+/* turn "Say Hello" into a real pill CTA on desktop */
+@media only screen and (min-width: 992px) {
+  .mxd-header__link {
+    padding: 0.7rem 1.4rem;
+    border: 1px solid rgba(var(--base-opp-rgb), 0.18);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s var(--_animbezier),
+                color 0.3s var(--_animbezier),
+                border-color 0.3s var(--_animbezier);
+  }
+  .no-touch .mxd-header__link:hover {
+    background-color: var(--base-opp);
+    border-color: var(--base-opp);
+    color: var(--base);
+  }
+  .no-touch .mxd-header__link:hover svg { fill: var(--base); }
+}
+
+/* ---------------------------------------------------------
+   4. Hamburger — mobile only now
+   --------------------------------------------------------- */
+@media only screen and (min-width: 992px) {
+  .mxd-menu__contain { display: none; }
+}
+
+/* keep the hamburger aligned with the new bar on mobile */
+@media only screen and (max-width: 991px) {
+  .mxd-menu__contain { top: 1.85rem; }
+}
+
+/* ---------------------------------------------------------
+   5. Hero spacing so the fixed bar never covers content
+   --------------------------------------------------------- */
+.mxd-hero-section { padding-top: 6rem; }
+
+@media only screen and (min-width: 992px) {
+  .mxd-hero-section { padding-top: 7rem; }
+}
+
+/* inner pages start with a headline block rather than a hero */
+.mxd-section.mxd-inner-headline,
+.mxd-inner-headline { padding-top: 7rem; }

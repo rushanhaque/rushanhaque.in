@@ -1,0 +1,14 @@
+img/rh/projects/aurelio.png -> img/rh/projects/aurelio.webp
+img/rh/projects/barha.png -> img/rh/projects/barha.webp
+img/rh/projects/casa-crop.png -> img/rh/projects/casa-crop.webp
+img/rh/projects/chaudhary-sons.png -> img/rh/projects/chaudhary-sons.webp
+img/rh/projects/erfolg.png -> img/rh/projects/erfolg.webp
+img/rh/projects/quorum.png -> img/rh/projects/quorum.webp
+img/rh/projects/superlatives.png -> img/rh/projects/superlatives.webp
+img/rh/projects/taif.png -> img/rh/projects/taif.webp
+img/rh/projects/upsidesound.png -> img/rh/projects/upsidesound.webp
+img/rh/projects/velora.png -> img/rh/projects/velora.webp
+img/rh/blogs/aabshar.jpeg -> img/rh/blogs/aabshar.webp
+img/rh/blogs/research.png -> img/rh/blogs/research.webp
+img/rh/blogs/samundaro.jpeg -> img/rh/blogs/samundaro.webp
+img/rh/blogs/tothemoon.png -> img/rh/blogs/tothemoon.webp

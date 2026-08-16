@@ -1,0 +1,139 @@
+/*! products.css — Rushan Haque portfolio
+ *  Launched-products grid. */
+
+.rh-products {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media only screen and (min-width: 700px)  { .rh-products { grid-template-columns: repeat(2, 1fr); } }
+@media only screen and (min-width: 1200px) { .rh-products { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+
+/* ---------------- card ---------------- */
+.rh-product {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.10);
+  border-radius: 1.25rem;
+  background-color: var(--base-tint);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.35s var(--_animbezier),
+              transform 0.35s var(--_animbezier),
+              box-shadow 0.35s var(--_animbezier);
+}
+.no-touch a.rh-product:hover {
+  border-color: rgba(var(--base-opp-rgb), 0.22);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 38px rgba(var(--base-opp-rgb), 0.08);
+}
+
+/* ---------------- media ---------------- */
+.rh-product__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--base);
+  display: grid;
+  place-items: center;
+}
+.rh-product__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--_animbezier);
+}
+.no-touch a.rh-product:hover .rh-product__media img { transform: scale(1.04); }
+
+/* first-letter fallback when there is no image yet */
+.rh-product__glyph {
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(var(--base-opp-rgb), 0.13);
+}
+
+/* ---------------- status pill ---------------- */
+.rh-product__status {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background-color: var(--base);
+  border: 1px solid rgba(var(--base-opp-rgb), 0.12);
+  color: var(--t-medium);
+}
+.rh-product__status.is-live::before,
+.rh-product__status.is-beta::before,
+.rh-product__status.is-soon::before {
+  content: "";
+  display: inline-block;
+  width: 5px; height: 5px;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.rh-product__status.is-live::before { background-color: #1a7f4b; }
+.rh-product__status.is-beta::before { background-color: #b8860b; }
+.rh-product__status.is-soon::before { background-color: rgba(var(--base-opp-rgb), 0.35); }
+
+/* ---------------- body ---------------- */
+.rh-product__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.5rem;
+  flex: 1;
+}
+.rh-product__name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--t-bright);
+}
+.rh-product__tagline {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--t-muted);
+}
+.rh-product__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+}
+.rh-product__tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.rh-product__price {
+  flex: 0 0 auto;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--t-bright);
+}
+
+/* ---------------- empty state ---------------- */
+.rh-products__empty {
+  grid-column: 1 / -1;
+  padding: 4rem 2rem;
+  border: 1px dashed rgba(var(--base-opp-rgb), 0.18);
+  border-radius: 1.25rem;
+  text-align: center;
+  color: var(--t-muted);
+}
+.rh-products__empty p { margin: 0; font-size: 1rem; }
+.rh-products__empty-title {
+  margin-bottom: 0.4rem !important;
+  font-size: 1.15rem !important;
+  font-weight: 600;
+  color: var(--t-bright);
+}
+.rh-products__empty a { color: var(--t-bright); text-decoration: underline; text-underline-offset: 3px; }

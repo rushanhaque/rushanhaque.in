@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<title>Content Manager — Rushan Haque</title>
+<link rel="icon" href="img/favicon/favicon.ico">
+<style>
+/* ==========================================================
+   Content Manager — same palette and type as the live site.
+   Self-contained: no build step, no dependencies, works offline
+   and straight off file://.
+   ========================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=JetBrains+Mono:wght@400..600&display=swap");
+
+:root{
+  --base:#FFFFFF; --tint:#F5F5F5; --card:#FFFFFF;
+  --ink:#000000; --med:#4D4D4D; --muted:#8A8A8A;
+  --accent:#000000; --accent-soft:rgba(0,0,0,.08);
+  --line:rgba(0,0,0,.12); --line-strong:rgba(0,0,0,.2);
+  --ok:#2F6B45; --danger:#A33A2B; --warn:#8A6D1F;
+  --r-s:8px; --r-m:12px; --r-l:18px;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 28px rgba(0,0,0,.07);
+  --ease:cubic-bezier(.23,.65,.74,1.09);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--base);color:var(--ink)}
+body{font:15px/1.55 Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+     -webkit-font-smoothing:antialiased;padding-bottom:6rem}
+h1,h2,h3{letter-spacing:-.02em;margin:0}
+a{color:var(--accent)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:.75rem;
+  padding:.9rem 1.1rem;background:rgba(255,255,255,.82);backdrop-filter:saturate(150%) blur(14px);
+  -webkit-backdrop-filter:saturate(150%) blur(14px);border-bottom:1px solid var(--line)}
+header h1{font-size:1rem;font-weight:700;white-space:nowrap}
+header .sp{flex:1}
+.badge{padding:.3rem .6rem;border:1px solid var(--line);border-radius:100px;
+  font:500 .7rem/1 var(--mono);color:var(--muted);white-space:nowrap}
+.badge.dirty{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* ---------- tabs ---------- */
+.tabs{position:sticky;top:var(--hdr,58px);z-index:19;display:flex;gap:.35rem;padding:.7rem 1.1rem;
+  background:var(--base);border-bottom:1px solid var(--line);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:.5rem 1rem;border:1px solid var(--line);border-radius:100px;
+  background:transparent;cursor:pointer;font:500 .85rem/1 inherit;color:var(--muted);
+  transition:all .25s var(--ease)}
+.tab:hover{border-color:var(--line-strong);color:var(--ink)}
+.tab.on{background:var(--ink);border-color:var(--ink);color:var(--base)}
+
+main{max-width:1000px;margin:0 auto;padding:1.25rem 1.1rem}
+.panel{display:none}.panel.on{display:block;animation:fade .3s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- cards ---------- */
+.card{border:1px solid var(--line);border-radius:var(--r-l);background:var(--card);
+  padding:1.35rem;margin-bottom:1.1rem;box-shadow:var(--shadow)}
+.card>h2{font-size:.95rem;font-weight:700;margin-bottom:.25rem}
+.card>.sub{font-size:.85rem;color:var(--muted);margin:0 0 1.1rem}
+
+/* ---------- form grid ---------- */
+.grid{display:grid;grid-template-columns:1fr;gap:.85rem}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}.full{grid-column:1/-1}}
+label{display:block;font:600 .75rem/1.3 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+input,textarea,select{width:100%;padding:.7rem .8rem;border:1px solid var(--line-strong);
+  border-radius:var(--r-s);background:var(--base);font:inherit;font-size:.92rem;color:var(--ink)}
+textarea{min-height:88px;resize:vertical;line-height:1.5}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A8A' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .8rem center;padding-right:2.2rem}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft)}
+.hint{font-size:.78rem;color:var(--muted);margin:.35rem 0 0;line-height:1.45}
+
+/* ---------- image picker ---------- */
+.imgpick{display:flex;gap:.75rem;align-items:flex-start}
+.imgpick .thumb{flex:0 0 76px;height:76px;border-radius:var(--r-s);border:1px solid var(--line);
+  background:var(--tint) center/cover no-repeat;display:grid;place-items:center;
+  font:600 .65rem var(--mono);color:var(--muted);text-align:center;overflow:hidden}
+.imgpick .fields{flex:1;min-width:0}
+.filebtn{display:inline-block;padding:.45rem .8rem;border:1px solid var(--line-strong);
+  border-radius:100px;font-size:.8rem;cursor:pointer;background:var(--base);margin-top:.4rem}
+.filebtn:hover{border-color:var(--accent);color:var(--accent)}
+.filebtn input{display:none}
+
+/* ---------- buttons ---------- */
+.btn{padding:.65rem 1.25rem;border:0;border-radius:100px;background:var(--ink);color:var(--base);
+  font:600 .85rem/1 inherit;cursor:pointer;transition:all .25s var(--ease)}
+.btn:hover{background:var(--accent)}
+.btn.ghost{background:transparent;border:1px solid var(--line-strong);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+.btn.danger{background:var(--danger)}
+.btn.danger:hover{background:#8a2f22}
+.btn.sm{padding:.4rem .8rem;font-size:.78rem}
+.btn.icon{padding:.4rem .55rem;font-size:.85rem;line-height:1}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:1.1rem}
+.msg{font-size:.83rem;font-weight:600}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--danger)}
+
+/* ---------- list items ---------- */
+.item{display:flex;gap:.85rem;align-items:flex-start;padding:.85rem;border:1px solid var(--line);
+  border-radius:var(--r-m);background:var(--base);margin-bottom:.6rem;transition:border-color .25s var(--ease)}
+.item:hover{border-color:var(--line-strong)}
+.item .th{flex:0 0 52px;height:52px;border-radius:var(--r-s);background:var(--tint) center/cover no-repeat;
+  border:1px solid var(--line);display:grid;place-items:center;font:700 .85rem var(--mono);
+  color:var(--muted);overflow:hidden}
+.item .body{flex:1;min-width:0}
+.item .t{font-weight:700;font-size:.93rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.item .m{font:.75rem/1.4 var(--mono);color:var(--muted);margin-top:.2rem;word-break:break-word}
+.item .x{font-size:.85rem;color:var(--med);margin-top:.4rem;line-height:1.5}
+.item .acts{display:flex;flex-direction:column;gap:.35rem;flex:0 0 auto}
+@media(max-width:560px){
+  .item{flex-wrap:wrap}
+  .item .acts{flex-direction:row;width:100%;justify-content:flex-end;border-top:1px solid var(--line);
+    padding-top:.6rem;margin-top:.2rem}
+}
+.pill{padding:.18rem .5rem;border-radius:100px;font:600 .65rem/1.5 var(--mono);
+  text-transform:uppercase;letter-spacing:.04em;background:var(--tint);color:var(--muted)}
+.pill.live{background:rgba(47,107,69,.12);color:var(--ok)}
+.pill.soon{background:rgba(138,109,31,.14);color:var(--warn)}
+.pill.cur{background:var(--accent-soft);color:var(--accent)}
+.stars{color:var(--accent);letter-spacing:.08em;font-size:.85rem}
+.stars .e{opacity:.25}
+.empty{padding:2rem 1rem;text-align:center;color:var(--muted);border:1px dashed var(--line-strong);
+  border-radius:var(--r-m);font-size:.9rem}
+
+/* ---------- editing state ---------- */
+.card.editing{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft),var(--shadow)}
+.editing-flag{display:none;font:600 .7rem var(--mono);color:var(--accent);
+  text-transform:uppercase;letter-spacing:.06em}
+.card.editing .editing-flag{display:inline}
+
+/* ---------- publish ---------- */
+.out{width:100%;min-height:190px;font:.75rem/1.5 var(--mono);white-space:pre;overflow:auto}
+.steps{margin:.5rem 0 0;padding-left:1.1rem;font-size:.85rem;color:var(--med)}
+.steps li{margin:.3rem 0}
+code{background:var(--tint);padding:.12rem .38rem;border-radius:4px;font:.85em var(--mono)}
+.dlgrid{display:grid;grid-template-columns:1fr;gap:.6rem}
+@media(min-width:560px){.dlgrid{grid-template-columns:1fr 1fr}}
+.dlrow{display:flex;align-items:center;gap:.6rem;padding:.7rem .85rem;border:1px solid var(--line);
+  border-radius:var(--r-m);background:var(--base)}
+.dlrow .n{flex:1;font:600 .82rem var(--mono)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--line-strong);flex:0 0 auto}
+.dot.on{background:var(--accent)}
+
+/* ---------- toast ---------- */
+#toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,140%);z-index:60;
+  padding:.7rem 1.2rem;border-radius:100px;background:var(--ink);color:var(--base);
+  font-size:.85rem;font-weight:600;box-shadow:var(--shadow);transition:transform .35s var(--ease);
+  max-width:calc(100vw - 2rem);text-align:center}
+#toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Content Manager</h1>
+  <span class="badge" id="storeState">saved</span>
+  <div class="sp"></div>
+  <button class="btn ghost sm" id="reload">Reset</button>
+</header>
+
+<div class="tabs">
+  <button class="tab on" data-panel="projects">Projects</button>
+  <button class="tab" data-panel="products">Products</button>
+  <button class="tab" data-panel="reviews">Reviews</button>
+  <button class="tab" data-panel="journey">Journey</button>
+  <button class="tab" data-panel="publish">Publish</button>
+</div>
+
+<main>
+
+<!-- ==================== PROJECTS ==================== -->
+<section class="panel on" id="p-projects">
+  <div class="card" id="proj-form">
+    <h2>Add a project <span class="editing-flag">— editing</span></h2>
+    <p class="sub">Industry shows on the homepage works grid. Personal shows in “Blogs and writeups”. Everything appears on the archive page.</p>
+    <div class="grid">
+      <div><label>Title *</label><input id="p-title" placeholder="Upside Sound"></div>
+      <div><label>Live URL</label><input id="p-url" placeholder="https://…"></div>
+      <div><label>Category</label><select id="p-cat">
+        <option>Industry</option><option>Showcase</option><option>Personal</option></select></div>
+      <div><label>Niche label</label><input id="p-niche" placeholder="Web / AI / Tool / IoT"></div>
+      <div><label>Kind</label><select id="p-kind"><option>Freelance</option><option>Personal</option></select></div>
+      <div><label>Year</label><input id="p-year" placeholder="2026"></div>
+      <div class="full"><label>Tags (comma separated)</label><input id="p-tags" placeholder="Web Development, Design, Live Site"></div>
+      <div class="full"><label>Description</label><textarea id="p-desc" placeholder="One or two sentences."></textarea></div>
+      <div class="full">
+        <label>Cover image</label>
+        <div class="imgpick">
+          <div class="thumb" id="p-thumb">none</div>
+          <div class="fields">
+            <input id="p-img" placeholder="img/rh/projects/name.png">
+            <label class="filebtn">Choose file…<input type="file" accept="image/*" data-target="p-img" data-thumb="p-thumb"></label>
+            <p class="hint">Leave blank to auto-generate a live preview from the URL. Picking a file fills in the path — copy the actual image into <code>img/rh/projects/</code> yourself.</p>
+          </div>
+        </div>
+      </div>
+      <div class="full"><label>Video path (optional)</label><input id="p-vid" placeholder="img/rh/projects/name.mp4"></div>
+    </div>
+    <div class="row">
+      <button class="btn" id="p-save">Add project</button>
+      <button class="btn ghost" id="p-cancel" style="display:none">Cancel</button>
+      <span class="msg" id="p-msg"></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Projects (<span id="p-count">0</span>)</h2>
+    <p class="sub">Drag order is the display order. Use ↑ ↓ to move an item.</p>
+    <div id="p-list"></div>
+  </div>
+</section>
+
+<!-- ==================== PRODUCTS ==================== -->
+<section class="panel" id="p-products">
+  <div class="card" id="prod-form">
+    <h2>Add a product <span class="editing-flag">— editing</span></h2>
+    <p class="sub">Drives the Products section on the homepage and the works page.</p>
+    <div class="grid">
+      <div><label>Name *</label><input id="d-name" placeholder="My SaaS"></div>
+      <div><label>Link</label><input id="d-url" placeholder="https://…"></div>
+      <div><label>Status</label><select id="d-status">
+        <option>Live</option><option>Beta</option><option>Coming soon</option></select></div>
+      <div><label>Price</label><input id="d-price" placeholder="Free / $19"></div>
+      <div><label>Launch date</label><input id="d-date" type="date"></div>
+      <div><label>Tags (comma separated)</label><input id="d-tags" placeholder="SaaS, AI"></div>
+      <div class="full"><label>Tagline</label><textarea id="d-tag" placeholder="One line on what it does."></textarea></div>
+      <div class="full">
+        <label>Cover image</label>
+        <div class="imgpick">
+          <div class="thumb" id="d-thumb">none</div>
+          <div class="fields">
+            <input id="d-img" placeholder="img/rh/products/name.png">
+            <label class="filebtn">Choose file…<input type="file" accept="image/*" data-target="d-img" data-thumb="d-thumb"></label>
+            <p class="hint">Copy the image into <code>img/rh/products/</code>. Without one, an on-brand name tile is shown.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn" id="d-save">Add product</button>
+      <button class="btn ghost" id="d-cancel" style="display:none">Cancel</button>
+      <span class="msg" id="d-msg"></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Products (<span id="d-count">0</span>)</h2>
+    <div id="d-list"></div>
+  </div>
+</section>
+
+<!-- ==================== REVIEWS ==================== -->
+<section class="panel" id="p-reviews">
+  <div class="card" id="rev-form">
+    <h2>Add a review <span class="editing-flag">— editing</span></h2>
+    <p class="sub">Shown as cards in “Kind words”. Newest first.</p>
+    <div class="grid">
+      <div><label>Name *</label><input id="r-name" placeholder="Jane Doe"></div>
+      <div><label>Role / company</label><input id="r-role" placeholder="Product Lead, Acme"></div>
+      <div><label>Rating *</label><select id="r-rating">
+        <option value="5">5 — Excellent</option><option value="4">4 — Very good</option>
+        <option value="3">3 — Good</option><option value="2">2 — Fair</option>
+        <option value="1">1 — Poor</option></select></div>
+      <div><label>Date</label><input id="r-date" type="date"></div>
+      <div class="full"><label>Review *</label><textarea id="r-text" placeholder="What was it like working together?"></textarea></div>
+      <div class="full">
+        <label>Photo (optional)</label>
+        <div class="imgpick">
+          <div class="thumb" id="r-thumb">none</div>
+          <div class="fields">
+            <input id="r-img" placeholder="img/rh/reviews/jane.jpg">
+            <label class="filebtn">Choose file…<input type="file" accept="image/*" data-target="r-img" data-thumb="r-thumb"></label>
+            <p class="hint">Copy the photo into <code>img/rh/reviews/</code>. Without one, initials are shown.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn" id="r-save">Add review</button>
+      <button class="btn ghost" id="r-cancel" style="display:none">Cancel</button>
+      <span class="msg" id="r-msg"></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Reviews (<span id="r-count">0</span>)</h2>
+    <div id="r-list"></div>
+  </div>
+</section>
+
+<!-- ==================== JOURNEY ==================== -->
+<section class="panel" id="p-journey">
+  <div class="card" id="jr-form">
+    <h2>Add an entry <span class="editing-flag">— editing</span></h2>
+    <p class="sub">Drives the Journey timeline. Set “To” to <code>Present</code> to mark a role as current.</p>
+    <div class="grid">
+      <div><label>Section</label><select id="j-sec">
+        <option value="experience">Experience</option><option value="education">Education</option></select></div>
+      <div><label>Role / qualification *</label><input id="j-role" placeholder="Head of Business Development"></div>
+      <div><label>Organisation *</label><input id="j-org" placeholder="TechBuzzIdeas"></div>
+      <div><label>Link (optional)</label><input id="j-url" placeholder="https://…"></div>
+      <div><label>From</label><input id="j-from" placeholder="May 2026"></div>
+      <div><label>To</label><input id="j-to" placeholder="Present"></div>
+      <div class="full"><label>Note</label><textarea id="j-note" placeholder="One line of detail."></textarea></div>
+    </div>
+    <div class="row">
+      <button class="btn" id="j-save">Add entry</button>
+      <button class="btn ghost" id="j-cancel" style="display:none">Cancel</button>
+      <span class="msg" id="j-msg"></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Experience (<span id="j-count-e">0</span>)</h2>
+    <div id="j-list-experience"></div>
+  </div>
+  <div class="card">
+    <h2>Education (<span id="j-count-d">0</span>)</h2>
+    <div id="j-list-education"></div>
+  </div>
+</section>
+
+<!-- ==================== PUBLISH ==================== -->
+<section class="panel" id="p-publish">
+  <div class="card">
+    <h2>1 — Download what changed</h2>
+    <p class="sub">A dot marks the files you have edited in this browser.</p>
+    <div class="dlgrid">
+      <div class="dlrow"><span class="dot" id="dot-projects"></span><span class="n">projects.js</span>
+        <button class="btn ghost sm" data-dl="projects">Download</button></div>
+      <div class="dlrow"><span class="dot" id="dot-products"></span><span class="n">products.js</span>
+        <button class="btn ghost sm" data-dl="products">Download</button></div>
+      <div class="dlrow"><span class="dot" id="dot-reviews"></span><span class="n">reviews.js</span>
+        <button class="btn ghost sm" data-dl="reviews">Download</button></div>
+      <div class="dlrow"><span class="dot" id="dot-journey"></span><span class="n">journey.js</span>
+        <button class="btn ghost sm" data-dl="journey">Download</button></div>
+    </div>
+    <div class="row"><button class="btn" id="dl-all">Download all four</button></div>
+  </div>
+
+  <div class="card">
+    <h2>2 — Put them in the site</h2>
+    <ol class="steps">
+      <li>Move the downloaded files into the <code>data/</code> folder, replacing what is there.</li>
+      <li>Copy any new images into <code>img/rh/projects/</code>, <code>img/rh/products/</code> or <code>img/rh/reviews/</code>.</li>
+      <li>Bump the <code>?v=</code> number on the <code>data/*.js</code> script tags in the HTML files so browsers pick the change up.</li>
+      <li>Commit and push, or re-upload.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Preview a file</h2>
+    <div class="row" style="margin-top:0">
+      <select id="prev-pick" style="max-width:220px">
+        <option value="projects">projects.js</option><option value="products">products.js</option>
+        <option value="reviews">reviews.js</option><option value="journey">journey.js</option>
+      </select>
+      <button class="btn ghost sm" id="cp-btn">Copy</button>
+      <span class="msg" id="cp-msg"></span>
+    </div>
+    <textarea class="out" id="prev-out" readonly style="margin-top:.8rem"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Danger zone</h2>
+    <p class="sub">Throws away every unsaved change in this browser and reloads what the site files currently contain.</p>
+    <div class="row" style="margin-top:0"><button class="btn danger sm" id="wipe">Discard all local changes</button></div>
+  </div>
+</section>
+
+</main>
+
+<div id="toast"></div>
+
+<!-- current site data -->
+<script src="data/projects.js"></script>
+<script src="data/products.js"></script>
+<script src="data/reviews.js"></script>
+<script src="data/journey.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ---------------- storage ---------------- */
+var KEYS={projects:'rh_admin_projects',products:'rh_admin_products',
+          reviews:'rh_admin_reviews',journey:'rh_admin_journey'};
+var SEED={projects:window.RH_PROJECTS||[],products:window.RH_PRODUCTS||[],
+          reviews:window.RH_REVIEWS||[],journey:window.RH_JOURNEY||{experience:[],education:[]}};
+
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function load(k){try{var v=localStorage.getItem(KEYS[k]);if(v)return JSON.parse(v)}catch(e){}return clone(SEED[k])}
+
+var db={projects:load('projects'),products:load('products'),
+        reviews:load('reviews'),journey:load('journey')};
+if(!db.journey||typeof db.journey!=='object')db.journey={experience:[],education:[]};
+db.journey.experience=db.journey.experience||[];
+db.journey.education=db.journey.education||[];
+
+var dirty={};
+function save(which){
+  try{
+    localStorage.setItem(KEYS[which],JSON.stringify(db[which]));
+    dirty[which]=JSON.stringify(db[which])!==JSON.stringify(SEED[which]);
+    paintDirty();
+  }catch(e){ setState('storage blocked',true); }
+}
+function paintDirty(){
+  var any=false;
+  ['projects','products','reviews','journey'].forEach(function(k){
+    var d=document.getElementById('dot-'+k);
+    if(d)d.classList.toggle('on',!!dirty[k]);
+    if(dirty[k])any=true;
+  });
+  setState(any?'unsaved changes':'saved',any);
+}
+function setState(t,warn){
+  var el=document.getElementById('storeState');
+  el.textContent=t; el.classList.toggle('dirty',!!warn);
+}
+
+/* ---------------- helpers ---------------- */
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function val(id){return $(id).value.trim()}
+function setv(id,v){$(id).value=v==null?'':v}
+function csv(s){return s.split(',').map(function(x){return x.trim()}).filter(Boolean)}
+function stars(n){var o='';for(var i=1;i<=5;i++)o+='<span class="'+(i<=n?'':'e')+'">★</span>';return o}
+function initials(n){var p=String(n||'').trim().split(/\s+/).filter(Boolean);
+  return p.length?(p[0][0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase():'—'}
+function toast(t){var el=$('toast');el.textContent=t;el.classList.add('show');
+  clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('show')},2200)}
+function flash(el,t,k){el.textContent=t;el.className='msg '+(k||'');
+  setTimeout(function(){el.textContent=''},2600)}
+function thumbStyle(el,src,fallback){
+  if(src){el.style.backgroundImage='url("'+src.replace(/"/g,'%22')+'")';el.textContent=''}
+  else{el.style.backgroundImage='';el.textContent=fallback||'none'}
+}
+
+/* file picker: fills the path field + shows a local preview */
+document.addEventListener('change',function(e){
+  var inp=e.target;
+  if(inp.type!=='file'||!inp.dataset.target)return;
+  var f=inp.files&&inp.files[0]; if(!f)return;
+  var folder=inp.dataset.target==='d-img'?'img/rh/products/'
+           :inp.dataset.target==='r-img'?'img/rh/reviews/':'img/rh/projects/';
+  $(inp.dataset.target).value=folder+f.name;
+  var rd=new FileReader();
+  rd.onload=function(){thumbStyle($(inp.dataset.thumb),rd.result)};
+  rd.readAsDataURL(f);
+  toast('Path set — remember to copy the file into '+folder);
+});
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on')});
+    t.classList.add('on');
+    $('p-'+t.dataset.panel).classList.add('on');
+    if(t.dataset.panel==='publish')refreshPreview();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ---------------- generic list actions ---------------- */
+function actions(kind,i,len){
+  return '<div class="acts">'+
+    '<button class="btn ghost icon" data-act="up" data-k="'+kind+'" data-i="'+i+'"'+(i===0?' disabled':'')+' title="Move up">↑</button>'+
+    '<button class="btn ghost icon" data-act="down" data-k="'+kind+'" data-i="'+i+'"'+(i===len-1?' disabled':'')+' title="Move down">↓</button>'+
+    '<button class="btn ghost sm" data-act="edit" data-k="'+kind+'" data-i="'+i+'">Edit</button>'+
+    '<button class="btn danger sm" data-act="del" data-k="'+kind+'" data-i="'+i+'">Delete</button>'+
+  '</div>';
+}
+function arrFor(kind){
+  if(kind==='experience'||kind==='education')return db.journey[kind];
+  return db[kind];
+}
+function storeFor(kind){
+  return (kind==='experience'||kind==='education')?'journey':kind;
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]'); if(!b)return;
+  var kind=b.dataset.k, i=+b.dataset.i, arr=arrFor(kind), act=b.dataset.act;
+  if(act==='del'){
+    if(!confirm('Delete this entry? This cannot be undone.'))return;
+    arr.splice(i,1); save(storeFor(kind)); renderAll(); toast('Deleted');
+  }else if(act==='up'&&i>0){
+    arr.splice(i-1,0,arr.splice(i,1)[0]); save(storeFor(kind)); renderAll();
+  }else if(act==='down'&&i<arr.length-1){
+    arr.splice(i+1,0,arr.splice(i,1)[0]); save(storeFor(kind)); renderAll();
+  }else if(act==='edit'){
+    EDIT[kind](i);
+  }
+});
+
+/* ---------------- PROJECTS ---------------- */
+var pEdit=null;
+function renderProjects(){
+  var box=$('p-list'), a=db.projects;
+  $('p-count').textContent=a.length;
+  if(!a.length){box.innerHTML='<div class="empty">No projects yet.</div>';return}
+  box.innerHTML=a.map(function(p,i){
+    var cls=p.url?'live':(String((p.tags||[]).join(' ')).match(/coming soon/i)?'soon':'');
+    return '<div class="item"><div class="th"'+(p.image?' style="background-image:url(\''+esc(p.image)+'\')"':'')+'>'+
+      (p.image?'':esc((p.title||'?')[0]))+'</div>'+
+      '<div class="body"><div class="t">'+esc(p.title)+
+        '<span class="pill">'+esc(p.category||'')+'</span>'+
+        (cls?'<span class="pill '+cls+'">'+(cls==='live'?'Live':'Soon')+'</span>':'')+'</div>'+
+      '<div class="m">'+esc(p.niche||'—')+' · '+esc(p.kind||'—')+' · '+esc(p.year||'—')+
+        (p.url?' · '+esc(p.url):'')+'</div>'+
+      (p.description?'<div class="x">'+esc(p.description)+'</div>':'')+
+      '<div class="m">'+esc((p.tags||[]).join(' · '))+'</div></div>'+
+      actions('projects',i,a.length)+'</div>';
+  }).join('');
+}
+function projForm(p){
+  setv('p-title',p&&p.title);setv('p-url',p&&p.url);setv('p-niche',p&&p.niche);
+  setv('p-year',p&&p.year);setv('p-tags',p?(p.tags||[]).join(', '):'');
+  setv('p-desc',p&&p.description);setv('p-img',p&&p.image);setv('p-vid',p&&p.video);
+  $('p-cat').value=(p&&p.category)||'Industry';
+  $('p-kind').value=(p&&p.kind)||'Freelance';
+  thumbStyle($('p-thumb'),p&&p.image);
+}
+function projReset(){
+  pEdit=null;projForm(null);
+  $('p-save').textContent='Add project';$('p-cancel').style.display='none';
+  $('proj-form').classList.remove('editing');
+}
+$('p-save').addEventListener('click',function(){
+  var t=val('p-title'),msg=$('p-msg');
+  if(!t){flash(msg,'Title is required.','err');return}
+  var rec={title:t,url:val('p-url'),category:$('p-cat').value,niche:val('p-niche')||'Web',
+    kind:$('p-kind').value,year:val('p-year'),description:val('p-desc'),
+    tags:csv(val('p-tags')),image:val('p-img'),video:val('p-vid')};
+  if(pEdit===null)db.projects.push(rec); else db.projects[pEdit]=rec;
+  save('projects');renderProjects();
+  flash(msg,pEdit===null?'Added.':'Updated.','ok');toast(pEdit===null?'Project added':'Project updated');
+  projReset();
+});
+$('p-cancel').addEventListener('click',projReset);
+
+/* ---------------- PRODUCTS ---------------- */
+var dEdit=null;
+function renderProducts(){
+  var box=$('d-list'),a=db.products;
+  $('d-count').textContent=a.length;
+  if(!a.length){box.innerHTML='<div class="empty">No products yet. The site shows a tidy “In the works” card until you add one.</div>';return}
+  box.innerHTML=a.map(function(p,i){
+    var st=String(p.status||'').toLowerCase();
+    var cls=st==='live'?'live':st.indexOf('soon')>=0?'soon':'';
+    return '<div class="item"><div class="th"'+(p.image?' style="background-image:url(\''+esc(p.image)+'\')"':'')+'>'+
+      (p.image?'':esc((p.name||'?')[0]))+'</div>'+
+      '<div class="body"><div class="t">'+esc(p.name)+
+        (p.status?'<span class="pill '+cls+'">'+esc(p.status)+'</span>':'')+
+        (p.price?'<span class="pill">'+esc(p.price)+'</span>':'')+'</div>'+
+      '<div class="m">'+esc(p.url||'no link')+(p.date?' · '+esc(p.date):'')+'</div>'+
+      (p.tagline?'<div class="x">'+esc(p.tagline)+'</div>':'')+
+      '<div class="m">'+esc((p.tags||[]).join(' · '))+'</div></div>'+
+      actions('products',i,a.length)+'</div>';
+  }).join('');
+}
+function prodForm(p){
+  setv('d-name',p&&p.name);setv('d-url',p&&p.url);setv('d-price',p&&p.price);
+  setv('d-date',p&&p.date);setv('d-tags',p?(p.tags||[]).join(', '):'');
+  setv('d-tag',p&&p.tagline);setv('d-img',p&&p.image);
+  $('d-status').value=(p&&p.status)||'Live';
+  thumbStyle($('d-thumb'),p&&p.image);
+}
+function prodReset(){
+  dEdit=null;prodForm(null);
+  $('d-save').textContent='Add product';$('d-cancel').style.display='none';
+  $('prod-form').classList.remove('editing');
+}
+$('d-save').addEventListener('click',function(){
+  var n=val('d-name'),msg=$('d-msg');
+  if(!n){flash(msg,'Name is required.','err');return}
+  var rec={name:n,tagline:val('d-tag'),url:val('d-url'),status:$('d-status').value,
+    price:val('d-price'),image:val('d-img'),tags:csv(val('d-tags')),
+    date:val('d-date')||new Date().toISOString().slice(0,10)};
+  if(dEdit===null)db.products.unshift(rec); else db.products[dEdit]=rec;
+  save('products');renderProducts();
+  flash(msg,dEdit===null?'Added.':'Updated.','ok');toast(dEdit===null?'Product added':'Product updated');
+  prodReset();
+});
+$('d-cancel').addEventListener('click',prodReset);
+
+/* ---------------- REVIEWS ---------------- */
+var rEdit=null;
+function renderReviews(){
+  var box=$('r-list'),a=db.reviews;
+  $('r-count').textContent=a.length;
+  if(!a.length){box.innerHTML='<div class="empty">No reviews yet.</div>';return}
+  box.innerHTML=a.map(function(r,i){
+    return '<div class="item"><div class="th"'+(r.image?' style="background-image:url(\''+esc(r.image)+'\')"':'')+'>'+
+      (r.image?'':esc(initials(r.name)))+'</div>'+
+      '<div class="body"><div class="stars">'+stars(r.rating)+'</div>'+
+      '<div class="t">'+esc(r.name)+'</div>'+
+      '<div class="m">'+esc(r.role||'—')+(r.date?' · '+esc(r.date):'')+'</div>'+
+      '<div class="x">'+esc(r.text)+'</div></div>'+
+      actions('reviews',i,a.length)+'</div>';
+  }).join('');
+}
+function revForm(r){
+  setv('r-name',r&&r.name);setv('r-role',r&&r.role);setv('r-text',r&&r.text);
+  setv('r-date',r&&r.date);setv('r-img',r&&r.image);
+  $('r-rating').value=String((r&&r.rating)||5);
+  thumbStyle($('r-thumb'),r&&r.image,r?initials(r.name):'none');
+}
+function revReset(){
+  rEdit=null;revForm(null);
+  $('r-save').textContent='Add review';$('r-cancel').style.display='none';
+  $('rev-form').classList.remove('editing');
+}
+$('r-save').addEventListener('click',function(){
+  var n=val('r-name'),t=val('r-text'),msg=$('r-msg');
+  if(!n||!t){flash(msg,'Name and review are required.','err');return}
+  var rec={name:n,role:val('r-role'),rating:parseInt($('r-rating').value,10),
+    text:t,image:val('r-img'),date:val('r-date')||new Date().toISOString().slice(0,10)};
+  if(rEdit===null)db.reviews.unshift(rec); else db.reviews[rEdit]=rec;
+  save('reviews');renderReviews();
+  flash(msg,rEdit===null?'Added.':'Updated.','ok');toast(rEdit===null?'Review added':'Review updated');
+  revReset();
+});
+$('r-cancel').addEventListener('click',revReset);
+
+/* ---------------- JOURNEY ---------------- */
+var jEdit=null;
+function renderJourney(){
+  ['experience','education'].forEach(function(sec){
+    var box=$('j-list-'+sec),a=db.journey[sec];
+    $(sec==='experience'?'j-count-e':'j-count-d').textContent=a.length;
+    if(!a.length){box.innerHTML='<div class="empty">Nothing here yet.</div>';return}
+    box.innerHTML=a.map(function(e,i){
+      var cur=/present|current/i.test(String(e.to||''));
+      var per=[e.from,e.to].filter(Boolean).join(' — ');
+      return '<div class="item"><div class="body">'+
+        '<div class="t">'+esc(e.role)+(cur?'<span class="pill cur">Current</span>':'')+'</div>'+
+        '<div class="m">'+esc(e.org||'—')+(per?' · '+esc(per):'')+'</div>'+
+        (e.note?'<div class="x">'+esc(e.note)+'</div>':'')+'</div>'+
+        actions(sec,i,a.length)+'</div>';
+    }).join('');
+  });
+}
+function jrForm(e,sec){
+  setv('j-role',e&&e.role);setv('j-org',e&&e.org);setv('j-from',e&&e.from);
+  setv('j-to',e&&e.to);setv('j-note',e&&e.note);setv('j-url',e&&e.url);
+  $('j-sec').value=sec||'experience';
+}
+function jrReset(){
+  jEdit=null;jrForm(null,'experience');
+  $('j-save').textContent='Add entry';$('j-cancel').style.display='none';
+  $('jr-form').classList.remove('editing');
+}
+$('j-save').addEventListener('click',function(){
+  var role=val('j-role'),org=val('j-org'),msg=$('j-msg');
+  if(!role||!org){flash(msg,'Role and organisation are required.','err');return}
+  var rec={role:role,org:org,from:val('j-from'),to:val('j-to'),note:val('j-note'),url:val('j-url')};
+  var sec=$('j-sec').value;
+  if(jEdit===null){db.journey[sec].push(rec)}
+  else{
+    if(jEdit.sec!==sec){db.journey[jEdit.sec].splice(jEdit.i,1);db.journey[sec].push(rec)}
+    else{db.journey[sec][jEdit.i]=rec}
+  }
+  save('journey');renderJourney();
+  flash(msg,jEdit===null?'Added.':'Updated.','ok');toast(jEdit===null?'Entry added':'Entry updated');
+  jrReset();
+});
+$('j-cancel').addEventListener('click',jrReset);
+
+/* ---------------- edit dispatch ---------------- */
+var EDIT={
+  projects:function(i){pEdit=i;projForm(db.projects[i]);
+    $('p-save').textContent='Save changes';$('p-cancel').style.display='';
+    $('proj-form').classList.add('editing');
+    $('proj-form').scrollIntoView({behavior:'smooth',block:'start'})},
+  products:function(i){dEdit=i;prodForm(db.products[i]);
+    $('d-save').textContent='Save changes';$('d-cancel').style.display='';
+    $('prod-form').classList.add('editing');
+    $('prod-form').scrollIntoView({behavior:'smooth',block:'start'})},
+  reviews:function(i){rEdit=i;revForm(db.reviews[i]);
+    $('r-save').textContent='Save changes';$('r-cancel').style.display='';
+    $('rev-form').classList.add('editing');
+    $('rev-form').scrollIntoView({behavior:'smooth',block:'start'})},
+  experience:function(i){jEditStart('experience',i)},
+  education:function(i){jEditStart('education',i)}
+};
+function jEditStart(sec,i){
+  jEdit={sec:sec,i:i};jrForm(db.journey[sec][i],sec);
+  $('j-save').textContent='Save changes';$('j-cancel').style.display='';
+  $('jr-form').classList.add('editing');
+  $('jr-form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ---------------- file output ---------------- */
+var HEAD={
+projects:'/* Projects. Managed with admin.html.\n'+
+' * Loaded as a plain script so it works on file:// and any host.\n'+
+' *\n'+
+' *   category : "Industry"  -> homepage works grid + archive\n'+
+' *              "Showcase"  -> archive page only\n'+
+' *              "Personal"  -> homepage "Blogs and writeups" + archive\n'+
+' *   niche    : left-hand label on the archive row\n'+
+' *   kind     : Freelance | Personal\n'+
+' *   image    : leave empty to auto-generate a preview from url\n'+
+' */\nwindow.RH_PROJECTS = ',
+products:'/* Products. Managed with admin.html. */\nwindow.RH_PRODUCTS = ',
+reviews:'/* Reviews shown on the site. Managed with admin.html. */\nwindow.RH_REVIEWS = ',
+journey:'/* Journey — experience & education. Managed with admin.html.\n'+
+' * Set "to" to "Present" to mark an entry as current.\n'+
+' */\nwindow.RH_JOURNEY = '};
+
+function fileFor(which){
+  return HEAD[which]+JSON.stringify(db[which],null,2)+';\n';
+}
+function download(name,content){
+  var b=new Blob([content],{type:'text/javascript'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=name;
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},400);
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-dl]');if(!b)return;
+  var w=b.dataset.dl;download(w+'.js',fileFor(w));toast(w+'.js downloaded');
+});
+$('dl-all').addEventListener('click',function(){
+  ['projects','products','reviews','journey'].forEach(function(w,i){
+    setTimeout(function(){download(w+'.js',fileFor(w))},i*220);
+  });
+  toast('Downloading all four…');
+});
+function refreshPreview(){$('prev-out').value=fileFor($('prev-pick').value)}
+$('prev-pick').addEventListener('change',refreshPreview);
+$('cp-btn').addEventListener('click',function(){
+  var ta=$('prev-out');ta.select();
+  var msg=$('cp-msg');
+  try{document.execCommand('copy');flash(msg,'Copied.','ok')}
+  catch(err){flash(msg,'Press Ctrl+C.','err')}
+});
+
+/* ---------------- reset ---------------- */
+function wipe(){
+  Object.keys(KEYS).forEach(function(k){try{localStorage.removeItem(KEYS[k])}catch(e){}});
+  location.reload();
+}
+$('reload').addEventListener('click',function(){
+  if(confirm('Discard local changes and reload what the site files contain?'))wipe();
+});
+$('wipe').addEventListener('click',function(){
+  if(confirm('Discard ALL local changes?'))wipe();
+});
+
+/* ---------------- boot ---------------- */
+function renderAll(){renderProjects();renderProducts();renderReviews();renderJourney()}
+['projects','products','reviews','journey'].forEach(function(k){
+  dirty[k]=JSON.stringify(db[k])!==JSON.stringify(SEED[k]);
+});
+renderAll();projReset();prodReset();revReset();jrReset();paintDirty();refreshPreview();
+
+/* keep the sticky tab strip flush under the header at any font size */
+function syncHeader(){
+  var h=document.querySelector('header').getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--hdr',Math.round(h)+'px');
+}
+syncHeader();
+window.addEventListener('resize',syncHeader);
+})();
+</script>
+</body>
+</html>
