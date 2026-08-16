@@ -226,28 +226,7 @@ h1, h2, h3, h4 { text-wrap: balance; }
   letter-spacing: 0.08em;
 }
 
-/* --- hero aphorism, with the strobing word --- */
-.mxd-hero-10__aphorism { position: relative; }
-
-.rh-aphorism {
-  margin: 0;
-  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--t-muted);
-}
-@media only screen and (min-width: 1200px) {
-  .rh-aphorism { text-align: right; }
-}
-
-/* flicker.js swaps the typeface here every 80ms; the inline width it
-   sets is the widest face, so the line above never reflows */
-.rh-flicker {
-  display: inline-block;
-  text-align: center;
-  color: var(--t-bright);
-  /* font-weight/style/family all controlled per-face by flicker.js */
-}
+/* (hero aphorism removed) */
 
 /* ==================================================
    05. Layout and containers
@@ -923,4 +902,201 @@ html.rh-nav-in .rh-fade {
 
 @media (prefers-reduced-motion: reduce) {
   .rh-fade { display: none; }
+}
+
+/* ==================================================
+   14. Mobile three-dot navigation
+   --------------------------------------------------
+   Replaces the floating hamburger below 992px. Lives
+   inside the glass bar so the header is a single
+   self-contained object on small screens.
+   ================================================== */
+.rh-dots {
+  position: relative;
+  display: block;
+  margin-left: auto;
+}
+@media only screen and (min-width: 992px) {
+  .rh-dots { display: none; }
+}
+
+/* the floating hamburger is redundant now the dots live in the bar */
+.mxd-menu__contain { display: none !important; }
+
+.rh-dots__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.10);
+  border-radius: 999px;
+  background-color: rgba(var(--base-opp-rgb), 0.04);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.3s var(--rh-ease),
+              border-color 0.3s var(--rh-ease),
+              transform 0.3s var(--rh-ease-spring);
+}
+.rh-dots__btn span {
+  display: block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background-color: var(--t-bright);
+  transition: transform 0.35s var(--rh-ease-spring),
+              opacity 0.25s var(--rh-ease);
+}
+.rh-dots__btn:active { transform: scale(0.94); }
+
+/* dots pull into a tighter cluster while the panel is open */
+.rh-dots.is-open .rh-dots__btn {
+  background-color: var(--base-opp);
+  border-color: var(--base-opp);
+}
+.rh-dots.is-open .rh-dots__btn span { background-color: var(--base); }
+.rh-dots.is-open .rh-dots__btn span:nth-child(1) { transform: translateX(0.28rem); }
+.rh-dots.is-open .rh-dots__btn span:nth-child(2) { opacity: 0; }
+.rh-dots.is-open .rh-dots__btn span:nth-child(3) { transform: translateX(-0.28rem); }
+
+/* --- the dropdown panel --- */
+.rh-dots__menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  min-width: 17rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem;
+  border-radius: 1.6rem;
+  background-color: var(--rh-glass-bg-strong, rgba(255, 255, 255, 0.92));
+  border: 1px solid var(--rh-glass-border, rgba(0, 0, 0, 0.08));
+  -webkit-backdrop-filter: var(--rh-glass-blur);
+          backdrop-filter: var(--rh-glass-blur);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 16px 44px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.8rem) scale(0.94);
+  transform-origin: top right;
+  pointer-events: none;
+  transition: opacity 0.28s var(--rh-ease),
+              transform 0.42s var(--rh-ease-spring),
+              visibility 0s linear 0.28s;
+}
+.rh-dots.is-open .rh-dots__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition-delay: 0s, 0s, 0s;
+}
+
+.rh-dots__link {
+  display: block;
+  padding: 1.15rem 1.5rem;
+  border-radius: 1.1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--t-medium);
+  text-decoration: none;
+  transition: background-color 0.25s var(--rh-ease),
+              color 0.25s var(--rh-ease);
+}
+.rh-dots__link:active { background-color: rgba(var(--base-opp-rgb), 0.06); }
+.rh-dots__link.is-active {
+  color: var(--t-bright);
+  font-weight: 600;
+  background-color: rgba(var(--base-opp-rgb), 0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-dots__menu,
+  .rh-dots__btn,
+  .rh-dots__btn span { transition: none !important; }
+}
+
+/* ==================================================
+   15. Landing hero — mobile layout pass
+   --------------------------------------------------
+   The stock hero was built for a full-height desktop
+   viewport; on a phone it left a large empty gap under
+   the fixed bar and the pieces sat at inconsistent
+   inset from the screen edge. This aligns them all to
+   one gutter and tightens the vertical rhythm.
+   ================================================== */
+@media only screen and (max-width: 991px) {
+
+  /* one shared gutter for every hero block */
+  .mxd-hero-10__top,
+  .mxd-hero-10__center,
+  .mxd-hero-10__dataline { padding-left: 0; padding-right: 0; }
+
+  .mxd-hero-10__headline,
+  .mxd-hero-10__data-wrap,
+  .mxd-hero-10__socials { padding-left: 2rem; padding-right: 2rem; }
+
+  /* the fixed glass bar already reserves the top of the screen */
+  .mxd-hero-section { padding-top: 0; }
+  .mxd-hero-10__headline {
+    padding-top: 11rem;
+    padding-bottom: 0;
+  }
+  .mxd-hero-10__wrap { padding-bottom: 3.5rem; }
+
+  /* headline: let it fill the gutter width properly and sit left */
+  .hero-10-headline__wrap { text-align: left; }
+  .hero-10-headline__wrap h1 {
+    font-size: 15.2cqw;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+  .hero-10-headline__wrap h1 a span { white-space: normal; }
+
+  /* tighten the band between headline and socials */
+  .mxd-hero-10__center { padding-top: 3rem; padding-bottom: 3rem; }
+  .mxd-hero-10__descr { margin-top: 1.4rem; }
+  .mxd-hero-10__descr p {
+    font-size: clamp(2.6rem, 8.5vw, 3.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .mxd-hero-10__data-wrap { margin-bottom: 0; }
+
+  /* socials: a single readable row rather than a tall stack */
+  .mxd-hero-10__socials { margin-bottom: 0; }
+  .mxd-socials-line.column {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 2.6rem;
+    row-gap: 0.6rem;
+  }
+
+  /* the dividers are absolutely positioned off `left`/`width`, so they have
+     to be re-anchored to the gutter rather than nudged with margins */
+  .mxd-hero-10__divider {
+    left: 2rem;
+    width: calc(100% - 4rem);
+  }
+}
+
+/* very small phones — one step tighter again */
+@media only screen and (max-width: 479px) {
+  .mxd-hero-10__headline,
+  .mxd-hero-10__data-wrap,
+  .mxd-hero-10__socials { padding-left: 1.6rem; padding-right: 1.6rem; }
+  .mxd-hero-10__divider {
+    left: 1.6rem;
+    width: calc(100% - 3.2rem);
+  }
+  .mxd-hero-10__headline { padding-top: 10rem; }
+  .mxd-socials-line.column { column-gap: 2rem; }
+  .mxd-socials-line__link,
+  .mxd-socials-line__link span { font-size: 1.25rem; }
 }
