@@ -45,7 +45,8 @@
       if (w > widest) widest = w;
     }
     applyFace(el, FACES[0]);
-    if (widest) el.style.width = Math.ceil(widest) + 'px';
+    /* +8px buffer absorbs italic overhang so the surrounding text never shifts */
+    if (widest) el.style.width = (Math.ceil(widest) + 8) + 'px';
 
     var prev = -1;
     setInterval(function () {
