@@ -83,11 +83,14 @@
     list.appendChild(pill);
     list.classList.add('has-pill');
 
-    // The edge that leads settles fast; the one that trails takes longer,
-    // so the pill visibly stretches across the gap before snapping shut.
-    var LEAD = 340;
-    var LAG = 620;
-    var EASE = 'cubic-bezier(0.34, 1.42, 0.5, 1)'; // overshoots, then settles
+    // Both edges travel together at the same rate on a curve that does
+    // not overshoot. The pill used to lead with one edge and lag with the
+    // other on an overshooting bezier, so it stretched across the gap and
+    // wobbled into the new slot — the same wobble that has been removed
+    // from every button on the site.
+    var LEAD = 320;
+    var LAG = 320;
+    var EASE = 'cubic-bezier(0.4, 0, 0.2, 1)'; // decelerates, no overshoot
 
     var still = window.matchMedia &&
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;

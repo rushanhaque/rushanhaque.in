@@ -235,10 +235,25 @@ void main() {
       container.addEventListener('pointerleave', onLeave);
     }
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    /* A raymarcher is fill-rate bound: the cost of a frame is the number
+       of fragments, and this canvas covers a whole section — 1280x3155
+       already, before device pixel ratio. Capping DPR alone is not
+       enough, because a tall section on a 4K display would still ask for
+       nine megapixels every frame.
+       So the budget is expressed in pixels, not in DPR: pick the largest
+       ratio (never above 1.5, never below 0.75) that keeps the buffer
+       under ~3.2 megapixels. At this blur radius the resolution loss is
+       invisible; the frame-time saving is not. */
+    const PIXEL_BUDGET = 3.2e6;
     function resize() {
-      const w = Math.max(1, Math.floor(container.offsetWidth  * dpr));
-      const h = Math.max(1, Math.floor(container.offsetHeight * dpr));
+      const cw = Math.max(1, container.offsetWidth);
+      const ch = Math.max(1, container.offsetHeight);
+      const wanted = Math.min(window.devicePixelRatio || 1, 1.5);
+      const fit = Math.sqrt(PIXEL_BUDGET / (cw * ch));
+      const dpr = Math.max(0.75, Math.min(wanted, fit));
+
+      const w = Math.max(1, Math.floor(cw * dpr));
+      const h = Math.max(1, Math.floor(ch * dpr));
       canvas.width = w; canvas.height = h;
       gl.viewport(0, 0, w, h);
       gl.uniform2f(U.iResolution, w, h);
@@ -284,8 +299,30 @@ void main() {
     tryStart();
   }
 
-  // Init on the #works section
+  // Init on the #works section.
+  //
+  // Gated deliberately. This is a raymarched wave field re-rendered every
+  // frame across a full section; on a phone GPU that is the single most
+  // expensive thing on the page, and it is pure decoration. So it only
+  // runs where it is affordable and wanted:
+  //   · a fine pointer on a wide viewport (i.e. an actual desktop)
+  //   · motion not reduced
+  //   · more than 4 logical cores, and no low device-memory signal
+  // Everything else gets the clean paper ground, which is not a
+  // degraded experience — just a quieter one.
+  function affordable() {
+    if (window.matchMedia) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return false;
+      if (!window.matchMedia('(min-width: 1200px)').matches) return false;
+    }
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) return false;
+    if (navigator.deviceMemory && navigator.deviceMemory < 4) return false;
+    return true;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    if (!affordable()) return;
     const section = document.getElementById('works');
     if (!section) return;
     // Section needs position:relative for absolute canvas

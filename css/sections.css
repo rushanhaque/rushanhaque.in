@@ -1,0 +1,1825 @@
+/*! ------------------------------------------------
+ * File name: sections.css
+ * Project:   Rushan Haque — Portfolio
+ * Loaded:    after architect.css, LAST in the chain.
+ *
+ * Applies the drafting-sheet system from architect.css to every
+ * section of the site. Depends on the tokens and primitives defined
+ * there (--a-*, .a-plate, .a-cta, .a-index).
+ *
+ * REMINDER: 1rem = 10px (main.css sets html { font-size: 62.5% }).
+ *
+ * ------------------------------------------------
+ *  07. Typography pass
+ *  08. Hero
+ *  09. Works grid
+ *  10. Insights — dimension table
+ *  11. Capabilities — bento
+ *  12. Products
+ *  13. Writing grid
+ *  14. Journey
+ *  15. Reviews — specimen plates
+ *  16. Review form
+ *  17. Footer
+ *  18. Loader
+ *  19. Motion & accessibility
+ * ------------------------------------------------ */
+
+/* ==================================================
+   07. Typography pass
+   ================================================== */
+
+/* Section headlines: one notch tighter and heavier than stock, so the
+   display type reads as cut rather than set. */
+.mxd-section-title__title h2 {
+  letter-spacing: -0.038em;
+  line-height: 0.88;
+}
+@media only screen and (min-width: 1200px) {
+  .mxd-section-title__title h2 { letter-spacing: -0.042em; }
+}
+
+/* A quiet lead paragraph under a section headline. */
+.a-lede {
+  max-width: 52ch;
+  margin: 1.8rem 0 0;
+  font-size: var(--a-fs-l);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.018em;
+  color: var(--t-medium);
+  text-wrap: pretty;
+}
+.a-lede strong,
+.a-lede b { font-weight: 600; color: var(--t-bright); }
+
+/* Mono micro-label, used everywhere a value needs a name. */
+.a-meta {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+
+/* ==================================================
+   08. Hero
+   --------------------------------------------------
+   The stock hero was a name, a rule and three links. It is now a
+   title block in the architectural sense: who, what, where, when, and
+   two ways in — all measured to the same gutter.
+   ================================================== */
+
+/* --- the meta rail above the name --- */
+.a-hero-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
+  margin-bottom: 2.6rem;
+}
+
+.a-hero-meta__coords {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+.a-hero-meta__coords span:not(:last-child)::after {
+  content: "";
+  display: inline-block;
+  width: 1.6rem;
+  height: 1px;
+  margin-left: 1rem;
+  vertical-align: middle;
+  background-color: var(--a-line-3);
+}
+/* the live clock: tabular so the colon never shifts the line */
+.a-clock {
+  font-variant-numeric: tabular-nums;
+  color: var(--t-bright);
+}
+
+/* --- the name itself --- */
+.hero-10-headline__wrap h1 {
+  letter-spacing: -0.05em;
+  line-height: 0.86;
+}
+/* the name is a link to contact — make that legible without decoration:
+   a hairline that draws in under the last line on hover */
+.no-touch .hero-10-headline__content { transition: opacity var(--a-t-mid) var(--a-swift); }
+.no-touch .hero-10-headline__content:hover { opacity: 0.72; }
+
+/* --- the role line --- */
+.mxd-hero-10__descr p {
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+/* --- lede + actions under the role --- */
+.a-hero-lede {
+  max-width: 46ch;
+  margin: 2rem 0 0;
+  font-size: var(--a-fs-m);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--t-muted);
+  text-wrap: pretty;
+}
+
+.a-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2.8rem;
+}
+
+/* --- the footer rail: disciplines on the left, scroll cue on the right --- */
+.a-hero-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+}
+
+.a-hero-disc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.a-hero-disc li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+.a-hero-disc li b {
+  font-weight: 500;
+  color: var(--a-line-3);
+}
+/* the disciplines sit above the socials, separated by a hairline so the
+   two rails read as different registers rather than one long list */
+.a-hero-foot .a-hero-disc {
+  padding-bottom: 1.4rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1px solid var(--a-line);
+}
+.a-hero-foot .mxd-socials-line.column {
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 2.6rem;
+  row-gap: 0.6rem;
+  margin-bottom: 0;
+}
+
+/* scroll cue — a hairline with a tick travelling down it */
+.a-scroll {
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 1.1rem;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+@media only screen and (min-width: 992px) { .a-scroll { display: inline-flex; } }
+.a-scroll__track {
+  position: relative;
+  width: 1px;
+  height: 5.4rem;
+  overflow: hidden;
+  background-color: var(--a-line-2);
+}
+.a-scroll__track::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-color: var(--a-ink);
+  animation: a-fall 2.4s var(--a-travel) infinite;
+}
+@keyframes a-fall {
+  0%   { transform: translateY(-100%); }
+  60%  { transform: translateY(250%); }
+  100% { transform: translateY(250%); }
+}
+
+/* --- socials as machined chips rather than a bare list --- */
+.mxd-socials-line__link {
+  position: relative;
+  display: inline-block;
+  transition: color var(--a-t-fast) var(--a-swift);
+}
+.mxd-socials-line__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.4rem;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--a-t-mid) var(--a-settle);
+}
+.no-touch .mxd-socials-line__link:hover { color: var(--t-bright); }
+.no-touch .mxd-socials-line__link:hover::after { transform: scaleX(1); }
+
+/* --- hero, small screens ------------------------------------------
+   refine.css already collapses the hero to a flex column filling the
+   small viewport. These rules slot the new blocks into that column
+   without disturbing its distribution. */
+@media only screen and (max-width: 991px) {
+  /* The meta rail is the hero's first child, so it — not the headline —
+     is what has to clear the floating glass bar. refine.css put that
+     clearance on `.mxd-hero-10__headline`, which left the rail sitting
+     underneath the header entirely. */
+  .a-hero-meta {
+    padding-top: 9.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-bottom: 1.8rem;
+  }
+  .mxd-hero-10__headline { padding-top: 0; }
+
+  /* the name gets to be the size of the screen it is on: two lines of
+     display type instead of one cramped line */
+  .hero-10-headline__wrap h1 {
+    font-size: clamp(4.6rem, 21vw, 9.6rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+
+  .a-hero-lede { margin-top: 1.4rem; font-size: var(--a-fs-base); }
+  .a-hero-actions { margin-top: 2rem; gap: 1rem; }
+  .a-hero-foot { flex-direction: column; align-items: flex-start; gap: 1.4rem; }
+  .a-hero-disc { gap: 0.5rem 1.2rem; }
+}
+@media only screen and (max-width: 575px) {
+  /* three coordinates do not fit one phone line; the latitude is the
+     least useful of them */
+  .a-hero-meta__coords span:first-child { display: none; }
+}
+@media only screen and (max-width: 479px) {
+  .a-hero-meta {
+    padding-top: 9rem;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+  .a-hero-meta__coords { font-size: 1rem; letter-spacing: 0.12em; }
+  .a-hero-disc li { font-size: 1rem; }
+  .a-cta { padding-left: 1.8rem; font-size: var(--a-fs-xs); }
+  .a-cta__well { width: 2.8rem; height: 2.8rem; }
+}
+
+/* ==================================================
+   09. Works grid
+   --------------------------------------------------
+   Each project preview becomes a tray holding the image plate, with a
+   machined caption bar beneath: sheet number, name, status, and a
+   trailing well that fills on hover.
+   ================================================== */
+.mxd-project-item { position: relative; }
+
+/* the tray around the media */
+.a-shot {
+  position: relative;
+  padding: var(--a-tray-pad);
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r-xl);
+  background-color: var(--a-surface-2);
+  box-shadow: var(--a-lift-1);
+  transition: box-shadow var(--a-t-slow) var(--a-settle),
+              border-color var(--a-t-mid) var(--a-swift);
+}
+.no-touch .mxd-project-item:hover .a-shot,
+.no-touch .mxd-blog-item:hover .a-shot {
+  border-color: var(--a-line-2);
+  box-shadow: var(--a-lift-3);
+}
+
+/* the media itself is the inner plate — override refine.css radius so
+   the two curves stay concentric */
+.a-shot .mxd-project-item__media,
+.a-shot .mxd-blog-item__media {
+  display: block;
+  border-radius: var(--a-r-in-xl) !important;
+  overflow: hidden;
+  background-color: var(--a-surface-3);
+  box-shadow: var(--a-bevel);
+}
+.a-shot .mxd-project-item__media img,
+.a-shot .mxd-blog-item__media img {
+  display: block;
+  width: 100%;
+  border-radius: inherit;
+  transition: transform var(--a-t-slow) var(--a-travel),
+              filter var(--a-t-slow) var(--a-swift);
+}
+/* a restrained 2% push-in — enough to feel alive, not enough to blur */
+.no-touch .mxd-project-item:hover .a-shot img,
+.no-touch .mxd-blog-item:hover .a-shot img { transform: scale(1.022); }
+
+/* refine.css lifts the whole card; the tray already does that here */
+.no-touch .mxd-project-item:hover,
+.no-touch .mxd-blog-item:hover { transform: none; }
+
+/* --- sheet number floating on the tray --- */
+.a-shot__no {
+  position: absolute;
+  top: 1.8rem;
+  left: 1.8rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  height: 2.4rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+          backdrop-filter: saturate(180%) blur(14px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), var(--a-lift-0);
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--a-ink);
+  pointer-events: none;
+}
+
+/* --- caption bar --- */
+.mxd-project-item__caption,
+.mxd-blog-item__caption {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.8rem 0.6rem 0;
+}
+
+.a-cap__name {
+  display: block;
+  font-size: clamp(2rem, 2.4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--t-bright);
+  text-decoration: none;
+  transition: opacity var(--a-t-fast) var(--a-swift);
+}
+.no-touch .a-cap__name:hover { opacity: 0.6; }
+
+.a-cap__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.7rem;
+}
+.a-cap__tags span {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+
+/* the caption bar carries the name and tags only — the trailing arrow
+   disc has been removed, so the name gets the full measure */
+.mxd-project-item__name,
+.mxd-blog-item__title { width: 100%; }
+
+/* the divider column between the two project cards */
+.mxd-project-divider { position: relative; }
+@media only screen and (min-width: 1200px) {
+  .mxd-project-divider::after {
+    content: "";
+    position: absolute;
+    top: 12%;
+    bottom: 12%;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--a-line), transparent);
+  }
+}
+
+/* --- vertical rhythm between rows --- */
+.mxd-projects-grid__gallery { margin-bottom: 5rem; }
+.mxd-projects-grid__gallery:last-child { margin-bottom: 0; }
+@media only screen and (max-width: 991px) {
+  .mxd-projects-grid__gallery { margin-bottom: 0; }
+  .mxd-project-item { margin-bottom: 3.5rem; }
+}
+
+/* --- the section footer: one honest way to see everything --- */
+.a-sec-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 4.5rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--a-line);
+}
+.a-sec-foot__note {
+  margin: 0;
+  max-width: 44ch;
+  font-size: var(--a-fs-s);
+  line-height: 1.55;
+  color: var(--t-muted);
+}
+
+/* keep the WebGL wave field behind everything in the works section */
+#works > .pinned-section__inner { position: relative; z-index: 1; }
+
+/* ==================================================
+   10. Insights — dimension table
+   --------------------------------------------------
+   The stock version was a single tall column of four rules. Read as a
+   drawing, it wants to be a table: two columns of measured rows, each
+   rule carrying a heavier lead segment like a dimension line.
+   The template scrubs `__inner` up from behind `__item`'s clip on
+   scroll, so that structure is preserved exactly.
+   ================================================== */
+.mxd-stats-lines.manifest-title { padding-top: 0; }
+
+@media only screen and (min-width: 768px) {
+  .mxd-stats-lines {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem 3.5rem;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .mxd-stats-lines { gap: 4.5rem 5rem; }
+}
+
+/* the rule: hairline across, with a 4rem ink lead-in */
+.mxd-stats-lines__divider {
+  height: 1px;
+  background-color: var(--a-line-2);
+}
+.mxd-stats-lines__item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 4rem;
+  height: 2px;
+  background-color: var(--a-ink);
+}
+
+.mxd-stats-lines__number { padding-top: 1.6rem; }
+.mxd-stats-lines__number p {
+  font-size: clamp(5.6rem, 7.2vw, 8.4rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+.mxd-stats-lines__caption { padding-left: 0; padding-top: 1rem; }
+.mxd-stats-lines__caption p {
+  max-width: 26ch;
+  font-size: var(--a-fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+
+@media only screen and (max-width: 767px) {
+  .mxd-stats-lines { gap: 3rem; }
+  .mxd-stats-lines__number p { font-size: 6.4rem; }
+}
+
+/* ==================================================
+   11. Capabilities — bento
+   --------------------------------------------------
+   An asymmetric grid: one ink plate carrying the positioning
+   statement, three paper plates carrying the disciplines. This is the
+   page's single strongest contrast moment, which is why it is also the
+   only place the ink plate appears above the fold-line of the sheet.
+   ================================================== */
+.a-bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+@media only screen and (min-width: 768px) {
+  .a-bento { grid-template-columns: repeat(2, 1fr); gap: 1.8rem; }
+  .a-bento__lead { grid-column: 1 / -1; }
+}
+@media only screen and (min-width: 1200px) {
+  .a-bento { grid-template-columns: repeat(6, 1fr); gap: 2rem; }
+  .a-bento__lead { grid-column: span 6; }
+  .a-bento__cell { grid-column: span 2; }
+}
+
+.a-bento__body { padding: 3rem 2.6rem; }
+@media only screen and (min-width: 768px) { .a-bento__body { padding: 3.4rem 3rem; } }
+@media only screen and (min-width: 1600px) { .a-bento__body { padding: 4rem 3.6rem; } }
+
+/* --- the ink lead plate --- */
+.a-bento__lead .a-bento__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+@media only screen and (min-width: 992px) {
+  .a-bento__lead .a-bento__body {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 4.5rem 4rem;
+  }
+}
+.a-manifest {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(2.4rem, 3.4vw, 4rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  color: var(--pt-t-accent-bright);
+  text-wrap: balance;
+}
+.a-manifest em {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.42);
+}
+.a-bento__lead .a-meta { color: rgba(255, 255, 255, 0.5); }
+.a-bento__aside {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.a-bento__aside p {
+  margin: 0;
+  max-width: 34ch;
+  font-size: var(--a-fs-base);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* --- discipline cells --- */
+.a-disc__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid var(--a-line);
+}
+.a-disc__title {
+  margin: 0;
+  font-size: var(--a-fs-xl);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--t-bright);
+}
+.a-disc__descr {
+  margin: 1.6rem 0 0;
+  font-size: var(--a-fs-base);
+  line-height: 1.6;
+  color: var(--t-muted);
+}
+.a-disc__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.a-disc__list li {
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--a-line);
+  border-radius: 999px;
+  background-color: var(--a-surface-1);
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  color: var(--t-medium);
+  transition: border-color var(--a-t-fast) var(--a-swift),
+              background-color var(--a-t-fast) var(--a-swift);
+}
+.no-touch .a-bento__cell:hover .a-disc__list li {
+  border-color: var(--a-line-2);
+  background-color: var(--a-paper);
+}
+
+/* ==================================================
+   12. Products
+   --------------------------------------------------
+   The template's perspective list tilts each row on scroll. Only the
+   surface treatment changes here so that effect is untouched.
+   ================================================== */
+.mxd-cpb-list__divider { background-color: var(--a-line-2) !important; }
+
+.mxd-cpb-list__name {
+  font-size: clamp(2.4rem, 3.2vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  line-height: 1.06;
+  color: var(--t-bright);
+}
+.mxd-cpb-list__number .meta-tag {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  letter-spacing: 0.14em;
+  color: var(--t-muted);
+}
+
+/* the product shot as a plate */
+.mxd-cpb-list__image {
+  border-radius: var(--a-r-l) !important;
+  border: 1px solid var(--a-line);
+  background-color: var(--a-surface-2) !important;
+  padding: 0.5rem;
+  box-shadow: var(--a-lift-1);
+  overflow: hidden;
+}
+.mxd-cpb-list__image img {
+  border-radius: calc(var(--a-r-l) - 0.5rem) !important;
+  box-shadow: var(--a-bevel);
+}
+
+.mxd-cpb-list__descr p {
+  letter-spacing: -0.02em;
+  color: var(--t-medium);
+}
+.mxd-cpb-list__meta .meta-tag {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+
+/* --- the "nothing shipped yet" state, built to look intentional ---
+   The perspective-list host carries no grid gutter of its own (its rows
+   supply it via `.mxd-grid-item`), so this plate has to bring its own or
+   it sits flush against the viewport edge on a phone. */
+#rh-products > .a-plate { margin: 0 1.5rem; }
+@media only screen and (min-width: 768px) { #rh-products > .a-plate { margin: 0; } }
+
+.a-empty__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 4rem 3rem;
+}
+@media only screen and (min-width: 992px) {
+  .a-empty__body {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 4.5rem 4rem;
+  }
+}
+.a-empty__title {
+  margin: 0 0 0.9rem;
+  font-size: clamp(2.4rem, 3vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--t-bright);
+}
+.a-empty__note {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--a-fs-base);
+  line-height: 1.6;
+  color: var(--t-muted);
+}
+
+/* ==================================================
+   13. Writing grid
+   ================================================== */
+.mxd-blog-item { position: relative; }
+.mxd-blog-item__date {
+  margin-bottom: 1.2rem;
+}
+.mxd-blog-item__date .meta-date {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+@media only screen and (max-width: 991px) {
+  .mxd-blog-item { margin-bottom: 3.5rem; }
+  .mxd-blog-grid .row > .mxd-blog-item:last-child { margin-bottom: 0; }
+}
+
+/* refine.css shifts a couple of these cards down for rhythm; keep that
+   on desktop only so the mobile stack has no orphan gaps */
+@media only screen and (max-width: 991px) {
+  .rh-shifted-card { margin-top: 0 !important; }
+}
+
+/* ==================================================
+   14. Journey
+   --------------------------------------------------
+   The rail stays. What changes: the note line was rendering at 9.5px
+   (authored as 0.95rem against a 10px root), the role was capped at
+   18.5px, and the rail had no reading position. All three fixed.
+   ================================================== */
+.rh-jr__list::before {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--a-line-2) 6%,
+    var(--a-line-2) 94%,
+    transparent
+  );
+}
+
+.rh-jr__row {
+  grid-template-columns: 3.4rem 1fr auto;
+  gap: 0 2rem;
+  padding: 2.1rem 0;
+  border-bottom: 1px solid var(--a-line);
+  border-radius: var(--a-r-s);
+  transition: background-color var(--a-t-mid) var(--a-swift),
+              padding-left var(--a-t-mid) var(--a-settle);
+}
+
+.rh-jr__no {
+  font-size: var(--a-fs-micro);
+  letter-spacing: 0.14em;
+  color: var(--a-line-3);
+  padding-top: 0.5rem;
+}
+
+.rh-jr__role {
+  font-size: clamp(1.85rem, 2.4vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  line-height: 1.14;
+}
+
+.rh-jr__org {
+  font-size: var(--a-fs-s);
+  font-weight: 500;
+  color: var(--t-muted);
+}
+
+.rh-jr__note {
+  margin-top: 0.7rem;
+  max-width: 58ch;
+  font-size: var(--a-fs-s);
+  line-height: 1.6;
+  color: var(--t-muted);
+}
+
+.rh-jr__period {
+  font-size: var(--a-fs-micro);
+  letter-spacing: 0.14em;
+  color: var(--t-muted);
+  padding-top: 0.6rem;
+}
+
+/* current roles: the marker fills and gets a halo, the period goes ink */
+.rh-jr__row.is-current .rh-jr__marker {
+  background-color: var(--a-ink);
+  box-shadow: inset 0 0 0 1px var(--a-ink),
+              0 0 0 4px rgba(10, 10, 10, 0.08);
+}
+.rh-jr__row.is-current .rh-jr__period {
+  color: var(--a-ink);
+  font-weight: 500;
+}
+
+.rh-jr__label { margin-bottom: 2.4rem; }
+.rh-jr__label .meta-tag {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+
+.no-touch a.rh-jr__row:hover { background-color: var(--a-surface-1); }
+
+@media only screen and (max-width: 767px) {
+  .rh-jr__row { grid-template-columns: 1fr; gap: 0.4rem; padding: 1.8rem 0; }
+  .rh-jr__note { font-size: var(--a-fs-xs); }
+  .rh-jr__period { font-size: 1.05rem; }
+}
+
+/* ==================================================
+   15. Reviews — specimen plates
+   --------------------------------------------------
+   Full replacement for the template's testimonial card, which was a
+   flat grey rectangle running 34px body copy with a floating circular
+   avatar.
+   Each review is now a specimen plate: an outer tray holding a paper
+   core, divided into three registers by hairlines —
+   1. the head rail: sheet number and the score, read as five filled
+      or hollow squares plus a tabular numeral
+   2. the quote register
+   3. the attribution plate: a monogram in a machined square, the name,
+      the affiliation, and the date in mono
+   The first review is a wide plate at two columns with the quote set
+   larger, so the grid opens on an accent rather than a uniform row.
+   ================================================== */
+.a-rv-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+@media only screen and (min-width: 768px) {
+  .a-rv-grid { grid-template-columns: repeat(2, 1fr); gap: 1.8rem; }
+}
+@media only screen and (min-width: 1200px) {
+  .a-rv-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  /* the opening plate spans two columns */
+  .a-rv--wide { grid-column: span 2; }
+}
+
+/* --- the plate --- */
+.a-rv {
+  display: flex;
+  position: relative;
+}
+.a-rv__tray {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--a-tray-pad);
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r-xl);
+  background-color: var(--a-surface-2);
+  box-shadow: var(--a-lift-1);
+  transition: box-shadow var(--a-t-mid) var(--a-settle),
+              border-color var(--a-t-mid) var(--a-swift),
+              transform var(--a-t-mid) var(--a-settle);
+}
+.no-touch .a-rv:hover .a-rv__tray {
+  transform: translateY(-0.4rem);
+  border-color: var(--a-line-2);
+  box-shadow: var(--a-lift-2);
+}
+
+.a-rv__core {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  border-radius: var(--a-r-in-xl);
+  background-color: var(--a-paper);
+  box-shadow: var(--a-bevel), var(--a-lift-0);
+  overflow: hidden;
+}
+
+/* --- register 1: head rail --- */
+.a-rv__rail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--a-line);
+  background-color: var(--a-surface-1);
+}
+.a-rv__no {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--t-muted);
+}
+
+/* the score: five stars, then a tabular numeral */
+.a-rv__score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.a-rv__bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  line-height: 1;
+}
+.a-rv__bar i {
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--a-ink);
+}
+.a-rv__bar i.is-off { color: var(--a-line-3); }
+.a-rv__num {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--a-ink);
+}
+
+/* --- register 2: the quote --- */
+.a-rv__body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 2.4rem 2rem 2rem;
+}
+/* the quote mark is drawn as a watermark behind the text, not as an
+   icon competing with it */
+.a-rv__body::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.6rem;
+  left: 1.4rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--a-ink);
+  opacity: 0.055;
+  pointer-events: none;
+  user-select: none;
+}
+.a-rv__quote {
+  position: relative;
+  margin: 0;
+  font-size: var(--a-fs-m);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.016em;
+  color: var(--t-bright);
+  text-wrap: pretty;
+  white-space: pre-line;
+}
+
+/* --- register 3: attribution --- */
+.a-rv__foot {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  padding: 1.6rem 2rem;
+  border-top: 1px solid var(--a-line);
+  background-color: var(--a-surface-1);
+}
+.a-rv__mono {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: var(--a-r-xs);
+  border: 1px solid var(--a-line-2);
+  background-color: var(--a-paper);
+  box-shadow: var(--a-bevel), var(--a-lift-0);
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--a-ink);
+  overflow: hidden;
+  transition: background-color var(--a-t-mid) var(--a-swift),
+              color var(--a-t-mid) var(--a-swift),
+              border-color var(--a-t-mid) var(--a-swift);
+}
+.a-rv__mono img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.no-touch .a-rv:hover .a-rv__mono {
+  background-color: var(--a-ink);
+  border-color: var(--a-ink);
+  color: var(--a-paper);
+}
+
+.a-rv__who { min-width: 0; flex: 1 1 auto; }
+.a-rv__name {
+  margin: 0;
+  font-size: var(--a-fs-base);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  line-height: 1.25;
+  color: var(--t-bright);
+}
+.a-rv__role {
+  margin: 0.2rem 0 0;
+  font-size: var(--a-fs-xs);
+  line-height: 1.35;
+  color: var(--t-muted);
+}
+.a-rv__date {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--t-muted);
+}
+
+/* --- the wide opening plate --- */
+@media only screen and (min-width: 1200px) {
+  .a-rv--wide .a-rv__body { padding: 3.2rem 3rem 2.8rem; }
+  .a-rv--wide .a-rv__body::before { font-size: 13rem; left: 2rem; top: -1.4rem; }
+  .a-rv--wide .a-rv__quote {
+    max-width: 44ch;
+    font-size: clamp(2.2rem, 2vw, 2.8rem);
+    line-height: 1.4;
+    letter-spacing: -0.026em;
+  }
+  .a-rv--wide .a-rv__rail,
+  .a-rv--wide .a-rv__foot { padding-left: 3rem; padding-right: 3rem; }
+}
+
+/* --- the aggregate readout above the grid --- */
+.a-rv-sum {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem 2rem;
+  margin-bottom: 2.6rem;
+  padding: 1.6rem 2rem;
+  border: 1px solid var(--a-line);
+  border-radius: 999px;
+  background-color: var(--a-surface-1);
+  box-shadow: var(--a-bevel), var(--a-lift-0);
+}
+.a-rv-sum__score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--_font-accent);
+  font-weight: 600;
+  color: var(--a-ink);
+}
+.a-rv-sum__score b {
+  font-size: 2.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.a-rv-sum__score span {
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--t-muted);
+}
+.a-rv-sum__rule {
+  flex: 1 1 auto;
+  min-width: 2rem;
+  height: 1px;
+  background-color: var(--a-line-2);
+}
+@media only screen and (max-width: 575px) {
+  .a-rv-sum { border-radius: var(--a-r-l); padding: 1.6rem; }
+  .a-rv-sum__rule { display: none; }
+}
+
+/* --- mobile pass --- */
+@media only screen and (max-width: 767px) {
+  .a-rv__rail  { padding: 1.3rem 1.6rem; }
+  .a-rv__body  { padding: 2.2rem 1.6rem 1.8rem; }
+  .a-rv__foot  { padding: 1.4rem 1.6rem; }
+  .a-rv__quote { font-size: var(--a-fs-base); line-height: 1.6; }
+  .a-rv__body::before { font-size: 7rem; left: 1rem; }
+  .a-rv__date  { display: none; }
+}
+
+/* the old empty state, brought onto the plate system */
+.mxd-reviews-empty {
+  padding: 4rem 2.6rem;
+  margin: 0;
+  border: 1px dashed var(--a-line-3);
+  border-radius: var(--a-r-xl);
+  background-color: var(--a-surface-1);
+}
+.mxd-reviews-empty p { font-size: var(--a-fs-base); }
+
+/* ==================================================
+   16. Review form
+   --------------------------------------------------
+   Sat on the marquee band as an ink card. Everything inside it was
+   rendering between 8.5px and 10.5px because the rules were authored
+   against a 16px root. Rebuilt on the plate system at real sizes.
+   ================================================== */
+/* --- the band the card sits on -----------------------------------
+   Replaces `.mxd-stack-cards` / `.mxd-stack-cards__card` on this one
+   section. Those two classes are what made ScrollTrigger pin the band
+   at exactly 100svh; the form is taller than a laptop viewport, so it
+   overflowed upward into the previous section. A flow band with real
+   padding cannot overflow at any viewport height. */
+.a-band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--a-paper);
+}
+.a-band__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 72rem;
+  padding: 10rem 2rem;
+}
+@media only screen and (min-width: 992px) { .a-band__card { padding: 12rem 3rem; } }
+
+/* the marquee still fills the band behind the card */
+.a-band .card__marquees { position: absolute; inset: 0; width: 100%; height: 100%; }
+.a-band .marquee__text { color: rgba(10, 10, 10, 0.9); }
+
+/* refine.css / main.css scoped these to `.mxd-stack-cards.rh-divider-stack`,
+   which this band no longer matches — re-supplied here. */
+.rh-marquee-white-section .a-band.rh-divider-stack { background-color: var(--a-paper); }
+.rh-marquee-white-section .a-band.rh-divider-stack .marquee__text { color: rgba(10, 10, 10, 0.9); }
+.a-band .card__marquees { opacity: 1 !important; }
+
+/* the card is a normal flow child now, not an absolutely centred one */
+.a-band .card__wrapper.rh-static-card-wrapper {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 108rem !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  z-index: 10;
+}
+
+/* NOTE ON SPECIFICITY: a block of hand-written overrides for this card
+   was appended to main.css (around line 21025) using descendant
+   selectors like `.rh-review-marquee-card .rh-field label`. Those beat a
+   bare `.rh-field label`, so the rules below deliberately match that
+   depth rather than reaching for !important. */
+.rh-review-marquee-card {
+  padding: var(--a-tray-pad);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--a-r-xl);
+  background: #161616;
+  box-shadow: var(--a-lift-3);
+}
+.a-form__core {
+  padding: 3rem 2.4rem;
+  border-radius: var(--a-r-in-xl);
+  background-color: var(--a-ink);
+  box-shadow: var(--a-bevel-dark);
+}
+@media only screen and (min-width: 768px) { .a-form__core { padding: 4rem 3.6rem; } }
+
+/* Title block beside the fields rather than stacked above them. Halves
+   the card's height, which is what let the band stop overflowing, and
+   gives the copy somewhere to live other than as a caption. */
+@media only screen and (min-width: 992px) {
+  .a-form__core {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 4.5rem;
+    align-items: start;
+    padding: 4.5rem 4rem;
+  }
+  .a-form__head { position: sticky; top: 0; }
+}
+
+.a-form__facts {
+  display: none;
+  margin: 2.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media only screen and (min-width: 992px) { .a-form__facts { display: block; } }
+.a-form__facts li {
+  display: flex;
+  gap: 1.1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.a-form__facts li b {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.26);
+}
+
+/* left-aligned now: the eyebrow, the title and the note read as a
+   stacked title block, not as three centred lines */
+.rh-review-marquee-card .rh-review-card__title {
+  margin: 1.4rem 0 0;
+  font-size: clamp(2.6rem, 3.4vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  text-align: left;
+  color: #FFFFFF;
+}
+.rh-review-marquee-card .rh-review-card__note {
+  margin: 1.2rem 0 2.6rem;
+  max-width: 44ch;
+  font-size: var(--a-fs-base);
+  line-height: 1.6;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.56);
+}
+@media only screen and (min-width: 992px) {
+  .rh-review-marquee-card .rh-review-card__note { margin-bottom: 0; }
+}
+.a-form__core .a-eyebrow {
+  border-color: rgba(255, 255, 255, 0.16);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.72);
+}
+.a-form__core .a-dot { background-color: #FFFFFF; }
+.a-form__core .a-dot::after { border-color: #FFFFFF; }
+
+.rh-form-grid { gap: 1.8rem; }
+@media only screen and (min-width: 768px) { .rh-form-grid { gap: 2rem 1.8rem; } }
+
+.rh-field { gap: 0.9rem; }
+.rh-field label {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-medium);
+}
+.rh-field input,
+.rh-field textarea {
+  padding: 1.4rem 1.6rem;
+  border-radius: var(--a-r-s);
+  font-size: var(--a-fs-base);
+  line-height: 1.5;
+  transition: border-color var(--a-t-fast) var(--a-swift),
+              box-shadow var(--a-t-fast) var(--a-swift),
+              background-color var(--a-t-fast) var(--a-swift);
+}
+.rh-field textarea { min-height: 14rem; }
+
+/* on the ink card */
+.rh-review-marquee-card .rh-field label {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+.rh-review-marquee-card .rh-field input,
+.rh-review-marquee-card .rh-field textarea {
+  background-color: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: #FFFFFF;
+}
+.rh-review-marquee-card .rh-field input::placeholder,
+.rh-review-marquee-card .rh-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+.rh-review-marquee-card .rh-field input:focus,
+.rh-review-marquee-card .rh-field textarea:focus {
+  background-color: rgba(255, 255, 255, 0.075);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.09);
+}
+
+/* star picker, at a size a thumb can actually hit */
+.rh-stars-input { gap: 0.7rem; padding-top: 0.3rem; }
+.rh-stars-input button {
+  width: 3.4rem;
+  height: 3.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--a-r-xs);
+  font-size: 2rem;
+  transition: color var(--a-t-fast) var(--a-swift),
+              background-color var(--a-t-fast) var(--a-swift),
+              transform var(--a-t-fast) var(--a-settle);
+}
+.rh-review-marquee-card .rh-stars-input button {
+  color: rgba(255, 255, 255, 0.22);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+.rh-review-marquee-card .rh-stars-input button.is-on {
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.no-touch .rh-stars-input button:hover { transform: translateY(-2px) scale(1.06); }
+
+.rh-review-form__actions { gap: 1.8rem; margin-top: 2.6rem; }
+
+.rh-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.7rem 0.7rem 0.7rem 2.2rem;
+  border-radius: 999px;
+  font-size: var(--a-fs-s);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  /* tone only — see section 18c */
+  transition: background-color var(--a-t-fast) var(--a-swift),
+              color var(--a-t-fast) var(--a-swift);
+}
+.rh-review-marquee-card .rh-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.3rem 2.6rem;
+  border-radius: 999px;
+  font-size: var(--a-fs-s);
+  font-weight: 500;
+  background-color: #FFFFFF;
+  color: #0A0A0A;
+}
+.no-touch .rh-review-marquee-card .rh-submit:hover {
+  opacity: 1;
+  background-color: #E6E6E6;
+}
+
+.rh-form-msg { font-size: var(--a-fs-s); }
+.rh-review-marquee-card .rh-form-msg.is-ok    { color: #9EE6B8; }
+.rh-review-marquee-card .rh-form-msg.is-error { color: #F0A79B; }
+
+/* ==================================================
+   16b. Archive rows (works-default.html)
+   --------------------------------------------------
+   The rows already read as a schedule of drawings. What they lacked was
+   a legible description line (`.rh-archive-desc` was authored as
+   1.05rem against a 10px root, so it rendered at 10.5px) and any
+   response to the pointer.
+   ================================================== */
+.rh-archive-desc {
+  margin-top: 0.9rem;
+  font-size: var(--a-fs-s);
+  line-height: 1.6;
+  color: var(--t-muted);
+}
+
+.mxd-projects-list__divider { background-color: var(--a-line) !important; }
+
+.mxd-projects-list__item {
+  border-radius: var(--a-r-m);
+  transition: background-color var(--a-t-mid) var(--a-swift),
+              padding-left var(--a-t-mid) var(--a-settle);
+}
+.no-touch .mxd-projects-list__item:hover {
+  background-color: var(--a-surface-1);
+  padding-left: 1rem;
+}
+
+.mxd-projects-list__title h3 {
+  font-size: clamp(2.4rem, 3.4vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.036em;
+  line-height: 1.04;
+  color: var(--t-bright);
+}
+.mxd-projects-list__title h3 span { color: var(--t-muted); }
+
+.mxd-projects-list__niche .meta-niche,
+.mxd-projects-list__meta .meta-tag,
+.mxd-projects-list__date .meta-date {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+
+/* ==================================================
+   16c. Contact page
+   --------------------------------------------------
+   The whole "let's make it happen" block is already one card; this
+   brings it onto the plate system (concentric radii, ambient lift,
+   paper core) and fixes the form field type sizes.
+   ================================================== */
+.inner-headline__content.rh-contact-card {
+  border-color: var(--a-line);
+  background-color: var(--a-surface-2);
+  border-radius: var(--a-r-xl);
+  box-shadow: var(--a-lift-2);
+}
+@media only screen and (min-width: 768px) {
+  .inner-headline__content.rh-contact-card { border-radius: 3.2rem; }
+}
+/* a plate needs air around it to read as a plate — full-bleed with
+   rounded corners just looks like the corners were cropped */
+@media only screen and (max-width: 767px) {
+  .inner-headline__content.rh-contact-card {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    padding: 3rem 1.8rem;
+  }
+}
+
+.form input,
+.form textarea {
+  font-size: var(--a-fs-base);
+  border-color: var(--a-line-2);
+}
+.form input:focus,
+.form textarea:focus {
+  border-color: var(--a-ink);
+  box-shadow: 0 1px 0 var(--a-ink);
+}
+.form label,
+.form .form__caption { font-size: var(--a-fs-s); }
+
+/* the title-block rail beside the heading — same idea as the hero's */
+.a-contact-facts {
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+  max-width: 40ch;
+}
+.a-contact-facts li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--a-line);
+}
+.a-contact-facts li:last-child { border-bottom: 1px solid var(--a-line); }
+.a-contact-facts b {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: var(--a-fs-s);
+  font-weight: 500;
+  text-align: right;
+  color: var(--t-bright);
+}
+.a-contact-facts .a-clock { font-variant-numeric: tabular-nums; }
+@media only screen and (max-width: 575px) {
+  .a-contact-facts { margin-top: 2.4rem; }
+  .a-contact-facts li { flex-direction: column; gap: 0.4rem; }
+  .a-contact-facts b { text-align: left; }
+}
+
+/* --- BUG FIX: the giant email overflowed the page sideways ----------
+   `.fullwidth-text__content.small` is sized at 10.46cqw, which the
+   template tuned for a short address. "rushanulhaque@gmail.com" is 23
+   characters, so at 10.46cqw it measured 1675px inside a 1160px
+   container and pushed the document 454px wide — the contact page
+   scrolled horizontally at every viewport size. Re-tuned to the real
+   string length, with `overflow-x: clip` as a hard backstop so a longer
+   address can never do this again. `overflow-y` stays visible, because
+   refine.css un-clipped these wraps on purpose to stop the descenders
+   in "g"/"q" being sliced off. */
+.headline-email-text .fullwidth-text__content.small { font-size: 6.8cqw; }
+
+.fullwidth-text,
+.fw-mark {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* ==================================================
+   17. Footer
+   ================================================== */
+/* --- the closing CTA band, an ink plate above the footer data --- */
+.a-close__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+  padding: 4rem 2.6rem;
+}
+@media only screen and (min-width: 992px) {
+  .a-close__body {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 5.5rem 4.5rem;
+  }
+}
+.a-close__title {
+  margin: 1.6rem 0 0;
+  max-width: 26ch;
+  font-size: clamp(3.2rem, 5vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 0.98;
+  color: #FFFFFF;
+  text-wrap: balance;
+}
+.a-close__side {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.8rem;
+}
+.a-close__note {
+  margin: 0;
+  max-width: 32ch;
+  font-size: var(--a-fs-base);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.56);
+}
+.a-close__body .a-eyebrow {
+  border-color: rgba(255, 255, 255, 0.16);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.72);
+}
+.a-close__body .a-dot { background-color: #FFFFFF; }
+.a-close__body .a-dot::after { border-color: #FFFFFF; }
+.a-close__body .a-cta {
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #0A0A0A;
+}
+.a-close__body .a-cta__well {
+  background-color: rgba(10, 10, 10, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(10, 10, 10, 0.08);
+}
+.no-touch .a-close__body .a-cta:hover { background-color: #FFFFFF; }
+.no-touch .a-close__body .a-cta:hover .a-cta__well { background-color: rgba(10, 10, 10, 0.14); }
+
+#mxd-footer { border-top: 0; }
+.rh-footer-top { padding-top: 4.5rem; }
+.footer-data {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-mono);
+  letter-spacing: 0.1em;
+  line-height: 1.9;
+}
+
+/* the wordmark: tuck it tight to the baseline of the sheet */
+.fw-mark__content span { letter-spacing: -0.035em; }
+
+/* ==================================================
+   18. Loader
+   --------------------------------------------------
+   Was seven cycling grey squares. Now a drafting rule that fills
+   left-to-right with a tabular counter beneath — the same language as
+   the rest of the sheet, and far cheaper to paint.
+   ================================================== */
+.mxd-loader__images { display: none !important; }
+
+.mxd-loader__top span {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+}
+
+.a-load {
+  width: min(46rem, 62vw);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+.a-load__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.mxd-loader__count {
+  font-family: var(--_font-accent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+.mxd-loader__caption {
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+}
+
+/* ==================================================
+   18b. Touch & small-screen legibility floors
+   --------------------------------------------------
+   Two hard floors, applied last so nothing can undercut them:
+     · no text below 11px. Mono uppercase at wide tracking is the
+       smallest thing on this site and 10px was under the line.
+     · no interactive target under 34px of height on a touch viewport.
+       The card titles and social links were 20-22px — thumb-sized only
+       by accident. Padding is added rather than font-size, so the
+       typographic scale is untouched.
+   ================================================== */
+@media only screen and (max-width: 767px) {
+  .a-index__label,
+  .a-hero-meta__coords,
+  .a-hero-meta__coords b,
+  .a-hero-disc li,
+  .rh-jr__period,
+  .rh-jr__no,
+  .a-meta,
+  .a-eyebrow,
+  .a-rv__no,
+  .a-rv__num,
+  .a-rv__date,
+  .a-cap__tags span,
+  .mxd-blog-item__date .meta-date,
+  .mxd-projects-list__niche .meta-niche,
+  .mxd-projects-list__meta .meta-tag,
+  .mxd-projects-list__date .meta-date,
+  .mxd-cpb-list__meta .meta-tag,
+  .rh-field label,
+  .rh-review-marquee-card .rh-field label,
+  .a-form__facts li { font-size: 1.1rem; }
+
+  /* thumb-sized targets */
+  .a-cap__name,
+  .mxd-socials-line__link,
+  .menu-contact__list .tag-m,
+  .footer-data a {
+    display: inline-block;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+  /* the extra padding must not add to the line's rhythm */
+  .a-cap__name { margin-top: -0.7rem; margin-bottom: -0.7rem; }
+  .mxd-project-item__caption,
+  .mxd-blog-item__caption { padding-top: 2.2rem; }
+}
+
+/* ==================================================
+   18c. Static buttons — site-wide
+   --------------------------------------------------
+   Buttons on this site do not move. No lift on hover, no compression on
+   press, no scale, no magnetic lean toward the cursor. Feedback is
+   carried entirely by tone: background, border and text colour.
+
+   This block is the enforcement layer. The template (main.css) and the
+   earlier passes (refine.css, reviews.css) each attach their own
+   translate/scale to buttons, in files that load before this one, so
+   they are neutralised here in one place rather than hunted down across
+   four stylesheets — which also means a button added later inherits the
+   rule for free. `!important` is load-bearing: several of the originals
+   are themselves scoped more specifically than these selectors.
+   ================================================== */
+.a-cta,
+.rh-submit,
+.btn,
+.btn-form,
+.btn-default,
+.btn-default-icon,
+.btn-default-accent,
+.btn-line,
+.btn-line-default,
+.mxd-header__link,
+.rh-dots__btn,
+.rh-stars-input button,
+button,
+input[type="submit"],
+input[type="button"] {
+  transform: none !important;
+}
+
+/* the hover/press states themselves */
+.no-touch .a-cta:hover,
+.no-touch .a-cta:active,
+.a-cta:active,
+.no-touch .rh-submit:hover,
+.rh-review-marquee-card .rh-submit:hover,
+.rh-submit:active,
+.no-touch .btn:hover,
+.btn:active,
+.no-touch .btn-form:hover,
+.btn-form:active,
+.no-touch .btn-line:hover,
+.btn-line:active,
+.no-touch .btn-default-accent:hover,
+.btn-default-accent:active,
+.no-touch .mxd-header__link:hover,
+.mxd-header__link:active,
+.rh-dots__btn:active,
+.no-touch .rh-stars-input button:hover,
+.rh-stars-input button:active {
+  transform: none !important;
+}
+
+/* `.btn-line` slides a pair of pseudo-element arrows apart on hover —
+   the same wobble, one layer down. */
+.no-touch .btn-line:hover::before,
+.no-touch .btn-line:hover::after,
+.btn-line::before,
+.btn-line::after {
+  transform: none !important;
+}
+
+/* nothing on the plate system compresses under the pointer either */
+.a-plate--live:active,
+.a-rv:active .a-rv__tray { transform: none !important; }
+
+/* transitions on buttons carry colour, never geometry */
+.a-cta,
+.rh-submit,
+.btn,
+.btn-default-accent,
+.mxd-header__link,
+.rh-dots__btn,
+.rh-stars-input button {
+  transition-property: background-color, border-color, color, opacity !important;
+}
+
+/* the template's accent button, restyled to match the pill */
+.btn-default-accent { box-shadow: none !important; }
+.no-touch .btn-default-accent:hover {
+  background-color: var(--a-ink-soft) !important;
+  border-color: var(--a-ink-soft) !important;
+}
+
+/* ==================================================
+   19. Motion & accessibility
+   ================================================== */
+
+/* Scroll reveals.
+   The hidden start state is scoped to `.a-js`, a class that only
+   architect.js stamps on <html>, and only at the moment it is about to
+   observe these elements. No script, a script error, or a browser
+   without IntersectionObserver all mean the class is absent and the
+   content is plainly visible — never a blank section waiting on an
+   animation that is not coming. */
+.a-reveal {
+  transition: opacity var(--a-t-slow) var(--a-swift),
+              transform var(--a-t-slow) var(--a-settle);
+}
+.a-js .a-reveal {
+  opacity: 0;
+  transform: translateY(2.4rem);
+}
+.a-js .a-reveal.is-in { opacity: 1; transform: none; }
+
+/* Focus rings on the plate system: the ring follows the plate's radius
+   rather than boxing it. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--a-ink);
+  outline-offset: 3px;
+}
+.a-cta:focus-visible,
+.rh-submit:focus-visible { outline-offset: 4px; border-radius: 999px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .a-dot::after,
+  .a-scroll__track::after { animation: none !important; }
+  .a-js .a-reveal { opacity: 1 !important; transform: none !important; }
+  .a-index__rule { transform: none !important; }
+  .a-rail { display: none; }
+}
+
+/* Do not paint the grain on print, and drop every tray shadow. */
+@media print {
+  .a-sheet,
+  .a-vignette,
+  .a-rail { display: none !important; }
+  .a-plate,
+  .a-shot,
+  .a-rv__tray { box-shadow: none !important; }
+}

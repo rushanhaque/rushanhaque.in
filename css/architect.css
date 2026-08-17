@@ -1,0 +1,471 @@
+/*! ------------------------------------------------
+ * File name: architect.css
+ * Project:   Rushan Haque — Portfolio
+ * Loaded:    LAST (after refine.css). Overrides everything.
+ *
+ * ------------------------------------------------
+ * "THE DRAFTING SHEET"
+ * ------------------------------------------------
+ * The site keeps its pure-monochrome identity, but every surface is
+ * now built the way an architectural drawing is built:
+ *
+ *   · a measured sheet — hairline column rules, a numbered index
+ *     plate on every section, dimension ticks at the corners
+ *   · machined enclosures — no card sits flat on the page. Each one
+ *     is an outer tray holding an inner plate, with concentric radii,
+ *     so it reads as milled hardware rather than a coloured rectangle
+ *   · paper — a fixed film-grain sheet over the whole viewport, so
+ *     the white reads as stock, not as #FFF
+ *   · one motion language — a single decelerating curve with mass,
+ *     driving transform/opacity only
+ *
+ * NOTE ON UNITS: main.css sets `html { font-size: 62.5% }`, so
+ * **1rem = 10px** throughout this project. Every value below is
+ * written with that in mind. Several pre-existing rules had been
+ * authored as if 1rem = 16px and were rendering at 8–10px; those are
+ * corrected here.
+ *
+ * ------------------------------------------------
+ * Table of Contents
+ * ------------------------------------------------
+ *  01. Tokens
+ *  02. Sheet texture — grain, vignette, scroll rail
+ *  03. Structural rules — the measured column grid
+ *  04. Section index plates
+ *  05. Plate primitive — the double-bezel enclosure
+ *  06. Island buttons & magnetic CTAs
+ *  07. Typography pass
+ *  08. Hero
+ *  09. Works grid
+ *  10. Insights — precision bento
+ *  11. Capabilities — spec sheet
+ *  12. Products
+ *  13. Writing grid
+ *  14. Journey
+ *  15. Reviews — specimen plates  (full rebuild)
+ *  16. Review form
+ *  17. Footer
+ *  18. Loader
+ *  19. Motion & accessibility
+ * ------------------------------------------------ */
+
+/* ==================================================
+   01. Tokens
+   ================================================== */
+:root {
+  /* --- surface ladder ---------------------------------------------
+     Five steps between paper and ink. The tint steps are deliberately
+     tiny (2-5 points) — depth comes from the hairlines and the shadow
+     falloff, not from grey blocks. */
+  --a-paper:      #FFFFFF;
+  --a-surface-1:  #FAFAF9;
+  --a-surface-2:  #F4F4F2;
+  --a-surface-3:  #EDEDEA;
+  --a-ink:        #0A0A0A;
+  --a-ink-soft:   #1A1A1A;
+
+  /* --- hairlines: the drawn lines of the sheet --- */
+  --a-line:         rgba(10, 10, 10, 0.08);
+  --a-line-2:       rgba(10, 10, 10, 0.13);
+  --a-line-3:       rgba(10, 10, 10, 0.22);
+  --a-line-light:   rgba(255, 255, 255, 0.10);
+  --a-line-light-2: rgba(255, 255, 255, 0.16);
+
+  /* --- ambient elevation: wide, soft, almost colourless.
+         Never a hard drop shadow. --- */
+  --a-lift-0: 0 1px 1px rgba(10, 10, 10, 0.024);
+  --a-lift-1: 0 1px 2px rgba(10, 10, 10, 0.03),
+              0 6px 18px -6px rgba(10, 10, 10, 0.06);
+  --a-lift-2: 0 1px 2px rgba(10, 10, 10, 0.035),
+              0 14px 34px -10px rgba(10, 10, 10, 0.09),
+              0 40px 80px -32px rgba(10, 10, 10, 0.10);
+  --a-lift-3: 0 2px 4px rgba(10, 10, 10, 0.04),
+              0 24px 56px -14px rgba(10, 10, 10, 0.13),
+              0 64px 120px -40px rgba(10, 10, 10, 0.14);
+
+  /* --- inner highlight: the bright top edge of a machined part --- */
+  --a-bevel:      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --a-bevel-dark: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+
+  /* --- concentric radii. inner = outer minus tray padding --- */
+  --a-tray-pad: 0.6rem;
+  --a-r-xl:     2.6rem;
+  --a-r-l:      2rem;
+  --a-r-m:      1.4rem;
+  --a-r-s:      1rem;
+  --a-r-xs:     0.7rem;
+  --a-r-in-xl:  calc(var(--a-r-xl) - var(--a-tray-pad));
+  --a-r-in-l:   calc(var(--a-r-l)  - var(--a-tray-pad));
+  --a-r-in-m:   calc(var(--a-r-m)  - var(--a-tray-pad));
+
+  /* --- motion: one family. `settle` carries mass and lands soft;
+         `travel` is the heavier variant for large displacement. --- */
+  --a-settle: cubic-bezier(0.16, 1, 0.3, 1);
+  --a-travel: cubic-bezier(0.32, 0.72, 0, 1);
+  --a-swift:  cubic-bezier(0.4, 0, 0.2, 1);
+  --a-t-fast: 0.28s;
+  --a-t-mid:  0.52s;
+  --a-t-slow: 0.86s;
+
+  /* --- type ladder (1rem = 10px) --- */
+  --a-fs-micro: 1.15rem;   /* mono labels, tracking .18em */
+  --a-fs-mono:  1.25rem;
+  --a-fs-xs:    1.35rem;
+  --a-fs-s:     1.5rem;
+  --a-fs-base:  1.65rem;
+  --a-fs-m:     1.85rem;
+  --a-fs-l:     2.1rem;
+  --a-fs-xl:    2.6rem;
+
+  --a-track-mono: 0.18em;
+
+  /* --- measured gutters --- */
+  --a-gap:   2rem;
+  --a-gap-l: 3rem;
+}
+
+/* ==================================================
+   02. Sheet texture — grain, vignette, scroll rail
+   --------------------------------------------------
+   Both overlays are `position: fixed` and `pointer-events: none`, so
+   they never participate in scrolling or hit-testing and are composited
+   once. Attaching grain to a scrolling container would repaint it every
+   frame — this does not.
+   ================================================== */
+.a-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  /* fractal noise, generated inline — no request, no dependency */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
+
+/* the faintest corner falloff — stops the white page from reading as a
+   flat void at large viewport sizes */
+.a-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 9989;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    rgba(10, 10, 10, 0) 55%,
+    rgba(10, 10, 10, 0.028) 100%
+  );
+}
+
+/* --- reading position: a hairline that fills down the left edge --- */
+.a-rail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  z-index: 9991;
+  pointer-events: none;
+  background-color: var(--a-line);
+  opacity: 0;
+  transition: opacity var(--a-t-mid) var(--a-swift);
+}
+.a-rail.is-live { opacity: 1; }
+.a-rail__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--a-ink);
+  transform: scaleY(0);
+  transform-origin: top center;
+  will-change: transform;
+}
+
+/* ==================================================
+   03. Structural rules — the measured column grid
+   --------------------------------------------------
+   Two hairline verticals inset from the container edge, drawn behind
+   the content. They are what makes the page read as a drawn sheet
+   rather than a stack of blocks. Desktop only — on a phone they would
+   just be visual noise inside a single column.
+   ================================================== */
+@media only screen and (min-width: 1200px) {
+  .a-ruled {
+    position: relative;
+    /* `isolation: isolate` makes this element its own stacking context,
+       which is what confines the z-index:-1 rules below to it. Without
+       it they escape to whichever ancestor happens to be a stacking
+       context — and since refine.css paints every section on an opaque
+       ground, escaping means disappearing behind that ground. */
+    isolation: isolate;
+  }
+  .a-ruled::before,
+  .a-ruled::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--a-line) 6%,
+      var(--a-line) 94%,
+      transparent
+    );
+    pointer-events: none;
+    /* -1, not 0. An absolutely positioned pseudo-element at z-index 0
+       paints ABOVE its parent's in-flow children (painting order step 6
+       vs step 3), which would draw these rules straight over the
+       headings. At -1 they land just above the section's own background,
+       where a drawn rule belongs. The nearest stacking context is the
+       section itself (refine.css gives it z-index 1), so they cannot
+       escape behind the page. */
+    z-index: -1;
+  }
+  .a-ruled::before { left: 25%; }
+  .a-ruled::after  { left: 75%; }
+}
+
+/* corner dimension ticks — the little L-marks on a drawing sheet */
+.a-ticks { position: relative; }
+.a-ticks::before,
+.a-ticks::after {
+  content: "";
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--a-t-mid) var(--a-swift),
+              transform var(--a-t-mid) var(--a-settle);
+  z-index: 2;
+}
+.a-ticks::before {
+  top: 0.9rem; left: 0.9rem;
+  border-top: 1px solid var(--a-line-3);
+  border-left: 1px solid var(--a-line-3);
+  transform: translate(0.4rem, 0.4rem);
+}
+.a-ticks::after {
+  bottom: 0.9rem; right: 0.9rem;
+  border-bottom: 1px solid var(--a-line-3);
+  border-right: 1px solid var(--a-line-3);
+  transform: translate(-0.4rem, -0.4rem);
+}
+.no-touch .a-ticks:hover::before,
+.no-touch .a-ticks:hover::after { opacity: 1; transform: translate(0, 0); }
+
+/* ==================================================
+   04. Section index plates
+   --------------------------------------------------
+   Every section is a numbered sheet:  [ 01 ] · WORKS ———————— 2026
+   ================================================== */
+.a-index {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.a-index__no {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.4rem;
+  height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--a-line-2);
+  border-radius: 999px;
+  background-color: var(--a-paper);
+  box-shadow: var(--a-lift-0);
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--a-ink);
+  white-space: nowrap;
+}
+
+.a-index__label {
+  flex: 0 0 auto;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+  color: var(--t-muted);
+  white-space: nowrap;
+}
+
+.a-index__rule {
+  flex: 1 1 auto;
+  height: 1px;
+  min-width: 2rem;
+  background-color: var(--a-line-2);
+  transform-origin: left center;
+}
+
+.a-index__meta {
+  flex: 0 0 auto;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  letter-spacing: 0.12em;
+  color: var(--t-muted);
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 575px) {
+  .a-index { gap: 1rem; margin-bottom: 1.8rem; }
+  .a-index__label { font-size: 1.05rem; letter-spacing: 0.14em; }
+  .a-index__meta  { display: none; }
+}
+
+/* the eyebrow tag used above headlines inside blocks */
+.a-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--a-line-2);
+  border-radius: 999px;
+  background-color: var(--a-paper);
+  box-shadow: var(--a-lift-0), var(--a-bevel);
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--t-medium);
+}
+
+/* a live status dot with a slow, calm pulse */
+.a-dot {
+  position: relative;
+  flex: 0 0 auto;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: var(--a-ink);
+}
+.a-dot::after {
+  content: "";
+  position: absolute;
+  inset: -0.35rem;
+  border-radius: 50%;
+  border: 1px solid var(--a-ink);
+  opacity: 0;
+  animation: a-ping 2.8s var(--a-settle) infinite;
+}
+@keyframes a-ping {
+  0%   { transform: scale(0.55); opacity: 0.7; }
+  70%  { transform: scale(1.5);  opacity: 0; }
+  100% { transform: scale(1.5);  opacity: 0; }
+}
+
+/* ==================================================
+   05. Plate primitive — the double-bezel enclosure
+   --------------------------------------------------
+   `.a-plate` is the outer tray: a slightly darker ground, a hairline
+   ring, a small uniform padding and a large radius. `.a-plate__in` is
+   the inner core, paper-white, with its own bevel and a radius
+   computed as (outer minus tray padding) so the two curves are
+   concentric. Nothing on this site sits flat on the page any more.
+   ================================================== */
+.a-plate {
+  position: relative;
+  padding: var(--a-tray-pad);
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r-xl);
+  background-color: var(--a-surface-2);
+  box-shadow: var(--a-lift-1);
+  transition: box-shadow var(--a-t-mid) var(--a-settle),
+              border-color var(--a-t-mid) var(--a-swift),
+              transform var(--a-t-mid) var(--a-settle);
+}
+
+.a-plate__in {
+  position: relative;
+  height: 100%;
+  border-radius: var(--a-r-in-xl);
+  background-color: var(--a-paper);
+  box-shadow: var(--a-bevel), var(--a-lift-0);
+  overflow: hidden;
+}
+
+/* interactive trays lift as one object */
+.no-touch .a-plate--live:hover {
+  transform: translateY(-0.4rem);
+  border-color: var(--a-line-2);
+  box-shadow: var(--a-lift-2);
+}
+.a-plate--live:active { transform: translateY(-0.1rem) scale(0.996); }
+
+/* size variants — radii stay concentric */
+.a-plate--m { border-radius: var(--a-r-l); }
+.a-plate--m > .a-plate__in { border-radius: var(--a-r-in-l); }
+.a-plate--s { border-radius: var(--a-r-m); padding: 0.45rem; }
+.a-plate--s > .a-plate__in { border-radius: calc(var(--a-r-m) - 0.45rem); }
+
+/* the inverted plate — ink tray, near-black core. Reserved for the one
+   or two moments on the page that should dominate. */
+.a-plate--ink {
+  border-color: rgba(255, 255, 255, 0.08);
+  background-color: #161616;
+  box-shadow: var(--a-lift-3);
+}
+.a-plate--ink > .a-plate__in {
+  background-color: var(--a-ink);
+  box-shadow: var(--a-bevel-dark);
+  color: var(--pt-t-accent-medium);
+}
+
+/* ==================================================
+   06. Buttons
+   --------------------------------------------------
+   A plain pill. No trailing glyph, and — deliberately — no movement of
+   any kind on hover, focus or press: no lift, no scale, no magnetic
+   lean. Buttons on this site hold their position; the only thing that
+   changes is tone. See section 19 for the site-wide rule that enforces
+   this on the template's own buttons too.
+   ================================================== */
+.a-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.3rem 2.6rem;
+  border: 1px solid var(--a-ink);
+  border-radius: 999px;
+  background-color: var(--a-ink);
+  color: var(--a-paper);
+  font-family: var(--_font-default);
+  font-size: var(--a-fs-s);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  /* tone only — never transform */
+  transition: background-color var(--a-t-fast) var(--a-swift),
+              border-color var(--a-t-fast) var(--a-swift),
+              color var(--a-t-fast) var(--a-swift);
+}
+.no-touch .a-cta:hover { background-color: var(--a-ink-soft); border-color: var(--a-ink-soft); }
+
+/* ghost variant on paper */
+.a-cta--ghost {
+  background-color: var(--a-paper);
+  border-color: var(--a-line-2);
+  color: var(--a-ink);
+  box-shadow: var(--a-bevel);
+}
+.no-touch .a-cta--ghost:hover {
+  background-color: var(--a-surface-2);
+  border-color: var(--a-line-3);
+}

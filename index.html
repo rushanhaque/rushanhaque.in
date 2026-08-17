@@ -42,8 +42,12 @@
     <!-- Fonts & resource hints Start -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400..600&display=swap">
+    <!-- the two stylesheets first paint depends on -->
     <link rel="preload" as="style" href="css/main.css?v=42">
+    <link rel="preload" as="style" href="css/architect.css?v=64">
+    <!-- the LCP candidate on the hero -->
+    <link rel="preload" as="image" href="img/rh/projects/erfolg.webp" fetchpriority="low">
     <!-- Fonts & resource hints End -->
 
     <!-- Template Styles Start -->
@@ -51,8 +55,11 @@
     <link rel="stylesheet" type="text/css" href="css/plugins.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/main.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/navbar.css?v=42">
-    <link rel="stylesheet" type="text/css" href="css/reviews.css?v=42">
-    <link rel="stylesheet" type="text/css" href="css/refine.css?v=59">
+    <link rel="stylesheet" type="text/css" href="css/reviews.css?v=61">
+    <link rel="stylesheet" type="text/css" href="css/refine.css?v=61">
+    <!-- design system: tokens + primitives, then the section pass -->
+    <link rel="stylesheet" type="text/css" href="css/architect.css?v=64">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=65">
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
@@ -87,24 +94,30 @@
       <div class="mxd-loader__top">
         <span>Rushan Haque</span>
       </div>
-      <div class="mxd-loader__images">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%231A1A1A'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23333333'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%234D4D4D'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23666666'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23808080'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23999999'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23B3B3B3'/%3E%3C/svg%3E" alt="Loader Image" width="300" height="300">
+      <!-- the loading indicator is a drafting rule that fills, not a
+           stack of cycling images: one composited transform per frame -->
+      <div class="mxd-loader__images" aria-hidden="true"></div>
+      <div class="a-load" role="progressbar" aria-label="Loading">
+        <span class="a-load__fill"></span>
       </div>
       <div class="mxd-loader__bottom">
         <div class="mxd-loader__count">
           <span class="count__text">0</span>
           <span class="count__percent">%</span>
         </div>
-        <span class="mxd-loader__caption">Loading</span>
+        <span class="mxd-loader__caption">Drawing the sheet</span>
       </div>
     </div>
     <!-- Loader End -->
+
+    <!-- Sheet Overlays Start -->
+    <!-- Fixed, pointer-events:none, composited once. The grain is what
+         stops the white reading as #FFF; the rail is the reading
+         position; the vignette is a 2.8% corner falloff. -->
+    <div class="a-vignette" aria-hidden="true"></div>
+    <div class="a-sheet" aria-hidden="true"></div>
+    <div class="a-rail" aria-hidden="true"><span class="a-rail__fill"></span></div>
+    <!-- Sheet Overlays End -->
 
     <!-- Menu Hamburger Start -->
     <div class="mxd-menu__contain loading-fade">
@@ -314,6 +327,19 @@
             <div class="mxd-hero-10__wrap">
               <!-- top group -->
               <div class="mxd-hero-10__top">
+                <!-- the title block: status, place, local time. Read as
+                     the header of a drawing sheet rather than a badge row. -->
+                <div class="a-hero-meta loading-fade">
+                  <span class="a-eyebrow">
+                    <span class="a-dot" aria-hidden="true"></span>
+                    Open for work — 2026
+                  </span>
+                  <span class="a-hero-meta__coords">
+                    <span>28.84&deg;N 78.77&deg;E</span>
+                    <span>Moradabad, IN</span>
+                    <span>IST <b class="a-clock">--:--</b></span>
+                  </span>
+                </div>
                 <div class="mxd-hero-10__headline mxd-grid-item">
                   <div class="hero-10-headline__wrap">
                     <h1>
@@ -331,6 +357,16 @@
                   <div class="mxd-hero-10__descr">
                     <p class="t-bold loading-split">Developer &amp; Writer.</p>
                   </div>
+                  <p class="a-hero-lede loading-fade">I draw the structure before I pour the concrete — commercial
+                  sites, product interfaces and long-form writing, built to hold up.</p>
+                  <div class="a-hero-actions loading-fade">
+                    <a class="a-cta" href="contact.html">
+                      <span>Start a project</span>
+                    </a>
+                    <a class="a-cta a-cta--ghost" href="works-default.html">
+                      <span>See the work</span>
+                    </a>
+                  </div>
                 </div>
                 <div class="mxd-hero-10__divider divider-bottom"></div>
               </div>
@@ -338,23 +374,36 @@
               <div class="mxd-hero-10__bottom">
                 <div class="mxd-hero-10__dataline">
                   <div class="mxd-hero-10__socials mxd-grid-item">
-                    <ul class="mxd-socials-line column">
-                      <li class="loading-item">
-                        <a class="mxd-socials-line__link" href="https://linkedin.com/in/rushanhaque" target="_blank">
-                          <span class="mxd-scramble">LinkedIn</span>
-                        </a>
-                      </li>
-                      <li class="loading-item">
-                        <a class="mxd-socials-line__link" href="https://instagram.com/rushanhaque" target="_blank">
-                          <span class="mxd-scramble">Instagram</span>
-                        </a>
-                      </li>
-                      <li class="loading-item">
-                        <a class="mxd-socials-line__link" href="https://wa.me/917668047608" target="_blank">
-                          <span class="mxd-scramble">WhatsApp</span>
-                        </a>
-                      </li>
-                    </ul>
+                    <div class="a-hero-foot">
+                      <div>
+                        <ul class="a-hero-disc loading-fade">
+                          <li><b>01</b> Development</li>
+                          <li><b>02</b> Design</li>
+                          <li><b>03</b> Writing</li>
+                        </ul>
+                        <ul class="mxd-socials-line column">
+                          <li class="loading-item">
+                            <a class="mxd-socials-line__link" href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener">
+                              <span class="mxd-scramble">LinkedIn</span>
+                            </a>
+                          </li>
+                          <li class="loading-item">
+                            <a class="mxd-socials-line__link" href="https://instagram.com/rushanhaque" target="_blank" rel="noopener">
+                              <span class="mxd-scramble">Instagram</span>
+                            </a>
+                          </li>
+                          <li class="loading-item">
+                            <a class="mxd-socials-line__link" href="https://wa.me/917668047608" target="_blank" rel="noopener">
+                              <span class="mxd-scramble">WhatsApp</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <span class="a-scroll loading-fade" aria-hidden="true">
+                        <span>Scroll</span>
+                        <span class="a-scroll__track"></span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -370,7 +419,7 @@
       <!-- Section - Projects Grid x2 Showcase Start -->
       <div id="works" class="mxd-section blur-section pinned-section padding-top-number padding-bottom-default">
         <div class="pinned-section__inner">
-          <div class="mxd-container grid-l-container">
+          <div class="mxd-container grid-l-container a-ruled">
 
             <!-- Block - Section Title v05 Start -->
             <div class="mxd-block">
@@ -378,11 +427,20 @@
                 <div class="container-fluid p-0">
                   <div class="row g-0">
                     <div class="col-12 col-xl-12 mxd-grid-item">
+                      <!-- sheet index -->
+                      <div class="a-index">
+                        <span class="a-index__no">01</span>
+                        <span class="a-index__label">Selected works</span>
+                        <span class="a-index__rule"></span>
+                        <span class="a-index__meta">2025 — 2026</span>
+                      </div>
                       <div class="mxd-section-title__title">
                         <a class="active-cursor-accent" data-cursor-text="Recent Works" href="works-default.html">
                           <h2 class="mxd-split-lines">Recent Works</h2>
                         </a>
                       </div>
+                      <p class="a-lede anim-uni-in-up">Commercial builds, shipped end to end — brief, structure,
+                      interface, code, launch. <strong>Every one of these is live or in build for a paying client.</strong></p>
                     </div>
                   </div>
                 </div>
@@ -409,6 +467,12 @@
       <div id="insights" class="mxd-section blur-section padding-top-number padding-bottom-tag-m">
         <div class="mxd-container grid-l-container">
           <div class="mxd-block">
+            <div class="a-index">
+              <span class="a-index__no">02</span>
+              <span class="a-index__label">By the numbers</span>
+              <span class="a-index__rule"></span>
+              <span class="a-index__meta">Measured, not claimed</span>
+            </div>
             <div class="mxd-section-title">
               <div class="container-fluid p-0">
                 <div class="row g-0">
@@ -484,12 +548,138 @@
       </div>
       <!-- Section - Insights End -->
 
+      <!-- Section - Capabilities Start -->
+      <!-- An asymmetric bento: one ink plate carrying the positioning
+           statement, three paper plates carrying the disciplines. This is
+           the page's strongest contrast moment and its only ink plate
+           above the reviews. -->
+      <div id="capabilities" class="mxd-section blur-section padding-top-number padding-bottom-default">
+        <div class="mxd-container grid-l-container">
+
+          <div class="mxd-block">
+            <div class="a-index">
+              <span class="a-index__no">03</span>
+              <span class="a-index__label">Capabilities</span>
+              <span class="a-index__rule"></span>
+              <span class="a-index__meta">Three disciplines, one hand</span>
+            </div>
+            <div class="mxd-section-title pre-grid">
+              <div class="container-fluid p-0">
+                <div class="row g-0">
+                  <div class="col-12 col-xl-12 mxd-grid-item">
+                    <div class="mxd-section-title__title">
+                      <h2 class="mxd-split-lines">What I<br>actually do</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mxd-block">
+            <div class="container-fluid p-0">
+              <div class="row g-0">
+                <div class="col-12 mxd-grid-item">
+                  <div class="a-bento">
+
+                    <!-- the ink lead plate -->
+                    <div class="a-plate a-plate--ink a-bento__lead a-reveal">
+                      <div class="a-plate__in">
+                        <div class="a-bento__body">
+                          <div>
+                            <span class="a-meta">Position</span>
+                            <p class="a-manifest">Most sites are decorated. <em>I would rather they were
+                            engineered</em> — structure first, surface last.</p>
+                          </div>
+                          <div class="a-bento__aside">
+                            <p>One person from brief to launch means no handoff loss: the person who drew the
+                            layout is the person who wrote the CSS and the person who answers the email when
+                            something breaks at 11pm.</p>
+                            <a class="a-cta" href="contact.html">
+                              <span>Talk it through</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- discipline 01 -->
+                    <div class="a-plate a-plate--live a-bento__cell a-ticks a-reveal" data-reveal-delay="60">
+                      <div class="a-plate__in">
+                        <div class="a-bento__body">
+                          <div class="a-disc__head">
+                            <h3 class="a-disc__title">Development</h3>
+                            <span class="a-meta">01</span>
+                          </div>
+                          <p class="a-disc__descr">Full-stack builds that stay fast under real traffic. Semantic
+                          markup, no framework tax where none is needed, and a page that works before the
+                          JavaScript lands.</p>
+                          <ul class="a-disc__list">
+                            <li>JavaScript</li><li>React</li><li>Node</li>
+                            <li>Python</li><li>APIs</li><li>Vercel</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- discipline 02 -->
+                    <div class="a-plate a-plate--live a-bento__cell a-ticks a-reveal" data-reveal-delay="120">
+                      <div class="a-plate__in">
+                        <div class="a-bento__body">
+                          <div class="a-disc__head">
+                            <h3 class="a-disc__title">Design</h3>
+                            <span class="a-meta">02</span>
+                          </div>
+                          <p class="a-disc__descr">Interface and identity drawn to a grid, on a type scale, with
+                          motion that carries mass. Every decision has a reason you can hear out loud.</p>
+                          <ul class="a-disc__list">
+                            <li>Interface</li><li>Identity</li><li>Type</li>
+                            <li>Motion</li><li>Figma</li><li>Systems</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- discipline 03 -->
+                    <div class="a-plate a-plate--live a-bento__cell a-ticks a-reveal" data-reveal-delay="180">
+                      <div class="a-plate__in">
+                        <div class="a-bento__body">
+                          <div class="a-disc__head">
+                            <h3 class="a-disc__title">Writing</h3>
+                            <span class="a-meta">03</span>
+                          </div>
+                          <p class="a-disc__descr">Essays, poetry and published research since 2022. The same
+                          instinct as the code — cut everything that is not load-bearing.</p>
+                          <ul class="a-disc__list">
+                            <li>Essays</li><li>Poetry</li><li>Research</li>
+                            <li>Copy</li><li>Editing</li><li>Narrative</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- Section - Capabilities End -->
+
       <!-- Section - Products Start -->
       <div id="products" class="mxd-section blur-section padding-top-number padding-bottom-default">
         <div class="mxd-container grid-l-container">
 
           <!-- Block - Section Title v05 Start -->
           <div class="mxd-block">
+            <div class="a-index">
+              <span class="a-index__no">04</span>
+              <span class="a-index__label">Products</span>
+              <span class="a-index__rule"></span>
+              <span class="a-index__meta">Things I own, not client work</span>
+            </div>
             <div class="mxd-section-title pre-grid">
               <div class="container-fluid p-0">
                 <div class="row g-0">
@@ -517,11 +707,17 @@
 
 
       <!-- Section - Blogs & Writeups Start -->
-      <div id="personal" class="mxd-section blur-section padding-top-number padding-bottom-default">
+      <div id="personal" class="mxd-section blur-section padding-top-number padding-bottom-default a-ruled">
         <div class="mxd-container grid-l-container">
 
           <!-- Block - Section Title v05 Start -->
           <div class="mxd-block">
+            <div class="a-index">
+              <span class="a-index__no">05</span>
+              <span class="a-index__label">Writing</span>
+              <span class="a-index__rule"></span>
+              <span class="a-index__meta">Essays · Poetry · Research</span>
+            </div>
             <div class="mxd-section-title pre-grid">
               <div class="container-fluid p-0">
                 <div class="row g-0">
@@ -529,6 +725,8 @@
                     <div class="mxd-section-title__title">
                       <h2 class="mxd-split-lines">Blogs and<br>writeups</h2>
                     </div>
+                    <p class="a-lede anim-uni-in-up">The other half of the practice. Long-form work that
+                    doesn&rsquo;t compile.</p>
                   </div>
                 </div>
               </div>
@@ -559,6 +757,12 @@
 
             <!-- Section Title v06 Start -->
             <div class="mxd-block">
+              <div class="a-index">
+                <span class="a-index__no">06</span>
+                <span class="a-index__label">Journey</span>
+                <span class="a-index__rule"></span>
+                <span class="a-index__meta">Experience &amp; education</span>
+              </div>
               <div class="mxd-section-title">
                 <div class="container-fluid p-0">
                   <div class="row g-0">
@@ -629,11 +833,20 @@
       </div>
       <!-- Section - Resume End -->
 
-      <!-- Section - Parallax Divider Image & Title Start -->
+      <!-- Section - Review Submission Band Start -->
+      <!-- This used to be one of the template's `.mxd-stack-cards`, which
+           meant ScrollTrigger pinned it at exactly 100svh and main.css
+           absolutely centred the card inside it. A form is taller than a
+           short viewport, so it bled out of the band into the section
+           above at every laptop height. It is now a plain flow band
+           (`.a-band`) that grows with its content: no pin, no absolute
+           centring, nothing to overflow. The marquee is untouched —
+           `initMarquees()` binds to `.marquee--gsap`, independently of
+           the stack-cards machinery. -->
       <div class="mxd-section blur-section rh-marquee-white-section">
         <div class="mxd-container fullwidth-container">
-          <div class="mxd-stack-cards rh-divider-stack">
-            <div class="mxd-stack-cards__card">
+          <div class="a-band rh-divider-stack">
+            <div class="a-band__card">
               <!-- moving background text -->
               <div class="card__marquees">
                 <div class="marquee marquee-stack marquee--gsap">
@@ -665,9 +878,20 @@
               </div>
               <div class="card__wrapper rh-static-card-wrapper">
                 <div class="rh-review-marquee-card">
-                  <h3 class="rh-review-card__title">Write a review</h3>
-                  <p class="rh-review-card__note">Worked with me? I'd love to hear how it went — it goes straight to my inbox.</p>
-                  <form id="rh-review-form" novalidate>
+                 <div class="a-form__core">
+                  <!-- title block left, form right, on wide screens -->
+                  <div class="a-form__head">
+                    <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Open submission</span>
+                    <h3 class="rh-review-card__title">Add your name<br>to the sheet.</h3>
+                    <p class="rh-review-card__note">Worked with me? Say how it actually went. It lands in my
+                    inbox unedited, and it goes up on this page the same way — no editing, no cherry-picking.</p>
+                    <ul class="a-form__facts">
+                      <li><b>01</b> Takes under a minute</li>
+                      <li><b>02</b> Straight to my inbox</li>
+                      <li><b>03</b> Published as written</li>
+                    </ul>
+                  </div>
+                  <form id="rh-review-form" class="a-form__body" novalidate>
                     <input type="hidden" name="rating" value="">
                     <input type="hidden" name="_subject" value="New website review">
                     <div class="rh-form-grid">
@@ -699,10 +923,13 @@
                       </div>
                     </div>
                     <div class="rh-review-form__actions">
-                      <button type="submit" class="rh-submit">Send review</button>
+                      <button type="submit" class="rh-submit">
+                        <span>Send review</span>
+                      </button>
                       <p class="rh-form-msg" role="status" aria-live="polite"></p>
                     </div>
                   </form>
+                 </div>
                 </div>
               </div>
             </div>
@@ -720,6 +947,12 @@
 
           <!-- Block - Section Title Start -->
           <div class="mxd-block">
+            <div class="a-index">
+              <span class="a-index__no">07</span>
+              <span class="a-index__label">Reviews</span>
+              <span class="a-index__rule"></span>
+              <span class="a-index__meta">Unedited, in their words</span>
+            </div>
             <div class="mxd-section-title pre-grid">
               <div class="container-fluid p-0">
                 <div class="row g-0">
@@ -735,9 +968,11 @@
           <!-- Block - Section Title End -->
 
           <!-- Block - Reviews Start -->
+          <!-- render.js writes the aggregate readout plus the specimen
+               plates into this host; see js/render.js -> renderReviews() -->
           <div class="mxd-block">
             <div class="container-fluid p-0">
-              <div class="row g-0 mxd-reviews-gallery" id="rh-reviews"></div>
+              <div class="mxd-grid-item" id="rh-reviews"></div>
             </div>
           </div>
           <!-- Block - Reviews End -->
@@ -752,6 +987,31 @@
     <!-- Footer Start -->
     <footer id="mxd-footer" class="mxd-footer blur-section">
       <div class="mxd-container grid-l-container">
+
+        <!-- Footer Block - Closing CTA Start -->
+        <!-- The sheet closes the way it opened: one ink plate, one action. -->
+        <div class="mxd-block">
+          <div class="mxd-grid-item">
+            <div class="a-plate a-plate--ink a-reveal">
+              <div class="a-plate__in">
+                <div class="a-close__body">
+                  <div>
+                    <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Two slots left for 2026</span>
+                    <h2 class="a-close__title">Got something<br>worth building?</h2>
+                  </div>
+                  <div class="a-close__side">
+                    <p class="a-close__note">Send the brief, or just the problem. I reply to every message
+                    myself, usually inside a day.</p>
+                    <a class="a-cta" href="contact.html">
+                      <span>Start the conversation</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer Block - Closing CTA End -->
 
         <!-- Footer Block - Info Columns Start -->
         <div class="mxd-block rh-footer-top">
@@ -822,21 +1082,31 @@
     </div>
 
     <!-- Load Scripts Start -->
-    <!-- content data + render: MUST run before app.js so the template's
-         GSAP/ScrollTrigger animations bind to the rendered markup -->
-    <script src="data/projects.js?v=45"></script>
-    <script src="data/journey.js?v=42"></script>
-    <script src="data/products.js?v=42"></script>
-    <script src="data/reviews.js?v=42"></script>
-    <script src="js/render.js?v=44"></script>
+    <!-- Every script is `defer`, which does two things at once:
+         · none of them block the parser, so first paint no longer waits
+           on ~650KB of JavaScript being compiled
+         · `defer` guarantees execution in document order, and guarantees
+           all of them finish BEFORE DOMContentLoaded fires
+         The second point is what makes this safe here: render.js still
+         runs before app.js, and app.js still gets to add its
+         DOMContentLoaded listener before the event is dispatched, so the
+         GSAP/ScrollTrigger bindings attach to fully rendered markup
+         exactly as they did when these were blocking scripts.
+         Do not reorder these tags. -->
+    <script defer src="data/projects.js?v=45"></script>
+    <script defer src="data/journey.js?v=42"></script>
+    <script defer src="data/products.js?v=42"></script>
+    <script defer src="data/reviews.js?v=42"></script>
+    <script defer src="js/render.js?v=64"></script>
 
-    <script src="js/form-config.js?v=42"></script>
-    <script src="js/libs.min.js"></script>
-    <script src="js/app.js?v=58"></script>
-    <script src="js/gradient-waves.js"></script>
-    <script src="js/navbar.js?v=46"></script>
-    <script src="js/dots-nav.js?v=1"></script>
-    <script src="js/reviews.js?v=42"></script>
+    <script defer src="js/form-config.js?v=42"></script>
+    <script defer src="js/libs.min.js"></script>
+    <script defer src="js/app.js?v=61"></script>
+    <script defer src="js/gradient-waves.js?v=61"></script>
+    <script defer src="js/navbar.js?v=64"></script>
+    <script defer src="js/dots-nav.js?v=1"></script>
+    <script defer src="js/reviews.js?v=42"></script>
+    <script defer src="js/architect.js?v=64"></script>
     <!-- Load Scripts End -->
     
   </body>

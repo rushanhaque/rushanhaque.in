@@ -199,8 +199,15 @@ function mxdLoader() {
   const startTl = startLoader();
   startTl.play();
 
-  const loaderTime = 1.2;
-  const loaderMaxWait = 4000; // safety cap — lazy images offscreen never fire load/error
+  // Perceived speed. The loader used to hold the page for a *minimum* of
+  // 1.2s and could hold it for 4s waiting on imagesLoaded — a self-imposed
+  // delay on a site whose whole point is that it feels fast. The floor is
+  // now 0.6s (still long enough for the counter to read as intentional
+  // rather than as a flash) and the ceiling is 1.6s, after which the page
+  // reveals regardless: images below the fold are lazy anyway, so waiting
+  // on them buys nothing.
+  const loaderTime = 0.6;
+  const loaderMaxWait = 1600; // safety cap — lazy images offscreen never fire load/error
 
   Promise.all([
     Promise.race([
@@ -275,12 +282,13 @@ function startLoader() {
   const tl = gsap.timeline();
   tl.to(imgContainer, {
     clipPath: "polygon(100% 0%, 100% 100%, 0% 100%, 0% 0%)",
-    duration: 0.6,
+    duration: 0.4,
     ease: "hop",
   });
-  // counter animation synced to timeline
+  // counter animation synced to timeline — matched to the new 0.6s floor
+  // in mxdLoader() so the count reaches 100 exactly as the reveal starts
   tl.to({}, {
-    duration: 1.2,
+    duration: 0.6,
     onUpdate: function () {
       currentValue = Math.min(Math.floor(this.progress() * 100), 100);
       counterElement.textContent = currentValue;

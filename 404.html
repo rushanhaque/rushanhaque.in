@@ -42,7 +42,7 @@
     <!-- Fonts & resource hints Start -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400..600&display=swap">
     <link rel="preload" as="style" href="css/main.css?v=42">
     <!-- Fonts & resource hints End -->
 
@@ -52,6 +52,9 @@
     <link rel="stylesheet" type="text/css" href="css/main.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/navbar.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/refine.css?v=53">
+    <!-- design system: tokens + primitives, then the section pass -->
+    <link rel="stylesheet" type="text/css" href="css/architect.css?v=64">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=65">
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
@@ -72,24 +75,30 @@
       <div class="mxd-loader__top">
         <span>Rushan Haque</span>
       </div>
-      <div class="mxd-loader__images">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%231A1A1A'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23333333'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%234D4D4D'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23666666'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23808080'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23999999'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect width='300' height='300' fill='%23B3B3B3'/%3E%3C/svg%3E" alt="Image" width="300" height="300">
+      <!-- the loading indicator is a drafting rule that fills, not a
+           stack of cycling images: one composited transform per frame -->
+      <div class="mxd-loader__images" aria-hidden="true"></div>
+      <div class="a-load" role="progressbar" aria-label="Loading">
+        <span class="a-load__fill"></span>
       </div>
       <div class="mxd-loader__bottom">
         <div class="mxd-loader__count">
           <span class="count__text">0</span>
           <span class="count__percent">%</span>
         </div>
-        <span class="mxd-loader__caption">Loading</span>
+        <span class="mxd-loader__caption">Drawing the sheet</span>
       </div>
     </div>
     <!-- Loader End -->
+
+    <!-- Sheet Overlays Start -->
+    <!-- Fixed, pointer-events:none, composited once. The grain is what
+         stops the white reading as #FFF; the rail is the reading
+         position; the vignette is a 2.8% corner falloff. -->
+    <div class="a-vignette" aria-hidden="true"></div>
+    <div class="a-sheet" aria-hidden="true"></div>
+    <div class="a-rail" aria-hidden="true"><span class="a-rail__fill"></span></div>
+    <!-- Sheet Overlays End -->
 
     <!-- Menu Hamburger Start -->
     <div class="mxd-menu__contain loading-fade">
@@ -473,9 +482,10 @@
     </div>
 
     <!-- Load Scripts Start -->
-    <script src="js/libs.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/navbar.js?v=46"></script>
+    <script defer src="js/libs.min.js"></script>
+    <script defer src="js/app.js"></script>
+    <script defer src="js/navbar.js?v=64"></script>
+    <script defer src="js/architect.js?v=64"></script>
     <!-- Load Scripts End -->
     
   </body>
