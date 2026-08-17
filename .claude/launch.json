@@ -4,8 +4,8 @@
     {
       "name": "atelys",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8321"],
-      "port": 8321
+      "runtimeArgs": ["-m", "http.server", "8322"],
+      "port": 8322
     }
   ]
 }

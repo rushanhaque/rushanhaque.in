@@ -1044,11 +1044,45 @@ html.rh-nav-in .rh-fade {
 
   /* the fixed glass bar already reserves the top of the screen */
   .mxd-hero-section { padding-top: 0; }
+
+  /* --- fill the phone screen exactly ---
+     svh is the *small* viewport height (the short state, with the browser
+     chrome showing), so the hero is guaranteed to fit without the next
+     section peeking above the fold no matter how the URL bar behaves.
+     Both height and min-height are set: height lets % children fill the
+     space while min-height keeps the section from shrinking on portrait. */
+  .mxd-hero-section,
+  .mxd-hero-section.mxd-hero-fullheight-desktop {
+    height: 100vh;
+    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .mxd-hero-section .pinned-section__inner,
+  .mxd-hero-10 {
+    height: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  /* the three groups spread themselves down that full height instead of
+     stacking at the top and leaving dead space underneath */
+  .mxd-hero-10__wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-bottom: 3.5rem;
+  }
+  .mxd-hero-10__center { flex: 0 0 auto; }
+
   .mxd-hero-10__headline {
     padding-top: 11rem;
     padding-bottom: 0;
   }
-  .mxd-hero-10__wrap { padding-bottom: 3.5rem; }
 
   /* headline: let it fill the gutter width properly and sit left */
   .hero-10-headline__wrap { text-align: left; }
