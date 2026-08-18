@@ -108,13 +108,8 @@
 '                        <a class="mxd-project-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? ' — visit site' : ' — coming soon') + '">\n' +
 '                          ' + media + '\n' +
 '                        </a>\n' +
-'                      </div>\n' +
-'                      <div class="mxd-project-item__caption">\n' +
-'                        <div class="mxd-project-item__name">\n' +
-'                          <a class="a-cap__name" href="' + esc(href) + '"' + blank + '>' + esc(p.title) + '</a>\n' +
-'                          <div class="a-cap__tags">\n' +
-'                            ' + tags(p.tags, 'mxd-scramble') + '\n' +
-'                          </div>\n' +
+'                        <div class="rh-card-name">\n' +
+'                          <a href="' + esc(href) + '"' + blank + '>' + esc(p.title) + '</a>\n' +
 '                        </div>\n' +
 '                      </div>\n' +
 '                    </div>';
