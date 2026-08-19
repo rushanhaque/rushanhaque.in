@@ -8,7 +8,7 @@
    1. Header becomes a real fixed navbar
    --------------------------------------------------------- */
 .mxd-header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -16,35 +16,34 @@
   align-items: center;
   gap: 2rem;
   z-index: 20;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background-color 0.35s var(--_animbezier),
-              border-color 0.35s var(--_animbezier),
-              padding 0.35s var(--_animbezier),
-              box-shadow 0.35s var(--_animbezier);
+  background-color: var(--base);
+  border-bottom: 1px solid rgba(var(--base-opp-rgb), 0.08);
+  transition: box-shadow 0.35s var(--_animbezier),
+              padding 0.35s var(--_animbezier);
 }
 
 @media only screen and (min-width: 768px) {
-  .mxd-header { left: 0; width: 100%; padding: 1.75rem 6rem; }
+  .mxd-header { padding: 1.75rem 6rem; }
 }
 @media only screen and (min-width: 1600px) {
-  .mxd-header { left: 0; width: 100%; padding: 1.75rem 10rem; }
+  .mxd-header { padding: 1.75rem 10rem; }
 }
 
 /* never let the template's scroll-hide collapse the bar */
 .mxd-header.is-hidden {
-  transform: none;
-  opacity: 1;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 /* solid state once the page is scrolled */
 .mxd-header.rh-scrolled {
-  background-color: var(--base);
-  border-bottom-color: rgba(var(--base-opp-rgb), 0.10);
   box-shadow: 0 1px 24px rgba(var(--base-opp-rgb), 0.06);
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+/* hide the pixel-art icon from the header logo — text only */
+.mxd-header .mxd-logo__image { display: none; }
 
 /* push page content below the fixed bar */
 body { padding-top: 0; }
@@ -180,14 +179,14 @@ body { padding-top: 0; }
 }
 
 /* ---------------------------------------------------------
-   5. Hero spacing so the fixed bar never covers content
+   5. Hero spacing — navbar is sticky so no offset needed
    --------------------------------------------------------- */
-.mxd-hero-section { padding-top: 6rem; }
+.mxd-hero-section { padding-top: 2rem; }
 
 @media only screen and (min-width: 992px) {
-  .mxd-hero-section { padding-top: 7rem; }
+  .mxd-hero-section { padding-top: 3rem; }
 }
 
-/* inner pages start with a headline block rather than a hero */
+/* inner pages start with a headline block */
 .mxd-section.mxd-inner-headline,
-.mxd-inner-headline { padding-top: 7rem; }
+.mxd-inner-headline { padding-top: 4rem; }

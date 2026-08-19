@@ -232,6 +232,13 @@
 '                      </div>\n'
         );
 
+    var thumbSrc = p.image ? esc(p.image)
+      : p.url ? ('https://image.thum.io/get/width/640/crop/400/noanimate/' + esc(p.url))
+      : '';
+    var thumbHtml = thumbSrc
+      ? '\n                  <div class="rh-archive-thumb"><img src="' + thumbSrc + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="640" height="400"></div>'
+      : '';
+
     return '' +
 '                <a class="mxd-projects-list__item active-cursor-image active-cursor-permanent"' + cursorImg + ' data-cursor-text="' + status + '" href="' + esc(href) + '"' + blank + noNav + '>\n' +
 '                  <div class="mxd-projects-list__divider top"></div>\n' +
@@ -251,6 +258,7 @@
 '                      </div>\n' +
 '                    </div>\n' +
 '                  </div>\n' +
+                  thumbHtml + '\n' +
 '                  <div class="mxd-projects-list__divider bottom"></div>\n' +
 '                </a>';
   }
