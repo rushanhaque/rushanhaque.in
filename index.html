@@ -56,10 +56,12 @@
     <link rel="stylesheet" type="text/css" href="css/main.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/navbar.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/reviews.css?v=61">
-    <link rel="stylesheet" type="text/css" href="css/refine.css?v=61">
+    <link rel="stylesheet" type="text/css" href="css/refine.css?v=63">
     <!-- design system: tokens + primitives, then the section pass -->
     <link rel="stylesheet" type="text/css" href="css/architect.css?v=64">
-    <link rel="stylesheet" type="text/css" href="css/sections.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=71">
+    <!-- mobile layer: loaded last, overrides everything -->
+    <link rel="stylesheet" type="text/css" href="css/mobile.css?v=3">
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
@@ -357,8 +359,8 @@
                   <div class="mxd-hero-10__descr">
                     <p class="t-bold loading-split">Developer &amp; Writer.</p>
                   </div>
-                  <p class="a-hero-lede loading-fade">I draw the structure before I pour the concrete — commercial
-                  sites, product interfaces and long-form writing, built to hold up.</p>
+                  <p class="a-hero-lede loading-fade">I think in structure. Sites, interfaces, essays — same
+                  instinct, different material.</p>
                   <div class="a-hero-actions loading-fade">
                     <a class="a-cta" href="contact.html">
                       <span>Start a project</span>
@@ -418,8 +420,8 @@
                           <h2 class="mxd-split-lines">Recent Works</h2>
                         </a>
                       </div>
-                      <p class="a-lede anim-uni-in-up">Commercial builds, shipped end to end — brief, structure,
-                      interface, code, launch. <strong>Every one of these is live or in build for a paying client.</strong></p>
+                      <p class="a-lede anim-uni-in-up">Brief to launch, all of it mine.
+                      <strong>Nothing here is a concept — every one is live or in build for a paying client.</strong></p>
                     </div>
                   </div>
                 </div>
@@ -446,11 +448,11 @@
       <div id="insights" class="mxd-section blur-section padding-top-number padding-bottom-tag-m">
         <div class="mxd-container grid-l-container">
           <div class="mxd-block">
-            <div class="a-index">
+            <div class="a-index mxd-grid-item">
               <span class="a-index__no">02</span>
               <span class="a-index__label">By the numbers</span>
               <span class="a-index__rule"></span>
-              <span class="a-index__meta">Measured, not claimed</span>
+              <span class="a-index__meta">Counted, not claimed</span>
             </div>
             <div class="mxd-section-title">
               <div class="container-fluid p-0">
@@ -536,7 +538,7 @@
         <div class="mxd-container grid-l-container">
 
           <div class="mxd-block">
-            <div class="a-index">
+            <div class="a-index mxd-grid-item">
               <span class="a-index__no">03</span>
               <span class="a-index__label">Capabilities</span>
               <span class="a-index__rule"></span>
@@ -567,13 +569,12 @@
                         <div class="a-bento__body">
                           <div>
                             <span class="a-meta">Position</span>
-                            <p class="a-manifest">Most sites are decorated. <em>I would rather they were
-                            engineered</em> — structure first, surface last.</p>
+                            <p class="a-manifest">Most sites are decorated. <em>I'd rather they were
+                            built</em> — structure first, surface last.</p>
                           </div>
                           <div class="a-bento__aside">
-                            <p>One person from brief to launch means no handoff loss: the person who drew the
-                            layout is the person who wrote the CSS and the person who answers the email when
-                            something breaks at 11pm.</p>
+                            <p>One person, brief to launch. Whoever drew it wrote it, and picks up the phone
+                            when it breaks at 11pm.</p>
                             <a class="a-cta" href="contact.html">
                               <span>Talk it through</span>
                             </a>
@@ -590,9 +591,8 @@
                             <h3 class="a-disc__title">Development</h3>
                             <span class="a-meta">01</span>
                           </div>
-                          <p class="a-disc__descr">Full-stack builds that stay fast under real traffic. Semantic
-                          markup, no framework tax where none is needed, and a page that works before the
-                          JavaScript lands.</p>
+                          <p class="a-disc__descr">Fast under real traffic. Semantic markup, no framework tax,
+                          and a page that works before the JavaScript shows up.</p>
                           <ul class="a-disc__list">
                             <li>JavaScript</li><li>React</li><li>Node</li>
                             <li>Python</li><li>APIs</li><li>Vercel</li>
@@ -609,8 +609,8 @@
                             <h3 class="a-disc__title">Design</h3>
                             <span class="a-meta">02</span>
                           </div>
-                          <p class="a-disc__descr">Interface and identity drawn to a grid, on a type scale, with
-                          motion that carries mass. Every decision has a reason you can hear out loud.</p>
+                          <p class="a-disc__descr">Drawn to a grid, set on a scale, moved with weight. Every
+                          choice has a reason I can say out loud.</p>
                           <ul class="a-disc__list">
                             <li>Interface</li><li>Identity</li><li>Type</li>
                             <li>Motion</li><li>Figma</li><li>Systems</li>
@@ -627,8 +627,8 @@
                             <h3 class="a-disc__title">Writing</h3>
                             <span class="a-meta">03</span>
                           </div>
-                          <p class="a-disc__descr">Essays, poetry and published research since 2022. The same
-                          instinct as the code — cut everything that is not load-bearing.</p>
+                          <p class="a-disc__descr">Essays, poetry, published research since 2022. Same instinct
+                          as the code — cut anything that isn't load-bearing.</p>
                           <ul class="a-disc__list">
                             <li>Essays</li><li>Poetry</li><li>Research</li>
                             <li>Copy</li><li>Editing</li><li>Narrative</li>
@@ -653,7 +653,7 @@
 
           <!-- Block - Section Title v05 Start -->
           <div class="mxd-block">
-            <div class="a-index">
+            <div class="a-index mxd-grid-item">
               <span class="a-index__no">04</span>
               <span class="a-index__label">Products</span>
               <span class="a-index__rule"></span>
@@ -691,7 +691,7 @@
 
           <!-- Block - Section Title v05 Start -->
           <div class="mxd-block">
-            <div class="a-index">
+            <div class="a-index mxd-grid-item">
               <span class="a-index__no">05</span>
               <span class="a-index__label">Writing</span>
               <span class="a-index__rule"></span>
@@ -704,7 +704,7 @@
                     <div class="mxd-section-title__title">
                       <h2 class="mxd-split-lines">Blogs and<br>writeups</h2>
                     </div>
-                    <p class="a-lede anim-uni-in-up">The other half of the practice. Long-form work that
+                    <p class="a-lede anim-uni-in-up">The other half of the practice. Work that
                     doesn&rsquo;t compile.</p>
                   </div>
                 </div>
@@ -736,7 +736,7 @@
 
             <!-- Section Title v06 Start -->
             <div class="mxd-block">
-              <div class="a-index">
+              <div class="a-index mxd-grid-item">
                 <span class="a-index__no">06</span>
                 <span class="a-index__label">Journey</span>
                 <span class="a-index__rule"></span>
@@ -761,9 +761,9 @@
                     <div class="col-12 col-xl-12 mxd-grid-item">
                       <div class="mxd-section-info__descr">
                         <p class="t-extra t-bold">
-                          <a class="active-cursor-accent mxd-split-lines" data-cursor-text="Journey" href="#0">A developer &amp; writer who builds
-                          across disciplines. <span>From full-stack products and interfaces to research
-                          and long-form writing — here's the path so far.</span></a>
+                          <a class="active-cursor-accent mxd-split-lines" data-cursor-text="Journey" href="#0">I build across disciplines because
+                          the problems keep overlapping. <span>Products, interfaces, research, long-form
+                          writing. Here's how it went.</span></a>
                         </p>
                       </div>
                     </div>
@@ -862,8 +862,8 @@
                   <div class="a-form__head">
                     <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Open submission</span>
                     <h3 class="rh-review-card__title">Add your name<br>to the sheet.</h3>
-                    <p class="rh-review-card__note">Worked with me? Say how it actually went. It lands in my
-                    inbox unedited, and it goes up on this page the same way — no editing, no cherry-picking.</p>
+                    <p class="rh-review-card__note">Worked with me? Say how it actually went. It arrives
+                    unedited and goes up the same way — no polishing, no cherry-picking.</p>
                     <ul class="a-form__facts">
                       <li><b>01</b> Takes under a minute</li>
                       <li><b>02</b> Straight to my inbox</li>
@@ -926,7 +926,7 @@
 
           <!-- Block - Section Title Start -->
           <div class="mxd-block">
-            <div class="a-index">
+            <div class="a-index mxd-grid-item">
               <span class="a-index__no">07</span>
               <span class="a-index__label">Reviews</span>
               <span class="a-index__rule"></span>
@@ -975,12 +975,12 @@
               <div class="a-plate__in">
                 <div class="a-close__body">
                   <div>
-                    <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Two slots left for 2026</span>
+                    <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Open for work</span>
                     <h2 class="a-close__title">Got something<br>worth building?</h2>
                   </div>
                   <div class="a-close__side">
-                    <p class="a-close__note">Send the brief, or just the problem. I reply to every message
-                    myself, usually inside a day.</p>
+                    <p class="a-close__note">Send the brief, or just the problem. I answer everything
+                    myself, usually within a day.</p>
                     <a class="a-cta" href="contact.html">
                       <span>Start the conversation</span>
                     </a>
@@ -1009,7 +1009,7 @@
                 </svg>
                 <span class="rh-footer-logo__name">Rushan Haque</span>
               </a>
-              <p class="rh-footer-pitch">Developer &amp; Writer — building at the intersection of logic and language.</p>
+              <p class="rh-footer-pitch">Developer and writer. Logic in one hand, language in the other.</p>
               <span class="rh-footer-status">
                 <span class="a-dot" aria-hidden="true"></span>
                 Open for work — 2026
@@ -1017,7 +1017,7 @@
             </div>
 
             <!-- Navigate column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--nav">
               <p class="rh-fcol__label">Navigate</p>
               <ul class="rh-fcol__list">
                 <li><a href="index.html">Home</a></li>
@@ -1027,7 +1027,7 @@
             </div>
 
             <!-- Reach me column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--reach">
               <p class="rh-fcol__label">Reach me</p>
               <ul class="rh-fcol__list">
                 <li><a href="mailto:rushanulhaque@gmail.com?subject=Hello%20from%20your%20site"><span class="mxd-scramble">rushanulhaque@gmail.com</span></a></li>
@@ -1037,7 +1037,7 @@
             </div>
 
             <!-- Connect column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--social">
               <p class="rh-fcol__label">Connect</p>
               <ul class="rh-fcol__list">
                 <li><a href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">LinkedIn</span></a></li>
@@ -1105,11 +1105,12 @@
     <script defer src="data/journey.js?v=42"></script>
     <script defer src="data/products.js?v=42"></script>
     <script defer src="data/reviews.js?v=42"></script>
-    <script defer src="js/render.js?v=65"></script>
+    <script defer src="js/img-manifest.js?v=1"></script>
+    <script defer src="js/render.js?v=68"></script>
 
-    <script defer src="js/form-config.js?v=42"></script>
+    <script defer src="js/form-config.js?v=43"></script>
     <script defer src="js/libs.min.js"></script>
-    <script defer src="js/app.js?v=61"></script>
+    <script defer src="js/app.js?v=63"></script>
     <script defer src="js/gradient-waves.js?v=61"></script>
     <script defer src="js/navbar.js?v=64"></script>
     <script defer src="js/dots-nav.js?v=1"></script>

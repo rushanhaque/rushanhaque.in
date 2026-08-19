@@ -1449,11 +1449,16 @@
   .inner-headline__content.rh-contact-card { border-radius: 3.2rem; }
 }
 /* a plate needs air around it to read as a plate — full-bleed with
-   rounded corners just looks like the corners were cropped */
+   rounded corners just looks like the corners were cropped.
+
+   That air is the page gutter, not a number of its own: this used to
+   say 1.5rem, which put the plate edge 7px inboard of the footer and
+   wordmark directly beneath it. See §26 — the token is the whole
+   point, so this rule states the same measure as everything else. */
 @media only screen and (max-width: 767px) {
   .inner-headline__content.rh-contact-card {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    margin-left: var(--a-gutter);
+    margin-right: var(--a-gutter);
     padding: 3rem 1.8rem;
   }
 }
@@ -2187,10 +2192,9 @@ input[type="button"] {
   .a-bento__body { min-height: 0 !important; }
 }
 
-/* 9. Footer grid: tighter top padding on mobile */
+/* 9. Footer on mobile — see section 23 for the full compact treatment */
 @media only screen and (max-width: 575px) {
   .rh-footer-body { padding-top: 4rem; padding-bottom: 3rem; }
-  .rh-footer-grid { gap: 3rem; }
 }
 
 /* 10. Contact form: field gap on mobile */
@@ -2204,5 +2208,171 @@ input[type="button"] {
   .mxd-section-title__title .mxd-split-lines {
     font-size: clamp(3.4rem, 10vw, 5.5rem);
     letter-spacing: -0.02em;
+  }
+}
+
+/* ==================================================
+   23. Compact mobile footer
+   --------------------------------------------------
+   Four stacked columns make the footer taller than the
+   viewport on a phone. Below 768px it collapses to:
+   brand → two short columns (reach / connect) → one
+   line of legal. Navigation is dropped because the
+   header's dot menu already carries it, and the postal
+   address goes with it — nobody posts a letter from a
+   phone footer.
+   ================================================== */
+@media only screen and (max-width: 767px) {
+
+  /* the header dot-menu already has Home / Works / Contact */
+  .rh-fcol--nav { display: none; }
+
+  /* the street address is dead weight on a phone */
+  .rh-fcol__addr { display: none; }
+
+  /* brand sits full width, reach + connect share the row below it */
+  .rh-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3.2rem 2.4rem;
+  }
+  .rh-fcol--brand {
+    grid-column: 1 / -1;
+    gap: 1.6rem;
+  }
+
+  /* the pitch line is the voice — keep it, but stop it running wide */
+  .rh-footer-pitch { max-width: 34ch; }
+
+  /* lighter labels: no rule, less air, since the columns are short now */
+  .rh-fcol__label {
+    margin-bottom: 1.2rem;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .rh-fcol__list { gap: 1rem; }
+
+  /* one line of legal, centred, instead of a three-part bar */
+  .rh-footer-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.6rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .rh-footer-bar__left {
+    justify-content: center;
+    gap: 0.8rem;
+  }
+  /* "All rights reserved" is implied by the © */
+  .rh-footer-bar__left .footer-data + .footer-data { display: none; }
+}
+
+/* the wordmark is the footer's full stop — keep it, shrink its air */
+@media only screen and (max-width: 575px) {
+  .rh-footer-body {
+    padding-top: 3.6rem;
+    padding-bottom: 2.4rem;
+  }
+  .mxd-footer__fw-mark { padding-top: 1rem; }
+}
+
+/* ==================================================
+   25. THE GUTTER — one measure, every block
+   --------------------------------------------------
+   The page had nine different left edges. Not because anyone chose
+   nine, but because the same intent — "inset from the sheet edge" —
+   was written three separate times:
+
+     .mxd-grid-item   { padding: 0 3rem }   main.css:987
+     .mxd-project-item{ padding: 0 3rem }   main.css:13439
+     .mxd-blog-item   { padding: 0 3rem }   main.css:16846
+
+   Three literals that happened to agree on desktop and disagreed
+   everywhere else, because only one of them was ever adjusted for
+   small screens. Meanwhile four section index plates were direct
+   children of .mxd-block with no grid item at all, so the section
+   number sat flush to the screen edge while its own headline sat a
+   full gutter inboard.
+
+   The measured result, before this section:
+
+                       mobile        desktop
+     body text           22px          60px
+     cards               30px          66px
+     index plates         0px          30px
+
+   A drawing whose sheet number does not align with its own title is
+   not a drawing. So the gutter becomes a single token, declared once
+   and consumed by every block that touches the sheet edge. Change it
+   here and the whole page re-aligns together — which is the only way
+   an edge stays true as the design keeps moving.
+   ================================================== */
+
+:root { --a-gutter: 3rem; }
+
+@media only screen and (max-width: 767px) {
+  :root { --a-gutter: 2.2rem; }
+}
+
+/* Every block that sits directly on the sheet takes the same measure.
+   `padding-left/right` rather than the `padding` shorthand, so the
+   vertical padding each of these carries for its own reasons survives. */
+.mxd-grid-item,
+.mxd-project-item,
+.mxd-blog-item {
+  padding-left: var(--a-gutter);
+  padding-right: var(--a-gutter);
+}
+
+/* main.css scopes the card gutters at higher specificity inside its
+   own breakpoints, so they have to be met at that depth to be held. */
+@media only screen and (max-width: 767px) {
+  .mxd-projects-grid__gallery > .mxd-project-item,
+  .mxd-blog-grid__gallery > .mxd-blog-item {
+    padding-left: var(--a-gutter);
+    padding-right: var(--a-gutter);
+  }
+}
+
+/* ==================================================
+   26. Contact card — joining the gutter
+   --------------------------------------------------
+   The contact page puts its heading and form inside a plate. The
+   plate is real — surface-2 fill, hairline border, 2rem radius,
+   ambient shadow — but it was positioned outside the gutter system,
+   so it sat at half a gutter while the footer and wordmark below it
+   sat at a full one:
+
+                     card edge   footer / wordmark
+       desktop            30px         60px
+       mobile             15px         22px
+
+   Two vertical edges, seven pixels apart on a phone, running down
+   the same page. Worse on mobile, where the plate then re-applied
+   the page gutter *inside* itself on top of its own 18px padding,
+   pushing the form 56px in from a 390px screen — a seventh of the
+   width spent on nothing. (Desktop already zeroed that inner
+   padding, which is why only the phone showed the doubling.)
+
+   The plate now takes the gutter as its margin, so its edge lands on
+   the same line as everything else on the page, and its own padding
+   is left to be the only bezel.
+   ================================================== */
+
+.rh-contact-card {
+  margin-left: var(--a-gutter);
+  margin-right: var(--a-gutter);
+}
+
+/* Below 1200px the two inner columns stack, so nothing needs a
+   middle gutter and the plate's padding can be the whole inset.
+   Above it the columns sit side by side and main.css already
+   zeroes these, so this is scoped to where it is safe. */
+@media only screen and (max-width: 1199px) {
+  .rh-contact-card .mxd-grid-item {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

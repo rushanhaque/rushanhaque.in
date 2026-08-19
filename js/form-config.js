@@ -14,7 +14,7 @@
  *  email app with the message pre-filled and addressed to you.
  *  ────────────────────────────────────────────────────────────────────
  */
-window.RH_FORM_ENDPOINT = '';
+window.RH_FORM_ENDPOINT = 'https://formspree.io/f/myegbrdn';
 
 /* Where the mailto fallback sends to. */
 window.RH_CONTACT_EMAIL = 'rushanulhaque@gmail.com';

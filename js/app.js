@@ -65,12 +65,72 @@
 // --------------------------------------------- //
 document.addEventListener("DOMContentLoaded", () => {
 
-  const lenis = new Lenis();
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000)
-  });
+  /* Smooth scroll is a desktop affordance, not a universal upgrade.
+     A phone already has momentum scrolling, and the OS runs it on the
+     compositor thread — it keeps moving even while JavaScript is busy.
+     Replacing that with a JS-driven scroll hands the job back to the main
+     thread, so every dropped frame becomes a visible stutter and the result
+     is less smooth than doing nothing at all. It also breaks the browser's
+     URL-bar hide/show and fights the pull-to-refresh gesture.
+
+     So Lenis runs only where there is a real pointer. Everywhere else the
+     page scrolls natively, which on mobile is both faster and better. */
+  const wantsSmoothScroll =
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let lenis = null;
+  if (wantsSmoothScroll) {
+    lenis = new Lenis();
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    });
+  }
   gsap.ticker.lagSmoothing(0);
+
+  /* The menu freezes the page behind it by calling stop()/start() on Lenis.
+     With Lenis absent that has to become a CSS body lock.
+
+     It would be tempting to hand mxdMenu a stop/start shim and leave it at
+     that, but the template calls start() from inside a GSAP timeline
+     callback — so the unlock only happens if that timeline runs to
+     completion. Any missing animation target, interrupted tween or early
+     return leaves the page locked with no way back, which is the worst
+     failure this page could have.
+
+     So the lock is driven off a single observable fact instead: the
+     hamburger carries `.active` for exactly as long as the menu is open.
+     Watching that class means the lock and the menu cannot disagree,
+     whatever the animation does. */
+  const scrollLock = lenis || { stop() {}, start() {} };
+
+  if (!lenis) {
+    const burger = document.querySelector('.mxd-menu__hamburger');
+    if (burger) {
+      let lockedAt = 0;
+      let isLocked = false;
+
+      const sync = () => {
+        const open = burger.classList.contains('active');
+        if (open === isLocked) return;
+        isLocked = open;
+
+        if (open) {
+          lockedAt = window.scrollY;
+          document.body.style.top = `-${lockedAt}px`;
+          document.documentElement.classList.add('rh-scroll-locked');
+        } else {
+          document.documentElement.classList.remove('rh-scroll-locked');
+          document.body.style.top = '';
+          window.scrollTo(0, lockedAt);
+        }
+      };
+
+      new MutationObserver(sync)
+        .observe(burger, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
 
   gsap.registerPlugin(ScrollTrigger, CustomEase, SplitText, Flip, ScrollToPlugin, InertiaPlugin);
   CustomEase.create("hop", ".87, 0, .13, 1");
@@ -84,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let mxdNavigation = null;
   document.fonts.ready.then(() => {
-    mxdNavigation = mxdMenu(lenis);
+    mxdNavigation = mxdMenu(scrollLock);
     mxdTypeAnimations();
   });
 

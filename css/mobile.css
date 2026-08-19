@@ -1,0 +1,482 @@
+/*! ------------------------------------------------
+ * File name: mobile.css
+ * Project:   Rushan Haque — Portfolio
+ * Loaded:    LAST, after sections.css. Overrides everything.
+ *
+ * ------------------------------------------------
+ * "THE SHEET IN THE HAND"
+ * ------------------------------------------------
+ * The desktop site is a drawing pinned to a wall: wide margins, a
+ * reading rail down the edge, hover as the primary verb. A phone is
+ * none of those things. It is held rather than viewed, it is thumbed
+ * rather than pointed at, it has a notch, its GPU has a fraction of a
+ * laptop's fill rate, and it has no hover at all.
+ *
+ * So this file is not a set of shrink-to-fit overrides. It is the same
+ * drafting-sheet system re-stated for a surface you hold:
+ *
+ *   a. Foundations   — safe areas, scroll lock, no iOS surprises
+ *   b. Compositing   — what a phone GPU should not be asked to do
+ *   c. Type          — one fluid scale, not three stepped breakpoints
+ *   d. Touch         — press replaces hover as the feedback channel
+ *   e. Structure     — rhythm and the measured grid at hand-scale
+ *   f. Depth         — the plate metaphor, rebuilt cheaply
+ *   g. Motion        — reveals that cannot cause jank
+ *
+ * Every rule here is transform/opacity or a paint-only property.
+ * Nothing in this file can trigger layout during a scroll.
+ *
+ * NOTE ON UNITS: main.css sets html { font-size: 62.5% }, so
+ * **1rem = 10px** throughout.
+ * ------------------------------------------------ */
+
+
+/* ==================================================
+   a. Foundations
+   ================================================== */
+
+/* iOS inflates text in landscape unless told not to. The scale in
+   section (c) is deliberate; letting the OS rescale it breaks the
+   ladder and makes the headline collide with its own container. */
+html {
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+}
+
+/* The page scrolls natively on touch — app.js only creates Lenis for
+   pointer devices — so freezing it behind the menu is a body lock
+   rather than lenis.stop(). `position: fixed` is what actually holds
+   iOS still; the inline `top` that app.js sets preserves the reading
+   position so closing the menu does not jump back to the top. */
+.rh-scroll-locked,
+.rh-scroll-locked body {
+  overflow: hidden;
+}
+.rh-scroll-locked body {
+  position: fixed;
+  width: 100%;
+}
+
+/* The menu and the dot panel scroll their own content. Stop that
+   scroll chaining out to the page underneath it. */
+.mxd-menu__content,
+.rh-dots__menu {
+  overscroll-behavior: contain;
+}
+
+/* Every page head sets `viewport-fit=cover`, which runs the layout
+   edge to edge — under the notch and under the home indicator.
+   Nothing was reclaiming that space, so the header sat beneath the
+   status bar and the footer beneath the gesture bar. */
+@media only screen and (max-width: 991px) {
+  .mxd-header,
+  .rh-dots {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .rh-footer-bar {
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+  }
+  .mxd-menu__content {
+    padding-top: calc(2rem + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+
+/* ==================================================
+   b. Compositing budget
+   --------------------------------------------------
+   Three things were being asked of the GPU on every composited
+   frame, none of which survive contact with a mid-range Android:
+
+     · a full-viewport grain layer in `mix-blend-mode: multiply`,
+       which forces a blend pass over the entire screen
+     · backdrop-filter, the most expensive property on mobile
+     · three-layer ambient shadows on 300px cards, where the outer
+       two layers are physically too large to resolve
+   ================================================== */
+@media only screen and (max-width: 991px) {
+
+  /* Keep the paper, drop the blend pass. At this opacity a plain
+     overlay is visually identical and costs nothing to composite. */
+  .a-sheet {
+    mix-blend-mode: normal;
+    opacity: 0.028;
+  }
+
+  /* The vignette exists to stop a *large* white field reading as a
+     void. A phone screen is not a large field. */
+  .a-vignette { display: none; }
+
+  /* The reading rail tracks a pointer down a tall page — a desktop
+     idea. On a phone it is a 2px line nobody reads. */
+  .a-rail { display: none; }
+
+  /* backdrop-filter: every surface using it here already sits on a
+     solid background, so the blur was buying nothing. */
+  .mxd-menu__backdrop,
+  .a-shot__no,
+  .rh-footer-status {
+    -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+  }
+  .a-shot__no { background-color: rgba(255, 255, 255, 0.94); }
+
+  /* Collapse the ambient shadow ladder to one believable layer. */
+  .a-plate,
+  .a-rv__tray,
+  .a-bento__cell {
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.04),
+                0 8px 22px -10px rgba(10, 10, 10, 0.10);
+  }
+}
+
+
+/* ==================================================
+   c. Type — one fluid architectural scale
+   --------------------------------------------------
+   Stepped breakpoints leave display type either cramped at 320px or
+   overflowing at 430px. These clamp between the two, so the headline
+   is correct at every width in between rather than at three of them.
+
+   Large type also needs tighter tracking than body type: the bigger
+   the glyph, the more its default sidebearings read as gaps. The
+   negative tracking below is what makes big type look *drawn*
+   rather than merely enlarged.
+   ================================================== */
+@media only screen and (max-width: 767px) {
+
+  /* section headlines — the page's loudest voice */
+  .mxd-section-title__title h2,
+  .mxd-section-title__title .mxd-split-lines {
+    font-size: clamp(3.6rem, 11.5vw, 6.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+
+  /* the hero name — the largest thing on the site */
+  .hero-10-headline__content,
+  .mxd-hero-10__headline h1 {
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+
+  /* inner-page h1 (contact, archive) */
+  .inner-headline__title h1 {
+    font-size: clamp(3.4rem, 10.5vw, 5.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+  }
+
+  /* the standfirst: the one place a longer measure is welcome,
+     because it is the only prose on the screen */
+  .a-lede,
+  .a-hero-lede {
+    font-size: 1.62rem;
+    line-height: 1.62;
+    letter-spacing: -0.004em;
+    max-width: 38ch;
+  }
+
+  /* body copy inside plates */
+  .a-disc__descr,
+  .a-close__note,
+  .rh-review-card__note,
+  .a-empty__note,
+  .a-bento__aside p {
+    font-size: 1.55rem;
+    line-height: 1.68;
+  }
+
+  /* the manifest line is a pull-quote — it belongs between the
+     headline and the body, not level with the body */
+  .a-manifest {
+    font-size: clamp(2.1rem, 6.2vw, 2.8rem);
+    line-height: 1.24;
+    letter-spacing: -0.022em;
+  }
+
+  /* mono labels: small caps need *more* tracking, not less, and a
+     little more weight to survive at 11px on a dense screen */
+  .a-index__label,
+  .a-meta,
+  .rh-fcol__label,
+  .a-eyebrow {
+    letter-spacing: 0.16em;
+    font-weight: 500;
+  }
+
+  /* the stat numerals are the one place to be generous */
+  .mxd-stats-lines__number p {
+    font-size: clamp(4.4rem, 14vw, 7rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  /* card titles */
+  .rh-card-name a,
+  .a-cap__name {
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* Long unbroken strings — emails, URLs — are the one thing that
+     forces a sideways scroll and makes a page feel broken. */
+  .rh-fcol__list a,
+  .a-rv__quote,
+  .mxd-projects-list__title h3 {
+    overflow-wrap: anywhere;
+  }
+}
+
+
+/* ==================================================
+   d. Touch — press replaces hover
+   --------------------------------------------------
+   Every interaction on this site was authored as a hover state under
+   `.no-touch`. On a phone none of them exist, which left taps with no
+   acknowledgement beyond the browser's grey flash.
+
+   These are the same gestures re-aimed at `:active`: a small, fast
+   compression that lands within a frame of the touch, so the
+   interface feels like it is made of something.
+   ================================================== */
+@media (hover: none) {
+
+  /* kill the platform flash — replaced by the states below */
+  a, button, [role="button"], input, textarea, select, .rh-dots__btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* buttons compress toward their own centre */
+  .a-cta,
+  .rh-submit,
+  .btn,
+  .btn-form {
+    transition: transform 0.12s var(--a-swift),
+                background-color 0.16s var(--a-swift),
+                opacity 0.12s var(--a-swift);
+  }
+  .a-cta:active,
+  .rh-submit:active,
+  .btn:active,
+  .btn-form:active {
+    transform: scale(0.972) !important;
+    opacity: 0.9;
+  }
+
+  /* cards settle *into* the sheet rather than lifting off it */
+  .mxd-project-item .a-shot,
+  .mxd-blog-item .a-shot {
+    transition: transform 0.16s var(--a-swift),
+                box-shadow 0.16s var(--a-swift);
+  }
+  .mxd-project-item:active .a-shot,
+  .mxd-blog-item:active .a-shot {
+    transform: scale(0.986);
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.05),
+                0 4px 12px -8px rgba(10, 10, 10, 0.10);
+  }
+
+  /* archive rows tint instead of scaling — they run full-bleed, and
+     a scaling full-bleed row reveals the page edge behind it */
+  .mxd-projects-list__item {
+    transition: background-color 0.16s var(--a-swift);
+  }
+  .mxd-projects-list__item:active {
+    background-color: rgba(10, 10, 10, 0.028);
+  }
+
+  /* text links dim on press */
+  .rh-fcol__list a:active,
+  .mxd-socials-line__link:active,
+  .rh-nav__link:active,
+  .rh-dots__link:active {
+    opacity: 0.55;
+  }
+
+  .rh-jr__row {
+    transition: background-color 0.16s var(--a-swift);
+  }
+  .rh-jr__row:active {
+    background-color: rgba(10, 10, 10, 0.022);
+  }
+
+  /* the star rating should feel mechanical */
+  .rh-stars-input button {
+    transition: transform 0.1s var(--a-swift);
+  }
+  .rh-stars-input button:active {
+    transform: scale(1.22) !important;
+  }
+
+  /* corner dimension ticks are a hover-only affordance — on a touch
+     device they either never appear or stick after a tap */
+  .a-ticks::before,
+  .a-ticks::after { display: none; }
+}
+
+
+/* ==================================================
+   e. Structure — the measured grid at hand-scale
+   ================================================== */
+@media only screen and (max-width: 767px) {
+
+  /* The gutter itself now lives in sections.css §25 as `--a-gutter`,
+     consumed by every block that touches the sheet edge at both
+     breakpoints. Only the archive's own padding class is left here,
+     since it is mobile-specific. */
+  .mxd-grid-padding {
+    padding-left: var(--a-gutter);
+    padding-right: var(--a-gutter);
+  }
+
+  /* Section rhythm is already reset for small screens in refine.css
+     (section 05), using `.mxd-section.padding-*` — two classes, which
+     outranks anything single-class written here regardless of load
+     order. Those values (7.5–8rem) are right, so this file deliberately
+     does not restate them. Tune the mobile rhythm there, not here. */
+
+  /* The index plate is the section's masthead. Give it a rule that
+     runs the full measure and set it away from the headline — the
+     hairline does the work the long dash rule did on desktop. */
+  .a-index {
+    margin-bottom: 2.4rem;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid var(--a-line);
+    gap: 1.1rem;
+  }
+  .a-index__rule { display: none; }
+  .a-index__meta {
+    display: inline;
+    margin-left: auto;
+    text-align: right;
+    opacity: 0.72;
+  }
+
+  /* headline → lede → content: one consistent three-beat rhythm */
+  .mxd-section-title.pre-grid { margin-bottom: 4.2rem !important; }
+  .mxd-section-title:not(.pre-grid) { margin-bottom: 3.4rem; }
+
+  /* the bento becomes a single column of plates with real air */
+  .a-bento {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+  .a-bento__body { padding: 2.8rem 2.4rem; }
+  .a-bento__lead .a-bento__body { padding: 3.2rem 2.4rem; }
+  .a-bento__aside { margin-top: 2.4rem; }
+
+  /* capability tags wrap tidily instead of forming a ragged block */
+  .a-disc__list {
+    gap: 0.7rem;
+    margin-top: 2rem;
+  }
+
+  /* the closing plate carries the page's last word */
+  .a-close__side { margin-top: 2.6rem; }
+  .a-close__title {
+    font-size: clamp(3.2rem, 10vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+
+  /* Full-width actions: a thumb should not have to aim. */
+  .a-hero-actions .a-cta,
+  .a-close__side .a-cta,
+  .a-bento__aside .a-cta,
+  .a-sec-foot .a-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* the review form is the densest thing on the page */
+  .rh-form-grid { gap: 1.8rem; }
+  .a-form__head { margin-bottom: 3rem; }
+
+  /* main.css scopes the submit as `.rh-review-marquee-card .rh-submit`,
+     so it has to be matched at that depth to be overridden at all. */
+  .rh-review-marquee-card .rh-submit,
+  .rh-submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* iOS zooms the whole page when a focused input is under 16px.
+     16px === 1.6rem here, so this is the floor, not a preference. */
+  .rh-field input,
+  .rh-field textarea,
+  .form input,
+  .form textarea {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* ==================================================
+   f. Depth — the plate metaphor at 300px
+   ================================================== */
+@media only screen and (max-width: 767px) {
+
+  /* Concentric radii shrink with the plate, or the tray stops
+     reading as a bezel and starts reading as a thick border. */
+  :root {
+    --a-tray-pad: 0.45rem;
+    --a-r-xl: 2rem;
+    --a-r-l:  1.7rem;
+    --a-r-m:  1.2rem;
+  }
+
+  /* An inset hairline so the artwork separates from the paper even
+     where the image itself runs pale at its own edge. */
+  .a-shot {
+    border-radius: var(--a-r-l);
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.04),
+                0 8px 22px -10px rgba(10, 10, 10, 0.10),
+                inset 0 0 0 1px rgba(10, 10, 10, 0.055);
+  }
+
+  /* Raise the name-plate gradient a little so the type has ground to
+     sit on at small sizes. */
+  .rh-card-name {
+    padding: 5rem 1.6rem 1.5rem;
+    background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.80) 0%,
+      rgba(0, 0, 0, 0.34) 48%,
+      rgba(0, 0, 0, 0) 100%);
+  }
+
+  /* the sheet number sits tighter to the corner on a small plate */
+  .a-shot__no {
+    top: 1.2rem;
+    left: 1.2rem;
+    height: 2.2rem;
+    padding: 0 0.9rem;
+  }
+}
+
+
+/* ==================================================
+   g. Motion — cheap, and only once
+   --------------------------------------------------
+   A reveal that runs on every section of a 15,000px document is a
+   jank generator. Transform and opacity only, short, with a shallow
+   travel so it reads as settling rather than flying in.
+   ================================================== */
+@media only screen and (max-width: 767px) {
+  .a-js .a-reveal {
+    transform: translate3d(0, 1.6rem, 0);
+    transition-duration: 0.62s;
+  }
+}
+
+/* The system setting outranks everything above. */
+@media (prefers-reduced-motion: reduce) {
+  .a-cta:active,
+  .rh-submit:active,
+  .mxd-project-item:active .a-shot,
+  .mxd-blog-item:active .a-shot,
+  .rh-stars-input button:active { transform: none !important; }
+}

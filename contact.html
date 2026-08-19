@@ -51,10 +51,12 @@
     <link rel="stylesheet" type="text/css" href="css/plugins.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/main.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/navbar.css?v=42">
-    <link rel="stylesheet" type="text/css" href="css/refine.css?v=61">
+    <link rel="stylesheet" type="text/css" href="css/refine.css?v=63">
     <!-- design system: tokens + primitives, then the section pass -->
     <link rel="stylesheet" type="text/css" href="css/architect.css?v=64">
-    <link rel="stylesheet" type="text/css" href="css/sections.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=71">
+    <!-- mobile layer: loaded last, overrides everything -->
+    <link rel="stylesheet" type="text/css" href="css/mobile.css?v=3">
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
@@ -357,7 +359,7 @@
                               <span class="a-index__rule"></span>
                             </div>
                             <div class="inner-headline__title">
-                              <h1 class="medium loading-split">Let's make it happen</h1>
+                              <h1 class="medium loading-split">So, what are we building?</h1>
                             </div>
                             <!-- who, where, when — the same title-block rail
                                  the homepage hero opens with -->
@@ -380,8 +382,8 @@
                             <!-- split header caption -->
                             <div class="inner-headline__caption split-caption-title pre-form">
                               <div class="mxd-grid-item">
-                                <p class="t-bold t-large loading-split">Have a project, an idea, or just want to say hello?
-                                  Drop me a message <span>and I'll get back to you.</span>
+                                <p class="t-bold t-large loading-split">A project, a half-formed idea, or just hello.
+                                  <span>All of it reaches me, and I answer it myself.</span>
                                 </p>
                               </div>
                             </div>
@@ -394,8 +396,8 @@
                                 <!-- Reply Messages Start -->
                                 <div class="form__reply centered text-center">
                                   <i class="ph-fill ph-smiley-wink reply__icon"></i>
-                                  <p class="reply__title">Done!</p>
-                                  <span class="reply__text">Thanks for your message. We'll get back as soon as possible.</span>
+                                  <p class="reply__title">Got it.</p>
+                                  <span class="reply__text">Thanks for writing — I'll get back to you shortly.</span>
                                 </div> 
                                 <!-- Reply Messages End -->
                             
@@ -421,7 +423,7 @@
                                         <input type="tel" name="Phone" placeholder="Phone">
                                       </div>
                                       <div class="col-12 mxd-grid-item loading-item">
-                                        <textarea name="Message" placeholder="A few words about your project*" required></textarea>
+                                        <textarea name="Message" placeholder="What are you building?*" required></textarea>
                                       </div>
                                       <div class="col-12 mxd-grid-item loading-item">
                                         <button class="a-cta" type="submit">
@@ -488,7 +490,7 @@
                 </svg>
                 <span class="rh-footer-logo__name">Rushan Haque</span>
               </a>
-              <p class="rh-footer-pitch">Developer &amp; Writer — building at the intersection of logic and language.</p>
+              <p class="rh-footer-pitch">Developer and writer. Logic in one hand, language in the other.</p>
               <span class="rh-footer-status">
                 <span class="a-dot" aria-hidden="true"></span>
                 Open for work — 2026
@@ -496,7 +498,7 @@
             </div>
 
             <!-- Navigate column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--nav">
               <p class="rh-fcol__label">Navigate</p>
               <ul class="rh-fcol__list">
                 <li><a href="index.html">Home</a></li>
@@ -506,7 +508,7 @@
             </div>
 
             <!-- Reach me column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--reach">
               <p class="rh-fcol__label">Reach me</p>
               <ul class="rh-fcol__list">
                 <li><a href="mailto:rushanulhaque@gmail.com?subject=Hello%20from%20your%20site"><span class="mxd-scramble">rushanulhaque@gmail.com</span></a></li>
@@ -516,7 +518,7 @@
             </div>
 
             <!-- Connect column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--social">
               <p class="rh-fcol__label">Connect</p>
               <ul class="rh-fcol__list">
                 <li><a href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">LinkedIn</span></a></li>
@@ -569,9 +571,9 @@
     </div>
 
     <!-- Load Scripts Start -->
-    <script defer src="js/form-config.js?v=42"></script>
+    <script defer src="js/form-config.js?v=43"></script>
     <script defer src="js/libs.min.js"></script>
-    <script defer src="js/app.js?v=58"></script>
+    <script defer src="js/app.js?v=63"></script>
     <script defer src="js/navbar.js?v=64"></script>
     <script defer src="js/dots-nav.js?v=1"></script>
     <script defer src="js/architect.js?v=64"></script>

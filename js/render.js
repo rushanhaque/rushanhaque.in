@@ -67,6 +67,26 @@
     return placeholder(w, h, p.title || p.name || 'Coming soon');
   }
 
+  /* Responsive image attributes.
+     A card slot is ~300px on a phone and ~700px on a wide desktop, but the
+     source art is up to 1600px — without a srcset every phone downloads and
+     decodes five times the pixels it can show. `sizes` describes the slot at
+     each breakpoint; the widths come from js/img-manifest.js, which is
+     generated from what is actually on disk, so we never point at a variant
+     that was never written. */
+  var IMG_WIDTHS = window.RH_IMG_WIDTHS || {};
+
+  function srcsetFor(src, sizes) {
+    var widths = IMG_WIDTHS[src];
+    if (!widths || widths.length < 2) return '';
+    var base = src.replace(/\.webp$/, '');
+    var max = Math.max.apply(null, widths);
+    var set = widths.map(function (w) {
+      return (w === max ? src : base + '-' + w + '.webp') + ' ' + w + 'w';
+    }).join(', ');
+    return ' srcset="' + esc(set) + '" sizes="' + esc(sizes) + '"';
+  }
+
   /* ============================================================
      WORKS — template "projects grid x2 showcase" markup
      ============================================================ */
@@ -89,8 +109,14 @@
     var live = !isBlurred && !!p.url;
     var cursorText = live ? 'Visit Site' : 'Coming Soon';
 
-    var media = '<img loading="lazy" decoding="async" src="' + previewFor(p, 1500, 1000) +
-                '" alt="' + esc(p.title) + ' Preview">';
+    /* small cards sit at ~1/3 of the grid on desktop, full width on a phone */
+    var slot = wide
+      ? '(min-width: 1200px) 58vw, (min-width: 768px) 50vw, 81vw'
+      : '(min-width: 1200px) 33vw, (min-width: 768px) 50vw, 81vw';
+    var src = previewFor(p, 1500, 1000);
+    var media = '<img loading="lazy" decoding="async" width="1600" height="770" src="' + src + '"' +
+                srcsetFor(src, slot) +
+                ' alt="' + esc(p.title) + ' Preview">';
     media += '\n                          <div class="mxd-cover ' + cover + '"></div>';
     if (p.video) {
       media +=
@@ -142,9 +168,9 @@
 
     /* the sheet closes with a count and one way through to everything */
     rows.push('' +
-'                  <div class="a-sec-foot anim-uni-in-up">\n' +
+'                  <div class="a-sec-foot mxd-grid-item anim-uni-in-up">\n' +
 '                    <p class="a-sec-foot__note">' + items.length +
-       ' commercial builds on this sheet. The full archive carries every personal project and tool as well.</p>\n' +
+       ' builds here. The archive has the rest — personal projects, tools, the things I made to find out if they would work.</p>\n' +
 '                    <a class="a-cta a-cta--ghost" href="works-default.html">\n' +
 '                      <span>Open the archive</span>\n' +
 '                    </a>\n' +
@@ -262,8 +288,8 @@
 '                  <div class="a-empty__body">\n' +
 '                    <div>\n' +
 '                      <span class="a-eyebrow"><span class="a-dot"></span>In development</span>\n' +
-'                      <h3 class="a-empty__title" style="color:#FFFFFF">Nothing on the shelf yet —<br>two things on the bench.</h3>\n' +
-'                      <p class="a-empty__note" style="color:rgba(255,255,255,0.56)">I build tools for myself first and release the ones that survive contact with real work. When one ships it lands here, on this sheet, with the version and the price in plain sight.</p>\n' +
+'                      <h3 class="a-empty__title" style="color:#FFFFFF">Nothing shipped yet.<br>Two on the bench.</h3>\n' +
+'                      <p class="a-empty__note" style="color:rgba(255,255,255,0.56)">I build tools for myself first. The ones that survive real work get released. When one ships it lands here — version and price in plain sight.</p>\n' +
 '                    </div>\n' +
 '                    <a class="a-cta" href="contact.html" style="background-color:#FFFFFF;border-color:#FFFFFF;color:#0A0A0A">\n' +
 '                      <span>Ask what I am building</span>\n' +
@@ -361,7 +387,7 @@
 '                      </div>\n' +
 '                      <div class="a-shot a-ticks">\n' +
 '                        <a class="mxd-blog-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? '' : ' — coming soon') + '">\n' +
-'                          <img src="' + img + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async">\n' +
+'                          <img src="' + img + '"' + srcsetFor(img, '(min-width: 992px) 32vw, (min-width: 768px) 48vw, 81vw') + ' alt="' + esc(p.title) + '" width="1536" height="1024" loading="lazy" decoding="async">\n' +
 '                        </a>\n' +
 '                      </div>\n' +
 '                      <div class="mxd-blog-item__caption">\n' +

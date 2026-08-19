@@ -51,10 +51,12 @@
     <link rel="stylesheet" type="text/css" href="css/plugins.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/main.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/navbar.css?v=42">
-    <link rel="stylesheet" type="text/css" href="css/refine.css?v=61">
+    <link rel="stylesheet" type="text/css" href="css/refine.css?v=63">
     <!-- design system: tokens + primitives, then the section pass -->
     <link rel="stylesheet" type="text/css" href="css/architect.css?v=64">
-    <link rel="stylesheet" type="text/css" href="css/sections.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=71">
+    <!-- mobile layer: loaded last, overrides everything -->
+    <link rel="stylesheet" type="text/css" href="css/mobile.css?v=3">
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
@@ -329,7 +331,7 @@
 
             <!-- Block - Section Title v03 Start -->
             <div class="mxd-block">
-              <div class="a-index">
+              <div class="a-index mxd-grid-item">
                 <span class="a-index__no">A</span>
                 <span class="a-index__label">Full archive</span>
                 <span class="a-index__rule"></span>
@@ -342,8 +344,8 @@
                       <div class="mxd-section-title__title">
                         <h2 class="reveal-type">Projects archive</h2>
                       </div>
-                      <p class="a-lede anim-uni-in-up">Every build, in one sheet — grouped by kind, newest first.
-                      Client work first, then the showcase pieces, then whatever I made for myself.</p>
+                      <p class="a-lede anim-uni-in-up">Everything, in one sheet. Client work first, then the
+                      showcase pieces, then whatever I made for myself.</p>
                     </div>
                     <div class="col-12 col-xl-4 mxd-grid-item">
                       <div class="mxd-section-title__data top-controls">
@@ -430,7 +432,7 @@
                 </svg>
                 <span class="rh-footer-logo__name">Rushan Haque</span>
               </a>
-              <p class="rh-footer-pitch">Developer &amp; Writer — building at the intersection of logic and language.</p>
+              <p class="rh-footer-pitch">Developer and writer. Logic in one hand, language in the other.</p>
               <span class="rh-footer-status">
                 <span class="a-dot" aria-hidden="true"></span>
                 Open for work — 2026
@@ -438,7 +440,7 @@
             </div>
 
             <!-- Navigate column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--nav">
               <p class="rh-fcol__label">Navigate</p>
               <ul class="rh-fcol__list">
                 <li><a href="index.html">Home</a></li>
@@ -448,7 +450,7 @@
             </div>
 
             <!-- Reach me column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--reach">
               <p class="rh-fcol__label">Reach me</p>
               <ul class="rh-fcol__list">
                 <li><a href="mailto:rushanulhaque@gmail.com?subject=Hello%20from%20your%20site"><span class="mxd-scramble">rushanulhaque@gmail.com</span></a></li>
@@ -458,7 +460,7 @@
             </div>
 
             <!-- Connect column -->
-            <div class="rh-fcol">
+            <div class="rh-fcol rh-fcol--social">
               <p class="rh-fcol__label">Connect</p>
               <ul class="rh-fcol__list">
                 <li><a href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">LinkedIn</span></a></li>
@@ -513,9 +515,10 @@
     <!-- Load Scripts Start -->
     <script defer src="data/projects.js?v=45"></script>
     <script defer src="data/products.js?v=42"></script>
-    <script defer src="js/render.js?v=65"></script>
+    <script defer src="js/img-manifest.js?v=1"></script>
+    <script defer src="js/render.js?v=68"></script>
     <script defer src="js/libs.min.js"></script>
-    <script defer src="js/app.js?v=58"></script>
+    <script defer src="js/app.js?v=63"></script>
     <script defer src="js/navbar.js?v=64"></script>
     <script defer src="js/dots-nav.js?v=1"></script>
     <script defer src="js/architect.js?v=64"></script>

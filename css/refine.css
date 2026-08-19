@@ -529,9 +529,23 @@ a { color: inherit; text-underline-offset: 0.22em; }
    ================================================== */
 .mxd-section-title__title h2 { line-height: 0.95; }
 
-/* Insights: nudge heading down so its baseline aligns with the first stats divider */
+/* Insights: the heading shares a row with the stats table.
+
+   This used to carry `padding-top: 82px !important`, to drop the heading
+   until its baseline met the first stats divider. Measured against the
+   type actually on the page it no longer does that — the divider sits at
+   the top of the stats block and the heading baseline landed ~143px below
+   it, so the number was aligning with nothing. It also left this one
+   headline hanging 82px lower than the headline in every other section,
+   which each take a 36px drop from their index plate.
+
+   At 0 both readings come good at once: the heading and the stats table
+   begin on the same line, and all seven section headlines take the same
+   drop. Kept as an explicit 0 rather than deleted, because the `!important`
+   here is what any later rule will collide with — better that the next
+   person finds this note than the bare declaration. */
 @media only screen and (min-width: 1200px) {
-  #insights .mxd-section-title__data { padding-top: 82px !important; }
+  #insights .mxd-section-title__data { padding-top: 0 !important; }
 }
 
 /* Showcase archive rows: inline description replaces tag chips */
@@ -971,14 +985,11 @@ html.rh-nav-in .rh-fade {
   flex-direction: column;
   padding: 0.6rem;
   border-radius: 1.6rem;
-  background-color: var(--rh-glass-bg-strong, rgba(255, 255, 255, 0.92));
+  background-color: var(--base);
   border: 1px solid var(--rh-glass-border, rgba(0, 0, 0, 0.08));
-  -webkit-backdrop-filter: var(--rh-glass-blur);
-          backdrop-filter: var(--rh-glass-blur);
   box-shadow:
     0 1px 1px rgba(0, 0, 0, 0.04),
-    0 16px 44px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    0 16px 44px rgba(0, 0, 0, 0.14);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-0.8rem) scale(0.94);
