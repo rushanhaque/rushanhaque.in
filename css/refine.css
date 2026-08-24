@@ -659,6 +659,20 @@ a { color: inherit; text-underline-offset: 0.22em; }
   border-color: #FFFFFF;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.16);
 }
+/* browser autofill forces its own dark text + pale background on these
+   dark inputs, which makes typed/filled values vanish. Pin the fill
+   colour white and paint the input's dark background back in via an
+   inset shadow (the only way to override the autofill background). */
+.rh-review-marquee-card .rh-field input:-webkit-autofill,
+.rh-review-marquee-card .rh-field input:-webkit-autofill:hover,
+.rh-review-marquee-card .rh-field input:-webkit-autofill:focus,
+.rh-review-marquee-card .rh-field textarea:-webkit-autofill {
+  -webkit-text-fill-color: #FFFFFF;
+  caret-color: #FFFFFF;
+  -webkit-box-shadow: 0 0 0 100px #1A1A1A inset;
+  box-shadow: 0 0 0 100px #1A1A1A inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
 .rh-review-marquee-card .rh-submit {
   background-color: #FFFFFF;
   color: #000000;

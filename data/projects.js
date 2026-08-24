@@ -27,22 +27,6 @@ window.RH_PROJECTS = [
     "video": ""
   },
   {
-    "title": "Taif",
-    "url": "",
-    "category": "Industry",
-    "niche": "Web",
-    "kind": "Freelance",
-    "year": "2026",
-    "description": "In development — a commercial site currently being built.",
-    "tags": [
-      "Web Development",
-      "Design",
-      "In Progress"
-    ],
-    "image": "img/rh/projects/taif.webp",
-    "video": ""
-  },
-  {
     "title": "Aurelio",
     "url": "https://aurelio.in",
     "category": "Industry",
@@ -355,21 +339,6 @@ window.RH_PROJECTS = [
     "video": ""
   },
   {
-    "title": "To the Moon and Beyond",
-    "url": "https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW",
-    "category": "Personal",
-    "niche": "Writing",
-    "kind": "Personal",
-    "year": "2021",
-    "description": "Published book.",
-    "tags": [
-      "Book",
-      "Published"
-    ],
-    "image": "img/rh/blogs/tothemoon.webp",
-    "video": ""
-  },
-  {
     "title": "Feedback Loop Collapse",
     "url": "https://zenodo.org/records/19024124",
     "category": "Personal",
@@ -383,37 +352,5 @@ window.RH_PROJECTS = [
     ],
     "image": "img/rh/blogs/research.webp",
     "video": ""
-  },
-  {
-    "title": "Aabshar-e-Khayaal",
-    "url": "https://www.instagram.com/aabshar_e_khayaal/",
-    "category": "Personal",
-    "niche": "Writing",
-    "kind": "Personal",
-    "year": "2024",
-    "description": "Urdu poetry & reflective writing.",
-    "tags": [
-      "Instagram",
-      "Writing"
-    ],
-    "image": "img/rh/blogs/aabshar.webp",
-    "video": ""
-  },
-  {
-    "title": "Coming Soon",
-    "url": "",
-    "category": "Personal",
-    "niche": "Writing",
-    "kind": "Personal",
-    "year": "2026",
-    "description": "Upcoming book.",
-    "tags": [
-      "Book",
-      "Writing",
-      "Coming Soon"
-    ],
-    "image": "img/rh/blogs/samundaro.webp",
-    "video": "",
-    "isBlurred": true
   }
 ];
