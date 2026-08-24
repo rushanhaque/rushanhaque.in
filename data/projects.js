@@ -76,7 +76,7 @@ window.RH_PROJECTS = [
   },
   {
     "title": "Barha",
-    "url": "https://barhadraft.vercel.app/",
+    "url": "",
     "category": "Industry",
     "niche": "Web",
     "kind": "Freelance",
@@ -85,10 +85,11 @@ window.RH_PROJECTS = [
     "tags": [
       "Web Development",
       "Design",
-      "In Progress"
+      "Coming Soon"
     ],
     "image": "img/rh/projects/barha.webp",
-    "video": ""
+    "video": "",
+    "isBlurred": true
   },
   {
     "title": "Chaudharysons & Co.",
@@ -352,5 +353,22 @@ window.RH_PROJECTS = [
     ],
     "image": "img/rh/blogs/research.webp",
     "video": ""
+  },
+  {
+    "title": "The Psychology Framework",
+    "url": "",
+    "category": "Personal",
+    "niche": "Writing",
+    "kind": "Personal",
+    "year": "2026",
+    "description": "Upcoming book.",
+    "tags": [
+      "Book",
+      "Writing",
+      "Coming Soon"
+    ],
+    "image": "img/rh/blogs/samundaro.webp",
+    "video": "",
+    "isBlurred": true
   }
 ];

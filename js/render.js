@@ -127,12 +127,14 @@
         '\n                          </div>';
     }
 
+    var csBadge = isBlurred ? '\n                          <span class="rh-cs-badge" aria-hidden="true">Coming Soon</span>' : '';
+
     return '' +
 '                    <div class="' + col + ' mxd-project-item animate-card-2' + extra + blurClass + '">\n' +
 '                      <div class="a-shot a-ticks">\n' +
 '                        <span class="a-shot__no">W/' + pad(index + 1) + '</span>\n' +
 '                        <a class="mxd-project-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? ' — visit site' : ' — coming soon') + '">\n' +
-'                          ' + media + '\n' +
+'                          ' + media + csBadge + '\n' +
 '                        </a>\n' +
 '                        <div class="rh-card-name">\n' +
 '                          <a href="' + esc(href) + '"' + blank + '>' + esc(p.title) + '</a>\n' +
@@ -239,6 +241,11 @@
       ? '\n                  <div class="rh-archive-thumb"><img src="' + thumbSrc + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="640" height="400"></div>'
       : '';
 
+    var statusClass = status === 'Visit Site' ? 'rh-row-status--live'
+      : status === 'Request Access' ? 'rh-row-status--request'
+      : 'rh-row-status--soon';
+    var statusPill = '<span class="rh-row-status ' + statusClass + '">' + esc(status) + '</span>';
+
     return '' +
 '                <a class="mxd-projects-list__item active-cursor-image active-cursor-permanent"' + cursorImg + ' data-cursor-text="' + status + '" href="' + esc(href) + '"' + blank + noNav + '>\n' +
 '                  <div class="mxd-projects-list__divider top"></div>\n' +
@@ -255,6 +262,9 @@
 '                          <span class="meta-date mxd-scramble">' + esc(p.kind || 'Personal') + '</span>\n' +
 '                          <span class="meta-date mxd-scramble">' + esc(p.year || '') + '</span>\n' +
 '                        </div>\n' +
+'                      </div>\n' +
+'                      <div class="col-12 col-xl-0 mxd-grid-padding rh-row-status-col">\n' +
+'                        ' + statusPill + '\n' +
 '                      </div>\n' +
 '                    </div>\n' +
 '                  </div>\n' +

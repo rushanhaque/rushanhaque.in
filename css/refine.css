@@ -1159,3 +1159,95 @@ html.rh-nav-in .rh-fade {
   .mxd-socials-line__link,
   .mxd-socials-line__link span { font-size: 1.25rem; }
 }
+
+/* Coming-soon pill badge — sits in the card image corner, always visible
+   (the cursor tooltip is mouse-only; touch users need this instead) */
+.rh-cs-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  pointer-events: none;
+}
+
+/* ======================================================
+   Header: RUH text contrast on non-hero pages
+   The template forces .mxd-header-permanent logo to white
+   (for dark hero sections). On light-background pages like
+   the works archive this makes it invisible. Override to
+   use the page text token so it's always readable.
+   ====================================================== */
+.mxd-header-permanent .mxd-logo__text,
+.mxd-header-permanent .mxd-logo {
+  color: var(--t-bright);
+}
+
+/* ======================================================
+   Archive row: status pill (Visit Site / Coming Soon /
+   Request Access) — hidden on desktop (cursor does it),
+   visible on touch/mobile where there is no cursor.
+   ====================================================== */
+.rh-row-status-col {
+  display: none;
+  padding-top: 1.2rem;
+  padding-bottom: 0.6rem;
+}
+
+@media only screen and (max-width: 1199px) {
+  .rh-row-status-col {
+    display: block;
+  }
+}
+
+.rh-row-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.rh-row-status--live {
+  background: rgba(var(--base-opp-rgb), 0.06);
+  border-color: rgba(var(--base-opp-rgb), 0.14);
+  color: var(--t-medium);
+}
+
+.rh-row-status--live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.rh-row-status--soon {
+  background: rgba(var(--base-opp-rgb), 0.04);
+  border-color: rgba(var(--base-opp-rgb), 0.10);
+  color: var(--t-muted);
+}
+
+.rh-row-status--request {
+  background: rgba(var(--base-opp-rgb), 0.06);
+  border-color: rgba(var(--base-opp-rgb), 0.14);
+  color: var(--t-medium);
+}
