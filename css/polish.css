@@ -1,0 +1,531 @@
+/*! ------------------------------------------------
+ * File name: polish.css
+ * Project:   Rushan Haque — Portfolio
+ * Loaded:    LAST, after sections.css and mobile.css.
+ *
+ * Purpose: a performance + refinement layer.
+ *   01. Performance — layer promotion, compositing, scroll
+ *   02. Vertical rhythm & alignment
+ *   03. Typography refinement
+ *   04. Component polish
+ *   05. Mobile landing — rebuilt hero
+ *
+ * REMINDER: 1rem = 10px (main.css sets html { font-size: 62.5% }).
+ * ------------------------------------------------ */
+
+
+/* ==================================================
+   01. PERFORMANCE
+   ==================================================
+   Measured on a 375px viewport before this file existed:
+     · 91 elements carrying `will-change`
+     ·  9 badges each running `backdrop-filter`
+     · 40 ScrollTriggers, 70 live tweens
+
+   `will-change` is a hint, not an optimisation. Each element
+   carrying it is promoted to its own compositor layer for the
+   life of the page — 65 of the 91 above were SplitText `.line`
+   and `.char` fragments that animate once, during the intro,
+   and then never move again. On a phone that is 65 permanent
+   layers of GPU memory bought for one second of animation, and
+   the cost is paid on every subsequent scroll frame.
+
+   GSAP promotes its own targets (force3D → translate3d) for the
+   duration of a tween and releases them after, which is the
+   behaviour we actually want. So we hand the job back to GSAP.
+   ================================================== */
+
+/* release the permanent promotion on split-text fragments.
+   Same specificity as main.css's `.line` / `.char`, later in
+   the cascade, so this wins on order. */
+.line,
+.char,
+.word,
+.mxd-split-lines-reverse .line,
+.loading-split .line {
+  will-change: auto;
+}
+
+/* `backdrop-filter` forces the compositor to re-read and blur the
+   backdrop behind the element on every frame it is on screen.
+   One of them (the header) is a deliberate design signature and
+   earns its cost. Nine card badges do not — they sit on an opaque
+   image, where a solid fill is visually identical and free. */
+.rh-cs-badge {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(10, 10, 10, 0.78);
+}
+
+/* The custom cursor is a pointer affordance. On a touch device it
+   can never be shown, but it still lives in the DOM as a fixed,
+   backdrop-filtered, layer-promoted element that the compositor
+   carries on every frame. Take it out of the tree entirely. */
+@media (hover: none), (pointer: coarse) {
+  #mxd-cursor,
+  .mxd-cursor {
+    display: none !important;
+  }
+}
+
+/* `filter: blur()` on a large image is a per-frame GPU convolution.
+   On the coming-soon cards the blur is decorative — it says "not
+   ready yet". Opacity plus a desaturate reads the same and costs
+   a fraction as much, so mobile gets that version instead. */
+@media only screen and (max-width: 1199px) {
+  .rh-coming-soon-card .mxd-blog-item__media,
+  .rh-coming-soon-card .mxd-project-item__media,
+  .rh-coming-soon-card img {
+    filter: grayscale(0.35);
+    opacity: 0.62;
+  }
+}
+
+/* The header glass is worth keeping, but a 32px blur radius is
+   more than the effect needs. Halving the radius roughly quarters
+   the work the compositor does per frame, and at this size the
+   two are visually indistinguishable. */
+@media only screen and (max-width: 1199px) {
+  .mxd-header {
+    -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
+            backdrop-filter: saturate(180%) blur(16px) !important;
+  }
+}
+
+/* Scroll feel. `overscroll-behavior-y: none` stops the scroll chain
+   from leaking to the document when a nested scroller hits its end,
+   which is what produces the "stuck for a frame" feeling at the top
+   and bottom of the page on iOS. */
+html {
+  overscroll-behavior-y: none;
+}
+
+body {
+  /* keep the compositor honest about what actually paints */
+  text-rendering: optimizeSpeed;
+}
+
+/* headings are few and large — they can afford the good renderer */
+h1, h2, h3, h4,
+.mxd-split-lines,
+.hero-10-headline__content {
+  text-rendering: optimizeLegibility;
+}
+
+/* Images: give the decoder a hint it can work off the main thread,
+   and stop layout shift by holding the box before the byte arrives. */
+img {
+  content-visibility: auto;
+}
+
+/* Honour the OS switch. When someone has asked for less motion, the
+   cheapest and most correct thing a page can do is stop moving. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee__top,
+  .marquee__bottom {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* ==================================================
+   02. VERTICAL RHYTHM & ALIGNMENT
+   ==================================================
+   Sections already share a 165px / 180px pad pair, which is
+   close to right but arrived at by two different rules. Naming
+   it once makes the page measurable, and lets the mobile step
+   down proportionally instead of by hand per section.
+   ================================================== */
+
+:root {
+  --p-sec-y:      16.5rem;   /* desktop section padding */
+  --p-sec-y-lap:  12rem;
+  --p-sec-y-tab:  9rem;
+  --p-sec-y-mob:  7rem;
+
+  --p-block-gap:  6rem;      /* title block → content */
+  --p-gutter:     3rem;
+}
+
+.mxd-page-content > .mxd-section,
+.mxd-page-content > .pin-spacer > .mxd-section {
+  padding-top: var(--p-sec-y);
+  padding-bottom: var(--p-sec-y);
+}
+
+@media only screen and (max-width: 1399px) {
+  :root { --p-sec-y: var(--p-sec-y-lap); --p-block-gap: 5rem; }
+}
+@media only screen and (max-width: 991px) {
+  :root { --p-sec-y: var(--p-sec-y-tab); --p-block-gap: 4rem; --p-gutter: 2.4rem; }
+}
+@media only screen and (max-width: 575px) {
+  :root { --p-sec-y: var(--p-sec-y-mob); --p-block-gap: 3.4rem; --p-gutter: 2rem; }
+}
+
+/* the hero sets its own rhythm — it opens the page rather than
+   continuing one, so it keeps its top spacing off the header */
+.mxd-hero-section {
+  padding-bottom: 0 !important;
+}
+
+/* one gutter, everywhere. The template mixed 30px container padding
+   with 24px grid-item padding, so the section index rail and the
+   headline below it started on two different verticals. */
+@media only screen and (max-width: 991px) {
+  .mxd-container,
+  .mxd-grid-item,
+  .mxd-grid-padding {
+    padding-left: var(--p-gutter);
+    padding-right: var(--p-gutter);
+  }
+  /* nested containers must not double the gutter */
+  .mxd-grid-item .mxd-grid-item,
+  .mxd-container .mxd-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* consistent gap between a section's title block and its content */
+.mxd-section-title.pre-grid {
+  margin-bottom: var(--p-block-gap);
+}
+
+
+/* ==================================================
+   03. TYPOGRAPHY REFINEMENT
+   ==================================================
+   The display sizes were set for a 1440 viewport and scaled by
+   breakpoint steps, which left visible jumps between them. A
+   clamp() ties each size to the viewport continuously, so the
+   headline is proportionate at every width instead of at four.
+   ================================================== */
+
+.mxd-section-title__title h2 {
+  font-size: clamp(3.6rem, 5.4vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.hero-10-headline__wrap h1 {
+  font-size: clamp(4.8rem, 13vw, 16rem);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.mxd-hero-10__descr p {
+  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+/* Lede paragraphs: a measure that stays readable. 52ch is right on
+   a wide screen and far too wide on a phone, where the line should
+   break nearer 34 characters. */
+.a-lede {
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+@media only screen and (max-width: 991px) {
+  .a-lede {
+    max-width: 40ch;
+    font-size: 1.72rem;
+    line-height: 1.5;
+  }
+}
+
+/* Mono micro-labels need more tracking as they get smaller, not
+   less — at 11px the letters run together without it. */
+@media only screen and (max-width: 767px) {
+  .a-index__label,
+  .a-meta,
+  .a-eyebrow,
+  .meta-tag,
+  .meta-niche,
+  .meta-date {
+    letter-spacing: 0.15em;
+  }
+}
+
+
+/* ==================================================
+   04. COMPONENT POLISH
+   ================================================== */
+
+/* --- section index rail: align the number, label and meta to a
+       single baseline, and let the rule take the space left over --- */
+.a-index {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 2.6rem;
+}
+.a-index__rule {
+  flex: 1;
+  height: 1px;
+  background-color: var(--a-line-2);
+}
+.a-index__meta {
+  white-space: nowrap;
+}
+@media only screen and (max-width: 767px) {
+  .a-index {
+    flex-wrap: wrap;
+    gap: 0.8rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+  /* the rule has nothing to span once the row wraps */
+  .a-index__rule { display: none; }
+  .a-index__meta { width: 100%; }
+}
+
+/* --- cards: one radius, one border, one lift --- */
+.a-shot {
+  border-radius: var(--a-r-m);
+  overflow: hidden;
+}
+.mxd-project-item__media,
+.mxd-blog-item__media {
+  border-radius: var(--a-r-m);
+  overflow: hidden;
+}
+
+/* --- buttons: equal optical weight and a consistent hit area --- */
+.a-cta {
+  min-height: 4.8rem;
+  padding: 1.2rem 2.4rem;
+  border-radius: 999px;
+  font-size: var(--a-fs-base);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* the WCAG floor for a touch target is 44px; anything a thumb is
+   meant to hit gets there regardless of how small the label is */
+@media (hover: none) {
+  .a-cta,
+  .rh-nav__link,
+  .rh-dots__link,
+  .a-cap__name,
+  .footer-data a {
+    min-height: 4.4rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* --- status badges: same scale as the meta labels around them --- */
+.rh-cs-badge {
+  bottom: 1.2rem;
+  left: 1.2rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+}
+
+/* --- bento: even cells, no orphan row --- */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .a-bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .a-bento__lead { grid-column: 1 / -1; }
+}
+
+
+/* ==================================================
+   05. MOBILE LANDING — REBUILT HERO
+   ==================================================
+   What the hero has to do on a phone, in order:
+     1. say who this is
+     2. say what he does
+     3. offer the two ways in
+
+   Everything else — the coordinates, the disciplines strip, the
+   tagline — is supporting detail that competes with those three
+   at 375px. It stays on desktop, where there is room for it.
+
+   The previous mobile attempt forced the section to 100svh and
+   absolutely positioned the buttons at the bottom, which produced
+   a large dead band between the role line and the CTAs on tall
+   phones. This version lets the content set the height and spaces
+   it deliberately instead.
+   ================================================== */
+
+@media only screen and (max-width: 1199px) {
+
+  /* --- the section itself: natural height ---
+     refine.css pins this whole subtree to 100svh and lays `__wrap` out
+     as a column with `justify-content: space-between`. That was correct
+     while there were three groups to spread — meta, name, disciplines.
+     With the disciplines strip gone there are only two, so `space-between`
+     pushes the name to the top and the role line to the bottom and opens
+     a ~450px void between them. Height goes back to the content. */
+  .mxd-hero-section,
+  .mxd-hero-section.mxd-hero-fullheight-desktop {
+    height: auto;
+    min-height: 0;
+    /* header clearance is already carried by `.a-hero-meta`'s padding-top
+       in sections.css — adding it here too would pad the gap twice */
+    padding-top: 0;
+  }
+
+  .mxd-hero-section .pinned-section__inner,
+  .mxd-hero-10 {
+    height: auto;
+    min-height: 0;
+  }
+
+  .mxd-hero-10__wrap {
+    display: block;        /* was flex + space-between */
+    height: auto;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  /* the section now owns the top clearance, so the headline must not
+     add its own 11rem on top of it */
+  .mxd-hero-10__headline {
+    padding-top: 0;
+  }
+
+  .mxd-hero-10__top,
+  .mxd-hero-10__center {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* --- 1. the meta rail: location and local time only ---
+     The coordinates are a nice touch on a wide screen and noise
+     on a narrow one, so they go; the city and the live clock
+     carry the same idea in half the width. */
+  /* the rail is not a `.mxd-grid-item`, so it misses the shared gutter
+     rule above and was landing 4px inboard of the name beneath it */
+  .a-hero-meta {
+    padding-left: var(--p-gutter);
+    padding-right: var(--p-gutter);
+    margin-bottom: 2.4rem;
+  }
+  .a-hero-meta__coords {
+    gap: 0.8rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+  }
+  .a-hero-meta__coords span:first-child {
+    display: none;
+  }
+
+  /* --- 2. the name --- */
+  .mxd-hero-10__headline {
+    margin-bottom: 0;
+  }
+  .hero-10-headline__wrap h1 {
+    font-size: clamp(5.6rem, 17vw, 11rem);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+  }
+
+  /* the rule under the name: full bleed to the gutter, not the
+     template's inset that left it floating short of the text */
+  .mxd-hero-10__center {
+    padding-top: 3.2rem;
+    padding-bottom: 0;
+  }
+  .mxd-hero-10__divider {
+    left: var(--p-gutter);
+    width: calc(100% - (var(--p-gutter) * 2));
+  }
+  .mxd-hero-10__divider.divider-bottom {
+    display: none;
+  }
+
+  /* --- 3. the role line --- */
+  .mxd-hero-10__descr p {
+    font-size: clamp(2.6rem, 7.4vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  /* the tagline and the disciplines strip stay off at this width */
+  .a-hero-lede { display: none !important; }
+  .mxd-hero-10__bottom { display: none !important; }
+
+  /* --- 4. the two ways in ---
+     Side by side, equal width, in normal flow directly beneath the
+     role line. No absolute positioning, so no dead space. */
+  .a-hero-actions {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 1.2rem;
+    margin-top: 3.2rem;
+    padding: 0;
+  }
+  .a-hero-actions .a-cta {
+    flex: 1 1 0;
+    justify-content: center;
+    text-align: center;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    font-size: 1.55rem;
+  }
+
+  /* --- the seam into the first section --- */
+  .mxd-hero-section {
+    padding-bottom: 7rem !important;
+  }
+}
+
+/* very narrow phones: the two buttons stop fitting side by side
+   somewhere under 360px, so let them stack rather than shrink the
+   labels below a readable size */
+@media only screen and (max-width: 359px) {
+  .a-hero-actions {
+    flex-direction: column;
+  }
+  .a-hero-actions .a-cta {
+    width: 100%;
+  }
+}
+
+
+/* ==================================================
+   06. FORM CONTRAST — the dark review card
+   ==================================================
+   main.css carries:
+
+     form input:required:valid,
+     form textarea:required:valid { color: var(--t-bright); }
+
+   `--t-bright` is #000 in the light scheme, which is correct for the
+   contact form (white ground) and wrong for the review form, which
+   sits on a #1A1A1A card. At (0,2,2) that rule outranks the card's own
+   `.rh-review-marquee-card .rh-field input` at (0,2,1), so the moment a
+   required field became valid — i.e. as soon as anyone typed into it —
+   the text turned black on near-black and disappeared.
+
+   Only `name` and `review` are marked required, which is exactly why
+   those two vanished while `role` and `email` stayed legible.
+
+   The autofill path was already patched; this is the ordinary-typing
+   path. Scoped to the dark card so the contact form keeps black text.
+   ================================================== */
+
+.rh-review-marquee-card .rh-field input:required:valid,
+.rh-review-marquee-card .rh-field textarea:required:valid,
+.rh-review-marquee-card .rh-field input:valid,
+.rh-review-marquee-card .rh-field textarea:valid {
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
+}
