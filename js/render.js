@@ -127,14 +127,16 @@
         '\n                          </div>';
     }
 
-    var csBadge = isBlurred ? '\n                          <span class="rh-cs-badge" aria-hidden="true">Coming Soon</span>' : '';
+    var badgeLabel = isBlurred ? 'Coming Soon' : (live ? 'Visit Site' : 'In Progress');
+    var badgeClass = isBlurred ? 'rh-cs-badge--soon' : (live ? 'rh-cs-badge--live' : 'rh-cs-badge--progress');
+    var cardBadge = '\n                          <span class="rh-cs-badge ' + badgeClass + '" aria-hidden="true">' + badgeLabel + '</span>';
 
     return '' +
 '                    <div class="' + col + ' mxd-project-item animate-card-2' + extra + blurClass + '">\n' +
 '                      <div class="a-shot a-ticks">\n' +
 '                        <span class="a-shot__no">W/' + pad(index + 1) + '</span>\n' +
 '                        <a class="mxd-project-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? ' — visit site' : ' — coming soon') + '">\n' +
-'                          ' + media + csBadge + '\n' +
+'                          ' + media + cardBadge + '\n' +
 '                        </a>\n' +
 '                        <div class="rh-card-name">\n' +
 '                          <a href="' + esc(href) + '"' + blank + '>' + esc(p.title) + '</a>\n' +
@@ -398,6 +400,9 @@
       var isShifted = (p.isBlurred || p.title === 'Coming Soon' || (p.image && p.image.indexOf('samundaro') !== -1));
       var shiftClass = isShifted ? ' rh-shifted-card' : '';
 
+      var blogBadgeLabel = live ? 'Read' : 'Coming Soon';
+      var blogBadgeClass = live ? 'rh-cs-badge--live' : 'rh-cs-badge--soon';
+
       return '' +
 '                    <div class="col-12 col-md-6 col-lg-4 mxd-blog-item animate-card-3' + blurClass + shiftClass + '">\n' +
 '                      <div class="mxd-blog-item__date">\n' +
@@ -406,6 +411,7 @@
 '                      <div class="a-shot a-ticks">\n' +
 '                        <a class="mxd-blog-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? '' : ' — coming soon') + '">\n' +
 '                          <img src="' + img + '"' + srcsetFor(img, '(min-width: 992px) 32vw, (min-width: 768px) 48vw, 81vw') + ' alt="' + esc(p.title) + '" width="1536" height="1024" loading="lazy" decoding="async">\n' +
+'                          <span class="rh-cs-badge ' + blogBadgeClass + '" aria-hidden="true">' + blogBadgeLabel + '</span>\n' +
 '                        </a>\n' +
 '                      </div>\n' +
 '                      <div class="mxd-blog-item__caption">\n' +

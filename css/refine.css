@@ -1162,6 +1162,7 @@ html.rh-nav-in .rh-fade {
 
 /* Coming-soon pill badge — sits in the card image corner, always visible
    (the cursor tooltip is mouse-only; touch users need this instead) */
+/* base badge — sits bottom-left of the card image */
 .rh-cs-badge {
   position: absolute;
   bottom: 1rem;
@@ -1181,6 +1182,22 @@ html.rh-nav-in .rh-fade {
   text-transform: uppercase;
   color: #FFFFFF;
   pointer-events: none;
+}
+
+/* "Visit Site" / "Read" — hide on desktop where the cursor does the job */
+.rh-cs-badge--live {
+  display: none;
+}
+@media (hover: none), (max-width: 1199px) {
+  .rh-cs-badge--live {
+    display: inline-flex;
+  }
+}
+
+/* "Coming Soon" / "In Progress" — always visible */
+.rh-cs-badge--soon,
+.rh-cs-badge--progress {
+  display: inline-flex;
 }
 
 /* ======================================================
