@@ -553,9 +553,8 @@ function mxdTypeAnimations() {
         gsap.timeline({
           scrollTrigger: {
             trigger: animChars,
-            start: "top bottom",
-            end: "top 80%",
-            toggleActions: "none play none reset",
+            start: "top 95%",
+            toggleActions: "play none none reverse",
             ease: "custom",
             // markers: true
           },

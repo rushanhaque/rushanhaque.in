@@ -2197,7 +2197,7 @@ input[type="button"] {
 
 /* 9. Footer on mobile — see section 23 for the full compact treatment */
 @media only screen and (max-width: 575px) {
-  .rh-footer-body { padding-top: 4rem; padding-bottom: 3rem; }
+  /* padding handled in section 23 */
 }
 
 /* 10. Contact form: field gap on mobile */
@@ -2236,7 +2236,7 @@ input[type="button"] {
   /* brand sits full width, reach + connect share the row below it */
   .rh-footer-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 3.2rem 2.4rem;
+    gap: 4.8rem 2.4rem;
   }
   .rh-fcol--brand {
     grid-column: 1 / -1;
@@ -2275,10 +2275,13 @@ input[type="button"] {
 /* the wordmark is the footer's full stop — keep it, shrink its air */
 @media only screen and (max-width: 575px) {
   .rh-footer-body {
-    padding-top: 3.6rem;
+    padding-top: 6.4rem;
+    padding-bottom: 3.2rem;
+  }
+  .mxd-footer__fw-mark { 
+    padding-top: 1.6rem; 
     padding-bottom: 2.4rem;
   }
-  .mxd-footer__fw-mark { padding-top: 1rem; }
 }
 
 /* ==================================================
