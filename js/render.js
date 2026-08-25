@@ -422,7 +422,7 @@
       var live = !(p.isBlurred || p.title === 'Coming Soon' || !p.url);
       var cursorText = live ? 'Read' : 'Coming Soon';
       var metaLabel = (Array.isArray(p.tags) && p.tags[0]) ? p.tags[0] : 'Writing';
-      var isShifted = (p.isBlurred || p.title === 'Coming Soon' || (p.image && p.image.indexOf('samundaro') !== -1));
+      var isShifted = (p.isBlurred || p.title === 'Coming Soon' || (p.image && (p.image.indexOf('samundaro') !== -1 || p.image.indexOf('psychology') !== -1)));
       var shiftClass = isShifted ? ' rh-shifted-card' : '';
 
       var blogBadgeLabel = live ? 'Read' : 'Coming Soon';

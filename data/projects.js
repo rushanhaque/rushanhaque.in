@@ -349,10 +349,9 @@ window.RH_PROJECTS = [
     "description": "Upcoming book.",
     "tags": [
       "Book",
-      "Writing",
       "Coming Soon"
     ],
-    "image": "img/rh/blogs/samundaro.webp",
+    "image": "img/rh/blogs/psychology-framework.webp",
     "video": "",
     "isBlurred": true,
     "hideFromArchive": true
@@ -367,7 +366,6 @@ window.RH_PROJECTS = [
     "description": "Upcoming book.",
     "tags": [
       "Book",
-      "Writing",
       "Coming Soon"
     ],
     "image": "img/rh/blogs/samundaro.webp",
@@ -384,8 +382,8 @@ window.RH_PROJECTS = [
     "year": "2024",
     "description": "Urdu poetry & reflective writing.",
     "tags": [
-      "Instagram",
-      "Writing"
+      "Writing",
+      "Page"
     ],
     "image": "img/rh/blogs/aabshar.webp",
     "video": "",
@@ -401,7 +399,7 @@ window.RH_PROJECTS = [
     "description": "Published research paper on feedback loop collapse of artificial intelligence.",
     "tags": [
       "Research",
-      "AI"
+      "Published"
     ],
     "image": "img/rh/blogs/research.webp",
     "video": ""

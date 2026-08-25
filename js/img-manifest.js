@@ -55,6 +55,11 @@ window.RH_IMG_WIDTHS = {
     1024,
     1536
   ],
+  "img/rh/blogs/psychology-framework.webp": [
+    640,
+    1024,
+    1290
+  ],
   "img/rh/blogs/research.webp": [
     640,
     1130

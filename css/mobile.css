@@ -337,8 +337,12 @@ html {
   /* Section rhythm is already reset for small screens in refine.css
      (section 05), using `.mxd-section.padding-*` — two classes, which
      outranks anything single-class written here regardless of load
-     order. Those values (7.5–8rem) are right, so this file deliberately
-     does not restate them. Tune the mobile rhythm there, not here. */
+     order. */
+
+  /* Shift selected works section down on mobile */
+  #works.mxd-section {
+    padding-top: 11.5rem;
+  }
 
   /* The index plate is the section's masthead. Give it a rule that
      runs the full measure and set it away from the headline — the
