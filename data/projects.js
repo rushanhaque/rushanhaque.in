@@ -340,6 +340,53 @@ window.RH_PROJECTS = [
     "video": ""
   },
   {
+    "title": "Feedback Loop Collapse",
+    "url": "https://zenodo.org/records/19024124",
+    "category": "Personal",
+    "niche": "Research",
+    "kind": "Personal",
+    "year": "2026",
+    "description": "Published research paper on feedback loop collapse of artificial intelligence.",
+    "tags": [
+      "Research",
+      "Published"
+    ],
+    "image": "img/rh/blogs/research.webp",
+    "video": ""
+  },
+  {
+    "title": "To the Moon and Beyond",
+    "url": "https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW",
+    "category": "Personal",
+    "niche": "Writing",
+    "kind": "Personal",
+    "year": "2021",
+    "description": "Published book.",
+    "tags": [
+      "Book",
+      "Published"
+    ],
+    "image": "img/rh/blogs/tothemoon.webp",
+    "video": "",
+    "hideFromArchive": true
+  },
+  {
+    "title": "Aabshar-e-Khayaal",
+    "url": "https://www.instagram.com/aabshar_e_khayaal/",
+    "category": "Personal",
+    "niche": "Writing",
+    "kind": "Personal",
+    "year": "2024",
+    "description": "Urdu poetry & reflective writing.",
+    "tags": [
+      "Writing",
+      "Page"
+    ],
+    "image": "img/rh/blogs/aabshar.webp",
+    "video": "",
+    "hideFromArchive": true
+  },
+  {
     "title": "The Psychology Framework",
     "url": "",
     "category": "Personal",
@@ -371,53 +418,6 @@ window.RH_PROJECTS = [
     "image": "img/rh/blogs/samundaro.webp",
     "video": "",
     "isBlurred": true,
-    "hideFromArchive": true
-  },
-  {
-    "title": "Aabshar-e-Khayaal",
-    "url": "https://www.instagram.com/aabshar_e_khayaal/",
-    "category": "Personal",
-    "niche": "Writing",
-    "kind": "Personal",
-    "year": "2024",
-    "description": "Urdu poetry & reflective writing.",
-    "tags": [
-      "Writing",
-      "Page"
-    ],
-    "image": "img/rh/blogs/aabshar.webp",
-    "video": "",
-    "hideFromArchive": true
-  },
-  {
-    "title": "Feedback Loop Collapse",
-    "url": "https://zenodo.org/records/19024124",
-    "category": "Personal",
-    "niche": "Research",
-    "kind": "Personal",
-    "year": "2026",
-    "description": "Published research paper on feedback loop collapse of artificial intelligence.",
-    "tags": [
-      "Research",
-      "Published"
-    ],
-    "image": "img/rh/blogs/research.webp",
-    "video": ""
-  },
-  {
-    "title": "To the Moon and Beyond",
-    "url": "https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW",
-    "category": "Personal",
-    "niche": "Writing",
-    "kind": "Personal",
-    "year": "2021",
-    "description": "Published book.",
-    "tags": [
-      "Book",
-      "Published"
-    ],
-    "image": "img/rh/blogs/tothemoon.webp",
-    "video": "",
     "hideFromArchive": true
   }
 ];

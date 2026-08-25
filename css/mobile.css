@@ -223,6 +223,36 @@ html {
     letter-spacing: -0.02em;
   }
 
+  /* Blog caption tags: full width and flush right alignment for status tags (Coming Soon, Published, Page) */
+  .mxd-blog-item__caption {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0.2rem !important;
+    padding-right: 0.2rem !important;
+  }
+  .mxd-blog-item__title {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .a-cap__tags {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-wrap: nowrap !important;
+  }
+  .a-cap__tags span:last-child,
+  .a-cap__tags span:nth-child(2) {
+    margin-left: auto !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+  }
+  .a-cap__tags span:first-child {
+    white-space: nowrap !important;
+    text-align: left !important;
+  }
+
   /* Long unbroken strings — emails, URLs — are the one thing that
      forces a sideways scroll and makes a page feel broken. */
   .rh-fcol__list a,
@@ -324,6 +354,22 @@ html {
    e. Structure — the measured grid at hand-scale
    ================================================== */
 @media only screen and (max-width: 767px) {
+
+  /* Increase landing hero height on mobile */
+  .mxd-hero-section,
+  .mxd-hero-section.mxd-hero-fullheight-desktop {
+    min-height: 92vh;
+    min-height: 92dvh;
+    padding-bottom: 5rem !important;
+  }
+  .mxd-hero-10,
+  .mxd-hero-10__wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 92vh;
+    min-height: 92dvh;
+  }
 
   /* The gutter itself now lives in sections.css §25 as `--a-gutter`,
      consumed by every block that touches the sheet edge at both

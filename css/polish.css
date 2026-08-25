@@ -352,12 +352,28 @@ img {
   }
 }
 
-/* Align left tag to left edge and right tag to right edge in blog card captions */
+/* Ensure full-width caption & align left tag to left edge and right tag to right edge */
+.mxd-blog-item__title,
+.mxd-project-item__name {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 .a-cap__tags {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 100%;
+}
+.a-cap__tags span:last-child,
+.a-cap__tags span:nth-child(2) {
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
+}
+.a-cap__tags span:first-child {
+  white-space: nowrap;
 }
 
 
