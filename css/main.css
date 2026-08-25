@@ -3184,55 +3184,6 @@ p.t-accent-bright span {
 .no-touch .mxd-socials-line__link:hover.permanent {
   color: rgba(var(--nl-white-rgb), 1);
 }
-
-.footer-data {
-  display: block;
-  overflow: hidden;
-  color: var(--t-medium);
-  font: normal 600 1.4rem/1.6 var(--_font-accent);
-  text-transform: uppercase;
-  letter-spacing: -0.05rem;
-}
-.footer-data a {
-  display: -webkit-inline-box;
-  display: -moz-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font: normal 600 1.4rem/1.6 var(--_font-accent);
-  text-transform: uppercase;
-  letter-spacing: -0.05rem;
-  color: var(--t-medium);
-}
-.no-touch .footer-data a:hover {
-  color: var(--t-bright);
-}
-.footer-data span {
-  display: -webkit-inline-box;
-  display: -moz-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-.footer-data.opposite {
-  color: var(--t-opp-medium);
-}
-.footer-data.opposite a {
-  color: var(--t-opp-medium);
-}
-.no-touch .footer-data.opposite a:hover {
-  color: var(--t-opp-bright);
-}
-.footer-data.bright {
-  color: var(--t-bright);
-  letter-spacing: normal;
-}
-.footer-data.bright a {
-  color: var(--t-bright);
-  letter-spacing: normal;
-}
-.no-touch .footer-data.bright a:hover {
-  color: var(--t-medium);
-}
-
 .project-name-s {
   font: normal 700 2.4rem/1.2 var(--_font-default);
   letter-spacing: -0.04rem;
@@ -6149,37 +6100,6 @@ form textarea:required:valid {
        -moz-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
-  }
-}
-
-.mxd-footer__footer-blocks {
-  position: relative;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-     -moz-box-orient: vertical;
-     -moz-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.mxd-footer__footer-blocks.bottom-blocks {
-  padding: 0 0 3.6rem 0;
-}
-@media only screen and (min-width: 1200px) {
-  .mxd-footer__footer-blocks {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-       -moz-box-orient: horizontal;
-       -moz-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    gap: 6rem;
-  }
-  .mxd-footer__footer-blocks.bottom-blocks {
-    padding: 3.3rem 0 3.6rem 0;
   }
 }
 

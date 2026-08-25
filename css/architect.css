@@ -310,19 +310,9 @@
   transform-origin: left center;
 }
 
-.a-index__meta {
-  flex: 0 0 auto;
-  font-family: var(--_font-accent);
-  font-size: var(--a-fs-micro);
-  letter-spacing: 0.12em;
-  color: var(--t-muted);
-  white-space: nowrap;
-}
-
 @media only screen and (max-width: 575px) {
   .a-index { gap: 1rem; margin-bottom: 1.8rem; }
   .a-index__label { font-size: 1.05rem; letter-spacing: 0.14em; }
-  .a-index__meta  { display: none; }
 }
 
 /* the eyebrow tag used above headlines inside blocks */

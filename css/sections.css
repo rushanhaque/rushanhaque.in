@@ -1592,14 +1592,6 @@
 .no-touch .a-close__body .a-cta:hover .a-cta__well { background-color: rgba(10, 10, 10, 0.14); }
 
 #mxd-footer { border-top: 0; }
-.rh-footer-top { padding-top: 4.5rem; }
-.footer-data {
-  font-family: var(--_font-accent);
-  font-size: var(--a-fs-mono);
-  letter-spacing: 0.1em;
-  line-height: 1.9;
-}
-
 /* the wordmark: tuck it tight to the baseline of the sheet */
 .fw-mark__content span { letter-spacing: -0.035em; }
 
@@ -1681,11 +1673,9 @@
   .rh-review-marquee-card .rh-field label,
   .a-form__facts li { font-size: 1.1rem; }
 
-  /* thumb-sized targets */
   .a-cap__name,
-  .mxd-socials-line__link,
-  .menu-contact__list .tag-m,
-  .footer-data a {
+.mxd-socials-line__link,
+.menu-contact__list .tag-m {
     display: inline-block;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
@@ -1907,204 +1897,14 @@ input[type="button"] {
   .mxd-section-title:not(.pre-grid) { margin-bottom: 5rem; }
 }
 
-/* ==================================================
-   21. Footer redesign — rh-footer-grid
-   --------------------------------------------------
-   Replaces the old two-column copyright / contact
-   block with a proper four-column editorial footer:
-   brand identity on the left, navigation, contact
-   details, and social links in three equal columns.
+navigation,
+contact
+   details,
+and social links in three equal columns.
    A hairline separates the body from a slim bottom
-   bar, and the "RUSHAN HAQUE" wordmark remains as a
-   full-bleed typographic close.
-   ================================================== */
-
-/* Hide the legacy footer blocks — replaced by rh-footer-body */
-.mxd-footer__footer-blocks { display: none !important; }
-.rh-footer-top { display: none !important; }
-
+   bar { display: none !important; }
 /* Footer blocks use their own internal spacing — cancel the global block gap */
 #mxd-footer .mxd-block + .mxd-block { margin-top: 0; }
-
-/* --- the container that replaces rh-footer-top --- */
-.rh-footer-body {
-  padding-top: 5.5rem;
-  padding-bottom: 4.5rem;
-  border-top: 1px solid var(--a-line-2);
-}
-@media only screen and (min-width: 768px) {
-  .rh-footer-body {
-    padding-top: 7rem;
-    padding-bottom: 5.5rem;
-  }
-}
-
-/* four-column grid */
-.rh-footer-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-}
-@media only screen and (min-width: 576px) {
-  .rh-footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4.5rem 3.5rem;
-  }
-}
-@media only screen and (min-width: 992px) {
-  .rh-footer-grid {
-    grid-template-columns: 1.9fr 1fr 1.5fr 1fr;
-    gap: 3rem 5rem;
-    align-items: start;
-  }
-}
-@media only screen and (min-width: 1400px) {
-  .rh-footer-grid { gap: 3rem 7rem; }
-}
-
-/* on tablet the brand col spans the full row */
-@media only screen and (min-width: 576px) and (max-width: 991px) {
-  .rh-fcol--brand { grid-column: 1 / -1; }
-}
-
-/* --- brand column --- */
-.rh-fcol--brand {
-  display: flex;
-  flex-direction: column;
-  gap: 2.2rem;
-}
-
-.rh-footer-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.2rem;
-  text-decoration: none;
-  transition: opacity var(--a-t-fast) var(--a-swift);
-}
-.no-touch .rh-footer-logo:hover { opacity: 0.65; }
-
-.rh-footer-logo__icon {
-  width: 2.6rem;
-  height: 2.2rem;
-  fill: var(--a-ink);
-  flex: 0 0 auto;
-}
-
-.rh-footer-logo__name {
-  font-size: var(--a-fs-l);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  color: var(--t-bright);
-}
-
-.rh-footer-pitch {
-  margin: 0;
-  max-width: 28ch;
-  font-size: var(--a-fs-s);
-  line-height: 1.65;
-  color: var(--t-muted);
-}
-
-.rh-footer-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.5rem 1.2rem 0.5rem 0.8rem;
-  border: 1px solid var(--a-line-2);
-  border-radius: 999px;
-  background-color: var(--a-surface-1);
-  font-family: var(--_font-accent);
-  font-size: var(--a-fs-micro);
-  font-weight: 500;
-  letter-spacing: var(--a-track-mono);
-  text-transform: uppercase;
-  color: var(--t-muted);
-  width: fit-content;
-}
-
-/* --- link columns shared styles --- */
-.rh-fcol__label {
-  margin: 0 0 2rem;
-  font-family: var(--_font-accent);
-  font-size: var(--a-fs-micro);
-  font-weight: 500;
-  letter-spacing: var(--a-track-mono);
-  text-transform: uppercase;
-  color: var(--t-muted);
-  padding-bottom: 1.4rem;
-  border-bottom: 1px solid var(--a-line);
-}
-
-.rh-fcol__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-}
-
-.rh-fcol__list li {
-  font-size: var(--a-fs-s);
-  line-height: 1.45;
-  color: var(--t-muted);
-}
-
-.rh-fcol__list a {
-  position: relative;
-  color: var(--t-medium);
-  text-decoration: none;
-  transition: color var(--a-t-fast) var(--a-swift);
-}
-.rh-fcol__list a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.25rem;
-  height: 1px;
-  background-color: currentColor;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--a-t-mid) var(--a-settle);
-}
-.no-touch .rh-fcol__list a:hover { color: var(--t-bright); }
-.no-touch .rh-fcol__list a:hover::after { transform: scaleX(1); }
-
-.rh-fcol__addr {
-  font-style: normal;
-  line-height: 1.65;
-}
-
-/* --- bottom bar --- */
-.rh-footer-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.2rem 2.4rem;
-  padding-top: 2.6rem;
-  padding-bottom: 2.6rem;
-  border-top: 1px solid var(--a-line);
-  margin-top: 0 !important; /* cancel .mxd-block + .mxd-block margin */
-}
-
-.rh-footer-bar__left {
-  display: flex;
-  align-items: center;
-  gap: 2.4rem;
-  flex-wrap: wrap;
-}
-
-.rh-footer-bar .footer-data {
-  font-size: var(--a-fs-xs);
-}
-
-@media only screen and (max-width: 575px) {
-  .rh-footer-bar { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-  .rh-footer-bar__left { gap: 1.2rem; }
-}
-
 /* ==================================================
    22. In-card project name + mobile layout polish
    --------------------------------------------------
@@ -2194,12 +1994,6 @@ input[type="button"] {
 @media only screen and (max-width: 767px) {
   .a-bento__body { min-height: 0 !important; }
 }
-
-/* 9. Footer on mobile — see section 23 for the full compact treatment */
-@media only screen and (max-width: 575px) {
-  /* padding handled in section 23 */
-}
-
 /* 10. Contact form: field gap on mobile */
 @media only screen and (max-width: 767px) {
   .rh-field,
@@ -2213,72 +2007,8 @@ input[type="button"] {
     letter-spacing: -0.02em;
   }
 }
-
-/* ==================================================
-   23. Compact mobile footer
-   --------------------------------------------------
-   Four stacked columns make the footer taller than the
-   viewport on a phone. Below 768px it collapses to:
-   brand → two short columns (reach / connect) → one
-   line of legal. Navigation is dropped because the
-   header's dot menu already carries it, and the postal
-   address goes with it — nobody posts a letter from a
-   phone footer.
-   ================================================== */
-@media only screen and (max-width: 767px) {
-
-  /* the header dot-menu already has Home / Works / Contact */
-  .rh-fcol--nav { display: none; }
-
-  /* the street address is dead weight on a phone */
-  .rh-fcol__addr { display: none; }
-
-  /* brand sits full width, reach + connect share the row below it */
-  .rh-footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 4.8rem 2.4rem;
-  }
-  .rh-fcol--brand {
-    grid-column: 1 / -1;
-    gap: 1.6rem;
-  }
-
-  /* the pitch line is the voice — keep it, but stop it running wide */
-  .rh-footer-pitch { max-width: 34ch; }
-
-  /* lighter labels: no rule, less air, since the columns are short now */
-  .rh-fcol__label {
-    margin-bottom: 1.2rem;
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-
-  .rh-fcol__list { gap: 1rem; }
-
-  /* one line of legal, centred, instead of a three-part bar */
-  .rh-footer-bar {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.6rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-  .rh-footer-bar__left {
-    justify-content: center;
-    gap: 0.8rem;
-  }
-  /* "All rights reserved" is implied by the © */
-  .rh-footer-bar__left .footer-data + .footer-data { display: none; }
-}
-
 /* the wordmark is the footer's full stop — keep it, shrink its air */
-@media only screen and (max-width: 575px) {
-  .rh-footer-body {
-    padding-top: 6.4rem;
-    padding-bottom: 3.2rem;
-  }
-  .mxd-footer__fw-mark { 
+@media only screen and (max-width: 575px) {  .mxd-footer__fw-mark { 
     padding-top: 1.6rem; 
     padding-bottom: 2.4rem;
   }

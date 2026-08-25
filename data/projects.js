@@ -368,7 +368,6 @@ window.RH_PROJECTS = [
     ],
     "image": "img/rh/blogs/tothemoon.webp",
     "video": "",
-    "hideFromArchive": true
   },
   {
     "title": "Aabshar-e-Khayaal",
@@ -384,7 +383,6 @@ window.RH_PROJECTS = [
     ],
     "image": "img/rh/blogs/aabshar.webp",
     "video": "",
-    "hideFromArchive": true
   },
   {
     "title": "The Psychology Framework",
@@ -401,7 +399,6 @@ window.RH_PROJECTS = [
     "image": "img/rh/blogs/psychology-framework.webp",
     "video": "",
     "isBlurred": true,
-    "hideFromArchive": true
   },
   {
     "title": "Samundar",
@@ -418,6 +415,5 @@ window.RH_PROJECTS = [
     "image": "img/rh/blogs/samundaro.webp",
     "video": "",
     "isBlurred": true,
-    "hideFromArchive": true
   }
 ];

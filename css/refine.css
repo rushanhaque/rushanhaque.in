@@ -227,7 +227,6 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .tag-text,
 .mxd-socials-line__link,
 .rh-corde__tune,
-.footer-data,
 .breadcrumbs__nav {
   letter-spacing: 0.08em;
 }
@@ -708,13 +707,6 @@ a { color: inherit; text-underline-offset: 0.22em; }
    11. Footer
    ================================================== */
 #mxd-footer { border-top: 1px solid var(--rh-hairline); }
-
-.rh-footer-top { padding-top: 2rem; }
-
-.footer-data { color: var(--t-muted); }
-.footer-data a { color: var(--t-bright); transition: opacity 0.3s var(--rh-ease); }
-.no-touch .footer-data a:hover { opacity: 0.55; }
-
 .fw-mark__content span { color: var(--t-bright); }
 
 /* ==================================================

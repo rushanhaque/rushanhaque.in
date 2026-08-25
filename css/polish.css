@@ -280,9 +280,6 @@ img {
   height: 1px;
   background-color: var(--a-line-2);
 }
-.a-index__meta {
-  white-space: nowrap;
-}
 @media only screen and (max-width: 767px) {
   .a-index {
     flex-wrap: wrap;
@@ -291,7 +288,6 @@ img {
   }
   /* the rule has nothing to span once the row wraps */
   .a-index__rule { display: none; }
-  .a-index__meta { width: 100%; }
 }
 
 /* --- cards: one radius, one border, one lift --- */
@@ -319,10 +315,9 @@ img {
    meant to hit gets there regardless of how small the label is */
 @media (hover: none) {
   .a-cta,
-  .rh-nav__link,
-  .rh-dots__link,
-  .a-cap__name,
-  .footer-data a {
+.rh-nav__link,
+.rh-dots__link,
+.a-cap__name {
     min-height: 4.4rem;
     display: inline-flex;
     align-items: center;
@@ -346,11 +341,12 @@ img {
   .a-bento__lead { grid-column: 1 / -1; }
 }
 
-@media only screen and (min-width: 1200px) {
-  .a-bento__cell--center-row {
-    grid-column-start: 2;
-  }
-}
+/* The last row is full (six cells, three per row at >=1200px), so it
+   needs no centering. The old `.a-bento__cell--center-row` rule set
+   only `grid-column-start`, which clobbered the START half of
+   `.a-bento__cell { grid-column: span 2 }` and left the END at `auto`
+   — so that cell spanned ONE column, came out half width, and its
+   text wrapped the whole row 134px taller. Removed with the class. */
 
 /* Ensure full-width caption & align left tag to left edge and right tag to right edge */
 .mxd-blog-item__title,
@@ -735,23 +731,6 @@ img {
     align-items: center;
     min-height: 4.4rem;
   }
-
-  /* Footer columns: a stack of 21px anchors separated by a 10px gap,
-     which is a 21px target with 10px of dead space around it. Give the
-     height to the anchors instead of the gap — same overall column
-     length, but every row is now tappable end to end. */
-  .rh-fcol__list { gap: 0.2rem; }
-  .rh-fcol__list li a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 4.4rem;
-  }
-  .rh-footer-logo {
-    min-height: 4.4rem;
-    display: inline-flex;
-    align-items: center;
-  }
-
   /* The overlay menu's own wordmark. */
   .mxd-menu__logo .menu-logo {
     min-height: 4.4rem;
@@ -923,4 +902,417 @@ span.a-cap__name {
   right: 0;
   top: -1.3rem;
   bottom: -1.3rem;
+}
+
+
+/* ==================================================
+   13. THE LANDING HERO ON PHONES — ONE FULL SCREEN
+   ==================================================
+   Section 05 gave phones a natural-height hero. That let the next
+   section ("Recent works") surface at y=520 on a 812px screen, so the
+   landing read as two half-sections rather than an opening statement.
+
+   The hero now fills exactly one screen and the works section begins
+   below the fold, reachable on the first scroll.
+
+   `svh` (small viewport height) is the correct unit here: `vh` on iOS
+   Safari resolves to the *large* viewport, so a 100vh hero is taller
+   than the visible area whenever the browser chrome is showing, which
+   pushes the bottom rail off-screen. `svh` is the chrome-visible
+   height, so the rail stays put whether the bar is expanded or not.
+
+   The header is `position: sticky`, so it occupies 5.6rem of flow
+   above the hero — that is what gets subtracted.
+   ================================================== */
+
+@media only screen and (max-width: 767px) {
+
+  :root { --rh-header-h: 5.6rem; }
+
+  /* --- the frame: exactly one screen, no more --- */
+  .mxd-hero-section,
+  .mxd-hero-section.mxd-hero-fullheight-desktop {
+    display: flex;
+    min-height: calc(100vh - var(--rh-header-h)); /* fallback */
+    min-height: calc(100svh - var(--rh-header-h));
+    padding-top: 0;
+    padding-bottom: 0 !important;
+  }
+
+  .mxd-hero-section .pinned-section__inner,
+  .mxd-hero-10,
+  .mxd-hero-10__wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+  }
+
+  /* three tiers pushed to the edges of the screen: title block at the
+     top, the statement in the optical centre, the rail at the foot */
+  .mxd-hero-10__wrap {
+    justify-content: flex-start;
+    padding-bottom: 0;
+  }
+
+  /* --- tier 1: the title block --- */
+  /* padding-top clears the sticky header bar (whose visual bottom edge
+     sits 9px lower than its flow box); anything under ~1.4rem tucks the
+     coordinates under the glass. The rest of the lift comes out of the
+     margin below, which was only holding air. */
+  .a-hero-meta {
+    padding-top: 3.2rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .mxd-hero-10__top { flex: 0 0 auto; }
+
+  /* the name gets the room it was always asking for */
+  .hero-10-headline__wrap h1 {
+    font-size: clamp(6.4rem, 20.5vw, 10rem);
+    line-height: 0.85;
+    letter-spacing: -0.055em;
+  }
+
+  /* --- tier 2: the statement, reading straight on from the name --- */
+  .mxd-hero-10__center {
+    flex: 0 0 auto;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* the hairline belongs to the name it sits under — keep it in flow so
+     it tracks the headline instead of floating in the gap below it */
+  .mxd-hero-10__divider {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 2.2rem;
+    margin-bottom: 2.6rem;
+  }
+
+  .mxd-hero-10__descr {
+    margin-top: 0;
+  }
+  .mxd-hero-10__descr p {
+    font-size: clamp(3rem, 8.8vw, 4.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  /* the lede earns its place back — there is height for it now, and
+     without it the centre group is a headline floating in dead space */
+  .a-hero-lede {
+    display: block !important;
+    max-width: 34ch;
+    margin-top: 1.8rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  .a-hero-actions {
+    margin-top: 3.2rem;
+  }
+
+  /* --- tier 3: the foot rail, pushed to the floor --- */
+  /* `margin-top: auto` collects every spare pixel into ONE pool above
+     the rail. Splitting it into two gaps (which `space-between` does)
+     reads as two mistakes; one deliberate column of air reads as air. */
+  .mxd-hero-10__bottom {
+    display: block !important;
+    flex: 0 0 auto;
+    margin-top: auto;
+    padding-top: 2.4rem;
+    padding-bottom: 2.6rem;
+  }
+
+  .a-hero-foot {
+    align-items: center;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--a-line);
+  }
+
+  /* the hairline moved to the top of the whole rail, so the one that
+     used to sit under the disciplines alone is now redundant */
+  .a-hero-foot .a-hero-disc {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+    gap: 0.4rem 1.2rem;
+  }
+  .a-hero-disc li { font-size: 1.05rem; letter-spacing: 0.12em; }
+}
+
+/* --- short phones (≤700px tall: SE, mini, most Androids in landscape
+       chrome) — the lede is the one element that can go without
+       breaking the statement, so it goes first rather than letting the
+       foot rail get crushed against the CTAs --- */
+@media only screen and (max-width: 767px) and (max-height: 700px) {
+  .a-hero-lede { display: none !important; }
+  .a-hero-meta { padding-top: 1.6rem; margin-bottom: 1.2rem; }
+  .hero-10-headline__wrap h1 { font-size: clamp(5.4rem, 17vw, 8rem); }
+  .mxd-hero-10__descr p { font-size: clamp(2.6rem, 7.6vw, 3.4rem); }
+  .mxd-hero-10__divider { margin-top: 1.8rem; margin-bottom: 2rem; }
+  .a-hero-actions { margin-top: 2.4rem; }
+  .mxd-hero-10__bottom { padding-top: 1.8rem; padding-bottom: 2rem; }
+}
+
+/* --- shorter still: drop the foot rail before the type --- */
+@media only screen and (max-width: 767px) and (max-height: 560px) {
+  .mxd-hero-10__bottom { display: none !important; }
+}
+
+
+/* ==================================================
+   14. INNER-PAGE TOP: THREE PADDINGS DOING ONE JOB
+   ==================================================
+   The contact page opened with 163px of empty sheet above the
+   breadcrumbs on a phone (265px on desktop). Three rules were each
+   reserving the same space:
+
+     .mxd-page-content.inner-page-content  padding-top: 6.3rem / 7rem
+     .mxd-page-content > .mxd-section      padding-top: var(--p-sec-y)
+     .inner-headline                       padding-top: 3rem
+
+   The first is header clearance inherited from the stock template,
+   which assumed a FIXED header. This header is `position: sticky`, so
+   it already occupies its 5.6rem in normal flow — the clearance is
+   paid twice. Only the 8.5px sticky offset actually overhangs, so a
+   thin 1.2rem is all that is owed.
+
+   The second is the standard between-sections rhythm, which is the
+   wrong measure for the FIRST element on a page: there is no preceding
+   section to be rhythmic against.
+
+   Scoped to `.inner-page-content` so the homepage stack is untouched.
+   ================================================== */
+
+.mxd-page-content.inner-page-content {
+  padding-top: 1.2rem;
+}
+
+.mxd-page-content.inner-page-content > .mxd-section,
+.mxd-page-content.inner-page-content > .pin-spacer > .mxd-section {
+  padding-top: 11rem;
+}
+
+@media only screen and (max-width: 767px) {
+  .mxd-page-content.inner-page-content {
+    padding-top: 1.2rem;
+  }
+
+  .mxd-page-content.inner-page-content > .mxd-section,
+  .mxd-page-content.inner-page-content > .pin-spacer > .mxd-section {
+    padding-top: 2rem;
+  }
+
+  /* the breadcrumb rail is its own top margin — it does not need a
+     third helping of space above it */
+  .inner-page-content .inner-headline {
+    padding-top: 0;
+  }
+
+  /* 9.2rem is a desktop-column measure; on a 375px sheet it reads as a
+     missing element rather than as separation */
+  .inner-page-content .inner-headline__content {
+    margin-top: 3.6rem;
+  }
+}
+
+
+/* ==================================================
+   15. THE WORKS HEADING — CHARACTERS PARKED FOREVER
+   ==================================================
+   main.css carries a resting state for split-text fragments:
+
+     .char { transform: translateX(100%); }
+
+   That is the "off-stage" position a GSAP SplitText tween animates
+   OUT of. It works for `.loading-chars` and `.anim-uni-chars` because
+   GSAP SplitText writes its own inline transform on every char, which
+   outranks the stylesheet.
+
+   `.reveal-type` does not use GSAP SplitText — it uses SplitType, a
+   different library — and its tween animates ONLY `opacity` and
+   `filter`. Nothing ever writes a transform, so the stylesheet's
+   `translateX(100%)` stands for the life of the page and every
+   character renders one full character-width to the right of where it
+   belongs. "Projects archive" came out as overlapping glyph soup.
+
+   The reveal is a blur/opacity effect; the chars are not supposed to
+   travel. So they get no resting offset.
+   ================================================== */
+
+.reveal-type .char {
+  transform: none;
+}
+
+
+/* ==================================================
+   16. FOOTER
+   ==================================================
+   Rebuilt. Three rails that share one baseline grid, a brand block
+   that does not compete with them, and no decorative monogram.
+
+   The old footer put "Reach me" and "Connect" in two narrow columns
+   on a phone. `rushanulhaque@gmail.com` does not fit in half of a
+   375px sheet, so it broke after the "@" and pushed every row in its
+   column half a line out of step with its neighbour — which is what
+   made the whole block look crooked. Here the contact rail spans the
+   full width on small screens and the address is the only element
+   allowed to wrap.
+   ================================================== */
+
+.rh-ft {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4.8rem;
+  padding-bottom: 5.6rem;
+  border-bottom: 1px solid var(--a-line);
+}
+
+/* --- brand --- */
+.rh-ft__name {
+  display: inline-block;
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--t-bright);
+  transition: opacity var(--a-t-fast) var(--a-swift);
+}
+.no-touch .rh-ft__name:hover { opacity: 0.62; }
+
+.rh-ft__pitch {
+  max-width: 34ch;
+  margin: 1.6rem 0 0;
+  font-size: 1.5rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--t-muted);
+  text-wrap: pretty;
+}
+
+/* --- the three rails --- */
+.rh-ft__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.6rem 2.4rem;
+}
+
+.rh-ft__label {
+  margin: 0 0 1.6rem;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--t-muted);
+}
+
+.rh-ft__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.rh-ft__list li {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--t-muted);
+}
+
+.rh-ft__list a {
+  position: relative;
+  display: inline-block;
+  color: var(--t-muted);
+  transition: color var(--a-t-fast) var(--a-swift);
+}
+/* the underline draws in from the left rather than blinking on */
+.rh-ft__list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3rem;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--a-t-mid) var(--a-settle);
+}
+.no-touch .rh-ft__list a:hover { color: var(--t-bright); }
+.no-touch .rh-ft__list a:hover::after { transform: scaleX(1); }
+.rh-ft__list a:focus-visible { color: var(--t-bright); }
+
+/* the email and the phone are single tokens: breaking them mid-string
+   makes them unreadable and knocks the rail out of alignment */
+.rh-ft__nowrap { white-space: nowrap; }
+
+.rh-ft__plain { color: var(--t-muted); }
+
+/* --- touch: 23px of text is not a 44px target ---------------------
+   The underline already owns `::after`, so the hit area is extended
+   with `::before`. The list gap grows to 2.2rem at the same time: at
+   the old 1.1rem the extended boxes of adjacent links would have
+   overlapped by 10px, and an overlapping hit area is a mis-tap, not a
+   bigger target. At 2.2rem they tile with 1px to spare. --- */
+@media only screen and (max-width: 767px) {
+  .rh-ft__list { gap: 2.2rem; }
+  .rh-ft__list a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1.05rem;
+    bottom: -1.05rem;
+  }
+}
+
+/* --- phones: the contact rail gets the full measure --- */
+@media only screen and (max-width: 575px) {
+  .rh-ft {
+    gap: 4rem;
+    padding-bottom: 4rem;
+  }
+  .rh-ft__cols { gap: 3.2rem 2.4rem; }
+
+  /* full width so the address is the only thing that wraps */
+  .rh-ft__col--reach {
+    grid-column: 1 / -1;
+    order: 1;
+  }
+  .rh-ft__col--nav    { order: 2; }
+  .rh-ft__col--social { order: 3; }
+}
+
+/* --- tablet: brand above, three rails in a row --- */
+@media only screen and (min-width: 576px) {
+  .rh-ft__cols {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+/* --- desktop: brand and rails side by side on one baseline --- */
+@media only screen and (min-width: 992px) {
+  .rh-ft {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+    gap: 6rem;
+    align-items: start;
+    padding-bottom: 6.4rem;
+  }
+  .rh-ft__cols { gap: 3.6rem 4rem; }
+  .rh-ft__name { font-size: 2.6rem; }
+}
+
+@media only screen and (min-width: 1400px) {
+  .rh-ft { gap: 8rem; }
+  .rh-ft__cols { column-gap: 6rem; }
 }

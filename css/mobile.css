@@ -73,11 +73,7 @@ html {
   .mxd-header,
   .rh-dots {
     padding-top: env(safe-area-inset-top, 0px);
-  }
-  .rh-footer-bar {
-    padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
-  }
-  .mxd-menu__content {
+  }  .mxd-menu__content {
     padding-top: calc(2rem + env(safe-area-inset-top, 0px));
     padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
   }
@@ -113,11 +109,8 @@ html {
      idea. On a phone it is a 2px line nobody reads. */
   .a-rail { display: none; }
 
-  /* backdrop-filter: every surface using it here already sits on a
-     solid background, so the blur was buying nothing. */
   .mxd-menu__backdrop,
-  .a-shot__no,
-  .rh-footer-status {
+.a-shot__no {
     -webkit-backdrop-filter: none !important;
             backdrop-filter: none !important;
   }
@@ -198,12 +191,9 @@ html {
     letter-spacing: -0.022em;
   }
 
-  /* mono labels: small caps need *more* tracking, not less, and a
-     little more weight to survive at 11px on a dense screen */
   .a-index__label,
-  .a-meta,
-  .rh-fcol__label,
-  .a-eyebrow {
+.a-meta,
+.a-eyebrow {
     letter-spacing: 0.16em;
     font-weight: 500;
   }
@@ -253,11 +243,8 @@ html {
     text-align: left !important;
   }
 
-  /* Long unbroken strings — emails, URLs — are the one thing that
-     forces a sideways scroll and makes a page feel broken. */
-  .rh-fcol__list a,
   .a-rv__quote,
-  .mxd-projects-list__title h3 {
+.mxd-projects-list__title h3 {
     overflow-wrap: anywhere;
   }
 }
@@ -320,11 +307,9 @@ html {
     background-color: rgba(10, 10, 10, 0.028);
   }
 
-  /* text links dim on press */
-  .rh-fcol__list a:active,
   .mxd-socials-line__link:active,
-  .rh-nav__link:active,
-  .rh-dots__link:active {
+.rh-nav__link:active,
+.rh-dots__link:active {
     opacity: 0.55;
   }
 
@@ -400,12 +385,6 @@ html {
     gap: 1.1rem;
   }
   .a-index__rule { display: none; }
-  .a-index__meta {
-    display: inline;
-    margin-left: auto;
-    text-align: right;
-    opacity: 0.72;
-  }
 
   /* headline → lede → content: one consistent three-beat rhythm */
   .mxd-section-title.pre-grid { margin-bottom: 4.2rem !important; }
