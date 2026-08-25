@@ -398,13 +398,22 @@ function pageAppearance() {
   const fadeInItems = document.querySelectorAll('.loading-fade');
 
   loadingChars.forEach((el) => {
+    // `autoSplit` re-measures the per-character mask boxes once the webfont
+    // settles, which can happen after `document.fonts.ready` has already
+    // resolved because the Google Fonts stylesheet loads asynchronously.
+    // The intro only plays on the first split — a rebuild triggered by a
+    // font swap or a rotation must not replay it mid-read.
+    let introPlayed = false;
     SplitText.create(el, {
       type: "chars, words",
       charsClass: "char",
       mask: "chars",
       smartWrap: true,
-      aria: "none",
+      autoSplit: true,
+      aria: "auto",
       onSplit: (self) => {
+        if (introPlayed) return;
+        introPlayed = true;
         gsap.from(self.chars, {
           yPercent: 100,
           autoAlpha: 0,
@@ -628,20 +637,39 @@ function mxdMenu(lenisInstance) {
   const menuDividers   = document.querySelectorAll(".main-menu__divider");
   const menuArrows     = document.querySelectorAll(".main-menu__arrow");
 
+  // state
+  //
+  // Declared ahead of the splits below because `autoSplit` can rebuild a
+  // split at any time (a webfont swapping in, the viewport rotating), and
+  // the rebuild handler needs to know whether the menu is currently open
+  // before deciding to re-hide the fresh lines.
+  let isMenuOpen = false;
+  let isAnimating = false;
+
   // split helper
+  //
+  // `autoSplit` matters here. Google Fonts arrives asynchronously and can
+  // land after `document.fonts.ready` has already resolved, so a line
+  // split made now may have been measured against fallback metrics — the
+  // `.line` wrappers then no longer sit on the real line boxes, and the
+  // `mask: "lines"` clip cuts the menu text in the wrong places. With
+  // autoSplit, SplitText re-measures itself when the font settles (and on
+  // resize), and `onSplit` re-applies the hidden position so a rebuild
+  // while the menu is closed cannot leave the links visible.
   function splitAndHide(elements) {
     if (!elements.length) return [];
 
     return [...elements].map(el => {
-      const split = SplitText.create(el, {
+      return SplitText.create(el, {
         type: "lines",
         mask: "lines",
         linesClass: "line",
-        aria: "none"
+        aria: "none",
+        autoSplit: true,
+        onSplit: (self) => {
+          if (!isMenuOpen) gsap.set(self.lines, { y: "-114%" });
+        }
       });
-
-      gsap.set(split.lines, { y: "-114%" });
-      return split;
     });
   }
 
@@ -650,14 +678,11 @@ function mxdMenu(lenisInstance) {
   const contactSplits = splitAndHide(contactText);
   const footerSplits  = splitAndHide(footerText);
 
-  gsap.set(menuDividers, { clipPath: "inset(0% 100% 0% 0%)" });
-  gsap.set(menuArrows, { opacity: 0 });
-  gsap.set(menuMediaWrapper, { scale: 1.4 });
-  // gsap.set(menuMediaWrapper, { opacity: 0 });
-
-  // state
-  let isMenuOpen = false;
-  let isAnimating = false;
+  // These three are optional pieces of the overlay. Handing GSAP an empty
+  // NodeList is not an error but it does warn, so ask first.
+  if (menuDividers.length) gsap.set(menuDividers, { clipPath: "inset(0% 100% 0% 0%)" });
+  if (menuArrows.length) gsap.set(menuArrows, { opacity: 0 });
+  if (menuMediaWrapper) gsap.set(menuMediaWrapper, { scale: 1.4 });
 
   // toggle logic
   menuToggleBtn.addEventListener("click", (e) => {
@@ -673,6 +698,7 @@ function mxdMenu(lenisInstance) {
 
       lenisInstance?.stop();
       hamburgerIcon?.classList.add("active");
+      hamburgerIcon?.setAttribute("aria-expanded", "true");
       const isMobile = window.matchMedia("(max-width: 1024px)").matches;
 
       tl.to(menuBackdrop, {
@@ -711,6 +737,7 @@ function mxdMenu(lenisInstance) {
     } else {
 
       hamburgerIcon?.classList.remove("active");
+      hamburgerIcon?.setAttribute("aria-expanded", "false");
 
       tl.to(menuOverlay, { clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)", duration: 1, ease: "hop" })
       .to(menuBackdrop, {
@@ -758,6 +785,7 @@ function mxdMenu(lenisInstance) {
     gsap.set(menuArrows, { opacity: 0 });
 
     hamburgerIcon?.classList.remove("active");
+    hamburgerIcon?.setAttribute("aria-expanded", "false");
 
     // reset accordion state
     document.querySelectorAll(".submenu").forEach(submenu => {
@@ -1735,24 +1763,65 @@ function mxdHoverSlideshow() {
 // Animation - Scroll Animation for Stats Start
 // --------------------------------------------- //
 function mxdStats() {
-  const animateStats = document.querySelectorAll(".mxd-stats-lines__item")
+  const animateStats = gsap.utils.toArray(".mxd-stats-lines__item");
   if (!animateStats.length) return;
 
-  animateStats.forEach((item) => {
-    const statsInner = item.querySelector(".mxd-stats-lines__inner");
-    const statsTrigger = item.querySelector(".mxd-stats-lines__divider");
-    gsap.fromTo(statsInner, {
-      yPercent: -100,
-      ease: "none",
-    }, {
-      yPercent: 0,
-      scrollTrigger: {
-        trigger: statsTrigger,
-        start: "top bottom",
-        end: "bottom 60%",
-        scrub: true,
-        toggleActions: 'play none none reverse',
-      }
+  const media = gsap.matchMedia();
+
+  // Desktop: scrub the reveal off the scroll position. Lenis smooths the
+  // scroll here, so the clipped numbers track the page frame for frame.
+  media.add("(min-width: 1200px)", () => {
+    const tweens = animateStats.map((item) => {
+      const statsInner = item.querySelector(".mxd-stats-lines__inner");
+      const statsTrigger = item.querySelector(".mxd-stats-lines__divider");
+      if (!statsInner || !statsTrigger) return null;
+      return gsap.fromTo(statsInner, {
+        yPercent: -100,
+        ease: "none",
+      }, {
+        yPercent: 0,
+        scrollTrigger: {
+          trigger: statsTrigger,
+          start: "top bottom",
+          end: "bottom 60%",
+          scrub: true,
+        }
+      });
+    }).filter(Boolean);
+
+    return () => tweens.forEach(t => {
+      if (t.scrollTrigger) t.scrollTrigger.kill();
+      t.kill();
+    });
+  });
+
+  // Mobile / tablet: no scrub. Touch scrolling is delivered off the
+  // compositor, so a scrubbed transform lags the page by a frame or more
+  // and the clipped text visibly slips against everything around it —
+  // that is the judder felt coming out of the works grid. Play the same
+  // reveal once, on its own timeline, and it rides the scroll cleanly.
+  media.add("(max-width: 1199px)", () => {
+    const tweens = animateStats.map((item) => {
+      const statsInner = item.querySelector(".mxd-stats-lines__inner");
+      if (!statsInner) return null;
+      return gsap.fromTo(statsInner, {
+        yPercent: -100,
+      }, {
+        yPercent: 0,
+        duration: 0.85,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 92%",
+          once: true,
+        }
+      });
+    }).filter(Boolean);
+
+    return () => tweens.forEach(t => {
+      if (t.scrollTrigger) t.scrollTrigger.kill();
+      t.kill();
+      gsap.set(t.targets(), { clearProps: "transform" });
     });
   });
 }

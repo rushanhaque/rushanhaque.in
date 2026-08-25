@@ -112,10 +112,14 @@ h1, h2, h3, h4,
   text-rendering: optimizeLegibility;
 }
 
-/* Images: give the decoder a hint it can work off the main thread,
-   and stop layout shift by holding the box before the byte arrives. */
+/* `content-visibility: auto` used to sit on every `img` here. It also
+   applies size containment while the element is skipped, which throws
+   away the intrinsic box an unloaded image would otherwise hold — so a
+   grid can resize under the scroll position as images enter and leave.
+   `loading="lazy"` + `decoding="async"` in the markup already defer the
+   fetch and the decode, which was the whole point. */
 img {
-  content-visibility: auto;
+  content-visibility: visible;
 }
 
 /* Honour the OS switch. When someone has asked for less motion, the
@@ -211,7 +215,8 @@ img {
    headline is proportionate at every width instead of at four.
    ================================================== */
 
-.mxd-section-title__title h2 {
+.mxd-section-title__title h2,
+.mxd-section-title__title h1 {
   font-size: clamp(3.6rem, 5.4vw, 7.5rem);
   line-height: 0.92;
   letter-spacing: -0.035em;
@@ -528,4 +533,303 @@ img {
 .rh-review-marquee-card .rh-field textarea:valid {
   color: #FFFFFF;
   -webkit-text-fill-color: #FFFFFF;
+}
+
+
+/* ==================================================
+   07. WORKS CARD BADGE — right-aligned on mobile
+   ==================================================
+   On a phone the card name sits under the image on the
+   left, so a bottom-left badge stacks into the same
+   optical column and the two read as one clump. Moving
+   the badge to the trailing edge separates the status
+   from the title and balances the card.
+
+   Desktop keeps the badge on the left, where the cursor
+   tooltip is the primary status cue anyway.
+   ================================================== */
+
+@media only screen and (max-width: 1199px) {
+  .mxd-project-item .rh-cs-badge {
+    left: auto;
+    right: 1.2rem;
+  }
+}
+
+
+/* ==================================================
+   08. INSIGHTS — scroll handoff out of the works grid
+   ==================================================
+   The stats numbers reveal from behind a clip. On desktop that is
+   scrubbed off the scroll position; on touch it plays once as a
+   normal tween (see `mxdStats` in js/app.js). Either way the layer
+   only needs promoting while it is actually moving, so the standing
+   `will-change: transform` is dropped and handed back to GSAP, which
+   sets it for the duration of the tween and clears it after.
+
+   The section also carried a second, desktop-sized pad inside itself on
+   top of the standard section padding, which pushed the numbers a long
+   way from their heading on a phone. */
+.mxd-stats-lines__inner {
+  will-change: auto;
+}
+
+@media only screen and (max-width: 1199px) {
+  /* `#insights` keeps the standard 7rem section padding every other
+     section uses — the rhythm down the page has to stay even. What was
+     doubling the gap is this second pad *inside* the section, sized for
+     a desktop column. Trim it and the numbers sit at the same distance
+     from their heading as every other block on the page. */
+  .mxd-stats-lines.manifest-title {
+    padding-top: 2.6rem;
+  }
+  .mxd-stats-lines {
+    gap: 4.4rem;
+  }
+}
+
+
+/* ==================================================
+   09. TOUCH TARGETS
+   ==================================================
+   Measured at 375px: twenty-two interactive elements came in under
+   36px on their short edge. A finger pad is about 9mm — roughly 44
+   CSS px — and both platform guidelines say so. Everything below is
+   a hit area, not a size change: the ink stays exactly where it was
+   drawn and only the box around it grows, so nothing in the layout
+   moves.
+
+   Scoped to `(hover: none)` so the desktop drawing, where a cursor
+   can hit a 2px rule on purpose, is left alone. */
+@media (hover: none) {
+
+  /* The star picker is the one control on the site whose entire job is
+     being tapped, and it was the smallest thing on the page at 34px. */
+  .rh-stars-input { gap: 0.4rem; }
+  .rh-stars-input button {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+
+  /* Wordmark: 32x17 of ink. Centre it in a full-height target instead
+     of asking for a thumb to land on the crossbar of the R. */
+  .mxd-header__logo .mxd-logo {
+    min-height: 4.4rem;
+    align-items: center;
+  }
+
+  /* The three-dot menu items were 41px — close, but the menu is the
+     only way to move around the site on a phone, so it should be the
+     most forgiving thing in it. */
+  .rh-dots__menu .rh-dots__link {
+    min-height: 4.6rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Overlay menu links sat at 34px. `min-height` on the anchor and the
+     centring keeps the SplitText line masks aligned to the text rather
+     than to the new box. */
+  .main-menu__link {
+    min-height: 4.4rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Contact tags in the overlay menu and the contact rail. */
+  .menu-contact a,
+  .mxd-menu__caption .tag-m,
+  .tag.tag-m {
+    display: inline-flex;
+    align-items: center;
+    min-height: 4.4rem;
+  }
+
+  /* Footer columns: a stack of 21px anchors separated by a 10px gap,
+     which is a 21px target with 10px of dead space around it. Give the
+     height to the anchors instead of the gap — same overall column
+     length, but every row is now tappable end to end. */
+  .rh-fcol__list { gap: 0.2rem; }
+  .rh-fcol__list li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 4.4rem;
+  }
+  .rh-footer-logo {
+    min-height: 4.4rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* The overlay menu's own wordmark. */
+  .mxd-menu__logo .menu-logo {
+    min-height: 4.4rem;
+    align-items: center;
+  }
+
+  /* Card titles sit at 22px directly under the shot. The card image is
+     already a large target for the same URL, so rather than push the
+     caption down on every card in the grid, extend the anchor's hit
+     area into the padding that is already below it. Nothing moves and
+     nothing else is within reach of the overlap. */
+  .rh-card-name a,
+  .rh-card-name__link {
+    position: relative;
+  }
+  .rh-card-name a::after,
+  .rh-card-name__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.6rem;
+    bottom: -1.7rem;
+  }
+}
+
+/* ==================================================
+   10. PAGE HEADINGS
+   ==================================================
+   Two pages opened on an `h2` with no `h1` above it — the works
+   archive and the 404. A document that starts at level two reads to a
+   screen reader, and to a crawler, as a fragment of some other page.
+   Both are now `h1`s, and both keep exactly the size they were drawn
+   at: the tag carries the meaning, the rules below carry the look. */
+
+/* "Projects archive" needs no rule of its own: every existing
+   `.mxd-section-title__title h2` selector across main / sections /
+   refine / mobile / polish was widened to name `h1` alongside `h2`, so
+   the heading renders byte-identically at every breakpoint. */
+
+/* The 404 numerals are their own type specimen — the span rules in
+   main.css already set the face and size, so the heading element only
+   needs its user-agent margins taken back off. */
+h1.mxd-error__number {
+  margin-top: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+/* One consequence worth correcting while we are here. mobile.css sets
+   the phone display scale on `.mxd-section-title__title h2` and
+   `.mxd-split-lines`, but every section headline on the homepage
+   happens to carry `.mxd-split-lines` (0,2,1) while the archive title
+   does not — so the archive title fell through to the desktop clamp in
+   section 02 and floored at 36px. The page's own title was the
+   smallest display heading on the site. Restate the phone scale here,
+   last, for every section headline regardless of which classes it
+   happens to carry. */
+@media only screen and (max-width: 767px) {
+  .mxd-section-title__title h1,
+  .mxd-section-title__title h2,
+  .mxd-section-title__title .mxd-split-lines {
+    font-size: clamp(3.6rem, 11.5vw, 6.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+}
+
+
+/* ==================================================
+   11. CONTROLS THAT ARE NOT LINKS
+   ==================================================
+   Three kinds of element used to be written as `<a href="#0">`: the
+   menu hamburger, the two headline wrappers that exist only to change
+   the cursor, and every project card with nowhere to go yet. None of
+   them navigates. "#0" matches no element on the page, so a click left
+   the URL as `…/index.html#0` and pushed an entry onto the history
+   stack — the next Back press then spent itself undoing a hash change
+   and appeared to do nothing at all.
+
+   They are now a `<button>` and plain `<span>`s. Every rule that drew
+   them keys off a class rather than the tag, so the pixels are
+   unchanged; the two blocks below only take back what the user agent
+   adds on its own. */
+
+/* A button arrives with a background, a border, centred 13px Arial and
+   the platform's own appearance. The layout rules in main.css already
+   size and lay out the hamburger — this clears the chrome underneath. */
+.mxd-menu__hamburger {
+  -webkit-appearance: none;
+          appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* The headline wrappers and card shells inherit type instead of
+   resetting it, and keep the pointer they have always shown — the
+   custom cursor swaps in its own label on top. */
+.rh-cursor-shell {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* A card that cannot be opened should not offer the hand that says it
+   can. The cursor label ("Coming Soon") still does the telling. */
+span.mxd-project-item__media,
+span.mxd-blog-item__media,
+span.mxd-projects-list__item,
+span.rh-card-name__link,
+span.a-cap__name {
+  cursor: default;
+}
+
+
+/* ==================================================
+   12. REMAINING TOUCH TARGETS
+   ==================================================
+   Section 09 extended the project-card titles to 44px using a
+   transparent `::after`, on the reasoning that the padding below them
+   was already empty. Two controls were missed by that pass, and both
+   take the same treatment: the box that is drawn stays exactly the
+   size it is, and only the area that answers a thumb grows.
+
+   Neither element has a `::before` or `::after` of its own, and both
+   sit in their own whitespace, so nothing else comes within reach. */
+
+/* The wordmark is 44px tall but only 32px wide. */
+.mxd-logo {
+  position: relative;
+}
+.mxd-logo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.6rem;
+  right: -0.6rem;
+}
+
+/* The name in the slide-out menu is a 17px line of text. */
+.menu-data__text a {
+  position: relative;
+}
+.menu-data__text a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.4rem;
+  bottom: -1.4rem;
+}
+
+/* The breadcrumb "Home" is an 18px line. It is the only link on its
+   row — the trailing crumb is plain text — so there is nothing beside
+   it for a widened target to steal a tap from. */
+.breadcrumbs__nav a {
+  position: relative;
+  display: inline-block;
+}
+.breadcrumbs__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.3rem;
+  bottom: -1.3rem;
 }

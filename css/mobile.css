@@ -149,6 +149,7 @@ html {
 
   /* section headlines — the page's loudest voice */
   .mxd-section-title__title h2,
+  .mxd-section-title__title h1,
   .mxd-section-title__title .mxd-split-lines {
     font-size: clamp(3.6rem, 11.5vw, 6.2rem);
     line-height: 0.98;
@@ -216,6 +217,7 @@ html {
 
   /* card titles */
   .rh-card-name a,
+  .rh-card-name__link,
   .a-cap__name {
     font-size: 1.75rem;
     letter-spacing: -0.02em;

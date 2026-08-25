@@ -31,12 +31,14 @@
 
 /* Section headlines: one notch tighter and heavier than stock, so the
    display type reads as cut rather than set. */
-.mxd-section-title__title h2 {
+.mxd-section-title__title h2,
+.mxd-section-title__title h1 {
   letter-spacing: -0.038em;
   line-height: 0.88;
 }
 @media only screen and (min-width: 1200px) {
-  .mxd-section-title__title h2 { letter-spacing: -0.042em; }
+  .mxd-section-title__title h2,
+  .mxd-section-title__title h1 { letter-spacing: -0.042em; }
 }
 
 /* A quiet lead paragraph under a section headline. */
@@ -2129,7 +2131,8 @@ input[type="button"] {
   pointer-events: none;
 }
 
-.rh-card-name a {
+.rh-card-name a,
+.rh-card-name__link {
   display: block;
   color: #fff;
   font-size: var(--a-fs-m);

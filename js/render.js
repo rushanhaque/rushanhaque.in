@@ -19,6 +19,24 @@
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function year(d) { var m = String(d || '').match(/^(\d{4})/); return m ? m[1] : ''; }
 
+  /* Card shells for entries that may or may not have somewhere to go.
+     A card with no URL used to render as <a href="#0">: it looked and
+     behaved like a link, but clicking it only stamped "#0" onto the
+     address bar and pushed a dead entry onto the history stack, so the
+     next Back press appeared to do nothing. Anything without a
+     destination is now a plain element instead — the classes are what
+     the cursor effect and the GSAP stagger bind to, not the tag, so
+     the card is pixel-identical and simply stops pretending.
+     `journeyRow` has always worked this way; this is the same idea
+     applied to the rest of the renderers. */
+  function shellOpen(url, cls, attrs) {
+    var tag = url ? 'a' : 'span';
+    return '<' + tag + ' class="' + cls + '"' +
+           (url ? ' href="' + esc(url) + '" target="_blank" rel="noopener"' : '') +
+           (attrs || '') + '>';
+  }
+  function shellClose(url) { return url ? '</a>' : '</span>'; }
+
   function tags(list, cls) {
     if (!Array.isArray(list) || !list.length) return '';
     return list.map(function (t) {
@@ -102,8 +120,7 @@
     var col  = wide ? 'col-12 col-md-6 col-xl-7' : 'col-12 col-md-6 col-xl-4';
     var extra = wide ? '' : ' mxd-project-item-s mxd-project-item-sticky';
     var cover = wide ? 'mxd-cover-06' : 'mxd-cover-03';
-    var href  = p.url || '#0';
-    var blank = p.url ? ' target="_blank" rel="noopener"' : '';
+    var href  = p.url || '';
     var isBlurred = p.isBlurred || (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1);
     var blurClass = isBlurred ? ' rh-coming-soon-card' : '';
     var live = !isBlurred && !!p.url;
@@ -129,17 +146,24 @@
 
     var badgeLabel = isBlurred ? 'Coming Soon' : (live ? 'Visit Site' : 'In Progress');
     var badgeClass = isBlurred ? 'rh-cs-badge--soon' : (live ? 'rh-cs-badge--live' : 'rh-cs-badge--progress');
-    var cardBadge = '\n                          <span class="rh-cs-badge ' + badgeClass + '" aria-hidden="true">' + badgeLabel + '</span>';
+    /* On a live card the link's own label already ends "— visit site",
+       so the badge is decoration and stays hidden. On a card that is not
+       a link there is no label to carry the status, and the badge is the
+       only thing saying "Coming Soon" — so it is left readable. */
+    var cardBadge = '\n                          <span class="rh-cs-badge ' + badgeClass + '"' +
+                    (live ? ' aria-hidden="true"' : '') + '>' + badgeLabel + '</span>';
 
     return '' +
 '                    <div class="' + col + ' mxd-project-item animate-card-2' + extra + blurClass + '">\n' +
 '                      <div class="a-shot a-ticks">\n' +
 '                        <span class="a-shot__no">W/' + pad(index + 1) + '</span>\n' +
-'                        <a class="mxd-project-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? ' — visit site' : ' — coming soon') + '">\n' +
+'                        ' + shellOpen(href, 'mxd-project-item__media active-cursor-permanent',
+                             ' data-cursor-text="' + cursorText + '"' +
+                             (href ? ' aria-label="' + esc(p.title) + ' — visit site"' : '')) + '\n' +
 '                          ' + media + cardBadge + '\n' +
-'                        </a>\n' +
+'                        ' + shellClose(href) + '\n' +
 '                        <div class="rh-card-name">\n' +
-'                          <a href="' + esc(href) + '"' + blank + '>' + esc(p.title) + '</a>\n' +
+'                          ' + shellOpen(href, 'rh-card-name__link') + esc(p.title) + shellClose(href) + '\n' +
 '                        </div>\n' +
 '                      </div>\n' +
 '                    </div>';
@@ -199,9 +223,10 @@
 
   function archiveRow(p) {
     var isShowcase = p.category === 'Showcase';
-    var href  = isShowcase ? '#0' : (p.url || '#0');
-    var blank = (!isShowcase && p.url) ? ' target="_blank" rel="noopener"' : '';
-    var noNav = isShowcase ? ' data-no-redirect="true" onclick="event.preventDefault()"' : '';
+    /* Showcase entries are deliberately not linked out, and a project
+       with no URL has nowhere to go — both render as a plain row rather
+       than a link to "#0" that the inline onclick then had to cancel. */
+    var href  = isShowcase ? '' : (p.url || '');
     var status = isShowcase
       ? 'Request Access'
       : (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1)
@@ -249,7 +274,8 @@
     var statusPill = '<span class="rh-row-status ' + statusClass + '">' + esc(status) + '</span>';
 
     return '' +
-'                <a class="mxd-projects-list__item active-cursor-image active-cursor-permanent"' + cursorImg + ' data-cursor-text="' + status + '" href="' + esc(href) + '"' + blank + noNav + '>\n' +
+'                ' + shellOpen(href, 'mxd-projects-list__item active-cursor-image active-cursor-permanent',
+                     cursorImg + ' data-cursor-text="' + status + '"') + '\n' +
 '                  <div class="mxd-projects-list__divider top"></div>\n' +
 '                  <div class="container-fluid px-0 mxd-projects-list__inner">\n' +
 '                    <div class="row gx-0">\n' +
@@ -272,14 +298,16 @@
 '                  </div>\n' +
                   thumbHtml + '\n' +
 '                  <div class="mxd-projects-list__divider bottom"></div>\n' +
-'                </a>';
+'                ' + shellClose(href);
   }
 
   function renderArchive() {
     var host = document.getElementById('rh-archive');
     if (!host) return;
     var order = { Industry: 0, Showcase: 1, Personal: 2 };
-    var items = (window.RH_PROJECTS || []).slice().sort(function (a, b) {
+    var items = (window.RH_PROJECTS || []).filter(function (p) {
+      return !p.hideFromArchive;
+    }).sort(function (a, b) {
       var d = (order[a.category] === undefined ? 9 : order[a.category]) -
               (order[b.category] === undefined ? 9 : order[b.category]);
       if (d) return d;
@@ -308,7 +336,7 @@
 '                  <div class="a-empty__body">\n' +
 '                    <div>\n' +
 '                      <span class="a-eyebrow"><span class="a-dot"></span>In development</span>\n' +
-'                      <h3 class="a-empty__title" style="color:#FFFFFF">Nothing shipped yet.<br>Two on the bench.</h3>\n' +
+'                      <h3 class="a-empty__title" style="color:#FFFFFF">Nothing shipped yet. <br>Two on the bench.</h3>\n' +
 '                      <p class="a-empty__note" style="color:rgba(255,255,255,0.56)">I build tools for myself first. The ones that survive real work get released. When one ships it lands here — version and price in plain sight.</p>\n' +
 '                    </div>\n' +
 '                    <a class="a-cta" href="contact.html" style="background-color:#FFFFFF;border-color:#FFFFFF;color:#0A0A0A">\n' +
@@ -321,10 +349,8 @@
     }
 
     host.innerHTML = items.map(function (p, i) {
-      var href  = p.url || '#0';
-      var blank = p.url ? ' target="_blank" rel="noopener"' : '';
       var name  = p.url
-        ? '<a href="' + esc(href) + '"' + blank + '>' + esc(p.name) + '</a>'
+        ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.name) + '</a>'
         : esc(p.name);
       var img = p.image
         ? esc(p.image)
@@ -390,8 +416,7 @@
     if (!items.length) { host.innerHTML = ''; return; }
 
     host.innerHTML = items.map(function (p, i) {
-      var href  = p.url || '#0';
-      var blank = p.url ? ' target="_blank" rel="noopener"' : '';
+      var href  = p.url || '';
       var img = previewFor(p, 1200, 800);
       var blurClass = (p.isBlurred || p.title === 'Coming Soon') ? ' rh-coming-soon-card' : '';
       var live = !(p.isBlurred || p.title === 'Coming Soon' || !p.url);
@@ -409,14 +434,16 @@
 '                        <span class="meta-date">P/' + pad(i + 1) + ' · ' + esc(metaLabel) + '</span>\n' +
 '                      </div>\n' +
 '                      <div class="a-shot a-ticks">\n' +
-'                        <a class="mxd-blog-item__media active-cursor-permanent" data-cursor-text="' + cursorText + '" href="' + esc(href) + '"' + blank + ' aria-label="' + esc(p.title) + (live ? '' : ' — coming soon') + '">\n' +
+'                        ' + shellOpen(href, 'mxd-blog-item__media active-cursor-permanent',
+                             ' data-cursor-text="' + cursorText + '"' +
+                             (href ? ' aria-label="' + esc(p.title) + '"' : '')) + '\n' +
 '                          <img src="' + img + '"' + srcsetFor(img, '(min-width: 992px) 32vw, (min-width: 768px) 48vw, 81vw') + ' alt="' + esc(p.title) + '" width="1536" height="1024" loading="lazy" decoding="async">\n' +
-'                          <span class="rh-cs-badge ' + blogBadgeClass + '" aria-hidden="true">' + blogBadgeLabel + '</span>\n' +
-'                        </a>\n' +
+'                          <span class="rh-cs-badge ' + blogBadgeClass + '"' + (live ? ' aria-hidden="true"' : '') + '>' + blogBadgeLabel + '</span>\n' +
+'                        ' + shellClose(href) + '\n' +
 '                      </div>\n' +
 '                      <div class="mxd-blog-item__caption">\n' +
 '                        <div class="mxd-blog-item__title">\n' +
-'                          <a class="a-cap__name" href="' + esc(href) + '"' + blank + '>' + esc(p.title) + '</a>\n' +
+'                          ' + shellOpen(href, 'a-cap__name') + esc(p.title) + shellClose(href) + '\n' +
 '                          <div class="a-cap__tags">\n' +
 '                            ' + tags(p.tags, 'mxd-scramble') + '\n' +
 '                          </div>\n' +

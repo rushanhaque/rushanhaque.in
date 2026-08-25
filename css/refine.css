@@ -41,7 +41,13 @@
   --base-opp-rgb--light: 0, 0, 0;
   --t-bright--light: #000000;
   --t-medium--light: #4D4D4D;
-  --t-muted--light: #8A8A8A;
+  /* #8A8A8A measured 3.45:1 on the page white and 3.31:1 on the review
+     card's tint — under the 4.5:1 that WCAG AA asks of body text, and it
+     carried ~120 elements: every index label, meta stamp, tag, journey
+     note, section standfirst and the whole footer. #6B6B6B reads as the
+     same soft grey and measures 5.33:1 / 5.10:1. The scale keeps three
+     clear steps: #000 (21:1), #4D4D4D (8.45:1), #6B6B6B (5.33:1). */
+  --t-muted--light: #6B6B6B;
   --t-muted-extra--light: #E3E3E3;
   --t-opp-bright--light: #FFFFFF;
   --t-opp-medium--light: #B3B3B3;
@@ -527,7 +533,8 @@ a { color: inherit; text-underline-offset: 0.22em; }
 /* ==================================================
    09. Section titles, stats, lists
    ================================================== */
-.mxd-section-title__title h2 { line-height: 0.95; }
+.mxd-section-title__title h2,
+.mxd-section-title__title h1 { line-height: 0.95; }
 
 /* Insights: the heading shares a row with the stats table.
 

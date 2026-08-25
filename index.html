@@ -30,7 +30,7 @@
     <meta property="og:image:width" content="853">
     <meta property="og:title" content="Rushan Haque — Developer & Writer">
     <meta property="og:description" content="Existing at the intersection of logic and language, my work spans Design, Development, and Writing.">
-    <meta property="og:url" content="https://rushanhaque.online">
+    <meta property="og:url" content="https://rushanhaque.online/">
     <meta property="og:image" content="https://rushanhaque.online/img/rh/pfp.jpeg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -39,12 +39,38 @@
     <meta name="twitter:image" content="https://rushanhaque.online/img/rh/pfp.jpeg">
     <!-- Facebook Metadata End -->
 
+    <!-- Structured data — lets search engines read the site as a person
+         rather than as an untitled page of markup. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Rushan Haque",
+      "url": "https://rushanhaque.online",
+      "image": "https://rushanhaque.online/img/rh/pfp.jpeg",
+      "jobTitle": "Developer & Writer",
+      "description": "Existing at the intersection of logic and language, my work spans Design, Development, and Writing.",
+      "email": "mailto:rushanulhaque@gmail.com",
+      "telephone": "+91-76680-47608",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Moradabad",
+        "addressCountry": "IN"
+      },
+      "knowsAbout": ["Web Development", "Interface Design", "Writing", "Artificial Intelligence"],
+      "sameAs": [
+        "https://linkedin.com/in/rushanhaque",
+        "https://instagram.com/rushanhaque"
+      ]
+    }
+    </script>
+
     <!-- Fonts & resource hints Start -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400..600&display=swap">
     <!-- the two stylesheets first paint depends on -->
-    <link rel="preload" as="style" href="css/main.css?v=42">
+    <link rel="preload" as="style" href="css/main.css?v=43">
     <link rel="preload" as="style" href="css/architect.css?v=64">
     <!-- the LCP candidate on the hero -->
     <link rel="preload" as="image" href="img/rh/projects/erfolg.webp" fetchpriority="low">
@@ -53,16 +79,16 @@
     <!-- Template Styles Start -->
     <link rel="stylesheet" type="text/css" href="css/loader.css?v=42">
     <link rel="stylesheet" type="text/css" href="css/plugins.css?v=42">
-    <link rel="stylesheet" type="text/css" href="css/main.css?v=42">
+    <link rel="stylesheet" type="text/css" href="css/main.css?v=43">
     <link rel="stylesheet" type="text/css" href="css/navbar.css?v=65">
     <link rel="stylesheet" type="text/css" href="css/reviews.css?v=61">
-    <link rel="stylesheet" type="text/css" href="css/refine.css?v=63">
+    <link rel="stylesheet" type="text/css" href="css/refine.css?v=65">
     <!-- design system: tokens + primitives, then the section pass -->
     <link rel="stylesheet" type="text/css" href="css/architect.css?v=64">
-    <link rel="stylesheet" type="text/css" href="css/sections.css?v=72">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=74">
     <!-- mobile layer: loaded last, overrides everything -->
-    <link rel="stylesheet" type="text/css" href="css/mobile.css?v=3">
-    <link rel="stylesheet" type="text/css" href="css/polish.css?v=1">
+    <link rel="stylesheet" type="text/css" href="css/mobile.css?v=5">
+    <link rel="stylesheet" type="text/css" href="css/polish.css?v=10">
     <!-- Template Styles End -->
 
     <!-- Custom Browser Color Start -->
@@ -125,10 +151,10 @@
     <!-- Menu Hamburger Start -->
     <div class="mxd-menu__contain loading-fade">
       <div class="mxd-menu__toggle">
-        <a href="#0" class="mxd-menu__hamburger" aria-label="Menu">
+        <button type="button" class="mxd-menu__hamburger" aria-label="Menu" aria-expanded="false" aria-controls="main-menu">
           <div class="hamburger__line"></div>
           <div class="hamburger__line"></div>
-        </a>
+        </button>
       </div>
     </div>
     <!-- Menu Hamburger End -->
@@ -170,7 +196,7 @@
             <div class="mxd-menu__inner">
               <div class="mxd-menu__shadow shadow-top"></div>
               <div class="mxd-menu__caption">
-                <p>✦ Building at the intersection<br>of logic and language</p>
+                <p>✦ Building at the intersection <br>of logic and language</p>
               </div>
               <!-- left side -->
               <div class="mxd-menu__left">
@@ -229,8 +255,8 @@
                   <div class="menu-contact__item">
                     <ul class="menu-contact__list">
                       <li>
-                        <a class="tag tag-m" href="https://maps.google.com/?q=Moradabad,+India" target="_blank">
-                          <span>94 Qazi tola,<br>Moradabad,<br>244001, India</span>
+                        <a class="tag tag-m" href="https://maps.google.com/?q=Moradabad,+India" target="_blank" rel="noopener">
+                          <span>94 Qazi tola, <br>Moradabad, <br>244001, India</span>
                         </a>
                       </li>
                     </ul>
@@ -238,13 +264,13 @@
                   <div class="menu-contact__item">
                     <ul class="menu-contact__list">
                       <li>
-                        <a class="tag tag-m" href="https://linkedin.com/in/rushanhaque" target="_blank"><span class="mxd-scramble">LinkedIn</span></a>
+                        <a class="tag tag-m" href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">LinkedIn</span></a>
                       </li>
                       <li>
-                        <a class="tag tag-m" href="https://instagram.com/rushanhaque" target="_blank"><span class="mxd-scramble">Instagram</span></a>
+                        <a class="tag tag-m" href="https://instagram.com/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">Instagram</span></a>
                       </li>
                       <li>
-                        <a class="tag tag-m" href="https://wa.me/917668047608" target="_blank"><span class="mxd-scramble">WhatsApp</span></a>
+                        <a class="tag tag-m" href="https://wa.me/917668047608" target="_blank" rel="noopener"><span class="mxd-scramble">WhatsApp</span></a>
                       </li>
                     </ul>
                   </div>
@@ -261,7 +287,7 @@
                     </svg>
                     <!-- <i class="ph-fill ph-heart t-additional"></i> -->
                     by
-                    <a href="https://rushanhaque.online" target="_blank">
+                    <a href="https://rushanhaque.online" target="_blank" rel="noopener">
                       <span class="mxd-scramble">Rushan Haque</span>
                     </a>
                   </p>
@@ -343,7 +369,7 @@
                   <div class="hero-10-headline__wrap">
                     <h1>
                       <a class="hero-10-headline__content" href="contact.html">
-                        <span class="loading-chars">Rushan haque</span>
+                        <span class="loading-chars">Rushan Haque</span>
                       </a>
                     </h1>
                   </div>
@@ -545,7 +571,7 @@
                 <div class="row g-0">
                   <div class="col-12 col-xl-12 mxd-grid-item">
                     <div class="mxd-section-title__title">
-                      <h2 class="mxd-split-lines">The<br>disciplines</h2>
+                      <h2 class="mxd-split-lines">The <br>disciplines</h2>
                     </div>
                   </div>
                 </div>
@@ -697,7 +723,7 @@
                 <div class="row g-0">
                   <div class="col-12 col-xl-12 mxd-grid-item">
                     <div class="mxd-section-title__title">
-                      <h2 class="mxd-split-lines">Blogs and<br>writeups</h2>
+                      <h2 class="mxd-split-lines">Blogs and <br>writeups</h2>
                     </div>
                     <p class="a-lede anim-uni-in-up">The other half of the practice. Work that
                     doesn&rsquo;t compile.</p>
@@ -742,9 +768,9 @@
                   <div class="row g-0">
                     <div class="col-12 col-xl-12 mxd-grid-item">
                       <div class="mxd-section-title__title pre-caption-extra">
-                        <a class="active-cursor-accent" data-cursor-text="Download CV" href="#0">
+                        <div class="active-cursor-accent rh-cursor-shell" data-cursor-text="Journey">
                           <h2 class="mxd-split-lines">Journey</h2>
-                        </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -756,9 +782,9 @@
                     <div class="col-12 col-xl-12 mxd-grid-item">
                       <div class="mxd-section-info__descr">
                         <p class="t-extra">
-                          <a class="active-cursor-accent mxd-split-lines" data-cursor-text="Journey" href="#0">Built across disciplines because
+                          <span class="active-cursor-accent mxd-split-lines rh-cursor-shell" data-cursor-text="Journey">Built across disciplines because
                           the problems keep overlapping. <span>Products, interfaces, research, long-form
-                          writing. Here's how it went.</span></a>
+                          writing. Here's how it went.</span></span>
                         </p>
                       </div>
                     </div>
@@ -823,7 +849,7 @@
             <div class="a-band__card">
               <!-- moving background text -->
               <div class="card__marquees">
-                <div class="marquee marquee-stack marquee--gsap">
+                <div class="marquee marquee-stack marquee--gsap" aria-hidden="true">
                   <div class="marquee__top">
                     <div class="marquee__item item-regular text"><p class="marquee__text text-with-gliph">Developer/</p></div>
                     <div class="marquee__item item-regular text"><p class="marquee__text text-with-gliph">Writer/</p></div>
@@ -856,7 +882,7 @@
                   <!-- title block left, form right, on wide screens -->
                   <div class="a-form__head">
                     <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Open submission</span>
-                    <h3 class="rh-review-card__title">Add your name<br>to the sheet.</h3>
+                    <h3 class="rh-review-card__title">Add your name <br>to the sheet.</h3>
                     <p class="rh-review-card__note">Worked with me? Say how it actually went. It arrives
                     unedited and goes up the same way — no polishing, no cherry-picking.</p>
                     <ul class="a-form__facts">
@@ -932,7 +958,7 @@
                 <div class="row g-0">
                   <div class="col-12 col-xl-12 mxd-grid-item">
                     <div class="mxd-section-title__title">
-                      <h2 class="mxd-split-lines">What they<br>said</h2>
+                      <h2 class="mxd-split-lines">What they <br>said</h2>
                     </div>
                   </div>
                 </div>
@@ -971,7 +997,7 @@
                 <div class="row g-0">
                   <div class="col-12 col-xl-12 mxd-grid-item">
                     <div class="mxd-section-title__title">
-                      <h2 class="mxd-split-lines">Beyond<br>the build</h2>
+                      <h2 class="mxd-split-lines">Beyond <br>the build</h2>
                     </div>
                   </div>
                 </div>
@@ -1100,7 +1126,7 @@
                 <div class="a-close__body">
                   <div>
                     <span class="a-eyebrow"><span class="a-dot" aria-hidden="true"></span>Let's build</span>
-                    <h2 class="a-close__title">Got something<br>worth building?</h2>
+                    <h2 class="a-close__title">Got something <br>worth building?</h2>
                   </div>
                   <div class="a-close__side">
                     <p class="a-close__note">Send the brief, or just the problem. I answer everything
@@ -1152,7 +1178,7 @@
               <ul class="rh-fcol__list">
                 <li><a href="mailto:rushanulhaque@gmail.com?subject=Hello%20from%20your%20site"><span class="mxd-scramble">rushanulhaque@gmail.com</span></a></li>
                 <li><a href="https://wa.me/917668047608" target="_blank" rel="noopener"><span class="mxd-scramble">+91 76680 47608</span></a></li>
-                <li class="rh-fcol__addr">94 Qazi tola,<br>Moradabad 244001, India</li>
+                <li class="rh-fcol__addr">94 Qazi tola, <br>Moradabad 244001, India</li>
               </ul>
             </div>
 
@@ -1220,16 +1246,16 @@
          GSAP/ScrollTrigger bindings attach to fully rendered markup
          exactly as they did when these were blocking scripts.
          Do not reorder these tags. -->
-    <script defer src="data/projects.js?v=45"></script>
+    <script defer src="data/projects.js?v=46"></script>
     <script defer src="data/journey.js?v=42"></script>
     <script defer src="data/products.js?v=42"></script>
     <script defer src="data/reviews.js?v=42"></script>
     <script defer src="js/img-manifest.js?v=1"></script>
-    <script defer src="js/render.js?v=69"></script>
+    <script defer src="js/render.js?v=73"></script>
 
     <script defer src="js/form-config.js?v=43"></script>
     <script defer src="js/libs.min.js"></script>
-    <script defer src="js/app.js?v=63"></script>
+    <script defer src="js/app.js?v=66"></script>
     <script defer src="js/gradient-waves.js?v=61"></script>
     <script defer src="js/navbar.js?v=64"></script>
     <script defer src="js/dots-nav.js?v=1"></script>
