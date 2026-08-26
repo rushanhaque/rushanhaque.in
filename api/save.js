@@ -1,5 +1,7 @@
 /* api/save.js — Vercel serverless function
- * Receives a data file from admin.html and commits it to GitHub.
+ * DEPRECATED: single-file, non-atomic publish kept for backwards compatibility.
+ * New publishes go through /api/publish, which commits every file and photo
+ * in one atomic commit. This route now requires a secret and fails closed.
  *
  * Required Vercel env variables (set in your Vercel project dashboard):
  *   GITHUB_TOKEN   — fine-grained PAT with Contents: read & write on this repo
@@ -22,13 +24,22 @@ export default async function handler(req) {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  /* ── auth check ─────────────────────────────────────────────────────── */
-  const adminToken = process.env.ADMIN_TOKEN;
-  if (adminToken) {
-    const auth = req.headers.get('x-admin-token') || '';
-    if (auth !== adminToken) {
-      return new Response('Unauthorized', { status: 401 });
-    }
+  /* ── auth check — fails CLOSED ───────────────────────────────────────
+   * Previously this block was skipped entirely when ADMIN_TOKEN was unset,
+   * which left the endpoint callable by anyone on the internet. It now
+   * refuses to run at all unless a secret is configured. */
+  const adminToken = process.env.ADMIN_PUBLISH_SECRET || process.env.ADMIN_TOKEN;
+  if (!adminToken) {
+    return new Response('Publishing is disabled: ADMIN_PUBLISH_SECRET is not set.', { status: 503 });
+  }
+  const auth = req.headers.get('x-admin-token') || '';
+  if (auth.length !== adminToken.length) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  let diff = 0;
+  for (let i = 0; i < auth.length; i++) diff |= auth.charCodeAt(i) ^ adminToken.charCodeAt(i);
+  if (diff !== 0) {
+    return new Response('Unauthorized', { status: 401 });
   }
 
   /* ── parse body ──────────────────────────────────────────────────────── */

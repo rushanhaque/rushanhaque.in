@@ -345,12 +345,18 @@ code{background:var(--tint);padding:.12rem .38rem;border-radius:4px;font:.85em v
 
   <div class="card" id="push-card">
     <h2>2 — Push to GitHub</h2>
-    <p class="sub">Commits the changed files directly to your repo. Vercel redeploys automatically. Only works when the site is live on Vercel with <code>GITHUB_TOKEN</code> configured.</p>
+    <p class="sub">Commits every changed file <em>and</em> every new photo in one commit. Vercel redeploys automatically.</p>
+    <div id="live-banner" style="display:none;margin-bottom:1rem;padding:0.6rem 1rem;border-radius:0.5rem;font-size:0.9rem;background:rgba(214,158,46,0.15);color:#8a5a00"></div>
     <div id="push-status" style="display:none;margin-bottom:1rem;padding:0.6rem 1rem;border-radius:0.5rem;font-size:0.9rem"></div>
-    <div class="row">
-      <button class="btn" id="push-btn">Push changed files to GitHub</button>
+    <div class="row" style="margin-bottom:0.75rem">
+      <input id="push-token" type="password" autocomplete="off" placeholder="Publish secret"
+             style="max-width:280px" aria-label="Publish secret">
+      <label style="font-size:0.8rem;opacity:0.7"><input type="checkbox" id="push-remember" checked> remember for this tab</label>
     </div>
-    <p class="sub" style="margin-top:0.75rem;font-size:0.78rem;opacity:0.6">Only files with unsaved-dot markers are pushed. Nothing happens if there are no changes.</p>
+    <div class="row">
+      <button class="btn" id="push-btn">Publish to GitHub</button>
+    </div>
+    <p class="sub" style="margin-top:0.75rem;font-size:0.78rem;opacity:0.6">Only files with unsaved-dot markers are published, together with any photos you picked. Nothing happens if there are no changes.</p>
   </div>
 
   <div class="card">
@@ -406,8 +412,20 @@ function save(which){
   try{
     localStorage.setItem(KEYS[which],JSON.stringify(db[which]));
     dirty[which]=JSON.stringify(db[which])!==JSON.stringify(SEED[which]);
+    if(dirty[which])markUnpublished();
     paintDirty();
-  }catch(e){ setState('storage blocked',true); }
+  }catch(e){
+    /* Never let a failed write look like a successful one. */
+    var quota = e && (e.name==='QuotaExceededError' ||
+                      e.name==='NS_ERROR_DOM_QUOTA_REACHED' || e.code===22);
+    var msg = quota
+      ? 'THIS BROWSER IS OUT OF STORAGE — your last edit to '+which+' was NOT saved. '+
+        'Publish now, or download '+which+'.js, before making more changes.'
+      : 'Could not save '+which+' locally ('+(e&&e.message||'storage blocked')+'). Your last edit is not stored.';
+    setState(quota?'STORAGE FULL — edit not saved':'storage blocked',true);
+    try{ setStatus(msg,'err'); }catch(_){}
+    alert(msg);
+  }
 }
 function paintDirty(){
   var any=false;
@@ -442,19 +460,93 @@ function thumbStyle(el,src,fallback){
   else{el.style.backgroundImage='';el.textContent=fallback||'none'}
 }
 
-/* file picker: fills the path field + shows a local preview */
+/* ---------------- photo staging ----------------
+ * Photos are content-addressed: the filename is the first 20 hex characters
+ * of the SHA-256 of the bytes. Same photo picked twice = same filename = one
+ * commit. The bytes are held here as base64 and committed as a real image
+ * file by /api/publish — they are never written into the catalogue JS. */
+var PENDING_PHOTOS = Object.create(null);   /* path -> base64 (no data: prefix) */
+var MAX_PHOTO_BYTES = 3 * 1024 * 1024;
+
+var EXT_BY_TYPE = { 'image/jpeg':'jpg', 'image/jpg':'jpg', 'image/png':'png',
+                    'image/webp':'webp', 'image/avif':'avif', 'image/gif':'gif' };
+
+function extFor(file){
+  if(EXT_BY_TYPE[file.type]) return EXT_BY_TYPE[file.type];
+  var m=/\.([a-z0-9]+)$/i.exec(file.name||'');
+  var e=m?m[1].toLowerCase():'';
+  if(e==='jpeg')e='jpg';
+  return /^(jpg|png|webp|avif|gif)$/.test(e)?e:'';
+}
+
+function bytesToHex(buf){
+  var v=new Uint8Array(buf),o='';
+  for(var i=0;i<v.length;i++)o+=v[i].toString(16).padStart(2,'0');
+  return o;
+}
+function bytesToBase64(buf){
+  var v=new Uint8Array(buf),s='';
+  for(var i=0;i<v.length;i+=0x8000){
+    s+=String.fromCharCode.apply(null,v.subarray(i,i+0x8000));
+  }
+  return btoa(s);
+}
+
+/* file picker: hashes the file, stages the bytes, fills the path field */
 document.addEventListener('change',function(e){
   var inp=e.target;
   if(inp.type!=='file'||!inp.dataset.target)return;
   var f=inp.files&&inp.files[0]; if(!f)return;
-  var folder=inp.dataset.target==='d-img'?'img/rh/products/'
-           :inp.dataset.target==='r-img'?'img/rh/reviews/':'img/rh/projects/';
-  $(inp.dataset.target).value=folder+f.name;
-  var rd=new FileReader();
-  rd.onload=function(){thumbStyle($(inp.dataset.thumb),rd.result)};
-  rd.readAsDataURL(f);
-  toast('Path set — remember to copy the file into '+folder);
+
+  var ext=extFor(f);
+  if(!ext){
+    toast('Unsupported image type — use jpg, png, webp, avif or gif.');
+    inp.value=''; return;
+  }
+  if(f.size>MAX_PHOTO_BYTES){
+    toast('That photo is '+(f.size/1048576).toFixed(1)+' MB. The limit is 3 MB — resize it first.');
+    inp.value=''; return;
+  }
+
+  var target=inp.dataset.target, thumb=inp.dataset.thumb;
+  var folder=target==='d-img'?'img/rh/products/'
+           :target==='r-img'?'img/rh/reviews/':'img/rh/projects/';
+  f.arrayBuffer().then(function(buf){
+    return crypto.subtle.digest('SHA-256',buf).then(function(digest){
+      var name=bytesToHex(digest).slice(0,20)+'.'+ext;
+      var path=folder+name;
+      PENDING_PHOTOS[path]=bytesToBase64(buf);
+      $(target).value=path;
+      thumbStyle($(thumb),'data:'+(f.type||'image/'+ext)+';base64,'+PENDING_PHOTOS[path]);
+      markUnpublished();
+      toast('Photo staged — press Publish to commit it.');
+    });
+  }).catch(function(err){
+    toast('Could not read that photo: '+err.message);
+  });
 });
+
+/* Photos referenced by the catalogue but not yet committed. */
+function photosToPublish(){
+  var used=Object.create(null);
+  function scan(v){
+    if(!v)return;
+    if(typeof v==='string'){ if(PENDING_PHOTOS[v])used[v]=1; return; }
+    if(Array.isArray(v)){ v.forEach(scan); return; }
+    if(typeof v==='object'){ Object.keys(v).forEach(function(k){scan(v[k])}); }
+  }
+  scan(db);
+  return Object.keys(used).map(function(path){
+    return { path: path, contentBase64: PENDING_PHOTOS[path] };
+  });
+}
+
+function markUnpublished(){
+  try{ localStorage.setItem('rh_admin_unpublished','1'); }catch(e){}
+}
+function clearUnpublished(){
+  try{ localStorage.removeItem('rh_admin_unpublished'); }catch(e){}
+}
 
 /* ---------------- tabs ---------------- */
 document.querySelectorAll('.tab').forEach(function(t){
@@ -747,6 +839,7 @@ $('cp-btn').addEventListener('click',function(){
 /* ---------------- reset ---------------- */
 function wipe(){
   Object.keys(KEYS).forEach(function(k){try{localStorage.removeItem(KEYS[k])}catch(e){}});
+  clearUnpublished();
   location.reload();
 }
 $('reload').addEventListener('click',function(){
@@ -763,45 +856,131 @@ function renderAll(){renderProjects();renderProducts();renderReviews();renderJou
 });
 renderAll();projReset();prodReset();revReset();jrReset();paintDirty();refreshPreview();
 
-/* ---------------- push to github ---------------- */
+/* ---------------- publish to github ---------------- */
+var TOKEN_KEY='rh_admin_token';
+try{
+  var savedTok=sessionStorage.getItem(TOKEN_KEY);
+  if(savedTok)$('push-token').value=savedTok;
+}catch(e){}
+
+function setStatus(msg, kind){
+  var status=$('push-status');
+  status.style.display='block';
+  var c={ok:['rgba(40,167,69,0.15)','#1a7a30'],
+          err:['rgba(220,53,69,0.15)','#a31621'],
+          info:['rgba(0,0,0,0.06)','#4D4D4D']}[kind||'info'];
+  status.style.background=c[0]; status.style.color=c[1];
+  status.textContent=msg;
+}
+
 $('push-btn').addEventListener('click', async function () {
   var changed = ['projects','products','reviews','journey'].filter(function(k){ return dirty[k]; });
-  if (!changed.length) { toast('No changes to push.'); return; }
+  var photos  = photosToPublish();
 
-  var status = $('push-status');
-  function setStatus(msg, ok) {
-    status.style.display = 'block';
-    status.style.background = ok ? 'rgba(40,167,69,0.15)' : 'rgba(220,53,69,0.15)';
-    status.style.color = ok ? '#1a7a30' : '#a31621';
-    status.textContent = msg;
-  }
+  if (!changed.length && !photos.length) { toast('No changes to publish.'); return; }
+
+  var token = $('push-token').value.trim();
+  if (!token) { setStatus('Enter the publish secret first.', 'err'); $('push-token').focus(); return; }
+  if ($('push-remember').checked) { try{ sessionStorage.setItem(TOKEN_KEY, token); }catch(e){} }
 
   $('push-btn').disabled = true;
-  setStatus('Pushing ' + changed.length + ' file(s)…', true);
+  setStatus(
+    'Publishing ' + changed.length + ' file(s)' +
+    (photos.length ? ' and staging ' + photos.length + ' photo(s)' : '') + '…',
+    'info'
+  );
 
-  var errors = [];
-  for (var i = 0; i < changed.length; i++) {
-    var key = changed[i];
-    try {
-      var res = await fetch('/api/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path: 'data/' + key + '.js', content: fileFor(key) })
-      });
-      if (!res.ok) { errors.push(key + ': ' + (await res.text())); }
-      else { dirty[key] = false; }
-    } catch(e) { errors.push(key + ': ' + e.message); }
-  }
+  var payload = {
+    files: changed.map(function(k){ return { path: 'data/' + k + '.js', content: fileFor(k) }; }),
+    photos: photos
+  };
 
-  $('push-btn').disabled = false;
-  paintDirty();
-  if (errors.length) {
-    setStatus('Some files failed — ' + errors.join('; '), false);
-  } else {
-    setStatus('Pushed! Vercel is redeploying now.', true);
-    save('projects'); save('products'); save('reviews'); save('journey');
+  try {
+    var res = await fetch('/api/publish', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+      body: JSON.stringify(payload)
+    });
+
+    var data = null;
+    try { data = await res.json(); } catch(e){}
+
+    if (res.ok) {
+      changed.forEach(function(k){ dirty[k] = false; SEED[k] = clone(db[k]); });
+      photos.forEach(function(p){ delete PENDING_PHOTOS[p.path]; });
+      clearUnpublished();
+      paintDirty();
+      setStatus(
+        'Published. Commit ' + String(data && data.commit || '').slice(0,7) +
+        ' at ' + (data && data.updatedAt || '') +
+        (data && data.photosStaged ? ' — ' + data.photosStaged + ' photo(s) committed' : '') +
+        (data && data.photosReused ? ', ' + data.photosReused + ' already on the site' : '') +
+        '. Vercel is redeploying.',
+        'ok'
+      );
+      return;
+    }
+
+    var msg = (data && data.error) || ('HTTP ' + res.status);
+    if (res.status === 401) {
+      msg = 'That publish secret was rejected. Nothing was published.';
+      try{ sessionStorage.removeItem(TOKEN_KEY); }catch(e){}
+    } else if (res.status === 409) {
+      msg = (data && data.error) || 'The branch moved while you were editing.';
+      showLiveBanner(msg);
+    } else if (res.status === 413) {
+      msg = (data && data.error) || 'Those photos are too large to publish in one go.';
+    } else if (res.status === 503) {
+      msg = (data && data.error) || 'Publishing is not configured on the server.';
+    }
+    setStatus(msg, 'err');
+
+  } catch (e) {
+    setStatus('Could not reach /api/publish — ' + e.message +
+              '. This only works on the deployed site, not from file://.', 'err');
+  } finally {
+    $('push-btn').disabled = false;
   }
 });
+
+/* ---------------- live-vs-local reconciliation ----------------
+ * On mount, ask the server when the catalogue was last published. If the live
+ * site moved on since this browser's local copy, say so instead of letting the
+ * admin quietly publish over someone else's change. */
+function showLiveBanner(msg, offerReload){
+  var b=$('live-banner');
+  b.style.display='block';
+  b.textContent=msg+' ';
+  if(offerReload){
+    var btn=document.createElement('button');
+    btn.className='btn ghost sm';
+    btn.textContent='Discard local changes and load the latest';
+    btn.addEventListener('click',function(){ if(confirm('Discard local changes?'))wipe(); });
+    b.appendChild(btn);
+  }
+}
+
+(function checkLive(){
+  fetch('data/published.json', { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(live){
+      if(!live || !live.updatedAt) return;
+      var seen=null;
+      try{ seen=localStorage.getItem('rh_admin_seen_publish'); }catch(e){}
+      if(!seen){
+        try{ localStorage.setItem('rh_admin_seen_publish', live.updatedAt); }catch(e){}
+        return;
+      }
+      if(seen===live.updatedAt) return;
+      var anyDirty=['projects','products','reviews','journey'].some(function(k){return dirty[k]});
+      try{ localStorage.setItem('rh_admin_seen_publish', live.updatedAt); }catch(e){}
+      if(anyDirty){
+        showLiveBanner('The live site was published elsewhere on '+live.updatedAt+
+                       '. Your local edits are based on an older copy.', true);
+      }
+    })
+    .catch(function(){ /* endpoint absent — carry on with the bundled copy */ });
+})();
 
 /* keep the sticky tab strip flush under the header at any font size */
 function syncHeader(){
