@@ -1897,14 +1897,34 @@ input[type="button"] {
   .mxd-section-title:not(.pre-grid) { margin-bottom: 5rem; }
 }
 
-navigation,
-contact
-   details,
-and social links in three equal columns.
-   A hairline separates the body from a slim bottom
-   bar { display: none !important; }
-/* Footer blocks use their own internal spacing — cancel the global block gap */
-#mxd-footer .mxd-block + .mxd-block { margin-top: 0; }
+/* ==================================================
+   21. Footer — vertical rhythm
+   --------------------------------------------------
+   Three blocks inside a flex-column footer container:
+     (a) ink CTA plate
+     (b) brand + navigation + social links in columns
+     (c) full-width wordmark
+
+   The container needs breathing room top and bottom.
+   Each block gets its own margin so the rhythm is
+   explicit rather than inherited from the template's
+   generic .mxd-block gap (which we do not want here).
+   ================================================== */
+
+/* outer breathing room */
+#mxd-footer .mxd-container { padding-top: 3.2rem; padding-bottom: 0; }
+@media only screen and (min-width: 768px) {
+  #mxd-footer .mxd-container { padding-top: 5rem; }
+}
+
+/* gap between CTA plate and footer body */
+#mxd-footer .mxd-block + .mxd-block { margin-top: 5.6rem; }
+@media only screen and (min-width: 768px) {
+  #mxd-footer .mxd-block + .mxd-block { margin-top: 6.4rem; }
+}
+
+/* wordmark block has less gap — it hangs off the hairline below .rh-ft */
+#mxd-footer .mxd-block:last-child { margin-top: 0; }
 /* ==================================================
    22. In-card project name + mobile layout polish
    --------------------------------------------------

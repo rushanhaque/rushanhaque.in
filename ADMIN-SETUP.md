@@ -5,7 +5,7 @@
 This repo deploys to **Vercel**, serving `https://www.rushanhaque.in`
 (and `https://rushanhaque-in.vercel.app`).
 
-`rushanhaque.online` is **a different, older website** on GitHub Pages. It is not
+`rushanhaque.in` is **a different, older website** on GitHub Pages. It is not
 built from this repo — `/admin.html` and `/data/projects.js` both 404 there. If you
 publish from the admin panel and then check `.online`, you will never see your
 change, because that host serves a different project entirely.

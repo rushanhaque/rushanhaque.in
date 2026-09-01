@@ -184,6 +184,26 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("mxd-cursor").style.display = "none";
   }
 
+  /* Hold the animation clock while the tab is in the background.
+     rAF already stops firing when a tab is hidden, so this is not about
+     wasted frames — it is about what happens on the way back.
+     `gsap.ticker.lagSmoothing(0)` above deliberately disables GSAP's
+     catch-up guard, which is right during a scroll (the guard makes a
+     stuttering ScrollTrigger drift out of sync with the scrollbar) but
+     wrong across a tab switch: the first frame after returning carries a
+     delta of however long the tab sat hidden, and every in-flight tween
+     is handed that delta at once. Come back after a minute away and the
+     reveals have all snapped to their end state mid-screen.
+     Pausing the global timeline freezes that clock, so returning resumes
+     the animation where it actually was. */
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      gsap.globalTimeline.pause();
+    } else {
+      gsap.globalTimeline.resume();
+    }
+  });
+
   window.addEventListener("pageshow", (event) => {
     const navEntry = performance.getEntriesByType("navigation")[0];
     const isBackForward = navEntry && navEntry.type === "back_forward";

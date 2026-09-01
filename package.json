@@ -3,12 +3,16 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Static site + admin panel. No bundler: the build step only validates the host config.",
+  "description": "Static site + admin panel. No bundler: the build prerenders data into the HTML, then validates the host config.",
   "scripts": {
-    "build": "node scripts/validate-config.mjs",
+    "build": "node scripts/prerender.mjs && node scripts/validate-config.mjs",
     "validate": "node scripts/validate-config.mjs",
     "check:live": "node scripts/check-live.mjs",
-    "test": "node --test \"test/**/*.test.mjs\""
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "prerender": "node scripts/prerender.mjs",
+    "check:prerender": "node scripts/prerender.mjs --check"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }

@@ -1316,3 +1316,77 @@ span.a-cap__name {
   .rh-ft { gap: 8rem; }
   .rh-ft__cols { column-gap: 6rem; }
 }
+
+
+/* ============================================================
+   Keyboard focus — §8.4
+   ============================================================
+
+   The template removes the focus ring in three places, and one of
+   them uses !important:
+
+     main.css:416   button:active, button:focus { outline: none !important }
+     main.css:509   a { outline: 0 }
+     main.css:4663  form input, form textarea { outline: none }
+
+   Between them, nothing on the site showed where the keyboard was.
+   That is a hard accessibility failure and it also makes the site
+   unusable for anyone not driving it with a mouse.
+
+   These rules put the indicator back on :focus-visible only, so it
+   appears for keyboard and assistive-tech users without adding a ring
+   to every mouse click — which is why the template removed it in the
+   first place. This file loads last; the !important on the button rule
+   is matched deliberately, not out of habit.
+
+   currentColor keeps the ring legible against both the light page and
+   the dark ink panels without needing a second palette. */
+
+/* The ring itself is already defined against the design tokens in
+   refine.css (--accent) and sections.css (--a-ink); it simply never won
+   against main.css's blanket button rule, which is now scoped to
+   :not(:focus-visible). Only <summary> was missing from those selectors. */
+:where(summary):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Media tiles and cards are large; the ring reads better tight to the
+   edge than floating 3px off a rounded image. */
+.mxd-project-item__media:focus-visible,
+.rh-archive-row:focus-visible,
+.mxd-blog-item__media:focus-visible {
+  outline-offset: 0;
+  border-radius: inherit;
+}
+
+/* Inputs sit on their own baseline rule, so the ring goes around the
+   field rather than the text box's invisible edge. */
+form input:focus-visible,
+form textarea:focus-visible {
+  outline-offset: 1px;
+}
+
+/* Skip link — the first thing a keyboard user should reach. It stays
+   out of the layout until focused. */
+.rh-skip {
+  position: absolute;
+  left: 1.6rem;
+  top: 1.6rem;
+  z-index: 10000;
+  padding: 1rem 1.6rem;
+  background: #0f0f0f;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.rh-skip:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-skip { transition: none; }
+}

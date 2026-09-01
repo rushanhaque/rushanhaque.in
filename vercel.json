@@ -1,6 +1,20 @@
 {
   "outputDirectory": ".",
-  "buildCommand": "node scripts/validate-config.mjs",
+  "buildCommand": "node scripts/prerender.mjs && node scripts/validate-config.mjs",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/works-default",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/works-default.html",
+      "destination": "/work",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/version.json",
@@ -26,6 +40,15 @@
         {
           "key": "Referrer-Policy",
           "value": "no-referrer"
+        }
+      ]
+    },
+    {
+      "source": "/review",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     },

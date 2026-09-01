@@ -116,6 +116,16 @@ html {
   }
   .a-shot__no { background-color: rgba(255, 255, 255, 0.94); }
 
+  /* Dropping the filter above is only half the fix. The backdrop also
+     carries `will-change: backdrop-filter, background`, which promotes a
+     full-viewport compositor layer and *keeps* it — will-change is a
+     standing promise, not a hint that expires. So a phone was holding a
+     screen-sized surface in GPU memory for the whole session to
+     accelerate a property this breakpoint just turned off, on a menu
+     that is closed nearly all of the time. Release it; `background`
+     alone does not need the promotion. */
+  .mxd-menu__backdrop { will-change: auto; }
+
   /* Collapse the ambient shadow ladder to one believable layer. */
   .a-plate,
   .a-rv__tray,

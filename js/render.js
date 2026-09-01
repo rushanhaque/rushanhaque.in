@@ -11,6 +11,20 @@
 (function () {
   'use strict';
 
+  /* Where a renderer is allowed to write.
+     scripts/prerender.mjs runs these same renderers at build time and stamps
+     each container it filled with data-rh-prerendered. When that stamp is
+     present the markup is already in the document as served, so re-building it
+     here would throw away identical HTML and cost a reflow for nothing. The
+     browser path is now an enhancement over real content, not the only way to
+     get any. */
+  function mount(id) {
+    var host = document.getElementById(id);
+    if (!host) return null;
+    if (host.hasAttribute('data-rh-prerendered')) return null;
+    return host;
+  }
+
   function esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -36,6 +50,19 @@
            (attrs || '') + '>';
   }
   function shellClose(url) { return url ? '</a>' : '</span>'; }
+
+  /* Alt text that describes the project rather than the file.
+     "ErfolgLiving Preview" tells a screen-reader user the medium and
+     nothing else; every image on the page was a "Preview". The niche and
+     kind are already in the data, so the alt can say what the thing
+     actually is: "ErfolgLiving — Web freelance project". */
+  function altFor(p) {
+    var parts = [];
+    if (p.niche) parts.push(String(p.niche));
+    if (p.kind)  parts.push(String(p.kind).toLowerCase());
+    parts.push('project');
+    return esc(p.title) + ' — ' + esc(parts.join(' '));
+  }
 
   function tags(list, cls) {
     if (!Array.isArray(list) || !list.length) return '';
@@ -133,7 +160,7 @@
     var src = previewFor(p, 1500, 1000);
     var media = '<img loading="lazy" decoding="async" width="1600" height="770" src="' + src + '"' +
                 srcsetFor(src, slot) +
-                ' alt="' + esc(p.title) + ' Preview">';
+                ' alt="' + altFor(p) + '">';
     media += '\n                          <div class="mxd-cover ' + cover + '"></div>';
     if (p.video) {
       media +=
@@ -170,7 +197,7 @@
   }
 
   function renderWorks() {
-    var host = document.getElementById('rh-works');
+    var host = mount('rh-works');
     if (!host) return;
     var items = (window.RH_PROJECTS || []).filter(function (p) {
       return String(p.category || '').toLowerCase() === 'industry';
@@ -265,7 +292,7 @@
       : p.url ? ('https://image.thum.io/get/width/640/crop/400/noanimate/' + esc(p.url))
       : '';
     var thumbHtml = thumbSrc
-      ? '\n                  <div class="rh-archive-thumb"><img src="' + thumbSrc + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="640" height="400"></div>'
+      ? '\n                  <div class="rh-archive-thumb"><img src="' + thumbSrc + '" alt="' + altFor(p) + '" loading="lazy" decoding="async" width="640" height="400"></div>'
       : '';
 
     var statusClass = status === 'Visit Site' ? 'rh-row-status--live'
@@ -302,7 +329,7 @@
   }
 
   function renderArchive() {
-    var host = document.getElementById('rh-archive');
+    var host = mount('rh-archive');
     if (!host) return;
     var order = { Industry: 0, Showcase: 1, Personal: 2 };
     var items = (window.RH_PROJECTS || []).filter(function (p) {
@@ -320,7 +347,7 @@
      PRODUCTS — template "capabilities / perspective list" markup
      ============================================================ */
   function renderProducts() {
-    var host = document.getElementById('rh-products');
+    var host = mount('rh-products');
     if (!host) return;
 
     var items = (window.RH_PRODUCTS || []).slice();
@@ -407,7 +434,7 @@
      PERSONAL PROJECTS — template "blog preview grid x3" markup
      ============================================================ */
   function renderPersonal() {
-    var host = document.getElementById('rh-personal');
+    var host = mount('rh-personal');
     if (!host) return;
 
     var items = (window.RH_PROJECTS || []).filter(function (p) {
@@ -437,7 +464,7 @@
 '                        ' + shellOpen(href, 'mxd-blog-item__media active-cursor-permanent',
                              ' data-cursor-text="' + cursorText + '"' +
                              (href ? ' aria-label="' + esc(p.title) + '"' : '')) + '\n' +
-'                          <img src="' + img + '"' + srcsetFor(img, '(min-width: 992px) 32vw, (min-width: 768px) 48vw, 81vw') + ' alt="' + esc(p.title) + '" width="1536" height="1024" loading="lazy" decoding="async">\n' +
+'                          <img src="' + img + '"' + srcsetFor(img, '(min-width: 992px) 32vw, (min-width: 768px) 48vw, 81vw') + ' alt="' + altFor(p) + '" width="1536" height="1024" loading="lazy" decoding="async">\n' +
 '                          <span class="rh-cs-badge ' + blogBadgeClass + '"' + (live ? ' aria-hidden="true"' : '') + '>' + blogBadgeLabel + '</span>\n' +
 '                        ' + shellClose(href) + '\n' +
 '                      </div>\n' +
@@ -482,7 +509,7 @@
   }
 
   function renderJourneyList(hostId, items) {
-    var host = document.getElementById(hostId);
+    var host = mount(hostId);
     if (!host) return;
     var list = Array.isArray(items) ? items : [];
     if (!list.length) { host.innerHTML = ''; return; }
@@ -535,7 +562,7 @@
   }
 
   function renderReviews() {
-    var host = document.getElementById('rh-reviews');
+    var host = mount('rh-reviews');
     if (!host) return;
 
     var list = (window.RH_REVIEWS || []).slice();

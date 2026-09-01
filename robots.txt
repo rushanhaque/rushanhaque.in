@@ -1,9 +1,10 @@
-# https://rushanhaque.online
+# https://rushanhaque.in
 
 User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /api/
 Disallow: /_trash-review/
+Disallow: /review
 
-Sitemap: https://rushanhaque.online/sitemap.xml
+Sitemap: https://rushanhaque.in/sitemap.xml

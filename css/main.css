@@ -7,7 +7,7 @@
  * Last Update: March 2026
  * This product is available exclusively on Themeforest
  * Author: Rushan Haque
- * Author URI: https://rushanhaque.online */
+ * Author URI: https://rushanhaque.in */
 /*! File name: main.css
  * ------------------------------------------------
  *
@@ -412,7 +412,14 @@
           box-sizing: border-box;
 }
 
-button:active, button:focus {
+/* Scoped to :not(:focus-visible) so the ring still appears for keyboard and
+   assistive-tech users. The blanket version of this rule was the reason the
+   site's own focus styles in refine.css and sections.css never showed on a
+   button: they are :where(...) rules with zero specificity, and this beat them
+   on both specificity and !important. Mouse clicks stay ring-free, which is
+   what the original rule was actually for. */
+button:active,
+button:focus:not(:focus-visible) {
   outline: none !important;
 }
 
