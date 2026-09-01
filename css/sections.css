@@ -1522,8 +1522,7 @@
    in "g"/"q" being sliced off. */
 .headline-email-text .fullwidth-text__content.small { font-size: 6.8cqw; }
 
-.fullwidth-text,
-.fw-mark {
+.fullwidth-text {
   overflow-x: clip;
   overflow-y: visible;
 }
@@ -1592,8 +1591,6 @@
 .no-touch .a-close__body .a-cta:hover .a-cta__well { background-color: rgba(10, 10, 10, 0.14); }
 
 #mxd-footer { border-top: 0; }
-/* the wordmark: tuck it tight to the baseline of the sheet */
-.fw-mark__content span { letter-spacing: -0.035em; }
 
 /* ==================================================
    18. Loader
@@ -1923,8 +1920,6 @@ input[type="button"] {
   #mxd-footer .mxd-block + .mxd-block { margin-top: 6.4rem; }
 }
 
-/* wordmark block has less gap — it hangs off the hairline below .rh-ft */
-#mxd-footer .mxd-block:last-child { margin-top: 0; }
 /* ==================================================
    22. In-card project name + mobile layout polish
    --------------------------------------------------
@@ -2025,12 +2020,6 @@ input[type="button"] {
   .mxd-section-title__title .mxd-split-lines {
     font-size: clamp(3.4rem, 10vw, 5.5rem);
     letter-spacing: -0.02em;
-  }
-}
-/* the wordmark is the footer's full stop — keep it, shrink its air */
-@media only screen and (max-width: 575px) {  .mxd-footer__fw-mark { 
-    padding-top: 1.6rem; 
-    padding-bottom: 2.4rem;
   }
 }
 
