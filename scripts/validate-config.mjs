@@ -96,15 +96,37 @@ function validateVercel(file) {
   }
 
   /* Things that are valid but almost certainly wrong for this site. */
-  const adminHeader = (cfg.headers || []).find((h) => h.source === '/admin.html');
-  if (!adminHeader) {
-    notes.push('vercel.json: no /admin.html header rule — the admin panel should be no-store + noindex.');
-  } else {
-    const cc = (adminHeader.headers || []).find((h) => h.key.toLowerCase() === 'cache-control');
+
+  /* With cleanUrls:true, a browser requests "/admin" — never "/admin.html".
+   * A header rule keyed on the .html path only ever matches a request that
+   * gets 308-redirected away before the body is served, so it is silently
+   * dead for every real visit. Both source paths must carry the same
+   * headers, or the admin panel is cached like an ordinary page. */
+  function requireNoStore(source, why) {
+    const rule = (cfg.headers || []).find((h) => h.source === source);
+    if (!rule) {
+      notes.push(`vercel.json: no "${source}" header rule — ${why}`);
+      return;
+    }
+    const cc = (rule.headers || []).find((h) => h.key.toLowerCase() === 'cache-control');
     if (!cc || !/no-store/.test(cc.value)) {
-      notes.push('vercel.json: /admin.html is not no-store — the admin may load a stale snapshot.');
+      notes.push(`vercel.json: "${source}" is not no-store — ${why}`);
     }
   }
+  requireNoStore('/admin.html', 'a direct link to the .html path would be cached.');
+  requireNoStore('/admin', 'this is the actual URL cleanUrls serves — the admin panel would load a stale snapshot from the edge cache.');
+
+  /* Vercel's shared edge cache does not treat "max-age=0, must-revalidate"
+   * as "always hit the origin" the way a browser does — it has been
+   * observed serving X-Vercel-Cache: HIT with a growing Age on exactly that
+   * header for HTML pages and /data/*.js. Only "no-store" reliably bypasses
+   * it, so every page a visitor can land on directly, plus the catalogue
+   * data the admin panel publishes, must carry it. */
+  const mustBeFresh = ['/', '/work', '/contact', '/review', '/data/(.*)'];
+  for (const source of mustBeFresh) {
+    requireNoStore(source, 'Vercel\'s edge cache can serve this stale to some visitors otherwise.');
+  }
+
   if (!(cfg.rewrites || []).some((r) => r.source === '/version.json')) {
     notes.push('vercel.json: /version.json is not routed — browsers cannot detect new deploys.');
   }

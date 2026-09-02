@@ -151,18 +151,34 @@ for (const f of ['data/projects.js', 'data/products.js']) {
 if (!checkedPhoto) warn('no content-addressed photos committed yet — nothing to verify');
 
 /* ── 5. cache headers ────────────────────────────────────────────────── */
+/* Vercel's shared edge cache has been observed serving X-Vercel-Cache: HIT
+ * with a growing Age on "public, max-age=0, must-revalidate" — that header
+ * tells a BROWSER to revalidate, but does not reliably make Vercel's own
+ * edge bypass its cache or revalidate with the origin on every request.
+ * Only "no-store" does. These paths are the ones a visitor can land on
+ * directly (get() follows redirects, so "/admin.html" and "/work.html"
+ * resolve to the real cleanUrls path Vercel actually serves), so all of
+ * them must be no-store, not just max-age=0. */
 console.log('\nCache headers');
 const expect = [
-  ['/', /max-age=0/, 'HTML must revalidate on every visit'],
-  ['/admin.html', /no-store/, 'the admin panel must never be cached'],
-  ['/data/projects.js', /max-age=0|no-store/, 'catalogue data must revalidate'],
+  ['/', /no-store/, 'HTML must never be served stale from the edge — home page'],
+  ['/work', /no-store/, 'HTML must never be served stale from the edge — work page'],
+  ['/contact', /no-store/, 'HTML must never be served stale from the edge — contact page'],
+  ['/review', /no-store/, 'HTML must never be served stale from the edge — review page'],
+  ['/admin.html', /no-store/, 'the admin panel must never be cached (this follows the redirect to /admin)'],
+  ['/data/projects.js', /no-store/, 'catalogue data must never be served stale from the edge'],
 ];
 for (const [path, re, why] of expect) {
   try {
-    const res = await get(path);
+    const res = await get(path, { cache: 'no-store' });
     const cc = res.headers.get('cache-control') || '(none)';
+    const edge = res.headers.get('x-vercel-cache') || '(none)';
+    const age = res.headers.get('age') || '0';
     if (re.test(cc)) pass(`${path}: ${cc}`);
     else fail(`${path}: "${cc}" — ${why}`);
+    if (edge === 'HIT' && Number(age) > 0) {
+      fail(`${path}: X-Vercel-Cache: HIT with Age ${age}s — Vercel's edge is serving this from cache instead of the origin`);
+    }
   } catch (e) {
     fail(`${path} — ${e.message}`);
   }
