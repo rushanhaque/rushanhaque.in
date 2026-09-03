@@ -27,6 +27,22 @@ window.RH_PROJECTS = [
     "video": ""
   },
   {
+    "title": "Taif",
+    "url": "",
+    "category": "Industry",
+    "niche": "Web",
+    "kind": "Freelance",
+    "year": "2026",
+    "description": "In development — a commercial site currently being built.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "In Progress"
+    ],
+    "image": "img/rh/projects/taif.webp",
+    "video": ""
+  },
+  {
     "title": "Aurelio",
     "url": "https://aurelio.in",
     "category": "Industry",

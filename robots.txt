@@ -1,10 +1,101 @@
-# https://rushanhaque.in
+# https://www.rushanhaque.in
+#
+# Search crawlers and AI/LLM crawlers are BOTH welcome here. Being quoted by
+# an assistant is the point of the GEO work, and a bot that cannot read the
+# page cannot cite it — so the AI agents are listed explicitly rather than
+# left to inherit the wildcard rule.
 
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /admin
 Disallow: /api/
 Disallow: /_trash-review/
 Disallow: /review
 
-Sitemap: https://rushanhaque.in/sitemap.xml
+# ── Search engines ───────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── AI answer engines & training crawlers ────────────────────────────────
+# OpenAI: GPTBot trains, OAI-SearchBot indexes for ChatGPT Search,
+# ChatGPT-User fetches a page live when a user asks about it.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google's AI surfaces (Gemini, AI Overviews) opt in separately from Search
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Others
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+Sitemap: https://www.rushanhaque.in/sitemap.xml

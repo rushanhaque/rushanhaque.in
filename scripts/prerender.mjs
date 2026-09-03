@@ -29,6 +29,7 @@ const CHECK = process.argv.includes('--check');
 const PAGES = {
   'index.html': ['rh-works', 'rh-products', 'rh-personal', 'rh-experience', 'rh-education', 'rh-reviews'],
   'work.html': ['rh-archive', 'rh-products'],
+  'review.html': ['rh-reviews'],
 };
 
 /* Sections that should not ship at all while their data is empty.

@@ -5,12 +5,19 @@
   "type": "module",
   "description": "Static site + admin panel. No bundler: the build prerenders data into the HTML, then validates the host config.",
   "scripts": {
-    "build": "node scripts/prerender.mjs && node scripts/validate-config.mjs",
+    "build": "node scripts/build-pages.mjs && node scripts/prerender.mjs && node scripts/seo-schema.mjs && node scripts/sitemap.mjs && node scripts/validate-config.mjs",
     "validate": "node scripts/validate-config.mjs",
     "check:live": "node scripts/check-live.mjs",
     "test": "node --test \"test/**/*.test.mjs\"",
     "prerender": "node scripts/prerender.mjs",
-    "check:prerender": "node scripts/prerender.mjs --check"
+    "check:prerender": "node scripts/prerender.mjs --check",
+    "schema": "node scripts/seo-schema.mjs",
+    "check:schema": "node scripts/seo-schema.mjs --check",
+    "sitemap": "node scripts/sitemap.mjs",
+    "check:sitemap": "node scripts/sitemap.mjs --check",
+    "check:seo": "node scripts/seo-audit.mjs",
+    "pages": "node scripts/build-pages.mjs",
+    "check:pages": "node scripts/build-pages.mjs --check"
   },
   "engines": {
     "node": ">=18"

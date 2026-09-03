@@ -2153,3 +2153,234 @@ input[type="button"] {
   }
 }
 
+
+/* ==================================================
+   20. Local landing page — /website-designer-in-moradabad
+   --------------------------------------------------
+   A commercial page carrying the same paper-and-ink vocabulary as the
+   rest of the sheet. Nothing here is a new visual idea: the plates, the
+   rules, the mono labels and the type ladder are all the ones already
+   defined above. Only three components are genuinely new — a disclosure
+   list, a client roll and an area strip — and each is built from tokens
+   rather than fresh values.
+   ================================================== */
+
+/* --- the direct answer, set slightly larger than body copy ---
+   It sits high on the page on purpose: it is the passage a snippet or an
+   assistant lifts, so it gets the weight of a lede rather than a caption. */
+.rh-local__answer span {
+  display: block;
+  margin-top: 1.2rem;
+  font-size: var(--a-fs-base);
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--t-muted);
+}
+
+/* --- FAQ: native <details>, no JavaScript ---
+   Using the platform's own disclosure element means the answer text is in
+   the DOM as served. A crawler that never runs a script still reads every
+   answer, which is the entire point of putting the FAQ here. */
+.a-faq {
+  border-top: 1px solid var(--a-line);
+}
+.a-faq__item {
+  border-bottom: 1px solid var(--a-line);
+}
+.a-faq__q {
+  display: flex;
+  align-items: baseline;
+  gap: 1.4rem;
+  padding: 2.4rem 0;
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--a-t-fast) var(--a-swift);
+}
+/* strip the default triangle in every engine */
+.a-faq__q::-webkit-details-marker { display: none; }
+.a-faq__q::marker { content: ''; }
+
+.a-faq__no {
+  flex: 0 0 auto;
+  font-family: var(--_font-accent);
+  font-size: var(--a-fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--a-track-mono);
+  color: var(--t-muted);
+  padding-top: 0.35rem;
+}
+.a-faq__label {
+  flex: 1 1 auto;
+  font-size: var(--a-fs-l);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+  color: var(--t-bright);
+  text-wrap: balance;
+}
+.a-faq__q:hover .a-faq__label { opacity: 0.62; }
+
+/* the mark: a plus that becomes a minus, drawn rather than typed so it
+   stays optically centred at any size */
+.a-faq__mark {
+  flex: 0 0 auto;
+  position: relative;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.6rem;
+}
+.a-faq__mark::before,
+.a-faq__mark::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1px;
+  background: var(--a-line-3);
+  transition: transform var(--a-t-mid) var(--a-settle);
+}
+.a-faq__mark::after { transform: rotate(90deg); }
+.a-faq__item[open] .a-faq__mark::after { transform: rotate(0deg); }
+
+.a-faq__a {
+  padding: 0 0 2.6rem calc(1.4rem + 3.2rem);
+  max-width: 68ch;
+}
+.a-faq__a p {
+  margin: 0;
+  font-size: var(--a-fs-base);
+  line-height: 1.66;
+  color: var(--t-muted);
+}
+@media only screen and (max-width: 767px) {
+  .a-faq__label { font-size: var(--a-fs-m); }
+  .a-faq__a { padding-left: 0; }
+}
+
+/* --- client roll --- */
+.rh-local__clients {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media only screen and (min-width: 600px) {
+  .rh-local__clients { grid-template-columns: repeat(2, 1fr); }
+}
+@media only screen and (min-width: 992px) {
+  .rh-local__clients { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+}
+.rh-local__clients li > a,
+.rh-local__clients li > span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2.2rem 2rem;
+  border: 1px solid var(--a-line);
+  border-radius: var(--a-r-m);
+  background: var(--a-paper);
+  box-shadow: var(--a-lift-0);
+  text-decoration: none;
+  transition: transform var(--a-t-fast) var(--a-settle),
+              box-shadow var(--a-t-fast) var(--a-settle),
+              border-color var(--a-t-fast) var(--a-swift);
+}
+.rh-local__clients li > a:hover {
+  transform: translateY(-0.2rem);
+  border-color: var(--a-line-2);
+  box-shadow: var(--a-lift-1);
+}
+.rh-local__clients b {
+  font-size: var(--a-fs-m);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--t-bright);
+}
+
+/* --- area strip --- */
+.rh-local__areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 2.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.rh-local__areas li span {
+  display: inline-block;
+  padding: 0.7rem 1.3rem;
+  border: 1px solid var(--a-line-2);
+  border-radius: 100px;
+  color: var(--t-muted);
+}
+
+/* Motion is an enhancement here as everywhere else on the sheet. */
+@media (prefers-reduced-motion: reduce) {
+  .a-faq__mark::before,
+  .a-faq__mark::after,
+  .rh-local__clients li > a { transition: none; }
+}
+
+/* ==================================================
+   21. Generated service & location pages
+   --------------------------------------------------
+   The service and city pages carry long-form argument, which the rest of
+   the sheet does not. `.rh-prose` is the only new component: a measured
+   reading column set at the same type scale as the ledes above it. The
+   plate link is the existing `.a-plate` taught to behave like an anchor.
+   ================================================== */
+
+.rh-prose {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.rh-prose p {
+  margin: 0;
+  font-size: var(--a-fs-base);
+  line-height: 1.66;
+  color: var(--t-muted);
+}
+.rh-prose strong,
+.rh-prose b { font-weight: 600; color: var(--t-bright); }
+.rh-prose em { font-style: italic; }
+
+/* A bento cell that is itself the link. Anchors reset to the plate's own
+   look so the card is pixel-identical to its non-linked siblings, and the
+   lift on hover is the only thing that announces it is clickable. */
+.rh-plate-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.rh-plate-link:hover .a-disc__title { opacity: 0.62; }
+.rh-plate-link:focus-visible {
+  outline: 2px solid var(--a-line-3);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-plate-link { transition: none; }
+}
+
+/* Service links on a city page: the area-strip pill, made a link. */
+.rh-local__services li a {
+  display: inline-block;
+  padding: 0.7rem 1.3rem;
+  border: 1px solid var(--a-line-2);
+  border-radius: 100px;
+  color: var(--t-muted);
+  text-decoration: none;
+  transition: border-color var(--a-t-fast) var(--a-swift),
+              color var(--a-t-fast) var(--a-swift);
+}
+.rh-local__services li a:hover {
+  border-color: var(--a-line-3);
+  color: var(--t-bright);
+}
+.rh-local__services li a:focus-visible {
+  outline: 2px solid var(--a-line-3);
+  outline-offset: 2px;
+}

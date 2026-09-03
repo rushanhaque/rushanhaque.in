@@ -46,10 +46,14 @@ test('prerendered HTML is up to date with data/', () => {
 });
 
 test('canonical URLs point at the live host', () => {
+  /* www, not the apex. The apex 308-redirects to www, so an apex canonical
+     names a URL that never returns 200 — Google then has to resolve the
+     conflict itself and may pick a canonical you did not intend. */
   for (const [file, expected] of [
-    ['index.html', 'https://rushanhaque.in/'],
-    ['work.html', 'https://rushanhaque.in/work'],
-    ['contact.html', 'https://rushanhaque.in/contact'],
+    ['index.html', 'https://www.rushanhaque.in/'],
+    ['work.html', 'https://www.rushanhaque.in/work'],
+    ['contact.html', 'https://www.rushanhaque.in/contact'],
+    ['website-designer-in-moradabad.html', 'https://www.rushanhaque.in/website-designer-in-moradabad'],
   ]) {
     const html = read(file);
     assert.ok(
@@ -57,6 +61,10 @@ test('canonical URLs point at the live host', () => {
       `${file} canonical is not ${expected}`
     );
     assert.ok(!html.includes('rushanhaque.online'), `${file} still references the old domain`);
+    assert.ok(
+      !/https:\/\/rushanhaque\.in/.test(html),
+      `${file} still references the redirecting apex host`
+    );
   }
 });
 
