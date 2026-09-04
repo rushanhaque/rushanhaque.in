@@ -33,11 +33,11 @@ window.RH_PROJECTS = [
     "niche": "Web",
     "kind": "Freelance",
     "year": "2026",
-    "description": "In development — a commercial site currently being built.",
+    "status": "completed",
+    "description": "Industry work — a commercial site built end to end.",
     "tags": [
       "Web Development",
-      "Design",
-      "In Progress"
+      "Design"
     ],
     "image": "img/rh/projects/taif.webp",
     "video": ""

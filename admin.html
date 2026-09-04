@@ -189,6 +189,12 @@ code{background:var(--tint);padding:.12rem .38rem;border-radius:4px;font:.85em v
         <option>Industry</option><option>Showcase</option><option>Personal</option></select></div>
       <div><label>Niche label</label><input id="p-niche" placeholder="Web / AI / Tool / IoT"></div>
       <div><label>Kind</label><select id="p-kind"><option>Freelance</option><option>Personal</option></select></div>
+      <div><label>Status</label><select id="p-status">
+        <option value="">— auto (inferred from tags) —</option>
+        <option value="completed">Completed</option>
+        <option value="in-progress">In Progress</option>
+        <option value="coming-soon">Coming Soon</option>
+      </select></div>
       <div><label>Year</label><input id="p-year" placeholder="2026"></div>
       <div class="full"><label>Tags (comma separated)</label><input id="p-tags" placeholder="Web Development, Design, Live Site"></div>
       <div class="full"><label>Description</label><textarea id="p-desc" placeholder="One or two sentences."></textarea></div>
@@ -593,17 +599,30 @@ document.addEventListener('click',function(e){
 
 /* ---------------- PROJECTS ---------------- */
 var pEdit=null;
+function projStatusInfo(p){
+  var s=p.status||'';
+  var tags=(p.tags||[]).join(' ').toLowerCase();
+  if(!s){
+    if(p.url)s='completed';
+    else if(tags.indexOf('coming soon')>=0||tags.indexOf('coming-soon')>=0)s='coming-soon';
+    else if(tags.indexOf('in progress')>=0||tags.indexOf('in-progress')>=0)s='in-progress';
+  }
+  if(s==='completed')return{cls:'live',label:'Completed'};
+  if(s==='in-progress')return{cls:'cur',label:'In Progress'};
+  if(s==='coming-soon')return{cls:'soon',label:'Coming Soon'};
+  return null;
+}
 function renderProjects(){
   var box=$('p-list'), a=db.projects;
   $('p-count').textContent=a.length;
   if(!a.length){box.innerHTML='<div class="empty">No projects yet.</div>';return}
   box.innerHTML=a.map(function(p,i){
-    var cls=p.url?'live':(String((p.tags||[]).join(' ')).match(/coming soon/i)?'soon':'');
+    var si=projStatusInfo(p);
     return '<div class="item"><div class="th"'+(p.image?' style="background-image:url(\''+esc(p.image)+'\')"':'')+'>'+
       (p.image?'':esc((p.title||'?')[0]))+'</div>'+
       '<div class="body"><div class="t">'+esc(p.title)+
         '<span class="pill">'+esc(p.category||'')+'</span>'+
-        (cls?'<span class="pill '+cls+'">'+(cls==='live'?'Live':'Soon')+'</span>':'')+'</div>'+
+        (si?'<span class="pill '+si.cls+'">'+si.label+'</span>':'')+'</div>'+
       '<div class="m">'+esc(p.niche||'—')+' · '+esc(p.kind||'—')+' · '+esc(p.year||'—')+
         (p.url?' · '+esc(p.url):'')+'</div>'+
       (p.description?'<div class="x">'+esc(p.description)+'</div>':'')+
@@ -617,6 +636,7 @@ function projForm(p){
   setv('p-desc',p&&p.description);setv('p-img',p&&p.image);setv('p-vid',p&&p.video);
   $('p-cat').value=(p&&p.category)||'Industry';
   $('p-kind').value=(p&&p.kind)||'Freelance';
+  $('p-status').value=(p&&p.status)||'';
   thumbStyle($('p-thumb'),p&&p.image);
 }
 function projReset(){
@@ -628,8 +648,9 @@ $('p-save').addEventListener('click',function(){
   var t=val('p-title'),msg=$('p-msg');
   if(!t){flash(msg,'Title is required.','err');return}
   var rec={title:t,url:val('p-url'),category:$('p-cat').value,niche:val('p-niche')||'Web',
-    kind:$('p-kind').value,year:val('p-year'),description:val('p-desc'),
-    tags:csv(val('p-tags')),image:val('p-img'),video:val('p-vid')};
+    kind:$('p-kind').value,status:$('p-status').value||undefined,year:val('p-year'),
+    description:val('p-desc'),tags:csv(val('p-tags')),image:val('p-img'),video:val('p-vid')};
+  if(!rec.status)delete rec.status;
   if(pEdit===null)db.projects.push(rec); else db.projects[pEdit]=rec;
   save('projects');renderProjects();
   flash(msg,pEdit===null?'Added.':'Updated.','ok');toast(pEdit===null?'Project added':'Project updated');
