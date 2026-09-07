@@ -404,6 +404,21 @@ var KEYS={projects:'rh_admin_projects',products:'rh_admin_products',
 var SEED={projects:window.RH_PROJECTS||[],products:window.RH_PRODUCTS||[],
           reviews:window.RH_REVIEWS||[],journey:window.RH_JOURNEY||{experience:[],education:[]}};
 
+/* Version fingerprint — if the bundled seed changed, drop stale localStorage for
+   that key so the admin reflects the updated file automatically. */
+var SEED_VER_KEY='rh_admin_seed_v';
+var seedVer=JSON.stringify(SEED).length+'_'+(window.RH_PROJECTS||[]).length;
+try{
+  var storedVer=localStorage.getItem(SEED_VER_KEY);
+  if(storedVer!==seedVer){
+    /* Seed changed. Wipe stored copies so we inherit the new file content. */
+    ['projects','products','reviews','journey'].forEach(function(k){
+      try{localStorage.removeItem('rh_admin_'+k)}catch(e){}
+    });
+    localStorage.setItem(SEED_VER_KEY,seedVer);
+  }
+}catch(e){}
+
 function clone(x){return JSON.parse(JSON.stringify(x))}
 function load(k){try{var v=localStorage.getItem(KEYS[k]);if(v)return JSON.parse(v)}catch(e){}return clone(SEED[k])}
 

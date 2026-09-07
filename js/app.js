@@ -136,6 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
   CustomEase.create("hop", ".87, 0, .13, 1");
   CustomEase.create("common", ".23, .65, .74, 1.09");
 
+  /* True for any touch/mobile device — phones, tablets, hybrid devices
+     in tablet mode. Used to skip scroll-reveal animations that don't
+     work cleanly with momentum scrolling and to avoid pinning sections
+     which cause jarring page-jump behaviour on touch. */
+  const isMobile = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
   requestAnimationFrame(() => {
     ScrollTrigger.refresh();
   });
@@ -145,31 +151,39 @@ document.addEventListener("DOMContentLoaded", () => {
   let mxdNavigation = null;
   document.fonts.ready.then(() => {
     mxdNavigation = mxdMenu(scrollLock);
-    mxdTypeAnimations();
+    if (!isMobile) {
+      mxdTypeAnimations();
+    }
   });
 
-  // hero sections
-  mxdHeroVideoScale();
+  // hero sections — scale/3d/inertia are scroll-scrub effects that stutter
+  // on the compositor thread; skip them on touch and keep functional ones
+  if (!isMobile) {
+    mxdHeroVideoScale();
+    mxdHero3dImages();
+    mxdHeroInertia();
+  }
   mxdHeroVideoSwap();
-  mxdHero3dImages();
-  mxdHeroInertia();
   mxdHeroHorizontal();
-  
   mxdHeroTyped();
-  // features
-  mxdBlur();
-  mxdProjectsStack();
-  mxdServicesStack();
-  mxdLandingStack();
-  mxdProjectsClip();
-  mxdDvStickyMedia();
-  mxdDvStickyCaption();
-  mxdPin();
+
+  // features — all of these pin sections or run scrubbed ScrollTriggers;
+  // on mobile they cause page-jump artefacts and dropped frames, so skip
+  if (!isMobile) {
+    mxdBlur();
+    mxdProjectsStack();
+    mxdServicesStack();
+    mxdLandingStack();
+    mxdProjectsClip();
+    mxdDvStickyMedia();
+    mxdDvStickyCaption();
+    mxdGravity();
+    mxdPerspectiveList();
+  }
+  mxdPin();       // has its own gsap.matchMedia guard — safe on all devices
   mxdToTop();
   mxdSmoothScroll();
-  mxdGravity();
-  mxdStats();
-  mxdPerspectiveList();
+  mxdStats();     // has its own mobile/desktop matchMedia handling
   mxdViewportHeight();
   mxdColorSwitcher();
   // desktop only

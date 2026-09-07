@@ -521,3 +521,69 @@ html {
   .mxd-blog-item:active .a-shot,
   .rh-stars-input button:active { transform: none !important; }
 }
+
+
+/* ==================================================
+   h. Animation resets — safety net for GSAP leaks
+   --------------------------------------------------
+   app.js skips all reveal/scroll animations on touch
+   devices. These rules are the CSS counterpart: they
+   reset every off-screen starting state that GSAP
+   would normally animate FROM, so content is always
+   visible even if a fragment of JS runs before the
+   isMobile guard kicks in, or if a future edit
+   accidentally re-enables a function on mobile.
+
+   Scoped to hover:none and pointer:coarse so it only
+   applies to genuine touch devices, not windowed
+   hybrid modes that have a real pointer.
+   ================================================== */
+@media (hover: none), (pointer: coarse) {
+
+  /* SplitText characters (translateX 100% off-screen in main.css) */
+  .char {
+    transform: none !important;
+  }
+
+  /* SplitText lines (translateY 100% off-screen in main.css) */
+  .line {
+    transform: none !important;
+  }
+
+  /* Page-load fade-in targets set to opacity 0 by pageAppearance() */
+  .loading-item,
+  .loading-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Perspective list items may carry inline 3D transforms */
+  .mxd-perspective-list__item {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* ClipPath showcase items — without the scroll-scrub they stay clipped */
+  .mxd-showcase-clip__item {
+    clip-path: none !important;
+  }
+
+  /* Stacking card wrappers that GSAP scales/fades */
+  .card__wrapper,
+  .services-card__wrapper,
+  .demo-card__wrapper {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Stack card images that GSAP sets to scale(1.4) as initial state */
+  .services-card__image img,
+  .demo-card__image img {
+    transform: none !important;
+  }
+
+  /* Divider scroll-driven clip reveals */
+  .mxd-dv-sticky__media {
+    clip-path: none !important;
+  }
+}

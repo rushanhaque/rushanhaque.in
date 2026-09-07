@@ -190,3 +190,101 @@ body { padding-top: 0; }
 /* inner pages start with a headline block */
 .mxd-section.mxd-inner-headline,
 .mxd-inner-headline { padding-top: 4rem; }
+
+/* ---------------------------------------------------------
+   6. Desktop quick-actions (rh-quick) — injected by dots-nav.js
+   --------------------------------------------------------- */
+.rh-quick {
+  position: relative;
+  display: none;
+}
+
+@media only screen and (min-width: 992px) {
+  .rh-quick { display: flex; align-items: center; }
+}
+
+.rh-quick__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--base-opp-rgb), 0.15);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.25s var(--_animbezier),
+              border-color 0.25s var(--_animbezier);
+}
+
+.rh-quick__btn span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--t-medium);
+  transition: background-color 0.25s var(--_animbezier);
+}
+
+.no-touch .rh-quick__btn:hover,
+.rh-quick.is-open .rh-quick__btn {
+  background-color: rgba(var(--base-opp-rgb), 0.06);
+  border-color: rgba(var(--base-opp-rgb), 0.28);
+}
+
+.no-touch .rh-quick__btn:hover span,
+.rh-quick.is-open .rh-quick__btn span {
+  background-color: var(--t-bright);
+}
+
+.rh-quick__menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  min-width: 19rem;
+  background-color: var(--base);
+  border: 1px solid rgba(var(--base-opp-rgb), 0.1);
+  border-radius: 1.6rem;
+  box-shadow: 0 8px 32px rgba(var(--base-opp-rgb), 0.1);
+  padding: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.25s var(--_animbezier),
+              visibility 0.25s var(--_animbezier),
+              transform 0.25s var(--_animbezier);
+  z-index: 100;
+}
+
+.rh-quick.is-open .rh-quick__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.rh-quick__link {
+  display: block;
+  padding: 1rem 1.5rem;
+  border-radius: 1.1rem;
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--t-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s var(--_animbezier),
+              color 0.2s var(--_animbezier);
+}
+
+.no-touch .rh-quick__link:hover {
+  background-color: rgba(var(--base-opp-rgb), 0.05);
+  color: var(--t-bright);
+}
+
+/* separator between nav links and quick-action links in the mobile menu */
+.rh-dots__sep {
+  height: 1px;
+  background-color: rgba(var(--base-opp-rgb), 0.1);
+  margin: 0.5rem 1.5rem;
+}

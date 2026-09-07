@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" color-scheme="light">
+
+  <head>
+    <meta charset="UTF-8">
+
+    <!-- Page Title -->
+    <title>Certificates &amp; Credentials — Rushan Haque</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Professional certifications, virtual simulations, and internship credentials earned by Rushan Haque.">
+    <meta name="author" content="Rushan Haque">
+    <meta name="robots" content="index, follow">
+
+    <!-- Viewport Meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon/favicon.ico" sizes="any">
+    <link rel="icon" href="img/favicon/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="img/favicon/manifest.webmanifest">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400..600&display=swap">
+    <link rel="preload" as="style" href="css/main.css?v=45">
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="css/loader.css?v=42">
+    <link rel="stylesheet" type="text/css" href="css/plugins.css?v=42">
+    <link rel="stylesheet" type="text/css" href="css/main.css?v=45">
+    <link rel="stylesheet" type="text/css" href="css/navbar.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/refine.css?v=66">
+    <link rel="stylesheet" type="text/css" href="css/architect.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/sections.css?v=80">
+    <link rel="stylesheet" type="text/css" href="css/mobile.css?v=8">
+    <link rel="stylesheet" type="text/css" href="css/polish.css?v=23">
+
+    <!-- Theme color -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f">
+    <meta name="msapplication-navbutton-color" content="#0f0f0f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem('rh-nav-pending')) {
+            sessionStorage.removeItem('rh-nav-pending');
+            document.documentElement.classList.add('rh-nav-in');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <style>
+      /* ── cert page layout ─────────────────────────────────────── */
+      .rh-cert-hero {
+        padding: 4rem 0 2rem;
+        border-bottom: 1px solid rgba(var(--base-opp-rgb), 0.08);
+      }
+      .rh-cert-hero__eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--t-dim);
+        margin-bottom: 1.5rem;
+      }
+      .rh-cert-hero__title {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--t-bright);
+        margin-bottom: 1rem;
+      }
+      .rh-cert-hero__sub {
+        font-size: 1rem;
+        color: var(--t-medium);
+        max-width: 48ch;
+      }
+
+      .rh-cert-section {
+        padding: 3rem 0 1rem;
+      }
+      .rh-cert-section__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--t-dim);
+        margin-bottom: 1.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(var(--base-opp-rgb), 0.08);
+      }
+
+      .rh-cert-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        gap: 1.25rem;
+      }
+
+      .rh-cert-card {
+        position: relative;
+        display: block;
+        border-radius: 1rem;
+        overflow: hidden;
+        border: 1px solid rgba(var(--base-opp-rgb), 0.1);
+        background: rgba(var(--base-opp-rgb), 0.02);
+        text-decoration: none;
+        transition: border-color 0.25s ease, transform 0.25s ease,
+                    box-shadow 0.25s ease;
+        cursor: zoom-in;
+      }
+      .no-touch .rh-cert-card:hover {
+        border-color: rgba(var(--base-opp-rgb), 0.22);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 28px rgba(var(--base-opp-rgb), 0.09);
+      }
+      .rh-cert-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: top;
+      }
+      .rh-cert-card__name {
+        padding: 0.9rem 1.1rem 1rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--t-medium);
+        letter-spacing: 0.01em;
+      }
+
+      .rh-cert-footer {
+        padding: 3rem 0 5rem;
+        font-size: 0.85rem;
+        color: var(--t-dim);
+        text-align: center;
+      }
+      .rh-cert-footer a {
+        color: var(--t-medium);
+        text-underline-offset: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <a class="rh-skip" href="#mxd-page-content">Skip to content</a>
+
+    <!-- Loader -->
+    <div class="mxd-page-transition"></div>
+    <div class="rh-fade"></div>
+    <div class="mxd-loader">
+      <div class="mxd-loader__top"><span>Rushan Haque</span></div>
+      <div class="mxd-loader__images" aria-hidden="true"></div>
+      <div class="a-load" role="progressbar" aria-label="Loading">
+        <span class="a-load__fill"></span>
+      </div>
+      <div class="mxd-loader__bottom">
+        <div class="mxd-loader__count">
+          <span class="count__text">0</span>
+          <span class="count__percent">%</span>
+        </div>
+        <span class="mxd-loader__caption">Drawing the sheet</span>
+      </div>
+    </div>
+
+    <!-- Sheet Overlays -->
+    <div class="a-vignette" aria-hidden="true"></div>
+    <div class="a-sheet" aria-hidden="true"></div>
+    <div class="a-rail" aria-hidden="true"><span class="a-rail__fill"></span></div>
+
+    <!-- Hamburger (hidden on desktop via refine.css) -->
+    <div class="mxd-menu__contain loading-fade">
+      <div class="mxd-menu__toggle">
+        <button type="button" class="mxd-menu__hamburger" aria-label="Menu" aria-expanded="false" aria-controls="main-menu">
+          <div class="hamburger__line"></div>
+          <div class="hamburger__line"></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Full-screen slide-out nav -->
+    <nav class="mxd-menu">
+      <div class="mxd-menu__backdrop"></div>
+      <div class="mxd-menu__overlay">
+        <div class="mxd-menu__content" data-lenis-prevent>
+          <div class="mxd-menu__logo">
+            <a href="/" class="menu-logo">
+              <svg class="menu-logo__image" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 42.4 36">
+                <path d="M25.8,13.8h2.8v5.5h-2.8v-5.5ZM13.8,16.6v2.8h2.8v-5.5h-2.8v2.8ZM32.2,0v2.8h-2.8V0h2.8ZM26.7,5.5h2.8v-2.8h-2.8v2.8ZM21.2,5.5h-5.5v2.8h11.1v-2.8h-5.5ZM12.8,2.8v2.8h2.8v-2.8h-2.8ZM10.1,0v2.8h2.8V0h-2.8ZM7.3,5.5v5.5h2.8V2.8h-2.8v2.8ZM4.5,13.8v2.8H0v2.8h2.8v2.8H0v2.8h2.8v11.1h2.8v-8.3h5.5v-2.8h-5.5v-8.3h1.9v-5.5h-2.9v2.8ZM35,5.5v-2.8h-2.8v8.3h2.8v-5.5ZM42.4,19.4v-2.8h-4.7v-5.5h-2.8v5.5h1.9v8.3h-5.5v2.8h5.5v8.3h2.8v-11.1h2.8v-2.8h-2.8v-2.8h2.8Z"/>
+              </svg>
+              <div class="menu-logo__text"><span>Rushan</span><span>Haque</span></div>
+            </a>
+          </div>
+          <div class="mxd-menu__media">
+            <div class="menu-media__wrapper">
+              <img src="img/rh/pfp.jpeg" alt="Rushan Haque" width="853" height="878" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div class="mxd-menu__navigation">
+            <div class="mxd-menu__inner">
+              <div class="mxd-menu__shadow shadow-top"></div>
+              <div class="mxd-menu__caption"><p>✦ Building at the intersection <br>of logic and language</p></div>
+              <div class="mxd-menu__left">
+                <div class="main-menu">
+                  <div class="main-menu__content">
+                    <ul id="main-menu" class="main-menu__accordion">
+                      <li class="main-menu__item">
+                        <div class="main-menu__divider divider-top"></div>
+                        <div class="main-menu__toggle"><a class="main-menu__link" href="/"><span class="main-menu__number">/ 01</span><span class="main-menu__caption">Home</span></a></div>
+                        <div class="main-menu__divider divider-bottom"></div>
+                      </li>
+                      <li class="main-menu__item">
+                        <div class="main-menu__toggle"><a class="main-menu__link" href="/work"><span class="main-menu__number">/ 02</span><span class="main-menu__caption">Works</span></a></div>
+                        <div class="main-menu__divider divider-bottom"></div>
+                      </li>
+                      <li class="main-menu__item">
+                        <div class="main-menu__toggle"><a class="main-menu__link" href="/services"><span class="main-menu__number">/ 03</span><span class="main-menu__caption">Services</span></a></div>
+                        <div class="main-menu__divider divider-bottom"></div>
+                      </li>
+                      <li class="main-menu__item">
+                        <div class="main-menu__toggle"><a class="main-menu__link" href="/contact"><span class="main-menu__number">/ 04</span><span class="main-menu__caption">Contact</span></a></div>
+                        <div class="main-menu__divider divider-bottom"></div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="mxd-menu__right">
+                <div class="menu-contact">
+                  <div class="menu-contact__item">
+                    <ul class="menu-contact__list">
+                      <li><a class="tag tag-m" href="mailto:rushanulhaque@gmail.com?subject=Hello%20from%20your%20site"><span class="mxd-scramble">rushanulhaque@gmail.com</span></a></li>
+                      <li><a class="tag tag-m" href="https://wa.me/917668047608" target="_blank" rel="noopener"><span class="mxd-scramble">+91 76680 47608</span></a></li>
+                    </ul>
+                  </div>
+                  <div class="menu-contact__item">
+                    <ul class="menu-contact__list">
+                      <li><a class="tag tag-m" href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">LinkedIn</span></a></li>
+                      <li><a class="tag tag-m" href="https://github.com/rushanhaque" target="_blank" rel="noopener"><span class="mxd-scramble">GitHub</span></a></li>
+                      <li><a class="tag tag-m" href="https://instagram.com/rushzxcvbnm" target="_blank" rel="noopener"><span class="mxd-scramble">Instagram</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="mxd-menu__shadow"></div>
+              <div class="mxd-menu__data">
+                <div class="menu-data__left">
+                  <p class="menu-data__text">Made with <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 18 18"><path d="M2.6,6.4v2.6H0V3.9h2.6v2.6ZM15.4,3.9v5.1h2.6V3.9h-2.6ZM12.9,11.6h2.6v-2.6h-2.6v2.6ZM2.6,9v2.6h2.6v-2.6h-2.6ZM10.3,14.1h2.6v-2.6h-2.6v2.6ZM5.1,11.6v2.6h2.6v-2.6h-2.6ZM7.7,3.9V1.3H2.6v2.6h5.1ZM15.4,3.9V1.3h-5.1v2.6h5.1ZM10.3,6.4v-2.6h-2.6v2.6h2.6ZM7.7,16.7h2.6v-2.6h-2.6v2.6Z"/></svg> by <a href="https://www.rushanhaque.in" target="_blank" rel="noopener"><span class="mxd-scramble">Rushan Haque</span></a></p>
+                </div>
+                <div class="menu-data__right">
+                  <p class="menu-data__text">Copyright</p>
+                  <p class="menu-data__text">©2026</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header id="header" class="mxd-header">
+      <div class="mxd-header__logo loading-fade">
+        <a class="mxd-logo" href="/">
+          <svg class="mxd-logo__image" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 42.4 36">
+            <path d="M25.8,13.8h2.8v5.5h-2.8v-5.5ZM13.8,16.6v2.8h2.8v-5.5h-2.8v2.8ZM32.2,0v2.8h-2.8V0h2.8ZM26.7,5.5h2.8v-2.8h-2.8v2.8ZM21.2,5.5h-5.5v2.8h11.1v-2.8h-5.5ZM12.8,2.8v2.8h2.8v-2.8h-2.8ZM10.1,0v2.8h2.8V0h-2.8ZM7.3,5.5v5.5h2.8V2.8h-2.8v2.8ZM4.5,13.8v2.8H0v2.8h2.8v2.8H0v2.8h2.8v11.1h2.8v-8.3h5.5v-2.8h-5.5v-8.3h1.9v-5.5h-2.9v2.8ZM35,5.5v-2.8h-2.8v8.3h2.8v-5.5ZM42.4,19.4v-2.8h-4.7v-5.5h-2.8v5.5h1.9v8.3h-5.5v2.8h5.5v8.3h2.8v-11.1h2.8v-2.8h-2.8v-2.8h2.8Z"/>
+          </svg>
+          <div class="mxd-logo__text"><span class="mxd-scramble">RUH</span></div>
+        </a>
+      </div>
+      <nav class="rh-nav" aria-label="Primary">
+        <ul class="rh-nav__list">
+          <li><a class="rh-nav__link" href="/">Home</a></li>
+          <li><a class="rh-nav__link" href="/work">Works</a></li>
+          <li><a class="rh-nav__link" href="/services">Services</a></li>
+          <li><a class="rh-nav__link" href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="rh-dots">
+        <button class="rh-dots__btn" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="rh-dots-menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="rh-dots__menu" id="rh-dots-menu">
+          <a class="rh-dots__link" href="/">Home</a>
+          <a class="rh-dots__link" href="/work">Works</a>
+          <a class="rh-dots__link" href="/services">Services</a>
+          <a class="rh-dots__link" href="/contact">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main id="mxd-page-content" class="mxd-page-content inner-page-content">
+
+      <div class="mxd-section">
+        <div class="mxd-container">
+
+          <!-- Hero -->
+          <div class="rh-cert-hero">
+            <p class="rh-cert-hero__eyebrow">
+              <span class="a-dot" aria-hidden="true"></span>
+              21 credentials
+            </p>
+            <h1 class="rh-cert-hero__title">Certificates &amp;<br>Credentials</h1>
+            <p class="rh-cert-hero__sub">Certifications, virtual simulations, and internship letters accumulated across tech, design, and business domains.</p>
+          </div>
+
+          <!-- Technical Certifications -->
+          <div class="rh-cert-section">
+            <p class="rh-cert-section__label">Technical certifications &amp; courses — 14</p>
+            <div class="rh-cert-grid">
+
+              <a class="rh-cert-card" href="img/cert/cisco-python.png" target="_blank" rel="noopener">
+                <img src="img/cert/cisco-python.png" alt="Cisco Python Basics" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Cisco — Python Basics</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/oracle-cloud.png" target="_blank" rel="noopener">
+                <img src="img/cert/oracle-cloud.png" alt="Oracle Cloud Infrastructure" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Oracle Cloud Infrastructure</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/oracle-fusion-ai.png" target="_blank" rel="noopener">
+                <img src="img/cert/oracle-fusion-ai.png" alt="Oracle Fusion AI" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Oracle Fusion AI</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/google-gemini.png" target="_blank" rel="noopener">
+                <img src="img/cert/google-gemini.png" alt="Google Gemini Certified" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Google Gemini Certified</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/anthropic-mcp.jpg" target="_blank" rel="noopener">
+                <img src="img/cert/anthropic-mcp.jpg" alt="Anthropic Model Context Protocol" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Anthropic — Model Context Protocol</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/claude-ai.jpg" target="_blank" rel="noopener">
+                <img src="img/cert/claude-ai.jpg" alt="Claude AI" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Claude AI</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/ethical-hacking.png" target="_blank" rel="noopener">
+                <img src="img/cert/ethical-hacking.png" alt="Ethical Hacking Masterclass" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Ethical Hacking Masterclass</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/deloitte-tech.png" target="_blank" rel="noopener">
+                <img src="img/cert/deloitte-tech.png" alt="Deloitte Technology Simulation" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Deloitte Technology Simulation</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/jpmorgan-se.png" target="_blank" rel="noopener">
+                <img src="img/cert/jpmorgan-se.png" alt="JPMorgan Software Engineering" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">JPMorgan Software Engineering</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/tata-job.png" target="_blank" rel="noopener">
+                <img src="img/cert/tata-job.png" alt="Tata Job Simulator" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Tata Job Simulator</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/python-training.png" target="_blank" rel="noopener">
+                <img src="img/cert/python-training.png" alt="Python Training" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Python Training</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/ai-digital-marketing.jpeg" target="_blank" rel="noopener">
+                <img src="img/cert/ai-digital-marketing.jpeg" alt="AI in Digital Marketing" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">AI in Digital Marketing</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/ai-tools-workshop.jpeg" target="_blank" rel="noopener">
+                <img src="img/cert/ai-tools-workshop.jpeg" alt="AI Tools Workshop" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">AI Tools Workshop</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/power-bi.jpeg" target="_blank" rel="noopener">
+                <img src="img/cert/power-bi.jpeg" alt="Power BI Workshop" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Power BI Workshop</p>
+              </a>
+
+            </div>
+          </div>
+
+          <!-- Internships & Experience -->
+          <div class="rh-cert-section">
+            <p class="rh-cert-section__label">Internships &amp; experience letters — 7</p>
+            <div class="rh-cert-grid">
+
+              <a class="rh-cert-card" href="img/cert/web-dev-offer.jpeg" target="_blank" rel="noopener">
+                <img src="img/cert/web-dev-offer.jpeg" alt="Web Development Offer Letter" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Web Development Offer Letter</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/cosmic365-internship.png" target="_blank" rel="noopener">
+                <img src="img/cert/cosmic365-internship.png" alt="COSMIC365 Internship Offer" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">COSMIC365 Internship Offer</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/campus-ambassador.png" target="_blank" rel="noopener">
+                <img src="img/cert/campus-ambassador.png" alt="Campus Ambassador Internship" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Campus Ambassador Internship</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/nayepankh.png" target="_blank" rel="noopener">
+                <img src="img/cert/nayepankh.png" alt="NayePankh Foundation Offer" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">NayePankh Foundation Offer</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/she-can.png" target="_blank" rel="noopener">
+                <img src="img/cert/she-can.png" alt="She Can Foundation Selection" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">She Can Foundation Selection</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/merchandiser-exp.jpeg" target="_blank" rel="noopener">
+                <img src="img/cert/merchandiser-exp.jpeg" alt="Merchandiser Experience Letter" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">Merchandiser Experience Letter</p>
+              </a>
+
+              <a class="rh-cert-card" href="img/cert/ducat-visit.png" target="_blank" rel="noopener">
+                <img src="img/cert/ducat-visit.png" alt="DUCAT Visit" loading="lazy" decoding="async">
+                <p class="rh-cert-card__name">DUCAT Visit</p>
+              </a>
+
+            </div>
+          </div>
+
+          <p class="rh-cert-footer">Click any card to view the full certificate &nbsp;·&nbsp; <a href="/contact">Get in touch</a></p>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mxd-section mxd-footer">
+      <div class="mxd-container grid-l-container">
+        <div class="mxd-block mxd-grid-item">
+          <div class="rh-ft">
+            <div class="rh-ft__brand">
+              <a class="rh-ft__name" href="/">Rushan Haque</a>
+              <p class="rh-ft__pitch">Developer and writer. Logic in one hand, language in the other.</p>
+            </div>
+            <div class="rh-ft__cols">
+              <div class="rh-ft__col rh-ft__col--reach">
+                <p class="rh-ft__label">Reach me</p>
+                <ul class="rh-ft__list">
+                  <li><a class="rh-ft__nowrap" href="mailto:rushanulhaque@gmail.com?subject=Hello%20from%20your%20site">rushanulhaque@gmail.com</a></li>
+                  <li><a class="rh-ft__nowrap" href="https://wa.me/917668047608" target="_blank" rel="noopener">+91 76680 47608</a></li>
+                  <li class="rh-ft__plain">94 Qazi tola, <br>Moradabad 244001, India</li>
+                </ul>
+              </div>
+              <nav class="rh-ft__col rh-ft__col--nav" aria-label="Footer">
+                <p class="rh-ft__label">Navigate</p>
+                <ul class="rh-ft__list">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/work">Works</a></li>
+                  <li><a href="/services">Services</a></li>
+                  <li><a href="/certificates">Certificates</a></li>
+                  <li><a href="/contact">Contact</a></li>
+                </ul>
+              </nav>
+              <div class="rh-ft__col rh-ft__col--social">
+                <p class="rh-ft__label">Connect</p>
+                <ul class="rh-ft__list">
+                  <li><a href="https://linkedin.com/in/rushanhaque" target="_blank" rel="noopener">LinkedIn</a></li>
+                  <li><a href="https://github.com/rushanhaque" target="_blank" rel="noopener">GitHub</a></li>
+                  <li><a href="https://instagram.com/rushzxcvbnm" target="_blank" rel="noopener">Instagram</a></li>
+                  <li><a href="https://wa.me/917668047608" target="_blank" rel="noopener">WhatsApp</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="mxd-cursor" class="mxd-cursor">
+      <div id="mxd-cursor__dot" class="mxd-cursor__dot"></div>
+      <p id="mxd-cursor__text" class="mxd-cursor__text"></p>
+      <div id="mxd-cursor__image" class="mxd-cursor__image"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script defer src="js/libs.min.js"></script>
+    <script defer src="js/app.js?v=67"></script>
+    <script defer src="js/navbar.js?v=64"></script>
+    <script defer src="js/dots-nav.js?v=2"></script>
+    <script defer src="js/architect.js?v=64"></script>
+    <script defer src="js/version-check.js?v=1"></script>
+
+  </body>
+</html>

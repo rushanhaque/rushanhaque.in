@@ -148,10 +148,10 @@
     var extra = wide ? '' : ' mxd-project-item-s mxd-project-item-sticky';
     var cover = wide ? 'mxd-cover-06' : 'mxd-cover-03';
     var href  = p.url || '';
-    var isBlurred = p.isBlurred || (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1);
+    var isBlurred = p.isBlurred || p.status === 'coming-soon' || (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1);
     var blurClass = isBlurred ? ' rh-coming-soon-card' : '';
-    var live = !isBlurred && !!p.url;
-    var cursorText = live ? 'Visit Site' : 'Coming Soon';
+    var live = !isBlurred && (!!p.url || p.status === 'completed');
+    var cursorText = live ? 'Visit Site' : (p.status === 'in-progress' ? 'In Progress' : 'Coming Soon');
 
     /* small cards sit at ~1/3 of the grid on desktop, full width on a phone */
     var slot = wide
@@ -171,7 +171,7 @@
         '\n                          </div>';
     }
 
-    var badgeLabel = isBlurred ? 'Coming Soon' : (live ? 'Visit Site' : 'In Progress');
+    var badgeLabel = isBlurred ? 'Coming Soon' : (live ? 'Visit Site' : (p.status === 'in-progress' ? 'In Progress' : 'In Progress'));
     var badgeClass = isBlurred ? 'rh-cs-badge--soon' : (live ? 'rh-cs-badge--live' : 'rh-cs-badge--progress');
     /* On a live card the link's own label already ends "— visit site",
        so the badge is decoration and stays hidden. On a card that is not
@@ -256,9 +256,11 @@
     var href  = isShowcase ? '' : (p.url || '');
     var status = isShowcase
       ? 'Request Access'
-      : (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1)
+      : (p.status === 'coming-soon' || (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1))
         ? 'Coming Soon'
-        : (p.url ? 'Visit Site' : 'In Progress');
+        : (p.status === 'in-progress')
+          ? 'In Progress'
+          : (p.url || p.status === 'completed') ? 'Visit Site' : 'In Progress';
     var cursorImg = p.image ? ' data-cursor-image="' + esc(p.image) + '"' : '';
 
     var metas = (Array.isArray(p.tags) ? p.tags : []).map(function (t) {
