@@ -210,6 +210,8 @@ code{background:var(--tint);padding:.12rem .38rem;border-radius:4px;font:.85em v
         </div>
       </div>
       <div class="full"><label>Video path (optional)</label><input id="p-vid" placeholder="img/rh/projects/name.mp4"></div>
+      <div><label>CTA Label (optional)</label><input id="p-cta-label" placeholder="Buy Now, Visit Page…"></div>
+      <div><label>Redirect Link (optional)</label><input id="p-cta-url" placeholder="https://… overrides Live URL for the button"></div>
     </div>
     <div class="row">
       <button class="btn" id="p-save">Add project</button>
@@ -649,6 +651,7 @@ function projForm(p){
   setv('p-title',p&&p.title);setv('p-url',p&&p.url);setv('p-niche',p&&p.niche);
   setv('p-year',p&&p.year);setv('p-tags',p?(p.tags||[]).join(', '):'');
   setv('p-desc',p&&p.description);setv('p-img',p&&p.image);setv('p-vid',p&&p.video);
+  setv('p-cta-label',p&&p.ctaLabel);setv('p-cta-url',p&&p.ctaUrl);
   $('p-cat').value=(p&&p.category)||'Industry';
   $('p-kind').value=(p&&p.kind)||'Freelance';
   $('p-status').value=(p&&p.status)||'';
@@ -664,8 +667,11 @@ $('p-save').addEventListener('click',function(){
   if(!t){flash(msg,'Title is required.','err');return}
   var rec={title:t,url:val('p-url'),category:$('p-cat').value,niche:val('p-niche')||'Web',
     kind:$('p-kind').value,status:$('p-status').value||undefined,year:val('p-year'),
-    description:val('p-desc'),tags:csv(val('p-tags')),image:val('p-img'),video:val('p-vid')};
+    description:val('p-desc'),tags:csv(val('p-tags')),image:val('p-img'),video:val('p-vid'),
+    ctaLabel:val('p-cta-label')||undefined,ctaUrl:val('p-cta-url')||undefined};
   if(!rec.status)delete rec.status;
+  if(!rec.ctaLabel)delete rec.ctaLabel;
+  if(!rec.ctaUrl)delete rec.ctaUrl;
   if(pEdit===null)db.projects.push(rec); else db.projects[pEdit]=rec;
   save('projects');renderProjects();
   flash(msg,pEdit===null?'Added.':'Updated.','ok');toast(pEdit===null?'Project added':'Project updated');

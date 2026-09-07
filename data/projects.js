@@ -384,6 +384,7 @@ window.RH_PROJECTS = [
     ],
     "image": "img/rh/blogs/tothemoon.webp",
     "video": "",
+    "ctaLabel": "Buy Now",
   },
   {
     "title": "Aabshar-e-Khayaal",
@@ -399,6 +400,7 @@ window.RH_PROJECTS = [
     ],
     "image": "img/rh/blogs/aabshar.webp",
     "video": "",
+    "ctaLabel": "Visit Page",
   },
   {
     "title": "The Psychology Framework",

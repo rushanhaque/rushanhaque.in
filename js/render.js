@@ -147,11 +147,11 @@
     var col  = wide ? 'col-12 col-md-6 col-xl-7' : 'col-12 col-md-6 col-xl-4';
     var extra = wide ? '' : ' mxd-project-item-s mxd-project-item-sticky';
     var cover = wide ? 'mxd-cover-06' : 'mxd-cover-03';
-    var href  = p.url || '';
+    var href  = p.ctaUrl || p.url || '';
     var isBlurred = p.isBlurred || p.status === 'coming-soon' || (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1);
     var blurClass = isBlurred ? ' rh-coming-soon-card' : '';
     var live = !isBlurred && (!!p.url || p.status === 'completed');
-    var cursorText = live ? 'Visit Site' : (p.status === 'in-progress' ? 'In Progress' : 'Coming Soon');
+    var cursorText = live ? (p.ctaLabel || 'Visit Site') : (p.status === 'in-progress' ? 'In Progress' : 'Coming Soon');
 
     /* small cards sit at ~1/3 of the grid on desktop, full width on a phone */
     var slot = wide
@@ -171,7 +171,7 @@
         '\n                          </div>';
     }
 
-    var badgeLabel = isBlurred ? 'Coming Soon' : (live ? 'Visit Site' : (p.status === 'in-progress' ? 'In Progress' : 'In Progress'));
+    var badgeLabel = isBlurred ? 'Coming Soon' : (live ? (p.ctaLabel || 'Visit Site') : (p.status === 'in-progress' ? 'In Progress' : 'In Progress'));
     var badgeClass = isBlurred ? 'rh-cs-badge--soon' : (live ? 'rh-cs-badge--live' : 'rh-cs-badge--progress');
     /* On a live card the link's own label already ends "— visit site",
        so the badge is decoration and stays hidden. On a card that is not
@@ -253,14 +253,14 @@
     /* Showcase entries are deliberately not linked out, and a project
        with no URL has nowhere to go — both render as a plain row rather
        than a link to "#0" that the inline onclick then had to cancel. */
-    var href  = isShowcase ? '' : (p.url || '');
+    var href  = isShowcase ? '' : (p.ctaUrl || p.url || '');
     var status = isShowcase
       ? 'Request Access'
       : (p.status === 'coming-soon' || (Array.isArray(p.tags) && p.tags.indexOf('Coming Soon') !== -1))
         ? 'Coming Soon'
         : (p.status === 'in-progress')
           ? 'In Progress'
-          : (p.url || p.status === 'completed') ? 'Visit Site' : 'In Progress';
+          : (p.url || p.status === 'completed') ? (p.ctaLabel || 'Visit Site') : 'In Progress';
     var cursorImg = p.image ? ' data-cursor-image="' + esc(p.image) + '"' : '';
 
     var metas = (Array.isArray(p.tags) ? p.tags : []).map(function (t) {
