@@ -104,7 +104,7 @@
 
       .rh-cert-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
         gap: 1.25rem;
       }
 
@@ -125,20 +125,41 @@
         transform: translateY(-3px);
         box-shadow: 0 8px 28px rgba(var(--base-opp-rgb), 0.09);
       }
+      /* contain = full certificate visible; padding creates breathing room */
       .rh-cert-card img {
         display: block;
         width: 100%;
-        height: auto;
-        aspect-ratio: 4 / 3;
-        object-fit: cover;
-        object-position: top;
+        aspect-ratio: 3 / 2;
+        object-fit: contain;
+        padding: 0.6rem 0.6rem 0;
+        box-sizing: border-box;
+        background: transparent;
       }
       .rh-cert-card__name {
-        padding: 0.9rem 1.1rem 1rem;
-        font-size: 0.82rem;
+        padding: 0.7rem 1rem 0.9rem;
+        font-size: 0.95rem;
         font-weight: 600;
         color: var(--t-medium);
         letter-spacing: 0.01em;
+        line-height: 1.3;
+      }
+
+      /* 2-column grid on mobile so cards are smaller */
+      @media only screen and (max-width: 575px) {
+        .rh-cert-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.75rem;
+        }
+        .rh-cert-card img {
+          aspect-ratio: 4 / 3;
+          padding: 0.4rem 0.4rem 0;
+        }
+        .rh-cert-card__name {
+          padding: 0.5rem 0.65rem 0.65rem;
+          font-size: 0.78rem;
+        }
+        .rh-cert-hero__title { font-size: 2rem; }
+        .rh-cert-section { padding: 2rem 0 0.5rem; }
       }
 
       .rh-cert-footer {

@@ -7,7 +7,7 @@
   var QUICK_ACTIONS = [
     { label: 'Write a review',   href: '/review'  },
     { label: 'View certificate', href: '/certificates' },
-    { label: 'Schedule a call',  href: '/contact' },
+    { label: 'Schedule a call',  href: 'https://cal.com/rushan-haque-emssbo/call' },
   ];
 
   /* ── mobile dots menu ──────────────────────────────────────── */
