@@ -7,6 +7,34 @@
     var header = document.getElementById('header');
     if (!header) return;
 
+    /* ---- publish the live header height ----
+     * Anything that has to sit *below* the sticky bar (the sticky project
+     * card, in-page anchor offsets) needs the bar's real height, and that
+     * height is not a constant: the padding shrinks once `rh-scrolled`
+     * lands, the webfont swap reflows it, and so does any resize.
+     *
+     * A ResizeObserver is what actually tracks that — it fires on the real
+     * box change whatever caused it, so there is no list of events to keep
+     * in sync and nothing measured per frame. */
+    var lastH = -1;
+    function measureHeader() {
+      var h = Math.round(header.getBoundingClientRect().height);
+      if (!h || h === lastH) return;
+      lastH = h;
+      document.documentElement.style.setProperty('--rh-header-h', h + 'px');
+    }
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(measureHeader).observe(header);
+    } else {
+      // no RO: catch the two moments the height actually moves
+      window.addEventListener('resize', measureHeader, { passive: true });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(measureHeader);
+      }
+    }
+    measureHeader();
+
     /* ---- solid background once scrolled, plus the landing-page reveal ---- */
     var reveals = header.classList.contains('rh-header-reveal');
     var lastScrolled = -1;

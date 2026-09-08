@@ -1390,3 +1390,33 @@ form textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .rh-skip { transition: none; }
 }
+
+
+/* ==================================================
+   Sticky project card — clear the header
+
+   In "Recent Freelance Works" every other card is
+   `position: sticky` so it holds while the next one
+   scrolls up over it. Stock template pins it at
+   `top: 0`, which parks it *under* the sticky navbar
+   — the card's title and the top of its image end up
+   hidden behind the bar for the whole time it is held.
+
+   The bar's height is not a constant: its padding
+   shrinks once `rh-scrolled` lands (69px -> 56px on
+   desktop), and it reflows on resize and on webfont
+   swap. navbar.js observes it and publishes
+   `--rh-header-h`; the 6.9rem fallback is the
+   unscrolled desktop height (root font-size is 10px),
+   so the card still clears the bar if that script
+   never runs.
+
+   The sticky rule only exists at >=1200px, so this
+   override is scoped to the same breakpoint.
+   ================================================== */
+
+@media only screen and (min-width: 1200px) {
+  .mxd-project-item.mxd-project-item-sticky {
+    top: calc(var(--rh-header-h, 6.9rem) + 2rem);
+  }
+}

@@ -165,14 +165,24 @@ code{background:var(--tint);padding:.12rem .38rem;border-radius:4px;font:.85em v
   <span class="badge" id="storeState">saved</span>
   <div class="sp"></div>
   <button class="btn ghost sm" id="reload">Reset</button>
+  <button class="btn sm" id="pub-toggle">Publish →</button>
 </header>
+<div id="pub-bar" style="display:none;padding:.65rem 1.1rem;background:var(--tint);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+  <input id="push-token" type="password" autocomplete="off" placeholder="Publish secret"
+         style="flex:1;min-width:160px;max-width:260px" aria-label="Publish secret">
+  <label style="font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.3rem">
+    <input type="checkbox" id="push-remember" checked> remember
+  </label>
+  <button class="btn sm" id="push-btn">Push to GitHub</button>
+  <span id="push-status" style="font-size:.83rem;font-weight:600"></span>
+  <div id="live-banner" style="display:none;font-size:.82rem;padding:.4rem .7rem;border-radius:6px;background:rgba(214,158,46,.15);color:#8a5a00"></div>
+</div>
 
 <div class="tabs">
   <button class="tab on" data-panel="projects">Projects</button>
   <button class="tab" data-panel="products">Products</button>
   <button class="tab" data-panel="reviews">Reviews</button>
   <button class="tab" data-panel="journey">Journey</button>
-  <button class="tab" data-panel="publish">Publish</button>
 </div>
 
 <main>
@@ -333,59 +343,6 @@ code{background:var(--tint);padding:.12rem .38rem;border-radius:4px;font:.85em v
   </div>
 </section>
 
-<!-- ==================== PUBLISH ==================== -->
-<section class="panel" id="p-publish">
-  <div class="card">
-    <h2>1 — Download what changed</h2>
-    <p class="sub">A dot marks the files you have edited in this browser.</p>
-    <div class="dlgrid">
-      <div class="dlrow"><span class="dot" id="dot-projects"></span><span class="n">projects.js</span>
-        <button class="btn ghost sm" data-dl="projects">Download</button></div>
-      <div class="dlrow"><span class="dot" id="dot-products"></span><span class="n">products.js</span>
-        <button class="btn ghost sm" data-dl="products">Download</button></div>
-      <div class="dlrow"><span class="dot" id="dot-reviews"></span><span class="n">reviews.js</span>
-        <button class="btn ghost sm" data-dl="reviews">Download</button></div>
-      <div class="dlrow"><span class="dot" id="dot-journey"></span><span class="n">journey.js</span>
-        <button class="btn ghost sm" data-dl="journey">Download</button></div>
-    </div>
-    <div class="row"><button class="btn" id="dl-all">Download all four</button></div>
-  </div>
-
-  <div class="card" id="push-card">
-    <h2>2 — Push to GitHub</h2>
-    <p class="sub">Commits every changed file <em>and</em> every new photo in one commit. Vercel redeploys automatically.</p>
-    <div id="live-banner" style="display:none;margin-bottom:1rem;padding:0.6rem 1rem;border-radius:0.5rem;font-size:0.9rem;background:rgba(214,158,46,0.15);color:#8a5a00"></div>
-    <div id="push-status" style="display:none;margin-bottom:1rem;padding:0.6rem 1rem;border-radius:0.5rem;font-size:0.9rem"></div>
-    <div class="row" style="margin-bottom:0.75rem">
-      <input id="push-token" type="password" autocomplete="off" placeholder="Publish secret"
-             style="max-width:280px" aria-label="Publish secret">
-      <label style="font-size:0.8rem;opacity:0.7"><input type="checkbox" id="push-remember" checked> remember for this tab</label>
-    </div>
-    <div class="row">
-      <button class="btn" id="push-btn">Publish to GitHub</button>
-    </div>
-    <p class="sub" style="margin-top:0.75rem;font-size:0.78rem;opacity:0.6">Only files with unsaved-dot markers are published, together with any photos you picked. Nothing happens if there are no changes.</p>
-  </div>
-
-  <div class="card">
-    <h2>Preview a file</h2>
-    <div class="row" style="margin-top:0">
-      <select id="prev-pick" style="max-width:220px">
-        <option value="projects">projects.js</option><option value="products">products.js</option>
-        <option value="reviews">reviews.js</option><option value="journey">journey.js</option>
-      </select>
-      <button class="btn ghost sm" id="cp-btn">Copy</button>
-      <span class="msg" id="cp-msg"></span>
-    </div>
-    <textarea class="out" id="prev-out" readonly style="margin-top:.8rem"></textarea>
-  </div>
-
-  <div class="card">
-    <h2>Danger zone</h2>
-    <p class="sub">Throws away every unsaved change in this browser and reloads what the site files currently contain.</p>
-    <div class="row" style="margin-top:0"><button class="btn danger sm" id="wipe">Discard all local changes</button></div>
-  </div>
-</section>
 
 </main>
 
@@ -453,11 +410,10 @@ function save(which){
 function paintDirty(){
   var any=false;
   ['projects','products','reviews','journey'].forEach(function(k){
-    var d=document.getElementById('dot-'+k);
-    if(d)d.classList.toggle('on',!!dirty[k]);
     if(dirty[k])any=true;
   });
   setState(any?'unsaved changes':'saved',any);
+  $('pub-toggle').textContent=any?'Publish → ●':'Publish →';
 }
 function setState(t,warn){
   var el=document.getElementById('storeState');
@@ -578,9 +534,16 @@ document.querySelectorAll('.tab').forEach(function(t){
     document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on')});
     t.classList.add('on');
     $('p-'+t.dataset.panel).classList.add('on');
-    if(t.dataset.panel==='publish')refreshPreview();
     window.scrollTo({top:0,behavior:'smooth'});
   });
+});
+
+/* ---------------- publish bar toggle ---------------- */
+$('pub-toggle').addEventListener('click',function(){
+  var bar=$('pub-bar');
+  var open=bar.style.display!=='none'&&bar.style.display!=='';
+  bar.style.display=open?'none':'flex';
+  if(!open)$('push-token').focus();
 });
 
 /* ---------------- generic list actions ---------------- */
@@ -852,31 +815,6 @@ journey:'/* Journey — experience & education. Managed with admin.html.\n'+
 function fileFor(which){
   return HEAD[which]+JSON.stringify(db[which],null,2)+';\n';
 }
-function download(name,content){
-  var b=new Blob([content],{type:'text/javascript'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(b);a.download=name;
-  document.body.appendChild(a);a.click();
-  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},400);
-}
-document.addEventListener('click',function(e){
-  var b=e.target.closest('[data-dl]');if(!b)return;
-  var w=b.dataset.dl;download(w+'.js',fileFor(w));toast(w+'.js downloaded');
-});
-$('dl-all').addEventListener('click',function(){
-  ['projects','products','reviews','journey'].forEach(function(w,i){
-    setTimeout(function(){download(w+'.js',fileFor(w))},i*220);
-  });
-  toast('Downloading all four…');
-});
-function refreshPreview(){$('prev-out').value=fileFor($('prev-pick').value)}
-$('prev-pick').addEventListener('change',refreshPreview);
-$('cp-btn').addEventListener('click',function(){
-  var ta=$('prev-out');ta.select();
-  var msg=$('cp-msg');
-  try{document.execCommand('copy');flash(msg,'Copied.','ok')}
-  catch(err){flash(msg,'Press Ctrl+C.','err')}
-});
 
 /* ---------------- reset ---------------- */
 function wipe(){
@@ -887,16 +825,13 @@ function wipe(){
 $('reload').addEventListener('click',function(){
   if(confirm('Discard local changes and reload what the site files contain?'))wipe();
 });
-$('wipe').addEventListener('click',function(){
-  if(confirm('Discard ALL local changes?'))wipe();
-});
 
 /* ---------------- boot ---------------- */
 function renderAll(){renderProjects();renderProducts();renderReviews();renderJourney()}
 ['projects','products','reviews','journey'].forEach(function(k){
   dirty[k]=JSON.stringify(db[k])!==JSON.stringify(SEED[k]);
 });
-renderAll();projReset();prodReset();revReset();jrReset();paintDirty();refreshPreview();
+renderAll();projReset();prodReset();revReset();jrReset();paintDirty();
 
 /* ---------------- publish to github ---------------- */
 var TOKEN_KEY='rh_admin_token';
@@ -904,15 +839,15 @@ try{
   var savedTok=sessionStorage.getItem(TOKEN_KEY);
   if(savedTok)$('push-token').value=savedTok;
 }catch(e){}
+$('push-token').addEventListener('keydown',function(e){
+  if(e.key==='Enter')$('push-btn').click();
+});
 
 function setStatus(msg, kind){
-  var status=$('push-status');
-  status.style.display='block';
-  var c={ok:['rgba(40,167,69,0.15)','#1a7a30'],
-          err:['rgba(220,53,69,0.15)','#a31621'],
-          info:['rgba(0,0,0,0.06)','#4D4D4D']}[kind||'info'];
-  status.style.background=c[0]; status.style.color=c[1];
-  status.textContent=msg;
+  var el=$('push-status');
+  var c={ok:'var(--ok)',err:'var(--danger)',info:'var(--muted)'}[kind||'info'];
+  el.style.color=c;
+  el.textContent=msg;
 }
 
 $('push-btn').addEventListener('click', async function () {
@@ -952,14 +887,9 @@ $('push-btn').addEventListener('click', async function () {
       photos.forEach(function(p){ delete PENDING_PHOTOS[p.path]; });
       clearUnpublished();
       paintDirty();
-      setStatus(
-        'Published. Commit ' + String(data && data.commit || '').slice(0,7) +
-        ' at ' + (data && data.updatedAt || '') +
-        (data && data.photosStaged ? ' — ' + data.photosStaged + ' photo(s) committed' : '') +
-        (data && data.photosReused ? ', ' + data.photosReused + ' already on the site' : '') +
-        '. Vercel is redeploying.',
-        'ok'
-      );
+      toast('Published! Vercel is redeploying.');
+      setStatus('Done — Vercel is redeploying.', 'ok');
+      setTimeout(function(){ $('pub-bar').style.display='none'; }, 2000);
       return;
     }
 
