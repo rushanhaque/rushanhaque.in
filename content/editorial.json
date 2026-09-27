@@ -1,0 +1,252 @@
+{
+  "writings": [
+    {
+      "slug": "feedback-loop-collapse",
+      "title": "When AI learns from its own reflection.",
+      "originalTitle": "Feedback Loop Collapse of Artificial Intelligence",
+      "category": "Technical note",
+      "year": "2026",
+      "status": "Published",
+      "url": "https://zenodo.org/records/19024124",
+      "description": "What happens when artificial intelligence is increasingly trained on its own output? An exploration of recursive training, diversity loss, and Corpus Entropy Decay.",
+      "paragraphs": [
+        "A model learns from a body of information. But as more of that information is produced by other models, the relationship between the learner and the world becomes less direct. The training corpus begins to reflect previous predictions.",
+        "This technical note examines feedback loop collapse: the effects of repeatedly training models on synthetic outputs. It introduces Corpus Entropy Decay as a way to describe degradation in diversity, correctness, creativity, and robustness across recursive training cycles.",
+        "The full note, published on Zenodo on 14 March 2026, sets out the proposed framework. Read the source for its definitions, reasoning, and limitations."
+      ],
+      "source": "DOI: 10.5281/zenodo.19024124"
+    },
+    {
+      "slug": "aabshar-e-khayaal",
+      "title": "Some thoughts arrive as poetry.",
+      "originalTitle": "Aabshar-e-Khayaal",
+      "category": "Urdu poetry",
+      "year": "2024",
+      "status": "Ongoing",
+      "url": "https://www.instagram.com/aabshar_e_khayaal/",
+      "description": "A space for Urdu poetry and reflective writing. An ongoing exploration of the things that resist a simpler explanation.",
+      "paragraphs": [
+        "Aabshar-e-Khayaal is a home for Urdu poetry and reflective writing. It brings another dimension to a practice that moves between technology, language, and human experience.",
+        "Explore the original collection on Instagram."
+      ],
+      "source": "Original writing collection"
+    },
+    {
+      "slug": "the-psychology-framework",
+      "title": "The architecture of how we think.",
+      "originalTitle": "The Psychology Framework",
+      "category": "Book in progress",
+      "year": "2026",
+      "status": "Forthcoming",
+      "url": "",
+      "description": "An upcoming book project. Further details and excerpts will be shared when ready.",
+      "paragraphs": [
+        "The Psychology Framework is an upcoming book project. Publication details and excerpts are not yet available."
+      ],
+      "source": "In progress"
+    },
+    {
+      "slug": "samundar",
+      "title": "A sea of things still unwritten.",
+      "originalTitle": "Samundar",
+      "category": "Book in progress",
+      "year": "2026",
+      "status": "Forthcoming",
+      "url": "",
+      "description": "An upcoming book. A work still taking shape.",
+      "paragraphs": [
+        "Samundar is an upcoming book project. More will be shared when the work is ready."
+      ],
+      "source": "In progress"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Head of Business Development",
+      "company": "TechBuzzIdeas",
+      "period": "May 2026 — Present",
+      "description": "Partnerships, business development, and growth."
+    },
+    {
+      "role": "Web Designer",
+      "company": "TechBuzzIdeas",
+      "period": "Feb 2026 — May 2026",
+      "description": "Design and development of client websites."
+    },
+    {
+      "role": "Freelance Developer",
+      "company": "Independent",
+      "period": "Dec 2025 — Present",
+      "description": "Websites and digital experiences, from the first conversation to the final build."
+    },
+    {
+      "role": "Ambassador & Fundraiser",
+      "company": "NayePankh Foundation",
+      "period": "Feb 2026 — Apr 2026",
+      "description": "Outreach and fundraising in support of education."
+    },
+    {
+      "role": "Merchandiser",
+      "company": "AF International",
+      "period": "Aug 2025 — Jan 2026",
+      "description": "Working across inventory, vendors, and commercial operations."
+    },
+    {
+      "role": "Independent Writer",
+      "company": "Self-employed",
+      "period": "2022 — Present",
+      "description": "Writing across technology, reflection, and poetry."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "GenAI Data Analytics Job Simulation",
+      "issuer": "Tata · Forage",
+      "date": "March 2026",
+      "id": "E5SARHyhTifjzDZN3"
+    },
+    {
+      "title": "Technology Job Simulation",
+      "issuer": "Deloitte Australia · Forage",
+      "date": "February 2026",
+      "id": "78H3JZrwNmRRaAuyP"
+    },
+    {
+      "title": "Software Engineering Job Simulation",
+      "issuer": "JPMorgan Chase · Forage",
+      "date": "February 2026",
+      "id": "6kr9s9QnyXZc26ybY"
+    },
+    {
+      "title": "Google Play Store Listing",
+      "issuer": "Google Play Academy",
+      "date": "February 2026",
+      "id": "175615309"
+    },
+    {
+      "title": "Python Essentials 1",
+      "issuer": "Cisco",
+      "date": "October 2024",
+      "id": ""
+    },
+    {
+      "title": "Python Essentials 2",
+      "issuer": "Cisco",
+      "date": "October 2024",
+      "id": ""
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Danish Faiz",
+      "company": "Erfolg Living",
+      "quote": "Completely transformed erfolg’s online presence, great working with you"
+    },
+    {
+      "name": "MO. Saud",
+      "company": "AF International / Aurelio",
+      "quote": "I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going"
+    },
+    {
+      "name": "Laiba Masood",
+      "company": "SIAAM Logistics",
+      "quote": "Excellent overall experience. very thoughtful, collaborative and impressive. Thank you so much Rushan"
+    },
+    {
+      "name": "Sufiyan",
+      "company": "Casa&Crop",
+      "quote": "quite creative, very impressive"
+    },
+    {
+      "name": "Hammad",
+      "company": "Velora International",
+      "quote": "Good work and amazing design"
+    },
+    {
+      "name": "Rafay Zahid",
+      "company": "Barha",
+      "quote": "Really happy with my website. Good work"
+    }
+  ],
+  "services": [
+    {
+      "title": "Digital experiences",
+      "subtitle": "Web design · React development · Creative direction",
+      "description": "Distinctive websites shaped around your business and the people using them. From information architecture and visual direction to a responsive, accessible React build.",
+      "items": [
+        "Creative direction & UI design",
+        "Custom React websites",
+        "Responsive development",
+        "Interaction & motion design"
+      ]
+    },
+    {
+      "title": "Thoughtful systems",
+      "subtitle": "Web applications · Integrations · Performance",
+      "description": "Tools that make complicated things feel straightforward. Clear interfaces, useful integrations, and a foundation built to grow.",
+      "items": [
+        "Product interfaces",
+        "Business tools & integrations",
+        "Performance improvements",
+        "Technical implementation"
+      ]
+    },
+    {
+      "title": "Words with purpose",
+      "subtitle": "Technical writing · Editorial thinking · Brand voice",
+      "description": "A considered approach to ideas, language, and explanation. Writing that helps people understand the thinking behind your work.",
+      "items": [
+        "Technical writing",
+        "Editorial content",
+        "Website copy",
+        "Research-led explanation"
+      ]
+    },
+    {
+      "title": "A wider circle",
+      "subtitle": "Collaborations · Marketing · Content production",
+      "description": "For projects that need more than one discipline, we can explore a tailored collaboration and agree the right team and scope together.",
+      "items": [
+        "SEO & GEO",
+        "Digital & social marketing",
+        "Cloud, ERP & CRM coordination",
+        "Video & content production"
+      ]
+    }
+  ],
+  "insights": [
+    {
+      "slug": "make-room-for-the-idea",
+      "title": "Make room for the idea.",
+      "tag": "Design",
+      "text": "A page can say more when it tries to say less.",
+      "paragraphs": [
+        "A crowded screen asks the reader to make all the decisions. A considered layout makes a few of those decisions for them: what matters, what belongs together, and where to go next.",
+        "White space is not a pause in the design. It is part of the sentence. It gives an image its scale, a line its emphasis, and an idea enough room to land.",
+        "The useful question is not whether another element can be added. It is whether the page becomes clearer when it is."
+      ]
+    },
+    {
+      "slug": "motion-needs-a-reason",
+      "title": "Motion needs a reason.",
+      "tag": "Interaction",
+      "text": "The best animation tells you something about the interface.",
+      "paragraphs": [
+        "A transition can explain a relationship. A small response can confirm an action. A change in scale can move attention from an overview to a detail.",
+        "When everything moves with equal urgency, nothing has emphasis. Motion works best when it has a hierarchy, just like typography.",
+        "For this portfolio, the aim is to make movement feel like a consequence of exploration: scroll, point, select, and the page responds."
+      ]
+    },
+    {
+      "slug": "stay-with-the-question",
+      "title": "Stay with the question.",
+      "tag": "Thinking",
+      "text": "An explanation should survive a second reading.",
+      "paragraphs": [
+        "An interesting claim invites attention. A useful explanation earns it by showing how the claim was reached.",
+        "Writing is a way to test an idea. Assumptions become visible when they have to fit inside a sentence, and a missing connection is harder to ignore on the page.",
+        "The aim is not certainty at any cost. It is clarity about what is known, what is inferred, and what still needs a better question."
+      ]
+    }
+  ]
+}

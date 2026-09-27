@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+const origin=process.env.TEST_ORIGIN||'http://localhost:5173';
+if(!/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin))throw new Error('Run these tests only against a local preview.');
+const projects=JSON.parse(readFileSync('content/projects.json','utf8'));
+const routes=['/','/projects','/writing','/about','/services','/experience','/certifications','/collaborations','/reviews','/playground','/privacy','/accessibility','/contact','/schedule','/write-a-review','/insights','/writing/feedback-loop-collapse','/writing/aabshar-e-khayaal','/writing/the-psychology-framework','/writing/samundar','/insights/make-room-for-the-idea','/insights/motion-needs-a-reason','/insights/stay-with-the-question',...projects.map(p=>'/projects/'+p.slug)];
+for(const route of routes){const response=await fetch(origin+route);assert.equal(response.status,200,route);const html=await response.text();assert.ok(html.includes('main-content'),route+' contains content');assert.ok(!html.includes('Internal Server Error'),route+' renders successfully');}
+for(const route of ['/not-a-real-page','/projects/does-not-exist','/writing/does-not-exist','/insights/does-not-exist'])assert.equal((await fetch(origin+route)).status,404,route);
+const id=crypto.randomUUID();const payload={id,kind:'contact',name:'Portfolio QA',email:'portfolio-qa@example.com',company:'Local test',service:'Digital experiences',budget:'Let’s discuss',timeline:'Just exploring',message:'A local automated test of the portfolio enquiry flow.',consent:true,website:''};
+const post=(data,headers={})=>fetch(origin+'/api/submissions',{method:'POST',headers:{'Content-Type':'application/json',Origin:origin,...headers},body:JSON.stringify(data)});
+let response=await post(payload);assert.equal(response.status,201,await response.clone().text());assert.equal((await response.json()).id,id);
+response=await post(payload);assert.equal(response.status,200,'idempotent retry');assert.equal((await response.json()).id,id);
+assert.equal((await post({...payload,id:crypto.randomUUID(),email:'invalid'})).status,422,'email validation');
+assert.equal((await post({...payload,id:crypto.randomUUID(),consent:false})).status,422,'privacy consent');
+assert.equal((await post({...payload,id:crypto.randomUUID(),website:'bot.example'})).status,422,'honeypot');
+assert.equal((await post(payload,{Origin:'https://elsewhere.example'})).status,403,'origin validation');
+assert.equal((await post({...payload,message:'a'.repeat(17000)})).status,400,'request size bound');
+assert.equal((await post({...payload,id:crypto.randomUUID(),kind:'call',date:'2020-01-01',time:'10:00',timezone:'Asia/Kolkata'})).status,422,'past call request');
+assert.equal((await post({...payload,id:crypto.randomUUID(),kind:'review',rating:6,publishConsent:true})).status,422,'rating bound');
+assert.equal((await post({...payload,id:crypto.randomUUID(),kind:'review',rating:5,publishConsent:false})).status,422,'publication consent');
+mkdirSync('outputs',{recursive:true});writeFileSync('outputs/local-test-record.json',JSON.stringify({id,origin}));
+console.log(`PASS: ${routes.length} routes, four 404s, persisted enquiry, idempotent retry, and eight validation/security cases. Local test record: ${id}`);

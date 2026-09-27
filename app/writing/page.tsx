@@ -1,0 +1,8 @@
+export const dynamic='force-dynamic';
+import { pageMetadata } from '@/lib/seo';
+import Link from '@/components/site-link';
+import { ArrowUpRight } from 'lucide-react';
+import { getPublishedContent } from '@/lib/published-content';
+import { PageIntro } from '@/components/page-intro';
+export const metadata=pageMetadata('/writing','Writing & ideas','Technical thinking, Urdu poetry, and works in progress by Rushan Haque.');
+export default async function Writing(){const {writings}=await getPublishedContent();return <main id="main-content"><PageIntro eyebrow="WRITING / AN OPEN NOTEBOOK" title="A mind that makes." accent="A mind that wonders." description="Technology, language, and the questions in between. Published work and ideas still finding their shape."/><section className="container writing-index">{writings.map((w,i)=><Link href={`/writing/${w.slug}`} className="writing-index-row" key={w.slug} data-reveal><span className="writing-index-number">0{i+1}</span><div><span className="eyebrow">{w.category} / {w.year}</span><h2>{w.title}</h2><p>{w.description}</p><span className="writing-original">{w.originalTitle} · {w.status}</span></div><ArrowUpRight size={30}/></Link>)}</section><section className="container section more-writing"><span className="eyebrow">MORE PLACES TO THINK OUT LOUD</span><a href="https://medium.com/@rushanulhaque" target="_blank" rel="noopener noreferrer" className="text-link">Follow on Medium <ArrowUpRight size={17}/></a><a href="/feed.xml" className="text-link">Subscribe by RSS <ArrowUpRight size={17}/></a><Link href="/insights" className="text-link">Personal insights <ArrowUpRight size={17}/></Link></section></main>;}

@@ -1,0 +1,6 @@
+import { env } from 'cloudflare:workers';
+import { getChatGPTUser } from '@/app/chatgpt-auth';
+export function setting(name:string):string{const value=Reflect.get(env,name);return typeof value==='string'?value:'';}
+export async function isOwner(){const owner=setting('CMS_OWNER_EMAIL').trim().toLowerCase();if(!owner)return false;const user=await getChatGPTUser();return !!user&&user.email.toLowerCase()===owner;}
+export const privateJson=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Cache-Control':'private, no-store','X-Robots-Tag':'noindex'}});
+export async function readBoundedJson(request:Request,max=200000){if(request.headers.get('origin')!==new URL(request.url).origin)throw Error('Invalid origin.');if(!request.headers.get('content-type')?.includes('application/json'))throw Error('JSON is required.');const reader=request.body?.getReader();if(!reader)throw Error('Empty request.');let size=0,body='';const decoder=new TextDecoder();try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>max){await reader.cancel();throw Error('Request too large.');}body+=decoder.decode(value,{stream:true});}return JSON.parse(body+decoder.decode());}finally{reader.releaseLock();}}

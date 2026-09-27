@@ -1,0 +1,422 @@
+[
+  {
+    "slug": "erfolg-living",
+    "title": "Erfolg Living",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Industry work — a live commercial site built end to end.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Live Site"
+    ],
+    "url": "https://erfolgliving.com",
+    "image": "/images/erfolg.webp",
+    "status": "Completed",
+    "number": "01",
+    "caseStudy": {
+      "context": "A commercial presence for an interiors brand, with the opening centred on the atmosphere of a finished space.",
+      "role": "Web design and development",
+      "decisions": [
+        {
+          "title": "Architecture sets the rhythm.",
+          "text": "Repeated arches establish a strong central axis. Keeping the headline on that axis creates a clear relationship between the words and the room."
+        },
+        {
+          "title": "Typography carries the positioning.",
+          "text": "Wide-spaced capitals and an italic accent differentiate the statement from the smaller navigation. The image remains the largest element in the composition."
+        },
+        {
+          "title": "A direct route to the collection.",
+          "text": "The outlined collection action appears below the positioning line, providing an explicit next step through the image-led opening."
+        }
+      ],
+      "reflection": "The opening establishes atmosphere quickly. A fuller case study should also examine product discovery, small-screen crops, and the route from browsing to enquiry; those materials have not yet been supplied."
+    }
+  },
+  {
+    "slug": "taif",
+    "title": "Taif",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Industry work — a commercial site built end to end.",
+    "tags": [
+      "Web Development",
+      "Design"
+    ],
+    "url": "",
+    "image": "/images/taif.webp",
+    "status": "Completed",
+    "number": "02"
+  },
+  {
+    "slug": "aurelio",
+    "title": "Aurelio",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Industry work — a live commercial site built end to end.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Live Site"
+    ],
+    "url": "https://aurelio.in",
+    "image": "/images/aurelio.webp",
+    "status": "Completed",
+    "number": "03"
+  },
+  {
+    "slug": "velora",
+    "title": "Velora",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "In development — a commercial site currently being built.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "In Progress"
+    ],
+    "url": "https://velora-pi-green.vercel.app/",
+    "image": "/images/velora.webp",
+    "status": "In progress",
+    "number": "04"
+  },
+  {
+    "slug": "casa-and-crop",
+    "title": "Casa&Crop",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Industry work — a live commercial site built end to end.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Live Site"
+    ],
+    "url": "https://casaandcrop.com",
+    "image": "/images/casa-crop.webp",
+    "status": "Completed",
+    "number": "05",
+    "caseStudy": {
+      "context": "A commercial website presenting furnishings through a richly composed interior scene.",
+      "role": "Web design and development",
+      "decisions": [
+        {
+          "title": "Show the objects in a setting.",
+          "text": "Furniture, lighting, and accessories appear together in a full-frame room. The composition communicates a visual world before asking visitors to inspect individual objects."
+        },
+        {
+          "title": "Keep the identity quiet.",
+          "text": "The white wordmark sits in the upper-left corner with little competing text, allowing the photography to define the opening."
+        },
+        {
+          "title": "Indicate that there is more.",
+          "text": "A slim numbered index at the right and a downward cue suggest further scenes beyond this first composition."
+        }
+      ],
+      "reflection": "The image carries much of the message. Clear product labels, keyboard access, image compression, and alternate mobile crops are important evaluation points when extending this direction."
+    }
+  },
+  {
+    "slug": "barha",
+    "title": "Barha",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "In development — a commercial site currently being built.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Coming Soon"
+    ],
+    "url": "",
+    "image": null,
+    "status": "In progress",
+    "number": "06"
+  },
+  {
+    "slug": "chaudharysons-co",
+    "title": "Chaudharysons & Co.",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Coming soon.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Coming Soon"
+    ],
+    "url": "",
+    "image": null,
+    "status": "Coming soon",
+    "number": "07"
+  },
+  {
+    "slug": "vienna",
+    "title": "Vienna",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Coming soon.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Coming Soon"
+    ],
+    "url": "",
+    "image": null,
+    "status": "Coming soon",
+    "number": "08"
+  },
+  {
+    "slug": "shadow-chat",
+    "title": "ShadowChat",
+    "category": "Experiments",
+    "discipline": "Web",
+    "year": "2025",
+    "description": "End-to-end encrypted chatroom where messages self-destruct after reading.",
+    "tags": [
+      "Python",
+      "WebSocket"
+    ],
+    "url": "https://shadow-chat-7ifp.onrender.com",
+    "image": null,
+    "status": "Completed",
+    "number": "09"
+  },
+  {
+    "slug": "github-auto-push",
+    "title": "GitHub Auto-Push",
+    "category": "Experiments",
+    "discipline": "Tool",
+    "year": "2025",
+    "description": "One-click tool that commits and pushes your repo without touching the terminal.",
+    "tags": [
+      "Python",
+      "Flask"
+    ],
+    "url": "https://rushanhaque.itch.io/autorepopusher",
+    "image": null,
+    "status": "Completed",
+    "number": "10"
+  },
+  {
+    "slug": "shadow-kill",
+    "title": "ShadowKill",
+    "category": "Experiments",
+    "discipline": "Tool",
+    "year": "2025",
+    "description": "Plays a sound cue — instantly kills all running tasks on your machine.",
+    "tags": [
+      "Python",
+      "Audio"
+    ],
+    "url": "https://github.com/rushanhaque/killswitch/releases/tag/trial",
+    "image": null,
+    "status": "Completed",
+    "number": "11"
+  },
+  {
+    "slug": "sentry-mode",
+    "title": "Sentry Mode",
+    "category": "Experiments",
+    "discipline": "IoT",
+    "year": "2025",
+    "description": "IoT motion sentinel that triggers alarms and push alerts on interference.",
+    "tags": [
+      "Arduino",
+      "Python"
+    ],
+    "url": "https://github.com/rushanhaque/sentry-mode",
+    "image": null,
+    "status": "Completed",
+    "number": "12"
+  },
+  {
+    "slug": "codesense-ai",
+    "title": "CodeSense AI",
+    "category": "Experiments",
+    "discipline": "AI",
+    "year": "2025",
+    "description": "Paste any code snippet — get a plain-English breakdown in seconds.",
+    "tags": [
+      "AI",
+      "Code Analysis"
+    ],
+    "url": "https://code-sense-ai-omega.vercel.app/",
+    "image": null,
+    "status": "Completed",
+    "number": "13"
+  },
+  {
+    "slug": "lingualens",
+    "title": "LinguaLens",
+    "category": "Experiments",
+    "discipline": "AI",
+    "year": "2025",
+    "description": "Point your camera at anything — identifies it and translates the label live.",
+    "tags": [
+      "AR",
+      "AI",
+      "Translation"
+    ],
+    "url": "https://lingua-lens-tan.vercel.app/",
+    "image": null,
+    "status": "Completed",
+    "number": "14"
+  },
+  {
+    "slug": "novellect",
+    "title": "Novellect",
+    "category": "Experiments",
+    "discipline": "AI",
+    "year": "2025",
+    "description": "Literary curation for the modern mind.",
+    "tags": [
+      "AI",
+      "Recommendations"
+    ],
+    "url": "https://novellect.vercel.app/",
+    "image": null,
+    "status": "Completed",
+    "number": "15"
+  },
+  {
+    "slug": "cortex",
+    "title": "Cortex",
+    "category": "Experiments",
+    "discipline": "Tool",
+    "year": "2025",
+    "description": "Captures your screen with surrounding context — not just a flat image.",
+    "tags": [
+      "Python",
+      "Utility"
+    ],
+    "url": "https://rushanhaque.itch.io/cortex",
+    "image": null,
+    "status": "Completed",
+    "number": "16"
+  },
+  {
+    "slug": "aura-ai",
+    "title": "AuraAI",
+    "category": "Experiments",
+    "discipline": "AI",
+    "year": "2025",
+    "description": "A fully functional AI assistant that never appears on screen recordings or screenshots.",
+    "tags": [
+      "AI",
+      "Privacy"
+    ],
+    "url": "https://rushanhaque.itch.io/auraai",
+    "image": null,
+    "status": "Completed",
+    "number": "17"
+  },
+  {
+    "slug": "symphony",
+    "title": "Symphony",
+    "category": "Experiments",
+    "discipline": "Web",
+    "year": "2025",
+    "description": "In-browser piano with keyboard mapping, sustain, and real sampled audio.",
+    "tags": [
+      "JavaScript",
+      "Audio"
+    ],
+    "url": "https://symphony-coral.vercel.app",
+    "image": null,
+    "status": "Completed",
+    "number": "18"
+  },
+  {
+    "slug": "dead-drop",
+    "title": "DeadDrop",
+    "category": "Experiments",
+    "discipline": "IoT",
+    "year": "2025",
+    "description": "Air-gapped file transfer over local Wi-Fi — no internet, no cloud, no trace.",
+    "tags": [
+      "IoT",
+      "NodeMCU"
+    ],
+    "url": "https://github.com/rushanhaque/NordeMCU_FileServer",
+    "image": null,
+    "status": "Completed",
+    "number": "19"
+  },
+  {
+    "slug": "upside-sound",
+    "title": "Upside Sound",
+    "category": "Experiments",
+    "discipline": "AI",
+    "year": "2025",
+    "description": "Maps your personality through conversation, then builds a music profile that fits it.",
+    "tags": [
+      "AI",
+      "Development",
+      "Chatbot"
+    ],
+    "url": "https://upsidesound.vercel.app/",
+    "image": "/images/upsidesound.webp",
+    "status": "Completed",
+    "number": "20"
+  },
+  {
+    "slug": "quorum",
+    "title": "Quorum",
+    "category": "Experiments",
+    "discipline": "Product",
+    "year": "2025",
+    "description": "Sends four people a private form about you — collects their honest takes, keeps them sealed until all four respond.",
+    "tags": [
+      "Product",
+      "Development",
+      "Design"
+    ],
+    "url": "https://quorum-tan.vercel.app/",
+    "image": "/images/quorum.webp",
+    "status": "Completed",
+    "number": "21",
+    "caseStudy": {
+      "context": "An independent experiment that invites four people to answer one question privately and combines their words into a personal keepsake.",
+      "role": "Independent development",
+      "decisions": [
+        {
+          "title": "Put the idea into one sentence.",
+          "text": "The central headline explains the four-person premise. Its italic accent highlights the phrase that distinguishes the experience."
+        },
+        {
+          "title": "Explain before asking.",
+          "text": "A short paragraph describes the invitation and private response process before the main action."
+        },
+        {
+          "title": "Offer action and explanation.",
+          "text": "“Start a Quorum” is the dominant action, with “How it works” beside it. The opening gives a curious visitor a path to learn before beginning."
+        }
+      ],
+      "reflection": "The opening explains the premise. The project’s privacy wording and invitation/reveal flow should be assessed against its live implementation; this portfolio does not claim a security audit or measured engagement uplift."
+    }
+  },
+  {
+    "slug": "superlatives",
+    "title": "Superlatives",
+    "category": "Experiments",
+    "discipline": "Product",
+    "year": "2025",
+    "description": "Your group anonymously nominates and votes on who's most likely to — the classic game, online.",
+    "tags": [
+      "Product",
+      "Voting",
+      "Development"
+    ],
+    "url": "https://superlatives-wheat.vercel.app/",
+    "image": null,
+    "status": "Completed",
+    "number": "22"
+  }
+]

@@ -1,0 +1,1 @@
+export function PageIntro({eyebrow,title,accent,description}:{eyebrow:string;title:string;accent?:string;description:string}){return <div className="page-intro container"><span className="eyebrow">{eyebrow}</span><h1 data-reveal>{title}{accent&&<><br/><em>{accent}</em></>}</h1><p data-reveal>{description}</p></div>;}
