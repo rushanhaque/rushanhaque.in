@@ -17,6 +17,20 @@
       "source": "DOI: 10.5281/zenodo.19024124"
     },
     {
+      "slug": "to-the-moon-and-beyond",
+      "title": "To the Moon and Beyond.",
+      "originalTitle": "To the Moon and Beyond",
+      "category": "Book",
+      "year": "2021",
+      "status": "Published",
+      "url": "https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW",
+      "description": "A book published by Blue Rose Publishers in September 2021, available as a Kindle ebook.",
+      "paragraphs": [
+        "To the Moon and Beyond was published by Blue Rose Publishers on 29 September 2021 and is available as a Kindle ebook on Amazon."
+      ],
+      "source": "Blue Rose Publishers · Amazon Kindle"
+    },
+    {
       "slug": "aabshar-e-khayaal",
       "title": "Some thoughts arrive as poetry.",
       "originalTitle": "Aabshar-e-Khayaal",
@@ -65,37 +79,49 @@
       "role": "Head of Business Development",
       "company": "TechBuzzIdeas",
       "period": "May 2026 — Present",
-      "description": "Partnerships, business development, and growth."
+      "description": "Leading partnerships and growth for the studio's client work."
     },
     {
       "role": "Web Designer",
       "company": "TechBuzzIdeas",
       "period": "Feb 2026 — May 2026",
-      "description": "Design and development of client websites."
-    },
-    {
-      "role": "Freelance Developer",
-      "company": "Independent",
-      "period": "Dec 2025 — Present",
-      "description": "Websites and digital experiences, from the first conversation to the final build."
+      "description": "Designed and shipped client sites end to end."
     },
     {
       "role": "Ambassador & Fundraiser",
       "company": "NayePankh Foundation",
       "period": "Feb 2026 — Apr 2026",
-      "description": "Outreach and fundraising in support of education."
+      "description": "Ran outreach and fundraising drives for education programmes."
+    },
+    {
+      "role": "Freelance Developer",
+      "company": "Independent",
+      "period": "Dec 2025 — Present",
+      "description": "Full-stack builds for commercial clients across web and product."
     },
     {
       "role": "Merchandiser",
       "company": "AF International",
       "period": "Aug 2025 — Jan 2026",
-      "description": "Working across inventory, vendors, and commercial operations."
+      "description": "Inventory planning and vendor coordination."
     },
     {
       "role": "Independent Writer",
       "company": "Self-employed",
       "period": "2022 — Present",
-      "description": "Writing across technology, reflection, and poetry."
+      "description": "Long-form essays, poetry and published research."
+    }
+  ],
+  "education": [
+    {
+      "title": "B.Tech, Computer Science (IoT)",
+      "institution": "Moradabad Institute of Technology",
+      "detail": "B.Tech"
+    },
+    {
+      "title": "Senior Secondary",
+      "institution": "Bonny Anne Public School",
+      "detail": "CBSE"
     }
   ],
   "certifications": [
@@ -138,80 +164,114 @@
   ],
   "reviews": [
     {
-      "name": "Danish Faiz",
-      "company": "Erfolg Living",
-      "quote": "Completely transformed erfolg’s online presence, great working with you"
-    },
-    {
-      "name": "MO. Saud",
-      "company": "AF International / Aurelio",
-      "quote": "I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going"
-    },
-    {
       "name": "Laiba Masood",
-      "company": "SIAAM Logistics",
+      "company": "SIAAM logistics",
+      "location": "Saudi Arabia",
+      "date": "Dec 2025",
+      "rating": "5.0",
       "quote": "Excellent overall experience. very thoughtful, collaborative and impressive. Thank you so much Rushan"
-    },
-    {
-      "name": "Sufiyan",
-      "company": "Casa&Crop",
-      "quote": "quite creative, very impressive"
     },
     {
       "name": "Hammad",
       "company": "Velora International",
+      "location": "India",
+      "date": "Aug 2026",
+      "rating": "5.0",
       "quote": "Good work and amazing design"
+    },
+    {
+      "name": "Kanishka",
+      "company": "Nublin",
+      "location": "Poland",
+      "date": "Apr 2026",
+      "rating": "5.0",
+      "quote": "Amazing person amazing work, Loved it🤩"
+    },
+    {
+      "name": "Kanchan",
+      "company": "",
+      "location": "Nepal",
+      "date": "Apr 2026",
+      "rating": "5.0",
+      "quote": "good tool really helps alot👍🏻"
+    },
+    {
+      "name": "MO. Saud",
+      "company": "AF International",
+      "location": "India",
+      "date": "Apr 2026",
+      "rating": "5.0",
+      "quote": "I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going"
+    },
+    {
+      "name": "MO. Ubaid",
+      "company": "Sr. Merchandiser · Oliver McInroy & Co",
+      "location": "",
+      "date": "Mar 2026",
+      "rating": "5.0",
+      "quote": "Good work👍🏻👍🏻"
     },
     {
       "name": "Rafay Zahid",
       "company": "Barha",
+      "location": "India",
+      "date": "Feb 2026",
+      "rating": "5.0",
       "quote": "Really happy with my website. Good work"
+    },
+    {
+      "name": "Sufiyan",
+      "company": "Casa&Crop",
+      "location": "India",
+      "date": "Jan 2026",
+      "rating": "5.0",
+      "quote": "quite creative, very impressive"
+    },
+    {
+      "name": "Danish Faiz",
+      "company": "Erfolg Living",
+      "location": "India",
+      "date": "Nov 2025",
+      "rating": "5.0",
+      "quote": "Completely transformed erfolg’s online presence, great working with you"
     }
   ],
   "services": [
     {
-      "title": "Digital experiences",
-      "subtitle": "Web design · React development · Creative direction",
-      "description": "Distinctive websites shaped around your business and the people using them. From information architecture and visual direction to a responsive, accessible React build.",
-      "items": [
-        "Creative direction & UI design",
-        "Custom React websites",
-        "Responsive development",
-        "Interaction & motion design"
-      ]
+      "title": "Digital marketing",
+      "subtitle": "Growth",
+      "description": "Performance-based campaigns tied to real outcomes — spend maps to results, not just impressions.",
+      "items": []
     },
     {
-      "title": "Thoughtful systems",
-      "subtitle": "Web applications · Integrations · Performance",
-      "description": "Tools that make complicated things feel straightforward. Clear interfaces, useful integrations, and a foundation built to grow.",
-      "items": [
-        "Product interfaces",
-        "Business tools & integrations",
-        "Performance improvements",
-        "Technical implementation"
-      ]
+      "title": "SEO + GEO",
+      "subtitle": "Visibility",
+      "description": "SEO ranks you on search engines; GEO makes you the answer AI assistants cite.",
+      "items": []
     },
     {
-      "title": "Words with purpose",
-      "subtitle": "Technical writing · Editorial thinking · Brand voice",
-      "description": "A considered approach to ideas, language, and explanation. Writing that helps people understand the thinking behind your work.",
-      "items": [
-        "Technical writing",
-        "Editorial content",
-        "Website copy",
-        "Research-led explanation"
-      ]
+      "title": "Cloud solutions",
+      "subtitle": "Infrastructure",
+      "description": "Hosting, storage, and infrastructure that scale under load without falling over.",
+      "items": []
     },
     {
-      "title": "A wider circle",
-      "subtitle": "Collaborations · Marketing · Content production",
-      "description": "For projects that need more than one discipline, we can explore a tailored collaboration and agree the right team and scope together.",
-      "items": [
-        "SEO & GEO",
-        "Digital & social marketing",
-        "Cloud, ERP & CRM coordination",
-        "Video & content production"
-      ]
+      "title": "ERPs & CRMs",
+      "subtitle": "Systems",
+      "description": "Systems that run your operations and keep every customer relationship in one place.",
+      "items": []
+    },
+    {
+      "title": "Social media management",
+      "subtitle": "Presence",
+      "description": "A consistent, on-brand presence across the channels your audience actually uses.",
+      "items": []
+    },
+    {
+      "title": "Video editing",
+      "subtitle": "Content",
+      "description": "Cuts that hold attention — for launches, reels, and anything that has to land in the first three seconds.",
+      "items": []
     }
   ],
   "insights": [

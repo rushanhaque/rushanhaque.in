@@ -20,6 +20,17 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
   ]),
   {
+    rules: {
+      // Images are pre-optimised WebP with generated 800px `srcset` variants
+      // (scripts/image-variants.mjs), and navigation is intentionally native
+      // (components/site-link.tsx) for the Worker runtime.
+      "@next/next/no-img-element": "off",
+      "@next/next/no-location-assign-relative-destination": "off",
+      // Destructuring a field out before spreading the rest (e.g. the form honeypot) is intentional.
+      "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true, varsIgnorePattern: "^_" }],
+    },
+  },
+  {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {
       // These files are vendored verbatim from shadcn@4.17.0. Keep the

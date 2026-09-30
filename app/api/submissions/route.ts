@@ -16,7 +16,7 @@ export async function POST(request:Request){
     const db=getDatabase();const now=Date.now();
     const existing=await db.prepare('SELECT kind, email FROM submissions WHERE id = ?').bind(data.id).first<{kind:string;email:string}>();
     if(existing){if(existing.email!==data.email||existing.kind!==data.kind)return json({error:'Please refresh the form and try again.'},409);return json({ok:true,id:data.id});}
-    const client=request.headers.get('cf-connecting-ip')||'local';
+    const client=request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim()||'local';
     const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`${client}:${Math.floor(now/3600000)}`));
     const key=Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
     const limit=await db.prepare('INSERT INTO submission_limits (key, count, expires_at) VALUES (?, 1, ?) ON CONFLICT(key) DO UPDATE SET count = count + 1 RETURNING count').bind(key,now+3600000).first<{count:number}>();

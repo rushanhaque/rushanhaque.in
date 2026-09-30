@@ -1,4 +1,5 @@
 'use client';
+import { thumbnail } from '@/lib/images';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
@@ -33,7 +34,7 @@ export function ProjectArchive({items,total,filters,years,statuses}:{items:Proje
       <Link href="/projects" className="text-link">Clear filters</Link>
     </form>
     <div className="archive-count" aria-live="polite"><span>{total} {total===1?'project':'projects'} · Page {filters.page} of {pages}</span><div className="archive-view" role="group" aria-label="Project layout"><button onClick={()=>changeView('grid')} aria-label="Grid view" aria-pressed={view==='grid'}><LayoutGrid size={20}/></button><button onClick={()=>changeView('list')} aria-label="List view" aria-pressed={view==='list'}><List size={20}/></button></div></div>
-    <div ref={grid} className={`archive-grid ${view==='list'?'archive-list':''}`}>{items.map(project=><div key={project.slug} data-flip-id={project.slug}>{view==='grid'?<ProjectCard project={project}/>:<Link className="archive-list-row" href={`/projects/${project.slug}`}><span>{project.number}</span><h2>{project.title}</h2><span>{project.discipline}</span><span>{project.status}</span><span>{project.year}</span><ArrowUpRight size={20}/>{project.image&&<img className="archive-row-preview" src={project.image} alt="" width="180" height="100" loading="lazy"/>}</Link>}</div>)}</div>
+    <div ref={grid} className={`archive-grid ${view==='list'?'archive-list':''}`}>{items.map(project=><div key={project.slug} data-flip-id={project.slug}>{view==='grid'?<ProjectCard project={project}/>:<Link className="archive-list-row" href={`/projects/${project.slug}`}><span>{project.number}</span><h2>{project.title}</h2><span>{project.discipline}</span><span>{project.status}</span><span>{project.year}</span><ArrowUpRight size={20}/>{project.image&&<img className="archive-row-preview" src={thumbnail(project.image)} alt="" width="180" height="100" loading="lazy" decoding="async"/>}</Link>}</div>)}</div>
     {!total&&<div className="empty-state"><h2>No matching projects.</h2><p>Try a broader search or clear your filters.</p><Link className="button primary" href="/projects">Show all projects</Link></div>}
     {pages>1&&<nav className="archive-pagination" aria-label="Project pages">{Array.from({length:pages},(_,i)=><Link key={i} href={pageUrl(i+1)} aria-current={filters.page===i+1?'page':undefined}>Page {i+1}</Link>)}</nav>}
   </section>;

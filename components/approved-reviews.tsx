@@ -14,5 +14,5 @@ async function readReviews(): Promise<Review[]> {
 }
 export async function ApprovedReviews() {
   const reviews = await readReviews();
-  return <>{reviews.map((row, i) => <article className="review-card" key={i}><blockquote>“{row.message}”</blockquote><div className="review-person"><strong>{row.name}</strong><span>{row.company}</span></div></article>)}</>;
+  return <>{reviews.map((row, i) => <article className="review-card fx-spot" key={i}><blockquote>“{row.message}”</blockquote><div className="review-person"><strong>{row.name}</strong><span>{row.company}</span></div></article>)}</>;
 }

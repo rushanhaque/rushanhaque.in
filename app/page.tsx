@@ -1,36 +1,37 @@
-export const dynamic='force-dynamic';
-import Link from '@/components/site-link';
-import { ArrowUpRight, Plus } from 'lucide-react';
-import { OpeningScene, WorkCinema } from '@/components/portfolio-story';
-import { ServiceStack } from '@/components/service-stack';
-import { TypeLaboratory } from '@/components/type-laboratory';
-import { WritingDesk, MakingOf } from '@/components/studio-chapters';
-import { ServiceAccordion, ReviewCarousel } from '@/components/interactive';
+import { OpeningScene } from '@/components/portfolio-story';
 import { getPublishedContent } from '@/lib/published-content';
-import { ConnectionStory, DetailChoreography, JourneyControl } from '@/components/experience-director';
-
-import { DesignDecision } from '@/components/design-decision';
+import { JourneyControl } from '@/components/experience-director';
+import { Interlude, HeadingChoreography } from '@/components/story-fx';
+import { WorksReel, Numbers, TieUps, Journey, ReviewsWall } from '@/components/home-story';
+import { PreviewList, type PreviewItem } from '@/components/preview-list';
 import { pageMetadata } from '@/lib/seo';
-import { StudyIndex, PerspectiveStudy, DirectionStudy, DecisionsStudy, EchoStudy, EditionStudy } from '@/components/portfolio-experiments';
-import { SignatureExperience } from '@/components/signature-experience';
-export const metadata=pageMetadata('/','Rushan Haque — Designer, Developer & Writer','Expressive websites, considered words, and an independent creative practice.');
-export default async function Home() {const {experience,insights,certifications,projects}=await getPublishedContent();
-  return <main id="main-content" className="perspective-home">
-    <DetailChoreography/>
+import Link from '@/components/site-link';
+import { ArrowUpRight } from 'lucide-react';
+import './home.css';
+
+export const metadata=pageMetadata('/','Rushan Haque — Developer & Writer','Web developer, designer and writer in Moradabad, India. Selected works, writing, and the journey so far.');
+
+// Cover art for each piece in the writing index, keyed by slug.
+const covers: Record<string, Pick<PreviewItem, 'glyph' | 'word' | 'tone' | 'ink'>> = {
+  'feedback-loop-collapse': { glyph: 'RE', word: 'published on Zenodo', tone: '#173c2b', ink: '#e6e9cc' },
+  'to-the-moon-and-beyond': { glyph: '☾', word: 'Blue Rose Publishers', tone: '#dfe3f0', ink: '#252b4d' },
+  'aabshar-e-khayaal': { glyph: 'خیال', word: 'Urdu poetry', tone: '#e7e9d6', ink: '#173c2b' },
+  'the-psychology-framework': { glyph: '( ? )', word: 'coming soon', tone: '#f4d4b2', ink: '#5b2a1c' },
+  samundar: { glyph: '∿∿', word: 'coming soon', tone: '#d7e6e8', ink: '#123a40' },
+};
+
+export default async function Home() {
+  const {writings}=await getPublishedContent();
+  const pieces:PreviewItem[]=writings.map((w,i)=>({href:`/writing/${w.slug}`,label:`P/${String(i+1).padStart(2,'0')}`,title:w.originalTitle,line:`${w.category} · ${w.status==='Forthcoming'?'Coming soon':w.status}`,kicker:`P/${String(i+1).padStart(2,'0')} · ${w.category.toUpperCase()}`,cursor:'Read',...(covers[w.slug]??{glyph:w.originalTitle.slice(0,2),word:w.category,tone:'#e7e9d6',ink:'#173c2b'})}));
+  return <main id="main-content" className="perspective-home story-home">
+    <HeadingChoreography/>
     <OpeningScene/><JourneyControl/>
-    <WorkCinema/>
-    <div className="collection-invitation"><p>A few selected perspectives.<br/>There’s more to the story.</p><Link href="/projects">The complete collection <span>{projects.length}</span><ArrowUpRight/></Link></div>
-    <StudyIndex/><PerspectiveStudy/><SignatureExperience/><DirectionStudy/><ConnectionStory/>{projects.some(project => project.slug === 'erfolg-living') && <DesignDecision/>}<DecisionsStudy/><TypeLaboratory/>
-    <EchoStudy/><WritingDesk/>
-    <MakingOf/><ServiceStack/>
-    <section className="practice-section" aria-labelledby="practice-title">
-      <div className="practice-heading"><span className="chapter-kicker">05 / ONE MIND. A FEW DIFFERENT HATS.</span><h2 id="practice-title">The common thread?<br/><em>Curiosity.</em></h2><span className="practice-cross" aria-hidden="true"><Plus strokeWidth={.6}/></span></div>
-      <div className="practice-body"><div className="practice-person"><span className="practice-signature">Rushan.</span><p>I’m a designer, developer, and writer based in Moradabad, India. I build expressive websites and explore ideas through technology, research, and poetry.</p><p>The work changes. The need to make it mean something stays.</p><Link href="/about" className="text-link">A little more about me <ArrowUpRight size={16}/></Link><div className="practice-stats"><Link href="/projects"><strong>40<span>+</span></strong><span>Projects contributed to <ArrowUpRight size={12}/></span></Link><Link href="/certifications"><strong>20<span>+</span></strong><span>Certifications & awards <ArrowUpRight size={12}/></span></Link></div></div><div className="practice-services"><span className="chapter-kicker">WHAT WE CAN MAKE TOGETHER</span><ServiceAccordion/><Link className="practice-tieup" href="/collaborations">Have something bigger in mind? <span>Let’s collaborate <ArrowUpRight size={14}/></span></Link></div></div>
-      <div className="practice-experience"><div className="practice-experience-title"><span className="chapter-kicker">A PRACTICE SHAPED BY DOING</span><Link href="/experience">The full journey <ArrowUpRight size={15}/></Link></div>{experience.slice(0, 3).map(item => <Link href="/experience" className="practice-experience-row" key={item.role}><span>{item.period}</span><h3>{item.role}</h3><span>{item.company}</span><ArrowUpRight size={18}/></Link>)}</div>
-    </section>
-    <section className="selected-credentials container"><span className="eyebrow">SELECTED LEARNING</span><div>{certifications.slice(0,3).map(c=><Link key={c.title} href="/certifications"><small>{c.issuer} · {c.date}</small>{c.title}<ArrowUpRight size={18}/></Link>)}</div></section>
-    <section className="perspective-reviews" aria-labelledby="review-heading"><div><span className="chapter-kicker">06 / ON THE OTHER SIDE OF THE WORK</span><h2 id="review-heading">An impression<br/>that <em>stays.</em></h2><Link href="/reviews" className="text-link">The people I’ve worked with <ArrowUpRight size={16}/></Link></div><ReviewCarousel/></section>
-    <section className="margin-notes" aria-labelledby="notes-heading"><div className="margin-notes-heading"><span className="chapter-kicker">07 / THOUGHTS IN THE MARGINS</span><h2 id="notes-heading">Still <em>thinking.</em></h2><Link href="/insights">All personal insights <ArrowUpRight size={16}/></Link></div>{insights.map((insight, i) => <Link className="margin-note" href={`/insights/${insight.slug}`} key={insight.slug}><span className="margin-index">0{i + 1} / {insight.tag}</span><h3>{insight.title}</h3><p>{insight.text}</p><span className="margin-arrow"><ArrowUpRight size={23}/></span></Link>)}</section>
-    <EditionStudy/>
+    <WorksReel/>
+    <Numbers/>
+    <Interlude kicker="THE OTHER HALF OF THE PRACTICE" text="Some ideas need a different kind of language." accent="words."/>
+    <PreviewList id="writing" className="writing-list" scene="paper" items={pieces} heading={<header className="pl-heading story-head"><span className="story-kicker">03 / THE WRITTEN WORLD</span><h2 data-split>A life between <em>lines.</em></h2><p>Research asks questions. Poetry makes room for them. Books follow the thought a little further.</p><Link href="/writing" className="text-link">Enter the reading room <ArrowUpRight size={16}/></Link></header>}/>
+    <TieUps/>
+    <Journey/>
+    <ReviewsWall/>
   </main>;
 }

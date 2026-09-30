@@ -47,3 +47,6 @@ next-env.d.ts
 /work/
 
 .dev.vars*
+/generated/
+/.local-data/
+!.env.example

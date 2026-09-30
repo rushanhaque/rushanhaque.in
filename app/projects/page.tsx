@@ -1,4 +1,3 @@
-export const dynamic='force-dynamic';
 import { PageIntro } from '@/components/page-intro';
 import { ProjectArchive } from '@/components/project-archive';
 import { getPublishedContent } from '@/lib/published-content';

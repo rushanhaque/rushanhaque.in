@@ -1,0 +1,17 @@
+/* The editorial system: deliberate scale, warm paper, and open compositions.
+   Shared primitives live here; homepage chapters remain in home.css. */
+:root{--paper:#f5f5ed;--lime:#d6e8ac;--line:#07231924;--space-section:clamp(80px,10vw,160px)}
+body{background:var(--paper)}
+.site-header{border-bottom:1px solid rgb(7 35 25 / .14)}
+.site-header .wordmark{font-weight:550;letter-spacing:-1.5px}
+.desktop-nav{gap:32px}
+.header-contact{padding:13px 22px}
+.menu-trigger{border-color:rgb(7 35 25 / .22)}
+.page-intro{background:var(--paper)}
+.page-intro h1{font-weight:450}
+.project-image{border-radius:3px}
+.project-caption{padding-block:20px}
+.footer{position:relative;overflow:hidden}
+.footer-big-link{font-weight:450}
+:where(.works-reel,.reviews-wall,.interlude,.footer) :where(a,button):focus-visible{outline-color:var(--lime)}
+@media(prefers-reduced-motion:reduce){html:not([data-motion=full]){scroll-behavior:auto}}
