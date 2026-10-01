@@ -14,7 +14,10 @@
         "This technical note examines feedback loop collapse: the effects of repeatedly training models on synthetic outputs. It introduces Corpus Entropy Decay as a way to describe degradation in diversity, correctness, creativity, and robustness across recursive training cycles.",
         "The full note, published on Zenodo on 14 March 2026, sets out the proposed framework. Read the source for its definitions, reasoning, and limitations."
       ],
-      "source": "DOI: 10.5281/zenodo.19024124"
+      "source": "DOI: 10.5281/zenodo.19024124",
+      "image": "/images/writing-feedback-loop-collapse.webp",
+      "imageBlurred": false,
+      "author": "Rushan Ul Haque"
     },
     {
       "slug": "to-the-moon-and-beyond",
@@ -28,7 +31,10 @@
       "paragraphs": [
         "To the Moon and Beyond was published by Blue Rose Publishers on 29 September 2021 and is available as a Kindle ebook on Amazon."
       ],
-      "source": "Blue Rose Publishers · Amazon Kindle"
+      "source": "Blue Rose Publishers · Amazon Kindle",
+      "image": "/images/writing-to-the-moon-and-beyond.webp",
+      "imageBlurred": false,
+      "author": ""
     },
     {
       "slug": "aabshar-e-khayaal",
@@ -43,7 +49,10 @@
         "Aabshar-e-Khayaal is a home for Urdu poetry and reflective writing. It brings another dimension to a practice that moves between technology, language, and human experience.",
         "Explore the original collection on Instagram."
       ],
-      "source": "Original writing collection"
+      "source": "Original writing collection",
+      "image": "/images/writing-aabshar-e-khayaal.webp",
+      "imageBlurred": false,
+      "author": "Rushan Haque"
     },
     {
       "slug": "the-psychology-framework",
@@ -57,7 +66,10 @@
       "paragraphs": [
         "The Psychology Framework is an upcoming book project. Publication details and excerpts are not yet available."
       ],
-      "source": "In progress"
+      "source": "In progress",
+      "image": "/images/writing-the-psychology-framework.webp",
+      "imageBlurred": true,
+      "author": "Rushan Haque"
     },
     {
       "slug": "samundar",
@@ -71,7 +83,10 @@
       "paragraphs": [
         "Samundar is an upcoming book project. More will be shared when the work is ready."
       ],
-      "source": "In progress"
+      "source": "In progress",
+      "image": "/images/writing-samundar.webp",
+      "imageBlurred": true,
+      "author": "Rushan Haque"
     }
   ],
   "experience": [
@@ -129,37 +144,183 @@
       "title": "GenAI Data Analytics Job Simulation",
       "issuer": "Tata · Forage",
       "date": "March 2026",
-      "id": "E5SARHyhTifjzDZN3"
+      "id": "E5SARHyhTifjzDZN3",
+      "category": "Job simulations",
+      "image": "/images/credential-tata-job.png"
     },
     {
       "title": "Technology Job Simulation",
       "issuer": "Deloitte Australia · Forage",
       "date": "February 2026",
-      "id": "78H3JZrwNmRRaAuyP"
+      "id": "78H3JZrwNmRRaAuyP",
+      "category": "Job simulations",
+      "image": "/images/credential-deloitte-tech.png"
     },
     {
       "title": "Software Engineering Job Simulation",
       "issuer": "JPMorgan Chase · Forage",
       "date": "February 2026",
-      "id": "6kr9s9QnyXZc26ybY"
+      "id": "6kr9s9QnyXZc26ybY",
+      "category": "Job simulations",
+      "image": "/images/credential-jpmorgan-se.png"
     },
     {
       "title": "Google Play Store Listing",
       "issuer": "Google Play Academy",
       "date": "February 2026",
-      "id": "175615309"
+      "id": "175615309",
+      "category": "Training"
     },
     {
       "title": "Python Essentials 1",
       "issuer": "Cisco",
       "date": "October 2024",
-      "id": ""
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-cisco-python.png"
     },
     {
       "title": "Python Essentials 2",
       "issuer": "Cisco",
       "date": "October 2024",
-      "id": ""
+      "id": "",
+      "category": "Training"
+    },
+    {
+      "title": "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
+      "issuer": "Oracle University",
+      "date": "October 2025",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-oracle-cloud.png"
+    },
+    {
+      "title": "Oracle Fusion AI",
+      "issuer": "Oracle University",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-oracle-fusion-ai.png"
+    },
+    {
+      "title": "Gemini Certified Student — University",
+      "issuer": "Google for Education",
+      "date": "2026",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-google-gemini.png"
+    },
+    {
+      "title": "Model Context Protocol",
+      "issuer": "Anthropic",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-anthropic-mcp.jpg"
+    },
+    {
+      "title": "Claude Code in Action",
+      "issuer": "Anthropic",
+      "date": "March 2026",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-claude-ai.jpg"
+    },
+    {
+      "title": "Ethical Hacking Masterclass",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-ethical-hacking.png"
+    },
+    {
+      "title": "Python Training",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-python-training.png"
+    },
+    {
+      "title": "AI in Digital Marketing",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-ai-digital-marketing.jpeg"
+    },
+    {
+      "title": "AI Tools Workshop",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-ai-tools-workshop.jpeg"
+    },
+    {
+      "title": "Power BI Workshop",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Training",
+      "image": "/images/credential-power-bi.jpeg"
+    },
+    {
+      "title": "Web Development Offer Letter",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Offer letters",
+      "image": "/images/credential-web-dev-offer.jpeg"
+    },
+    {
+      "title": "Internship Offer",
+      "issuer": "COSMIC365",
+      "date": "See document",
+      "id": "",
+      "category": "Offer letters",
+      "image": "/images/credential-cosmic365-internship.png"
+    },
+    {
+      "title": "Campus Ambassador Internship",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Offer letters",
+      "image": "/images/credential-campus-ambassador.png"
+    },
+    {
+      "title": "Foundation Offer Letter",
+      "issuer": "NayePankh Foundation",
+      "date": "See document",
+      "id": "",
+      "category": "Offer letters",
+      "image": "/images/credential-nayepankh.png"
+    },
+    {
+      "title": "Foundation Selection Letter",
+      "issuer": "She Can Foundation",
+      "date": "See document",
+      "id": "",
+      "category": "Offer letters",
+      "image": "/images/credential-she-can.png"
+    },
+    {
+      "title": "Merchandiser Experience Letter",
+      "issuer": "See document",
+      "date": "See document",
+      "id": "",
+      "category": "Experience",
+      "image": "/images/credential-merchandiser-exp.jpeg"
+    },
+    {
+      "title": "DUCAT Visit",
+      "issuer": "DUCAT",
+      "date": "See document",
+      "id": "",
+      "category": "Visits",
+      "image": "/images/credential-ducat-visit.png"
     }
   ],
   "reviews": [

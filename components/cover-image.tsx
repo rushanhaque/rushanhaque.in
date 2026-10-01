@@ -1,0 +1,2 @@
+import { responsive } from '@/lib/images';
+export function CoverImage({src,title,blurred=false,large=false}:{src?:string;title:string;blurred?:boolean;large?:boolean}){if(!src)return null;return <figure className={`imported-cover ${large?'cover-large':''}`}><img src={src} {...responsive(src,large?'(max-width: 800px) 90vw, 800px':'(max-width: 700px) 35vw, 280px')} alt={`${title} cover${blurred?' — forthcoming preview':''}`} loading="lazy" decoding="async" className={blurred?'unreleased-preview':''}/>{blurred&&<figcaption>Forthcoming</figcaption>}</figure>;}

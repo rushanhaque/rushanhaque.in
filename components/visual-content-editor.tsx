@@ -5,7 +5,7 @@ import { ArrowDown, ArrowUp, Plus, Search, Trash2 } from 'lucide-react';
 import editorial from '@/content/editorial.json';
 import type { ContentFile } from '@/lib/content-schema';
 
-type Value = string | number | boolean | null | Value[] | { [key: string]: Value };
+type Value = undefined | string | number | boolean | null | Value[] | { [key: string]: Value };
 const label = (key: string) => key.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase());
 function blank(value: Value): Value {
   if (Array.isArray(value)) return value.length ? [blank(value[0])] : [];
@@ -18,9 +18,10 @@ const options: Record<string, string[]> = { category: ['Client work', 'Experimen
 function Fields({ value, onChange, name, project = false }: { value: Value; onChange: (v: Value) => void; name: string; project?: boolean }) {
   if (Array.isArray(value)) return <fieldset className="cms-array"><legend>{label(name)}</legend>{value.map((item, index) => <div className="cms-array-item" key={index}><Fields value={item} name={`${name} ${index + 1}`} onChange={next => onChange(value.map((v, i) => i === index ? next : v))}/><button type="button" className="cms-icon" aria-label={`Remove ${name} ${index + 1}`} onClick={() => onChange(value.filter((_, i) => i !== index))}><Trash2 size={15}/></button></div>)}<button type="button" className="text-link" onClick={() => onChange([...value, name === 'decisions' ? { title: '', text: '' } : value.length ? blank(value[0]) : ''])}><Plus size={14}/> Add {name === 'decisions' ? 'decision' : 'item'}</button></fieldset>;
   if (value !== null && typeof value === 'object') return <div className="cms-fields">{Object.entries(value).map(([key, item]) => <Fields key={key} name={key} value={item} project={project} onChange={next => onChange({ ...value, [key]: next })}/>)}</div>;
+  if (typeof value === 'boolean') return <label className="cms-field"><span>{label(name)}</span><input type="checkbox" checked={value} onChange={e=>onChange(e.target.checked)}/></label>;
   const choices = project ? options[name] : name === 'status' ? ['Published', 'Ongoing', 'Forthcoming'] : undefined;
   const long = ['description', 'context', 'reflection', 'text', 'quote'].includes(name) || name.startsWith('paragraphs');
-  return <label className={`cms-field ${long ? 'cms-field-wide' : ''}`}><span>{label(name)}</span>{choices ? <select value={String(value ?? '')} onChange={e => onChange(e.target.value)}>{choices.map(v => <option key={v}>{v}</option>)}</select> : long ? <textarea rows={4} value={String(value ?? '')} onChange={e => onChange(e.target.value)}/> : <input value={String(value ?? '')} onChange={e => onChange(name === 'image' && !e.target.value ? null : e.target.value)} spellCheck={!['slug', 'url', 'image', 'id'].includes(name)}/>} {name === 'image' && <small>Existing asset path, for example /images/erfolg.webp. Leave empty for a typographic cover.</small>}</label>;
+  return <label className={`cms-field ${long ? 'cms-field-wide' : ''}`}><span>{label(name)}</span>{choices ? <select value={String(value ?? '')} onChange={e => onChange(e.target.value)}>{choices.map(v => <option key={v}>{v}</option>)}</select> : long ? <textarea rows={4} value={String(value ?? '')} onChange={e => onChange(e.target.value)}/> : <input value={String(value ?? '')} onChange={e => onChange(name === 'image' && !e.target.value ? (project?null:undefined) : e.target.value)} spellCheck={!['slug', 'url', 'image', 'id'].includes(name)}/>} {name === 'image' && <small>Existing asset path, for example /images/erfolg.webp. Leave empty for a typographic cover.</small>}</label>;
 }
 
 export function VisualContentEditor({ file, draft, onChange, disabled }: { file: ContentFile; draft: string; onChange: (v: string) => void; disabled: boolean }) {
@@ -40,7 +41,7 @@ export function VisualContentEditor({ file, draft, onChange, disabled }: { file:
   function add() {
     const record: Record<string, Value> = file === 'projects'
       ? { slug: '', title: '', category: 'Client work', discipline: '', year: String(new Date().getFullYear()), description: '', tags: [], url: '', image: null, status: 'In progress', number: '' }
-      : blank(editorial[collection as keyof typeof editorial][0]) as Record<string, Value>;
+      : blank(JSON.parse(JSON.stringify(editorial[collection as keyof typeof editorial][0]))) as Record<string, Value>;
     if ('year' in record) record.year = String(new Date().getFullYear());
     if (file === 'editorial' && 'status' in record) record.status = 'Forthcoming';
     if ('title' in record) record.title = 'Untitled entry';

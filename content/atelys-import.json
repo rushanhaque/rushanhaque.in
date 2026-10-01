@@ -1,0 +1,207 @@
+{
+  "source": "Atelys",
+  "assets": [
+    {
+      "source": "img/rh/projects/erfolg.webp",
+      "target": "/images/work-erfolg-living.webp",
+      "sha256": "dda89af82bcb48266f2fec9561ffb51b6ae2800b81d3d3d39963f458d1530a14"
+    },
+    {
+      "source": "img/rh/projects/taif.webp",
+      "target": "/images/work-taif.webp",
+      "sha256": "b5aa7157046fa0767af758e3e2bbb3596a7aa6d43bacd5338e8ea4765b9f80ba"
+    },
+    {
+      "source": "img/rh/projects/aurelio.webp",
+      "target": "/images/work-aurelio.webp",
+      "sha256": "64c3bc9733c054165e5c49ef8ce8fdc90106e5293d2c4fc9c8d025a1154640ad"
+    },
+    {
+      "source": "img/rh/projects/velora.webp",
+      "target": "/images/work-velora.webp",
+      "sha256": "df46a73e569838cbe2ef8721b2a278c38de81976638a9f290edf0b444a0ae5d5"
+    },
+    {
+      "source": "img/rh/projects/casa-crop.webp",
+      "target": "/images/work-casa-and-crop.webp",
+      "sha256": "89327d322344940c8ba3ae945484f09bcbeff5b5cf5b27f186922b8f82569791"
+    },
+    {
+      "source": "img/rh/projects/barha.webp",
+      "target": "/images/work-barha.webp",
+      "sha256": "a266a0654e67b06688cf90192d37954075865918e747d4f95623caf5fd328c19"
+    },
+    {
+      "source": "assets/ShadowChat.png",
+      "target": "/images/work-shadow-chat.png",
+      "sha256": "5d6d0925b57fa2eb3aa45a0fdd7bbf6ac7d7b534b0b139f1025bc86dffcaea76"
+    },
+    {
+      "source": "assets/CodeSense.png",
+      "target": "/images/work-codesense-ai.png",
+      "sha256": "0e829fa8aa05999e77acd6b4451b8b2f41d611b0e0e79cd532aec9374de491a3"
+    },
+    {
+      "source": "assets/Novellect.png",
+      "target": "/images/work-novellect.png",
+      "sha256": "8294b70f206e7e4df9bfc7e637a1f303f00ada803436d8831d302edd94b5f836"
+    },
+    {
+      "source": "img/rh/projects/upsidesound.webp",
+      "target": "/images/work-upside-sound.webp",
+      "sha256": "d8560169e48d4e03384a9567364e7e826aff9becec40bb598a1d831123768af1"
+    },
+    {
+      "source": "img/rh/projects/quorum.webp",
+      "target": "/images/work-quorum.webp",
+      "sha256": "fab63185e3c632ff90d9cb095553fc1cfa10d7f7e958e34612b90135980c5ad4"
+    },
+    {
+      "source": "img/rh/projects/superlatives.webp",
+      "target": "/images/work-superlatives.webp",
+      "sha256": "abd1cc958cc8dd18a6cb5a507024c44dddd4a5f3c7d8097479461b2868da78d6"
+    },
+    {
+      "source": "img/rh/blogs/research.webp",
+      "target": "/images/writing-feedback-loop-collapse.webp",
+      "sha256": "a5aa0ef8c6431b630b243858241bff3c8381803ca4bf267880f87705025dc89c"
+    },
+    {
+      "source": "img/rh/blogs/tothemoon.webp",
+      "target": "/images/writing-to-the-moon-and-beyond.webp",
+      "sha256": "1420c419e30a613ea1de8a580c2527758017be4d61128911fd68a46e45df3f10"
+    },
+    {
+      "source": "img/rh/blogs/aabshar.webp",
+      "target": "/images/writing-aabshar-e-khayaal.webp",
+      "sha256": "5dfb8436cb79b1a6c6fe6a1227b8ae267f7f0b73cde4f20855dba4c98b5f9744"
+    },
+    {
+      "source": "img/rh/blogs/psychology-framework.webp",
+      "target": "/images/writing-the-psychology-framework.webp",
+      "sha256": "dc6a9e60d9bdcf2c7f0e8869e36dc0ee9c3961ce5d883c26322b267d4437a3d2"
+    },
+    {
+      "source": "img/rh/blogs/samundaro.webp",
+      "target": "/images/writing-samundar.webp",
+      "sha256": "a61d8c09c4c2c08aac2f134f159f7734da4279bb412faf8630b4770ef67df44f"
+    },
+    {
+      "source": "img/cert/cisco-python.png",
+      "target": "/images/credential-cisco-python.png",
+      "sha256": "3b22b2bae3c0c03dd39e42e07eb81264be0ed0ebf0560fcf8a818445a0d66706"
+    },
+    {
+      "source": "img/cert/oracle-cloud.png",
+      "target": "/images/credential-oracle-cloud.png",
+      "sha256": "9852eba4e605094ecb3b8acfe4196bc8d727d85da1caaf4c2314b677d41b9a0b"
+    },
+    {
+      "source": "img/cert/oracle-fusion-ai.png",
+      "target": "/images/credential-oracle-fusion-ai.png",
+      "sha256": "5b8a92c84d32793c212c0cbeeaca7a1f3c0a4f8bddf6752b40674b141ec6c416"
+    },
+    {
+      "source": "img/cert/google-gemini.png",
+      "target": "/images/credential-google-gemini.png",
+      "sha256": "1ea03a01acf32035024c154b0e17fbb9b52baadd635baaa22590327dea476cf3"
+    },
+    {
+      "source": "img/cert/anthropic-mcp.jpg",
+      "target": "/images/credential-anthropic-mcp.jpg",
+      "sha256": "a104eb420407c464e79f5dc0a2d08dd150648bdf0f6a19cb954b810939481a87"
+    },
+    {
+      "source": "img/cert/claude-ai.jpg",
+      "target": "/images/credential-claude-ai.jpg",
+      "sha256": "91df662cf1d142794a24a04d9a694779112d5a9215169894a59b24764310ff59"
+    },
+    {
+      "source": "img/cert/ethical-hacking.png",
+      "target": "/images/credential-ethical-hacking.png",
+      "sha256": "af61ce31d5c93803682fd33a18775575fdfe881c28727c835fb42adaf8f79516"
+    },
+    {
+      "source": "img/cert/deloitte-tech.png",
+      "target": "/images/credential-deloitte-tech.png",
+      "sha256": "3b1a7f9f772a9a4f1e433880348b985c55fbae1d6fcee613fd42057713ffdb95"
+    },
+    {
+      "source": "img/cert/jpmorgan-se.png",
+      "target": "/images/credential-jpmorgan-se.png",
+      "sha256": "63aa2058ffb38482b346ba98efb0f806cefa2a33503a6e95c634edf7847dfd3d"
+    },
+    {
+      "source": "img/cert/tata-job.png",
+      "target": "/images/credential-tata-job.png",
+      "sha256": "85646521c57f9f8b40db179a327178ec97f5fb0eddb40e2ecee4a44dd54e75e4"
+    },
+    {
+      "source": "img/cert/python-training.png",
+      "target": "/images/credential-python-training.png",
+      "sha256": "358f4109fb7bb3fa5e2b8ab2a822143cd0761af9fb988ee98d500bc06f8a81ce"
+    },
+    {
+      "source": "img/cert/ai-digital-marketing.jpeg",
+      "target": "/images/credential-ai-digital-marketing.jpeg",
+      "sha256": "0b50fc4e74372c9c9a24e9bba769e4e0926ad8ed1ac86367c30c36f3fd190bf7"
+    },
+    {
+      "source": "img/cert/ai-tools-workshop.jpeg",
+      "target": "/images/credential-ai-tools-workshop.jpeg",
+      "sha256": "d00caeb9d6f39c2486cac748f24b95510e757bb0defe472e2af80136bc9d5449"
+    },
+    {
+      "source": "img/cert/power-bi.jpeg",
+      "target": "/images/credential-power-bi.jpeg",
+      "sha256": "31dd0240a78f95406ea3b2450b0f30a9370e15e054a6c4eec54a3bacb47e2c81"
+    },
+    {
+      "source": "img/cert/web-dev-offer.jpeg",
+      "target": "/images/credential-web-dev-offer.jpeg",
+      "sha256": "3bec64dd4981c787b6fb4c5e45583b012f55523e2fe69c204d751cc802aafab3"
+    },
+    {
+      "source": "img/cert/cosmic365-internship.png",
+      "target": "/images/credential-cosmic365-internship.png",
+      "sha256": "6436745ff3ef4cdf604a3e5dee4085386bdfac5aeb564c2fb240c0d85f485785"
+    },
+    {
+      "source": "img/cert/campus-ambassador.png",
+      "target": "/images/credential-campus-ambassador.png",
+      "sha256": "694cd7183be7d05f873be36635e0d19f3230627cb881bd9989b661dcd5b49383"
+    },
+    {
+      "source": "img/cert/nayepankh.png",
+      "target": "/images/credential-nayepankh.png",
+      "sha256": "f9b02fd4b939ff571f5c9ccf5a90508aa291076574bfda0ada54c988dd0a37f2"
+    },
+    {
+      "source": "img/cert/she-can.png",
+      "target": "/images/credential-she-can.png",
+      "sha256": "2a128310020499d71719910c0b72b0033c7e856b4c0cf57ef8aa7c69019eaddc"
+    },
+    {
+      "source": "img/cert/merchandiser-exp.jpeg",
+      "target": "/images/credential-merchandiser-exp.jpeg",
+      "sha256": "c62fc12e0b77584ca4b9794190262e6b4799b3dcebdd1ff0a8464e8144a4c0b7"
+    },
+    {
+      "source": "img/cert/ducat-visit.png",
+      "target": "/images/credential-ducat-visit.png",
+      "sha256": "36b05ae061a714446749d9cbcc610cee8f1fe84d0205e91aa256d78abf199b3f"
+    },
+    {
+      "source": "img/rh/pfp.jpeg",
+      "target": "/images/rushan-haque.jpeg",
+      "sha256": "8ff108f8ad072a7819295622231d543a35041467faa4efdc2eda15fa5d7f7f0f"
+    }
+  ],
+  "notes": [
+    "Existing detailed project narratives retained.",
+    "Journey (6 roles, 2 education entries) and 9 reviews reconciled with existing records.",
+    "Duplicate certificate exports omitted; original document scans preserved.",
+    "Unreferenced template assets and unfinished project screenshots not published.",
+    "Book attribution omitted where the source does not establish authorship."
+  ]
+}

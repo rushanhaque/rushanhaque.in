@@ -1,0 +1,12 @@
+{
+  "direction": "Logic & feeling: one continuous thought across development and writing",
+  "references": [
+    {"url":"https://dennissnellenberg.com/work","lesson":"Oversized typography and clear project hierarchy; study viewed in the browser."},
+    {"url":"https://www.awwwards.com/sites/dennis-snellenberg","lesson":"Award listing used as a reference, not a claim about this portfolio."},
+    {"url":"https://lusion.co/","lesson":"A coherent visual storytelling premise; main content reviewed, heavyweight opening could not be fully inspected in the browser."},
+    {"url":"https://bruno-simon.com/","lesson":"Interaction that expresses an identity rather than a collection of unrelated effects."},
+    {"url":"https://gsap.com/docs/v3/Plugins/ScrollTrigger/","lesson":"Native vertical scrolling, scoped animation cleanup and motion linked to actual visible sections."},
+    {"url":"https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/aspect-ratio","lesson":"Honor intrinsic image proportions instead of forcing different source covers into identical frames."}
+  ],
+  "decisions": ["No custom cursor, magnetic controls or floating pointer labels.","No horizontal project reel or scroll hijacking.","Generative projected knot drawn locally; stops when offscreen and respects Motion off.","Projects use actual asset dimensions with complete uncropped previews.","Alternating project chapters, staggered print-like writing covers, service accordions, portrait and chronological journey.","Reviews advance only on explicit controls.","All 21 restored service and location pages retained."]
+}

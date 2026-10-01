@@ -1,0 +1,394 @@
+[
+  {
+    "source": "404.html",
+    "sha256": "31f0bb124802546d970b01202fc44b29ec60b2fca5854b59e858a9bc29851347",
+    "title": "Page not found — Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/404",
+    "text": "Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ Nothing here/ 4 0 4 This page doesn't exist. Sorry. Go Home Copyright Rushan Haque . All rights reserved HTML Template crafted with by Rushan Haque ©2026"
+  },
+  {
+    "source": "_trash-review/_removed/about-us.html",
+    "sha256": "6343af6bb7d9cdf2a4d8d1a5b12d0764504e5764b7eb6024de777f67e248d702",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/blog-article.html",
+    "sha256": "2167f50903cf8635ca436fc753886835ea1236d5b9b5c2a063fa482e4386eb8b",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/blog-creative.html",
+    "sha256": "1bd6aed727f3bbaa40ee93d2cf4c27f47226125bdc20bc6293357c8cbecbca9f",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/blog-standard.html",
+    "sha256": "d9a0cd98e29a0ff7472dd1c75509d751c3739757167d3b83f6ae87a38e745fbd",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/faq.html",
+    "sha256": "9b40ee65a0d61d5fc3498ed8248004a31333d50a7aab67009e1d726bcf743779",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-branding-studio.html",
+    "sha256": "c5c7207475d3b824038abec13e0ba8576f8aa5eec371829ea75ade22db198c8b",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-creative-agency.html",
+    "sha256": "f6f98afd4cf0b5f487b402cef0a1cd80e3e4a0ce88513000163d760318a30dc0",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-design-studio.html",
+    "sha256": "f3178d39bd23d823ac0fc0295efa79bcb3a0d999a1a911daf796a69ccf882b69",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-digital-agency.html",
+    "sha256": "eec70f0ca2080ab1f8f22dc742911242ac55a049c363e0c3942e750b9d3c7351",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-digital-designer.html",
+    "sha256": "14f75dcf62ad1161ce570c50b31f73f3eef94f59c1b974abac71c70a070d9b90",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-freelancer-portfolio.html",
+    "sha256": "a4883ef531c2c4206974e17f181442967dfa75d8fe7bb5c78410f992e3861adc",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-personal-portfolio.html",
+    "sha256": "3f5244adcd7c02a4ebf48a6042386b2def6adc8a08d1937d72dc9738cecb34db",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-software-development-company.html",
+    "sha256": "60a153b9e891289fa9ae9a7edcf0cf67791434ed4a37cbfb5bbe7eb50fa265a4",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-web-developer.html",
+    "sha256": "736b8cafa5ef6fbebbfdbd1f1f26ee03d22a9674ff8c4a85d039fbf7d5e3b324",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/index-web-studio.html",
+    "sha256": "466a2056e6f932a68dff263214b593d5196b623d6c98ed83c55445e4a4b31bcf",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/pricing.html",
+    "sha256": "dde7b97a73b8becd6f97d92ab342533516267bb850f53b44159c61a085d8d515",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/project-details.html",
+    "sha256": "0e139f691b93cd7a2e4bad6f4d8b174190b115017a8777283cf3934acc8f9292",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/services.html",
+    "sha256": "c8e3a82930dcd39b9bef4bf86825ace6b65b76c0543dfce393fa10fef75e0d04",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/team.html",
+    "sha256": "db435f96a9526f5046ba87d158800fba90d02c1e4fd56967ff0ee6d4ce53230d",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/works-grid-sticky.html",
+    "sha256": "eedc9526d8703721c319954b299bd7380b25c7b5c616120ab2c86ce8f4146746",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "_trash-review/_removed/works-grid.html",
+    "sha256": "24b00cf0a567e4c16b94f52d28b529f86dd2829b78b49166c327cc2865375246",
+    "title": "Rushan Haque — Developer & Writer",
+    "status": "archived-template",
+    "reason": "Discarded template demo; not personal portfolio content."
+  },
+  {
+    "source": "admin.html",
+    "sha256": "a34e61a5fe3157ffb277d2b035504302b40c59f3537cf906815343ccc971871a",
+    "title": "Content Manager — Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/studio",
+    "text": "Add a project — editing Industry shows on the homepage works grid. Personal shows in “Blogs and writeups”. Everything appears on the archive page. Title * Live URL Category Industry Showcase Personal Niche label Kind Freelance Personal Status — auto (inferred from tags) — Completed In Progress Coming Soon Year Tags (comma separated) Description Cover image none Choose file… Leave blank to auto-generate a live preview from the URL. Picking a file fills in the path — copy the actual image into img/rh/projects/ yourself. Video path (optional) CTA Label (optional) Redirect Link (optional) Add project Cancel Projects ( 0 ) Drag order is the display order. Use ↑ ↓ to move an item. Add a product — editing Drives the Products section on the homepage and the works page. Name * Link Status Live Beta Coming soon Price Launch date Tags (comma separated) Tagline Cover image none Choose file… Copy the image into img/rh/products/ . Without one, an on-brand name tile is shown. Add product Cancel Products ( 0 ) Add a review — editing Shown as cards in “Kind words”. Newest first. Name * Role / company Rating * 5 — Excellent 4 — Very good 3 — Good 2 — Fair 1 — Poor Date Review * Photo (optional) none Choose file… Copy the photo into img/rh/reviews/ . Without one, initials are shown. Add review Cancel Reviews ( 0 ) Add an entry — editing Drives the Journey timeline. Set “To” to Present to mark a role as current. Section Experience Education Role / qualification * Organisation * Link (optional) From To Note Add entry Cancel Experience ( 0 ) Education ( 0 )"
+  },
+  {
+    "source": "areas-served.html",
+    "sha256": "7e54801905d3f4c0671055eaa0886533b5c7bca804e952ce335ac4279934baff",
+    "title": "Areas Served Across Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/areas-served",
+    "sections": 4,
+    "textPreserved": true
+  },
+  {
+    "source": "certificates.html",
+    "sha256": "97638cbf6397c6bf16047e38917e8ea0c39a1ace1ae60e8da5ae18bb87ca785a",
+    "title": "Certificates & Credentials — Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/certifications",
+    "text": "21 credentials Certificates & Credentials Certifications, virtual simulations, and internship letters accumulated across tech, design, and business domains. Technical certifications & courses — 14 Cisco — Python Basics Oracle Cloud Infrastructure Oracle Fusion AI Google Gemini Certified Anthropic — Model Context Protocol Claude AI Ethical Hacking Masterclass Deloitte Technology Simulation JPMorgan Software Engineering Tata Job Simulator Python Training AI in Digital Marketing AI Tools Workshop Power BI Workshop Internships & experience letters — 7 Web Development Offer Letter COSMIC365 Internship Offer Campus Ambassador Internship NayePankh Foundation Offer She Can Foundation Selection Merchandiser Experience Letter DUCAT Visit Click any card to view the full certificate  · Get in touch"
+  },
+  {
+    "source": "contact.html",
+    "sha256": "0ab09bd56153d211135e68e4715edb0d2fd1402f1c9aff0622a9b56e37d2ff1b",
+    "title": "Hire a Web Developer in Moradabad | Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/contact",
+    "text": "Home Contact C Contact So, what are we building? Reply time Usually within a day Based in Moradabad, India — IST --:-- Availability Open for work A project, a half-formed idea, or just hello. All of it reaches me, and I answer it myself. Got it. Thanks for writing — I'll get back to you shortly. Send the brief"
+  },
+  {
+    "source": "ecommerce-website-development.html",
+    "sha256": "bf1e5804a4be0fb976b01a47854c8a4907d204dda0a7105df60705744d5d6658",
+    "title": "E-Commerce Website Development in India | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/ecommerce-website-development",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "generative-engine-optimization.html",
+    "sha256": "739367c26903debb53cab7ebab097789812fb534d50ee8bf350cb21c7f3d06a3",
+    "title": "Generative Engine Optimization (GEO) Services | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/generative-engine-optimization",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "index.html",
+    "sha256": "01ad2b6cbfe840eb9cac0f264d89683ce7cba08196a2f6d3bd01924a11973cd1",
+    "title": "Web Developer & Website Designer in Moradabad | Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/",
+    "text": "28.84°N 78.77°E Moradabad, IN IST --:-- Rushan Haque Developer & Writer. Sites, interfaces, essays — same instinct, different material. Start a project See the work 01 Development 02 Design 03 Writing 01 Selected works Recent Works A few of my recent works, there's considerably more that hasn't made it here. Too caught up to document all of it. W/01 Visit Site ErfolgLiving W/02 In Progress Taif W/03 Visit Site Aurelio W/04 Visit Site Velora W/05 Visit Site Casa&Crop W/06 Coming Soon Barha W/07 Coming Soon Chaudharysons & Co. W/08 Coming Soon Vienna 8 builds here. The archive has the rest — personal projects, tools, the things I made to find out if they would work. Open the archive 02 By the numbers Insights 20+ Professional certifications & awards 3 Languages spoken 40+ Projects contributed to 5+ Roles across dev, design & writing 03 Products Products In development Nothing shipped yet. Two on the bench. I build tools for myself first. The ones that survive real work get released. When one ships it lands here — version and price in plain sight. Ask what I am building 04 Writing Blogs and writeups The other half of the practice. Work that\n                    doesn’t compile. P/01 · Research Read Feedback Loop Collapse Research Published P/02 · Book Read To the Moon and Beyond Book Published P/03 · Writing Read Aabshar-e-Khayaal Writing Page P/04 · Book Coming Soon The Psychology Framework Book Coming Soon P/05 · Book Coming Soon Samundar Book Coming Soon 05 Tie-ups & other services Beyond the build Tie-ups More than a site when you need it. Through vetted partners , the work extends past launch. Growth, infrastructure, and the systems that run behind the scenes —\n                            scoped and delivered alongside people I trust. Talk it through Digital marketing 01 Performance-based campaigns tied to real outcomes — spend\n                          maps to results, not just impressions. SEO + GEO 02 SEO ranks you on search engines; GEO makes you the answer\n                          AI assistants cite. Cloud solutions 03 Hosting, storage, and infrastructure that scale under load\n                          without falling over. ERPs & CRMs 04 Systems that run your operations and keep every customer\n                          relationship in one place. Social media management 05 A consistent, on-brand presence across the channels your\n                          audience actually uses. Video editing 06 Cuts that hold attention — for launches, reels, and\n                          anything that has to land in the first three seconds. 06 Journey Journey Built across disciplines because\n                          the problems keep overlapping. Products, interfaces, research, long-form\n                          writing. Here's how it went. [01] Experience 01 Head of Business Development TechBuzzIdeas Leading partnerships and growth for the studio's client work. May 2026 — Present 02 Web Designer TechBuzzIdeas Designed and shipped client sites end to end. Feb 2026 — May 2026 03 Ambassador & Fundraiser NayePankh Foundation Ran outreach and fundraising drives for education programmes. Feb 2026 — Apr 2026 04 Freelance Developer Independent Full-stack builds for commercial clients across web and product. Dec 2025 — Present 05 Merchandiser AF International Inventory planning and vendor coordination. Aug 2025 — Jan 2026 06 Independent Writer Self-employed Long-form essays, poetry and published research. 2022 — Present [02] Education 01 B.Tech, Computer Science (IoT) Moradabad Institute of Technology B.Tech 02 Senior Secondary Bonny Anne Public School CBSE 07 Reviews What they said 5.0 / 5.0 ★ ★ ★ ★ ★ 9 reviews Collected direct · published unedited R/01 ★ ★ ★ ★ ★ 5.0 Excellent overall experience. very thoughtful, collaborative and impressive.\nThank you so much Rushan LM Laiba Masood SIAAM logistics · Saudi Arab DEC ’25 R/02 ★ ★ ★ ★ ★ 5.0 Good work and amazing design H Hammad Velora International · India AUG ’26 R/03 ★ ★ ★ ★ ★ 5.0 Amazing person amazing work, Loved it🤩 K Kanishka Nublin · Poland APR ’26 R/04 ★ ★ ★ ★ ★ 5.0 good tool really helps alot👍🏻 K Kanchan Nepal APR ’26 R/05 ★ ★ ★ ★ ★ 5.0 I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going MS MO. Saud AF International · India APR ’26 R/06 ★ ★ ★ ★ ★ 5.0 Good work👍🏻👍🏻 MU MO. Ubaid Sr. Merchandiser · Oliver McInroy & Co MAR ’26 R/07 ★ ★ ★ ★ ★ 5.0 Really happy with my website\nGood work RZ Rafay Zahid Barha · India FEB ’26 R/08 ★ ★ ★ ★ ★ 5.0 quite creative, very impressive S Sufiyan Casa&Crop · India JAN ’26 R/09 ★ ★ ★ ★ ★ 5.0 Completely transformed erfolg’s online presence, great working with you DF Danish Faiz Erfolg Living · India NOV ’25"
+  },
+  {
+    "source": "landing-page-design.html",
+    "sha256": "8d8a431c76be0711be68590c1ff728d9f8bdeb17f42a03dbe19c08471fbc8ccb",
+    "title": "Landing Page Design & Development | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/landing-page-design",
+    "sections": 6,
+    "textPreserved": true
+  },
+  {
+    "source": "review.html",
+    "sha256": "a88df8934bbb38db37b1204fdaf71ae9205513968906e8daf06e9e761565bf27",
+    "title": "Leave a review — Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/write-a-review",
+    "text": "Developer/ Writer/ Developer/ Writer/ Developer/ Writer/ Developer/ Writer/ Developer/ Writer/ Developer/ Writer/ Developer/ Writer/ Developer/ Writer/ Open submission Add your name to the sheet. Worked with me? Say how it actually went. It arrives\n                    unedited and goes up the same way — no polishing, no cherry-picking. 01 Takes under a minute 02 Straight to my inbox 03 Published as written Your name * Role / company Your email Rating * ★ ★ ★ ★ ★ Your review * Send review 02 Reviews What they said 5.0 / 5.0 ★ ★ ★ ★ ★ 9 reviews Collected direct · published unedited R/01 ★ ★ ★ ★ ★ 5.0 Excellent overall experience. very thoughtful, collaborative and impressive.\nThank you so much Rushan LM Laiba Masood SIAAM logistics · Saudi Arab DEC ’25 R/02 ★ ★ ★ ★ ★ 5.0 Good work and amazing design H Hammad Velora International · India AUG ’26 R/03 ★ ★ ★ ★ ★ 5.0 Amazing person amazing work, Loved it🤩 K Kanishka Nublin · Poland APR ’26 R/04 ★ ★ ★ ★ ★ 5.0 good tool really helps alot👍🏻 K Kanchan Nepal APR ’26 R/05 ★ ★ ★ ★ ★ 5.0 I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going MS MO. Saud AF International · India APR ’26 R/06 ★ ★ ★ ★ ★ 5.0 Good work👍🏻👍🏻 MU MO. Ubaid Sr. Merchandiser · Oliver McInroy & Co MAR ’26 R/07 ★ ★ ★ ★ ★ 5.0 Really happy with my website\nGood work RZ Rafay Zahid Barha · India FEB ’26 R/08 ★ ★ ★ ★ ★ 5.0 quite creative, very impressive S Sufiyan Casa&Crop · India JAN ’26 R/09 ★ ★ ★ ★ ★ 5.0 Completely transformed erfolg’s online presence, great working with you DF Danish Faiz Erfolg Living · India NOV ’25"
+  },
+  {
+    "source": "seo-services.html",
+    "sha256": "3bc36039fbf1418ff23b8bd88f43a551bd8c00643e5bd12a30433a029eaec491",
+    "title": "SEO Services in India — Technical & Local SEO | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/seo-services",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "services.html",
+    "sha256": "6b36a10d7c415bd52f332d11c703584659049c7eb79f0f12702597bb10a6e4d8",
+    "title": "Web Development & SEO Services in India | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/services",
+    "sections": 3,
+    "textPreserved": true
+  },
+  {
+    "source": "web-application-development.html",
+    "sha256": "fb8e328a000895f0bc26b4bfcb4110e23530616a04fbe7d98b1ef484f5586ab0",
+    "title": "Web Application Development Services | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/web-application-development",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-design-development.html",
+    "sha256": "b4491575b74c1bda5087b7635556a2a678331a8b1292512d257dab3612c1bf3f",
+    "title": "Website Design & Development Services in India | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-design-development",
+    "sections": 8,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-aligarh.html",
+    "sha256": "fa88ebcfd48fe386703f422f7bc0946cf193fa1966ca239acf3950749e41b6d2",
+    "title": "Website Designer in Aligarh, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-aligarh",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-amroha.html",
+    "sha256": "4653648dc61af3367061c672bd5e8777380455437195d6fac1798bc6c365f6f8",
+    "title": "Website Designer in Amroha, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-amroha",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-bareilly.html",
+    "sha256": "697e821b944b09fccd375e181b79083b6271cb12e22eb0a8b71a433742f3ae88",
+    "title": "Website Designer in Bareilly, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-bareilly",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-bijnor.html",
+    "sha256": "e09bc943388a01131ce9df3158a732f8fdd12caf71bfc12d373b3c5b8d09ac78",
+    "title": "Website Designer in Bijnor, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-bijnor",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-delhi-ncr.html",
+    "sha256": "0d98b63fff1f33c8f1260627bb59c5c76d7c75bbef838adf31ac7e6eadcd907f",
+    "title": "Freelance Website Designer in Delhi NCR | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-delhi-ncr",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-kanpur.html",
+    "sha256": "f68f09658f4a244177461f065d51ee815f63cc4a04300b1995003a13aff841e7",
+    "title": "Website Designer in Kanpur, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-kanpur",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-lucknow.html",
+    "sha256": "cbfe45427a6629264d55eab487e885ff8528aa0de86cb9dc6fb93c00610d8c60",
+    "title": "Website Designer in Lucknow, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-lucknow",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-meerut.html",
+    "sha256": "89a671d310b8f97fd6bddf3f91515919d5de2d27d49baf66ee46fc949f1176ab",
+    "title": "Website Designer in Meerut, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-meerut",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-moradabad.html",
+    "sha256": "c905a612bc3bdca96257650fdf7f7ae4e322006a19993f1542ba376b4e164c13",
+    "title": "Website Designer in Moradabad, India | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-moradabad",
+    "sections": 6,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-rampur.html",
+    "sha256": "107daac5ad31f1c1ec7b9288158536dec97013298aaf1a132e7a505f8feef04e",
+    "title": "Website Designer in Rampur, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-rampur",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-designer-in-sambhal.html",
+    "sha256": "02bca38f45773c4da38aacd6d87dbfbf29b0c2e8928af93bb6968d4ba53b0449",
+    "title": "Website Designer in Sambhal, Uttar Pradesh | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-designer-in-sambhal",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-redesign.html",
+    "sha256": "4cfac3a6782f13220dadc488af9b230b3bf23d862633785422567c050490149e",
+    "title": "Website Redesign Services in India | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-redesign",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "website-speed-optimization.html",
+    "sha256": "c8e7ea5c623136faffffebb9a05184ca9411e6e4485a00351372cd158d7c1d4c",
+    "title": "Website Speed Optimization & Core Web Vitals | Rushan Haque",
+    "status": "imported-full-page",
+    "route": "/website-speed-optimization",
+    "sections": 7,
+    "textPreserved": true
+  },
+  {
+    "source": "work.html",
+    "sha256": "0b58ebc9f677962253ff54fdc164d10772d91b106f2c37397670354b4fe530e6",
+    "title": "Web Design Portfolio — Websites & Apps | Rushan Haque",
+    "status": "existing-equivalent",
+    "route": "/projects",
+    "text": "A Full archive Projects archive Everything, in one sheet. Client work first, then the\n                      showcase pieces, then whatever I made for myself. Say hello All projects Web Erfolg Living Web Development Design Live Site Freelance 2026 Visit Site Web Taif Web Development Design In Progress Freelance 2026 In Progress Web Aurelio Web Development Design Live Site Freelance 2026 Visit Site Web Velora Web Development Design In Progress Freelance 2026 Visit Site Web Casa& Crop Web Development Design Live Site Freelance 2026 Visit Site Web Barha Web Development Design Coming Soon Freelance 2026 Coming Soon Web Chaudharysons & Co. Web Development Design Coming Soon Freelance 2026 Coming Soon Web Vienna Web Development Design Coming Soon Freelance 2026 Coming Soon Web Shadow Chat End-to-end encrypted chatroom where messages self-destruct after reading. Personal 2025 Request Access Tool GitHub Auto- Push One-click tool that commits and pushes your repo without touching the terminal. Personal 2025 Request Access Tool Shadow Kill Plays a sound cue — instantly kills all running tasks on your machine. Personal 2025 Request Access IoT Sentry Mode IoT motion sentinel that triggers alarms and push alerts on interference. Personal 2025 Request Access AI CodeSense AI Paste any code snippet — get a plain-English breakdown in seconds. Personal 2025 Request Access AI Lingua Lens Point your camera at anything — identifies it and translates the label live. Personal 2025 Request Access AI Novellect Literary curation for the modern mind. Personal 2025 Request Access Tool Cortex Captures your screen with surrounding context — not just a flat image. Personal 2025 Request Access AI AuraAI A fully functional AI assistant that never appears on screen recordings or screenshots. Personal 2025 Request Access Web Symphony In-browser piano with keyboard mapping, sustain, and real sampled audio. Personal 2025 Request Access IoT Dead Drop Air-gapped file transfer over local Wi-Fi — no internet, no cloud, no trace. Personal 2025 Request Access AI Upside Sound Maps your personality through conversation, then builds a music profile that fits it. Personal 2025 Request Access Product Quorum Sends four people a private form about you — collects their honest takes, keeps them sealed until all four respond. Personal 2025 Request Access Product Superlatives Your group anonymously nominates and votes on who's most likely to — the classic game, online. Personal 2025 Request Access Research Feedback Loop Collapse Research Published Personal 2026 Visit Site Writing The Psychology Framework Book Coming Soon Personal 2026 Coming Soon Writing Samundar Book Coming Soon Personal 2026 Coming Soon Writing Aabshar-e- Khayaal Writing Page Personal 2024 Visit Site Writing To the Moon and Beyond Book Published Personal 2021 Visit Site Products In development Nothing shipped yet. Two on the bench. I build tools for myself first. The ones that survive real work get released. When one ships it lands here — version and price in plain sight. Ask what I am building"
+  }
+]

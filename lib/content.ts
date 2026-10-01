@@ -13,7 +13,7 @@ export const socials = [
   {name:'WhatsApp',url:phone.whatsapp},
 ];
 export const stats = [
-  { value: 20, label: 'Professional certifications & awards' },
+  { value: editorial.certifications.filter(c=>c.category==='Training'||c.category==='Job simulations').length, label: 'Courses, credentials & simulations', plain: true },
   { value: 3, label: 'Languages spoken', plain: true },
   { value: 40, label: 'Projects contributed to' },
   { value: 5, label: 'Roles across dev, design & writing' },

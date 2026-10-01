@@ -12,7 +12,7 @@
       "Live Site"
     ],
     "url": "https://erfolgliving.com",
-    "image": "/images/erfolg.webp",
+    "image": "/images/work-erfolg-living.webp",
     "status": "Completed",
     "number": "01",
     "caseStudy": {
@@ -33,7 +33,8 @@
         }
       ],
       "reflection": "The opening establishes atmosphere quickly. A fuller case study should also examine product discovery, small-screen crops, and the route from browsing to enquiry; those materials have not yet been supplied."
-    }
+    },
+    "imageBlurred": false
   },
   {
     "slug": "taif",
@@ -47,9 +48,10 @@
       "Design"
     ],
     "url": "",
-    "image": "/images/taif.webp",
+    "image": "/images/work-taif.webp",
     "status": "Completed",
-    "number": "02"
+    "number": "02",
+    "imageBlurred": false
   },
   {
     "slug": "aurelio",
@@ -64,9 +66,10 @@
       "Live Site"
     ],
     "url": "https://aurelio.in",
-    "image": "/images/aurelio.webp",
+    "image": "/images/work-aurelio.webp",
     "status": "Completed",
-    "number": "03"
+    "number": "03",
+    "imageBlurred": false
   },
   {
     "slug": "velora",
@@ -81,9 +84,10 @@
       "In Progress"
     ],
     "url": "https://velora-pi-green.vercel.app/",
-    "image": "/images/velora.webp",
+    "image": "/images/work-velora.webp",
     "status": "In progress",
-    "number": "04"
+    "number": "04",
+    "imageBlurred": false
   },
   {
     "slug": "casa-and-crop",
@@ -98,7 +102,7 @@
       "Live Site"
     ],
     "url": "https://casaandcrop.com",
-    "image": "/images/casa-crop.webp",
+    "image": "/images/work-casa-and-crop.webp",
     "status": "Completed",
     "number": "05",
     "caseStudy": {
@@ -119,7 +123,8 @@
         }
       ],
       "reflection": "The image carries much of the message. Clear product labels, keyboard access, image compression, and alternate mobile crops are important evaluation points when extending this direction."
-    }
+    },
+    "imageBlurred": false
   },
   {
     "slug": "barha",
@@ -134,9 +139,10 @@
       "Coming Soon"
     ],
     "url": "",
-    "image": null,
-    "status": "In progress",
-    "number": "06"
+    "image": "/images/work-barha.webp",
+    "status": "Coming soon",
+    "number": "06",
+    "imageBlurred": true
   },
   {
     "slug": "chaudharysons-co",
@@ -153,7 +159,8 @@
     "url": "",
     "image": null,
     "status": "Coming soon",
-    "number": "07"
+    "number": "07",
+    "imageBlurred": true
   },
   {
     "slug": "vienna",
@@ -170,7 +177,8 @@
     "url": "",
     "image": null,
     "status": "Coming soon",
-    "number": "08"
+    "number": "08",
+    "imageBlurred": true
   },
   {
     "slug": "shadow-chat",
@@ -184,9 +192,10 @@
       "WebSocket"
     ],
     "url": "https://shadow-chat-7ifp.onrender.com",
-    "image": null,
+    "image": "/images/work-shadow-chat.png",
     "status": "Completed",
-    "number": "09"
+    "number": "09",
+    "imageBlurred": false
   },
   {
     "slug": "github-auto-push",
@@ -202,7 +211,8 @@
     "url": "https://rushanhaque.itch.io/autorepopusher",
     "image": null,
     "status": "Completed",
-    "number": "10"
+    "number": "10",
+    "imageBlurred": false
   },
   {
     "slug": "shadow-kill",
@@ -218,7 +228,8 @@
     "url": "https://github.com/rushanhaque/killswitch/releases/tag/trial",
     "image": null,
     "status": "Completed",
-    "number": "11"
+    "number": "11",
+    "imageBlurred": false
   },
   {
     "slug": "sentry-mode",
@@ -234,7 +245,8 @@
     "url": "https://github.com/rushanhaque/sentry-mode",
     "image": null,
     "status": "Completed",
-    "number": "12"
+    "number": "12",
+    "imageBlurred": false
   },
   {
     "slug": "codesense-ai",
@@ -248,9 +260,10 @@
       "Code Analysis"
     ],
     "url": "https://code-sense-ai-omega.vercel.app/",
-    "image": null,
+    "image": "/images/work-codesense-ai.png",
     "status": "Completed",
-    "number": "13"
+    "number": "13",
+    "imageBlurred": false
   },
   {
     "slug": "lingualens",
@@ -267,7 +280,8 @@
     "url": "https://lingua-lens-tan.vercel.app/",
     "image": null,
     "status": "Completed",
-    "number": "14"
+    "number": "14",
+    "imageBlurred": false
   },
   {
     "slug": "novellect",
@@ -281,9 +295,10 @@
       "Recommendations"
     ],
     "url": "https://novellect.vercel.app/",
-    "image": null,
+    "image": "/images/work-novellect.png",
     "status": "Completed",
-    "number": "15"
+    "number": "15",
+    "imageBlurred": false
   },
   {
     "slug": "cortex",
@@ -299,7 +314,8 @@
     "url": "https://rushanhaque.itch.io/cortex",
     "image": null,
     "status": "Completed",
-    "number": "16"
+    "number": "16",
+    "imageBlurred": false
   },
   {
     "slug": "aura-ai",
@@ -315,7 +331,8 @@
     "url": "https://rushanhaque.itch.io/auraai",
     "image": null,
     "status": "Completed",
-    "number": "17"
+    "number": "17",
+    "imageBlurred": false
   },
   {
     "slug": "symphony",
@@ -331,7 +348,8 @@
     "url": "https://symphony-coral.vercel.app",
     "image": null,
     "status": "Completed",
-    "number": "18"
+    "number": "18",
+    "imageBlurred": false
   },
   {
     "slug": "dead-drop",
@@ -347,7 +365,8 @@
     "url": "https://github.com/rushanhaque/NordeMCU_FileServer",
     "image": null,
     "status": "Completed",
-    "number": "19"
+    "number": "19",
+    "imageBlurred": false
   },
   {
     "slug": "upside-sound",
@@ -362,9 +381,10 @@
       "Chatbot"
     ],
     "url": "https://upsidesound.vercel.app/",
-    "image": "/images/upsidesound.webp",
+    "image": "/images/work-upside-sound.webp",
     "status": "Completed",
-    "number": "20"
+    "number": "20",
+    "imageBlurred": false
   },
   {
     "slug": "quorum",
@@ -379,7 +399,7 @@
       "Design"
     ],
     "url": "https://quorum-tan.vercel.app/",
-    "image": "/images/quorum.webp",
+    "image": "/images/work-quorum.webp",
     "status": "Completed",
     "number": "21",
     "caseStudy": {
@@ -400,7 +420,8 @@
         }
       ],
       "reflection": "The opening explains the premise. The project’s privacy wording and invitation/reveal flow should be assessed against its live implementation; this portfolio does not claim a security audit or measured engagement uplift."
-    }
+    },
+    "imageBlurred": false
   },
   {
     "slug": "superlatives",
@@ -415,8 +436,9 @@
       "Development"
     ],
     "url": "https://superlatives-wheat.vercel.app/",
-    "image": null,
+    "image": "/images/work-superlatives.webp",
     "status": "Completed",
-    "number": "22"
+    "number": "22",
+    "imageBlurred": false
   }
 ]

@@ -1,0 +1,2 @@
+import Link from '@/components/site-link';
+export function ProductStatus(){return <section className="container product-status" id="products"><div><span className="eyebrow">PRODUCTS / ON THE BENCH</span><h2>Nothing shipped yet.<br/><em>Two on the bench.</em></h2></div><div><p>I build tools for myself first. The ones that survive real work get released. When one ships it lands here — version and price in plain sight.</p><Link href="/products" className="text-link">Visit the product shelf ↗</Link></div></section>;}

@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-01",
+  "scope": "Homepage and all public page templates; all 22 project and five writing detail routes",
+  "status": "Identified layout defects fixed and locally verified. Not deployed.",
+  "issues": [
+    {"area":"Homepage","problem":"Headline and supporting copy collide at wide, short viewport sizes.","fix":"Replaced absolute positioning with normal grid flow and an independently sized copy column.","files":["app/opening.css","components/portfolio-story.tsx"]},
+    {"area":"Homepage","problem":"Competing hero definitions across six stylesheets produce inconsistent breakpoint behavior.","fix":"Removed old hero rules and consolidated the opening into one stylesheet.","files":["app/opening.css","app/story.css","app/refinement.css","app/signature.css","app/home.css","app/choreography.css"]},
+    {"area":"Homepage","problem":"Sculpture and captions intrude on the footer actions.","fix":"Reserved separate artwork and action grid rows; removed the pinned hero transformation.","files":["app/opening.css","components/portfolio-story.tsx"]},
+    {"area":"Homepage","problem":"Animated letter entrances can cross supporting text before settling.","fix":"Confined entrance movement to the headline line boxes.","files":["app/opening.css"]},
+    {"area":"Selected work","problem":"Mobile and desktop frames crop the wide website screenshots differently.","fix":"Used consistent 2.06:1 frames with contain fitting, retaining the complete image.","files":["app/home.css"]},
+    {"area":"Selected work","problem":"Parallax zoom hides part of each website preview even when the frame ratio is correct.","fix":"Removed image scale and horizontal parallax; preserved the scrollable work reel.","files":["components/home-story.tsx"]},
+    {"area":"Selected work","problem":"Large cards can crowd headings and captions on shorter desktops.","fix":"Bound card width to viewport height and reserved readable caption rows.","files":["app/home.css"]},
+    {"area":"Project archive","problem":"Near-square archive covers crop wide screenshots; hover zoom compounds the crop.","fix":"Standardized frame proportions, contained images, and removed preview zoom and tilt.","files":["app/editorial.css","components/project-card.tsx"]},
+    {"area":"Project archive","problem":"Status badges cover useful image content.","fix":"Moved badges into the project caption below the preview.","files":["components/project-card.tsx","app/editorial.css"]},
+    {"area":"Project archive","problem":"Placeholder min-height and aspect ratio expand cards past the page; long names clip.","fix":"Bound media width, removed the conflicting minimum height, and scaled placeholder type to its container.","files":["app/editorial.css"]},
+    {"area":"Project details","problem":"Seven typographic project covers overflow on 320 px screens.","fix":"Allowed long titles to wrap and placed the decorative arrow on its own line.","files":["app/editorial.css"]},
+    {"area":"Journey","problem":"Long job names compete with a fixed date column; inactive roles are unnecessarily faded.","fix":"Placed dates below role content and kept all role descriptions legible.","files":["app/home.css"]},
+    {"area":"Writing","problem":"The pointer-following cover can obscure long article titles.","fix":"Removed the decorative overlay on the homepage writing index; preserved row interactions.","files":["app/home.css"]},
+    {"area":"Reviews","problem":"Author, organisation and date compete for a narrow card footer.","fix":"Placed the date on a separate line and constrained mobile card widths.","files":["app/home.css"]},
+    {"area":"Forms","problem":"Contact and scheduling columns become cramped on tablets; large headings and links overflow.","fix":"Stacked form layouts earlier, scaled headings, separated contact links and enlarged readable labels.","files":["app/editorial.css"]},
+    {"area":"Shared layout","problem":"Tiny supporting text, inconsistent gutters and small controls weaken readability and touch use.","fix":"Unified gutters; raised supporting type sizes; improved menu, footer and form control targets.","files":["app/editorial.css","app/home.css","components/ui/sheet.tsx"]},
+    {"area":"Images","problem":"Every original image is advertised as 1600 px wide, including the 1100 px hero.","fix":"Generated actual source dimensions for srcset descriptors; refreshed variants when sources change.","files":["scripts/image-variants.mjs","lib/images.ts"]},
+    {"area":"Submissions","problem":"Next normalizes the request URL host, rejecting valid same-origin submissions from the local IP alias.","fix":"Validated Origin against the request destination Host and protocol, while retaining cross-origin rejection.","files":["app/api/submissions/route.ts"]},
+    {"area":"Verification","problem":"The old verification script expects removed routes and writes submission data by default.","fix":"Updated routes and redirects, checked internal links and assets, and made test submissions explicitly opt-in.","files":["scripts/verify-site.mjs"]}
+  ],
+  "verification": {
+    "build": "Production build and TypeScript passed",
+    "lint": "ESLint passed",
+    "routes": 38,
+    "internalLinks": 61,
+    "imageAndFontAssets": 10,
+    "notFoundCases": 3,
+    "redirects": 7,
+    "templateWidths": [320,768,1440],
+    "templateChecks": 36,
+    "detailPagesAt320": 27,
+    "heroWidths": [320,390,768,1024,1280,1440,1920],
+    "heroResult": "No page overflow or intersecting copy, artwork and footer at all seven sizes",
+    "interactions": ["Archive grid/list switch","Archive search","Mobile menu open/close","Contact step progression","Successful enquiry through the browser","Reduced-motion preference removes pins and survives reload"],
+    "submissionTests": "Contact, review, call preference, idempotency, eight validation/security cases, and both localhost aliases passed against an isolated local database",
+    "evidence": ["outputs/responsive-audit.json","outputs/site-verification.json","outputs/home-desktop.jpg","outputs/home-mobile.jpg","outputs/selected-work.jpg"]
+  },
+  "remaining": [
+    "Production deployment has not been performed.",
+    "The default development checkout has no submission database configured. Submission tests used a disposable local database; live persistence needs the deployment's database connection.",
+    "External service availability and owner-supplied factual content were not certified by this layout audit."
+  ]
+}

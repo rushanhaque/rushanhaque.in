@@ -3,7 +3,11 @@ import { submissionSchema } from '@/lib/submission-schema';
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
 async function boundedJson(request:Request){const reader=request.body?.getReader();if(!reader)throw new Error('empty');const decoder=new TextDecoder();let size=0;let body='';try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>16384){await reader.cancel();throw new Error('large');}body+=decoder.decode(value,{stream:true});}body+=decoder.decode();return JSON.parse(body);}finally{reader.releaseLock();}}
 export async function POST(request:Request){
-  const origin=request.headers.get('origin');if(!origin||origin!==new URL(request.url).origin)return json({error:'Please submit this form from the website.'},403);
+  // Next may normalize request.url to localhost; Host retains the browser's
+  // actual destination (including a local IP alias and port).
+  const requestUrl=new URL(request.url);
+  const expectedOrigin=`${requestUrl.protocol}//${request.headers.get('host')||requestUrl.host}`;
+  const origin=request.headers.get('origin');if(!origin||origin!==expectedOrigin)return json({error:'Please submit this form from the website.'},403);
   if(!request.headers.get('content-type')?.includes('application/json'))return json({error:'Unsupported request format.'},415);
   let body:unknown;try{body=await boundedJson(request);}catch{return json({error:'The request could not be read. Please shorten your message and try again.'},400);}
   const parsed=submissionSchema.safeParse(body);if(!parsed.success)return json({error:parsed.error.issues[0].message},422);

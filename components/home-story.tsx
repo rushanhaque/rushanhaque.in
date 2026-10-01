@@ -1,4 +1,6 @@
 'use client';
+import { LiquidHover } from '@/components/liquid-hover';
+import profile from '@/content/profile.json';
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -47,10 +49,6 @@ export function WorksReel() {
           },
         },
       });
-      cards.forEach(card => {
-        const image = card.querySelector('.reel-media img, .reel-cover');
-        if (image) gsap.fromTo(image, { xPercent: -7, scale: 1.16 }, { xPercent: 7, scale: 1.16, ease: 'none', scrollTrigger: { trigger: card, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
-      });
       // Keyboard users: bring a focused card into view along the reel.
       const focus = (event: FocusEvent) => {
         const card = (event.target as Element).closest<HTMLElement>('.reel-card, .reel-end');
@@ -80,7 +78,7 @@ export function WorksReel() {
       {works.map((work, i) => <article className="reel-card" key={work.slug}>
         <Link href={`/projects/${work.slug}`} className="reel-media" data-cursor="Explore" aria-label={`${work.title} — project details`}>
           {work.image
-            ? <img src={work.image} {...responsive(work.image, '(max-width: 899px) 85vw, 65vw')} alt="" width="1600" height="780" loading="lazy" decoding="async"/>
+            ? <LiquidHover><img src={work.image} {...responsive(work.image, '(max-width: 899px) 88vw, 62vw')} alt="" width="1600" height="780" loading="lazy" decoding="async"/></LiquidHover>
             : <div className="reel-cover"><span>W/{String(i + 1).padStart(2, '0')}</span><strong>{work.title}</strong><span>{work.status.toUpperCase()}</span></div>}
         </Link>
         <div className="reel-meta">
@@ -193,11 +191,11 @@ export function Journey() {
   </div>;
   return <section className="journey fx-dots" id="journey" data-scene="paper" ref={root} aria-labelledby="journey-title">
     <SectionHead id="journey-title" kicker="05 / JOURNEY" title="A practice in" accent="progress."><p>Products, interfaces, research, long-form writing. Here’s how it went.</p></SectionHead>
-    <div className="journey-grid">
+    <div className="journey-profile"><img src={profile.portrait} alt="Rushan Haque" width="853" height="878" loading="lazy"/><div><span className="eyebrow">{profile.location}</span><p>{profile.bio}</p><span className="profile-languages">Working across {profile.languages.join(' · ')}</span></div></div><div className="journey-grid">
       {column('[01] EXPERIENCE', experience.map(e => ({ title: e.role, place: e.company, detail: e.description, period: e.period })))}
       {column('[02] EDUCATION', education.map(e => ({ title: e.title, place: e.institution, detail: '', period: e.detail })))}
     </div>
-    <Link href="/certifications" className="text-link journey-more">Certifications & awards <ArrowUpRight size={16}/></Link>
+    <Link href="/certifications" className="text-link journey-more">Credentials & experience <ArrowUpRight size={16}/></Link>
   </section>;
 }
 

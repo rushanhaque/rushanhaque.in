@@ -1,0 +1,18 @@
+{
+  "name": "Rushan Haque",
+  "portrait": "/images/rushan-haque.jpeg",
+  "location": "Moradabad, Uttar Pradesh, India",
+  "languages": [
+    "English",
+    "Hindi",
+    "Urdu"
+  ],
+  "bio": "I’m a web developer, designer, and writer based in Moradabad. I build websites, interfaces, and applications for businesses across India and internationally, with a practice that also makes room for research and Urdu poetry.",
+  "references": [
+    "llms.txt",
+    "index.html",
+    "data/journey.js",
+    "data/reviews.js",
+    "certificates.html"
+  ]
+}
