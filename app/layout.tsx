@@ -18,6 +18,8 @@ import './refinement.css';
 import './signature.css';
 import './v2.css';
 import './editorial.css';
+import './books.css';
+import './polish.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),

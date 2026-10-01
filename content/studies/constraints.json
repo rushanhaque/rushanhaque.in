@@ -1,0 +1,161 @@
+{
+ "_note": "Stories are drafted from evidence in each project (source, docs, git history); the source is listed per story. Set \"confirmed\": true once Rushan has checked a story.",
+ "chips": [
+  {
+   "key": "enquiry",
+   "label": "Sales by enquiry"
+  },
+  {
+   "key": "self-publish",
+   "label": "Client-run catalogue"
+  },
+  {
+   "key": "commerce",
+   "label": "Full storefront"
+  },
+  {
+   "key": "image-heavy",
+   "label": "Image-heavy, still fast"
+  },
+  {
+   "key": "storytelling",
+   "label": "Motion & storytelling"
+  },
+  {
+   "key": "design-system",
+   "label": "Design system"
+  },
+  {
+   "key": "discovery",
+   "label": "Search & discovery"
+  },
+  {
+   "key": "accessibility",
+   "label": "Accessibility"
+  },
+  {
+   "key": "tight-timeline",
+   "label": "Tight timeline"
+  }
+ ],
+ "projects": [
+  {
+   "slug": "taif",
+   "constraints": {
+    "enquiry": {
+     "story": "Finishes, MOQ and lead time on each product, with a quote-request flow.",
+     "source": "src/data/catalogue.js, components/mk2/QuoteStage.jsx, RequestCatalogue.jsx",
+     "confirmed": false
+    },
+    "self-publish": {
+     "story": "Products and reviews edited in its own admin, no developer needed.",
+     "source": "src/pages/AdminPage.jsx, src/lib/publish.jsx",
+     "confirmed": false
+    },
+    "image-heavy": {
+     "story": "A photo-led catalogue served through a WebP and video pipeline.",
+     "source": "scripts/to-webp.mjs, scripts/encode-video.mjs",
+     "confirmed": false
+    },
+    "storytelling": {
+     "story": "A scroll-told brand with GSAP and Lenis throughout.",
+     "source": "components/HeroBrand.jsx, lib/useLenis.js",
+     "confirmed": false
+    },
+    "accessibility": {
+     "story": "Text accent colours are contrast-checked to 4.5:1.",
+     "source": "README.md palette",
+     "confirmed": false
+    },
+    "discovery": {
+     "story": "A sitemap generated on every build.",
+     "source": "scripts/gen-sitemap.mjs",
+     "confirmed": false
+    }
+   }
+  },
+  {
+   "slug": "aurelio",
+   "constraints": {
+    "commerce": {
+     "story": "A full storefront: accounts, shop, bag and checkout.",
+     "source": "Aurelio_Ecom docs/IMPLEMENTATION_STATUS.md",
+     "confirmed": false
+    },
+    "enquiry": {
+     "story": "Bulk enquiries and quotes in four currencies.",
+     "source": "Aurelio_Ecom docs/IMPLEMENTATION_STATUS.md",
+     "confirmed": false
+    },
+    "self-publish": {
+     "story": "A studio to draft, publish and version products and pages.",
+     "source": "Aurelio_Ecom docs/STUDIO_GUIDE.md",
+     "confirmed": false
+    },
+    "discovery": {
+     "story": "Canonical and social metadata, sitemap, Product schema.",
+     "source": "Aurelio_Ecom docs/IMPLEMENTATION_STATUS.md",
+     "confirmed": false
+    },
+    "accessibility": {
+     "story": "Reduced-motion handling and touch alternatives.",
+     "source": "Aurelio_Ecom docs/IMPLEMENTATION_STATUS.md",
+     "confirmed": false
+    }
+   }
+  },
+  {
+   "slug": "casa-and-crop",
+   "constraints": {
+    "self-publish": {
+     "story": "The client has published its catalogue 30 times without a developer.",
+     "source": "git log: 30 publish / auto-sync commits",
+     "confirmed": false
+    },
+    "tight-timeline": {
+     "story": "First commit to client-run in 16 days.",
+     "source": "git log dates",
+     "confirmed": false
+    },
+    "enquiry": {
+     "story": "Enquiries go straight to WhatsApp.",
+     "source": "git log: Correct the WhatsApp enquiry number",
+     "confirmed": false
+    }
+   }
+  },
+  {
+   "slug": "barha",
+   "constraints": {
+    "design-system": {
+     "story": "Shared spacing, type and radius tokens across site and admin.",
+     "source": "git log, 26 Aug 2026",
+     "confirmed": false
+    },
+    "self-publish": {
+     "story": "An admin with one shared catalogue source.",
+     "source": "git log, 25 Aug 2026",
+     "confirmed": false
+    },
+    "image-heavy": {
+     "story": "Legacy image URLs served as WebP at the host.",
+     "source": "git log, 26 Aug 2026",
+     "confirmed": false
+    },
+    "storytelling": {
+     "story": "Process and product animations on the homepage.",
+     "source": "git log, 7 Aug 2026",
+     "confirmed": false
+    }
+   }
+  },
+  {
+   "slug": "erfolg-living",
+   "constraints": {}
+  },
+  {
+   "slug": "velora",
+   "constraints": {}
+  }
+ ]
+}

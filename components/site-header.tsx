@@ -7,7 +7,7 @@ import { ArrowUpRight, Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle, SheetDescription, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { bookingUrl } from '@/lib/content';
 
-const links=[['Home','/'],['Works','/projects'],['Writing','/writing'],['Journey','/#journey'],['Services','/services'],['Areas served','/areas-served'],['Products','/products'],['Beyond the build','/#services'],['Certificates','/certifications'],['Reviews','/reviews'],['Contact','/contact']];
+const links=[['Home','/'],['Works','/projects'],['Writing','/writing'],['Journey','/#journey'],['Services','/services'],['Areas served','/areas-served'],['Products','/products'],['Beyond the build','/#services'],['Certificates','/certifications'],['The lab','/studies'],['Reviews','/reviews'],['Contact','/contact']];
 const primary=[['Work','/projects'],['Writing','/writing'],['Journey','/#journey'],['Reviews','/reviews']];
 
 // Appears after the visitor has scrolled past the fold and starts heading back up.
@@ -40,7 +40,7 @@ export function SiteHeader(){
       <Link href="/contact" className="float-nav-cta">Let’s talk<ArrowUpRight size={14}/></Link>
       <SheetTrigger asChild><button className="float-nav-menu" aria-label="Open navigation"><Menu size={18}/></button></SheetTrigger>
     </div>
-    <SheetContent className="navigation-sheet"><SheetTitle className="nav-title">An open invitation.</SheetTitle><SheetDescription>Explore the work. Get to know the mind behind it.</SheetDescription><nav aria-label="All pages" className="overlay-nav">{links.map(([label,url],i)=><SheetClose key={url} asChild><Link href={url}  aria-current={current(url)} style={{'--i':i} as React.CSSProperties}><span>{String(i+1).padStart(2,'0')}</span>{label}<ArrowUpRight size={22}/></Link></SheetClose>)}</nav><div className="nav-bottom"><SheetClose asChild><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="button primary">Schedule a call <ArrowUpRight size={17}/></a></SheetClose><SheetClose asChild><Link href="/write-a-review" className="text-link">Write a review <ArrowUpRight size={16}/></Link></SheetClose></div></SheetContent>
+    <SheetContent className="navigation-sheet"><SheetTitle className="nav-title">Menu</SheetTitle><SheetDescription>Everything, in one place.</SheetDescription><nav aria-label="All pages" className="overlay-nav">{links.map(([label,url],i)=><SheetClose key={url} asChild><Link href={url}  aria-current={current(url)} style={{'--i':i} as React.CSSProperties}><span>{String(i+1).padStart(2,'0')}</span>{label}<ArrowUpRight size={22}/></Link></SheetClose>)}</nav><div className="nav-bottom"><SheetClose asChild><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="button primary">Schedule a call <ArrowUpRight size={17}/></a></SheetClose><SheetClose asChild><Link href="/write-a-review" className="text-link">Write a review <ArrowUpRight size={16}/></Link></SheetClose></div></SheetContent>
   </Sheet>;
 }
 

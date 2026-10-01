@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
     // v2 folds these pages into the homepage story (or removes them).
     {source:'/about',destination:'/#journey',permanent:true},{source:'/about.html',destination:'/#journey',permanent:true},{source:'/experience',destination:'/#journey',permanent:true},
     {source:'/collaborations',destination:'/#services',permanent:true},
-    {source:'/playground',destination:'/',permanent:true},{source:'/lab',destination:'/',permanent:true},
+    {source:'/playground',destination:'/',permanent:true},{source:'/lab',destination:'/studies',permanent:true},
     {source:'/insights',destination:'/writing',permanent:true},{source:'/insights/:slug',destination:'/writing',permanent:true},
     // Paths from the previous portfolio.
     {source:'/review',destination:'/write-a-review',permanent:true},{source:'/certificates',destination:'/certifications',permanent:true},

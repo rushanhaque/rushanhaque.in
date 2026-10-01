@@ -8,11 +8,11 @@
       "year": "2026",
       "status": "Published",
       "url": "https://zenodo.org/records/19024124",
-      "description": "What happens when artificial intelligence is increasingly trained on its own output? An exploration of recursive training, diversity loss, and Corpus Entropy Decay.",
+      "description": "Training AI on its own output, and what it costs: Corpus Entropy Decay.",
       "paragraphs": [
-        "A model learns from a body of information. But as more of that information is produced by other models, the relationship between the learner and the world becomes less direct. The training corpus begins to reflect previous predictions.",
-        "This technical note examines feedback loop collapse: the effects of repeatedly training models on synthetic outputs. It introduces Corpus Entropy Decay as a way to describe degradation in diversity, correctness, creativity, and robustness across recursive training cycles.",
-        "The full note, published on Zenodo on 14 March 2026, sets out the proposed framework. Read the source for its definitions, reasoning, and limitations."
+        "As models learn from model-made text, their training data drifts from the real world.",
+        "This technical note names the effect Corpus Entropy Decay and traces its cost to diversity, correctness and creativity.",
+        "Published on Zenodo, 14 March 2026. The source has the definitions and limits."
       ],
       "source": "DOI: 10.5281/zenodo.19024124",
       "image": "/images/writing-feedback-loop-collapse.webp",
@@ -27,9 +27,9 @@
       "year": "2021",
       "status": "Published",
       "url": "https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW",
-      "description": "A book published by Blue Rose Publishers in September 2021, available as a Kindle ebook.",
+      "description": "Published by Blue Rose Publishers, September 2021. Kindle ebook.",
       "paragraphs": [
-        "To the Moon and Beyond was published by Blue Rose Publishers on 29 September 2021 and is available as a Kindle ebook on Amazon."
+        "Published by Blue Rose Publishers on 29 September 2021. Available as a Kindle ebook."
       ],
       "source": "Blue Rose Publishers · Amazon Kindle",
       "image": "/images/writing-to-the-moon-and-beyond.webp",
@@ -44,10 +44,10 @@
       "year": "2024",
       "status": "Ongoing",
       "url": "https://www.instagram.com/aabshar_e_khayaal/",
-      "description": "A space for Urdu poetry and reflective writing. An ongoing exploration of the things that resist a simpler explanation.",
+      "description": "Urdu poetry and reflective writing.",
       "paragraphs": [
-        "Aabshar-e-Khayaal is a home for Urdu poetry and reflective writing. It brings another dimension to a practice that moves between technology, language, and human experience.",
-        "Explore the original collection on Instagram."
+        "An ongoing collection of Urdu poetry and reflective writing.",
+        "Read it on Instagram."
       ],
       "source": "Original writing collection",
       "image": "/images/writing-aabshar-e-khayaal.webp",
@@ -62,9 +62,9 @@
       "year": "2026",
       "status": "Forthcoming",
       "url": "",
-      "description": "An upcoming book project. Further details and excerpts will be shared when ready.",
+      "description": "An upcoming book.",
       "paragraphs": [
-        "The Psychology Framework is an upcoming book project. Publication details and excerpts are not yet available."
+        "An upcoming book. Details soon."
       ],
       "source": "In progress",
       "image": "/images/writing-the-psychology-framework.webp",
@@ -79,9 +79,9 @@
       "year": "2026",
       "status": "Forthcoming",
       "url": "",
-      "description": "An upcoming book. A work still taking shape.",
+      "description": "An upcoming book.",
       "paragraphs": [
-        "Samundar is an upcoming book project. More will be shared when the work is ready."
+        "An upcoming book. Details soon."
       ],
       "source": "In progress",
       "image": "/images/writing-samundar.webp",
@@ -94,37 +94,37 @@
       "role": "Head of Business Development",
       "company": "TechBuzzIdeas",
       "period": "May 2026 — Present",
-      "description": "Leading partnerships and growth for the studio's client work."
+      "description": "Leading partnerships and growth."
     },
     {
       "role": "Web Designer",
       "company": "TechBuzzIdeas",
       "period": "Feb 2026 — May 2026",
-      "description": "Designed and shipped client sites end to end."
+      "description": "Designed and shipped client sites."
     },
     {
       "role": "Ambassador & Fundraiser",
       "company": "NayePankh Foundation",
       "period": "Feb 2026 — Apr 2026",
-      "description": "Ran outreach and fundraising drives for education programmes."
+      "description": "Outreach and fundraising for education."
     },
     {
       "role": "Freelance Developer",
       "company": "Independent",
       "period": "Dec 2025 — Present",
-      "description": "Full-stack builds for commercial clients across web and product."
+      "description": "Full-stack builds for clients."
     },
     {
       "role": "Merchandiser",
       "company": "AF International",
       "period": "Aug 2025 — Jan 2026",
-      "description": "Inventory planning and vendor coordination."
+      "description": "Inventory and vendor coordination."
     },
     {
       "role": "Independent Writer",
       "company": "Self-employed",
       "period": "2022 — Present",
-      "description": "Long-form essays, poetry and published research."
+      "description": "Essays, poetry and research."
     }
   ],
   "education": [
@@ -401,37 +401,37 @@
     {
       "title": "Digital marketing",
       "subtitle": "Growth",
-      "description": "Performance-based campaigns tied to real outcomes — spend maps to results, not just impressions.",
+      "description": "Campaigns tied to real results.",
       "items": []
     },
     {
       "title": "SEO + GEO",
       "subtitle": "Visibility",
-      "description": "SEO ranks you on search engines; GEO makes you the answer AI assistants cite.",
+      "description": "Rank on search, and be the answer AI cites.",
       "items": []
     },
     {
       "title": "Cloud solutions",
       "subtitle": "Infrastructure",
-      "description": "Hosting, storage, and infrastructure that scale under load without falling over.",
+      "description": "Hosting and infrastructure that scales.",
       "items": []
     },
     {
       "title": "ERPs & CRMs",
       "subtitle": "Systems",
-      "description": "Systems that run your operations and keep every customer relationship in one place.",
+      "description": "Systems for operations and customers.",
       "items": []
     },
     {
       "title": "Social media management",
       "subtitle": "Presence",
-      "description": "A consistent, on-brand presence across the channels your audience actually uses.",
+      "description": "A steady, on-brand presence.",
       "items": []
     },
     {
       "title": "Video editing",
       "subtitle": "Content",
-      "description": "Cuts that hold attention — for launches, reels, and anything that has to land in the first three seconds.",
+      "description": "Cuts that hold attention.",
       "items": []
     }
   ],

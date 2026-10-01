@@ -14,7 +14,8 @@ export function Preloader() {
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const html = document.documentElement;
-    const done = () => { html.classList.remove('tl-preload'); try { sessionStorage.setItem(KEY, '1'); } catch { /* private mode */ } (window as Window & { __tlReady?: boolean }).__tlReady = true; window.dispatchEvent(new Event(READY_EVENT)); };
+    let finished = false;
+    const done = () => { if (finished) return; finished = true; html.classList.remove('tl-preload'); try { sessionStorage.setItem(KEY, '1'); } catch { /* private mode */ } (window as Window & { __tlReady?: boolean }).__tlReady = true; window.dispatchEvent(new Event(READY_EVENT)); };
     const el = root.current;
     if (!el || !html.classList.contains('tl-preload')) { done(); return; }
     const count = el.querySelector<HTMLElement>('.tl-loader-count')!;
@@ -27,7 +28,9 @@ export function Preloader() {
       .to(el.querySelector('.tl-loader-top'), { yPercent: -100, duration: 1, ease: 'expo.inOut' }, 1.9)
       .to(el.querySelector('.tl-loader-bottom'), { yPercent: 100, duration: 1, ease: 'expo.inOut' }, 1.9)
       .add(() => window.dispatchEvent(new Event(READY_EVENT)), 2.15);
-    return () => { tl.kill(); };
+    // Never hold the page hostage: slow or throttled devices skip to the story.
+    const failsafe = window.setTimeout(() => { tl.kill(); done(); }, 4500);
+    return () => { tl.kill(); window.clearTimeout(failsafe); };
   }, []);
   return <div className="tl-loader" ref={root} aria-hidden="true">
     <div className="tl-loader-top"/><div className="tl-loader-bottom"/>

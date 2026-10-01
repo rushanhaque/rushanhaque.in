@@ -1,0 +1,477 @@
+{
+ "_note": "Exported from the Casa & Crop git history (git log --pretty=format:%h|%ad|%s --date=short). Milestone frames are screenshots of the site rendered from those exact commits. Placeholder commit messages are counted but not displayed. A credential that appeared in one message is redacted.",
+ "project": "Casa & Crop",
+ "url": "https://casaandcrop.com",
+ "commits": [
+  {
+   "hash": "0468958",
+   "date": "2026-07-20",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "755f884",
+   "date": "2026-07-21",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "8fafe60",
+   "date": "2026-07-21",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "46ad35a",
+   "date": "2026-07-25",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "21c4ed0",
+   "date": "2026-07-25",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "e873d83",
+   "date": "2026-07-25",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "d0d6388",
+   "date": "2026-07-26",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "34948bf",
+   "date": "2026-07-26",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "e8a182f",
+   "date": "2026-07-27",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "7e20f50",
+   "date": "2026-07-27",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "0edcb6a",
+   "date": "2026-07-28",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "0a72cdc",
+   "date": "2026-07-31",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "6315dd3",
+   "date": "2026-08-05",
+   "message": "Add automatic GitHub repository sync for Admin portal",
+   "placeholder": false
+  },
+  {
+   "hash": "072b757",
+   "date": "2026-08-05",
+   "message": "Add GitHub Sync token modal to Admin header",
+   "placeholder": false
+  },
+  {
+   "hash": "8224045",
+   "date": "2026-08-05",
+   "message": "Add Publish button and system password protection •••••• for Admin portal",
+   "placeholder": false
+  },
+  {
+   "hash": "604015f",
+   "date": "2026-08-05",
+   "message": "Add vercel.json rewrite rules, green iconless Publish button, and automatic token initialization",
+   "placeholder": false
+  },
+  {
+   "hash": "605c137",
+   "date": "2026-08-05",
+   "message": "Update green Publish button, remove token option UI, and add vercel.json routing for admin.html",
+   "placeholder": false
+  },
+  {
+   "hash": "0d86d9b",
+   "date": "2026-08-05",
+   "message": "Update vercel.json routes for admin route",
+   "placeholder": false
+  },
+  {
+   "hash": "2aaa255",
+   "date": "2026-08-05",
+   "message": "Trigger Vercel build for admin password & green publish features",
+   "placeholder": false
+  },
+  {
+   "hash": "e78a0c8",
+   "date": "2026-08-05",
+   "message": "Fix mobile sheet action button layout and handle 401 token invalid sync state",
+   "placeholder": false
+  },
+  {
+   "hash": "5b4599f",
+   "date": "2026-08-05",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "17e6030",
+   "date": "2026-08-05",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "23a7200",
+   "date": "2026-08-08",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "f27e464",
+   "date": "2026-08-08",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "8ed4cd1",
+   "date": "2026-08-08",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "4c2895a",
+   "date": "2026-08-13",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "4b9ed9e",
+   "date": "2026-08-13",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "8c71c99",
+   "date": "2026-08-13",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "a7c5cad",
+   "date": "2026-08-13",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "619fa1f",
+   "date": "2026-08-13",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "9757ef2",
+   "date": "2026-08-17",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "496cd6a",
+   "date": "2026-08-18",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "d871c69",
+   "date": "2026-08-18",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "71403a1",
+   "date": "2026-08-18",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "e02fdd8",
+   "date": "2026-08-18",
+   "message": "Auto-sync products data from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "ea39f57",
+   "date": "2026-08-23",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "a138e7b",
+   "date": "2026-08-23",
+   "message": "Delete product: Midnight Heritage Brass Cremation Urn",
+   "placeholder": false
+  },
+  {
+   "hash": "eda0c9a",
+   "date": "2026-08-23",
+   "message": "Quieten publish fallback, cache route probe, add local-copy reset",
+   "placeholder": false
+  },
+  {
+   "hash": "33817d6",
+   "date": "2026-08-23",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "26513be",
+   "date": "2026-08-23",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "e65e6c0",
+   "date": "2026-08-23",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "2929ca3",
+   "date": "2026-08-23",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "3262784",
+   "date": "2026-08-23",
+   "message": "Add signature product, best sellers carousel, explicit-publish fix",
+   "placeholder": false
+  },
+  {
+   "hash": "a29a7ff",
+   "date": "2026-08-23",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "ed3a6e7",
+   "date": "2026-08-23",
+   "message": "Serve the catalogue at a stable URL so publishes reach every device",
+   "placeholder": false
+  },
+  {
+   "hash": "273c0fe",
+   "date": "2026-08-23",
+   "message": "Correct the WhatsApp enquiry number",
+   "placeholder": false
+  },
+  {
+   "hash": "baa4e01",
+   "date": "2026-08-23",
+   "message": "Public pages read the published catalogue, never localStorage",
+   "placeholder": false
+  },
+  {
+   "hash": "7c9cc10",
+   "date": "2026-08-23",
+   "message": "Fix the Publish button doing nothing at all",
+   "placeholder": false
+  },
+  {
+   "hash": "2f05ddd",
+   "date": "2026-08-23",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "e7b74ea",
+   "date": "2026-08-25",
+   "message": "Publish reaches every device without waiting on a rebuild",
+   "placeholder": false
+  },
+  {
+   "hash": "17be357",
+   "date": "2026-08-25",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "ada2176",
+   "date": "2026-08-25",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "e5e5c00",
+   "date": "2026-08-25",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "dd31bc6",
+   "date": "2026-08-25",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "b8f3ac4",
+   "date": "2026-08-25",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "11d9c87",
+   "date": "2026-08-25",
+   "message": "Merge branch 'main' of https://github.com/rushanhaque/Casa-Crop",
+   "placeholder": false
+  },
+  {
+   "hash": "439f357",
+   "date": "2026-08-25",
+   "message": "Publish catalogue from Admin Panel (+3 photos)",
+   "placeholder": false
+  },
+  {
+   "hash": "a9d365d",
+   "date": "2026-08-25",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "ddd73e5",
+   "date": "2026-08-25",
+   "message": "",
+   "placeholder": true
+  },
+  {
+   "hash": "63bdfee",
+   "date": "2026-08-25",
+   "message": "Merge remote-tracking branch 'origin/main'",
+   "placeholder": false
+  },
+  {
+   "hash": "8e4a8ba",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "fe8a70b",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "0e704c3",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "224fb16",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "7a44df2",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "8a2f1ef",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "e030c30",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "aa5fcc1",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel",
+   "placeholder": false
+  },
+  {
+   "hash": "6a9a53b",
+   "date": "2026-08-26",
+   "message": "Publish catalogue from Admin Panel (+1 photo)",
+   "placeholder": false
+  },
+  {
+   "hash": "9076a66",
+   "date": "2026-09-04",
+   "message": "",
+   "placeholder": true
+  }
+ ],
+ "milestones": [
+  {
+   "label": "First commit",
+   "hash": "0468958",
+   "image": "/images/studies/rewind-1.webp",
+   "caption": "The opening split screen. Two houses, no photography yet.",
+   "index": 0,
+   "date": "2026-07-20"
+  },
+  {
+   "label": "First collections",
+   "hash": "0468958",
+   "image": "/images/studies/rewind-2.webp",
+   "caption": "Collection cards as material swatches, before the photography arrived.",
+   "index": 0,
+   "date": "2026-07-20"
+  },
+  {
+   "label": "Design settles",
+   "hash": "0edcb6a",
+   "image": "/images/studies/rewind-3.webp",
+   "caption": "A full-bleed interior opens the house.",
+   "index": 10,
+   "date": "2026-07-28"
+  },
+  {
+   "label": "Collections photographed",
+   "hash": "0edcb6a",
+   "image": "/images/studies/rewind-4.webp",
+   "caption": "Every collection card gets its own room.",
+   "index": 10,
+   "date": "2026-07-28"
+  },
+  {
+   "label": "Signature piece",
+   "hash": "3262784",
+   "image": "/images/studies/rewind-5.webp",
+   "caption": "A signature product chapter and best-sellers carousel.",
+   "index": 42,
+   "date": "2026-08-23"
+  },
+  {
+   "label": "Live today",
+   "hash": "9076a66",
+   "image": "/images/studies/rewind-6.webp",
+   "caption": "The site as it stands, with a catalogue the client publishes.",
+   "index": 69,
+   "date": "2026-09-04"
+  }
+ ]
+}
