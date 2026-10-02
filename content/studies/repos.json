@@ -1,0 +1,686 @@
+{
+ "user": "rushanhaque",
+ "fetchedAt": "2026-10-02",
+ "projects": [
+  {
+   "name": "Wayforge-AI",
+   "title": "Wayforge AI",
+   "date": "2025-10-08",
+   "pushed": "2025-10-08",
+   "language": "HTML",
+   "description": "AI-powered personalized learning path generator (prototype)",
+   "url": "https://wayforge-ai.vercel.app",
+   "repo": "https://github.com/rushanhaque/Wayforge-AI"
+  },
+  {
+   "name": "Wanderlens-AI",
+   "title": "Wanderlens AI",
+   "date": "2025-10-15",
+   "pushed": "2025-10-15",
+   "language": "TypeScript",
+   "description": "AI powered Travel planner which plans itineraries and provides accommodation tailored to user preference, style etc.",
+   "url": "https://wanderlens-ai.vercel.app",
+   "repo": "https://github.com/rushanhaque/Wanderlens-AI"
+  },
+  {
+   "name": "CodeSense-AI",
+   "title": "Code Sense AI",
+   "date": "2025-10-18",
+   "pushed": "2026-01-28",
+   "language": "TypeScript",
+   "description": "Line by line Code explainer AI",
+   "url": "https://github.com/rushanhaque/CodeSense-AI",
+   "repo": "https://github.com/rushanhaque/CodeSense-AI"
+  },
+  {
+   "name": "InviteMaster",
+   "title": "Invite Master",
+   "date": "2025-10-18",
+   "pushed": "2025-10-18",
+   "language": "HTML",
+   "description": "Random basic Invitation card generator",
+   "url": "https://github.com/rushanhaque/InviteMaster",
+   "repo": "https://github.com/rushanhaque/InviteMaster"
+  },
+  {
+   "name": "Ledgerly-expense-tracker-",
+   "title": "Ledgerly Expense Tracker",
+   "date": "2025-10-21",
+   "pushed": "2025-10-21",
+   "language": "TypeScript",
+   "description": "Simple expense tracking simulator, Smart insights and much more.",
+   "url": "https://ledgerly-expense-tracker.vercel.app",
+   "repo": "https://github.com/rushanhaque/Ledgerly-expense-tracker-"
+  },
+  {
+   "name": "Transport-vehicle-G-sheet-for-SIAAM",
+   "title": "Transport Vehicle G Sheet For Siaam",
+   "date": "2025-10-23",
+   "pushed": "2025-10-23",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://transport-vehicle-g-sheet-for-siaam.vercel.app",
+   "repo": "https://github.com/rushanhaque/Transport-vehicle-G-sheet-for-SIAAM"
+  },
+  {
+   "name": "Focus-collab-personal",
+   "title": "Focus Collab Personal",
+   "date": "2025-10-28",
+   "pushed": "2025-10-28",
+   "language": null,
+   "description": null,
+   "url": "https://github.com/rushanhaque/Focus-collab-personal",
+   "repo": "https://github.com/rushanhaque/Focus-collab-personal"
+  },
+  {
+   "name": "CARD-generator-mobile-app",
+   "title": "Card Generator Mobile App",
+   "date": "2025-10-30",
+   "pushed": "2025-10-30",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://cardmaster-plum.vercel.app",
+   "repo": "https://github.com/rushanhaque/CARD-generator-mobile-app"
+  },
+  {
+   "name": "College-Portal",
+   "title": "College Portal",
+   "date": "2025-11-05",
+   "pushed": "2025-11-08",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/College-Portal",
+   "repo": "https://github.com/rushanhaque/College-Portal"
+  },
+  {
+   "name": "delivery-route-optimizer",
+   "title": "Delivery Route Optimizer",
+   "date": "2025-11-06",
+   "pushed": "2025-11-06",
+   "language": null,
+   "description": null,
+   "url": "https://github.com/rushanhaque/delivery-route-optimizer",
+   "repo": "https://github.com/rushanhaque/delivery-route-optimizer"
+  },
+  {
+   "name": "Caffind",
+   "title": "Caffind",
+   "date": "2025-11-09",
+   "pushed": "2025-11-13",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/Caffind",
+   "repo": "https://github.com/rushanhaque/Caffind"
+  },
+  {
+   "name": "Price-tracker-",
+   "title": "Price Tracker",
+   "date": "2025-11-13",
+   "pushed": "2025-11-13",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/Price-tracker-",
+   "repo": "https://github.com/rushanhaque/Price-tracker-"
+  },
+  {
+   "name": "Particle-text-generater",
+   "title": "Particle Text Generater",
+   "date": "2025-11-21",
+   "pushed": "2025-11-21",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://particle-text-generater.vercel.app",
+   "repo": "https://github.com/rushanhaque/Particle-text-generater"
+  },
+  {
+   "name": "Shortest-path-visualizer-DSA",
+   "title": "Shortest Path Visualizer DSA",
+   "date": "2025-11-21",
+   "pushed": "2025-11-21",
+   "language": "Python",
+   "description": null,
+   "url": "https://github.com/rushanhaque/Shortest-path-visualizer-DSA",
+   "repo": "https://github.com/rushanhaque/Shortest-path-visualizer-DSA"
+  },
+  {
+   "name": "e_commerce_pricetracker",
+   "title": "E Commerce Pricetracker",
+   "date": "2025-11-23",
+   "pushed": "2025-11-23",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/e_commerce_pricetracker",
+   "repo": "https://github.com/rushanhaque/e_commerce_pricetracker"
+  },
+  {
+   "name": "killswitch",
+   "title": "Killswitch",
+   "date": "2026-01-22",
+   "pushed": "2026-02-01",
+   "language": "Python",
+   "description": "An audio-triggered panic system that instantly eradicates digital evidence and establishes workplace credibility with a simple double-knock.",
+   "url": "https://github.com/rushanhaque/killswitch",
+   "repo": "https://github.com/rushanhaque/killswitch"
+  },
+  {
+   "name": "sentry-mode",
+   "title": "Sentry Mode",
+   "date": "2026-01-23",
+   "pushed": "2026-02-01",
+   "language": "Python",
+   "description": "Arms your PC, raises an alarm and sends a notification to mobile in case of unauthorised access",
+   "url": "https://github.com/rushanhaque/sentry-mode",
+   "repo": "https://github.com/rushanhaque/sentry-mode"
+  },
+  {
+   "name": "SHADOW_CHAT",
+   "title": "Shadow Chat",
+   "date": "2026-02-01",
+   "pushed": "2026-02-01",
+   "language": "HTML",
+   "description": "Private chatroom with auto wipe",
+   "url": "https://github.com/rushanhaque/SHADOW_CHAT",
+   "repo": "https://github.com/rushanhaque/SHADOW_CHAT"
+  },
+  {
+   "name": "Novellect",
+   "title": "Novellect",
+   "date": "2026-02-19",
+   "pushed": "2026-02-19",
+   "language": "TypeScript",
+   "description": "Literary Curation for Mordern mind",
+   "url": "https://novellect.vercel.app",
+   "repo": "https://github.com/rushanhaque/Novellect"
+  },
+  {
+   "name": "LinguaLens",
+   "title": "Lingua Lens",
+   "date": "2026-02-23",
+   "pushed": "2026-10-01",
+   "language": "JavaScript",
+   "description": "AR based object detection and identification app for people learning a language",
+   "url": "https://lingua-lens-tan.vercel.app",
+   "repo": "https://github.com/rushanhaque/LinguaLens"
+  },
+  {
+   "name": "3D-video-tool-submit",
+   "title": "3D Video Tool Submit",
+   "date": "2026-02-26",
+   "pushed": "2026-02-26",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/3D-video-tool-submit",
+   "repo": "https://github.com/rushanhaque/3D-video-tool-submit"
+  },
+  {
+   "name": "Delloite-task-1",
+   "title": "Delloite Task 1",
+   "date": "2026-02-26",
+   "pushed": "2026-02-26",
+   "language": "Python",
+   "description": null,
+   "url": "https://github.com/rushanhaque/Delloite-task-1",
+   "repo": "https://github.com/rushanhaque/Delloite-task-1"
+  },
+  {
+   "name": "flutterapp_submit",
+   "title": "Flutterapp Submit",
+   "date": "2026-02-26",
+   "pushed": "2026-02-26",
+   "language": "Dart",
+   "description": null,
+   "url": "https://github.com/rushanhaque/flutterapp_submit",
+   "repo": "https://github.com/rushanhaque/flutterapp_submit"
+  },
+  {
+   "name": "AuraAI",
+   "title": "Aura AI",
+   "date": "2026-03-01",
+   "pushed": "2026-03-01",
+   "language": "JavaScript",
+   "description": "Chatbot which works as a floating extension and is invisible to screanshots and screen shares",
+   "url": "https://github.com/rushanhaque/AuraAI",
+   "repo": "https://github.com/rushanhaque/AuraAI"
+  },
+  {
+   "name": "Cortex",
+   "title": "Cortex",
+   "date": "2026-03-01",
+   "pushed": "2026-03-01",
+   "language": "JavaScript",
+   "description": "Enhanced SS micro tool",
+   "url": "https://github.com/rushanhaque/Cortex",
+   "repo": "https://github.com/rushanhaque/Cortex"
+  },
+  {
+   "name": "UpsideSound",
+   "title": "Upside Sound",
+   "date": "2026-03-12",
+   "pushed": "2026-06-21",
+   "language": "JavaScript",
+   "description": "Stranger things themed music recommendation",
+   "url": "https://upsidesound.vercel.app",
+   "repo": "https://github.com/rushanhaque/UpsideSound"
+  },
+  {
+   "name": "NordeMCU_FileServer",
+   "title": "Norde MCU File Server",
+   "date": "2026-03-14",
+   "pushed": "2026-03-14",
+   "language": "C++",
+   "description": "Locally host a server for file sharing by ESP wifi ",
+   "url": "https://github.com/rushanhaque/NordeMCU_FileServer",
+   "repo": "https://github.com/rushanhaque/NordeMCU_FileServer"
+  },
+  {
+   "name": "SymphonyPiano",
+   "title": "Symphony Piano",
+   "date": "2026-03-14",
+   "pushed": "2026-03-14",
+   "language": "JavaScript",
+   "description": "Piano Simulator",
+   "url": "https://symphony-coral.vercel.app",
+   "repo": "https://github.com/rushanhaque/SymphonyPiano"
+  },
+  {
+   "name": "ReallySmartAttendance",
+   "title": "Really Smart Attendance",
+   "date": "2026-03-15",
+   "pushed": "2026-03-15",
+   "language": "C++",
+   "description": "Detects for phone's mac address via automatic collections and registers entry and exit time. Add people by MAC adress and names on line 133",
+   "url": "https://github.com/rushanhaque/ReallySmartAttendance",
+   "repo": "https://github.com/rushanhaque/ReallySmartAttendance"
+  },
+  {
+   "name": "GettingQwerty",
+   "title": "Getting Qwerty",
+   "date": "2026-03-16",
+   "pushed": "2026-03-16",
+   "language": "JavaScript",
+   "description": "Advanced Typing speed test Game",
+   "url": "https://gettingqwerty.vercel.app",
+   "repo": "https://github.com/rushanhaque/GettingQwerty"
+  },
+  {
+   "name": "ErfolgLiving",
+   "title": "Erfolg Living",
+   "date": "2026-04-18",
+   "pushed": "2026-07-28",
+   "language": "HTML",
+   "description": "Erfolg Living By DF",
+   "url": "https://erfolg-living.vercel.app",
+   "repo": "https://github.com/rushanhaque/ErfolgLiving"
+  },
+  {
+   "name": "Ateliera",
+   "title": "Ateliera",
+   "date": "2026-04-27",
+   "pushed": "2026-05-05",
+   "language": "JavaScript",
+   "description": "Personal freelance profile",
+   "url": "https://github.com/rushanhaque/Ateliera",
+   "repo": "https://github.com/rushanhaque/Ateliera"
+  },
+  {
+   "name": "chaudharysons",
+   "title": "Chaudharysons",
+   "date": "2026-04-30",
+   "pushed": "2026-06-16",
+   "language": "CSS",
+   "description": null,
+   "url": "https://chaudharysons.vercel.app",
+   "repo": "https://github.com/rushanhaque/chaudharysons"
+  },
+  {
+   "name": "PortfolioTemplate4Atelier",
+   "title": "Portfolio Template4 Atelier",
+   "date": "2026-05-02",
+   "pushed": "2026-05-02",
+   "language": "CSS",
+   "description": null,
+   "url": "https://github.com/rushanhaque/PortfolioTemplate4Atelier",
+   "repo": "https://github.com/rushanhaque/PortfolioTemplate4Atelier"
+  },
+  {
+   "name": "AtelierbyRH",
+   "title": "Atelierby RH",
+   "date": "2026-05-06",
+   "pushed": "2026-05-06",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/AtelierbyRH",
+   "repo": "https://github.com/rushanhaque/AtelierbyRH"
+  },
+  {
+   "name": "atelys",
+   "title": "Atelys",
+   "date": "2026-05-10",
+   "pushed": "2026-05-11",
+   "language": "CSS",
+   "description": null,
+   "url": "https://github.com/rushanhaque/atelys",
+   "repo": "https://github.com/rushanhaque/atelys"
+  },
+  {
+   "name": "AFUrnsCatalogue",
+   "title": "AF Urns Catalogue",
+   "date": "2026-05-20",
+   "pushed": "2026-05-20",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://af-urns-catalogue.vercel.app",
+   "repo": "https://github.com/rushanhaque/AFUrnsCatalogue"
+  },
+  {
+   "name": "ChurnZero",
+   "title": "Churn Zero",
+   "date": "2026-05-20",
+   "pushed": "2026-05-20",
+   "language": "Python",
+   "description": null,
+   "url": "https://github.com/rushanhaque/ChurnZero",
+   "repo": "https://github.com/rushanhaque/ChurnZero"
+  },
+  {
+   "name": "OLVRMCIN",
+   "title": "Olvrmcin",
+   "date": "2026-05-21",
+   "pushed": "2026-05-21",
+   "language": "HTML",
+   "description": null,
+   "url": "https://olvrmcin.vercel.app",
+   "repo": "https://github.com/rushanhaque/OLVRMCIN"
+  },
+  {
+   "name": "OliverInspectionSW",
+   "title": "Oliver Inspection SW",
+   "date": "2026-05-23",
+   "pushed": "2026-06-09",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://oliver-inspection-sw.vercel.app",
+   "repo": "https://github.com/rushanhaque/OliverInspectionSW"
+  },
+  {
+   "name": "CatGen",
+   "title": "Cat Gen",
+   "date": "2026-05-24",
+   "pushed": "2026-05-24",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/CatGen",
+   "repo": "https://github.com/rushanhaque/CatGen"
+  },
+  {
+   "name": "OliverCatalogue",
+   "title": "Oliver Catalogue",
+   "date": "2026-05-29",
+   "pushed": "2026-05-30",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/OliverCatalogue",
+   "repo": "https://github.com/rushanhaque/OliverCatalogue"
+  },
+  {
+   "name": "InfotelCareUI",
+   "title": "Infotel Care UI",
+   "date": "2026-06-11",
+   "pushed": "2026-06-13",
+   "language": "HTML",
+   "description": null,
+   "url": "https://infotel-care-ui.vercel.app",
+   "repo": "https://github.com/rushanhaque/InfotelCareUI"
+  },
+  {
+   "name": "quorum",
+   "title": "Quorum",
+   "date": "2026-06-17",
+   "pushed": "2026-06-24",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://quorum-tan.vercel.app",
+   "repo": "https://github.com/rushanhaque/quorum"
+  },
+  {
+   "name": "superlatives",
+   "title": "Superlatives",
+   "date": "2026-06-17",
+   "pushed": "2026-06-21",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://superlatives-wheat.vercel.app",
+   "repo": "https://github.com/rushanhaque/superlatives"
+  },
+  {
+   "name": "Aurelio",
+   "title": "Aurelio",
+   "date": "2026-06-19",
+   "pushed": "2026-08-01",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://aurelio-rho.vercel.app",
+   "repo": "https://github.com/rushanhaque/Aurelio"
+  },
+  {
+   "name": "BornDay",
+   "title": "Born Day",
+   "date": "2026-06-21",
+   "pushed": "2026-06-21",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://bornday-rouge.vercel.app",
+   "repo": "https://github.com/rushanhaque/BornDay"
+  },
+  {
+   "name": "GitAuto",
+   "title": "Git Auto",
+   "date": "2026-06-23",
+   "pushed": "2026-06-23",
+   "language": null,
+   "description": "Auto Push / Pull & more",
+   "url": "https://github.com/rushanhaque/GitAuto",
+   "repo": "https://github.com/rushanhaque/GitAuto"
+  },
+  {
+   "name": "RideBooking-Malaysia",
+   "title": "Ride Booking Malaysia",
+   "date": "2026-06-25",
+   "pushed": "2026-06-25",
+   "language": "HTML",
+   "description": null,
+   "url": "https://ride-booking-malaysia.vercel.app",
+   "repo": "https://github.com/rushanhaque/RideBooking-Malaysia"
+  },
+  {
+   "name": "InspectionSW",
+   "title": "Inspection SW",
+   "date": "2026-06-27",
+   "pushed": "2026-06-27",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://inspection-sw.vercel.app",
+   "repo": "https://github.com/rushanhaque/InspectionSW"
+  },
+  {
+   "name": "Velora",
+   "title": "Velora",
+   "date": "2026-06-27",
+   "pushed": "2026-09-27",
+   "language": "HTML",
+   "description": null,
+   "url": "https://github.com/rushanhaque/Velora",
+   "repo": "https://github.com/rushanhaque/Velora"
+  },
+  {
+   "name": "prahari-isro",
+   "title": "Prahari Isro",
+   "date": "2026-06-30",
+   "pushed": "2026-06-30",
+   "language": "HTML",
+   "description": null,
+   "url": "https://github.com/rushanhaque/prahari-isro",
+   "repo": "https://github.com/rushanhaque/prahari-isro"
+  },
+  {
+   "name": "CustomerApp-Infotel",
+   "title": "Customer App Infotel",
+   "date": "2026-07-16",
+   "pushed": "2026-07-22",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://customer-app-infotel.vercel.app",
+   "repo": "https://github.com/rushanhaque/CustomerApp-Infotel"
+  },
+  {
+   "name": "Casa-Crop",
+   "title": "Casa Crop",
+   "date": "2026-07-17",
+   "pushed": "2026-09-04",
+   "language": "CSS",
+   "description": null,
+   "url": "https://github.com/rushanhaque/Casa-Crop",
+   "repo": "https://github.com/rushanhaque/Casa-Crop"
+  },
+  {
+   "name": "casaandcroptrial",
+   "title": "Casaandcroptrial",
+   "date": "2026-07-20",
+   "pushed": "2026-08-05",
+   "language": "CSS",
+   "description": null,
+   "url": "https://casaandcroptrial.vercel.app",
+   "repo": "https://github.com/rushanhaque/casaandcroptrial"
+  },
+  {
+   "name": "TechnicianApp-Infotel",
+   "title": "Technician App Infotel",
+   "date": "2026-07-21",
+   "pushed": "2026-07-28",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://technician-app-infotel.vercel.app",
+   "repo": "https://github.com/rushanhaque/TechnicianApp-Infotel"
+  },
+  {
+   "name": "atelysrevamp",
+   "title": "Atelysrevamp",
+   "date": "2026-08-01",
+   "pushed": "2026-08-01",
+   "language": null,
+   "description": null,
+   "url": "https://github.com/rushanhaque/atelysrevamp",
+   "repo": "https://github.com/rushanhaque/atelysrevamp"
+  },
+  {
+   "name": "CrochetTemplate",
+   "title": "Crochet Template",
+   "date": "2026-08-01",
+   "pushed": "2026-08-01",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://crochet-template.vercel.app",
+   "repo": "https://github.com/rushanhaque/CrochetTemplate"
+  },
+  {
+   "name": "TaifInternationalTrial",
+   "title": "Taif International Trial",
+   "date": "2026-08-01",
+   "pushed": "2026-09-30",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/TaifInternationalTrial",
+   "repo": "https://github.com/rushanhaque/TaifInternationalTrial"
+  },
+  {
+   "name": "aeris-export-template",
+   "title": "Aeris Export Template",
+   "date": "2026-08-02",
+   "pushed": "2026-08-02",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://aeris-export-template.vercel.app",
+   "repo": "https://github.com/rushanhaque/aeris-export-template"
+  },
+  {
+   "name": "Filigrana",
+   "title": "Filigrana",
+   "date": "2026-08-02",
+   "pushed": "2026-08-02",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://filigrana-seven.vercel.app",
+   "repo": "https://github.com/rushanhaque/Filigrana"
+  },
+  {
+   "name": "MaisonQuinteDesigns",
+   "title": "Maison Quinte Designs",
+   "date": "2026-08-02",
+   "pushed": "2026-08-02",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://maison-quinte-designs.vercel.app",
+   "repo": "https://github.com/rushanhaque/MaisonQuinteDesigns"
+  },
+  {
+   "name": "BarhaTrial",
+   "title": "Barha Trial",
+   "date": "2026-08-05",
+   "pushed": "2026-09-04",
+   "language": "JavaScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/BarhaTrial",
+   "repo": "https://github.com/rushanhaque/BarhaTrial"
+  },
+  {
+   "name": "ColourTheme-Select",
+   "title": "Colour Theme Select",
+   "date": "2026-08-12",
+   "pushed": "2026-08-12",
+   "language": "HTML",
+   "description": null,
+   "url": "https://colour-theme-select.vercel.app",
+   "repo": "https://github.com/rushanhaque/ColourTheme-Select"
+  },
+  {
+   "name": "rushanhaque.in",
+   "title": "Rushanhaque.in",
+   "date": "2026-08-15",
+   "pushed": "2026-10-01",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://rushanhaque-in.vercel.app",
+   "repo": "https://github.com/rushanhaque/rushanhaque.in"
+  },
+  {
+   "name": "SmartThreatWeb",
+   "title": "Smart Threat Web",
+   "date": "2026-08-28",
+   "pushed": "2026-09-01",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://smart-threat-web.vercel.app",
+   "repo": "https://github.com/rushanhaque/SmartThreatWeb"
+  },
+  {
+   "name": "SmartThreatNative",
+   "title": "Smart Threat Native",
+   "date": "2026-09-02",
+   "pushed": "2026-09-04",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://github.com/rushanhaque/SmartThreatNative",
+   "repo": "https://github.com/rushanhaque/SmartThreatNative"
+  },
+  {
+   "name": "aurelio-ecom",
+   "title": "Aurelio Ecom",
+   "date": "2026-09-27",
+   "pushed": "2026-10-01",
+   "language": "TypeScript",
+   "description": null,
+   "url": "https://aurelio-ecom.vercel.app",
+   "repo": "https://github.com/rushanhaque/aurelio-ecom"
+  }
+ ]
+}

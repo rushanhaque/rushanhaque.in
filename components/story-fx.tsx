@@ -29,9 +29,9 @@ export function scramble(el: HTMLElement, duration = 700) {
 
 type Scene = 'forest' | 'paper' | 'sage';
 const scenes: Record<Scene, { bg: string; fg: string }> = {
-  forest: { bg: '#072319', fg: '#f3f3de' },
-  paper: { bg: '#fbfcf8', fg: '#072319' },
-  sage: { bg: '#e9efdf', fg: '#072319' },
+  forest: { bg: '#07241a', fg: '#f3f3de' },
+  paper: { bg: '#fbfcf8', fg: '#07241a' },
+  sage: { bg: '#eae8e4', fg: '#07241a' },
 };
 
 // Each chapter marked `data-scene` morphs the page from the previous chapter's

@@ -23,36 +23,18 @@
       "slug": "to-the-moon-and-beyond",
       "title": "To the Moon and Beyond.",
       "originalTitle": "To the Moon and Beyond",
-      "category": "Book",
+      "category": "Book contribution",
       "year": "2021",
       "status": "Published",
       "url": "https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW",
-      "description": "Published by Blue Rose Publishers, September 2021. Kindle ebook.",
+      "description": "A book contribution, published by Blue Rose Publishers in September 2021.",
       "paragraphs": [
-        "Published by Blue Rose Publishers on 29 September 2021. Available as a Kindle ebook."
+        "A contribution to a book published by Blue Rose Publishers on 29 September 2021. Available as a Kindle ebook."
       ],
       "source": "Blue Rose Publishers · Amazon Kindle",
       "image": "/images/writing-to-the-moon-and-beyond.webp",
       "imageBlurred": false,
       "author": ""
-    },
-    {
-      "slug": "aabshar-e-khayaal",
-      "title": "Some thoughts arrive as poetry.",
-      "originalTitle": "Aabshar-e-Khayaal",
-      "category": "Urdu poetry",
-      "year": "2024",
-      "status": "Ongoing",
-      "url": "https://www.instagram.com/aabshar_e_khayaal/",
-      "description": "Urdu poetry and reflective writing.",
-      "paragraphs": [
-        "An ongoing collection of Urdu poetry and reflective writing.",
-        "Read it on Instagram."
-      ],
-      "source": "Original writing collection",
-      "image": "/images/writing-aabshar-e-khayaal.webp",
-      "imageBlurred": false,
-      "author": "Rushan Haque"
     },
     {
       "slug": "the-psychology-framework",
@@ -70,73 +52,44 @@
       "image": "/images/writing-the-psychology-framework.webp",
       "imageBlurred": true,
       "author": "Rushan Haque"
-    },
-    {
-      "slug": "samundar",
-      "title": "A sea of things still unwritten.",
-      "originalTitle": "Samundar",
-      "category": "Book in progress",
-      "year": "2026",
-      "status": "Forthcoming",
-      "url": "",
-      "description": "An upcoming book.",
-      "paragraphs": [
-        "An upcoming book. Details soon."
-      ],
-      "source": "In progress",
-      "image": "/images/writing-samundar.webp",
-      "imageBlurred": true,
-      "author": "Rushan Haque"
     }
   ],
   "experience": [
     {
-      "role": "Head of Business Development",
-      "company": "TechBuzzIdeas",
-      "period": "May 2026 — Present",
-      "description": "Leading partnerships and growth."
+      "role": "Project Manager",
+      "company": "TechBuzz Ideas",
+      "period": "Jul 2026 — Present",
+      "description": "Leading end-to-end delivery of client web and software projects: scope, timelines and the client relationship."
     },
     {
-      "role": "Web Designer",
-      "company": "TechBuzzIdeas",
-      "period": "Feb 2026 — May 2026",
-      "description": "Designed and shipped client sites."
+      "role": "UI/UX Developer",
+      "company": "TechBuzz Ideas",
+      "period": "Apr 2026 — Jul 2026",
+      "description": "Responsive interfaces for websites, custom software and mobile apps, with immersive experiences and next-gen animation."
     },
     {
-      "role": "Ambassador & Fundraiser",
-      "company": "NayePankh Foundation",
-      "period": "Feb 2026 — Apr 2026",
-      "description": "Outreach and fundraising for education."
+      "role": "Merchandiser",
+      "company": "A.F. International",
+      "period": "Jul 2025 — Jan 2026",
+      "description": "Product development and production schedules for an export manufacturer, coordinating international buyers and vendors."
     },
     {
       "role": "Freelance Developer",
       "company": "Independent",
-      "period": "Dec 2025 — Present",
-      "description": "Full-stack builds for clients."
-    },
-    {
-      "role": "Merchandiser",
-      "company": "AF International",
-      "period": "Aug 2025 — Jan 2026",
-      "description": "Inventory and vendor coordination."
-    },
-    {
-      "role": "Independent Writer",
-      "company": "Self-employed",
-      "period": "2022 — Present",
-      "description": "Essays, poetry and research."
+      "period": "2024 — Present",
+      "description": "Websites for commercial clients worldwide, including e-commerce stores and digital catalogues. The full lifecycle, from requirements to post-launch support."
     }
   ],
   "education": [
     {
-      "title": "B.Tech, Computer Science (IoT)",
+      "title": "Bachelor of Technology, Computer Science (IoT)",
       "institution": "Moradabad Institute of Technology",
-      "detail": "B.Tech"
+      "detail": "2023 — 2027"
     },
     {
-      "title": "Senior Secondary",
+      "title": "Senior Secondary (CBSE)",
       "institution": "Bonny Anne Public School",
-      "detail": "CBSE"
+      "detail": "2021 — 2023"
     }
   ],
   "certifications": [
@@ -414,6 +367,12 @@
       "title": "Cloud solutions",
       "subtitle": "Infrastructure",
       "description": "Hosting and infrastructure that scales.",
+      "items": []
+    },
+    {
+      "title": "Mobile app development",
+      "subtitle": "Apps",
+      "description": "iOS and Android apps, built to feel native and shipped to the stores.",
       "items": []
     },
     {

@@ -13,8 +13,8 @@
 .opening-meta { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 24px; font-size: 11px; line-height: 1.6; letter-spacing: .1em; }
 .opening-meta > :last-child { text-align: right; }
 .opening-edition { display: flex; align-items: center; gap: 10px; }
-.opening-edition::before { content: ''; flex: 0 0 6px; width: 6px; height: 6px; background: #4b7354; border-radius: 50%; }
-.opening-clock { color: #53675b; font-variant-numeric: tabular-nums; }
+.opening-edition::before { content: ''; flex: 0 0 6px; width: 6px; height: 6px; background: #07241a; border-radius: 50%; }
+.opening-clock { color: #07241ab8; font-variant-numeric: tabular-nums; }
 .opening-copy { min-width: 0; align-self: center; container-type: inline-size; padding-block: 20px; }
 .opening-heading { font-size: clamp(60px, 18cqi, 200px); line-height: 1; letter-spacing: -.065em; font-weight: 450; }
 .opening-name { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; font-size: 11px; font-weight: 500; line-height: 1.6; letter-spacing: .08em; }
@@ -23,24 +23,24 @@
 .opening-first { padding-bottom: .08em; }
 .opening-second { margin-left: .18em; font-size: 1.06em; letter-spacing: -.035em; line-height: 1.12; padding-bottom: .08em; }
 .opening-letter { display: inline-block; }
-.opening-period { display: inline-block; font-size: .18em; vertical-align: top; margin: .3em 0 0 .25em; letter-spacing: 0; color: #547347; }
+.opening-period { display: inline-block; font-size: .18em; vertical-align: top; margin: .3em 0 0 .25em; letter-spacing: 0; color: #07241a; }
 .opening-statement { margin-top: clamp(24px, 3vw, 44px); font-size: clamp(19px, 1.6vw, 26px); line-height: 1.5; letter-spacing: -.02em; }
-.opening-statement em { color: #4d6a54; font-size: 1.2em; }
+.opening-statement em { color: #07241a; font-size: 1.2em; }
 .opening-object-wrap { position: relative; min-width: 0; width: 100%; max-width: 540px; align-self: center; justify-self: center; padding-block: 28px; perspective: 800px; }
-.opening-object-wrap::before { content: ''; position: absolute; inset: 12% 4%; border: 1px solid #0723191c; border-radius: 50%; pointer-events: none; }
+.opening-object-wrap::before { content: ''; position: absolute; inset: 12% 4%; border: 1px solid #07241a1c; border-radius: 50%; pointer-events: none; }
 .opening-object { position: relative; transform-style: preserve-3d; }
 .opening-object img { width: 100%; height: auto; }
-.object-coordinate, .object-study { display: block; text-align: center; font-size: 10px; line-height: 1.6; letter-spacing: .1em; color: #53675b; }
+.object-coordinate, .object-study { display: block; text-align: center; font-size: 10px; line-height: 1.6; letter-spacing: .1em; color: #07241ab8; }
 .object-coordinate { margin-bottom: 8px; }
 .object-study { margin-top: 12px; }
 .opening-foot { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr auto; align-items: center; gap: 24px; border-top: 1px solid var(--line); padding-top: 24px; }
 .opening-scroll { display: flex; align-items: center; gap: 12px; font-size: 11px; line-height: 1.5; letter-spacing: .05em; }
-.opening-scroll > span { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #07231940; border-radius: 50%; }
-.opening-foot p { font-size: 13px; line-height: 1.7; color: #42564a; }
+.opening-scroll > span { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #07241a40; border-radius: 50%; }
+.opening-foot p { font-size: 13px; line-height: 1.7; color: #07241ad9; }
 .opening-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; flex-wrap: wrap; }
 .opening-actions .button { font-size: 13px; gap: 16px; }
 .opening-availability { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 12px; }
-.opening-availability > span { width: 5px; height: 5px; border-radius: 50%; background: #4b7354; }
+.opening-availability > span { width: 5px; height: 5px; border-radius: 50%; background: #07241a; }
 @media (max-width: 1199px) {
   .opening-foot { grid-template-columns: 1fr auto; }
   .opening-foot p { display: none; }

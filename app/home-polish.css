@@ -1,13 +1,3 @@
-/* ---------- Chapter rail ---------- */
-.tl-rail{position:fixed;left:20px;top:50%;z-index:60;display:flex;align-items:center;gap:16px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font:500 10px/1 var(--font-sans);letter-spacing:.2em;text-transform:uppercase;mix-blend-mode:difference;color:#fff;opacity:0;transition:opacity .6s}
-.tl-rail.is-shown{opacity:.92}
-.tl-rail-num{font-variant-numeric:tabular-nums;letter-spacing:.12em;opacity:.6}
-.tl-rail-num b{font-weight:600;opacity:1}
-.tl-rail i{position:relative;display:block;width:1px;height:150px;background:rgb(255 255 255 / .22)}
-.tl-rail i b{position:absolute;inset:0;background:#fff;transform:scaleY(0);transform-origin:bottom}
-.tl-rail i em{position:absolute;left:-3px;width:7px;height:1px;margin-bottom:-.5px;background:rgb(255 255 255 / .5);transition:background .4s,width .4s,left .4s}
-.tl-rail i em.is-past{left:-4px;width:9px;background:#fff}
-@media(max-width:899px){.tl-rail{display:none}}
 
 /* ---------- III · Bookshelf ---------- */
 .tl-shelf{--s:1;position:relative;align-self:end;isolation:isolate;padding:0 12px}
@@ -49,10 +39,10 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 .tl-path-legend i{display:inline-block;width:9px;height:9px;margin-right:-10px;border-radius:50%;border:1.5px solid var(--forest)}
 .tl-path-legend i.is-work{background:var(--forest)}
 .tl-path-list{margin-top:70px;padding-block:20px}
-.tl-path-svg .tl-path-track{fill:none;stroke:rgb(7 35 25 / .16);stroke-width:1.2;stroke-dasharray:2 7;stroke-linecap:round}
+.tl-path-svg .tl-path-track{fill:none;stroke:rgb(7 36 26 / 0.16);stroke-width:1.2;stroke-dasharray:2 7;stroke-linecap:round}
 .tl-path-svg .tl-path-ink{fill:none;stroke:url(#tl-path-ink);stroke-width:2.4;stroke-linecap:round}
 .tl-path-head{opacity:0;transition:opacity .3s}
-.tl-path-head circle:first-child{fill:rgb(201 242 111 / .32);animation:tl-path-glow 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.tl-path-head circle:first-child{fill:rgb(7 36 26 / 0.16);animation:tl-path-glow 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .tl-path-head circle:last-child{fill:var(--forest);stroke:var(--signal);stroke-width:2}
 @keyframes tl-path-glow{50%{transform:scale(1.5);opacity:.4}}
 .tl-path-end{position:absolute;left:50%;top:-36px;translate:-50% 0;padding:5px 10px;border-radius:99px;background:var(--forest);color:var(--cream);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
@@ -67,7 +57,7 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 .tl-person.is-live .tl-path-item>div{transform:translateX(-18px)}
 .tl-person.is-live .tl-path-item.is-right>div{transform:translateX(18px)}
 .tl-person.is-live .tl-path-item.is-lit>div{transform:none}
-.tl-path-period{display:inline-block;padding:5px 10px;border:1px solid rgb(7 35 25 / .18);border-radius:99px;font-variant-numeric:tabular-nums;opacity:.85}
+.tl-path-period{display:inline-block;padding:5px 10px;border:1px solid rgb(7 36 26 / 0.18);border-radius:99px;font-variant-numeric:tabular-nums;opacity:.85}
 .tl-path-item h3{margin-top:12px}
 @media(max-width:899px){
   .tl-path-item{grid-template-columns:44px minmax(0,1fr);min-height:0}
@@ -78,3 +68,11 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 }
 @media(max-width:899px){.tl-writing{grid-template-columns:minmax(0,1fr)}.tl-shelf{min-width:0}}
 @media(max-width:899px){.tl-deck-archive span{font-size:24px;line-height:1.15}}
+
+/* Recent works: bigger cards that open the live site. */
+.tl-deck.is-pinned .tl-deck-card{left:54%;top:57%;width:min(60vw,118vh,1120px)}
+.tl-deck.is-pinned .tl-deck-head p{max-width:250px}
+.tl-deck-ghost{font-size:clamp(130px,19vw,360px)}
+.tl-deck-card-visit{position:absolute;right:22px;top:20px;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:99px;background:rgb(243 241 230 / 0.92);color:var(--forest);font-size:12px;font-weight:500;letter-spacing:.02em;opacity:0;translate:0 -6px;transition:opacity .4s,translate .5s var(--ease)}
+.tl-deck-card:hover .tl-deck-card-visit,.tl-deck-card:focus-visible .tl-deck-card-visit{opacity:1;translate:0 0}
+@media(hover:none){.tl-deck-card-visit{opacity:1;translate:0 0}}

@@ -9,7 +9,7 @@ const { breakpoints, max: MAX } = data;
 const MIN = 320, SNAP = 8;
 const bpFor = (w: number) => [...breakpoints].reverse().find(b => w >= b.min) ?? breakpoints[0];
 
-// Study 03 — drag the frame's edge and watch a real, live site reflow. The
+// Study 02 — drag the frame's edge and watch a real, live site reflow. The
 // iframe keeps its true CSS width; the wrapper only scales it to fit.
 export function ResizeStudy() {
   const [site, setSite] = useState(0);
@@ -72,7 +72,7 @@ export function ResizeStudy() {
 
   const current = sites[site];
   const readout = <><b>{width} PX</b><span>{bp.name}</span><span>SCALE {scale.toFixed(2)}×</span><span>{current.name.toUpperCase()}</span></>;
-  return <StudyFrame id="study-03" number="03" name="RESIZE ME" title={<>Don’t take my word<br/>for it. <em>Resize it.</em></>}
+  return <StudyFrame id="study-02" number="02" name="RESIZE ME" title={<>Don’t take my word<br/>for it. <em>Resize it.</em></>}
     truth="Layouts that genuinely adapt. This is a live site, not a screenshot."
     readout={readout} announce={`${width} pixels wide, ${bp.name.toLowerCase()} layout`}
     controls={<div className="study-chips" role="group" aria-label="Choose a live site">{sites.map((s, i) => <button key={s.url} type="button" aria-pressed={site === i} onClick={() => { setSite(i); setLoaded(false); }}>{s.name}</button>)}</div>}

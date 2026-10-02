@@ -7,3 +7,9 @@ export function projectAccess(p: Pick<P, 'category' | 'url' | 'status'>): Projec
   if (p.category === 'Experiments') return 'request';
   return p.url && p.status !== 'Coming soon' ? 'visit' : 'soon';
 }
+// Live client sites open the site itself; everything else opens its page here.
+export function projectLink(p: Pick<P, 'category' | 'url' | 'status' | 'slug'>) {
+  return projectAccess(p) === 'visit'
+    ? { href: p.url, target: '_blank', rel: 'noopener noreferrer' }
+    : { href: `/projects/${p.slug}` };
+}

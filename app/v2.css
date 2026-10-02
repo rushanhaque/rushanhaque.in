@@ -8,12 +8,12 @@
 :root{
   --ease-expo:cubic-bezier(.16,1,.3,1);
   --ease-quart:cubic-bezier(.76,0,.24,1);
-  --lime:#d5e4b4;
+  --lime:#f3f1e6;
   --paper:#fbfcf8;
   --page-gutter:var(--space-gutter);
   --glass:rgb(251 252 248 / .78);
 }
-html{scrollbar-color:rgb(7 35 25 / .35) transparent;scrollbar-width:thin}
+html{scrollbar-color:rgb(7 36 26 / 0.35) transparent;scrollbar-width:thin}
 ::selection{background:var(--lime);color:var(--forest)}
 button:disabled{cursor:not-allowed}
 :where(a,button,summary,[tabindex]):focus-visible{outline:2px solid var(--forest);outline-offset:4px;border-radius:2px}
@@ -23,10 +23,10 @@ img{height:auto}
 /* --------------------------------------------------------------------------
    Custom cursor (fine pointers, motion on)
    -------------------------------------------------------------------------- */
-.cursor{position:fixed;inset:0 auto auto 0;z-index:9999;pointer-events:none;display:none;opacity:0;transition:opacity .3s;--c:var(--forest);--c-soft:rgb(213 228 180 / .45);--c-label:#f3f3de}
+.cursor{position:fixed;inset:0 auto auto 0;z-index:9999;pointer-events:none;display:none;opacity:0;transition:opacity .3s;--c:var(--forest);--c-soft:rgb(243 241 230 / 0.45);--c-label:#f3f3de}
 .has-cursor .cursor{display:block}
 .cursor.is-visible{opacity:1}
-.cursor[data-tone=dark]{--c:var(--lime);--c-soft:rgb(213 228 180 / .18);--c-label:var(--forest)}
+.cursor[data-tone=dark]{--c:var(--lime);--c-soft:rgb(243 241 230 / 0.18);--c-label:var(--forest)}
 .cursor[data-state=text]{opacity:0}
 .has-cursor,.has-cursor *{cursor:none!important}
 .has-cursor :is(input:not([type=range]):not([type=checkbox]):not([type=radio]),textarea,[contenteditable=true]){cursor:text!important}
@@ -83,12 +83,12 @@ img{height:auto}
 .desktop-nav a{display:inline-flex;align-items:flex-start}
 .desktop-nav a>span:not(.roll){top:-3px}
 .footer-nav .roll-host{--roll-shadow:var(--lime)}
-.footer-nav .roll-host:hover{color:#d9e3dc}
+.footer-nav .roll-host:hover{color:#e2e0da}
 
 /* --------------------------------------------------------------------------
    Text links: the underline draws in from the left and leaves to the right.
    -------------------------------------------------------------------------- */
-.text-link{border-bottom-color:transparent!important;background:linear-gradient(currentColor,currentColor) right 100%/0 1px no-repeat,linear-gradient(rgb(7 35 25 / .22),rgb(7 35 25 / .22)) 0 100%/100% 1px no-repeat;transition:background-size .65s var(--ease-expo),color .3s}
+.text-link{border-bottom-color:transparent!important;background:linear-gradient(currentColor,currentColor) right 100%/0 1px no-repeat,linear-gradient(rgb(7 36 26 / 0.22),rgb(7 36 26 / 0.22)) 0 100%/100% 1px no-repeat;transition:background-size .65s var(--ease-expo),color .3s}
 .text-link:hover,.text-link:focus-visible{background-size:100% 1px,100% 1px;background-position:left 100%,0 100%}
 .text-link svg{transition:transform .5s var(--ease-expo)}
 .text-link:hover svg{transform:translate(3px,-3px) rotate(0deg)}
@@ -97,13 +97,13 @@ img{height:auto}
    Spotlight surfaces — a soft light follows the pointer inside cards.
    -------------------------------------------------------------------------- */
 .fx-spot{position:relative;isolation:isolate;overflow:hidden}
-.fx-spot:after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .5s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgb(213 228 180 / .6),rgb(213 228 180 / 0) 62%)}
+.fx-spot:after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .5s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgb(243 241 230 / 0.6),rgb(243 241 230 / 0.0) 62%)}
 .fx-spot:hover:after{opacity:1}
 .fx-spot{transition:transform .6s var(--ease-expo),box-shadow .6s var(--ease-expo),border-color .4s}
-.fx-spot:hover{transform:translateY(-4px);box-shadow:0 26px 50px -38px rgb(7 35 25 / .5)}
+.fx-spot:hover{transform:translateY(-4px);box-shadow:0 26px 50px -38px rgb(7 36 26 / 0.5)}
 .insight-card:hover{transform:none}
 .credential-card{transition:border-color .4s,box-shadow .6s var(--ease-expo)}
-.credential-card:hover{border-color:rgb(7 35 25 / .3);box-shadow:0 26px 50px -38px rgb(7 35 25 / .45)}
+.credential-card:hover{border-color:rgb(7 36 26 / 0.3);box-shadow:0 26px 50px -38px rgb(7 36 26 / 0.45)}
 
 /* --------------------------------------------------------------------------
    Tilt frames with a moving glare.
@@ -136,7 +136,7 @@ img{height:auto}
 .wordmark:hover{letter-spacing:-.8px}
 .wordmark .brand-dot{display:inline-block}
 .wordmark:hover .brand-dot{animation:rh-hop .7s var(--ease-expo)}
-@keyframes rh-hop{0%{translate:0 0}35%{translate:0 -.35em;color:#3f7a5c}70%{translate:0 .04em}100%{translate:0 0}}
+@keyframes rh-hop{0%{translate:0 0}35%{translate:0 -.35em;color:#07241a}70%{translate:0 .04em}100%{translate:0 0}}
 
 /* Menu trigger. */
 .menu-trigger{transition:transform .6s var(--ease-expo),background .3s,translate .6s var(--ease-expo)}
@@ -159,7 +159,7 @@ img{height:auto}
 .footer-bottom>div{flex-wrap:wrap}
 .motion-switch{display:inline-flex;align-items:center;gap:10px;background:none;border:0;padding:0;color:inherit;font-size:inherit}
 .motion-switch-track{position:relative;width:30px;height:17px;border-radius:20px;border:1px solid #ffffff4d;transition:background .3s,border-color .3s}
-.motion-switch-track i{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#bdcfc1;transition:translate .45s var(--ease-expo),background .3s}
+.motion-switch-track i{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#cdc9bf;transition:translate .45s var(--ease-expo),background .3s}
 .motion-switch[aria-pressed=true] .motion-switch-track{background:var(--lime);border-color:var(--lime)}
 .motion-switch[aria-pressed=true] .motion-switch-track i{translate:13px 0;background:var(--forest)}
 .motion-switch:hover{color:#fff}
@@ -167,13 +167,13 @@ img{height:auto}
 /* --------------------------------------------------------------------------
    Floating navigation pill
    -------------------------------------------------------------------------- */
-.float-nav{position:fixed;z-index:70;top:calc(14px + env(safe-area-inset-top,0px));left:50%;display:flex;align-items:center;gap:4px;padding:6px 6px 6px 18px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgb(7 35 25 / .1);box-shadow:0 18px 40px -26px rgb(7 35 25 / .55);color:var(--forest);translate:-50% calc(-100% - 28px);transition:translate .7s var(--ease-expo)}
+.float-nav{position:fixed;z-index:70;top:calc(14px + env(safe-area-inset-top,0px));left:50%;display:flex;align-items:center;gap:4px;padding:6px 6px 6px 18px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgb(7 36 26 / 0.1);box-shadow:0 18px 40px -26px rgb(7 36 26 / 0.55);color:var(--forest);translate:-50% calc(-100% - 28px);transition:translate .7s var(--ease-expo)}
 .float-nav.is-shown{translate:-50% 0}
 .float-nav-mark{font-size:19px;font-weight:650;letter-spacing:-1px;margin-right:14px}
-.float-nav-mark span{color:#3f7a5c}
+.float-nav-mark span{color:#07241a}
 .float-nav nav{display:flex;gap:2px}
 .float-nav nav a{padding:10px 13px;border-radius:999px;font-size:13px;transition:background .3s}
-.float-nav nav a:hover,.float-nav nav a[aria-current=page]{background:rgb(7 35 25 / .06)}
+.float-nav nav a:hover,.float-nav nav a[aria-current=page]{background:rgb(7 36 26 / 0.06)}
 .float-nav-cta{display:inline-flex;align-items:center;gap:10px;margin-left:6px;padding:11px 16px;border-radius:999px;background:var(--forest);color:#fff;font-size:13px}
 .float-nav-menu{display:none;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:inherit}
 @media(max-width:760px){
@@ -215,8 +215,8 @@ html[data-motion=full] .page-intro>p,html[data-motion=full] .page-intro>.eyebrow
 .preview-list{position:relative;padding:var(--space-section) var(--page-gutter);background:var(--paper);color:var(--forest);border-top:1px solid var(--line)}
 .pl-heading{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px 48px;margin-bottom:clamp(40px,5vw,72px)}
 .pl-heading h2{font-size:clamp(40px,4.6vw,76px);font-weight:450;letter-spacing:-.05em;line-height:1.08}
-.pl-list{list-style:none;margin:0;padding:0;border-top:1px solid rgb(7 35 25 / .16)}
-.pl-row{position:relative;isolation:isolate;display:grid;grid-template-columns:70px minmax(0,1.1fr) minmax(0,1fr) 52px;align-items:center;gap:24px;padding:28px 8px;border-bottom:1px solid rgb(7 35 25 / .16);overflow:hidden;transition:color .45s,padding .6s var(--ease-expo)}
+.pl-list{list-style:none;margin:0;padding:0;border-top:1px solid rgb(7 36 26 / 0.16)}
+.pl-row{position:relative;isolation:isolate;display:grid;grid-template-columns:70px minmax(0,1.1fr) minmax(0,1fr) 52px;align-items:center;gap:24px;padding:28px 8px;border-bottom:1px solid rgb(7 36 26 / 0.16);overflow:hidden;transition:color .45s,padding .6s var(--ease-expo)}
 .pl-row:before{content:'';position:absolute;inset:0;z-index:-1;background:var(--tone);transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--ease-expo)}
 .pl-row:hover,.pl-row:focus-visible,.pl-row.is-active{color:var(--ink);padding-inline:24px}
 .pl-row:hover:before,.pl-row:focus-visible:before{transform:scaleY(1)}
@@ -230,7 +230,7 @@ html[data-motion=full] .page-intro>p,html[data-motion=full] .page-intro>.eyebrow
 .pl-row:hover .pl-row-arrow{transform:rotate(45deg);background:var(--ink);color:var(--tone);border-color:var(--ink)}
 .pl-preview{position:absolute;left:0;top:0;z-index:5;width:260px;height:320px;margin:-160px 0 0 70px;pointer-events:none;opacity:0;scale:.6;transition:opacity .35s,scale .6s var(--ease-expo)}
 .pl-preview.is-visible{opacity:1;scale:1}
-.pl-preview-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:22px;border-radius:14px;background:var(--tone);color:var(--ink);box-shadow:0 40px 70px -40px rgb(7 35 25 / .6);clip-path:inset(100% 0 0 0 round 14px);transition:clip-path .7s var(--ease-expo)}
+.pl-preview-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:22px;border-radius:14px;background:var(--tone);color:var(--ink);box-shadow:0 40px 70px -40px rgb(7 36 26 / 0.6);clip-path:inset(100% 0 0 0 round 14px);transition:clip-path .7s var(--ease-expo)}
 .pl-preview-card.is-active{clip-path:inset(0 0 0 0 round 14px)}
 .pl-preview-card>span{font-size:10px;letter-spacing:.14em}
 .pl-preview-card strong{font-size:96px;font-weight:500;letter-spacing:-.06em;line-height:1}
@@ -266,12 +266,12 @@ html[data-motion=reduce] ::view-transition-group(*),html[data-motion=reduce] ::v
 
 /* Edge light: a lit arc on the border that turns toward the pointer. */
 @property --edge-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
-.fx-edge:before{content:'';position:absolute;inset:0;z-index:2;border-radius:inherit;padding:1.5px;pointer-events:none;background:conic-gradient(from calc(var(--edge-angle) - 70deg),transparent 0deg,#3f7a5c 55deg,var(--lime) 70deg,#3f7a5c 85deg,transparent 140deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);opacity:0;transition:opacity .45s,--edge-angle .35s var(--ease-expo)}
+.fx-edge:before{content:'';position:absolute;inset:0;z-index:2;border-radius:inherit;padding:1.5px;pointer-events:none;background:conic-gradient(from calc(var(--edge-angle) - 70deg),transparent 0deg,#07241a 55deg,var(--lime) 70deg,#07241a 85deg,transparent 140deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);opacity:0;transition:opacity .45s,--edge-angle .35s var(--ease-expo)}
 .fx-edge:hover:before{opacity:1}
 
 /* Bloom: a soft light spreads from where the pointer entered the card. */
 .fx-bloom{position:relative;isolation:isolate;overflow:hidden}
-.fx-bloom:before{content:'';position:absolute;left:var(--fill-x,50%);top:var(--fill-y,50%);z-index:-1;width:260%;aspect-ratio:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgb(213 228 180 / .26),rgb(213 228 180 / .08) 45%,transparent 68%);translate:-50% -50%;scale:0;transition:scale 1s var(--ease-expo)}
+.fx-bloom:before{content:'';position:absolute;left:var(--fill-x,50%);top:var(--fill-y,50%);z-index:-1;width:260%;aspect-ratio:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgb(243 241 230 / 0.26),rgb(243 241 230 / 0.08) 45%,transparent 68%);translate:-50% -50%;scale:0;transition:scale 1s var(--ease-expo)}
 .fx-bloom.is-filled:before{scale:1}
 
 /* Dot grid that only exists around the pointer. */

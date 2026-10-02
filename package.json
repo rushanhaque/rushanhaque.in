@@ -13,7 +13,7 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "validate:content": "node scripts/validate-content.mjs",
-    "prebuild": "node scripts/validate-content.mjs && node scripts/image-variants.mjs && node scripts/fetch-contributions.mjs && node scripts/build-version.mjs",
+    "prebuild": "node scripts/validate-content.mjs && node scripts/image-variants.mjs && node scripts/fetch-contributions.mjs && node scripts/fetch-repos.mjs && node scripts/build-version.mjs",
     "predev": "node scripts/image-variants.mjs && node scripts/build-version.mjs",
     "db:migrate": "node --env-file-if-exists=.env.local scripts/migrate.mjs"
   },

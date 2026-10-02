@@ -4,13 +4,13 @@ type Book = { slug: string; originalTitle: string; category: string; year: strin
 
 // One publisher's series: every book shares a layout, each has its own cloth.
 const TONES: Record<string, { bg: string; ink: string; foil: string }> = {
-  'feedback-loop-collapse': { bg: '#e9e6d6', ink: '#14231b', foil: '#3f7a5c' },
+  'feedback-loop-collapse': { bg: '#e9e6d6', ink: '#07241a', foil: '#07241a' },
   'to-the-moon-and-beyond': { bg: '#1d2346', ink: '#f1ecdc', foil: '#d8bf7a' },
-  'aabshar-e-khayaal': { bg: '#0f3a2b', ink: '#f1ecdc', foil: '#d8bf7a' },
+  'aabshar-e-khayaal': { bg: '#07241a', ink: '#f1ecdc', foil: '#d8bf7a' },
   'the-psychology-framework': { bg: '#5a2a1d', ink: '#f4e9db', foil: '#e2c58d' },
-  samundar: { bg: '#123c43', ink: '#eef0e6', foil: '#cfd9b8' },
+  samundar: { bg: '#34303f', ink: '#edece9', foil: '#cfcbc2' },
 };
-const FALLBACK = { bg: '#22352b', ink: '#f1ecdc', foil: '#d8bf7a' };
+const FALLBACK = { bg: '#07241a', ink: '#f1ecdc', foil: '#d8bf7a' };
 export const bookTone = (slug: string) => TONES[slug] ?? FALLBACK;
 export const toneStyle = (slug: string) => { const t = bookTone(slug); return { '--bk': t.bg, '--bk-ink': t.ink, '--bk-foil': t.foil } as React.CSSProperties; };
 

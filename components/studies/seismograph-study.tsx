@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import contributions from '@/content/studies/contributions.json';
-import events from '@/content/studies/events.json';
+import repos from '@/content/studies/repos.json';
+import { ArrowUpRight } from 'lucide-react';
 import { useMotion } from '@/components/site-motion';
 import { StudyFrame } from '@/components/studies/study-frame';
 
@@ -36,11 +37,14 @@ function spline(ctx: CanvasRenderingContext2D, pts: [number, number][]) {
   }
 }
 
-// Study 04 — paper runs under a needle; the line is my real weekly GitHub
-// activity. Drag the paper through time.
+type Project = (typeof repos.projects)[number];
+const monthYear = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+// Study 03 — paper runs under a needle; the line is my real weekly GitHub
+// activity, and every public project is flagged at the week it began.
 export function SeismographStudy() {
-  const { weeks, streak, total } = useMemo(() => buildWeeks(contributions.days as [string, number][]), []);
-  const marks = useMemo(() => events.events.map(e => ({ ...e, week: weeks.findIndex(w => w.start <= e.date && e.date < new Date(new Date(w.start + 'T00:00:00Z').getTime() + 7 * DAY).toISOString().slice(0, 10)) })).filter(e => e.week >= 0), [weeks]);
+  const { weeks, total } = useMemo(() => buildWeeks(contributions.days as [string, number][]), []);
+  const marks = useMemo(() => (repos.projects as Project[]).map(p => ({ ...p, week: weeks.findIndex(w => w.start <= p.date && p.date < new Date(new Date(w.start + 'T00:00:00Z').getTime() + 7 * DAY).toISOString().slice(0, 10)) })).filter(p => p.week >= 0), [weeks]);
   const max = Math.max(1, ...weeks.map(w => w.count));
   const since = useMemo(() => (contributions.days as [string, number][]).find(([, c]) => c > 0)?.[0], []);
   const [cursor, setCursor] = useState(weeks.length - 1);
@@ -56,32 +60,45 @@ export function SeismographStudy() {
     const ctx = el.getContext('2d')!;
     const s = state.current;
     let W = 0, H = 0, dpr = 1, px = 26;
-    const resize = () => { dpr = Math.min(2, window.devicePixelRatio || 1); W = box.clientWidth; H = box.clientHeight; el.width = W * dpr; el.height = H * dpr; px = W < 600 ? 16 : 24; draw(); };
+    const resize = () => { dpr = Math.min(2, window.devicePixelRatio || 1); W = box.clientWidth; H = box.clientHeight; el.width = W * dpr; el.height = H * dpr; px = W < 600 ? 30 : 46; draw(); };
     const draw = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      const needle = W * .64, base = H * .56, amp = H * .4;
+      const needle = W * .64, base = H * .66, amp = H * .34;
       const xOf = (i: number) => needle + (i - s.c) * px;
       // Paper: faint weekly grid, stronger month lines, year labels.
       for (let i = Math.max(0, Math.floor(s.c - needle / px) - 1); i <= Math.min(weeks.length - 1, Math.ceil(s.c + (W - needle) / px) + 1); i++) {
         const x = xOf(i), w = weeks[i], month = w.start.slice(5, 7), prev = weeks[i - 1];
         const newMonth = !prev || prev.start.slice(5, 7) !== month;
-        ctx.fillStyle = newMonth ? 'rgba(7,35,25,.16)' : 'rgba(7,35,25,.06)';
+        ctx.fillStyle = newMonth ? 'rgb(7 36 26 / 0.16)' : 'rgb(7 36 26 / 0.06)';
         ctx.fillRect(Math.round(x), 0, 1, H);
-        if (newMonth) { ctx.fillStyle = 'rgba(7,35,25,.45)'; ctx.font = '500 10px ui-monospace, Consolas, monospace'; ctx.fillText(new Date(w.start + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' }).toUpperCase() + (month === '01' || !prev ? ` ${w.start.slice(0, 4)}` : ''), x + 4, H - 10); }
+        if (newMonth) { ctx.fillStyle = 'rgb(7 36 26 / 0.45)'; ctx.font = '500 10px ui-monospace, Consolas, monospace'; ctx.fillText(new Date(w.start + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' }).toUpperCase() + (month === '01' || !prev ? ` ${w.start.slice(0, 4)}` : ''), x + 4, H - 10); }
       }
-      ctx.fillStyle = 'rgba(7,35,25,.18)'; ctx.fillRect(0, base, W, 1);
-      // Events: dashed staff and a flag.
-      // Labels step down a row when events sit close together.
-      marks.forEach((m, k) => {
-        const x = xOf(m.week);
-        if (x < -200 || x > W + 20) return;
-        const row = marks.slice(0, k).filter(o => Math.abs(o.week - m.week) * px < 170).length % 3, y = 14 + row * 17;
-        ctx.setLineDash([3, 4]); ctx.strokeStyle = 'rgba(63,122,92,.7)'; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, H - 26); ctx.stroke(); ctx.setLineDash([]);
-        ctx.fillStyle = m.week <= s.c ? '#3f7a5c' : 'rgba(63,122,92,.45)';
-        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 10, y + 5); ctx.lineTo(x, y + 10); ctx.fill();
-        ctx.font = '600 11px system-ui, sans-serif'; ctx.fillText(m.label, x + 14, y + 9);
-      });
+      ctx.fillStyle = 'rgb(7 36 26 / 0.18)'; ctx.fillRect(0, base, W, 1);
+      // Projects: a staff and a flag at the week each began. Labels take the
+      // first of five rows with room; crowded flags go unlabelled. Staffs are
+      // drawn first so no line ever crosses a label.
+      const rows = [-1e9, -1e9, -1e9, -1e9, -1e9];
+      ctx.font = '600 10.5px system-ui, sans-serif';
+      const placed: { x: number; y: number; label: string; lw: number; done: boolean; row: number }[] = [];
+      for (const m of marks) {
+        const x = xOf(m.week) + (marks.filter(o => o.week === m.week).indexOf(m)) * 4;
+        if (x < -220 || x > W + 20) continue;
+        const label = m.title.length > 20 ? m.title.slice(0, 19) + '…' : m.title, lw = ctx.measureText(label).width;
+        const row = rows.findIndex(end => end < x - 4);
+        if (row >= 0) rows[row] = x + 12 + lw + 6;
+        placed.push({ x, y: 12 + (row < 0 ? 5 : row) * 15, label, lw, done: m.week <= s.c, row });
+      }
+      for (const f of placed) {
+        ctx.setLineDash([2, 4]); ctx.strokeStyle = f.done ? 'rgb(7 36 26 / 0.4)' : 'rgb(7 36 26 / 0.15)'; ctx.beginPath(); ctx.moveTo(f.x, f.y); ctx.lineTo(f.x, H - 26); ctx.stroke(); ctx.setLineDash([]);
+      }
+      for (const f of placed) {
+        ctx.fillStyle = f.done ? '#07241a' : 'rgb(7 36 26 / 0.35)';
+        ctx.beginPath(); ctx.moveTo(f.x, f.y); ctx.lineTo(f.x + 8, f.y + 4); ctx.lineTo(f.x, f.y + 8); ctx.fill();
+        if (f.row < 0) continue;
+        ctx.fillStyle = 'rgb(251 248 239 / 0.94)'; ctx.fillRect(f.x + 9, f.y - 2, f.lw + 5, 12);
+        ctx.fillStyle = f.done ? '#07241a' : 'rgb(7 36 26 / 0.45)'; ctx.fillText(f.label, f.x + 11, f.y + 8);
+      }
       // Ink: two points per week so the trace oscillates like a seismograph.
       const pts: [number, number][] = [];
       const end = Math.min(weeks.length - 1, Math.floor(s.c));
@@ -91,11 +108,11 @@ export function SeismographStudy() {
       }
       const tip = Math.pow((weeks[Math.max(0, Math.min(weeks.length - 1, Math.round(s.c)))]?.count ?? 0) / max, .6) * amp;
       pts.push([needle, base - tip + s.jitter]);
-      ctx.lineWidth = 1.6; ctx.strokeStyle = '#0a1d15'; ctx.lineJoin = 'round';
+      ctx.lineWidth = 1.6; ctx.strokeStyle = '#07241a'; ctx.lineJoin = 'round';
       ctx.beginPath(); spline(ctx, pts); ctx.stroke();
       // Needle.
-      ctx.fillStyle = '#0a1d15'; ctx.fillRect(needle - .5, 0, 1, base - tip + s.jitter);
-      ctx.beginPath(); ctx.arc(needle, base - tip + s.jitter, 4, 0, Math.PI * 2); ctx.fillStyle = '#c9f26f'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#0a1d15'; ctx.stroke();
+      ctx.fillStyle = '#07241a'; ctx.fillRect(needle - .5, 0, 1, base - tip + s.jitter);
+      ctx.beginPath(); ctx.arc(needle, base - tip + s.jitter, 4, 0, Math.PI * 2); ctx.fillStyle = '#f3f1e6'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#07241a'; ctx.stroke();
     };
     const tick = () => {
       s.frame = 0;
@@ -128,15 +145,21 @@ export function SeismographStudy() {
     if (e.key === 'End') { e.preventDefault(); seek(weeks.length - 1); }
   };
   const w = weeks[cursor];
-  const here = marks.find(m => m.week === cursor);
-  const readout = w ? <><b>WEEK {w.iso} · {w.year}</b><span>{w.count} CONTRIBUTION{w.count === 1 ? '' : 'S'}</span><span>LONGEST STREAK {streak} DAY{streak === 1 ? '' : 'S'}</span>{here && <span>⚑ {here.label.toUpperCase()}</span>}</> : <b>NO DATA YET</b>;
+  const here = marks.filter(m => m.week === cursor);
+  const started = marks.filter(m => m.week <= cursor).length;
+  const readout = w ? <><b>WEEK {w.iso} · {w.year}</b><span>{w.count} CONTRIBUTION{w.count === 1 ? '' : 'S'}</span><span>{started} / {marks.length} PROJECTS</span>{here.length > 0 && <span>⚑ {here.map(h => h.title.toUpperCase()).join(', ')}</span>}</> : <b>NO DATA YET</b>;
   const spark = weeks.map((wk, i) => `${(i / Math.max(1, weeks.length - 1)) * 1000},${100 - Math.pow(wk.count / max, .6) * 90}`).join(' ');
 
-  return <StudyFrame id="study-04" number="04" name="THE SEISMOGRAPH" title={<>Steady,<br/><em>not sudden.</em></>}
-    truth="Consistency outlasts inspiration. This is my real public GitHub activity."
-    readout={readout} announce={w ? `Week ${w.iso}, ${w.year}: ${w.count} contributions${here ? `. ${here.label}` : ''}` : ''}
-    controls={<div className="study-chips" role="group" aria-label="Jump to a milestone">{marks.map(m => <button key={m.date} type="button" aria-pressed={cursor === m.week} onClick={() => seek(m.week)}>{m.label} <small>{fmt(m.date)}</small></button>)}</div>}
-    caption={<><p>Drag, scroll sideways, or use the arrow keys (<kbd>Page Up</kbd> / <kbd>Page Down</kbd> move a year). {total} public contributions{since ? ` since ${fmt(since)}` : ''}{contributions.fetchedAt ? `, as of ${fmt(contributions.fetchedAt)}` : ''}.</p><p className="study-note">Public activity only. Private client work isn’t counted.</p></>}
+  const first = marks[0]?.date;
+  return <StudyFrame id="study-03" number="03" name="THE SEISMOGRAPH" title={<>Steady,<br/><em>not sudden.</em></>}
+    truth={`Every project I’ve put on GitHub, flagged where it began: ${marks.length} of them${first ? ` since ${monthYear(first)}` : ''}, on my real public activity.`}
+    readout={readout} announce={w ? `Week ${w.iso}, ${w.year}: ${w.count} contributions${here.length ? `. Started: ${here.map(h => h.title).join(', ')}` : ''}` : ''}
+    caption={<><p>Drag, scroll sideways, or use the arrow keys (<kbd>Page Up</kbd> / <kbd>Page Down</kbd> move a year). Pick any project below to find it on the line. {total} public contributions{since ? ` since ${fmt(since)}` : ''}{contributions.fetchedAt ? `, as of ${fmt(contributions.fetchedAt)}` : ''}.</p>
+      <ol className="sm-projects" aria-label="All projects">{[...marks].reverse().map(m => <li key={m.name} className={m.week === cursor ? 'is-here' : ''}>
+        <button type="button" onClick={() => seek(m.week)} aria-label={`Find ${m.title}, started ${monthYear(m.date)}, on the graph`}><strong>{m.title}</strong><small>{monthYear(m.date)}{m.language ? ` · ${m.language}` : ''}</small></button>
+        <a href={m.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${m.title}${m.url === m.repo ? ' on GitHub' : ''}`}><ArrowUpRight size={15}/></a>
+      </li>)}</ol>
+      <p className="study-note">Public repositories only. Private client work isn’t counted.</p></>}
     className="study-seismo">
     <div className={`sm-paper ${live ? 'is-live' : ''}`} ref={wrap} tabIndex={0} role="slider" aria-label="Week" aria-valuemin={0} aria-valuemax={Math.max(0, weeks.length - 1)} aria-valuenow={cursor} aria-valuetext={w ? `Week ${w.iso}, ${w.year}, ${w.count} contributions` : 'No data'} onKeyDown={onKeyDown}>
       <canvas ref={canvas} aria-hidden="true"/>

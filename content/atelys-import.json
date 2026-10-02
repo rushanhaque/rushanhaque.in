@@ -72,19 +72,9 @@
       "sha256": "1420c419e30a613ea1de8a580c2527758017be4d61128911fd68a46e45df3f10"
     },
     {
-      "source": "img/rh/blogs/aabshar.webp",
-      "target": "/images/writing-aabshar-e-khayaal.webp",
-      "sha256": "5dfb8436cb79b1a6c6fe6a1227b8ae267f7f0b73cde4f20855dba4c98b5f9744"
-    },
-    {
       "source": "img/rh/blogs/psychology-framework.webp",
       "target": "/images/writing-the-psychology-framework.webp",
       "sha256": "dc6a9e60d9bdcf2c7f0e8869e36dc0ee9c3961ce5d883c26322b267d4437a3d2"
-    },
-    {
-      "source": "img/rh/blogs/samundaro.webp",
-      "target": "/images/writing-samundar.webp",
-      "sha256": "a61d8c09c4c2c08aac2f134f159f7734da4279bb412faf8630b4770ef67df44f"
     },
     {
       "source": "img/cert/cisco-python.png",

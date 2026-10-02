@@ -14,6 +14,7 @@ import { useMotion } from '@/components/site-motion';
 import { responsive } from '@/lib/images';
 import profile from '@/content/profile.json';
 import { BookCover, toneStyle } from '@/components/book-cover';
+import { projectLink } from '@/lib/project-access';
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, Draggable, InertiaPlugin, SplitText);
 
@@ -24,10 +25,8 @@ const scrambleChars = 'abcdefghijklmnopqrstuvwxyz{}[]()<>/=;:.*+-_';
 /* I — Two languages: code that rewrites itself into prose.             */
 /* ------------------------------------------------------------------ */
 const LINES = [
-  { code: 'build(thing).works === true;', prose: 'I build things that work.' },
-  { code: 'thing.feeling = "something";', prose: 'Then make them feel like something.' },
-  { code: '// developer, by discipline', prose: 'Developer by discipline.' },
-  { code: '// writer, by temperament', prose: 'Writer by temperament.' },
+  { code: 'const role = "developer";', prose: 'Developer' },
+  { code: 'role.also = "writer";', prose: 'and writer.' },
 ];
 
 export function TwoLanguages() {
@@ -60,15 +59,15 @@ export function TwoLanguages() {
     return () => mm.revert();
   }, [reduced]);
   return <section id="two-languages" className="tl-two" ref={root} data-chapter="I — Two languages">
-    <span className="tl-two-ghost" aria-hidden="true">خیال</span>
+    <span className="tl-two-ghost" aria-hidden="true">{'</>'}</span>
     <div className="tl-two-head">
       <span className="tl-kicker">I — TWO LANGUAGES</span>
       <h2 className="tl-two-title"><span className="tl-split-line"><span>I write in</span></span><span className="tl-split-line"><span><em>two languages.</em></span></span></h2>
     </div>
-    <ol className="tl-code" aria-label="I build things that work. Then make them feel like something. Developer by discipline. Writer by temperament.">
+    <ol className="tl-code" aria-label="Developer and writer.">
       {LINES.map((line, i) => <li className="tl-code-line" key={i} aria-hidden="true"><span className="tl-code-gutter">{String(i + 1).padStart(2, '0')}</span><span className="tl-code-text">{line.code}</span><span className="tl-code-prose">{line.prose}</span></li>)}
     </ol>
-    <p className="tl-two-coda">One in <code>code</code>, one in <em>verse</em>. Same instinct, different material.</p>
+    <p className="tl-two-coda">One in <code>code</code>, one in <em>prose</em>. Same instinct, different material.</p>
   </section>;
 }
 
@@ -122,19 +121,20 @@ export function WorksDeck() {
 
   const current = works[active];
   return <section id="selected-work" className={`tl-deck ${pinned ? 'is-pinned' : ''}`} ref={root} data-chapter="II — Selected works">
-    <div className="tl-deck-head"><span className="tl-kicker">II — WORKS</span><h2>Different worlds.<br/><em>One curious mind.</em></h2></div>
-    <div className="tl-deck-ghosts" aria-hidden="true">{works.map(w => <span className="tl-deck-ghost" key={w.slug}>{w.title}</span>)}</div>
-    <div className="tl-deck-stage">{works.map((work, i) => <Link key={work.slug} href={`/projects/${work.slug}`} className="tl-deck-card" aria-label={`${work.title} — ${STORIES[work.slug]?.line ?? work.description}`}>
+    <div className="tl-deck-head"><span className="tl-kicker">II — SELECTED WORKS</span><h2>Recent<br/><em>works.</em></h2><p className="tl-deck-sub">A few of my recent works. There’s considerably more that hasn’t made it here.</p></div>
+    <div className="tl-deck-ghosts" aria-hidden="true">{works.map(w => <span className="tl-deck-ghost" key={w.slug}>{`${w.title} · ${w.title} · ${w.title}`}</span>)}</div>
+    <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" aria-label={`${work.title}: visit the live website (opens in a new tab)`}>
       <img src={work.image!} {...responsive(work.image, '(max-width: 899px) 92vw, 62vw')} alt="" width="1600" height="900" loading={i < 2 ? 'eager' : 'lazy'} decoding="async"/>
       <span className="tl-deck-card-index">W/{String(i + 1).padStart(2, '0')}</span>
       <span className="tl-deck-card-title">{work.title}<em>{STORIES[work.slug]?.line}</em></span>
-    </Link>)}</div>
+      <span className="tl-deck-card-visit">Visit site <ArrowUpRight size={14}/></span>
+    </a>)}</div>
     {current && <div className="tl-deck-info" aria-hidden="true">
       <span className="tl-deck-count"><b>{String(active + 1).padStart(2, '0')}</b> / {String(works.length).padStart(2, '0')}</span>
       <span className="tl-deck-field">{STORIES[current.slug]?.field ?? current.discipline} · {current.year}</span>
       <i className="tl-deck-progress"><span style={{ transform: `scaleX(${(active + 1) / works.length})` }}/></i>
     </div>}
-    <Link href="/projects" className="tl-deck-archive"><span>There’s considerably more.<br/><em>The archive has the rest.</em></span><b>{projects.length}<ArrowUpRight size={34}/></b></Link>
+    <Link href="/projects" className="tl-deck-archive"><span>Open the <em>archive</em></span><b>{projects.length}<ArrowUpRight size={34}/></b></Link>
   </section>;
 }
 
@@ -190,8 +190,8 @@ export function Bookshelf() {
     return () => ctx.revert();
   }, [reduced]);
   const book = writings[active];
-  return <section id="writing" className="tl-writing" ref={root} data-chapter="III — The written world">
-    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2>Not everything<br/>needs to <em>compile.</em></h2><p>Research, verse and the occasional book. The other half of the practice.</p><Link href="/writing" className="tl-link">Read the writing <ArrowUpRight size={16}/></Link></div>
+  return <section id="writing" className="tl-writing" ref={root} data-chapter="III — Writing">
+    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2>Blogs and<br/><em>writeups.</em></h2><p>The other half of the practice. Work that doesn’t compile.</p><Link href="/writing" className="tl-link">Read the writing <ArrowUpRight size={16}/></Link></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
@@ -217,28 +217,21 @@ export function Bookshelf() {
 export function TypeWall() {
   const { services } = useContent();
   const root = useRef<HTMLElement>(null);
-  const blob = useRef<HTMLDivElement>(null);
   const { reduced } = useMotion();
   useEffect(() => {
-    const section = root.current, lens = blob.current;
+    const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('.tl-wall-row').forEach((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? 18 : -18 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 45%', scrub: .6 } }));
     }, section);
-    let cleanup = () => {};
-    if (lens && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      const x = gsap.quickTo(lens, 'x', { duration: .55, ease: 'power3.out' }), y = gsap.quickTo(lens, 'y', { duration: .55, ease: 'power3.out' });
-      const move = (e: PointerEvent) => { const b = section.getBoundingClientRect(); x(e.clientX - b.left); y(e.clientY - b.top); };
-      const over = (e: PointerEvent) => gsap.to(lens, { scale: (e.target as Element).closest('.tl-wall-row') ? 1 : .35, duration: .5, ease: 'expo.out' });
-      const enter = () => gsap.to(lens, { opacity: 1, duration: .3 }), leave = () => gsap.to(lens, { opacity: 0, scale: .2, duration: .4 });
-      section.addEventListener('pointermove', move); section.addEventListener('pointerover', over); section.addEventListener('pointerenter', enter); section.addEventListener('pointerleave', leave);
-      cleanup = () => { section.removeEventListener('pointermove', move); section.removeEventListener('pointerover', over); section.removeEventListener('pointerenter', enter); section.removeEventListener('pointerleave', leave); };
-    }
-    return () => { cleanup(); ctx.revert(); };
+    return () => ctx.revert();
   }, [reduced]);
-  return <section id="services" className="tl-wall" ref={root} data-chapter="IV — Beyond the build">
-    <div className="tl-wall-lens" ref={blob} aria-hidden="true"/>
-    <div className="tl-wall-head"><span className="tl-kicker">IV — SERVICES</span><p>The build is mine. Growth, infrastructure and everything after launch come through partners I trust.</p><Link href="/services" className="tl-link">Every service <ArrowUpRight size={16}/></Link></div>
+  return <section id="services" className="tl-wall" ref={root} data-chapter="IV — Tie-ups & other services">
+    <div className="tl-wall-head">
+      <span className="tl-kicker">IV — TIE-UPS &amp; OTHER SERVICES</span>
+      <h2>Beyond<br/>the <em>build.</em></h2>
+      <div className="tl-wall-intro"><p><strong>More than a site when you need it.</strong> Through vetted partners, the work extends past launch. Growth, infrastructure, and the systems that run behind the scenes — scoped and delivered alongside people I trust.</p><Link href="/contact" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
+    </div>
     <ul className="tl-wall-list">{services.map((s, i) => <li className="tl-wall-row" key={s.title}>
       <Link href="/contact">
         <span className="tl-wall-num">{String(i + 1).padStart(2, '0')}</span>
@@ -254,7 +247,8 @@ export function TypeWall() {
 /* journey through every role.                                          */
 /* ------------------------------------------------------------------ */
 export function Person() {
-  const { experience, education, certifications } = useContent();
+  const { experience, education } = useContent();
+  const skills = profile.skills as Record<string, string[]>;
   const root = useRef<HTMLElement>(null);
   const path = useRef<SVGPathElement>(null);
   const head = useRef<SVGGElement>(null);
@@ -303,28 +297,28 @@ export function Person() {
     return () => { ctx.revert(); section.classList.remove('is-live'); };
   }, [reduced, d]);
 
-  const learning = certifications.filter(c => c.category === 'Training' || c.category === 'Job simulations').length;
-  return <section id="journey" className="tl-person" ref={root} data-chapter="V — The person">
+  return <section id="journey" className="tl-person" ref={root} data-chapter="V — Journey">
     <div className="tl-person-intro">
       <figure className="tl-portrait"><img src={profile.portrait} alt="Rushan Haque" width="853" height="878" loading="lazy" decoding="async"/></figure>
       <div className="tl-person-copy">
-        <span className="tl-kicker">V — THE PERSON</span>
-        <h2>Still learning.<br/><em>Always looking.</em></h2>
-        <p className="tl-bio">{profile.bio}</p>
+        <span className="tl-kicker">V — JOURNEY</span>
+        <h2>Built across disciplines because the <em>problems keep overlapping.</em></h2>
+        <p className="tl-bio">{profile.bio} Products, interfaces, research, long-form writing. Here’s how it went.</p>
         <div className="tl-facts">
-          <span className="tl-fact"><b>{learning}</b>Certifications</span>
-          <span className="tl-fact"><b>03</b>Languages spoken</span>
-          <span className="tl-fact"><b>{String(experience.length).padStart(2, '0')}</b>Roles held</span>
+          <span className="tl-fact"><b>20+</b>Professional certifications &amp; awards</span>
+          <span className="tl-fact"><b>3</b>Languages spoken</span>
+          <span className="tl-fact"><b>{experience.length}</b>Roles across management, design &amp; development</span>
           <span className="tl-fact"><b>40+</b>Projects contributed to</span>
         </div>
+        <dl className="tl-skills">{Object.entries(skills).map(([group, list]) => <div key={group}><dt>{group}</dt><dd>{list.join(' · ')}</dd></div>)}</dl>
         <Link href="/certifications" className="tl-link">Certificates & credentials <ArrowUpRight size={16}/></Link>
       </div>
     </div>
     <div className="tl-path">
-      <div className="tl-path-head-row"><span className="tl-kicker">THE ROUTE SO FAR</span><span className="tl-path-legend" aria-hidden="true"><i className="is-work"/>Work<i className="is-study"/>Study</span></div>
+      <div className="tl-path-head-row"><span className="tl-kicker">[01] EXPERIENCE · [02] EDUCATION</span><span className="tl-path-legend" aria-hidden="true"><i className="is-work"/>Experience<i className="is-study"/>Education</span></div>
       <div className="tl-path-list">
         <svg className="tl-path-svg" aria-hidden="true">
-          <defs><linearGradient id="tl-path-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#c9f26f"/><stop offset=".35" stopColor="#3f7a5c"/><stop offset="1" stopColor="#072319"/></linearGradient></defs>
+          <defs><linearGradient id="tl-path-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6"/><stop offset=".35" stopColor="#07241a"/><stop offset="1" stopColor="#07241a"/></linearGradient></defs>
           <path className="tl-path-track" d={d}/>
           <path className="tl-path-ink" ref={path} d={d}/>
           <g className="tl-path-head" ref={head}><circle r="14"/><circle r="4.5"/></g>
@@ -365,76 +359,17 @@ export function Voices() {
     });
     return () => mm.revert();
   }, [reduced]);
-  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Voices">
+  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
     <div className="tl-voices-head">
-      <div><span className="tl-kicker">VI — VOICES</span><h2>Good work.<br/><em>Real people.</em></h2></div>
-      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews · published unedited</span></div>
+      <div><span className="tl-kicker">VI — REVIEWS</span><h2>What<br/><em>they said.</em></h2></div>
+      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews · collected direct · published unedited</span></div>
     </div>
-    <p className="tl-board-hint" aria-hidden="true">Pick one up. They’re all real ↗</p>
+    <p className="tl-board-hint" aria-hidden="true">Drag a note ↗</p>
     <div className="tl-board">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>
       <span className="tl-note-pin" aria-hidden="true"/>
       <blockquote>“{r.quote}”</blockquote>
       <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span>{r.date && <time>{r.date}</time>}</figcaption>
     </figure>; })}</div>
-    <div className="tl-voices-actions"><Link href="/write-a-review" className="tl-button">Leave your own <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Read all reviews <ArrowUpRight size={16}/></Link></div>
+    <div className="tl-voices-actions"><Link href="/write-a-review" className="tl-button">Add a review <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Read all reviews <ArrowUpRight size={16}/></Link></div>
   </section>;
-}
-
-/* ------------------------------------------------------------------ */
-/* VII — The lab: a door to the seven instrument studies.               */
-/* ------------------------------------------------------------------ */
-const LAB = [
-  ['01', 'Look underneath', 'An X-ray lens over a live site.'],
-  ['02', 'Rewind the build', 'Scrub a real build, commit by commit.'],
-  ['03', 'Resize me', 'Drag a live site from phone to desktop.'],
-  ['04', 'The seismograph', 'Two years of real GitHub activity.'],
-  ['05', 'Bring me a problem', 'Pick constraints; matching projects rise.'],
-  ['06', 'Your site, under the lens', 'Seventeen real checks on your website.'],
-  ['07', 'Yours to run', 'Edit a real product in the admin I hand over.'],
-];
-export function LabTeaser() {
-  return <section id="lab" className="tl-lab" data-chapter="VII — The lab" aria-labelledby="lab-title">
-    <div className="tl-lab-head"><span className="tl-kicker">VII — THE LAB</span><h2 id="lab-title">Don’t take my word.<br/><em>Test it.</em></h2><p>Seven small instruments. Each one measures something, so you don’t have to take anything on faith.</p><Link href="/studies" className="tl-button">Enter the lab <ArrowUpRight size={16}/></Link></div>
-    <ol className="tl-lab-list">{LAB.map(([n, name, line]) => <li key={n}><Link href={`/studies#study-${n}`}><span>STUDY {n}</span><strong>{name}</strong><small>{line}</small><ArrowUpRight size={18}/></Link></li>)}</ol>
-  </section>;
-}
-
-/* ------------------------------------------------------------------ */
-/* Chapter rail and cursor                                              */
-/* ------------------------------------------------------------------ */
-export function ChapterRail() {
-  const label = useRef<HTMLSpanElement>(null);
-  const bar = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
-  const [count, setCount] = useState(0);
-  const [index, setIndex] = useState(0);
-  const { reduced } = useMotion();
-  useEffect(() => {
-    const sections = gsap.utils.toArray<HTMLElement>('main [data-chapter]');
-    const chapters = sections.filter(s => s.dataset.chapter !== 'Prologue');
-    // The active chapter is read from layout on every update, so fast jumps never leave a stale label.
-    let current: HTMLElement | null = null;
-    const pick = () => {
-      const line = window.innerHeight * .55;
-      let next: HTMLElement | null = null;
-      for (const section of sections) if (section.getBoundingClientRect().top <= line) next = section;
-      if (!next || next === current || !label.current) return;
-      current = next;
-      setShown(next.dataset.chapter !== 'Prologue');
-      setIndex(chapters.indexOf(next) + 1);
-      const text = (next.dataset.chapter ?? '').replace(/^[IVX]+ — /, '');
-      if (reduced) label.current.textContent = text;
-      else gsap.to(label.current, { duration: .7, overwrite: true, scrambleText: { text, chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', speed: .8 } });
-    };
-    // Measured after the pinned scenes add their spacing.
-    const settle = window.setTimeout(() => ScrollTrigger.refresh(), 400);
-    const progress = ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => { if (bar.current) bar.current.style.transform = `scaleY(${self.progress})`; pick(); }, onRefresh: pick });
-    const first = requestAnimationFrame(() => { setCount(chapters.length); pick(); });
-    return () => { cancelAnimationFrame(first); window.clearTimeout(settle); progress.kill(); };
-  }, [reduced]);
-  return <div className={`tl-rail ${shown ? 'is-shown' : ''}`} aria-hidden="true">
-    <span className="tl-rail-num"><b>{String(index).padStart(2, '0')}</b>/{String(count).padStart(2, '0')}</span>
-    <i>{Array.from({ length: count }, (_, k) => <em key={k} className={k < index ? 'is-past' : ''} style={{ bottom: `${count > 1 ? (k / (count - 1)) * 100 : 0}%` }}/>)}<b ref={bar}/></i>
-    <span className="tl-rail-label" ref={label}>Prologue</span>
-  </div>;
 }

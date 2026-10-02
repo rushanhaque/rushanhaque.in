@@ -5,14 +5,29 @@
   "languages": [
     "English",
     "Hindi",
-    "Urdu"
+    "French"
   ],
-  "bio": "I’m a developer and writer from Moradabad. I build websites and web apps for businesses in India and well beyond it, and spend what’s left of my attention on research and Urdu poetry. The disciplines differ; the problems keep overlapping.",
+  "bio": "I’m a project manager and full-stack developer from Moradabad, studying Computer Science (IoT). I deliver client websites end to end, from discovery and design to development, cloud deployment and handover, and stay in touch with clients long after launch.",
   "references": [
     "llms.txt",
     "index.html",
     "data/journey.js",
     "data/reviews.js",
     "certificates.html"
-  ]
+  ],
+  "skills": {
+    "Technical": [
+      "Full-stack development",
+      "AWS",
+      "Git & GitHub",
+      "UI/UX design",
+      "Gen AI"
+    ],
+    "Professional": [
+      "Project management",
+      "Client relations",
+      "Communication",
+      "Content writing"
+    ]
+  }
 }

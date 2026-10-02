@@ -23,13 +23,13 @@ import './polish.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
-  title: { default: 'Rushan Haque — Designer, Developer & Writer', template: '%s — Rushan Haque' },
+  title: { default: 'Rushan Haque — Project Manager & Full-Stack Developer', template: '%s — Rushan Haque' },
   description: 'Expressive websites. Considered words. Explore the independent design, development, and writing practice of Rushan Haque.',
   robots: { index: true, follow: true },
   alternates: { types: { 'application/rss+xml': '/feed.xml' } },
   icons: { icon: '/favicon.svg', shortcut: '/favicon.svg' },
 };
-export const viewport: Viewport = { themeColor: '#072319', colorScheme: 'light' };
+export const viewport: Viewport = { themeColor: '#07241a', colorScheme: 'light' };
 
 // Applies the saved or system motion preference before first paint, so reduced-motion
 // visitors never see an entrance animation start.

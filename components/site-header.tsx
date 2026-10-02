@@ -7,7 +7,7 @@ import { ArrowUpRight, Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle, SheetDescription, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { bookingUrl } from '@/lib/content';
 
-const links=[['Home','/'],['Works','/projects'],['Writing','/writing'],['Journey','/#journey'],['Services','/services'],['Areas served','/areas-served'],['Products','/products'],['Beyond the build','/#services'],['Certificates','/certifications'],['The lab','/studies'],['Reviews','/reviews'],['Contact','/contact']];
+const links=[['Home','/'],['Works','/projects'],['Writing','/writing'],['Journey','/#journey'],['Services','/services'],['Areas served','/areas-served'],['Products','/products'],['Beyond the build','/#services'],['Certificates','/certifications'],['The lab','/#lab'],['Reviews','/reviews'],['Contact','/contact']];
 const primary=[['Work','/projects'],['Writing','/writing'],['Journey','/#journey'],['Reviews','/reviews']];
 
 // Appears after the visitor has scrolled past the fold and starts heading back up.

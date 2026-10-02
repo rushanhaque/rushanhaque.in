@@ -9,7 +9,7 @@ type Draft = { photo: number; name: string; finish: string; ready: boolean };
 const initial: Draft = { photo: 0, name: data.products[0].name, finish: data.finishes[0], ready: false };
 const STEPS = ['Checked', 'Saved', 'Live on the storefront'];
 
-// Study 07 — the admin panel I hand over, as a working model: change a real
+// Study 05 — the admin panel I hand over, as a working model: change a real
 // Taif product and the storefront card updates as you type.
 export function HandoverStudy() {
   const [draft, setDraft] = useState<Draft>(initial);
@@ -35,7 +35,7 @@ export function HandoverStudy() {
   const status = changed ? 'DRAFT' : published ? 'PUBLISHED' : 'LIVE';
   const readout = <><b>{changed} FIELD{changed === 1 ? '' : 'S'} CHANGED</b><span>PREVIEW LIVE</span><span>{status}</span><span>0 LINES OF CODE</span></>;
 
-  return <StudyFrame id="study-07" number="07" name="YOURS TO RUN" title={<>After launch,<br/>it’s <em>yours to run.</em></>}
+  return <StudyFrame id="study-05" number="05" name="YOURS TO RUN" title={<>After launch,<br/>it’s <em>yours to run.</em></>}
     truth="You won’t need me to change a price, a photo or a product name. Every commerce site leaves with an admin like this."
     readout={readout} announce={`${changed} fields changed, ${status.toLowerCase()}`}
     caption={<><p>Edit the product and watch the storefront update. A working model with a real Taif International product; nothing leaves your browser.</p><ul className="ho-evidence">{data.evidence.map(e => <li key={e}>{e}</li>)}</ul></>}

@@ -8,7 +8,7 @@ import { StudyFrame } from '@/components/studies/study-frame';
 const SAMPLES = ['taifinternational.co', 'aurelio.in'];
 const SERVICES: Check['service'][] = ['Performance', 'SEO + GEO', 'Development', 'Accessibility'];
 
-// Study 06 — type any public website address; the server runs seventeen real
+// Study 04 — type any public website address; the server runs seventeen real
 // checks and the report maps every gap to the service that closes it.
 export function SiteCheckStudy() {
   const [url, setUrl] = useState('');
@@ -40,7 +40,7 @@ export function SiteCheckStudy() {
     ? <><b>{report.summary.total} CHECKS</b><span>{report.summary.pass} PASS</span><span>{report.summary.fix} TO FIX</span><span>GEO-READY: {report.summary.geoReady ? 'YES' : 'NO'}</span><span>{host.toUpperCase()}</span></>
     : busy ? <><b>SCANNING</b><span>{url.toUpperCase()}</span></> : <><b>READY</b><span>ENTER A URL</span></>;
 
-  return <StudyFrame id="study-06" number="06" name="YOUR SITE, UNDER THE LENS" title={<>Bring your website.<br/><em>I’ll show what I’d fix.</em></>}
+  return <StudyFrame id="study-04" number="04" name="YOUR SITE, UNDER THE LENS" title={<>Bring your website.<br/><em>I’ll show what I’d fix.</em></>}
     truth="Give me a URL and I’ll show you what I’d fix. Every gap maps to something I do."
     readout={readout} announce={report ? `${report.summary.pass} of ${report.summary.total} checks passed for ${host}` : busy ? `Checking ${url}` : error}
     caption={<p>Seventeen checks on the page you enter: security, speed, search, AI readiness and accessibility. Public sites only. Nothing is stored.</p>}

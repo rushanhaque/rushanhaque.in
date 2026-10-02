@@ -69,7 +69,7 @@ function once(url: URL, timeoutMs: number, maxBytes: number): Promise<SafeRespon
     const client = url.protocol === 'https:' ? https : http;
     const req = client.request(url, {
       method: 'GET', lookup: guardedLookup as never, timeout: timeoutMs,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; RushanHaque-SiteCheck/1.0; +https://www.rushanhaque.in/studies)', Accept: 'text/html,application/xhtml+xml,text/plain;q=0.9,*/*;q=0.5', 'Accept-Encoding': 'gzip, deflate, br' },
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; RushanHaque-SiteCheck/1.0; +https://www.rushanhaque.in/#lab)', Accept: 'text/html,application/xhtml+xml,text/plain;q=0.9,*/*;q=0.5', 'Accept-Encoding': 'gzip, deflate, br' },
     }, res => {
       const ttfbMs = Math.round(performance.now() - started);
       const status = res.statusCode ?? 0;

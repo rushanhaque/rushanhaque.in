@@ -8,7 +8,9 @@ const explore=[['Home','/'],['Works','/projects'],['Writing','/writing'],['Servi
 
 export function SiteFooter(){return <footer className="footer"><div className="container">
   <div className="footer-top">
-    <div className="footer-invitation"><span className="eyebrow">SO, WHAT ARE WE BUILDING?</span><Link href="/contact" className="footer-big-link closing-frame" data-reveal data-cursor="Say hi"><span className="footer-big-line">Let’s</span><br/><em className="footer-big-line">talk.</em><ArrowUpRight/></Link>
+    <div className="footer-invitation"><span className="eyebrow">LET’S BUILD</span><Link href="/contact" className="footer-big-link closing-frame" data-reveal data-cursor="Say hi"><span className="footer-big-line">Start the</span><br/><em className="footer-big-line">conversation.</em><ArrowUpRight/></Link>
+      <p className="footer-lede">Got something worth building? Send the brief, or just the problem. I answer everything myself, usually within a day.</p>
+      <span className="footer-reach">Reach me</span>
       <div className="footer-email"><a href={`mailto:${email}?subject=Hello%20from%20your%20site`}>{email}</a><CopyEmail/></div>
       <ul className="footer-contact">
         <li><span>WhatsApp</span><a href={phone.whatsapp} target="_blank" rel="noopener noreferrer">{phone.label}</a></li>
@@ -16,7 +18,7 @@ export function SiteFooter(){return <footer className="footer"><div className="c
       </ul>
     </div>
     <div className="footer-nav">
-      <div><span>Explore</span>{explore.map(([label,url])=><Link href={url} key={url} >{label}</Link>)}</div>
+      <div><span>Navigate</span>{explore.map(([label,url])=><Link href={url} key={url} >{label}</Link>)}</div>
       <div><span>Connect</span>{socials.map(s=><a href={s.url} key={s.name} target="_blank" rel="noopener noreferrer" className="footer-social">{s.name} <ArrowUpRight size={12}/></a>)}<a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="footer-social"><span>Schedule a call</span> <ArrowUpRight size={12}/></a><Link href="/write-a-review" ><span>Write a review</span></Link></div>
     </div>
   </div>

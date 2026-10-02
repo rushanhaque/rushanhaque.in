@@ -1,4 +1,5 @@
 import sourcePages from './content/source-pages.json';
+import projects from './content/projects.json';
 import type { NextConfig } from "next";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,13 +34,15 @@ const nextConfig: NextConfig = {
   },
   async rewrites() { return [{ source: '/version.json', destination: '/api/version' }]; },
   async redirects(){return [
+    // Live client sites have no inner page; old links go straight to the site.
+    ...projects.filter(p=>p.category!=='Experiments'&&p.url&&p.status!=='Coming soon').map(p=>({source:`/projects/${p.slug}`,destination:p.url,permanent:true})),
     ...sourcePages.map(page=>({source:`/${page.slug}.html`,destination:`/${page.slug}`,permanent:true})),
     {source:'/admin.html',destination:'/studio',permanent:true},
     {source:'/work',destination:'/projects',permanent:true},{source:'/index.html',destination:'/',permanent:true},{source:'/contact.html',destination:'/contact',permanent:true},
     // v2 folds these pages into the homepage story (or removes them).
     {source:'/about',destination:'/#journey',permanent:true},{source:'/about.html',destination:'/#journey',permanent:true},{source:'/experience',destination:'/#journey',permanent:true},
     {source:'/collaborations',destination:'/#services',permanent:true},
-    {source:'/playground',destination:'/',permanent:true},{source:'/lab',destination:'/studies',permanent:true},
+    {source:'/playground',destination:'/',permanent:true},{source:'/lab',destination:'/#lab',permanent:true},{source:'/studies',destination:'/#lab',permanent:true},
     {source:'/insights',destination:'/writing',permanent:true},{source:'/insights/:slug',destination:'/writing',permanent:true},
     // Paths from the previous portfolio.
     {source:'/review',destination:'/write-a-review',permanent:true},{source:'/certificates',destination:'/certifications',permanent:true},

@@ -56,7 +56,7 @@ export function ParticleHero() {
     if (!section || !canvas || reduced) return;
     const ctx = canvas.getContext('2d')!;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.6);
-    let W = 0, H = 0, particles: P[] = [], target: [number, number][] = [], ghost: ReturnType<typeof layout> | null = null;
+    let W = 0, H = 0, particles: P[] = [], target: [number, number][] = [];
     let frame = 0, visible = true, explode = 0, intro = 0, disposed = false;
     const pointer = { x: -9999, y: -9999, active: false };
     const mobile = window.matchMedia('(max-width: 799px)').matches;
@@ -67,12 +67,11 @@ export function ParticleHero() {
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const step = mobile ? 3 : W > 1700 ? 5 : 4;
+      const step = mobile ? 3 : W > 1700 ? 4 : 3;
       target = sample(W, H, step);
-      ghost = layout(ctx, W, H);
-      const count = Math.min(mobile ? 3200 : 7000, target.length);
+      const count = Math.min(mobile ? 5200 : 13000, target.length);
       const old = particles;
-      particles = Array.from({ length: count }, (_, i) => old[i] ?? { x: W / 2 + (Math.random() - .5) * W, y: H / 2 + (Math.random() - .5) * H, vx: 0, vy: 0, tx: 0, ty: 0, dx: Math.random() - .5, dy: Math.random() - .5, seed: Math.random(), size: Math.random() < .08 ? (mobile ? 2.2 : 2.6) : (mobile ? 1.6 : 1.9) });
+      particles = Array.from({ length: count }, (_, i) => old[i] ?? { x: W / 2 + (Math.random() - .5) * W, y: H / 2 + (Math.random() - .5) * H, vx: 0, vy: 0, tx: 0, ty: 0, dx: Math.random() - .5, dy: Math.random() - .5, seed: Math.random(), size: Math.random() < .1 ? (mobile ? 2.3 : 2.7) : (mobile ? 1.8 : 2.1) });
       particles.length = count;
       assign();
     };
@@ -88,12 +87,6 @@ export function ParticleHero() {
       if (!visible || disposed) return;
       ctx.clearRect(0, 0, W, H);
       const spread = explode * explode;
-      // A faint solid copy of the name under the particles keeps it legible.
-      if (ghost) {
-        ctx.globalAlpha = .13 * intro * Math.max(0, 1 - spread * 3);
-        ctx.font = FONT(ghost.size); ctx.fillStyle = '#072319'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ghost.lines.forEach((line, i) => ctx.fillText(line, W / 2, ghost!.top + i * ghost!.lead));
-      }
       for (const p of particles) {
         const tx = p.tx + p.dx * spread * W * 1.6 + Math.sin(p.seed * 30 + intro * 6) * (1 - intro) * 220;
         const ty = p.ty + p.dy * spread * H * 1.6 - spread * 120;
@@ -105,8 +98,8 @@ export function ParticleHero() {
         p.vx = (p.vx + ax) * .82; p.vy = (p.vy + ay) * .82;
         p.x += p.vx; p.y += p.vy;
         const speed = Math.min(1, Math.abs(p.vx) + Math.abs(p.vy));
-        ctx.globalAlpha = Math.max(0, 1 - spread * 1.1) * (.8 + .2 * (1 - speed * .5));
-        ctx.fillStyle = speed > .6 || p.size > 2 ? '#3f7a5c' : '#072319';
+        ctx.globalAlpha = Math.max(0, 1 - spread * 1.1) * (.92 + .08 * (1 - speed * .5));
+        ctx.fillStyle = speed > .6 || p.size > 2 ? '#07241a' : '#07241a';
         ctx.fillRect(p.x, p.y, p.size, p.size);
       }
       ctx.globalAlpha = 1;
@@ -152,7 +145,7 @@ export function ParticleHero() {
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
     <h1 className="tl-hero-fallback">Rushan Haque</h1>
-    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>EST. 2022</span></div>
+    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Building at the intersection of logic and language</span></div>
     <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><a href="#two-languages" className="tl-scroll-cue"><span>Scroll</span><i><ArrowDown size={16}/></i></a></div>
   </section>;
 }
