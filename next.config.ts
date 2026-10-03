@@ -43,7 +43,9 @@ const nextConfig: NextConfig = {
     {source:'/about',destination:'/#journey',permanent:true},{source:'/about.html',destination:'/#journey',permanent:true},{source:'/experience',destination:'/#journey',permanent:true},
     {source:'/collaborations',destination:'/#services',permanent:true},
     {source:'/playground',destination:'/',permanent:true},{source:'/lab',destination:'/#lab',permanent:true},{source:'/studies',destination:'/#lab',permanent:true},
-    {source:'/insights',destination:'/writing',permanent:true},{source:'/insights/:slug',destination:'/writing',permanent:true},
+    {source:'/insights',destination:'/',permanent:true},{source:'/insights/:slug',destination:'/',permanent:true},
+    // Pages that no longer exist go home.
+    {source:'/writing',destination:'/',permanent:true},{source:'/writing/:slug',destination:'/',permanent:true},{source:'/products',destination:'/',permanent:true},{source:'/services',destination:'/',permanent:true},{source:'/areas-served',destination:'/',permanent:true},{source:'/feed.xml',destination:'/',permanent:true},
     // Paths from the previous portfolio.
     {source:'/review',destination:'/write-a-review',permanent:true},{source:'/certificates',destination:'/certifications',permanent:true},
     {source:'/work.html',destination:'/projects',permanent:true},{source:'/works-default.html',destination:'/projects',permanent:true},

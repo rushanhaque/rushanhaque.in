@@ -1,0 +1,136 @@
+/* ------------------------------------------------------------------
+   Header: a floating liquid-glass bar, always on screen.
+   ------------------------------------------------------------------ */
+.gh{--gh-ink:#07241a;--gh-paper:#f3f1e6;--gh-ease:cubic-bezier(.16,1,.3,1);--gh-spring:cubic-bezier(.34,1.45,.64,1);
+  position:fixed;z-index:90;top:calc(12px + env(safe-area-inset-top,0px));left:50%;translate:-50% 0;
+  width:min(1240px,calc(100% - 28px));transition:width .7s var(--gh-ease),top .7s var(--gh-ease);color:var(--gh-ink);font-family:var(--font-sans)}
+.gh.is-scrolled{top:calc(10px + env(safe-area-inset-top,0px));width:min(1020px,calc(100% - 24px))}
+.gh-defs{position:absolute;width:0;height:0}
+
+/* The glass itself. */
+.gh-bar{--mx:50%;--my:0%;--progress:0;position:relative;display:flex;align-items:center;gap:clamp(10px,2vw,28px);height:66px;padding:0 9px 0 10px;border-radius:999px;isolation:isolate;
+  background:linear-gradient(180deg,rgb(255 255 255 / .58),rgb(250 248 241 / .34));
+  -webkit-backdrop-filter:blur(20px) saturate(180%) brightness(1.04);backdrop-filter:blur(20px) saturate(180%) brightness(1.04);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .85),inset 0 -1px 0 rgb(7 36 26 / .06),inset 0 0 0 1px rgb(255 255 255 / .38),0 1px 2px rgb(7 36 26 / .06),0 14px 34px -14px rgb(7 36 26 / .28);
+  transition:height .7s var(--gh-ease),background .6s,box-shadow .6s,color .6s}
+html.gh-liquid .gh-bar{-webkit-backdrop-filter:url(#gh-refract) blur(14px) saturate(180%) brightness(1.04);backdrop-filter:url(#gh-refract) blur(14px) saturate(180%) brightness(1.04)}
+.gh.is-scrolled .gh-bar{height:58px}
+/* Specular light that follows the pointer, and a brighter rim along the top edge. */
+.gh-bar::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(160px 90px at var(--mx) var(--my),rgb(255 255 255 / .55),transparent 70%);opacity:0;transition:opacity .5s}
+.gh-bar:hover::before{opacity:1}
+.gh-bar::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;padding:1px;
+  background:linear-gradient(160deg,rgb(255 255 255 / .9),rgb(255 255 255 / .1) 38%,rgb(255 255 255 / 0) 60%,rgb(255 255 255 / .45));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+
+/* Over the green chapters the glass turns to smoke. */
+.gh[data-tone=dark]{color:var(--gh-paper)}
+.gh[data-tone=dark] .gh-bar{background:linear-gradient(180deg,rgb(255 255 255 / .16),rgb(255 255 255 / .05));
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .28),inset 0 -1px 0 rgb(0 0 0 / .2),inset 0 0 0 1px rgb(255 255 255 / .12),0 18px 40px -16px rgb(0 0 0 / .55)}
+.gh[data-tone=dark] .gh-bar::before{background:radial-gradient(160px 90px at var(--mx) var(--my),rgb(255 255 255 / .18),transparent 70%)}
+.gh[data-tone=dark] .gh-bar::after{background:linear-gradient(160deg,rgb(255 255 255 / .5),rgb(255 255 255 / .04) 40%,rgb(255 255 255 / 0) 60%,rgb(255 255 255 / .22))}
+
+/* Brand. */
+.gh-brand{display:flex;align-items:center;gap:12px;min-width:0;padding:6px 10px 6px 4px;border-radius:999px;color:inherit;text-decoration:none}
+.gh-mark{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:var(--gh-ink);color:var(--gh-paper);font:600 16px/1 var(--font-sans);letter-spacing:-.06em;
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .22),0 6px 14px -6px rgb(7 36 26 / .6);transition:transform .7s var(--gh-spring),width .7s var(--gh-ease),height .7s var(--gh-ease)}
+.gh-brand:hover .gh-mark{transform:rotate(-8deg) scale(1.06)}
+.gh[data-tone=dark] .gh-mark{background:var(--gh-paper);color:var(--gh-ink)}
+.gh.is-scrolled .gh-mark{width:40px;height:40px}
+.gh-id{display:grid;gap:3px;min-width:0}
+.gh-id b{font-size:15px;font-weight:550;letter-spacing:-.02em;white-space:nowrap}
+.gh-id small{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.02em;opacity:.7;white-space:nowrap}
+.gh-id small i{position:relative;width:7px;height:7px;border-radius:50%;background:currentColor}
+.gh-id small i::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid currentColor;opacity:0;animation:gh-pulse 2.4s var(--gh-ease) infinite}
+@keyframes gh-pulse{0%{opacity:.7;transform:scale(.4)}100%{opacity:0;transform:scale(1.4)}}
+
+/* Main links with the sliding liquid pill. */
+.gh-nav{position:relative;display:flex;align-items:center;margin-inline:auto;padding:5px;border-radius:999px;background:rgb(7 36 26 / .045);box-shadow:inset 0 1px 1px rgb(7 36 26 / .06)}
+.gh[data-tone=dark] .gh-nav{background:rgb(255 255 255 / .07);box-shadow:inset 0 1px 1px rgb(0 0 0 / .25)}
+.gh-nav a{position:relative;z-index:1;display:inline-flex;align-items:flex-start;gap:3px;padding:10px 16px;border-radius:999px;color:inherit;font-size:14px;font-weight:450;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;transition:opacity .3s}
+.gh-nav a sup{font-size:9px;line-height:1;opacity:.55}
+.gh-nav:hover a:not(:hover){opacity:.62}
+.gh-pill{position:absolute;left:0;top:5px;bottom:5px;border-radius:999px;pointer-events:none;
+  background:linear-gradient(180deg,rgb(255 255 255 / .95),rgb(255 255 255 / .7));box-shadow:inset 0 1px 0 #fff,0 1px 2px rgb(7 36 26 / .1),0 6px 16px -8px rgb(7 36 26 / .35);
+  transition:transform .55s var(--gh-spring),width .55s var(--gh-spring),opacity .3s}
+.gh[data-tone=dark] .gh-pill{background:linear-gradient(180deg,rgb(255 255 255 / .26),rgb(255 255 255 / .12));box-shadow:inset 0 1px 0 rgb(255 255 255 / .35),0 6px 16px -8px rgb(0 0 0 / .5)}
+
+/* Actions. */
+.gh-actions{display:flex;align-items:center;gap:8px;flex:none}
+.gh-cta{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 20px;border-radius:999px;background:var(--gh-ink);color:var(--gh-paper);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .2),0 8px 18px -10px rgb(7 36 26 / .7);transition:transform .5s var(--gh-spring),box-shadow .4s}
+.gh-cta svg{transition:transform .5s var(--gh-spring)}
+.gh-cta:hover{transform:translateY(-1px)}
+.gh-cta:hover svg{transform:rotate(45deg)}
+.gh[data-tone=dark] .gh-bar .gh-cta{background:var(--gh-paper);color:var(--gh-ink)}
+.gh-menu{position:relative;display:grid;place-content:center;gap:6px;width:46px;height:46px;border:0;border-radius:50%;background:rgb(7 36 26 / .06);color:inherit;cursor:pointer;transition:background .3s}
+.gh-menu:hover{background:rgb(7 36 26 / .11)}
+.gh[data-tone=dark] .gh-menu{background:rgb(255 255 255 / .1)}
+.gh-menu i{display:block;width:18px;height:1.6px;border-radius:2px;background:currentColor;transition:transform .5s var(--gh-spring)}
+.gh.is-open .gh-menu i:first-child{transform:translateY(3.8px) rotate(45deg)}
+.gh.is-open .gh-menu i:last-child{transform:translateY(-3.8px) rotate(-45deg)}
+
+/* Reading progress, drawn along the bottom of the glass. */
+.gh-progress{position:absolute;left:28px;right:28px;bottom:0;height:1.5px;border-radius:2px;background:currentColor;opacity:.55;transform:scaleX(var(--progress));transform-origin:left;pointer-events:none}
+
+/* Menu panel: the same glass, opening out of the bar. */
+.gh-panel{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);margin-top:10px;padding:clamp(22px,3vw,40px);border-radius:28px;color:var(--gh-ink);
+  background:linear-gradient(180deg,rgb(255 255 255 / .82),rgb(248 246 238 / .74));-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
+  box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgb(255 255 255 / .5),0 30px 70px -24px rgb(7 36 26 / .45);
+  max-height:calc(100svh - 110px);overflow:auto;overscroll-behavior:contain;
+  opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transform-origin:top center;transition:opacity .35s,transform .6s var(--gh-ease),visibility 0s .6s}
+.gh.is-open .gh-panel{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .6s var(--gh-ease),visibility 0s}
+.gh-panel-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.gh-panel-links nav{display:grid;align-content:start}
+.gh-panel-links span,.gh-panel-card>span{margin-bottom:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+.gh-panel-links a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgb(7 36 26 / .1);color:inherit;font-size:clamp(20px,1.9vw,27px);letter-spacing:-.03em;text-decoration:none;
+  opacity:0;transform:translateY(8px);transition:opacity .45s,transform .6s var(--gh-ease),padding .5s var(--gh-ease)}
+.gh.is-open .gh-panel-links a{opacity:1;transform:none;transition-delay:calc(var(--i) * 28ms + 80ms)}
+.gh-panel-links a svg{opacity:.35;transition:transform .5s var(--gh-spring),opacity .3s}
+.gh-panel-links a:hover{padding-inline:8px}
+.gh-panel-links a:hover svg{opacity:1;transform:rotate(45deg)}
+.gh-panel-links a[aria-current=page]{font-style:italic;font-family:var(--font-serif)}
+.gh-panel-card{display:grid;align-content:start;gap:16px;padding:clamp(20px,2.4vw,30px);border-radius:20px;background:var(--gh-ink);color:var(--gh-paper)}
+.gh-panel-card>span{margin:0}
+.gh-panel-card p{margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.45;letter-spacing:-.01em}
+.gh-panel-actions{display:flex;flex-wrap:wrap;gap:10px}
+.gh-panel-card .gh-cta{background:var(--gh-paper);color:var(--gh-ink)}
+.gh-ghost{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 18px;border-radius:999px;border:1px solid rgb(243 241 230 / .3);color:inherit;font-size:14px;text-decoration:none;transition:background .3s}
+.gh-ghost:hover{background:rgb(243 241 230 / .1)}
+.gh-mail{color:inherit;font-size:15px;text-underline-offset:4px;overflow-wrap:anywhere}
+.gh-socials{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px}
+.gh-socials a{color:inherit;opacity:.7;text-decoration:none;transition:opacity .3s}
+.gh-socials a:hover{opacity:1}
+
+/* Room for the bar on pages without a full-screen opening. */
+.gh-spacer{height:96px}
+
+/* Old header pieces retired by this one. */
+.reading-progress,.site-header,.float-nav{display:none!important}
+
+.gh :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media(max-width:1100px){.gh-id small{display:none}}
+@media(max-width:899px){
+  .gh,.gh.is-scrolled{width:calc(100% - 20px);top:calc(10px + env(safe-area-inset-top,0px))}
+  .gh-bar,.gh.is-scrolled .gh-bar{height:58px;gap:8px}
+  .gh-nav{display:none}
+  .gh-brand{margin-right:auto}
+  .gh-mark,.gh.is-scrolled .gh-mark{width:40px;height:40px}
+  .gh-cta{height:42px;padding:0 16px;font-size:13px}
+  .gh-menu{width:42px;height:42px}
+  .gh-panel{grid-template-columns:1fr;max-height:calc(100svh - 90px);border-radius:24px}
+  .gh-panel-links{grid-template-columns:1fr;gap:18px}
+  .gh-spacer{height:84px}
+}
+@media(max-width:420px){.gh-id b{display:none}.gh-bar .gh-cta{padding:0 14px}}
+html[data-motion=reduce] .gh *,html[data-motion=reduce] .gh{transition-duration:.01s!important;animation:none!important}
+@media print{.gh,.gh-spacer{display:none!important}}
+
+/* The links live in the bar on wide screens, so the menu is just the card there. */
+@media(min-width:1100px){
+  .gh-panel{grid-template-columns:minmax(0,1fr);width:min(460px,100%);margin-left:auto}
+  .gh-panel-links{display:none}
+}
+@media(max-width:1099px){.gh-nav{display:none}.gh-brand{margin-right:auto}}
+@media(min-width:900px) and (max-width:1099px){.gh-panel-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1100px) and (max-width:1260px){.gh-nav a{padding:10px 11px;font-size:13px}.gh-id small{display:none}}

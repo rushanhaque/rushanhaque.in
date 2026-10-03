@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { ArrowDown } from 'lucide-react';
 import { useMotion } from '@/components/site-motion';
 import { onStoryReady } from '@/components/story/preloader';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 const NAME = 'Rushan Haque';
 const FONT = (size: number) => `650 ${size}px "Geist Variable", Arial, sans-serif`;
@@ -34,6 +35,34 @@ function sample(width: number, height: number, step: number) {
   const points: [number, number][] = [];
   for (let y = 0; y < height; y += step) for (let x = 0; x < width; x += step) if (data[(y * width + x) * 4 + 3] > 140) points.push([x + (Math.random() - .5) * step * .5, y + (Math.random() - .5) * step * .5]);
   return points;
+}
+
+// "Developer" resolves first, then "& writer." joins it, so the two end up
+// together. They hold, then the whole line plays again.
+function HeroRoles() {
+  const dev = useRef<HTMLSpanElement>(null);
+  const wri = useRef<HTMLSpanElement>(null);
+  const { reduced } = useMotion();
+  useEffect(() => {
+    const d = dev.current, w = wri.current;
+    if (!d || !w || reduced) return;
+    const chars = 'abcdefghijklmnopqrstuvwxyz{}[]()<>/=;:.*+-_';
+    const word = (el: HTMLElement, code: string, text: string, serif: boolean) => {
+      const tl = gsap.timeline();
+      tl.call(() => { el.className = 'tl-role is-code' + (serif ? ' is-serif-slot' : ''); el.textContent = ''; })
+        .to(el, { duration: .7, ease: 'none', scrambleText: { text: code, chars, speed: .9, revealDelay: .1 } })
+        .call(() => { el.className = 'tl-role' + (serif ? ' is-serif' : ''); })
+        .to(el, { duration: .9, ease: 'none', scrambleText: { text, chars, speed: .6, revealDelay: .2 } });
+      return tl;
+    };
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: .3, delay: 2.4 });
+    tl.call(() => { d.textContent = ''; w.textContent = ''; })
+      .add(word(d, '<developer />', 'Developer', false))
+      .add(word(w, '// & writer', '& writer.', true), '+=.15')
+      .to({}, { duration: 2.6 });
+    return () => { tl.kill(); d.textContent = 'Developer'; d.className = 'tl-role'; w.textContent = '& writer.'; w.className = 'tl-role is-serif'; };
+  }, [reduced]);
+  return <p className="tl-hero-roles" aria-label="Developer and writer."><span className="tl-role" ref={dev} aria-hidden="true">Developer</span>{' '}<span className="tl-role is-serif" ref={wri} aria-hidden="true">&amp; writer.</span></p>;
 }
 
 // The name, drawn in a few thousand particles. They gather into the name,
@@ -146,6 +175,6 @@ export function ParticleHero() {
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
     <h1 className="tl-hero-fallback">Rushan Haque</h1>
     <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Building at the intersection of logic and language</span></div>
-    <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><a href="#two-languages" className="tl-scroll-cue"><span>Scroll</span><i><ArrowDown size={16}/></i></a></div>
+    <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><a href="#selected-work" className="tl-scroll-cue"><span>Scroll</span><i><ArrowDown size={16}/></i></a><HeroRoles/></div>
   </section>;
 }

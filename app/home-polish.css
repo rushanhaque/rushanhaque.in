@@ -76,3 +76,24 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 .tl-deck-card-visit{position:absolute;right:22px;top:20px;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:99px;background:rgb(243 241 230 / 0.92);color:var(--forest);font-size:12px;font-weight:500;letter-spacing:.02em;opacity:0;translate:0 -6px;transition:opacity .4s,translate .5s var(--ease)}
 .tl-deck-card:hover .tl-deck-card-visit,.tl-deck-card:focus-visible .tl-deck-card-visit{opacity:1;translate:0 0}
 @media(hover:none){.tl-deck-card-visit{opacity:1;translate:0 0}}
+
+
+/* V · Journey intro: no portrait, and the whole intro fits one screen. */
+.tl-person{padding-top:0}
+.tl-person-intro{display:block;min-height:100vh;min-height:100svh;padding-block:clamp(80px,11vh,120px) clamp(24px,4vh,48px)}
+.tl-person-copy{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-content:center;min-height:calc(100svh - clamp(104px,15vh,168px));gap:clamp(10px,2.2vh,24px) clamp(28px,5vw,90px)}
+.tl-person-copy>.tl-kicker{grid-column:1/-1}
+.tl-person-copy h2{grid-column:1;grid-row:2;font-size:clamp(34px,min(5vw,9vh),92px);line-height:1.02}
+.tl-bio{grid-column:1;grid-row:3;font-size:clamp(15px,min(1.4vw,2.5vh),23px);line-height:1.4;max-width:34em}
+.tl-person-copy>.tl-link{grid-column:1;grid-row:4;justify-self:start;align-self:start}
+.tl-facts{grid-column:2;grid-row:2/4;align-self:end;gap:clamp(10px,2vh,22px) 28px;padding-block:0}
+.tl-fact b{font-size:clamp(32px,min(3.4vw,6vh),60px)}
+.tl-skills{grid-column:2;grid-row:4;align-self:start;margin:0}
+@media(max-width:899px){.tl-person-intro{min-height:0;padding-block:96px 20px}.tl-person-copy{display:grid;grid-template-columns:1fr;min-height:0;gap:22px}.tl-person-copy>*{grid-column:auto!important;grid-row:auto!important}.tl-person-copy h2{font-size:clamp(34px,10vw,56px)}}
+
+/* Hero: the small looping "Developer & writer". */
+.tl-hero-roles{justify-self:end;margin:0;text-align:right;min-width:9em;font-size:clamp(20px,2vw,30px);font-weight:500;letter-spacing:-.04em;line-height:1}
+.tl-role{display:inline-block;color:var(--forest)}
+.tl-role.is-serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+.tl-role.is-code{font:500 13px/1 ui-monospace,Consolas,monospace;letter-spacing:0;opacity:.6}
+@media(max-width:799px){.tl-hero-roles{grid-column:1/-1;grid-row:1;justify-self:start;text-align:left;font-size:22px;margin-bottom:6px}}

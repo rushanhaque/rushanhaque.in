@@ -8,6 +8,8 @@ export const address = { label: '94 Qazi tola, Moradabad, 244001, India', map: '
 export const bookingUrl = 'https://cal.com/rushan-haque-emssbo/call';
 // Formspree form ID (the part after formspree.io/f/). Set NEXT_PUBLIC_FORMSPREE_ID on Vercel.
 export const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || '';
+// A separate Formspree form for website-audit requests (Study 04). Set NEXT_PUBLIC_FORMSPREE_AUDIT_ID on Vercel.
+export const auditFormId = process.env.NEXT_PUBLIC_FORMSPREE_AUDIT_ID || '';
 export const socials = [
   {name:'LinkedIn',url:'https://www.linkedin.com/in/rushanhaque/'},
   {name:'GitHub',url:'https://github.com/rushanhaque'},

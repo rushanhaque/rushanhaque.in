@@ -1,5 +1,0 @@
-export const dynamic='force-static';
-import { getPublishedContent } from '@/lib/published-content';
-import { siteOrigin } from '@/lib/seo';
-const xml=(value:string)=>value.replace(/[<>&"']/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&apos;'}[c]!));
-export async function GET(){const {writings}=await getPublishedContent();const entries=writings.filter(w=>w.status==='Published');return new Response(`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Rushan Haque — Writing</title><link>${siteOrigin}/writing</link><description>Published writing from Rushan Haque.</description><language>en</language>${entries.map(w=>`<item><title>${xml(w.originalTitle)}</title><link>${siteOrigin}/writing/${w.slug}</link><guid isPermaLink="true">${siteOrigin}/writing/${w.slug}</guid><description>${xml(w.description)}</description>${w.slug==='feedback-loop-collapse'?'<pubDate>Sat, 14 Mar 2026 00:00:00 GMT</pubDate>':''}</item>`).join('')}</channel></rss>`,{headers:{'Content-Type':'application/rss+xml; charset=utf-8','Cache-Control':'no-cache'}});}

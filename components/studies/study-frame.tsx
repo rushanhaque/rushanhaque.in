@@ -28,11 +28,10 @@ export function useNearViewport<T extends Element>(margin = '300px') {
   return [ref, near] as const;
 }
 
-// The lab-study frame shared by every study: numbered label, crosshair corner
-// marks, a live readout and a caption. `announce` is the throttled text read to
-// assistive technology; the visible readout can change every frame.
-export function StudyFrame({ id, number, name, title, truth, readout, announce, caption, children, className = '', controls }: {
-  id: string; number: string; name: string; title: ReactNode; truth: string; readout: ReactNode; announce?: string; caption?: ReactNode; children: ReactNode; className?: string; controls?: ReactNode;
+// The lab-study frame shared by every study: numbered label, claim and
+// crosshair corner marks. `announce` is the throttled text read to assistive technology.
+export function StudyFrame({ id, number, name, title, truth, announce, children, className = '', controls }: {
+  id: string; number: string; name: string; title: ReactNode; truth: string; announce?: string; children: ReactNode; className?: string; controls?: ReactNode;
 }) {
   const spoken = useThrottled(announce ?? '', 1200);
   return <section id={id} className={`study ${className}`} aria-labelledby={`${id}-title`}>
@@ -46,8 +45,6 @@ export function StudyFrame({ id, number, name, title, truth, readout, announce, 
       <i className="study-corner is-tl" aria-hidden="true"/><i className="study-corner is-tr" aria-hidden="true"/><i className="study-corner is-bl" aria-hidden="true"/><i className="study-corner is-br" aria-hidden="true"/>
       {children}
     </div>
-    <div className="study-readout" aria-hidden="true"><span className="study-dot"/>{readout}</div>
     <p className="sr-only" aria-live="polite" aria-atomic="true">{spoken}</p>
-    {caption && <div className="study-caption">{caption}</div>}
   </section>;
 }

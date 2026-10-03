@@ -1,73 +1,93 @@
 'use client';
-import { useRef, useState } from 'react';
-import { ArrowUpRight, Search } from 'lucide-react';
-import Link from '@/components/site-link';
-import type { SiteReport, Check } from '@/lib/site-check';
+import { useState } from 'react';
+import { ArrowUpRight, Check, Loader2 } from 'lucide-react';
+import type { SiteReport } from '@/lib/site-check';
 import { StudyFrame } from '@/components/studies/study-frame';
+import { auditFormId, email as myEmail, phone } from '@/lib/content';
 
-const SAMPLES = ['taifinternational.co', 'aurelio.in'];
-const SERVICES: Check['service'][] = ['Performance', 'SEO + GEO', 'Development', 'Accessibility'];
+const FOCUS = ['Speed', 'Search & AI visibility', 'Mobile', 'Design', 'Getting more enquiries'];
+const STEPS = [
+  ['01', 'I look at it myself', 'A person reviews your site, not a bot.'],
+  ['02', 'A short, honest audit', 'Speed, search and AI visibility, mobile, accessibility.'],
+  ['03', 'Fixes in priority order', 'What to change first, and why. Within 48 hours.'],
+  ['04', 'No obligation', 'Keep the audit whether or not we work together.'],
+];
+const hostOf = (u: string) => { try { return new URL(/^https?:\/\//i.test(u) ? u : `https://${u}`).hostname.replace(/^www\./, ''); } catch { return ''; } };
 
-// Study 04 — type any public website address; the server runs seventeen real
-// checks and the report maps every gap to the service that closes it.
+// Study 04 — the visitor leaves a website and an email; I review the site by hand
+// and write back. A quick automated scan rides along so my review starts informed.
 export function SiteCheckStudy() {
   const [url, setUrl] = useState('');
-  const [report, setReport] = useState<SiteReport | null>(null);
-  const [error, setError] = useState('');
+  const [mail, setMail] = useState('');
+  const [focus, setFocus] = useState<string[]>([]);
+  const [trap, setTrap] = useState('');
   const [busy, setBusy] = useState(false);
-  const controller = useRef<AbortController | null>(null);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState('');
+  const [fallback, setFallback] = useState(false);
 
-  const run = async (target: string) => {
-    const value = target.trim();
-    if (!value) { setError('Enter a website address.'); return; }
-    controller.current?.abort();
-    const ac = new AbortController(); controller.current = ac;
-    setBusy(true); setError(''); setReport(null); setUrl(value);
+  const site = hostOf(url.trim());
+  const summary = () => [`Website: ${url.trim()}`, `Email: ${mail.trim()}`, focus.length ? `Most interested in: ${focus.join(', ')}` : ''].filter(Boolean).join('\n');
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault(); setError(''); setFallback(false);
+    if (!site || !site.includes('.')) { setError('Enter your website address, for example yourbusiness.com.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.trim())) { setError('Enter an email address I can send the audit to.'); return; }
+    if (!auditFormId) { setFallback(true); setError('Send this request by email or WhatsApp below; it’s already written.'); return; }
+    setBusy(true);
+    // A quick automated scan, attached for my reference. It never blocks the request.
+    let scan: Record<string, string> = {};
     try {
-      const res = await fetch('/api/audit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: value }), signal: ac.signal });
-      const body = await res.json();
-      if (!res.ok) throw new Error(body.error || 'The check could not run.');
-      setReport(body as SiteReport);
-    } catch (e) {
-      if ((e as Error).name !== 'AbortError') setError((e as Error).message);
-    } finally { if (controller.current === ac) setBusy(false); }
+      const res = await fetch('/api/audit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: url.trim() }), signal: AbortSignal.timeout(9000) });
+      if (res.ok) {
+        const r = await res.json() as SiteReport;
+        scan = { scan_score: `${r.summary.pass} / ${r.summary.total}`, scan_gaps: r.checks.filter(c => c.status === 'fix').map(c => `${c.label}: ${c.detail}`).join('\n') };
+      }
+    } catch { /* the request still goes through */ }
+    try {
+      const res = await fetch(`https://formspree.io/f/${auditFormId}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ _subject: `Audit request: ${site}`, _replyto: mail.trim(), _gotcha: trap, website: url.trim(), email: mail.trim(), interested_in: focus.join(', ') || 'Not specified', ...scan }) });
+      if (res.status >= 500) { setFallback(true); throw new Error('The request could not be sent from here. Send it by email or WhatsApp below; it’s already written.'); }
+      if (!res.ok) { const body = await res.json().catch(() => ({})) as { errors?: { message: string }[] }; throw new Error(body.errors?.[0]?.message || 'Could not send your request. Please try again.'); }
+      setDone(true);
+    } catch (err) {
+      if ((err as Error).name === 'TypeError') { setFallback(true); setError('Your connection dropped. Send the request by email or WhatsApp below; it’s already written.'); }
+      else setError((err as Error).message);
+    } finally { setBusy(false); }
   };
 
-  const host = report ? new URL(report.finalUrl).hostname.replace(/^www\./, '') : '';
-  const fixes = report?.checks.filter(c => c.status === 'fix') ?? [];
-  const message = report ? `Hi Rushan, I ran ${host} through your site check: ${report.summary.pass} of ${report.summary.total} passed. I’d like help with: ${fixes.map(f => f.label.toLowerCase()).join('; ')}.` : '';
-  const readout = report
-    ? <><b>{report.summary.total} CHECKS</b><span>{report.summary.pass} PASS</span><span>{report.summary.fix} TO FIX</span><span>GEO-READY: {report.summary.geoReady ? 'YES' : 'NO'}</span><span>{host.toUpperCase()}</span></>
-    : busy ? <><b>SCANNING</b><span>{url.toUpperCase()}</span></> : <><b>READY</b><span>ENTER A URL</span></>;
-
   return <StudyFrame id="study-04" number="04" name="YOUR SITE, UNDER THE LENS" title={<>Bring your website.<br/><em>I’ll show what I’d fix.</em></>}
-    truth="Give me a URL and I’ll show you what I’d fix. Every gap maps to something I do."
-    readout={readout} announce={report ? `${report.summary.pass} of ${report.summary.total} checks passed for ${host}` : busy ? `Checking ${url}` : error}
-    caption={<p>Seventeen checks on the page you enter: security, speed, search, AI readiness and accessibility. Public sites only. Nothing is stored.</p>}
+    truth="Leave your website and email. I’ll review it myself and send you a short audit of what I’d fix."
+    announce={done ? `Request sent for ${site}` : error}
     className="study-check">
-    <form className="sc-form" onSubmit={e => { e.preventDefault(); void run(url); }}>
-      <label htmlFor="sc-url" className="sr-only">Website address</label>
-      <span className="sc-prefix" aria-hidden="true">https://</span>
-      <input id="sc-url" type="text" inputMode="url" autoComplete="url" spellCheck={false} placeholder="yourbusiness.com" value={url} onChange={e => setUrl(e.target.value)} maxLength={300}/>
-      <button type="submit" className="study-button is-primary" disabled={busy}><Search size={16}/>{busy ? 'Checking…' : 'Check it'}</button>
-    </form>
-    <div className="sc-samples">Or try mine: {SAMPLES.map(s => <button key={s} type="button" onClick={() => void run(s)} disabled={busy}>{s}</button>)}</div>
-    {error && <p className="sc-error" role="alert">{error}</p>}
-    <div className={`sc-sheet ${busy ? 'is-busy' : ''} ${report ? 'is-done' : ''}`}>
-      {!report && <div className="sc-empty"><span className="sc-beam" aria-hidden="true"/><p>{busy ? `Reading ${url}…` : 'The report appears here.'}</p></div>}
-      {report && <>
-        <header className="sc-head">
-          <div><span className="sc-kicker">DIAGNOSIS · {new Date(report.checkedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span><h3>{report.title || host}</h3><a href={report.finalUrl} target="_blank" rel="noopener noreferrer">{report.finalUrl}</a></div>
-          <div className="sc-score" aria-label={`${report.summary.pass} of ${report.summary.total} checks passed`}><b>{report.summary.pass}</b><span>/ {report.summary.total}</span><i style={{ '--p': report.summary.pass / report.summary.total } as React.CSSProperties}/></div>
-        </header>
-        <div className="sc-groups">{SERVICES.map(service => {
-          const items = report.checks.filter(c => c.service === service);
-          if (!items.length) return null;
-          return <section key={service} className="sc-group"><h4>{service}<span>{items.filter(i => i.status === 'pass').length}/{items.length}</span></h4>
-            <ul>{items.map((c, k) => <li key={c.id} className={`is-${c.status}`} style={{ '--k': k } as React.CSSProperties}><span className="sc-badge">{c.status === 'pass' ? 'PASS' : 'FIX'}</span><div><strong>{c.label}</strong><small>{c.detail}</small></div></li>)}</ul></section>;
-        })}</div>
-        {fixes.length > 0 ? <Link href={`/contact?message=${encodeURIComponent(message)}`} className="sc-cta">Fix these {fixes.length} with me <ArrowUpRight size={18}/></Link> : <p className="sc-clean">Every check passed. That’s rare. <Link href="/contact">Let’s talk about what’s next <ArrowUpRight size={14}/></Link></p>}
-      </>}
+    <div className="ar">
+      {done ? <div className="ar-done" role="status">
+        <span className="ar-tick"><Check size={26}/></span>
+        <span className="ar-kicker">REQUEST RECEIVED</span>
+        <h3>I’ll take a look at <em>{site}</em>.</h3>
+        <p>Your audit will reach <b>{mail.trim()}</b>, usually within 48 hours. If I need anything, I’ll ask there first.</p>
+        <button type="button" className="ar-again" onClick={() => { setDone(false); setUrl(''); setMail(''); setFocus([]); }}>Request another audit</button>
+      </div> : <form className="ar-form" onSubmit={submit} noValidate>
+        <span className="ar-kicker">FREE WEBSITE AUDIT</span>
+        <label className="ar-field"><span>Your website</span>
+          <span className="ar-input"><i aria-hidden="true">https://</i><input value={url} onChange={e => setUrl(e.target.value)} placeholder="yourbusiness.com" inputMode="url" autoComplete="url" spellCheck={false} maxLength={200} required/></span>
+        </label>
+        <label className="ar-field"><span>Where should I send it?</span>
+          <span className="ar-input"><input type="email" value={mail} onChange={e => setMail(e.target.value)} placeholder="you@yourbusiness.com" autoComplete="email" maxLength={254} required/></span>
+        </label>
+        <fieldset className="ar-focus"><legend>What matters most? <small>Optional</small></legend>
+          <div>{FOCUS.map(f => <button key={f} type="button" aria-pressed={focus.includes(f)} onClick={() => setFocus(x => x.includes(f) ? x.filter(y => y !== f) : [...x, f])}>{f}</button>)}</div>
+        </fieldset>
+        <input className="ar-trap" tabIndex={-1} autoComplete="off" value={trap} onChange={e => setTrap(e.target.value)} aria-hidden="true"/>
+        {error && <p className="ar-error" role="alert">{error}</p>}
+        {fallback && <div className="ar-fallback">
+          <a className="ar-submit" href={`mailto:${myEmail}?subject=${encodeURIComponent(`Audit request: ${site}`)}&body=${encodeURIComponent(summary())}`}>Send by email <ArrowUpRight size={16}/></a>
+          <a className="ar-link" href={`${phone.whatsapp}?text=${encodeURIComponent(`Audit request\n\n${summary()}`)}`} target="_blank" rel="noopener noreferrer">Send on WhatsApp <ArrowUpRight size={15}/></a>
+        </div>}
+        {!fallback && <button type="submit" className="ar-submit" disabled={busy}>{busy ? <><Loader2 size={17} className="ar-spin"/>Sending…</> : <>Request my audit <ArrowUpRight size={17}/></>}</button>}
+        <small className="ar-note">Free. Reviewed by me, not a bot. Your details are only used to send the audit.</small>
+      </form>}
+      <ol className="ar-steps" aria-label="What you’ll get">{STEPS.map(([n, t, d]) => <li key={n}><b>{n}</b><div><strong>{t}</strong><span>{d}</span></div></li>)}</ol>
     </div>
   </StudyFrame>;
 }

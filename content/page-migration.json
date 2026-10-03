@@ -163,15 +163,6 @@
     "text": "Add a project — editing Industry shows on the homepage works grid. Personal shows in “Blogs and writeups”. Everything appears on the archive page. Title * Live URL Category Industry Showcase Personal Niche label Kind Freelance Personal Status — auto (inferred from tags) — Completed In Progress Coming Soon Year Tags (comma separated) Description Cover image none Choose file… Leave blank to auto-generate a live preview from the URL. Picking a file fills in the path — copy the actual image into img/rh/projects/ yourself. Video path (optional) CTA Label (optional) Redirect Link (optional) Add project Cancel Projects ( 0 ) Drag order is the display order. Use ↑ ↓ to move an item. Add a product — editing Drives the Products section on the homepage and the works page. Name * Link Status Live Beta Coming soon Price Launch date Tags (comma separated) Tagline Cover image none Choose file… Copy the image into img/rh/products/ . Without one, an on-brand name tile is shown. Add product Cancel Products ( 0 ) Add a review — editing Shown as cards in “Kind words”. Newest first. Name * Role / company Rating * 5 — Excellent 4 — Very good 3 — Good 2 — Fair 1 — Poor Date Review * Photo (optional) none Choose file… Copy the photo into img/rh/reviews/ . Without one, initials are shown. Add review Cancel Reviews ( 0 ) Add an entry — editing Drives the Journey timeline. Set “To” to Present to mark a role as current. Section Experience Education Role / qualification * Organisation * Link (optional) From To Note Add entry Cancel Experience ( 0 ) Education ( 0 )"
   },
   {
-    "source": "areas-served.html",
-    "sha256": "7e54801905d3f4c0671055eaa0886533b5c7bca804e952ce335ac4279934baff",
-    "title": "Areas Served Across Uttar Pradesh | Rushan Haque",
-    "status": "imported-full-page",
-    "route": "/areas-served",
-    "sections": 4,
-    "textPreserved": true
-  },
-  {
     "source": "certificates.html",
     "sha256": "97638cbf6397c6bf16047e38917e8ea0c39a1ace1ae60e8da5ae18bb87ca785a",
     "title": "Certificates & Credentials — Rushan Haque",
@@ -237,15 +228,6 @@
     "status": "imported-full-page",
     "route": "/seo-services",
     "sections": 7,
-    "textPreserved": true
-  },
-  {
-    "source": "services.html",
-    "sha256": "6b36a10d7c415bd52f332d11c703584659049c7eb79f0f12702597bb10a6e4d8",
-    "title": "Web Development & SEO Services in India | Rushan Haque",
-    "status": "imported-full-page",
-    "route": "/services",
-    "sections": 3,
     "textPreserved": true
   },
   {

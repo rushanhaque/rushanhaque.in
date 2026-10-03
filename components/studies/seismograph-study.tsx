@@ -2,14 +2,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import contributions from '@/content/studies/contributions.json';
 import repos from '@/content/studies/repos.json';
-import { ArrowUpRight } from 'lucide-react';
 import { useMotion } from '@/components/site-motion';
 import { StudyFrame } from '@/components/studies/study-frame';
 
 type Week = { start: string; count: number; iso: number; year: number };
 const DAY = 86400000;
 const isoWeek = (d: Date) => { const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return { week: Math.ceil(((t.getTime() - y0.getTime()) / DAY + 1) / 7), year: t.getUTCFullYear() }; };
-const fmt = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 function buildWeeks(days: [string, number][]) {
   const firstActive = days.findIndex(([, c]) => c > 0);
@@ -43,10 +41,9 @@ const monthYear = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString('
 // Study 03 — paper runs under a needle; the line is my real weekly GitHub
 // activity, and every public project is flagged at the week it began.
 export function SeismographStudy() {
-  const { weeks, total } = useMemo(() => buildWeeks(contributions.days as [string, number][]), []);
+  const { weeks } = useMemo(() => buildWeeks(contributions.days as [string, number][]), []);
   const marks = useMemo(() => (repos.projects as Project[]).map(p => ({ ...p, week: weeks.findIndex(w => w.start <= p.date && p.date < new Date(new Date(w.start + 'T00:00:00Z').getTime() + 7 * DAY).toISOString().slice(0, 10)) })).filter(p => p.week >= 0), [weeks]);
   const max = Math.max(1, ...weeks.map(w => w.count));
-  const since = useMemo(() => (contributions.days as [string, number][]).find(([, c]) => c > 0)?.[0], []);
   const [cursor, setCursor] = useState(weeks.length - 1);
   const canvas = useRef<HTMLCanvasElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
@@ -146,20 +143,12 @@ export function SeismographStudy() {
   };
   const w = weeks[cursor];
   const here = marks.filter(m => m.week === cursor);
-  const started = marks.filter(m => m.week <= cursor).length;
-  const readout = w ? <><b>WEEK {w.iso} · {w.year}</b><span>{w.count} CONTRIBUTION{w.count === 1 ? '' : 'S'}</span><span>{started} / {marks.length} PROJECTS</span>{here.length > 0 && <span>⚑ {here.map(h => h.title.toUpperCase()).join(', ')}</span>}</> : <b>NO DATA YET</b>;
   const spark = weeks.map((wk, i) => `${(i / Math.max(1, weeks.length - 1)) * 1000},${100 - Math.pow(wk.count / max, .6) * 90}`).join(' ');
 
   const first = marks[0]?.date;
   return <StudyFrame id="study-03" number="03" name="THE SEISMOGRAPH" title={<>Steady,<br/><em>not sudden.</em></>}
     truth={`Every project I’ve put on GitHub, flagged where it began: ${marks.length} of them${first ? ` since ${monthYear(first)}` : ''}, on my real public activity.`}
-    readout={readout} announce={w ? `Week ${w.iso}, ${w.year}: ${w.count} contributions${here.length ? `. Started: ${here.map(h => h.title).join(', ')}` : ''}` : ''}
-    caption={<><p>Drag, scroll sideways, or use the arrow keys (<kbd>Page Up</kbd> / <kbd>Page Down</kbd> move a year). Pick any project below to find it on the line. {total} public contributions{since ? ` since ${fmt(since)}` : ''}{contributions.fetchedAt ? `, as of ${fmt(contributions.fetchedAt)}` : ''}.</p>
-      <ol className="sm-projects" aria-label="All projects">{[...marks].reverse().map(m => <li key={m.name} className={m.week === cursor ? 'is-here' : ''}>
-        <button type="button" onClick={() => seek(m.week)} aria-label={`Find ${m.title}, started ${monthYear(m.date)}, on the graph`}><strong>{m.title}</strong><small>{monthYear(m.date)}{m.language ? ` · ${m.language}` : ''}</small></button>
-        <a href={m.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${m.title}${m.url === m.repo ? ' on GitHub' : ''}`}><ArrowUpRight size={15}/></a>
-      </li>)}</ol>
-      <p className="study-note">Public repositories only. Private client work isn’t counted.</p></>}
+    announce={w ? `Week ${w.iso}, ${w.year}: ${w.count} contributions${here.length ? `. Started: ${here.map(h => h.title).join(', ')}` : ''}` : ''}
     className="study-seismo">
     <div className={`sm-paper ${live ? 'is-live' : ''}`} ref={wrap} tabIndex={0} role="slider" aria-label="Week" aria-valuemin={0} aria-valuemax={Math.max(0, weeks.length - 1)} aria-valuenow={cursor} aria-valuetext={w ? `Week ${w.iso}, ${w.year}, ${w.count} contributions` : 'No data'} onKeyDown={onKeyDown}>
       <canvas ref={canvas} aria-hidden="true"/>

@@ -19,58 +19,10 @@ import { projectLink } from '@/lib/project-access';
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, Draggable, InertiaPlugin, SplitText);
 
 const desktop = '(min-width: 900px) and (min-height: 620px)';
-const scrambleChars = 'abcdefghijklmnopqrstuvwxyz{}[]()<>/=;:.*+-_';
 
 /* ------------------------------------------------------------------ */
 /* I — Two languages: code that rewrites itself into prose.             */
 /* ------------------------------------------------------------------ */
-const LINES = [
-  { code: 'const role = "developer";', prose: 'Developer' },
-  { code: 'role.also = "writer";', prose: 'and writer.' },
-];
-
-export function TwoLanguages() {
-  const root = useRef<HTMLElement>(null);
-  const { reduced } = useMotion();
-  useEffect(() => {
-    const section = root.current;
-    if (!section || reduced) return;
-    const mm = gsap.matchMedia();
-    mm.add(desktop, () => {
-      section.classList.add('is-pinned');
-      const lines = gsap.utils.toArray<HTMLElement>('.tl-code-line', section);
-      lines.forEach((line, i) => { const text = line.querySelector<HTMLElement>('.tl-code-text')!; text.textContent = LINES[i].code; line.classList.remove('is-prose'); });
-      gsap.timeline({ scrollTrigger: { trigger: section, start: 'top 70%', toggleActions: 'play none none reverse' } })
-        .from('.tl-two-title .tl-split-line > span', { yPercent: 110, stagger: .1, duration: 1, ease: 'expo.out' })
-        .from(lines, { opacity: 0, x: -40, stagger: .08, duration: .8, ease: 'power3.out' }, '<.25');
-      const tl = gsap.timeline({ scrollTrigger: { trigger: section, start: 'top top', end: '+=240%', pin: true, scrub: .8, anticipatePin: 1 } });
-      tl.to({}, { duration: .3 });
-      lines.forEach((line, i) => {
-        const text = line.querySelector<HTMLElement>('.tl-code-text')!;
-        tl.set(line, { className: 'tl-code-line is-prose' }, `swap${i}`)
-          .to(text, { duration: 1, ease: 'none', scrambleText: { text: LINES[i].prose, chars: scrambleChars, revealDelay: .25, speed: .6 } }, `swap${i}`)
-          .to(line.querySelector('.tl-code-gutter'), { opacity: .25, duration: .4 }, `swap${i}`);
-      });
-      tl.to('.tl-two-ghost', { xPercent: -25, opacity: .9, duration: 2, ease: 'none' }, 0)
-        .fromTo('.tl-two-coda', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .6 }, '>-0.2')
-        .to({}, { duration: .5 });
-      return () => lines.forEach((line, i) => { section.classList.remove('is-pinned'); line.classList.remove('is-prose'); line.querySelector<HTMLElement>('.tl-code-text')!.textContent = LINES[i].code; });
-    });
-    return () => mm.revert();
-  }, [reduced]);
-  return <section id="two-languages" className="tl-two" ref={root} data-chapter="I — Two languages">
-    <span className="tl-two-ghost" aria-hidden="true">{'</>'}</span>
-    <div className="tl-two-head">
-      <span className="tl-kicker">I — TWO LANGUAGES</span>
-      <h2 className="tl-two-title"><span className="tl-split-line"><span>I write in</span></span><span className="tl-split-line"><span><em>two languages.</em></span></span></h2>
-    </div>
-    <ol className="tl-code" aria-label="Developer and writer.">
-      {LINES.map((line, i) => <li className="tl-code-line" key={i} aria-hidden="true"><span className="tl-code-gutter">{String(i + 1).padStart(2, '0')}</span><span className="tl-code-text">{line.code}</span><span className="tl-code-prose">{line.prose}</span></li>)}
-    </ol>
-    <p className="tl-two-coda">One in <code>code</code>, one in <em>prose</em>. Same instinct, different material.</p>
-  </section>;
-}
-
 /* ------------------------------------------------------------------ */
 /* II — Works: a deck of projects that fly past the camera.             */
 /* ------------------------------------------------------------------ */
@@ -191,19 +143,20 @@ export function Bookshelf() {
   }, [reduced]);
   const book = writings[active];
   return <section id="writing" className="tl-writing" ref={root} data-chapter="III — Writing">
-    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2>Blogs and<br/><em>writeups.</em></h2><p>The other half of the practice. Work that doesn’t compile.</p><Link href="/writing" className="tl-link">Read the writing <ArrowUpRight size={16}/></Link></div>
+    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2>Blogs and<br/><em>writeups.</em></h2><p>The other half of the practice. Work that doesn’t compile.</p></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
-        return <Link key={w.slug} href={`/writing/${w.slug}`} className={`tl-book ${active === i ? 'is-active' : ''}`} onPointerEnter={e => { if (e.pointerType === 'mouse') setActive(i); }} onFocus={() => setActive(i)}
-          onClick={e => { if (active !== i) { e.preventDefault(); setActive(i); } }}
+        const Book = (w.url ? 'a' : 'div') as 'a';
+        return <Book key={w.slug} {...(w.url ? { href: w.url, target: '_blank', rel: 'noopener noreferrer' } : { tabIndex: 0 })} className={`tl-book ${active === i ? 'is-active' : ''}`} onPointerEnter={e => { if (e.pointerType === 'mouse') setActive(i); }} onFocus={() => setActive(i)}
+          onClick={(e: React.MouseEvent) => { if (active !== i) { e.preventDefault(); setActive(i); } }}
           style={{ ...toneStyle(w.slug), '--t': t, '--h': h, '--w': Math.round(h * .68) } as React.CSSProperties} aria-label={`${w.originalTitle} — ${w.category}, ${w.status}`}>
           <span className="tl-book-3d" aria-hidden="true">
             <span className="tl-book-spine"><span className="tl-book-band"/><b>{w.originalTitle}</b><span className="tl-book-band"/><small>RH<br/>{w.year}</small></span>
             <span className="tl-book-side"><BookCover book={w} size="shelf"/></span>
             <span className="tl-book-top"/>
           </span>
-        </Link>;
+        </Book>;
       })}<span className="tl-bookend" aria-hidden="true"/></div>
       <div className="tl-shelf-plank"><i/></div>
     </div>
@@ -280,8 +233,6 @@ export function Person() {
     const section = root.current;
     if (!section || reduced || !d) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo('.tl-portrait', { clipPath: 'circle(7% at 50% 52%)' }, { clipPath: 'circle(75% at 50% 52%)', ease: 'none', scrollTrigger: { trigger: '.tl-person-intro', start: 'top 85%', end: 'center 45%', scrub: .6 } });
-      gsap.fromTo('.tl-portrait img', { scale: 1.35, filter: 'grayscale(1) contrast(1.15)' }, { scale: 1, filter: 'grayscale(0) contrast(1)', ease: 'none', scrollTrigger: { trigger: '.tl-person-intro', start: 'top 85%', end: 'bottom 40%', scrub: .6 } });
       const bio = SplitText.create('.tl-bio', { type: 'words' });
       gsap.fromTo(bio.words, { opacity: .12 }, { opacity: 1, stagger: .05, ease: 'none', scrollTrigger: { trigger: '.tl-bio', start: 'top 80%', end: 'bottom 50%', scrub: .5 } });
       gsap.utils.toArray<HTMLElement>('.tl-fact b').forEach(el => gsap.from(el, { duration: 1.2, scrambleText: { text: el.textContent ?? '', chars: '0123456789', revealDelay: .3 }, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
@@ -299,7 +250,6 @@ export function Person() {
 
   return <section id="journey" className="tl-person" ref={root} data-chapter="V — Journey">
     <div className="tl-person-intro">
-      <figure className="tl-portrait"><img src={profile.portrait} alt="Rushan Haque" width="853" height="878" loading="lazy" decoding="async"/></figure>
       <div className="tl-person-copy">
         <span className="tl-kicker">V — JOURNEY</span>
         <h2>Built across disciplines because the <em>problems keep overlapping.</em></h2>

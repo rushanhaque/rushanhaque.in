@@ -20,14 +20,17 @@ import './v2.css';
 import './editorial.css';
 import './books.css';
 import './polish.css';
+import './header.css';
+import './footer.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
   title: { default: 'Rushan Haque — Project Manager & Full-Stack Developer', template: '%s — Rushan Haque' },
   description: 'Expressive websites. Considered words. Explore the independent design, development, and writing practice of Rushan Haque.',
   robots: { index: true, follow: true },
-  alternates: { types: { 'application/rss+xml': '/feed.xml' } },
-  icons: { icon: '/favicon.svg', shortcut: '/favicon.svg' },
+  icons: { icon: [{ url: '/icon.png', type: 'image/png', sizes: '512x512' }], shortcut: '/icon.png', apple: '/apple-icon.png' },
+  openGraph: { images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Rushan Haque' }] },
+  twitter: { card: 'summary_large_image', images: ['/og.jpg'] },
 };
 export const viewport: Viewport = { themeColor: '#07241a', colorScheme: 'light' };
 
