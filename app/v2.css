@@ -255,7 +255,6 @@ html[data-motion=full] .page-intro>p,html[data-motion=full] .page-intro>.eyebrow
 html[data-motion=reduce]{scroll-behavior:auto}
 html[data-motion=reduce] *,html[data-motion=reduce] *:before,html[data-motion=reduce] *:after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
 html[data-motion=reduce] ::view-transition-group(*),html[data-motion=reduce] ::view-transition-old(*),html[data-motion=reduce] ::view-transition-new(*){animation:none!important}
-@media(prefers-reduced-motion:reduce){html:not([data-motion=full]) *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 
 @media print{.cursor,.float-nav{display:none!important}}
 

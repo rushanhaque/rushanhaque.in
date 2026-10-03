@@ -97,3 +97,23 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 .tl-role.is-serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
 .tl-role.is-code{font:500 13px/1 ui-monospace,Consolas,monospace;letter-spacing:0;opacity:.6}
 @media(max-width:799px){.tl-hero-roles{grid-column:1/-1;grid-row:1;justify-self:start;text-align:left;font-size:22px;margin-bottom:6px}}
+
+/* Recent works on phones: the same pinned stack, sized for a narrow screen. */
+@media(max-width:899px){
+  .tl-deck.is-pinned .tl-deck-head{top:84px;left:var(--g);right:var(--g);max-width:none}
+  .tl-deck.is-pinned .tl-deck-head h2{font-size:clamp(30px,9vw,44px);line-height:1}
+  .tl-deck.is-pinned .tl-deck-head .tl-kicker{font-size:10px}
+  .tl-deck.is-pinned .tl-deck-sub{display:none}
+  .tl-deck.is-pinned .tl-deck-card{left:50%;top:53%;width:min(92vw,560px)}
+  .tl-deck.is-pinned .tl-deck-card-title{padding:50px 16px 14px;font-size:clamp(20px,6vw,28px)}
+  .tl-deck.is-pinned .tl-deck-card-title em{font-size:.55em}
+  .tl-deck.is-pinned .tl-deck-card-visit{opacity:1;translate:0 0;top:12px;right:12px;padding:6px 11px;font-size:11px}
+  .tl-deck.is-pinned .tl-deck-card-index{left:12px;top:12px;padding:5px 9px;font-size:10px}
+  .tl-deck.is-pinned .tl-deck-ghosts .tl-deck-ghost{top:50%;font-size:clamp(90px,34vw,200px)}
+  .tl-deck.is-pinned .tl-deck-info{left:var(--g);right:var(--g);top:auto;bottom:96px;justify-items:stretch;grid-template-columns:auto 1fr;align-items:center;gap:8px 14px}
+  .tl-deck.is-pinned .tl-deck-count b{font-size:34px}
+  .tl-deck.is-pinned .tl-deck-field{font-size:10px;justify-self:end}
+  .tl-deck.is-pinned .tl-deck-progress{grid-column:1/-1;width:100%}
+  .tl-deck.is-pinned .tl-deck-archive{bottom:20px;font-size:20px}
+  .tl-deck.is-pinned .tl-deck-archive b{font-size:44px}
+}

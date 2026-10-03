@@ -6,6 +6,11 @@
   width:min(1240px,calc(100% - 28px));transition:width .7s var(--gh-ease),top .7s var(--gh-ease);color:var(--gh-ink);font-family:var(--font-sans)}
 .gh.is-scrolled{top:calc(10px + env(safe-area-inset-top,0px));width:min(1020px,calc(100% - 24px))}
 .gh-defs{position:absolute;width:0;height:0}
+/* The header box itself must never catch the pointer: only the bar and the open panel do. */
+.gh{pointer-events:none}
+.gh-bar{pointer-events:auto}
+.gh-panel{position:absolute;top:100%;left:0;right:0;pointer-events:none}
+.gh.is-open .gh-panel{pointer-events:auto}
 
 /* The glass itself. */
 .gh-bar{--mx:50%;--my:0%;--progress:0;position:relative;display:flex;align-items:center;gap:clamp(10px,2vw,28px);height:66px;padding:0 9px 0 10px;border-radius:999px;isolation:isolate;

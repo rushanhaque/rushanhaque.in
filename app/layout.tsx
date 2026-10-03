@@ -34,9 +34,9 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: '#07241a', colorScheme: 'light' };
 
-// Applies the saved or system motion preference before first paint, so reduced-motion
+// Motion is always on; this marks it before first paint so reduced-motion
 // visitors never see an entrance animation start.
-const motionScript = `try{var m=localStorage.getItem('rh-motion');document.documentElement.dataset.motion=m==='reduce'||(m!=='full'&&matchMedia('(prefers-reduced-motion: reduce)').matches)?'reduce':'full'}catch(e){}`;
+const motionScript = `document.documentElement.dataset.motion='full'`;
 
 export default async function RootLayout({ children }: Readonly<{children: React.ReactNode}>) {
   const content=await getPublishedContent();

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
 import { CopyEmail } from '@/components/interactive';
-import { MotionToggle, useMotion } from '@/components/site-motion';
+import { useMotion } from '@/components/site-motion';
 import { address, bookingUrl, email, socials } from '@/lib/content';
 
 const columns = [
@@ -109,7 +109,6 @@ export function SiteFooter() {
     <div className="ft-bottom">
       <span>© {new Date().getFullYear()} Rushan Haque<i className="ft-tag">. Logic in one hand, language in the other.</i></span>
       <div className="ft-legal">
-        <MotionToggle/>
         <Link href="/privacy">Privacy</Link>
         <Link href="/accessibility">Accessibility</Link>
         <button type="button" className="ft-top" onClick={toTop} aria-label="Back to top"><ArrowUp size={16}/></button>

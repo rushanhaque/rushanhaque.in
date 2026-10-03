@@ -18,7 +18,6 @@ import { projectLink } from '@/lib/project-access';
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, Draggable, InertiaPlugin, SplitText);
 
-const desktop = '(min-width: 900px) and (min-height: 620px)';
 
 /* ------------------------------------------------------------------ */
 /* I — Two languages: code that rewrites itself into prose.             */
@@ -46,7 +45,7 @@ export function WorksDeck() {
     const section = root.current;
     if (!section || reduced) return;
     const mm = gsap.matchMedia();
-    mm.add(desktop, () => {
+    mm.add('(min-height: 520px)', () => {
       // Switch to the pinned layout before anything is measured.
       section.classList.add('is-pinned');
       setPinned(true);

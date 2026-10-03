@@ -14,7 +14,6 @@ body{background:var(--paper)}
 .footer{position:relative;overflow:hidden}
 .footer-big-link{font-weight:450}
 :where(.works-reel,.reviews-wall,.interlude,.footer) :where(a,button):focus-visible{outline-color:var(--lime)}
-@media(prefers-reduced-motion:reduce){html:not([data-motion=full]){scroll-behavior:auto}}
 
 /* Shared layout and reading rules for the archive, articles and enquiry pages. */
 .container { width: min(calc(100% - 2 * var(--space-gutter)), 1440px); }
