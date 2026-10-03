@@ -62,13 +62,13 @@ export function XrayStudy() {
   const lensStyle = { '--lx': pct(lens.x, W), '--ly': pct(lens.y, H), '--lr': `${radius * scale}px`, '--fs': `${Math.max(5, 11 * scale * 1.15)}px` } as React.CSSProperties;
   const boxes = [...data.components].sort((a, b) => b.w * b.h - a.w * a.h);
 
-  return <StudyFrame id="study-01" number="01" name="X-RAY" title={<>Look underneath<br/>the <em>polish.</em></>}
-    truth="The polish is the easy part to see. This is what holds it up, on Taif International."
+  return <StudyFrame id="study-01" number="01" name="X-RAY" title={<>Look under the <em>polish.</em></>}
+    truth="The polish is the easy part to see. This is what holds it up, on Erfolg Living."
     announce={under ? `Over ${under.name}` : ''}
     className="study-xray">
-    <div className={`xr-stage ${reduced ? 'is-still' : ''}`} ref={stage} tabIndex={0} role="group" aria-label={`Taif International homepage. Lens over ${under?.name ?? 'the page'}, showing its wireframe, component and code. Use the arrow keys to move the lens.`}
+    <div className={`xr-stage ${reduced ? 'is-still' : ''}`} ref={stage} tabIndex={0} role="group" aria-label={`Erfolg Living homepage. Lens over ${under?.name ?? 'the page'}, showing its wireframe, component and code. Use the arrow keys to move the lens.`}
       style={{ ...lensStyle, aspectRatio: `${W} / ${H}` }} onPointerMove={onPointerMove} onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onKeyDown={onKeyDown}>
-      <img className="xr-shot" src={data.screenshot} alt="Taif International homepage: the collections vitrine with six collection tiles" width={W} height={H} loading="lazy" decoding="async"/>
+      <img className="xr-shot" src={data.screenshot} alt="Erfolg Living homepage: the navigation bar, the Our Collections heading and eight collection tiles" width={W} height={H} loading="lazy" decoding="async"/>
       <div className="xr-lens xr-mix" aria-hidden="true">
         <img className="xr-mix-shot" src={data.screenshot} alt=""/>
         <svg className="xr-wire" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">

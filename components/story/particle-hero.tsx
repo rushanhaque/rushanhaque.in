@@ -24,16 +24,20 @@ function layout(ctx: CanvasRenderingContext2D, width: number, height: number) {
   const lead = size * .98, top = height * .47 - ((lines.length - 1) * lead) / 2;
   return { lines, size, lead, top };
 }
+// Draws the name at 1/step scale, so every pixel read is one candidate point.
+// That keeps the read-back tiny even on large screens.
 function sample(width: number, height: number, step: number) {
+  const w = Math.ceil(width / step), h = Math.ceil(height / step);
   const canvas = document.createElement('canvas');
-  canvas.width = width; canvas.height = height;
+  canvas.width = w; canvas.height = h;
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+  ctx.scale(1 / step, 1 / step);
   const { lines, lead, top } = layout(ctx, width, height);
   ctx.fillStyle = '#000'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   lines.forEach((line, i) => ctx.fillText(line, width / 2, top + i * lead));
-  const data = ctx.getImageData(0, 0, width, height).data;
+  const data = ctx.getImageData(0, 0, w, h).data;
   const points: [number, number][] = [];
-  for (let y = 0; y < height; y += step) for (let x = 0; x < width; x += step) if (data[(y * width + x) * 4 + 3] > 140) points.push([x + (Math.random() - .5) * step * .5, y + (Math.random() - .5) * step * .5]);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 140) points.push([(x + .5 + (Math.random() - .5) * .5) * step, (y + .5 + (Math.random() - .5) * .5) * step]);
   return points;
 }
 
@@ -62,7 +66,7 @@ function HeroRoles() {
       .to({}, { duration: 2.6 });
     return () => { tl.kill(); d.textContent = 'Developer'; d.className = 'tl-role'; w.textContent = '& writer.'; w.className = 'tl-role is-serif'; };
   }, [reduced]);
-  return <p className="tl-hero-roles" aria-label="Developer and writer."><span className="tl-role" ref={dev} aria-hidden="true">Developer</span>{' '}<span className="tl-role is-serif" ref={wri} aria-hidden="true">&amp; writer.</span></p>;
+  return <p className="tl-hero-roles"><span className="sr-only">Developer and writer.</span><span className="tl-role" ref={dev} aria-hidden="true">Developer</span>{' '}<span className="tl-role is-serif" ref={wri} aria-hidden="true">&amp; writer.</span></p>;
 }
 
 // The name, drawn in a few thousand particles. They gather into the name,
@@ -84,9 +88,12 @@ export function ParticleHero() {
     const section = root.current, canvas = canvasRef.current;
     if (!section || !canvas || reduced) return;
     const ctx = canvas.getContext('2d')!;
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+    // Lighter on slower devices: fewer particles and a 1x canvas.
+    const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+    const lite = (nav.hardwareConcurrency || 8) <= 4 || (nav.deviceMemory || 8) <= 4 || !!nav.connection?.saveData;
+    const dpr = lite ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
     let W = 0, H = 0, particles: P[] = [], target: [number, number][] = [];
-    let frame = 0, visible = true, explode = 0, intro = 0, disposed = false;
+    let frame = 0, visible = true, explode = 0, intro = 0, disposed = false, calm = 0, lastExplode = -1;
     const pointer = { x: -9999, y: -9999, active: false };
     const mobile = window.matchMedia('(max-width: 799px)').matches;
 
@@ -98,7 +105,7 @@ export function ParticleHero() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const step = mobile ? 3 : W > 1700 ? 4 : 3;
       target = sample(W, H, step);
-      const count = Math.min(mobile ? 5200 : 13000, target.length);
+      const count = Math.min(mobile ? (lite ? 2600 : 5200) : (lite ? 6000 : 13000), target.length);
       const old = particles;
       particles = Array.from({ length: count }, (_, i) => old[i] ?? { x: W / 2 + (Math.random() - .5) * W, y: H / 2 + (Math.random() - .5) * H, vx: 0, vy: 0, tx: 0, ty: 0, dx: Math.random() - .5, dy: Math.random() - .5, seed: Math.random(), size: Math.random() < .1 ? (mobile ? 2.3 : 2.7) : (mobile ? 1.8 : 2.1) });
       particles.length = count;
@@ -116,6 +123,10 @@ export function ParticleHero() {
       if (!visible || disposed) return;
       ctx.clearRect(0, 0, W, H);
       const spread = explode * explode;
+      // One colour and one alpha per frame keeps the inner loop to arithmetic and fillRect.
+      ctx.fillStyle = '#07241a';
+      ctx.globalAlpha = Math.max(0, 1 - spread * 1.1);
+      let motion = 0;
       for (const p of particles) {
         const tx = p.tx + p.dx * spread * W * 1.6 + Math.sin(p.seed * 30 + intro * 6) * (1 - intro) * 220;
         const ty = p.ty + p.dy * spread * H * 1.6 - spread * 120;
@@ -126,18 +137,20 @@ export function ParticleHero() {
         }
         p.vx = (p.vx + ax) * .82; p.vy = (p.vy + ay) * .82;
         p.x += p.vx; p.y += p.vy;
-        const speed = Math.min(1, Math.abs(p.vx) + Math.abs(p.vy));
-        ctx.globalAlpha = Math.max(0, 1 - spread * 1.1) * (.92 + .08 * (1 - speed * .5));
-        ctx.fillStyle = speed > .6 || p.size > 2 ? '#07241a' : '#07241a';
+        motion += Math.abs(p.vx) + Math.abs(p.vy);
         ctx.fillRect(p.x, p.y, p.size, p.size);
       }
       ctx.globalAlpha = 1;
-      frame = requestAnimationFrame(draw);
+      // Once everything has settled, stop drawing until the pointer or scroll moves it.
+      const still = intro > .995 && !pointer.active && explode === lastExplode && motion / Math.max(1, particles.length) < .01;
+      lastExplode = explode;
+      calm = still ? calm + 1 : 0;
+      if (calm < 20) frame = requestAnimationFrame(draw);
     };
     const wake = () => { if (!frame && visible) frame = requestAnimationFrame(draw); };
 
-    const move = (e: PointerEvent) => { const b = canvas.getBoundingClientRect(); pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.active = true; };
-    const leave = () => { pointer.active = false; };
+    const move = (e: PointerEvent) => { const b = canvas.getBoundingClientRect(); pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.active = true; calm = 0; wake(); };
+    const leave = () => { pointer.active = false; calm = 0; wake(); };
     section.addEventListener('pointermove', move, { passive: true });
     section.addEventListener('pointerleave', leave);
     const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) wake(); });
@@ -145,23 +158,22 @@ export function ParticleHero() {
     const onVisibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } else wake(); };
     document.addEventListener('visibilitychange', onVisibility);
     let resizeTimer = 0;
-    const resize = () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(build, 180); };
+    const resize = () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { build(); calm = 0; wake(); }, 180); };
     window.addEventListener('resize', resize);
 
-    const st = ScrollTrigger.create({ trigger: section, start: 'top top', end: 'bottom top', scrub: true, onUpdate: self => { explode = self.progress; } });
+    const st = ScrollTrigger.create({ trigger: section, start: 'top top', end: 'bottom top', scrub: true, onUpdate: self => { explode = self.progress; calm = 0; wake(); } });
     // A context so every inline style it sets is restored if motion is switched off.
     const motionCtx = gsap.context(() => {
       gsap.to(section.querySelectorAll('.tl-hero-meta, .tl-hero-foot'), { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: '40% top', scrub: true } });
     }, section);
 
     section.classList.add('is-live');
-    const stopReady = onStoryReady(() => {
-      if (disposed) return;
-      gsap.to({ v: 0 }, { v: 1, duration: 2.4, ease: 'expo.out', onUpdate() { intro = this.targets()[0].v; } });
-      motionCtx.add(() => gsap.from(section.querySelectorAll('.tl-hero-meta > *, .tl-hero-foot > *'), { y: 20, opacity: 0, duration: 1.2, stagger: .08, ease: 'expo.out', delay: .4 }));
-    });
-    document.fonts.ready.then(() => { if (!disposed) { build(); wake(); } });
-    build(); wake();
+    // The name gathers once the intro curtain opens (at once on return visits).
+    const stopReady = onStoryReady(() => { if (!disposed) gsap.to({ v: 0 }, { v: 1, duration: 2.4, ease: 'expo.out', onUpdate() { intro = this.targets()[0].v; calm = 0; wake(); } }); });
+    // Sample the name after the first paint, so it never delays the page appearing.
+    const idle = (cb: () => void) => { const w = window as Window & { requestIdleCallback?: (f: () => void, o?: { timeout: number }) => number }; if (w.requestIdleCallback) w.requestIdleCallback(cb, { timeout: 600 }); else setTimeout(cb, 120); };
+    idle(() => { if (!disposed) { build(); wake(); } });
+    document.fonts.ready.then(() => { if (!disposed) idle(() => { if (!disposed) { build(); calm = 0; wake(); } }); });
 
     return () => {
       disposed = true; cancelAnimationFrame(frame); stopReady(); st.kill(); motionCtx.revert(); io.disconnect();
@@ -173,8 +185,8 @@ export function ParticleHero() {
 
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
-    <h1 className="tl-hero-fallback">Rushan Haque</h1>
+    <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque</h1>
     <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Building at the intersection of logic and language</span></div>
-    <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><a href="#selected-work" className="tl-scroll-cue"><span>Scroll</span><i><ArrowDown size={16}/></i></a><HeroRoles/></div>
+    <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

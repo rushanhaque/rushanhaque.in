@@ -37,7 +37,7 @@ export function StudyFrame({ id, number, name, title, truth, announce, children,
   return <section id={id} className={`study ${className}`} aria-labelledby={`${id}-title`}>
     <header className="study-head">
       <span className="study-label">STUDY {number} — {name}</span>
-      <h2 id={`${id}-title`}>{title}</h2>
+      <h2 suppressHydrationWarning id={`${id}-title`}>{title}</h2>
       <p className="study-truth"><span>WHAT IT PROVES</span>{truth}</p>
     </header>
     {controls && <div className="study-controls">{controls}</div>}

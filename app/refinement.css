@@ -1,34 +1,16 @@
 /* Shared rhythm; content occupies its own track rather than colliding with artwork. */
 :root{--space-section:clamp(72px,8vw,128px);--space-gutter:clamp(24px,5vw,88px);--ease-premium:cubic-bezier(.22,.61,.36,1)}
-.perspective-home{--page-gutter:var(--space-gutter)}
 main h1,main h2,main h3{overflow-wrap:normal;text-wrap:balance}
 main p{overflow-wrap:break-word}
 .journey-control,.journey-control.is-visible{position:relative;inset:auto;width:max-content;max-width:calc(100% - 48px);margin:24px var(--space-gutter);opacity:1;transform:none;pointer-events:auto;box-shadow:none;z-index:12}
 .journey-current{display:flex}.journey-next{display:grid}
 .journey-menu{max-height:min(620px,75svh);overflow-y:auto}
-.work-art-link{position:relative;inset:auto;width:min(100%,960px);height:100%;min-height:0;margin:0 auto;transform:none;align-self:stretch}
-.work-art{box-shadow:none;transform-origin:center;overflow:hidden}
-.work-art img{object-fit:contain;object-position:center}
-.type-lab{padding-block:var(--space-section);padding-inline:var(--page-gutter)}
-.desk-cover{height:100%;padding:32px;transition:transform 1s var(--ease-premium),box-shadow 1s var(--ease-premium)}
-.desk-cover:hover,.desk-cover:focus-visible{transform:translateY(-8px)}
-.desk-cover>p{margin-top:auto;padding-top:16px;line-height:1.7}
-.margin-note{gap:28px;padding-block:32px}.margin-note>p{line-height:1.7}
-.footer-top{gap:64px}.footer-big-link.closing-frame{border:0;padding:0;font-size:clamp(42px,5.8vw,88px);line-height:1.15;display:block;position:relative}
-.footer-big-link>svg{position:static;display:block;margin-top:24px;width:48px;height:48px}
-.footer-email{flex-wrap:wrap;gap:20px}.footer-email>a{overflow-wrap:anywhere}
-.footer-bottom{gap:24px;flex-wrap:wrap;line-height:1.7}
-.catalogue-controls,.reading-tools{gap:20px}
-@media(max-width:999px),(max-height:799px){
- .perspective-curtain{display:none}
- .work-art-link{height:auto;aspect-ratio:1.65;margin:0;transform:none}.desk-cover{padding:28px}
-}
+.catalogue-controls{gap:20px}
 @media(max-width:799px){
- .journey-control{margin:20px var(--page-gutter)}.journey-trigger{gap:10px}.journey-current{min-width:115px}.journey-current small{font-size:9px}.desk-cover{display:flex;min-height:0;padding:28px}.desk-cover>p{max-width:none;margin:0 0 24px;padding:0;font-size:15px}.desk-cover h3{font-size:36px}.margin-note{gap:16px}.margin-note>p{font-size:14px}.margin-note h3{font-size:26px;line-height:1.25}
- .footer-top{gap:48px}.footer-big-link.closing-frame{font-size:clamp(38px,10vw,62px)}.footer-nav{gap:32px}.footer-bottom{gap:20px}
+ .journey-control{margin:20px var(--page-gutter)}.journey-trigger{gap:10px}.journey-current{min-width:115px}.journey-current small{font-size:9px}
 }
-.archive-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.archive-grid>*{min-width:0}.project-card,.project-caption,.project-caption>*{min-width:0}.project-caption{flex-wrap:wrap}.project-caption h3{overflow-wrap:anywhere}.archive-row-preview{display:none!important}
+.archive-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.archive-grid>*{min-width:0}.project-card,.project-caption,.project-caption>*{min-width:0}.project-caption{flex-wrap:wrap}.project-caption :is(h2,h3){overflow-wrap:anywhere}
 @media(max-width:1100px){.archive-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:799px){.archive-grid{grid-template-columns:minmax(0,1fr)}.archive-grid .project-caption{display:block}.archive-grid .project-caption>span{max-width:none;text-align:left;font-size:12px}.archive-grid .project-caption h3{font-size:22px}.archive-count{gap:16px;flex-wrap:wrap}.archive-list-row h2{overflow-wrap:anywhere}}
+@media(max-width:799px){.archive-grid{grid-template-columns:minmax(0,1fr)}.archive-grid .project-caption{display:block}.archive-grid .project-caption>span{max-width:none;text-align:left;font-size:12px}.archive-grid .project-caption :is(h2,h3){font-size:22px}.archive-count{gap:16px;flex-wrap:wrap}}
 .contact-layout>*{min-width:0}.contact-intro h1{overflow-wrap:break-word}.contact-email{flex-wrap:wrap;gap:16px}.contact-intro>.text-link{flex-wrap:wrap;line-height:1.7}
 @media(max-width:799px){.contact-intro h1{font-size:clamp(42px,12vw,68px);line-height:1.12;letter-spacing:-.045em}.contact-intro,.inquiry-form{width:100%}.contact-intro>.text-link{font-size:12px}.contact-email>a{overflow-wrap:anywhere}}

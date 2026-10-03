@@ -4,7 +4,7 @@ const url=z.string().max(2000).refine(v=>!v||/^https:\/\//.test(v),'Use an HTTPS
 const image=z.string().regex(/^\/images\/[a-zA-Z0-9._-]+$/);
 const slug=z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const unique=<T extends {slug:string}>(items:T[])=>new Set(items.map(i=>i.slug)).size===items.length;
-export const projectsSchema=z.array(z.object({slug,title:text,category:z.enum(['Client work','Experiments']),discipline:text,year:z.string().regex(/^20\d{2}$/),description:text,tags:z.array(text).max(15),url,image:z.string().regex(/^\/images\/[a-zA-Z0-9._-]+$/).nullable(),status:z.enum(['Completed','In progress','Coming soon']),imageBlurred:z.boolean().optional(),number:z.string().regex(/^\d{2,3}$/),caseStudy:z.object({context:text,role:text,decisions:z.array(z.object({title:text,text}).strict()).min(2).max(6),reflection:text}).strict().optional()}).strict()).min(1).max(300).refine(unique,'Project slugs must be unique.');
+export const projectsSchema=z.array(z.object({slug,title:text,category:z.enum(['Client work','Experiments']),discipline:text,year:z.string().regex(/^20\d{2}$/),description:text,tags:z.array(text).max(15),url,image:z.string().regex(/^\/images\/[a-zA-Z0-9._-]+$/).nullable(),status:z.string().trim().min(1).max(40),showDescription:z.boolean().optional(),imageBlurred:z.boolean().optional(),number:z.string().regex(/^\d{2,3}$/),caseStudy:z.object({context:text,role:text,decisions:z.array(z.object({title:text,text}).strict()).min(2).max(6),reflection:text}).strict().optional()}).strict()).min(1).max(300).refine(unique,'Project slugs must be unique.');
 export const editorialSchema=z.object({
  writings:z.array(z.object({slug,title:text,originalTitle:text,category:text,year:z.string().regex(/^20\d{2}$/),status:z.enum(['Published','Ongoing','Forthcoming']),url,description:text,paragraphs:z.array(text).min(1).max(100),source:text,image:image.optional(),imageBlurred:z.boolean().optional(),author:z.string().max(200).optional()}).strict()).min(1).max(100).refine(unique,'Writing slugs must be unique.'),
  experience:z.array(z.object({role:text,company:text,period:text,description:text}).strict()).max(50),
@@ -12,6 +12,7 @@ export const editorialSchema=z.object({
  certifications:z.array(z.object({title:text,issuer:text,date:text,id:z.string().max(200),image:image.optional(),category:z.enum(['Training','Job simulations','Offer letters','Experience','Visits']).optional()}).strict()).max(100),
  reviews:z.array(z.object({name:text,company:z.string().max(200),location:z.string().max(100),date:z.string().max(40),rating:z.string().regex(/^([1-5](\.\d)?)?$/,'Use a rating from 1 to 5, e.g. 5.0.'),quote:text}).strict()).max(100),
  services:z.array(z.object({title:text,subtitle:text,description:text,items:z.array(text).max(20)}).strict()).max(20),
+ stats:z.array(z.object({value:z.string().trim().min(1).max(12),label:z.string().trim().min(1).max(80)}).strict()).max(8),
  insights:z.array(z.object({slug,title:text,tag:text,text,paragraphs:z.array(text).min(1).max(100)}).strict()).max(100).refine(unique,'Insight slugs must be unique.'),
 }).strict();
 export const contentFiles=['projects','editorial'] as const;

@@ -40,7 +40,7 @@ export function OpeningScene() {
 
   return <section className="opening-scene" ref={root} aria-label="Rushan Haque, developer and writer">
     <div className="opening-meta"><span className="opening-edition">INDEPENDENT BY DESIGN</span><span>MORADABAD, INDIA <span className="opening-clock"> / {time || '--:--'} IST</span></span></div>
-    <div className="opening-copy"><h1 className="opening-heading" aria-label="Rushan Haque. Developer and Writer.">
+    <div className="opening-copy"><h1 suppressHydrationWarning className="opening-heading" aria-label="Rushan Haque. Developer and Writer.">
       <span className="opening-name" aria-hidden="true"><span className="opening-name-rule"/>RUSHAN HAQUE — A MULTIDISCIPLINARY PRACTICE</span>
       <span className="opening-first" aria-hidden="true">{'Developer'.split('').map((letter, i) => <span className="opening-letter" key={i}>{letter}</span>)}<span className="opening-period">✳</span></span>
       <span className="opening-second" aria-hidden="true"><em>{'& Writer.'.split('').map((letter, i) => <span className="opening-letter" key={i}>{letter === ' ' ? ' ' : letter}</span>)}</em></span>
@@ -53,6 +53,6 @@ export function OpeningScene() {
     }} onPointerLeave={() => gsap.to(tilt.current, { rotateX: 0, rotateY: 0, duration: 1, overwrite: 'auto' })}>
       <img src="/images/aperture-v2.webp" {...responsive('/images/aperture-v2.webp','(max-width: 799px) 72vw, 38vw')} alt="An open sculptural form in silver and forest green" width="1100" height="1100" fetchPriority="high"/>
     </div><span className="object-study">THINK IN SYSTEMS. FEEL IN STORIES.</span></div>
-    <div className="opening-foot"><a href="#selected-work" className="opening-scroll"><span><ArrowDown size={18}/></span>EXPLORE SELECTED WORK</a><p>Considered websites. Expressive words.<br/>From Moradabad to wherever you are.</p><div className="opening-actions"><Link href="/contact" className="button primary roll-host">Have something in mind? <ArrowUpRight size={16}/></Link><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="opening-availability"><span/>Let’s find a time <ArrowUpRight size={14}/></a></div></div>
+    <div className="opening-foot"><a href="#selected-work" className="opening-scroll"><span><ArrowDown size={18}/></span>EXPLORE SELECTED WORK</a><p>Considered websites. Expressive words.<br/>From Moradabad to wherever you are.</p><div className="opening-actions"><Link href="/connect" className="button primary roll-host">Have something in mind? <ArrowUpRight size={16}/></Link><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="opening-availability"><span/>Let’s find a time <ArrowUpRight size={14}/></a></div></div>
   </section>;
 }

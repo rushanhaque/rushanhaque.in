@@ -13,7 +13,7 @@
     ],
     "url": "https://erfolgliving.com",
     "image": "/images/work-erfolg-living.webp",
-    "status": "Completed",
+    "status": "Client work",
     "number": "01",
     "caseStudy": {
       "context": "An interiors brand site that opens on a finished space.",
@@ -49,7 +49,7 @@
     ],
     "url": "https://taifinternational.co",
     "image": "/images/work-taif.webp",
-    "status": "Completed",
+    "status": "Client work",
     "number": "02",
     "imageBlurred": false
   },
@@ -67,7 +67,7 @@
     ],
     "url": "https://aurelio.in",
     "image": "/images/work-aurelio.webp",
-    "status": "Completed",
+    "status": "Client work",
     "number": "03",
     "imageBlurred": false
   },
@@ -103,7 +103,7 @@
     ],
     "url": "https://casaandcrop.com",
     "image": "/images/work-casa-and-crop.webp",
-    "status": "Completed",
+    "status": "Client work",
     "number": "05",
     "caseStudy": {
       "context": "Furnishings shown in one full-frame interior scene.",
@@ -193,7 +193,7 @@
     ],
     "url": "https://shadow-chat-7ifp.onrender.com",
     "image": "/images/work-shadow-chat.png",
-    "status": "Completed",
+    "status": "Experiment",
     "number": "09",
     "imageBlurred": false
   },
@@ -210,7 +210,7 @@
     ],
     "url": "https://rushanhaque.itch.io/autorepopusher",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "10",
     "imageBlurred": false
   },
@@ -227,7 +227,7 @@
     ],
     "url": "https://github.com/rushanhaque/killswitch/releases/tag/trial",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "11",
     "imageBlurred": false
   },
@@ -244,7 +244,7 @@
     ],
     "url": "https://github.com/rushanhaque/sentry-mode",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "12",
     "imageBlurred": false
   },
@@ -261,7 +261,7 @@
     ],
     "url": "https://code-sense-ai-omega.vercel.app/",
     "image": "/images/work-codesense-ai.png",
-    "status": "Completed",
+    "status": "Experiment",
     "number": "13",
     "imageBlurred": false
   },
@@ -279,7 +279,7 @@
     ],
     "url": "https://lingua-lens-tan.vercel.app/",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "14",
     "imageBlurred": false
   },
@@ -296,7 +296,7 @@
     ],
     "url": "https://novellect.vercel.app/",
     "image": "/images/work-novellect.png",
-    "status": "Completed",
+    "status": "Experiment",
     "number": "15",
     "imageBlurred": false
   },
@@ -313,7 +313,7 @@
     ],
     "url": "https://rushanhaque.itch.io/cortex",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "16",
     "imageBlurred": false
   },
@@ -330,7 +330,7 @@
     ],
     "url": "https://rushanhaque.itch.io/auraai",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "17",
     "imageBlurred": false
   },
@@ -347,7 +347,7 @@
     ],
     "url": "https://symphony-coral.vercel.app",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "18",
     "imageBlurred": false
   },
@@ -364,7 +364,7 @@
     ],
     "url": "https://github.com/rushanhaque/NordeMCU_FileServer",
     "image": null,
-    "status": "Completed",
+    "status": "Experiment",
     "number": "19",
     "imageBlurred": false
   },
@@ -382,7 +382,7 @@
     ],
     "url": "https://upsidesound.vercel.app/",
     "image": "/images/work-upside-sound.webp",
-    "status": "Completed",
+    "status": "Experiment",
     "number": "20",
     "imageBlurred": false
   },
@@ -400,7 +400,7 @@
     ],
     "url": "https://quorum-tan.vercel.app/",
     "image": "/images/work-quorum.webp",
-    "status": "Completed",
+    "status": "Experiment",
     "number": "21",
     "caseStudy": {
       "context": "An experiment where four people answer one question privately.",
@@ -437,7 +437,7 @@
     ],
     "url": "https://superlatives-wheat.vercel.app/",
     "image": "/images/work-superlatives.webp",
-    "status": "Completed",
+    "status": "Experiment",
     "number": "22",
     "imageBlurred": false
   }

@@ -3,12 +3,11 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { usePathname } from 'next/navigation';
 import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
-import { useContent } from '@/components/content-provider';
 import { bookingUrl, email, socials } from '@/lib/content';
 
-const nav = [['Work', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews']] as const;
+const nav = [['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews']] as const;
 const groups = [
-  { title: 'Explore', links: [['Home', '/'], ['Work', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Contact', '/contact']] },
+  { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
 ] as const;
 
 // Reads the colour of whatever sits under a point, skipping the header itself,
@@ -34,8 +33,7 @@ function toneAt(x: number, y: number, header: HTMLElement): 'light' | 'dark' {
   return 'light';
 }
 
-export function SiteHeader() {
-  const { projects } = useContent();
+export function SiteHeader({ workCount }: { workCount: number }) {
   const path = usePathname() ?? '/';
   const root = useRef<HTMLElement>(null);
   const bar = useRef<HTMLDivElement>(null);
@@ -123,18 +121,17 @@ export function SiteHeader() {
         </filter>
       </svg>
       <div className="gh-bar" ref={bar} onPointerMove={sheen}>
-        <Link href="/" className="gh-brand" aria-label="Rushan Haque, home">
-          <span className="gh-mark" aria-hidden="true">rh</span>
-          <span className="gh-id"><b>Rushan Haque</b><small><i aria-hidden="true"/>Available for projects</small></span>
+        <Link href="/" className="gh-brand">
+          <img className="gh-mark" src="/logo-header.webp" alt="Rushan Haque" width="360" height="186"/>
         </Link>
         <nav className="gh-nav" ref={navRef} aria-label="Main" onPointerLeave={() => setHover(null)}>
           <span className="gh-pill" aria-hidden="true" style={pill ? { transform: `translateX(${pill.x}px)`, width: pill.w, opacity: 1 } : { opacity: 0 }}/>
           {nav.map(([label, url], i) => <Link key={url} href={url} aria-current={current(url)} onPointerEnter={() => setHover(i)} onFocus={() => setHover(i)} onBlur={() => setHover(null)}>
-            {label}{label === 'Work' && <sup>{projects.length}</sup>}
+            {label}{label === 'Works' && <sup>{workCount}</sup>}
           </Link>)}
         </nav>
         <div className="gh-actions">
-          <Link href="/contact" className="gh-cta">Contact <ArrowUpRight size={15}/></Link>
+          <Link href="/connect" className="gh-cta">Connect <ArrowUpRight size={15}/></Link>
           <button ref={menuButton} type="button" className="gh-menu" aria-expanded={open} aria-controls="gh-panel" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(o => !o)}><i/><i/></button>
         </div>
         <i className="gh-progress" aria-hidden="true"/>
@@ -150,7 +147,7 @@ export function SiteHeader() {
           <span>Let’s build</span>
           <p>Got something worth building? Send the brief, or just the problem. I answer everything myself, usually within a day.</p>
           <div className="gh-panel-actions">
-            <Link href="/contact" className="gh-cta" onClick={() => close(false)}>Start a project <ArrowUpRight size={15}/></Link>
+            <Link href="/connect" className="gh-cta" onClick={() => close(false)}>Start a project <ArrowUpRight size={15}/></Link>
             <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="gh-ghost">Book a call <ArrowUpRight size={15}/></a>
           </div>
           <a className="gh-mail" href={`mailto:${email}`}>{email}</a>

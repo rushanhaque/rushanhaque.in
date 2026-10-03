@@ -220,54 +220,6 @@
       "image": "/images/credential-power-bi.jpeg"
     },
     {
-      "title": "Web Development Offer Letter",
-      "issuer": "See document",
-      "date": "See document",
-      "id": "",
-      "category": "Offer letters",
-      "image": "/images/credential-web-dev-offer.jpeg"
-    },
-    {
-      "title": "Internship Offer",
-      "issuer": "COSMIC365",
-      "date": "See document",
-      "id": "",
-      "category": "Offer letters",
-      "image": "/images/credential-cosmic365-internship.png"
-    },
-    {
-      "title": "Campus Ambassador Internship",
-      "issuer": "See document",
-      "date": "See document",
-      "id": "",
-      "category": "Offer letters",
-      "image": "/images/credential-campus-ambassador.png"
-    },
-    {
-      "title": "Foundation Offer Letter",
-      "issuer": "NayePankh Foundation",
-      "date": "See document",
-      "id": "",
-      "category": "Offer letters",
-      "image": "/images/credential-nayepankh.png"
-    },
-    {
-      "title": "Foundation Selection Letter",
-      "issuer": "She Can Foundation",
-      "date": "See document",
-      "id": "",
-      "category": "Offer letters",
-      "image": "/images/credential-she-can.png"
-    },
-    {
-      "title": "Merchandiser Experience Letter",
-      "issuer": "See document",
-      "date": "See document",
-      "id": "",
-      "category": "Experience",
-      "image": "/images/credential-merchandiser-exp.jpeg"
-    },
-    {
       "title": "DUCAT Visit",
       "issuer": "DUCAT",
       "date": "See document",
@@ -392,6 +344,24 @@
       "subtitle": "Content",
       "description": "Cuts that hold attention.",
       "items": []
+    }
+  ],
+  "stats": [
+    {
+      "value": "20+",
+      "label": "Professional certifications & awards"
+    },
+    {
+      "value": "3",
+      "label": "Languages spoken"
+    },
+    {
+      "value": "4",
+      "label": "Roles across management, design & development"
+    },
+    {
+      "value": "40+",
+      "label": "Projects contributed to"
     }
   ],
   "insights": [

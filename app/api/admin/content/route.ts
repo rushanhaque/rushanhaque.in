@@ -1,15 +1,31 @@
 import { z } from 'zod';
 import projects from '@/content/projects.json';
 import editorial from '@/content/editorial.json';
-import { getDatabase } from '@/lib/database';
-import { isOwner,privateJson,readBoundedJson } from '@/lib/admin';
-import { validateContent,contentFiles } from '@/lib/content-schema';
-import { readGithub,githubReady } from '@/lib/github-content';
-import { publishContent } from '@/lib/publish-content';
+import { isOwner, privateJson, readBoundedJson } from '@/lib/admin';
+import { contentFiles, validateContent } from '@/lib/content-schema';
+import { githubStatus, readContent, writeContent } from '@/lib/github-content';
+
 export const dynamic = 'force-dynamic';
-const schema=z.object({file:z.enum(contentFiles),action:z.enum(['save','commit']),data:z.unknown(),revision:z.number().int().min(0),baseSha:z.string().max(64)}).strict();
-export async function GET(request:Request){if(!await isOwner())return privateJson({error:'Owner access required.'},403);const params=new URL(request.url).searchParams;const file=params.get('file');if(file!=='projects'&&file!=='editorial')return privateJson({error:'Unknown content file.'},400);try{const draft=await getDatabase().prepare('SELECT body, base_sha, revision FROM content_drafts WHERE key = ?').bind(file).first<{body:string;base_sha:string;revision:number}>();const publication=await getDatabase().prepare('SELECT revision FROM content_publications WHERE key = ?').bind(file).first<{revision:number}>();const publicationRevision=publication?.revision||0;if(params.get('source')==='github'){const remote=await readGithub(file);return privateJson({data:remote.data,baseSha:remote.sha,revision:draft?.revision||0,publicationRevision,connected:true});}if(draft)return privateJson({data:JSON.parse(draft.body),baseSha:draft.base_sha,revision:draft.revision,publicationRevision,connected:githubReady()});if(githubReady()){const remote=await readGithub(file);return privateJson({data:remote.data,baseSha:remote.sha,revision:0,publicationRevision,connected:true});}return privateJson({data:file==='projects'?projects:editorial,baseSha:'',revision:0,publicationRevision,connected:false});}catch{return privateJson({error:'Content could not be loaded. Check the configured repository or try again.'},503);}}
-export async function POST(request:Request){if(!await isOwner())return privateJson({error:'Owner access required.'},403);try{const input=schema.parse(await readBoundedJson(request));const value=validateContent(input.file,input.data);const db=getDatabase();if(input.action==='save'){const result=input.revision===0?await db.prepare('INSERT INTO content_drafts (key, body, base_sha, revision, updated_at) VALUES (?, ?, ?, 1, ?) ON CONFLICT(key) DO NOTHING RETURNING revision').bind(input.file,JSON.stringify(value),input.baseSha,Date.now()).first<{revision:number}>():await db.prepare('UPDATE content_drafts SET body = ?, base_sha = ?, revision = revision + 1, updated_at = ? WHERE key = ? AND revision = ? RETURNING revision').bind(JSON.stringify(value),input.baseSha,Date.now(),input.file,input.revision).first<{revision:number}>();if(!result)return privateJson({error:'Another edit was saved. Reload before overwriting it.'},409);return privateJson({ok:true,revision:result.revision});}
- const saved=await db.prepare('SELECT body, base_sha, revision FROM content_drafts WHERE key = ?').bind(input.file).first<{body:string;base_sha:string;revision:number}>();if(!saved||saved.revision!==input.revision||saved.body!==JSON.stringify(value)||!saved.base_sha)return privateJson({error:'Load the GitHub source and save your current draft before committing.'},409);
- const publication=await db.prepare('SELECT revision FROM content_publications WHERE key = ?').bind(input.file).first<{revision:number}>();return privateJson(await publishContent(input.file,input.revision,publication?.revision||0));
- }catch(error){return privateJson({error:error instanceof z.ZodError?error.issues[0].message:error instanceof Error?error.message:'Content could not be saved.'},400);}}
+const bundled = { projects, editorial };
+const schema = z.object({ file: z.enum(contentFiles), data: z.unknown(), sha: z.string().min(1).max(64), message: z.string().max(200).optional() }).strict();
+const fail = (error: unknown, status = 400) => privateJson({ error: error instanceof z.ZodError ? `${error.issues[0].path.join(' › ') || 'Content'}: ${error.issues[0].message}` : error instanceof Error ? error.message : 'Something went wrong.' }, status);
+
+// Both content files, read live from GitHub so the admin always edits the latest version.
+export async function GET() {
+  if (!await isOwner()) return privateJson({ error: 'Owner access required.' }, 403);
+  const status = githubStatus();
+  if (!status.ready) return privateJson({ status, readOnly: true, files: Object.fromEntries(contentFiles.map(f => [f, { sha: '', data: validateContent(f, bundled[f]) }])) });
+  try {
+    const entries = await Promise.all(contentFiles.map(async f => [f, await readContent(f)] as const));
+    return privateJson({ status, readOnly: false, files: Object.fromEntries(entries) });
+  } catch (error) { return fail(error, 502); }
+}
+
+// Validates and commits one file. Vercel rebuilds the site from that commit.
+export async function POST(request: Request) {
+  if (!await isOwner()) return privateJson({ error: 'Owner access required.' }, 403);
+  try {
+    const input = schema.parse(await readBoundedJson(request, 600000));
+    return privateJson(await writeContent(input.file, input.data, input.sha, input.message || `Update ${input.file} from admin`));
+  } catch (error) { return fail(error, error instanceof z.ZodError ? 400 : 409); }
+}

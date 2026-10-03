@@ -1,11 +1,22 @@
 import { isOwner, setting } from '@/lib/admin';
 import '../studio.css';
-import { StudioMetrics } from '@/components/studio-metrics';
 import { ContentStudio } from '@/components/content-studio';
 import { StudioSignIn, StudioSignOut } from '@/components/studio-auth';
+
 export const dynamic = 'force-dynamic';
-export const metadata = { title: 'Private content studio', robots: { index: false, follow: false } };
+export const metadata = { title: 'Admin', robots: { index: false, follow: false } };
+
 export default async function Studio() {
   const authorized = await isOwner();
-  return <main id="main-content" className="container studio-page"><span className="eyebrow">RUSHAN HAQUE / PRIVATE WORKSPACE</span><h1>The content desk.</h1>{authorized ? <><nav className="studio-quicklinks" aria-label="Workspace"><a href="/" target="_blank" rel="noopener noreferrer">View portfolio</a><StudioSignOut/></nav><StudioMetrics/><ContentStudio/></> : <section className="studio-gate"><h2>{setting('ADMIN_PUBLISH_SECRET').length >= 16 ? 'Owner sign-in required.' : 'Owner access is not configured yet.'}</h2><p>This workspace is restricted to the site owner. Sign in with your existing admin access key.</p><StudioSignIn/></section>}</main>;
+  const configured = setting('ADMIN_PUBLISH_SECRET').length >= 16;
+  return <main id="main-content" className="container studio-page">
+    <header className="ad-head">
+      <div><span className="ad-kicker">ADMIN</span><h1 suppressHydrationWarning>Content</h1></div>
+      {authorized && <nav className="ad-links" aria-label="Admin"><a href="/" target="_blank" rel="noopener noreferrer">View site</a><StudioSignOut/></nav>}
+    </header>
+    {authorized ? <ContentStudio/> : <section className="ad-panel ad-gate">
+      {configured ? <><h2 suppressHydrationWarning>Sign in</h2><p>Enter your admin password.</p><StudioSignIn/></>
+        : <><h2 suppressHydrationWarning>Admin password not set</h2><p>In Vercel, open the project’s Settings → Environment Variables, add <code>ADMIN_PUBLISH_SECRET</code> with a password of at least 16 characters, and redeploy. Then sign in here with that password.</p></>}
+    </section>}
+  </main>;
 }

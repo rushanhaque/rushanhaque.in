@@ -4,9 +4,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+import { SplitText } from 'gsap/SplitText';
 import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
-import { SplitText } from 'gsap/SplitText';
 import { ArrowUpRight, Star } from 'lucide-react';
 import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
@@ -72,17 +72,16 @@ export function WorksDeck() {
 
   const current = works[active];
   return <section id="selected-work" className={`tl-deck ${pinned ? 'is-pinned' : ''}`} ref={root} data-chapter="II — Selected works">
-    <div className="tl-deck-head"><span className="tl-kicker">II — SELECTED WORKS</span><h2>Recent<br/><em>works.</em></h2><p className="tl-deck-sub">A few of my recent works. There’s considerably more that hasn’t made it here.</p></div>
+    <div className="tl-deck-head"><span className="tl-kicker">II — SELECTED WORKS</span><h2 suppressHydrationWarning>Recent <em>works.</em></h2><p className="tl-deck-sub">A few of my recent works. There’s considerably more that hasn’t made it here.</p></div>
     <div className="tl-deck-ghosts" aria-hidden="true">{works.map(w => <span className="tl-deck-ghost" key={w.slug}>{`${w.title} · ${w.title} · ${w.title}`}</span>)}</div>
-    <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" aria-label={`${work.title}: visit the live website (opens in a new tab)`}>
+    <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" inert={i !== active ? true : undefined}>
       <img src={work.image!} {...responsive(work.image, '(max-width: 899px) 92vw, 62vw')} alt="" width="1600" height="900" loading={i < 2 ? 'eager' : 'lazy'} decoding="async"/>
       <span className="tl-deck-card-index">W/{String(i + 1).padStart(2, '0')}</span>
       <span className="tl-deck-card-title">{work.title}<em>{STORIES[work.slug]?.line}</em></span>
-      <span className="tl-deck-card-visit">Visit site <ArrowUpRight size={14}/></span>
+      <span className="tl-deck-card-visit">Visit site <ArrowUpRight size={14}/><span className="sr-only"> (opens in a new tab)</span></span>
     </a>)}</div>
     {current && <div className="tl-deck-info" aria-hidden="true">
       <span className="tl-deck-count"><b>{String(active + 1).padStart(2, '0')}</b> / {String(works.length).padStart(2, '0')}</span>
-      <span className="tl-deck-field">{STORIES[current.slug]?.field ?? current.discipline} · {current.year}</span>
       <i className="tl-deck-progress"><span style={{ transform: `scaleX(${(active + 1) / works.length})` }}/></i>
     </div>}
     <Link href="/projects" className="tl-deck-archive"><span>Open the <em>archive</em></span><b>{projects.length}<ArrowUpRight size={34}/></b></Link>
@@ -142,12 +141,13 @@ export function Bookshelf() {
   }, [reduced]);
   const book = writings[active];
   return <section id="writing" className="tl-writing" ref={root} data-chapter="III — Writing">
-    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2>Blogs and<br/><em>writeups.</em></h2><p>The other half of the practice. Work that doesn’t compile.</p></div>
+    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2 suppressHydrationWarning>Blogs and <em>writeups.</em></h2><p>The other half of the practice. Work that doesn’t compile.</p></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
         const Book = (w.url ? 'a' : 'div') as 'a';
-        return <Book key={w.slug} {...(w.url ? { href: w.url, target: '_blank', rel: 'noopener noreferrer' } : { tabIndex: 0 })} className={`tl-book ${active === i ? 'is-active' : ''}`} onPointerEnter={e => { if (e.pointerType === 'mouse') setActive(i); }} onFocus={() => setActive(i)}
+        const role = w.url ? undefined : 'group';
+        return <Book key={w.slug} {...(w.url ? { href: w.url, target: '_blank', rel: 'noopener noreferrer' } : { tabIndex: 0, role })} className={`tl-book ${active === i ? 'is-active' : ''}`} onPointerEnter={e => { if (e.pointerType === 'mouse') setActive(i); }} onFocus={() => setActive(i)}
           onClick={(e: React.MouseEvent) => { if (active !== i) { e.preventDefault(); setActive(i); } }}
           style={{ ...toneStyle(w.slug), '--t': t, '--h': h, '--w': Math.round(h * .68) } as React.CSSProperties} aria-label={`${w.originalTitle} — ${w.category}, ${w.status}`}>
           <span className="tl-book-3d" aria-hidden="true">
@@ -181,11 +181,11 @@ export function TypeWall() {
   return <section id="services" className="tl-wall" ref={root} data-chapter="IV — Tie-ups & other services">
     <div className="tl-wall-head">
       <span className="tl-kicker">IV — TIE-UPS &amp; OTHER SERVICES</span>
-      <h2>Beyond<br/>the <em>build.</em></h2>
-      <div className="tl-wall-intro"><p><strong>More than a site when you need it.</strong> Through vetted partners, the work extends past launch. Growth, infrastructure, and the systems that run behind the scenes — scoped and delivered alongside people I trust.</p><Link href="/contact" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
+      <h2 suppressHydrationWarning>Beyond the <em>build.</em></h2>
+      <div className="tl-wall-intro"><p><strong>More than a site when you need it.</strong> Through vetted partners, the work extends past launch. Growth, infrastructure, and the systems that run behind the scenes — scoped and delivered alongside people I trust.</p><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
     </div>
     <ul className="tl-wall-list">{services.map((s, i) => <li className="tl-wall-row" key={s.title}>
-      <Link href="/contact">
+      <Link href="/connect">
         <span className="tl-wall-num">{String(i + 1).padStart(2, '0')}</span>
         <span className="tl-wall-word">{s.title}</span>
         <span className="tl-wall-desc"><small>{s.subtitle}</small>{s.description}</span>
@@ -199,7 +199,7 @@ export function TypeWall() {
 /* journey through every role.                                          */
 /* ------------------------------------------------------------------ */
 export function Person() {
-  const { experience, education } = useContent();
+  const { experience, education, stats } = useContent();
   const skills = profile.skills as Record<string, string[]>;
   const root = useRef<HTMLElement>(null);
   const path = useRef<SVGPathElement>(null);
@@ -232,8 +232,8 @@ export function Person() {
     const section = root.current;
     if (!section || reduced || !d) return;
     const ctx = gsap.context(() => {
-      const bio = SplitText.create('.tl-bio', { type: 'words' });
-      gsap.fromTo(bio.words, { opacity: .12 }, { opacity: 1, stagger: .05, ease: 'none', scrollTrigger: { trigger: '.tl-bio', start: 'top 80%', end: 'bottom 50%', scrub: .5 } });
+      const bio = SplitText.create('.tl-bio', { type: 'words', aria: 'none' });
+      gsap.fromTo(bio.words, { opacity: .12 }, { opacity: 1, stagger: .05, ease: 'none', immediateRender: false, scrollTrigger: { trigger: '.tl-bio', start: 'top bottom', end: 'bottom 50%', scrub: .5 } });
       gsap.utils.toArray<HTMLElement>('.tl-fact b').forEach(el => gsap.from(el, { duration: 1.2, scrambleText: { text: el.textContent ?? '', chars: '0123456789', revealDelay: .3 }, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
       const line = path.current, tip = head.current;
       if (line) {
@@ -251,13 +251,10 @@ export function Person() {
     <div className="tl-person-intro">
       <div className="tl-person-copy">
         <span className="tl-kicker">V — JOURNEY</span>
-        <h2>Built across disciplines because the <em>problems keep overlapping.</em></h2>
-        <p className="tl-bio">{profile.bio} Products, interfaces, research, long-form writing. Here’s how it went.</p>
+        <h2 suppressHydrationWarning><em>Journey.</em></h2>
+        <p className="tl-bio"><strong>Built across disciplines because the problems keep overlapping.</strong> {profile.bio} Products, interfaces, research, long-form writing. Here’s how it went.</p>
         <div className="tl-facts">
-          <span className="tl-fact"><b>20+</b>Professional certifications &amp; awards</span>
-          <span className="tl-fact"><b>3</b>Languages spoken</span>
-          <span className="tl-fact"><b>{experience.length}</b>Roles across management, design &amp; development</span>
-          <span className="tl-fact"><b>40+</b>Projects contributed to</span>
+          {stats.map(f => <span className="tl-fact" key={f.label}><b>{f.value}</b>{f.label}</span>)}
         </div>
         <dl className="tl-skills">{Object.entries(skills).map(([group, list]) => <div key={group}><dt>{group}</dt><dd>{list.join(' · ')}</dd></div>)}</dl>
         <Link href="/certifications" className="tl-link">Certificates & credentials <ArrowUpRight size={16}/></Link>
@@ -310,7 +307,7 @@ export function Voices() {
   }, [reduced]);
   return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
     <div className="tl-voices-head">
-      <div><span className="tl-kicker">VI — REVIEWS</span><h2>What<br/><em>they said.</em></h2></div>
+      <div><span className="tl-kicker">VI — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
       <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews · collected direct · published unedited</span></div>
     </div>
     <p className="tl-board-hint" aria-hidden="true">Drag a note ↗</p>
@@ -319,6 +316,6 @@ export function Voices() {
       <blockquote>“{r.quote}”</blockquote>
       <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span>{r.date && <time>{r.date}</time>}</figcaption>
     </figure>; })}</div>
-    <div className="tl-voices-actions"><Link href="/write-a-review" className="tl-button">Add a review <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Read all reviews <ArrowUpRight size={16}/></Link></div>
+    <div className="tl-voices-actions"><Link href="/reviews" className="tl-button">Add a review <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Read all reviews <ArrowUpRight size={16}/></Link></div>
   </section>;
 }

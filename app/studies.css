@@ -1,5 +1,5 @@
 /* The lab — instrument studies. Shares the homepage story's tokens. */
-.lab{--paper:#efece3;--paper-2:#e6e2d4;--ink:#07241a;--forest:#07241a;--moss:#07241a;--lime:#f3f1e6;--signal:#f3f1e6;--cream:#f3f1e6;--line:rgb(7 36 26 / 0.16);--g:clamp(20px,4.4vw,72px);--ease:cubic-bezier(.16,1,.3,1);--mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;background:var(--paper);color:var(--forest);overflow-x:clip}
+.lab{--paper:#efece3;--paper-2:#e6e2d4;--ink:#07241a;--forest:#07241a;--moss:#07241a;--lime:#f3f1e6;--signal:#f3f1e6;--cream:#f3f1e6;--line:rgb(7 36 26 / 0.16);--g:clamp(24px,5.55vw,80px);--ease:cubic-bezier(.16,1,.3,1);--mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;background:var(--paper);color:var(--forest);overflow-x:clip}
 .lab em{font-family:var(--font-serif);font-style:italic;font-weight:400}
 .lab kbd{display:inline-block;min-width:1.6em;padding:1px 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;font:500 11px/1.5 var(--mono);text-align:center}
 .lab a{text-decoration-thickness:1px;text-underline-offset:3px}
@@ -39,7 +39,7 @@
 .rz-ruler span{position:absolute;top:0;display:flex;align-items:center;gap:6px;font:500 10px/1 var(--mono);letter-spacing:.1em;white-space:nowrap;opacity:.4;transition:opacity .3s,color .3s}
 .rz-ruler span i{width:1px;height:26px;background:currentColor}
 .rz-ruler span.is-on{opacity:1;color:var(--moss)}
-@media(max-width:699px){.rz-ruler span:not(.is-on){font-size:0;gap:0}}
+@media(max-width:699px){.rz-ruler span:not(.is-on){font-size:0;gap:0}.rz-ruler span:not(.is-on) i{height:12px;margin-top:14px}}
 .rz-stage{position:relative;width:100%;touch-action:pan-y}
 .rz-frame{position:relative;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 0 0 1px var(--line),0 40px 70px -50px rgb(7 36 26 / 0.55)}
 .rz-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
@@ -157,3 +157,16 @@ html[data-motion=reduce] .rz-hint i,html[data-motion=reduce] .rz-handle span{ani
 .ar-done p{margin:0;max-width:30em;font-size:16px;line-height:1.55;opacity:.8}
 .ar-again{padding:0;border:0;border-bottom:1px solid currentColor;background:none;color:inherit;font-size:14px;cursor:pointer}
 @media(max-width:899px){.ar{grid-template-columns:1fr;padding:18px}.ar-submit{justify-self:stretch;justify-content:center}}
+
+/* Resize on phones: bigger touch handle, a compact hint beside the frame, no page-scroll trap. */
+@media(max-width:699px){
+  .rz-handle{width:56px;margin-left:-28px}
+  .rz-handle span{width:12px;height:84px}
+  .rz-hint{padding:8px 12px;font-size:11px;transform:translate(34px,-50%)}
+  .rz-hint.is-left{transform:translate(calc(-100% - 34px),-50%)}
+  .rz-hint.is-gone{transform:translate(34px,-50%) scale(.9)}
+  .rz-hint.is-left.is-gone{transform:translate(calc(-100% - 34px),-50%) scale(.9)}
+  .rz-frame{border-radius:12px}
+}
+
+.lab-pending{min-height:200vh}

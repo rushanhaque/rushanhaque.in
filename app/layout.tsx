@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { UsageEvents } from '@/components/usage-events';
 import { SiteHeader } from '@/components/site-header';
+import { FitHeadings } from '@/components/fit-headings';
 import { SiteFooter } from '@/components/site-footer';
 import { MotionProvider } from '@/components/site-motion';
-import { ContentProvider } from '@/components/content-provider';
 import { getPublishedContent } from '@/lib/published-content';
 import { ReleaseSync } from '@/components/release-sync';
 import { siteOrigin } from '@/lib/seo';
@@ -22,6 +22,7 @@ import './books.css';
 import './polish.css';
 import './header.css';
 import './footer.css';
+import './buttons.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
@@ -44,5 +45,5 @@ export default async function RootLayout({ children }: Readonly<{children: React
     <script dangerouslySetInnerHTML={{ __html: motionScript }}/>
     <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
     <link rel="preload" href="/fonts/instrument-italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
-  </head><body id="top"><ContentProvider value={content}><MotionProvider><a className="skip-link" href="#main-content">Skip to content</a><ReleaseSync buildId={release.buildId}/><UsageEvents/><SiteHeader/>{children}<SiteFooter/></MotionProvider></ContentProvider></body></html>;
+  </head><body id="top"><MotionProvider><a className="skip-link" href="#main-content">Skip to content</a><ReleaseSync buildId={release.buildId}/><UsageEvents/><SiteHeader workCount={content.projects.length}/><div id="page-stack" className="page-stack">{children}</div><SiteFooter/><FitHeadings/></MotionProvider></body></html>;
 }

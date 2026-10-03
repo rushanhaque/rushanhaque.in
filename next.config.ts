@@ -20,7 +20,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: '/:path((?!_next/static|images/|fonts/|api/|studio).*)', headers: [{ key: 'Cache-Control', value: revalidate }] },
-      { source: '/images/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }] },
+      // Image file names are never reused (the admin uploads under new names), so they cache for a year.
+      { source: '/images/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
       { source: '/fonts/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
       { source: '/studio/:path*', headers: noStore },
       { source: '/studio', headers: noStore },
@@ -38,7 +39,7 @@ const nextConfig: NextConfig = {
     ...projects.filter(p=>p.category!=='Experiments'&&p.url&&p.status!=='Coming soon').map(p=>({source:`/projects/${p.slug}`,destination:p.url,permanent:true})),
     ...sourcePages.map(page=>({source:`/${page.slug}.html`,destination:`/${page.slug}`,permanent:true})),
     {source:'/admin.html',destination:'/studio',permanent:true},
-    {source:'/work',destination:'/projects',permanent:true},{source:'/index.html',destination:'/',permanent:true},{source:'/contact.html',destination:'/contact',permanent:true},
+    {source:'/work',destination:'/projects',permanent:true},{source:'/index.html',destination:'/',permanent:true},{source:'/contact.html',destination:'/connect',permanent:true},{source:'/contact',destination:'/connect',permanent:true},{source:'/write-a-review',destination:'/reviews',permanent:true},
     // v2 folds these pages into the homepage story (or removes them).
     {source:'/about',destination:'/#journey',permanent:true},{source:'/about.html',destination:'/#journey',permanent:true},{source:'/experience',destination:'/#journey',permanent:true},
     {source:'/collaborations',destination:'/#services',permanent:true},
@@ -47,9 +48,9 @@ const nextConfig: NextConfig = {
     // Pages that no longer exist go home.
     {source:'/writing',destination:'/',permanent:true},{source:'/writing/:slug',destination:'/',permanent:true},{source:'/products',destination:'/',permanent:true},{source:'/services',destination:'/',permanent:true},{source:'/areas-served',destination:'/',permanent:true},{source:'/feed.xml',destination:'/',permanent:true},
     // Paths from the previous portfolio.
-    {source:'/review',destination:'/write-a-review',permanent:true},{source:'/certificates',destination:'/certifications',permanent:true},
+    {source:'/review',destination:'/reviews',permanent:true},{source:'/certificates',destination:'/certifications',permanent:true},
     {source:'/work.html',destination:'/projects',permanent:true},{source:'/works-default.html',destination:'/projects',permanent:true},
-    {source:'/certificates.html',destination:'/certifications',permanent:true},{source:'/review.html',destination:'/write-a-review',permanent:true},
+    {source:'/certificates.html',destination:'/certifications',permanent:true},{source:'/review.html',destination:'/reviews',permanent:true},
 
   ];}
 };

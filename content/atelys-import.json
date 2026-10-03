@@ -147,36 +147,6 @@
       "sha256": "31dd0240a78f95406ea3b2450b0f30a9370e15e054a6c4eec54a3bacb47e2c81"
     },
     {
-      "source": "img/cert/web-dev-offer.jpeg",
-      "target": "/images/credential-web-dev-offer.jpeg",
-      "sha256": "3bec64dd4981c787b6fb4c5e45583b012f55523e2fe69c204d751cc802aafab3"
-    },
-    {
-      "source": "img/cert/cosmic365-internship.png",
-      "target": "/images/credential-cosmic365-internship.png",
-      "sha256": "6436745ff3ef4cdf604a3e5dee4085386bdfac5aeb564c2fb240c0d85f485785"
-    },
-    {
-      "source": "img/cert/campus-ambassador.png",
-      "target": "/images/credential-campus-ambassador.png",
-      "sha256": "694cd7183be7d05f873be36635e0d19f3230627cb881bd9989b661dcd5b49383"
-    },
-    {
-      "source": "img/cert/nayepankh.png",
-      "target": "/images/credential-nayepankh.png",
-      "sha256": "f9b02fd4b939ff571f5c9ccf5a90508aa291076574bfda0ada54c988dd0a37f2"
-    },
-    {
-      "source": "img/cert/she-can.png",
-      "target": "/images/credential-she-can.png",
-      "sha256": "2a128310020499d71719910c0b72b0033c7e856b4c0cf57ef8aa7c69019eaddc"
-    },
-    {
-      "source": "img/cert/merchandiser-exp.jpeg",
-      "target": "/images/credential-merchandiser-exp.jpeg",
-      "sha256": "c62fc12e0b77584ca4b9794190262e6b4799b3dcebdd1ff0a8464e8144a4c0b7"
-    },
-    {
       "source": "img/cert/ducat-visit.png",
       "target": "/images/credential-ducat-visit.png",
       "sha256": "36b05ae061a714446749d9cbcc610cee8f1fe84d0205e91aa256d78abf199b3f"

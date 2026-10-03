@@ -146,7 +146,7 @@ export function SeismographStudy() {
   const spark = weeks.map((wk, i) => `${(i / Math.max(1, weeks.length - 1)) * 1000},${100 - Math.pow(wk.count / max, .6) * 90}`).join(' ');
 
   const first = marks[0]?.date;
-  return <StudyFrame id="study-03" number="03" name="THE SEISMOGRAPH" title={<>Steady,<br/><em>not sudden.</em></>}
+  return <StudyFrame id="study-03" number="03" name="THE SEISMOGRAPH" title={<>Steady, <em>not sudden.</em></>}
     truth={`Every project I’ve put on GitHub, flagged where it began: ${marks.length} of them${first ? ` since ${monthYear(first)}` : ''}, on my real public activity.`}
     announce={w ? `Week ${w.iso}, ${w.year}: ${w.count} contributions${here.length ? `. Started: ${here.map(h => h.title).join(', ')}` : ''}` : ''}
     className="study-seismo">

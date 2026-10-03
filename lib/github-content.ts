@@ -1,31 +1,64 @@
 import { createHash } from 'node:crypto';
 import { setting } from '@/lib/admin';
 import { validateContent, type ContentFile } from '@/lib/content-schema';
-const repository = () => setting('GITHUB_CONTENT_REPOSITORY') || [setting('GITHUB_OWNER'), setting('GITHUB_REPO')].filter(Boolean).join('/');
-const token = () => setting('GITHUB_CONTENT_TOKEN') || setting('GITHUB_TOKEN');
-const branch = () => setting('GITHUB_CONTENT_BRANCH') || setting('GITHUB_BRANCH') || 'main';
+
+// The admin edits the JSON files in the GitHub repository directly. A commit
+// to the deployed branch makes Vercel rebuild the site, which is how an edit
+// goes live. Several variable names are accepted so existing Vercel settings work.
+const first = (...names: string[]) => names.map(setting).find(Boolean) || '';
+const token = () => first('GITHUB_CONTENT_TOKEN', 'GITHUB_TOKEN', 'GITHUB_PAT', 'GH_TOKEN');
+export const repository = () => {
+  const explicit = first('GITHUB_CONTENT_REPOSITORY', 'GITHUB_REPOSITORY');
+  if (explicit) return explicit;
+  const owner = first('GITHUB_OWNER', 'VERCEL_GIT_REPO_OWNER'), repo = first('GITHUB_REPO', 'VERCEL_GIT_REPO_SLUG');
+  return owner && repo ? `${owner}/${repo}` : 'rushanhaque/rushanhaque.in';
+};
+export const branch = () => first('GITHUB_CONTENT_BRANCH', 'GITHUB_BRANCH', 'VERCEL_GIT_COMMIT_REF') || 'main';
+const prefix = () => { const p = setting('GITHUB_CONTENT_PREFIX'); if (p && !/^(?:[\w.-]+\/)*$/.test(p)) throw Error('Invalid GITHUB_CONTENT_PREFIX.'); return p; };
+
 export const contentHash = (value: unknown) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
-export function githubReady() { return !!(token() && /^[\w.-]+\/[\w.-]+$/.test(repository())); }
-function config(file: ContentFile) {
-  if (!githubReady()) throw Error('GitHub publishing is not configured. Your draft can still be saved.');
-  const prefix = setting('GITHUB_CONTENT_PREFIX');
-  if (prefix && !/^(?:[\w.-]+\/)*$/.test(prefix)) throw Error('Invalid content prefix.');
-  if (setting('VERCEL_ENV') === 'production' && setting('VERCEL_GIT_COMMIT_REF') && branch() !== setting('VERCEL_GIT_COMMIT_REF')) throw Error('The CMS branch differs from the production deployment branch.');
-  return { url: `https://api.github.com/repos/${repository()}/contents/${prefix}content/${file}.json`, headers: { Authorization: `Bearer ${token()}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'Rushan-Portfolio-CMS' }, branch: branch() };
+export const githubStatus = () => ({ ready: !!token() && /^[\w.-]+\/[\w.-]+$/.test(repository()), repository: repository(), branch: branch() });
+
+async function github(path: string, init: RequestInit = {}) {
+  if (!githubStatus().ready) throw Error('No GitHub token is set on Vercel (GITHUB_TOKEN), so changes cannot be published.');
+  return fetch(`${setting('GITHUB_API_URL') || 'https://api.github.com'}/repos/${repository()}/contents/${prefix()}${path}`, {
+    ...init, cache: 'no-store', signal: AbortSignal.timeout(20000),
+    headers: { Authorization: `Bearer ${token()}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'rushanhaque-admin', ...(init.body ? { 'Content-Type': 'application/json' } : {}) },
+  });
 }
-export async function readGithub(file: ContentFile) {
-  const c = config(file);
-  const response = await fetch(c.url + '?ref=' + encodeURIComponent(c.branch), { cache: 'no-store', headers: c.headers, signal: AbortSignal.timeout(10000) });
-  if (!response.ok) throw Error('Could not read GitHub content. Check the repository, branch, and token permissions.');
-  const data = await response.json() as { sha: string; content: string; size: number; encoding: string };
-  if (data.size > 200000 || data.encoding !== 'base64') throw Error('Unsupported content file.');
+const explain = async (response: Response, action: string) => {
+  if (response.status === 401) return Error(`GitHub rejected the token while trying to ${action}. Check that the token on Vercel is valid and not expired.`);
+  if (response.status === 403 || response.status === 404) return Error(`GitHub refused to ${action}. The token needs “Contents: Read and write” access to ${repository()}.`);
+  if (response.status === 409 || response.status === 422) return Error('The content changed on GitHub since you opened the admin. Reload to get the latest version, then make your change again.');
+  return Error(`GitHub could not ${action} (status ${response.status}).`);
+};
+
+export async function readContent(file: ContentFile) {
+  const response = await github(`content/${file}.json?ref=${encodeURIComponent(branch())}`);
+  if (!response.ok) throw await explain(response, `read ${file}.json`);
+  const data = await response.json() as { sha: string; content: string; encoding: string };
+  if (data.encoding !== 'base64') throw Error(`Unexpected encoding for ${file}.json.`);
   return { sha: data.sha, data: validateContent(file, JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'))) };
 }
-export async function commitGithub(file: ContentFile, value: unknown, sha: string) {
-  const c = config(file);
-  const response = await fetch(c.url, { method: 'PUT', cache: 'no-store', headers: { ...c.headers, 'Content-Type': 'application/json' }, signal: AbortSignal.timeout(15000), body: JSON.stringify({ message: `Update ${file} from portfolio CMS`, content: Buffer.from(JSON.stringify(value, null, 2) + '\n').toString('base64'), sha, branch: c.branch }) });
-  if (response.status === 409 || response.status === 422) throw Error('The source changed. Load the latest GitHub version before publishing again. Your saved draft is preserved.');
-  if (!response.ok) throw Error('GitHub did not accept this change. Check token permissions and branch protection.');
-  const data = await response.json() as { commit: { sha: string; html_url: string }; content: { sha: string } };
-  return { commit: data.commit.sha, url: data.commit.html_url, sha: data.content.sha, contentHash: contentHash(value) };
+
+export async function writeContent(file: ContentFile, value: unknown, sha: string, message: string) {
+  const data = validateContent(file, value);
+  const response = await github(`content/${file}.json`, { method: 'PUT', body: JSON.stringify({ message, content: Buffer.from(JSON.stringify(data, null, 2) + '\n').toString('base64'), sha, branch: branch() }) });
+  if (!response.ok) throw await explain(response, `save ${file}.json`);
+  const result = await response.json() as { commit: { sha: string; html_url: string }; content: { sha: string } };
+  return { sha: result.content.sha, commit: result.commit.sha, url: result.commit.html_url, hash: contentHash(data) };
+}
+
+// Uploads an image to public/images, never overwriting an existing file.
+export async function writeImage(name: string, base64: string) {
+  let final = name;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const exists = await github(`public/images/${final}?ref=${encodeURIComponent(branch())}`);
+    if (exists.status === 404) break;
+    if (!exists.ok) throw await explain(exists, 'check the image folder');
+    final = name.replace(/(\.[a-z]+)$/, `-${Math.random().toString(36).slice(2, 7)}$1`);
+  }
+  const response = await github(`public/images/${final}`, { method: 'PUT', body: JSON.stringify({ message: `Add image ${final} from admin`, content: base64, branch: branch() }) });
+  if (!response.ok) throw await explain(response, 'upload the image');
+  return `/images/${final}`;
 }

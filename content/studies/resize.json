@@ -1,1 +1,62 @@
-{"_note": "Live sites shown inside the frame. A site can only be framed if it does not send X-Frame-Options: SAMEORIGIN/DENY. Set frameable to true once framing is allowed for rushanhaque.in.", "sites": [{"name": "Taif International", "url": "https://www.taifinternational.co", "frameable": false, "reason": "Sends X-Frame-Options: SAMEORIGIN (checked 1 Oct 2026)."}, {"name": "Aurelio", "url": "https://www.aurelio.in", "frameable": false, "reason": "Sends X-Frame-Options: SAMEORIGIN (checked 1 Oct 2026)."}, {"name": "Erfolg Living", "url": "https://erfolgliving.com", "frameable": true, "poster": "/images/erfolg.webp"}, {"name": "Casa & Crop", "url": "https://casaandcrop.com", "frameable": true, "poster": "/images/studies/rewind-6.webp"}, {"name": "Velora", "url": "https://www.veloralivings.in", "frameable": true, "poster": "/images/velora.webp"}], "breakpoints": [{"key": "M", "name": "MOBILE", "min": 320}, {"key": "T", "name": "TABLET", "min": 768}, {"key": "L", "name": "LAPTOP", "min": 1024}, {"key": "D", "name": "DESKTOP", "min": 1440}], "max": 1920}
+{
+ "_note": "Live sites shown inside the frame, in order of preference: the first one marked frameable is used. A site can only be framed if it does not send X-Frame-Options: SAMEORIGIN/DENY.",
+ "sites": [
+  {
+   "name": "Taif International",
+   "url": "https://www.taifinternational.co",
+   "frameable": true,
+   "poster": "/images/taif.webp",
+   "allowedHosts": [
+    "rushanhaque.in",
+    "www.rushanhaque.in"
+   ]
+  },
+  {
+   "name": "Casa & Crop",
+   "url": "https://casaandcrop.com",
+   "frameable": true,
+   "poster": "/images/casa-crop.webp"
+  },
+  {
+   "name": "Erfolg Living",
+   "url": "https://erfolgliving.com",
+   "frameable": true,
+   "poster": "/images/erfolg.webp"
+  },
+  {
+   "name": "Velora",
+   "url": "https://www.veloralivings.in",
+   "frameable": true,
+   "poster": "/images/velora.webp"
+  },
+  {
+   "name": "Aurelio",
+   "url": "https://www.aurelio.in",
+   "frameable": false,
+   "reason": "Sends X-Frame-Options: SAMEORIGIN (checked 1 Oct 2026)."
+  }
+ ],
+ "breakpoints": [
+  {
+   "key": "M",
+   "name": "MOBILE",
+   "min": 320
+  },
+  {
+   "key": "T",
+   "name": "TABLET",
+   "min": 768
+  },
+  {
+   "key": "L",
+   "name": "LAPTOP",
+   "min": 1024
+  },
+  {
+   "key": "D",
+   "name": "DESKTOP",
+   "min": 1440
+  }
+ ],
+ "max": 1920
+}

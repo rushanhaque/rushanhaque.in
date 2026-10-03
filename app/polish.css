@@ -116,3 +116,29 @@ p{text-wrap:pretty}
 .cf-done h2{margin:0;font-size:clamp(28px,3vw,44px);font-weight:450;letter-spacing:-.03em}.cf-done p{margin:0;font-size:17px}
 .cf-again{padding:0;border:0;border-bottom:1px solid currentColor;background:none;color:inherit;font-size:14px;cursor:pointer}
 @media(max-width:899px){.cf-btn{justify-self:stretch;justify-content:center}}
+
+/* The container's own max-widths, shared so the header pill matches page content edges. */
+:root{--cmax:none}
+@media(min-width:640px){:root{--cmax:640px}}
+@media(min-width:768px){:root{--cmax:768px}}
+@media(min-width:1024px){:root{--cmax:1024px}}
+@media(min-width:1280px){:root{--cmax:1280px}}
+@media(min-width:1536px){:root{--cmax:1536px}}
+@media(max-width:699px){.cal-booking{padding-inline:12px}.cal-booking>h2,.cal-booking>p{padding-inline:6px}.cal-frame{height:700px;border-radius:10px}}
+
+/* Page titles read as one line. */
+.page-intro h1 .intro-line{display:inline}
+.page-intro h1 .intro-line>span,.page-intro h1 .intro-line>em{display:inline}
+.tl-bio strong{font-weight:500}
+
+/* Contrast: small secondary text stays at least 4.5:1. */
+.archive-count>span,.copy-email span,.cf-field small,.cf-note,.ar-note,.ar-focus legend small{opacity:1!important;color:#4d5a52!important}
+.project-card h2{font:inherit;margin:0}
+
+/* Titles above the fold are visible in the first frame. */
+/* The title rises into place; it starts at 1% opacity, so it counts as painted from the first frame. */
+html[data-motion=full] .page-intro h1 .intro-line>*{animation:none}
+html[data-motion=full] .page-intro h1{animation:rh-title-in 1.1s cubic-bezier(.16,1,.3,1) both}
+@keyframes rh-title-in{from{opacity:.01;transform:translateY(.45em)}to{opacity:1;transform:none}}
+
+.project-blurb{margin:8px 0 0;font-size:14px;line-height:1.55;color:#4d5a52;max-width:38em;font-weight:400;letter-spacing:0}

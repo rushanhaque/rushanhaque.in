@@ -56,7 +56,7 @@ export function SiteCheckStudy() {
     } finally { setBusy(false); }
   };
 
-  return <StudyFrame id="study-04" number="04" name="YOUR SITE, UNDER THE LENS" title={<>Bring your website.<br/><em>I’ll show what I’d fix.</em></>}
+  return <StudyFrame id="study-04" number="04" name="YOUR SITE, UNDER THE LENS" title={<>Bring your <em>website.</em></>}
     truth="Leave your website and email. I’ll review it myself and send you a short audit of what I’d fix."
     announce={done ? `Request sent for ${site}` : error}
     className="study-check">

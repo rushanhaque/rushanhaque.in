@@ -12,5 +12,5 @@ export default async function Projects({searchParams}:{searchParams:Promise<Reco
   const year=years.includes(value('year'))?value('year'):'All';const status=statuses.some(status=>status===value('status'))?value('status'):'All';const q=value('q');
   const matches=projects.filter(p=>(category==='All'||p.category===category)&&(year==='All'||p.year===year)&&(status==='All'||p.status===status)&&`${p.title} ${p.description} ${p.tags.join(' ')}`.toLowerCase().includes(q.toLowerCase()));
   
-  return <main id="main-content"><PageIntro eyebrow={`WORK / ${projects.length}`} title="Ideas, made" accent="real." description="Client work, experiments, and the things I built to find out whether they’d work."/><ProjectArchive items={matches} total={matches.length} filters={{category,q,year,status}} years={years} statuses={statuses}/></main>;
+  return <main id="main-content"><PageIntro eyebrow={`WORKS / ${projects.length}`} title="Ideas, made" accent="real." description="Client work, experiments, and the things I built to find out whether they’d work."/><ProjectArchive items={matches} total={matches.length} filters={{category,q,year,status}} years={years} statuses={statuses}/></main>;
 }

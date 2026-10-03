@@ -1,4 +1,6 @@
 import { pageMetadata } from '@/lib/seo';
+import { ContentProvider } from '@/components/content-provider';
+import { getPublishedContent } from '@/lib/published-content';
 import { Preloader, preloadScript } from '@/components/story/preloader';
 import { SmoothScroll } from '@/components/story/smooth-scroll';
 import { ParticleHero } from '@/components/story/particle-hero';
@@ -6,13 +8,14 @@ import { WorksDeck, VelocityMarquee, Bookshelf, TypeWall, Person, Voices } from 
 import './two-languages.css';
 import './home-polish.css';
 import './studies.css';
-import { LabSection } from '@/components/studies/lab-section';
+import { LazyLab } from '@/components/studies/lazy-lab';
 
 export const metadata=pageMetadata('/','Rushan Haque — Project Manager & Full-Stack Developer','Project manager and full-stack developer in Moradabad, India. Client websites and software, delivered end to end, plus writing and research.');
 
 // "Two languages": the homepage told as one story, from code to verse.
-export default function Home(){
-  return <main id="main-content" className="tl">
+export default async function Home(){
+  const content = await getPublishedContent();
+  return <ContentProvider value={content}><main id="main-content" className="tl">
     <script dangerouslySetInnerHTML={{ __html: preloadScript }}/>
     <Preloader/><SmoothScroll/>
     <ParticleHero/>
@@ -22,6 +25,6 @@ export default function Home(){
     <TypeWall/>
     <Person/>
     <Voices/>
-    <LabSection/>
-  </main>;
+    <LazyLab/>
+  </main></ContentProvider>;
 }

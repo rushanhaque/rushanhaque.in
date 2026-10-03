@@ -41,7 +41,7 @@ export function ContactForm() {
 
   if (done) return <div className="cf cf-done" role="status">
     <span className="cf-tick"><Check size={26}/></span>
-    <h2>Got it, thank you.</h2>
+    <h2 suppressHydrationWarning>Got it, thank you.</h2>
     <p>I’ll reach out on <b>{value}</b>, usually within a day.</p>
     <button type="button" className="cf-again" onClick={() => { setDone(false); setContact(''); setMessage(''); }}>Send another</button>
   </div>;
@@ -51,7 +51,7 @@ export function ContactForm() {
       <input value={contact} onChange={e => setContact(e.target.value)} placeholder="you@email.com or +91 …" autoComplete="email" inputMode="email" maxLength={120} required autoFocus/>
     </label>
     <label className="cf-field"><span>Anything I should know? <small>Optional</small></span>
-      <textarea value={message} onChange={e => setMessage(e.target.value)} placeholder="What you’re building, a deadline, a link… or nothing at all." rows={4} maxLength={1500}/>
+      <textarea value={message} onChange={e => setMessage(e.target.value)} placeholder="What you’re building, a deadline, a link… or nothing at all." rows={3} maxLength={1500}/>
     </label>
     <input className="cf-trap" tabIndex={-1} autoComplete="off" value={trap} onChange={e => setTrap(e.target.value)} aria-hidden="true"/>
     {error && <p className="cf-error" role="alert">{error}</p>}

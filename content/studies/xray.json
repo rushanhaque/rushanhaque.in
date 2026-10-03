@@ -1,1037 +1,606 @@
 {
- "_note": "Captured from the live taifinternational.co homepage (collections vitrine) at 1440px on 1 Oct 2026. Boxes are the real DOM boxes measured at the same moment as the screenshot; code is excerpted from the project source.",
- "project": "Taif International",
- "url": "https://www.taifinternational.co",
- "screenshot": "/images/studies/xray-taif.webp",
+ "_note": "Captured from the live erfolgliving.com homepage (collections section) at 1440px on 4 Oct 2026. Boxes are the real DOM boxes measured at the same moment as the screenshot; code is excerpted from the project source.",
+ "project": "Erfolg Living",
+ "url": "https://erfolgliving.com",
+ "screenshot": "/images/studies/xray-erfolg.webp",
  "width": 1440,
  "height": 890,
  "components": [
   {
-   "name": "<CollectionsMosaic />",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 59,
+   "name": "<section#collections />",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 454,
    "x": 0,
-   "y": 80,
+   "y": 0,
    "w": 1440,
-   "h": 810,
-   "code": "  return (\n    <section className=\"cm-section\" ref={root} aria-labelledby=\"cm-title\">\n      <div className=\"cm-head\">\n        <span className=\"cm-kicker\">Nine houses, one floor</span>\n        {/* a section heading, not a page title — the homepage h1 is the\n            wordmark in HeroBrand */}\n        <h2 className=\"cm-title\" id=\"cm-title\">Browse our collections</h2>\n      </div>\n\n      <div\n        className={`cm-wall ${hot ? 'is-hot' : ''}`}\n        onMouseLeave={leave}\n        onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) leave() }}\n      >\n        {ROWS.map((row, r) => ("
+   "h": 890,
+   "code": "  <section class=\"collections reveal\" id=\"collections\"\n    style=\"padding-top: calc(var(--nav-height) + var(--space-2xl)); background: var(--color-bg);\">\n    <div class=\"container\">\n      <div style=\"text-align: center; margin-bottom: var(--space-xl);\">\n        <h2 class=\"reveal\"\n          style=\"font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-text); margin-bottom: 5px;\">Our\n          Collections</h2>\n        <p style=\"color: var(--color-text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.4;\">Explore our\n          meticulously curated portfolio of Luxury Metal elements, from statement-making freestanding tubs to\n          bespoke lighting, furniture, and architectural fixtures.</p>\n      </div>\n      <div class=\"collections-img-accordion\">\n        <a href=\"collection-bathtubs.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/BathTub.webp\" alt=\"Handcrafted Luxury Metal Bathtubs\"\n            class=\"collections-img-accordion__img\" fetchpriority=\"high\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Bathtubs</h3>\n          </div>\n        </a>\n\n        <a href=\"collection-sinks-basins.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/sn1.webp\" alt=\"Artisan Metal Sinks and Basins\" class=\"collections-img-accordion__img\"\n            loading=\"lazy\" decoding=\"async\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Sinks & Basins</h3>\n          </div>\n        </a>\n\n        <a href=\"collection-sentinel-showers.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/ShowerPods.webp\" alt=\"Metal Sentinel and Showers\"\n  …"
   },
   {
-   "name": "<CollectionsMosaic /> · head",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 60,
-   "x": 56,
-   "y": 107,
-   "w": 1328,
-   "h": 82,
-   "code": "    <section className=\"cm-section\" ref={root} aria-labelledby=\"cm-title\">\n      <div className=\"cm-head\">\n        <span className=\"cm-kicker\">Nine houses, one floor</span>\n        {/* a section heading, not a page title — the homepage h1 is the\n            wordmark in HeroBrand */}\n        <h2 className=\"cm-title\" id=\"cm-title\">Browse our collections</h2>\n      </div>"
+   "name": "<nav#navbar />",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 396,
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 100,
+   "code": "<nav class=\"navbar navbar--transparent\" id=\"navbar\">\n  <div class=\"navbar__inner\">\n    <a href=\"index.html\" class=\"navbar__logo\" id=\"nav-logo\">\n      <img src=\"assets/images/Logo.webp\" alt=\"Erfolg Living Icon\" class=\"navbar__logo-icon\">\n      <div class=\"navbar__logo-text-group\">\n        <span class=\"navbar__logo-text\">ERFOLG LIVING</span>\n        <span class=\"navbar__tagline\">Elevating everyday living</span>\n      </div>\n    </a>\n\n    <div class=\"navbar__right\" style=\"display: flex; align-items: center; gap: 1rem;\">\n      <ul class=\"navbar__links\" id=\"nav-links\">\n        <li><a href=\"index.html\" class=\"navbar__link\">Home</a></li>\n        <li><a href=\"index.html#collections\" class=\"navbar__link\">Collections</a></li>\n        <li><a href=\"gallery.html\" class=\"navbar__link\">Gallery</a></li>\n        <li><a href=\"about.html\" class=\"navbar__link\">About</a></li>\n        <li><a href=\"contact.html\" class=\"navbar__link\">Contact</a></li>\n      </ul>\n      <button class=\"navbar__hamburger\" id=\"hamburger\" aria-label=\"Open menu\">\n        <span></span>\n        <span></span>\n        <span></span>\n      </button>\n    </div>\n  </div>\n</nav>"
   },
   {
-   "name": "<Link className=\"cm-link\" /> · Wooden Products",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 79,
-   "x": 56,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "code": "                <article\n                  key={c.no}\n                  className={`cm-card ${live ? 'is-live' : ''}`}\n                  style={{ flexGrow: grow(i, hot?.c ?? null) }}\n                  onMouseEnter={() => enter(r, i)}\n                  onFocus={() => enter(r, i)}\n                >\n                  <Link\n                    to={`/collections/${familySlug(c.name)}`}\n                    className=\"cm-link\"\n                    transition=\"slide-collection\"\n                    aria-label={`${c.name} — ${c.pitch}`}\n                  >\n                    <span className=\"cm-media\" aria-hidden=\"true\">\n                      {img\n                        ? <img src={img} alt=\"\" className=\"cm-img\" loading=\"lazy\" decoding=\"async\" />\n                        : <span className=\"cm-img cm-img-fallback\" />}\n                      <span className=\"cm-duotone\" />\n                      <span className=\"cm-scrim\" />\n                    </span>\n\n                    <span className=\"cm-body\">"
+   "name": "<nav#navbar /> · logo",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 398,
+   "x": 64,
+   "y": 5,
+   "w": 381,
+   "h": 88,
+   "code": "<a href=\"index.html\" class=\"navbar__logo\" id=\"nav-logo\">\n  <img src=\"assets/images/Logo.webp\" alt=\"Erfolg Living Icon\" class=\"navbar__logo-icon\">\n  <div class=\"navbar__logo-text-group\">\n    <span class=\"navbar__logo-text\">ERFOLG LIVING</span>\n    <span class=\"navbar__tagline\">Elevating everyday living</span>\n  </div>\n</a>"
   },
   {
-   "name": "<Link className=\"cm-link\" /> · Copper Products",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 79,
-   "x": 502,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "code": "                <article\n                  key={c.no}\n                  className={`cm-card ${live ? 'is-live' : ''}`}\n                  style={{ flexGrow: grow(i, hot?.c ?? null) }}\n                  onMouseEnter={() => enter(r, i)}\n                  onFocus={() => enter(r, i)}\n                >\n                  <Link\n                    to={`/collections/${familySlug(c.name)}`}\n                    className=\"cm-link\"\n                    transition=\"slide-collection\"\n                    aria-label={`${c.name} — ${c.pitch}`}\n                  >\n                    <span className=\"cm-media\" aria-hidden=\"true\">\n                      {img\n                        ? <img src={img} alt=\"\" className=\"cm-img\" loading=\"lazy\" decoding=\"async\" />\n                        : <span className=\"cm-img cm-img-fallback\" />}\n                      <span className=\"cm-duotone\" />\n                      <span className=\"cm-scrim\" />\n                    </span>\n\n                    <span className=\"cm-body\">"
+   "name": "<nav#navbar /> · links",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 407,
+   "x": 843,
+   "y": 31,
+   "w": 533,
+   "h": 37,
+   "code": "<ul class=\"navbar__links\" id=\"nav-links\">\n  <li><a href=\"index.html\" class=\"navbar__link\">Home</a></li>\n  <li><a href=\"index.html#collections\" class=\"navbar__link\">Collections</a></li>\n  <li><a href=\"gallery.html\" class=\"navbar__link\">Gallery</a></li>\n  <li><a href=\"about.html\" class=\"navbar__link\">About</a></li>\n  <li><a href=\"contact.html\" class=\"navbar__link\">Contact</a></li>\n</ul>"
   },
   {
-   "name": "<Link className=\"cm-link\" /> · Home Decor",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 79,
-   "x": 948,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "code": "                <article\n                  key={c.no}\n                  className={`cm-card ${live ? 'is-live' : ''}`}\n                  style={{ flexGrow: grow(i, hot?.c ?? null) }}\n                  onMouseEnter={() => enter(r, i)}\n                  onFocus={() => enter(r, i)}\n                >\n                  <Link\n                    to={`/collections/${familySlug(c.name)}`}\n                    className=\"cm-link\"\n                    transition=\"slide-collection\"\n                    aria-label={`${c.name} — ${c.pitch}`}\n                  >\n                    <span className=\"cm-media\" aria-hidden=\"true\">\n                      {img\n                        ? <img src={img} alt=\"\" className=\"cm-img\" loading=\"lazy\" decoding=\"async\" />\n                        : <span className=\"cm-img cm-img-fallback\" />}\n                      <span className=\"cm-duotone\" />\n                      <span className=\"cm-scrim\" />\n                    </span>\n\n                    <span className=\"cm-body\">"
+   "name": "<section#collections /> · heading",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 457,
+   "x": 128,
+   "y": 123,
+   "w": 1184,
+   "h": 108,
+   "code": "<div style=\"text-align: center; margin-bottom: var(--space-xl);\">\n  <h2 class=\"reveal\"\n    style=\"font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-text); margin-bottom: 5px;\">Our\n    Collections</h2>\n  <p style=\"color: var(--color-text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.4;\">Explore our\n    meticulously curated portfolio of Luxury Metal elements, from statement-making freestanding tubs to\n    bespoke lighting, furniture, and architectural fixtures.</p>\n</div>"
   },
   {
-   "name": "<Link className=\"cm-link\" /> · Hardware Supplies",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 79,
-   "x": 56,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "code": "                <article\n                  key={c.no}\n                  className={`cm-card ${live ? 'is-live' : ''}`}\n                  style={{ flexGrow: grow(i, hot?.c ?? null) }}\n                  onMouseEnter={() => enter(r, i)}\n                  onFocus={() => enter(r, i)}\n                >\n                  <Link\n                    to={`/collections/${familySlug(c.name)}`}\n                    className=\"cm-link\"\n                    transition=\"slide-collection\"\n                    aria-label={`${c.name} — ${c.pitch}`}\n                  >\n                    <span className=\"cm-media\" aria-hidden=\"true\">\n                      {img\n                        ? <img src={img} alt=\"\" className=\"cm-img\" loading=\"lazy\" decoding=\"async\" />\n                        : <span className=\"cm-img cm-img-fallback\" />}\n                      <span className=\"cm-duotone\" />\n                      <span className=\"cm-scrim\" />\n                    </span>\n\n                    <span className=\"cm-body\">"
+   "name": "<div.accordion />",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 465,
+   "x": 128,
+   "y": 295,
+   "w": 1184,
+   "h": 507,
+   "code": "      <div class=\"collections-img-accordion\">\n        <a href=\"collection-bathtubs.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/BathTub.webp\" alt=\"Handcrafted Luxury Metal Bathtubs\"\n            class=\"collections-img-accordion__img\" fetchpriority=\"high\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Bathtubs</h3>\n          </div>\n        </a>\n\n        <a href=\"collection-sinks-basins.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/sn1.webp\" alt=\"Artisan Metal Sinks and Basins\" class=\"collections-img-accordion__img\"\n            loading=\"lazy\" decoding=\"async\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Sinks & Basins</h3>\n          </div>\n        </a>\n\n        <a href=\"collection-sentinel-showers.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/ShowerPods.webp\" alt=\"Metal Sentinel and Showers\"\n            class=\"collections-img-accordion__img\" loading=\"lazy\" decoding=\"async\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Sentinels & Shower Pods</h3>\n          </div>\n        </a>\n\n        <a href=\"collection-rangehoods.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/rh1.webp\" alt=\"Bespoke Metal Rangehoods and Chimneys\"\n            class=\"collections-img-accordion__img\" loading=\"lazy\" decoding=\"async\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Rangehoods & Chimneys</h3>\n  …"
   },
   {
-   "name": "<Link className=\"cm-link\" /> · Gifting",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 79,
-   "x": 502,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "code": "                <article\n                  key={c.no}\n                  className={`cm-card ${live ? 'is-live' : ''}`}\n                  style={{ flexGrow: grow(i, hot?.c ?? null) }}\n                  onMouseEnter={() => enter(r, i)}\n                  onFocus={() => enter(r, i)}\n                >\n                  <Link\n                    to={`/collections/${familySlug(c.name)}`}\n                    className=\"cm-link\"\n                    transition=\"slide-collection\"\n                    aria-label={`${c.name} — ${c.pitch}`}\n                  >\n                    <span className=\"cm-media\" aria-hidden=\"true\">\n                      {img\n                        ? <img src={img} alt=\"\" className=\"cm-img\" loading=\"lazy\" decoding=\"async\" />\n                        : <span className=\"cm-img cm-img-fallback\" />}\n                      <span className=\"cm-duotone\" />\n                      <span className=\"cm-scrim\" />\n                    </span>\n\n                    <span className=\"cm-body\">"
+   "name": "<a.accordion__item /> · Bathtubs",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 466,
+   "x": 128,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-bathtubs.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/BathTub.webp\" alt=\"Handcrafted Luxury Metal Bathtubs\"\n    class=\"collections-img-accordion__img\" fetchpriority=\"high\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Bathtubs</h3>\n  </div>\n</a>"
   },
   {
-   "name": "<Link className=\"cm-link\" /> · Religious Supplies",
-   "file": "src/components/CollectionsMosaic.jsx",
-   "fileLines": 123,
-   "from": 79,
-   "x": 948,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "code": "                <article\n                  key={c.no}\n                  className={`cm-card ${live ? 'is-live' : ''}`}\n                  style={{ flexGrow: grow(i, hot?.c ?? null) }}\n                  onMouseEnter={() => enter(r, i)}\n                  onFocus={() => enter(r, i)}\n                >\n                  <Link\n                    to={`/collections/${familySlug(c.name)}`}\n                    className=\"cm-link\"\n                    transition=\"slide-collection\"\n                    aria-label={`${c.name} — ${c.pitch}`}\n                  >\n                    <span className=\"cm-media\" aria-hidden=\"true\">\n                      {img\n                        ? <img src={img} alt=\"\" className=\"cm-img\" loading=\"lazy\" decoding=\"async\" />\n                        : <span className=\"cm-img cm-img-fallback\" />}\n                      <span className=\"cm-duotone\" />\n                      <span className=\"cm-scrim\" />\n                    </span>\n\n                    <span className=\"cm-body\">"
+   "name": "<a.accordion__item /> · Sinks & Basins",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 474,
+   "x": 278,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-sinks-basins.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/sn1.webp\" alt=\"Artisan Metal Sinks and Basins\" class=\"collections-img-accordion__img\"\n    loading=\"lazy\" decoding=\"async\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Sinks & Basins</h3>\n  </div>\n</a>"
   },
   {
-   "name": "<Navbar />",
-   "file": "src/components/Navbar.jsx",
-   "fileLines": 207,
-   "from": 113,
-   "x": 80,
-   "y": 2,
-   "w": 1280,
-   "h": 60,
-   "code": "      <header\n        className={`nav${atTop ? '' : ' nav-scrolled'}${heroMode ? ' nav-hero' : ''}`}\n        ref={nav}\n      >"
+   "name": "<a.accordion__item /> · Sentinels & Shower Pods",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 482,
+   "x": 428,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-sentinel-showers.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/ShowerPods.webp\" alt=\"Metal Sentinel and Showers\"\n    class=\"collections-img-accordion__img\" loading=\"lazy\" decoding=\"async\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Sentinels & Shower Pods</h3>\n  </div>\n</a>"
   },
   {
-   "name": "<Navbar /> · brand",
-   "file": "src/components/Navbar.jsx",
-   "fileLines": 207,
-   "from": 117,
-   "x": 103,
-   "y": 9,
-   "w": 121,
-   "h": 46,
-   "code": "        <Link to=\"/\" className=\"brand\" aria-label={`${BRAND.name} — home`}>\n          {/* Three grounds, three marks. Hero is the transparent bar over the\n              video, so the white mark reads on it in either theme. Off the\n              hero the bar is solid: cream in light mode (burgundy mark) and\n              #170D05 in dark (white mark) — the burgundy one was being used\n              there too, at 1.25:1 against the dark bar, i.e. invisible. */}\n          <img\n            src={heroMode ? \"/img/taif-logo-white.webp\" : (dark ? \"/img/taif-logo-white.webp\" : \"/img/taif-logo-dark.webp\")}\n            alt={BRAND.name}\n            className=\"header-brand-img\"\n            /* the source is 2172x724; the ratio is what matters — it reserves\n               the width the bar needs before the PNG arrives, so the nav does\n               not jump sideways on first paint */\n            width=\"2172\"\n            height=\"724\""
+   "name": "<a.accordion__item /> · Rangehoods & Chimneys",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 490,
+   "x": 578,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-rangehoods.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/rh1.webp\" alt=\"Bespoke Metal Rangehoods and Chimneys\"\n    class=\"collections-img-accordion__img\" loading=\"lazy\" decoding=\"async\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Rangehoods & Chimneys</h3>\n  </div>\n</a>"
   },
   {
-   "name": "<Navbar /> · links",
-   "file": "src/components/Navbar.jsx",
-   "fileLines": 207,
-   "from": 143,
-   "x": 810,
-   "y": 15,
-   "w": 482,
-   "h": 33,
-   "code": "        <nav className=\"nav-links\" aria-label=\"Primary\" ref={list}>\n          <span className=\"nav-pill\" ref={pillEl} aria-hidden=\"true\" />\n          {ALL_NAV_LINKS.map((l) => {\n            const isCollections = l.to === '/collections'\n\n            const navItem = (\n              <NavLink\n                key={l.to}\n                to={l.to}\n                className={isActive(l.to) ? 'on' : ''}\n                aria-current={isActive(l.to) ? 'page' : undefined}\n              >\n                {/* H3 Label Roll — the word steps up, its twin steps in below */}\n                <span className=\"nl-roll\">\n                  <span className=\"nl-up\">{l.label}</span>\n                  <span className=\"nl-in\" aria-hidden=\"true\">{l.label}</span>\n                </span>\n              </NavLink>"
+   "name": "<a.accordion__item /> · Coffee Tables",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 498,
+   "x": 728,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-coffee-tables.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/fr1.webp\" alt=\"Metal Coffee Tables\" class=\"collections-img-accordion__img\"\n    loading=\"lazy\" decoding=\"async\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Coffee Tables</h3>\n  </div>\n</a>"
+  },
+  {
+   "name": "<a.accordion__item /> · Barwares",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 506,
+   "x": 878,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-barwares.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/BarWare.webp\" alt=\"Metal Barwares\" class=\"collections-img-accordion__img\"\n    loading=\"lazy\" decoding=\"async\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Barwares</h3>\n  </div>\n</a>"
+  },
+  {
+   "name": "<a.accordion__item /> · Accessories",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 514,
+   "x": 1028,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-accessories.html\" class=\"collections-img-accordion__item reveal\">\n          <img src=\"assets/images/accessories.webp\" alt=\"Metal Bathroom Accessories\"\n            class=\"collections-img-accordion__img\" loading=\"lazy\" decoding=\"async\">\n          <div class=\"collections-img-accordion__overlay\">\n            <h3 class=\"collections-img-accordion__title\">Accessories</h3>\n          </div>\n        </a>"
+  },
+  {
+   "name": "<a.accordion__item /> · Bespoke",
+   "file": "index.html",
+   "fileLines": 908,
+   "from": 522,
+   "x": 1178,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "code": "<a href=\"collection-bespoke.html\" class=\"collections-img-accordion__item reveal\">\n  <img src=\"assets/images/Bespoke.webp\" alt=\"Bespoke Metal Metalwork\" class=\"collections-img-accordion__img\"\n    loading=\"lazy\" decoding=\"async\">\n  <div class=\"collections-img-accordion__overlay\">\n    <h3 class=\"collections-img-accordion__title\">Bespoke</h3>\n  </div>\n</a>"
   }
  ],
  "wireframe": [
   {
-   "t": "span",
-   "x": 1406,
-   "y": -5,
-   "w": 24,
-   "h": 16,
-   "txt": "0.06"
-  },
-  {
-   "t": "header",
-   "x": 80,
-   "y": 2,
-   "w": 1280,
-   "h": 60,
+   "t": "nav",
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 100,
    "txt": ""
   },
   {
    "t": "a",
-   "x": 103,
-   "y": 9,
-   "w": 121,
-   "h": 46,
+   "x": 64,
+   "y": 5,
+   "w": 381,
+   "h": 88,
    "txt": ""
   },
   {
    "t": "img",
-   "x": 109,
-   "y": 14,
-   "w": 108,
+   "x": 64,
+   "y": -1,
+   "w": 94,
+   "h": 88,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 155,
+   "y": 25,
+   "w": 290,
+   "h": 48,
+   "txt": ""
+  },
+  {
+   "t": "span",
+   "x": 155,
+   "y": 20,
+   "w": 290,
    "h": 36,
+   "txt": "ERFOLG LIVING"
+  },
+  {
+   "t": "span",
+   "x": 157,
+   "y": 60,
+   "w": 285,
+   "h": 11,
+   "txt": "Elevating everyday living"
+  },
+  {
+   "t": "div",
+   "x": 843,
+   "y": 31,
+   "w": 533,
+   "h": 37,
    "txt": ""
   },
   {
-   "t": "nav",
-   "x": 810,
-   "y": 15,
-   "w": 482,
-   "h": 33,
+   "t": "ul",
+   "x": 843,
+   "y": 31,
+   "w": 533,
+   "h": 37,
+   "txt": ""
+  },
+  {
+   "t": "li",
+   "x": 843,
+   "y": 31,
+   "w": 80,
+   "h": 37,
    "txt": ""
   },
   {
    "t": "a",
-   "x": 810,
-   "y": 15,
-   "w": 74,
-   "h": 33,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 824,
-   "y": 23,
-   "w": 47,
-   "h": 17,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 824,
-   "y": 23,
-   "w": 47,
-   "h": 17,
+   "x": 856,
+   "y": 41,
+   "w": 54,
+   "h": 16,
    "txt": "Home"
   },
   {
-   "t": "span",
-   "x": 824,
-   "y": 41,
-   "w": 47,
-   "h": 17,
-   "txt": "Home"
+   "t": "li",
+   "x": 923,
+   "y": 31,
+   "w": 150,
+   "h": 37,
+   "txt": ""
   },
   {
    "t": "a",
-   "x": 886,
-   "y": 15,
-   "w": 136,
-   "h": 33,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 900,
-   "y": 23,
-   "w": 109,
-   "h": 17,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 900,
-   "y": 23,
-   "w": 109,
-   "h": 17,
+   "x": 936,
+   "y": 41,
+   "w": 124,
+   "h": 16,
    "txt": "Collections"
   },
   {
-   "t": "span",
-   "x": 900,
+   "t": "li",
+   "x": 1073,
+   "y": 31,
+   "w": 107,
+   "h": 37,
+   "txt": ""
+  },
+  {
+   "t": "a",
+   "x": 1086,
    "y": 41,
+   "w": 80,
+   "h": 16,
+   "txt": "Gallery"
+  },
+  {
+   "t": "li",
+   "x": 1179,
+   "y": 31,
+   "w": 88,
+   "h": 37,
+   "txt": ""
+  },
+  {
+   "t": "a",
+   "x": 1193,
+   "y": 41,
+   "w": 62,
+   "h": 16,
+   "txt": "About"
+  },
+  {
+   "t": "li",
+   "x": 1267,
+   "y": 31,
    "w": 109,
-   "h": 17,
-   "txt": "Collections"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 67,
-   "w": 207,
    "h": 37,
-   "txt": "Wooden Products"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 106,
-   "w": 207,
-   "h": 37,
-   "txt": "Copper Products"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 144,
-   "w": 207,
-   "h": 37,
-   "txt": "Home Decor"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 182,
-   "w": 207,
-   "h": 37,
-   "txt": "Hardware Supplies"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 221,
-   "w": 207,
-   "h": 37,
-   "txt": "Gifting"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 259,
-   "w": 207,
-   "h": 37,
-   "txt": "Religious Supplies"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 297,
-   "w": 207,
-   "h": 57,
-   "txt": "Bathroom Accessories"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 356,
-   "w": 207,
-   "h": 37,
-   "txt": "Kitchenware"
-  },
-  {
-   "t": "a",
-   "x": 851,
-   "y": 395,
-   "w": 207,
-   "h": 37,
-   "txt": "Barware"
-  },
-  {
-   "t": "a",
-   "x": 1024,
-   "y": 15,
-   "w": 81,
-   "h": 33,
    "txt": ""
   },
   {
-   "t": "span",
-   "x": 1038,
-   "y": 23,
-   "w": 54,
-   "h": 17,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 1038,
-   "y": 23,
-   "w": 54,
-   "h": 17,
-   "txt": "Shows"
-  },
-  {
-   "t": "span",
-   "x": 1038,
+   "t": "a",
+   "x": 1280,
    "y": 41,
-   "w": 54,
-   "h": 17,
-   "txt": "Shows"
-  },
-  {
-   "t": "a",
-   "x": 1107,
-   "y": 15,
-   "w": 81,
-   "h": 33,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 1121,
-   "y": 23,
-   "w": 53,
-   "h": 17,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 1121,
-   "y": 23,
-   "w": 53,
-   "h": 17,
-   "txt": "About"
-  },
-  {
-   "t": "span",
-   "x": 1121,
-   "y": 41,
-   "w": 53,
-   "h": 17,
-   "txt": "About"
-  },
-  {
-   "t": "a",
-   "x": 1190,
-   "y": 15,
-   "w": 102,
-   "h": 33,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 1204,
-   "y": 23,
-   "w": 75,
-   "h": 17,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 1204,
-   "y": 23,
-   "w": 75,
-   "h": 17,
+   "w": 83,
+   "h": 16,
    "txt": "Contact"
   },
   {
-   "t": "span",
-   "x": 1204,
-   "y": 41,
-   "w": 75,
-   "h": 17,
-   "txt": "Contact"
-  },
-  {
-   "t": "button",
-   "x": 1305,
-   "y": 12,
-   "w": 40,
-   "h": 40,
+   "t": "div",
+   "x": 80,
+   "y": 123,
+   "w": 1280,
+   "h": 679,
    "txt": ""
   },
   {
-   "t": "svg",
-   "x": 1315,
-   "y": 22,
-   "w": 20,
-   "h": 20,
+   "t": "div",
+   "x": 128,
+   "y": 123,
+   "w": 1184,
+   "h": 108,
    "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 613,
-   "y": 107,
-   "w": 215,
-   "h": 18,
-   "txt": "Nine houses, one floor"
   },
   {
    "t": "h2",
-   "x": 345,
-   "y": 130,
-   "w": 750,
-   "h": 59,
-   "txt": "Browse our collections"
-  },
-  {
-   "t": "a",
-   "x": 56,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 47,
-   "y": 222,
-   "w": 453,
-   "h": 330,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 448,
-   "w": 436,
-   "h": 98,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 473,
-   "w": 381,
-   "h": 17,
-   "txt": "01"
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 493,
-   "w": 381,
-   "h": 25,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 494,
-   "w": 381,
-   "h": 23,
-   "txt": "Wooden Products"
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 520,
-   "w": 381,
-   "h": 42,
-   "txt": "Carved, turned and inlaid timber pieces "
-  },
-  {
-   "t": "a",
-   "x": 502,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 493,
-   "y": 222,
-   "w": 453,
-   "h": 330,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 448,
-   "w": 436,
-   "h": 98,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 473,
-   "w": 381,
-   "h": 17,
-   "txt": "02"
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 493,
-   "w": 381,
-   "h": 25,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 494,
-   "w": 381,
-   "h": 23,
-   "txt": "Copper Products"
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 520,
-   "w": 381,
-   "h": 42,
-   "txt": "Hand-hammered copper vessels, trays and "
-  },
-  {
-   "t": "a",
-   "x": 948,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 939,
-   "y": 222,
-   "w": 453,
-   "h": 330,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 229,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 448,
-   "w": 436,
-   "h": 98,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 473,
-   "w": 381,
-   "h": 17,
-   "txt": "03"
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 493,
-   "w": 381,
-   "h": 25,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 494,
-   "w": 381,
-   "h": 23,
-   "txt": "Home Decor"
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 520,
-   "w": 381,
-   "h": 24,
-   "txt": "Vessels, sculpture, wall pieces. The qui"
-  },
-  {
-   "t": "a",
-   "x": 56,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 47,
-   "y": 550,
-   "w": 453,
-   "h": 330,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 775,
-   "w": 436,
-   "h": 98,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 801,
-   "w": 381,
-   "h": 17,
-   "txt": "04"
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 820,
-   "w": 381,
-   "h": 25,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 821,
-   "w": 381,
-   "h": 23,
-   "txt": "Hardware Supplies"
-  },
-  {
-   "t": "span",
-   "x": 83,
-   "y": 847,
-   "w": 381,
-   "h": 42,
-   "txt": "Handles, knobs, hinges and fittings — ca"
-  },
-  {
-   "t": "a",
-   "x": 502,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 493,
-   "y": 550,
-   "w": 453,
-   "h": 330,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 775,
-   "w": 436,
-   "h": 98,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 801,
-   "w": 381,
-   "h": 17,
-   "txt": "05"
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 820,
-   "w": 381,
-   "h": 25,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 821,
-   "w": 381,
-   "h": 23,
-   "txt": "Gifting"
-  },
-  {
-   "t": "span",
-   "x": 529,
-   "y": 847,
-   "w": 381,
-   "h": 42,
-   "txt": "Branded keepsakes, desk sets and present"
-  },
-  {
-   "t": "a",
-   "x": 948,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 939,
-   "y": 550,
-   "w": 453,
-   "h": 330,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 556,
-   "w": 436,
-   "h": 317,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 775,
-   "w": 436,
-   "h": 98,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 801,
-   "w": 381,
-   "h": 17,
-   "txt": "06"
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 820,
-   "w": 381,
-   "h": 25,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 821,
-   "w": 381,
-   "h": 23,
-   "txt": "Religious Supplies"
-  },
-  {
-   "t": "span",
-   "x": 975,
-   "y": 847,
-   "w": 381,
-   "h": 42,
-   "txt": "Pooja thalis, diyas, bells and temple fi"
-  },
-  {
-   "t": "a",
-   "x": 56,
-   "y": 883,
-   "w": 436,
-   "h": 7,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 883,
-   "w": 436,
-   "h": 7,
-   "txt": ""
-  },
-  {
-   "t": "img",
-   "x": 47,
-   "y": 877,
-   "w": 453,
-   "h": 13,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 883,
-   "w": 436,
-   "h": 7,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 56,
-   "y": 883,
-   "w": 436,
-   "h": 7,
+   "x": 453,
+   "y": 120,
+   "w": 533,
+   "h": 54,
+   "txt": "Our Collections"
+  },
+  {
+   "t": "p",
+   "x": 430,
+   "y": 177,
+   "w": 580,
+   "h": 51,
+   "txt": "Explore our meticulously curated portfol"
+  },
+  {
+   "t": "div",
+   "x": 128,
+   "y": 295,
+   "w": 1184,
+   "h": 507,
    "txt": ""
   },
   {
    "t": "a",
-   "x": 502,
-   "y": 883,
-   "w": 436,
-   "h": 7,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 502,
-   "y": 883,
-   "w": 436,
-   "h": 7,
+   "x": 128,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
   },
   {
    "t": "img",
-   "x": 493,
-   "y": 877,
-   "w": 453,
-   "h": 13,
+   "x": 128,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
   },
   {
-   "t": "span",
-   "x": 502,
-   "y": 883,
-   "w": 436,
-   "h": 7,
+   "t": "div",
+   "x": 128,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
   },
   {
-   "t": "span",
-   "x": 502,
-   "y": 883,
-   "w": 436,
-   "h": 7,
-   "txt": ""
+   "t": "h3",
+   "x": 178,
+   "y": 476,
+   "w": 33,
+   "h": 144,
+   "txt": "Bathtubs"
   },
   {
    "t": "a",
-   "x": 948,
-   "y": 883,
-   "w": 436,
-   "h": 7,
-   "txt": ""
-  },
-  {
-   "t": "span",
-   "x": 948,
-   "y": 883,
-   "w": 436,
-   "h": 7,
+   "x": 278,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
   },
   {
    "t": "img",
-   "x": 939,
-   "y": 877,
-   "w": 453,
-   "h": 13,
+   "x": 278,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
   },
   {
-   "t": "span",
-   "x": 948,
-   "y": 883,
-   "w": 436,
-   "h": 7,
+   "t": "div",
+   "x": 278,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
   },
   {
-   "t": "span",
-   "x": 948,
-   "y": 883,
-   "w": 436,
-   "h": 7,
+   "t": "h3",
+   "x": 328,
+   "y": 441,
+   "w": 33,
+   "h": 214,
+   "txt": "Sinks & Basins"
+  },
+  {
+   "t": "a",
+   "x": 428,
+   "y": 295,
+   "w": 134,
+   "h": 507,
    "txt": ""
+  },
+  {
+   "t": "img",
+   "x": 428,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 428,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "h3",
+   "x": 478,
+   "y": 354,
+   "w": 33,
+   "h": 388,
+   "txt": "Sentinels & Shower Pods"
+  },
+  {
+   "t": "a",
+   "x": 578,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "img",
+   "x": 578,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 578,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "h3",
+   "x": 628,
+   "y": 356,
+   "w": 33,
+   "h": 385,
+   "txt": "Rangehoods & Chimneys"
+  },
+  {
+   "t": "a",
+   "x": 728,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "img",
+   "x": 728,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 728,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "h3",
+   "x": 778,
+   "y": 442,
+   "w": 33,
+   "h": 213,
+   "txt": "Coffee Tables"
+  },
+  {
+   "t": "a",
+   "x": 878,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "img",
+   "x": 878,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 878,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "h3",
+   "x": 928,
+   "y": 475,
+   "w": 33,
+   "h": 146,
+   "txt": "Barwares"
+  },
+  {
+   "t": "a",
+   "x": 1028,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "img",
+   "x": 1028,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 1028,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "h3",
+   "x": 1078,
+   "y": 455,
+   "w": 33,
+   "h": 187,
+   "txt": "Accessories"
+  },
+  {
+   "t": "a",
+   "x": 1178,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "img",
+   "x": 1178,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "div",
+   "x": 1178,
+   "y": 295,
+   "w": 134,
+   "h": 507,
+   "txt": ""
+  },
+  {
+   "t": "h3",
+   "x": 1228,
+   "y": 487,
+   "w": 33,
+   "h": 122,
+   "txt": "Bespoke"
   }
  ]
 }

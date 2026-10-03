@@ -1,13 +1,12 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
-import { CopyEmail } from '@/components/interactive';
 import { useMotion } from '@/components/site-motion';
-import { address, bookingUrl, email, socials } from '@/lib/content';
+import { address, bookingUrl, email, phone, socials } from '@/lib/content';
 
 const columns = [
-  { title: 'Explore', links: [['Home', '/'], ['Work', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Contact', '/contact']] },
+  { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
 ];
 const NAME = 'Rushan Haque';
 
@@ -43,7 +42,7 @@ export function SiteFooter() {
       el.style.fontSize = '100px';
       const natural = Array.from(el.children).reduce((w, c) => w + (c as HTMLElement).offsetWidth, 0) + 22 * (el.children.length - 1);
       const avail = el.clientWidth;
-      if (natural > 0) el.style.fontSize = `${Math.min(Math.floor(100 * avail / natural * .985), window.innerWidth >= 900 ? 96 : 64)}px`;
+      if (natural > 0) el.style.fontSize = `${Math.floor(100 * avail / natural * .985)}px`;
     };
     fit();
     const ro = new ResizeObserver(fit); ro.observe(el);
@@ -76,19 +75,21 @@ export function SiteFooter() {
     return () => { cancelAnimationFrame(frame); footer.removeEventListener('pointermove', move); footer.removeEventListener('pointerleave', leave); letters.forEach(l => { l.style.fontWeight = ''; }); };
   }, [reduced]);
 
-  const toTop = () => window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
 
   return <footer className="ft" ref={root}>
-    <div className="ft-inner">
+    <div className="ft-inner container">
       <section className="ft-cta" aria-labelledby="ft-title">
-        <span className="ft-status"><i aria-hidden="true"/>Available for projects · Moradabad {time ? `${time} IST` : ''}</span>
-        <h2 id="ft-title">Got something<br/><em>worth building?</em></h2>
+        <h2 suppressHydrationWarning id="ft-title">Got something <em>worth building?</em></h2>
         <p>Send the brief, or just the problem. I answer everything myself, usually within a day.</p>
         <div className="ft-actions">
-          <Link href="/contact" className="ft-btn is-solid">Start a project <ArrowUpRight size={17}/></Link>
+          <Link href="/connect" className="ft-btn is-solid">Start a project <ArrowUpRight size={17}/></Link>
           <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="ft-btn">Book a call <ArrowUpRight size={17}/></a>
         </div>
-        <div className="ft-mail"><a href={`mailto:${email}?subject=Hello%20from%20your%20site`}>{email}</a><CopyEmail/></div>
+        <dl className="ft-details">
+          <div><dt>Email</dt><dd><a href={`mailto:${email}?subject=Hello%20from%20your%20site`}>{email}</a></dd></div>
+          <div><dt>WhatsApp</dt><dd><a href={phone.whatsapp} target="_blank" rel="noopener noreferrer">{phone.label}</a></dd></div>
+          <div><dt>Studio</dt><dd><a href={address.map} target="_blank" rel="noopener noreferrer">{address.label}</a></dd></div>
+        </dl>
       </section>
       <div className="ft-cols">
         {columns.map(c => <nav key={c.title} aria-label={c.title}>
@@ -98,21 +99,11 @@ export function SiteFooter() {
         <nav aria-label="Connect">
           <span>Connect</span>
           {socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer">{s.name}<ArrowUpRight size={14}/></a>)}
-          <Link href="/write-a-review">Write a review<ArrowUpRight size={14}/></Link>
-          <a className="ft-place" href={address.map} target="_blank" rel="noopener noreferrer">{address.label}</a>
         </nav>
       </div>
     </div>
-    <div className={`ft-word ${inView || reduced ? 'is-in' : ''}`} ref={word} aria-hidden="true">
+    <div className={`ft-word container ${inView || reduced ? 'is-in' : ''}`} ref={word} aria-hidden="true">
       {NAME.split(' ').map((part, w, all) => { const offset = all.slice(0, w).join('').length; return <span key={w} className="ft-w">{part.split('').map((ch, i) => <span key={i} className="ft-l" style={{ '--i': offset + i } as React.CSSProperties}>{ch}</span>)}</span>; })}
-    </div>
-    <div className="ft-bottom">
-      <span>© {new Date().getFullYear()} Rushan Haque<i className="ft-tag">. Logic in one hand, language in the other.</i></span>
-      <div className="ft-legal">
-        <Link href="/privacy">Privacy</Link>
-        <Link href="/accessibility">Accessibility</Link>
-        <button type="button" className="ft-top" onClick={toTop} aria-label="Back to top"><ArrowUp size={16}/></button>
-      </div>
     </div>
   </footer>;
 }
