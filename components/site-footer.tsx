@@ -15,16 +15,8 @@ const NAME = 'Rushan Haque';
 export function SiteFooter() {
   const root = useRef<HTMLElement>(null);
   const word = useRef<HTMLDivElement>(null);
-  const [time, setTime] = useState('');
   const [inView, setInView] = useState(false);
   const { reduced } = useMotion();
-
-  useEffect(() => {
-    const f = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' });
-    const tick = () => setTime(f.format(new Date()));
-    tick(); const id = window.setInterval(tick, 30000);
-    return () => window.clearInterval(id);
-  }, []);
 
   useEffect(() => {
     const el = word.current;

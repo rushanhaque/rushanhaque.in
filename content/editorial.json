@@ -306,50 +306,50 @@
     {
       "title": "Digital marketing",
       "subtitle": "Growth",
-      "description": "Campaigns tied to real results.",
+      "description": "Ad campaigns measured by the results they bring.",
       "items": []
     },
     {
-      "title": "SEO + GEO",
+      "title": "SEO & AI search",
       "subtitle": "Visibility",
-      "description": "Rank on search, and be the answer AI cites.",
+      "description": "Get found on Google, and in AI answers like ChatGPT and Gemini.",
       "items": []
     },
     {
       "title": "Cloud solutions",
       "subtitle": "Infrastructure",
-      "description": "Hosting and infrastructure that scales.",
+      "description": "Hosting and servers that keep up as you grow.",
       "items": []
     },
     {
       "title": "Mobile app development",
       "subtitle": "Apps",
-      "description": "iOS and Android apps, built to feel native and shipped to the stores.",
+      "description": "iOS and Android apps, published to the App Store and Google Play.",
       "items": []
     },
     {
       "title": "ERPs & CRMs",
       "subtitle": "Systems",
-      "description": "Systems for operations and customers.",
+      "description": "Software to run your operations and keep track of customers.",
       "items": []
     },
     {
       "title": "Social media management",
       "subtitle": "Presence",
-      "description": "A steady, on-brand presence.",
+      "description": "Regular, on-brand posts across your channels.",
       "items": []
     },
     {
       "title": "Video editing",
       "subtitle": "Content",
-      "description": "Cuts that hold attention.",
+      "description": "Edits for launches, reels and ads.",
       "items": []
     }
   ],
   "stats": [
     {
-      "value": "20+",
-      "label": "Professional certifications & awards"
+      "value": "17",
+      "label": "Certificates & trainings"
     },
     {
       "value": "3",
@@ -357,11 +357,11 @@
     },
     {
       "value": "4",
-      "label": "Roles across management, design & development"
+      "label": "Roles so far, in management, design and development"
     },
     {
       "value": "40+",
-      "label": "Projects contributed to"
+      "label": "Projects worked on"
     }
   ],
   "insights": [

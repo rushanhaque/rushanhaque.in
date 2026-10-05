@@ -5,7 +5,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "A live commercial site, designed and built end to end.",
+    "description": "Website for a maker of handmade luxury metalwork: copper bathtubs, sinks, lighting and furniture.",
     "tags": [
       "Web Development",
       "Design",
@@ -13,7 +13,8 @@
     ],
     "url": "https://erfolgliving.com",
     "image": "/images/work-erfolg-living.webp",
-    "status": "Client work",
+    "status": "Live",
+    "showDescription": true,
     "number": "01",
     "caseStudy": {
       "context": "An interiors brand site that opens on a finished space.",
@@ -42,14 +43,15 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "A live commercial site, designed and built end to end.",
+    "description": "Website for a Moradabad handicraft manufacturer exporting brass, copper and wood to 42 countries.",
     "tags": [
       "Web Development",
       "Design"
     ],
     "url": "https://taifinternational.co",
     "image": "/images/work-taif.webp",
-    "status": "Client work",
+    "status": "Live",
+    "showDescription": true,
     "number": "02",
     "imageBlurred": false
   },
@@ -59,7 +61,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "A live commercial site, designed and built end to end.",
+    "description": "Website for Aurelio, the metal and wood atelier of AF International: handcrafted furniture, lighting and decor.",
     "tags": [
       "Web Development",
       "Design",
@@ -67,7 +69,8 @@
     ],
     "url": "https://aurelio.in",
     "image": "/images/work-aurelio.webp",
-    "status": "Client work",
+    "status": "Live",
+    "showDescription": true,
     "number": "03",
     "imageBlurred": false
   },
@@ -77,7 +80,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "In development, and taking shape.",
+    "description": "Website for a Moradabad atelier that hand-raises objects in brass, bronze, copper and silver. Still being built.",
     "tags": [
       "Web Development",
       "Design",
@@ -86,6 +89,7 @@
     "url": "https://www.veloralivings.in",
     "image": "/images/work-velora.webp",
     "status": "In progress",
+    "showDescription": true,
     "number": "04",
     "imageBlurred": false
   },
@@ -95,7 +99,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "A live commercial site, designed and built end to end.",
+    "description": "Website for a home-metalware manufacturer exporting from Moradabad to 34 countries.",
     "tags": [
       "Web Development",
       "Design",
@@ -103,7 +107,8 @@
     ],
     "url": "https://casaandcrop.com",
     "image": "/images/work-casa-and-crop.webp",
-    "status": "Client work",
+    "status": "Live",
+    "showDescription": true,
     "number": "05",
     "caseStudy": {
       "context": "Furnishings shown in one full-frame interior scene.",
@@ -132,7 +137,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "In development, and taking shape.",
+    "description": "A client website, still being built.",
     "tags": [
       "Web Development",
       "Design",
@@ -141,6 +146,7 @@
     "url": "",
     "image": "/images/work-barha.webp",
     "status": "Coming soon",
+    "showDescription": true,
     "number": "06",
     "imageBlurred": true
   },
@@ -150,7 +156,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "Coming soon.",
+    "description": "A client website, coming soon.",
     "tags": [
       "Web Development",
       "Design",
@@ -168,7 +174,7 @@
     "category": "Client work",
     "discipline": "Web",
     "year": "2026",
-    "description": "Coming soon.",
+    "description": "A client website, coming soon.",
     "tags": [
       "Web Development",
       "Design",
@@ -194,6 +200,7 @@
     "url": "https://shadow-chat-7ifp.onrender.com",
     "image": "/images/work-shadow-chat.png",
     "status": "Experiment",
+    "showDescription": true,
     "number": "09",
     "imageBlurred": false
   },
@@ -262,6 +269,7 @@
     "url": "https://code-sense-ai-omega.vercel.app/",
     "image": "/images/work-codesense-ai.png",
     "status": "Experiment",
+    "showDescription": true,
     "number": "13",
     "imageBlurred": false
   },
@@ -297,6 +305,7 @@
     "url": "https://novellect.vercel.app/",
     "image": "/images/work-novellect.png",
     "status": "Experiment",
+    "showDescription": true,
     "number": "15",
     "imageBlurred": false
   },
@@ -383,6 +392,7 @@
     "url": "https://upsidesound.vercel.app/",
     "image": "/images/work-upside-sound.webp",
     "status": "Experiment",
+    "showDescription": true,
     "number": "20",
     "imageBlurred": false
   },
@@ -401,6 +411,7 @@
     "url": "https://quorum-tan.vercel.app/",
     "image": "/images/work-quorum.webp",
     "status": "Experiment",
+    "showDescription": true,
     "number": "21",
     "caseStudy": {
       "context": "An experiment where four people answer one question privately.",
@@ -438,6 +449,7 @@
     "url": "https://superlatives-wheat.vercel.app/",
     "image": "/images/work-superlatives.webp",
     "status": "Experiment",
+    "showDescription": true,
     "number": "22",
     "imageBlurred": false
   }

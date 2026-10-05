@@ -81,7 +81,7 @@ export function ResizeStudy() {
 
   const current = sites[0];
   return <StudyFrame id="study-02" number="02" name="RESIZE ME" title={<>Resize <em>it.</em></>}
-    truth="Layouts that genuinely adapt. This is a live site, not a screenshot."
+    truth="Drag the handle to resize a real client site and watch its layout adapt. It’s live, not a screenshot."
     announce={`${width} pixels wide, ${bp.name.toLowerCase()} layout`}
     className="study-resize">
     <div className={`rz-ruler ${narrow ? 'is-narrow' : ''}`} aria-hidden="true">{breakpoints.filter(b => b.min <= top).map(b => <span key={b.key} className={b === bp ? 'is-on' : ''} style={{ left: stageW ? toVisual(b.min) : 0 }}><i/>{b.name} · {b.min}</span>)}</div>

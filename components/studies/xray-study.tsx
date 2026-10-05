@@ -63,7 +63,7 @@ export function XrayStudy() {
   const boxes = [...data.components].sort((a, b) => b.w * b.h - a.w * a.h);
 
   return <StudyFrame id="study-01" number="01" name="X-RAY" title={<>Look under the <em>polish.</em></>}
-    truth="The polish is the easy part to see. This is what holds it up, on Erfolg Living."
+    truth="Move the lens over the Erfolg Living homepage to see the layout and code under the design."
     announce={under ? `Over ${under.name}` : ''}
     className="study-xray">
     <div className={`xr-stage ${reduced ? 'is-still' : ''}`} ref={stage} tabIndex={0} role="group" aria-label={`Erfolg Living homepage. Lens over ${under?.name ?? 'the page'}, showing its wireframe, component and code. Use the arrow keys to move the lens.`}

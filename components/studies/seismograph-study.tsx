@@ -147,7 +147,7 @@ export function SeismographStudy() {
 
   const first = marks[0]?.date;
   return <StudyFrame id="study-03" number="03" name="THE SEISMOGRAPH" title={<>Steady, <em>not sudden.</em></>}
-    truth={`Every project I’ve put on GitHub, flagged where it began: ${marks.length} of them${first ? ` since ${monthYear(first)}` : ''}, on my real public activity.`}
+    truth={`My real weekly GitHub activity. Each flag marks when one of my ${marks.length} public projects began${first ? `, since ${monthYear(first)}` : ''}. Drag to move through time.`}
     announce={w ? `Week ${w.iso}, ${w.year}: ${w.count} contributions${here.length ? `. Started: ${here.map(h => h.title).join(', ')}` : ''}` : ''}
     className="study-seismo">
     <div className={`sm-paper ${live ? 'is-live' : ''}`} ref={wrap} tabIndex={0} role="slider" aria-label="Week" aria-valuemin={0} aria-valuemax={Math.max(0, weeks.length - 1)} aria-valuenow={cursor} aria-valuetext={w ? `Week ${w.iso}, ${w.year}, ${w.count} contributions` : 'No data'} onKeyDown={onKeyDown}>

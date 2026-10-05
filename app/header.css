@@ -39,6 +39,8 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:url(#gh-refract) blur(14px) satur
 .gh-brand{display:flex;align-items:center;gap:12px;min-width:0;padding:6px 10px 6px 4px;border-radius:999px;color:inherit;text-decoration:none}
 .gh-mark{display:block;flex:none;width:92px;height:48px;object-fit:contain;transition:width .7s var(--gh-ease),height .7s var(--gh-ease)}
 .gh.is-scrolled .gh-mark{width:84px;height:44px}
+.gh-mark{transition:width .7s var(--gh-ease),height .7s var(--gh-ease),filter .6s}
+.gh[data-tone=dark] .gh-mark{filter:brightness(0) invert(94%) sepia(8%)}
 @keyframes gh-pulse{0%{opacity:.7;transform:scale(.4)}100%{opacity:0;transform:scale(1.4)}}
 
 /* Main links with the sliding liquid pill. */
@@ -120,6 +122,12 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:url(#gh-refract) blur(14px) satur
   .gh-spacer{height:84px}
 }
 @media(max-width:420px){.gh-id b{display:none}.gh-bar .gh-cta{padding:0 14px}}
+/* Touch screens: frosted glass without the per-frame refraction, so scrolling stays smooth. */
+@media(pointer:coarse){
+  html.gh-liquid .gh-bar,.gh-bar{-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%)}
+  .gh-bar{transition:background .6s,box-shadow .6s,color .6s}
+  .gh-panel{-webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%)}
+}
 html[data-motion=reduce] .gh *,html[data-motion=reduce] .gh{transition-duration:.01s!important;animation:none!important}
 @media print{.gh,.gh-spacer{display:none!important}}
 

@@ -17,6 +17,7 @@ import { BookCover, toneStyle } from '@/components/book-cover';
 import { projectLink } from '@/lib/project-access';
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, Draggable, InertiaPlugin, SplitText);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 
 /* ------------------------------------------------------------------ */
@@ -26,11 +27,11 @@ gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, Draggable,
 /* II — Works: a deck of projects that fly past the camera.             */
 /* ------------------------------------------------------------------ */
 const STORIES: Record<string, { line: string; field: string }> = {
-  'erfolg-living': { line: 'A room. A rhythm. A feeling.', field: 'Interiors & living' },
-  taif: { line: 'Objects with a point of view.', field: 'Objects & interiors' },
-  aurelio: { line: 'Make the first impression count.', field: 'Brand & commerce' },
-  velora: { line: 'A world still taking shape.', field: 'In development' },
-  'casa-and-crop': { line: 'Rooted in the everyday.', field: 'Lifestyle & commerce' },
+  'erfolg-living': { line: 'Handmade luxury metalwork.', field: 'Interiors & living' },
+  taif: { line: 'Handicrafts in brass, copper and wood.', field: 'Objects & interiors' },
+  aurelio: { line: 'Furniture and lighting in metal and wood.', field: 'Brand & commerce' },
+  velora: { line: 'Hand-raised metalware. Still being built.', field: 'In development' },
+  'casa-and-crop': { line: 'Home metalware, exported worldwide.', field: 'Lifestyle & commerce' },
 };
 
 export function WorksDeck() {
@@ -71,8 +72,8 @@ export function WorksDeck() {
   }, [reduced, works.length]);
 
   const current = works[active];
-  return <section id="selected-work" className={`tl-deck ${pinned ? 'is-pinned' : ''}`} ref={root} data-chapter="II — Selected works">
-    <div className="tl-deck-head"><span className="tl-kicker">II — SELECTED WORKS</span><h2 suppressHydrationWarning>Recent <em>works.</em></h2><p className="tl-deck-sub">A few of my recent works. There’s considerably more that hasn’t made it here.</p></div>
+  return <section id="selected-work" className={`tl-deck ${pinned ? 'is-pinned' : ''}`} ref={root} data-chapter="I — Recent work">
+    <div className="tl-deck-head"><span className="tl-kicker">I — RECENT WORK</span><h2 suppressHydrationWarning>Recent <em>work.</em></h2><p className="tl-deck-sub">Websites I’ve built for clients recently. The archive has everything else.</p></div>
     <div className="tl-deck-ghosts" aria-hidden="true">{works.map(w => <span className="tl-deck-ghost" key={w.slug}>{`${w.title} · ${w.title} · ${w.title}`}</span>)}</div>
     <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" inert={i !== active ? true : undefined}>
       <img src={work.image!} {...responsive(work.image, '(max-width: 899px) 92vw, 62vw')} alt="" width="1600" height="900" loading={i < 2 ? 'eager' : 'lazy'} decoding="async"/>
@@ -140,8 +141,8 @@ export function Bookshelf() {
     return () => ctx.revert();
   }, [reduced]);
   const book = writings[active];
-  return <section id="writing" className="tl-writing" ref={root} data-chapter="III — Writing">
-    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2 suppressHydrationWarning>Blogs and <em>writeups.</em></h2><p>The other half of the practice. Work that doesn’t compile.</p></div>
+  return <section id="writing" className="tl-writing" ref={root} data-chapter="II — Writing">
+    <div className="tl-writing-head"><span className="tl-kicker">II — WRITING</span><h2 suppressHydrationWarning>Notes and <em>books.</em></h2><p>Writing alongside the code: a research note, a book contribution and a book in progress. Pick a spine to see what it’s about.</p></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
@@ -174,15 +175,16 @@ export function TypeWall() {
     const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.tl-wall-row').forEach((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? 18 : -18 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 45%', scrub: .6 } }));
+      const drift = window.matchMedia('(max-width: 899px)').matches ? 6 : 18;
+      gsap.utils.toArray<HTMLElement>('.tl-wall-row').forEach((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? drift : -drift }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 45%', scrub: .6 } }));
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="services" className="tl-wall" ref={root} data-chapter="IV — Tie-ups & other services">
+  return <section id="services" className="tl-wall" ref={root} data-chapter="III — More services">
     <div className="tl-wall-head">
-      <span className="tl-kicker">IV — TIE-UPS &amp; OTHER SERVICES</span>
+      <span className="tl-kicker">III — MORE SERVICES</span>
       <h2 suppressHydrationWarning>Beyond the <em>build.</em></h2>
-      <div className="tl-wall-intro"><p><strong>More than a site when you need it.</strong> Through vetted partners, the work extends past launch. Growth, infrastructure, and the systems that run behind the scenes — scoped and delivered alongside people I trust.</p><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
+      <div className="tl-wall-intro"><p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I can also take on marketing, hosting, apps and business software. I scope it with you and stay your single point of contact.</p><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
     </div>
     <ul className="tl-wall-list">{services.map((s, i) => <li className="tl-wall-row" key={s.title}>
       <Link href="/connect">
@@ -247,12 +249,12 @@ export function Person() {
     return () => { ctx.revert(); section.classList.remove('is-live'); };
   }, [reduced, d]);
 
-  return <section id="journey" className="tl-person" ref={root} data-chapter="V — Journey">
+  return <section id="journey" className="tl-person" ref={root} data-chapter="IV — Journey">
     <div className="tl-person-intro">
       <div className="tl-person-copy">
-        <span className="tl-kicker">V — JOURNEY</span>
+        <span className="tl-kicker">IV — JOURNEY</span>
         <h2 suppressHydrationWarning><em>Journey.</em></h2>
-        <p className="tl-bio"><strong>Built across disciplines because the problems keep overlapping.</strong> {profile.bio} Products, interfaces, research, long-form writing. Here’s how it went.</p>
+        <p className="tl-bio"><strong>I work across management, design and code, because client projects need all three.</strong> {profile.bio} Below is where I’ve worked and studied.</p>
         <div className="tl-facts">
           {stats.map(f => <span className="tl-fact" key={f.label}><b>{f.value}</b>{f.label}</span>)}
         </div>
@@ -305,12 +307,12 @@ export function Voices() {
     });
     return () => mm.revert();
   }, [reduced]);
-  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
+  return <section id="reviews" className="tl-voices" ref={root} data-chapter="V — Reviews">
     <div className="tl-voices-head">
-      <div><span className="tl-kicker">VI — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
-      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews · collected direct · published unedited</span></div>
+      <div><span className="tl-kicker">V — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
+      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients · published as written</span></div>
     </div>
-    <p className="tl-board-hint" aria-hidden="true">Drag a note ↗</p>
+    <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note ↗</span><span className="is-touch">Swipe through the notes →</span><small className="is-touch">{reviews.length} NOTES</small></p>
     <div className="tl-board">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>
       <span className="tl-note-pin" aria-hidden="true"/>
       <blockquote>“{r.quote}”</blockquote>

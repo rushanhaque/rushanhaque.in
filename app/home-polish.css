@@ -124,3 +124,11 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 @keyframes tl-hero-in{from{opacity:.01;transform:translateY(20px)}}
 /* On a first visit the hero text waits for the intro curtain to open. */
 html.tl-preload .tl-hero-meta>*,html.tl-preload .tl-hero-foot>*{animation-play-state:paused}
+
+/* Phones: hero text clears the header bar and the home indicator. */
+@media(max-width:799px){
+  .tl-hero-meta{top:calc(90px + env(safe-area-inset-top,0px))}
+  .tl-hero-foot{bottom:calc(22px + env(safe-area-inset-bottom,0px));gap:12px 18px;padding-top:16px}
+  .tl-hero-foot p{margin:0;font-size:15px;line-height:1.45}
+  .tl-scroll-cue{height:46px;margin-bottom:3px}
+}

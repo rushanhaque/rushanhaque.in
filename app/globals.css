@@ -13,4 +13,4 @@
 @media(max-width:700px){.container{width:calc(100% - 40px)}.site-header{height:88px}.wordmark{font-size:23px}.desktop-nav{display:none}.header-contact{padding:12px 18px}.section{padding-top:72px}.section h2{font-size:41px;letter-spacing:-1.8px}.eyebrow{margin-bottom:18px}.project-image{aspect-ratio:1.2}.project-caption{display:flex}.project-caption :is(h2,h3){font-size:19px}.project-caption>span{font-size:11px;max-width:135px;text-align:right;line-height:1.5}.site-footer{margin-top:64px;flex-wrap:wrap;gap:20px}.site-footer>span:nth-child(2){display:none}}
 
 body:has(.cn) #page-stack{min-height:0}
-body:has(.cn){overflow:hidden}
+@media(min-width:900px){body:has(.cn){overflow:hidden}}

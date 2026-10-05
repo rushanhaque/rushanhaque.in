@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
-import { ArrowDown } from 'lucide-react';
 import { useMotion } from '@/components/site-motion';
 import { onStoryReady } from '@/components/story/preloader';
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
+// Phone address bars resize the viewport while scrolling; re-measuring then makes pinned scenes jump.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const NAME = 'Rushan Haque';
 const FONT = (size: number) => `650 ${size}px "Geist Variable", Arial, sans-serif`;
@@ -157,8 +158,10 @@ export function ParticleHero() {
     io.observe(section);
     const onVisibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; } else wake(); };
     document.addEventListener('visibilitychange', onVisibility);
-    let resizeTimer = 0;
-    const resize = () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { build(); calm = 0; wake(); }, 180); };
+    let resizeTimer = 0, lastW = window.innerWidth;
+    const touch = window.matchMedia('(pointer: coarse)').matches;
+    // On touch screens only a width change re-samples the name; an address bar sliding away does not.
+    const resize = () => { if (touch && window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { build(); calm = 0; wake(); }, 180); };
     window.addEventListener('resize', resize);
 
     const st = ScrollTrigger.create({ trigger: section, start: 'top top', end: 'bottom top', scrub: true, onUpdate: self => { explode = self.progress; calm = 0; wake(); } });
@@ -186,7 +189,7 @@ export function ParticleHero() {
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
     <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque</h1>
-    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Building at the intersection of logic and language</span></div>
+    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Project manager &amp; full-stack developer · Writer</span></div>
     <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

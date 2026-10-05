@@ -23,6 +23,7 @@ import './polish.css';
 import './header.css';
 import './footer.css';
 import './buttons.css';
+import './mobile.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
