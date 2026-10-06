@@ -3,6 +3,7 @@ import { Star } from 'lucide-react';
 import { ReviewForm } from '@/components/review-form';
 import { ApprovedReviews } from '@/components/approved-reviews';
 import { getPublishedContent } from '@/lib/published-content';
+import { withoutEmoji } from '@/lib/text';
 import '@/app/review-page.css';
 
 export const dynamic = 'force-dynamic';
@@ -33,11 +34,11 @@ export default async function WriteReview() {
       <div className="rvp-head"><span>02</span><i/><span>REVIEWS</span></div>
       <div className="rvp-top">
         <h2 suppressHydrationWarning id="rvp-said-title">What they <em>said.</em></h2>
-        <div className="rvp-sum"><b>{average}</b><small>/ 5.0</small>{stars(Number(average))}<span>{reviews.length} reviews<br/>Collected direct · published unedited</span></div>
+        <div className="rvp-sum"><b>{average}</b><small>/ 5.0</small>{stars(Number(average))}<span>{reviews.length} reviews<br/>Collected direct · in their own words</span></div>
       </div>
       <div className="rvp-grid"><ApprovedReviews/>{reviews.map((r, i) => <article key={r.name} className={`rvp-rev ${i === 0 ? 'is-wide' : ''}`}>
         <header><span>R/{String(i + 1).padStart(2, '0')}</span><span className="rvp-score">{stars(Number(r.rating) || 5)}{Number(r.rating || 5).toFixed(1)}</span></header>
-        <blockquote>“{r.quote}”</blockquote>
+        <blockquote>“{withoutEmoji(r.quote)}”</blockquote>
         <footer><i>{r.name.split(' ').map(n => n[0]).slice(0, 2).join('')}</i><div><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span></div><time>{r.date ? short(r.date) : ''}</time></footer>
       </article>)}</div>
     </section>

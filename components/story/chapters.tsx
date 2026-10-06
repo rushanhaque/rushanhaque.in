@@ -7,7 +7,8 @@ import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 import { SplitText } from 'gsap/SplitText';
 import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
-import { ArrowUpRight, Star } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Star } from 'lucide-react';
+import { withoutEmoji } from '@/lib/text';
 import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
 import { useMotion } from '@/components/site-motion';
@@ -92,6 +93,10 @@ export function WorksDeck() {
 /* ------------------------------------------------------------------ */
 /* Interlude — a ribbon of words that runs faster as you scroll.        */
 /* ------------------------------------------------------------------ */
+// An eight-spoked asterisk drawn as lines, so no phone can swap it for an emoji.
+function Spark() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>;
+}
 export function VelocityMarquee({ words }: { words: string[] }) {
   const root = useRef<HTMLDivElement>(null);
   const { reduced } = useMotion();
@@ -108,7 +113,7 @@ export function VelocityMarquee({ words }: { words: string[] }) {
     } });
     return () => { st.kill(); loops.forEach(l => l.kill()); };
   }, [reduced]);
-  const content = words.map((w, i) => <span key={i}>{i % 2 ? <em>{w}</em> : w}<i>✳</i></span>);
+  const content = words.map((w, i) => <span key={i}>{i % 2 ? <em>{w}</em> : w}<i><Spark/></i></span>);
   return <div className="tl-marquee" ref={root} aria-hidden="true">
     <div className="tl-marquee-row">{content}{content}</div>
     <div className="tl-marquee-row is-outline">{content}{content}</div>
@@ -310,12 +315,12 @@ export function Voices() {
   return <section id="reviews" className="tl-voices" ref={root} data-chapter="V — Reviews">
     <div className="tl-voices-head">
       <div><span className="tl-kicker">V — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
-      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients · published as written</span></div>
+      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients, in their own words</span></div>
     </div>
-    <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note ↗</span><span className="is-touch">Swipe through the notes →</span><small className="is-touch">{reviews.length} NOTES</small></p>
+    <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note <ArrowUpRight size={18} strokeWidth={1.5}/></span><span className="is-touch">Swipe through the notes <ArrowRight size={17} strokeWidth={1.5}/></span><small className="is-touch">{reviews.length} NOTES</small></p>
     <div className="tl-board">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>
       <span className="tl-note-pin" aria-hidden="true"/>
-      <blockquote>“{r.quote}”</blockquote>
+      <blockquote>“{withoutEmoji(r.quote)}”</blockquote>
       <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span>{r.date && <time>{r.date}</time>}</figcaption>
     </figure>; })}</div>
     <div className="tl-voices-actions"><Link href="/reviews" className="tl-button">Add a review <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Read all reviews <ArrowUpRight size={16}/></Link></div>

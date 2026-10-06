@@ -77,6 +77,8 @@ html:not(.tl-preload) .tl-loader{display:none}
 .tl-marquee-row{display:flex;width:max-content;white-space:nowrap;font-size:clamp(48px,7vw,120px);font-weight:500;letter-spacing:-.05em;line-height:1.05;will-change:transform}
 .tl-marquee-row>span{display:inline-flex;align-items:center}
 .tl-marquee-row i{font-style:normal;font-size:.5em;margin:0 .5em}
+.tl-marquee-row i svg{display:block;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.tl-marquee-row.is-outline i svg{stroke:var(--cream);stroke-width:1.4}
 .tl-marquee-row.is-outline{color:transparent;-webkit-text-stroke:1.2px var(--cream)}
 .tl-marquee-row.is-outline em{-webkit-text-stroke:1px var(--cream)}
 
@@ -163,11 +165,12 @@ html:not(.tl-preload) .tl-loader{display:none}
 }
 html[data-motion=reduce] .tl-board-hint{display:none}
 .tl-board-hint .is-touch{display:none}
+.tl-board-hint .is-fine{display:inline-flex;align-items:center;gap:6px}
 /* Phones and tablets: the notes become a row you swipe through. */
 @media(max-width:899px){
   .tl-board-hint{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:30px;font-size:17px}
   .tl-board-hint .is-fine{display:none}
-  .tl-board-hint .is-touch{display:inline}
+  .tl-board-hint .is-touch{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
   .tl-board-hint small{font:500 11px/1 var(--font-sans);font-style:normal;letter-spacing:.14em;opacity:.6}
   .tl-board{display:flex;gap:14px;margin:14px calc(var(--g) * -1) 0;padding:16px var(--g) 22px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--g);scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .tl-board::-webkit-scrollbar{display:none}

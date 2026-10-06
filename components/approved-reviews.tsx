@@ -1,4 +1,5 @@
 import { getDatabase } from '@/lib/database';
+import { withoutEmoji } from '@/lib/text';
 type Review = { name: string; message: string; company: string };
 async function readReviews(): Promise<Review[]> {
   try {
@@ -14,5 +15,5 @@ async function readReviews(): Promise<Review[]> {
 }
 export async function ApprovedReviews() {
   const reviews = await readReviews();
-  return <>{reviews.map((row, i) => <article className="review-card fx-spot" key={i}><blockquote>“{row.message}”</blockquote><div className="review-person"><strong>{row.name}</strong><span>{row.company}</span></div></article>)}</>;
+  return <>{reviews.map((row, i) => <article className="review-card fx-spot" key={i}><blockquote>“{withoutEmoji(row.message)}”</blockquote><div className="review-person"><strong>{row.name}</strong><span>{row.company}</span></div></article>)}</>;
 }
