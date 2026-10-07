@@ -206,3 +206,5 @@ html[data-motion=reduce] .tl-scroll-cue i{animation:none}
 
 
 /* Deck scroll prompt — bottom-centre, prominent but not loud */
+/* The rows drift while scrolling: give each its own layer so the outlined words are not repainted every frame. */
+.tl-wall-row{will-change:transform}

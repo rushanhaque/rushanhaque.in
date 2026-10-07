@@ -3,9 +3,9 @@
  "sites": [
   {
    "name": "Taif International",
-   "url": "https://www.taifinternational.co",
+   "url": "https://www.taifinternational.co/collections",
    "frameable": true,
-   "poster": "/images/taif.webp",
+   "poster": "/images/taif-collections.webp",
    "allowedHosts": [
     "rushanhaque.in",
     "www.rushanhaque.in"

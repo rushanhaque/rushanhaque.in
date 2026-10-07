@@ -106,7 +106,7 @@ export function ParticleHero() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const step = mobile ? 3 : W > 1700 ? 4 : 3;
       target = sample(W, H, step);
-      const count = Math.min(mobile ? (lite ? 2400 : 4200) : (lite ? 6000 : 13000), target.length);
+      const count = Math.min(mobile ? (lite ? 2400 : 4200) : (lite ? 6000 : 10000), target.length);
       const old = particles;
       particles = Array.from({ length: count }, (_, i) => old[i] ?? { x: W / 2 + (Math.random() - .5) * W, y: H / 2 + (Math.random() - .5) * H, vx: 0, vy: 0, tx: 0, ty: 0, dx: Math.random() - .5, dy: Math.random() - .5, seed: Math.random(), size: Math.random() < .1 ? (mobile ? 2.3 : 2.7) : (mobile ? 1.8 : 2.1) });
       particles.length = count;
@@ -127,6 +127,8 @@ export function ParticleHero() {
       // One colour and one alpha per frame keeps the inner loop to arithmetic and fillRect.
       ctx.fillStyle = '#07241a';
       ctx.globalAlpha = Math.max(0, 1 - spread * 1.1);
+      // Fully blown away: nothing would show, so skip the fill and keep only the motion.
+      const hidden = ctx.globalAlpha < .01;
       let motion = 0;
       for (const p of particles) {
         const tx = p.tx + p.dx * spread * W * 1.6 + Math.sin(p.seed * 30 + intro * 6) * (1 - intro) * 220;
@@ -139,7 +141,7 @@ export function ParticleHero() {
         p.vx = (p.vx + ax) * .82; p.vy = (p.vy + ay) * .82;
         p.x += p.vx; p.y += p.vy;
         motion += Math.abs(p.vx) + Math.abs(p.vy);
-        ctx.fillRect(p.x, p.y, p.size, p.size);
+        if (!hidden) ctx.fillRect(p.x, p.y, p.size, p.size);
       }
       ctx.globalAlpha = 1;
       // Once everything has settled, stop drawing until the pointer or scroll moves it.

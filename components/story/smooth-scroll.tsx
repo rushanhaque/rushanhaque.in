@@ -16,7 +16,8 @@ export function SmoothScroll() {
     let target = window.scrollY, current = window.scrollY, frame = 0, driving = false;
     const max = () => root.scrollHeight - window.innerHeight;
     const tick = () => {
-      current += (target - current) * .095;
+      // Quick to respond, still eased: a slower follow reads as lag.
+      current += (target - current) * .16;
       if (Math.abs(target - current) < .4) current = target;
       driving = true;
       window.scrollTo(0, current);

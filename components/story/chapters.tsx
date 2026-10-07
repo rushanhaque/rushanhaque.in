@@ -126,15 +126,15 @@ export function VelocityMarquee({ words }: { words: string[] }) {
 /* II — What I build: the core services, each opening its own page.     */
 /* ------------------------------------------------------------------ */
 const BUILD = [
-  ['website-design-development', 'Business websites', 'Designed and coded from scratch, around your customers.'],
-  ['ecommerce-website-development', 'E-commerce stores', 'Online stores with Razorpay, PayU, Cashfree or Stripe.'],
-  ['website-for-exporters-moradabad', 'Export catalogues', 'Searchable catalogues and enquiries for overseas buyers.'],
-  ['web-application-development', 'Web applications', 'Portals, dashboards and tools built around how you work.'],
-  ['landing-page-design', 'Landing pages', 'One page, one offer, built to turn visits into enquiries.'],
-  ['website-redesign', 'Redesigns', 'Rebuild what is costing you leads, and keep your rankings.'],
-  ['website-speed-optimization', 'Speed', 'Faster pages that pass Core Web Vitals on mobile networks.'],
-  ['seo-services', 'SEO', 'Technical and local SEO, so people nearby find you first.'],
-  ['generative-engine-optimization', 'AI search (GEO)', 'Be the business ChatGPT, Gemini and Perplexity recommend.'],
+  ['website-design-development', 'Business websites', 'Websites', 'Designed and coded from scratch, around your customers.'],
+  ['ecommerce-website-development', 'E-commerce stores', 'Commerce', 'Online stores with Razorpay, PayU, Cashfree or Stripe.'],
+  ['website-for-exporters-moradabad', 'Export catalogues', 'Exporters', 'Searchable catalogues and enquiries for overseas buyers.'],
+  ['web-application-development', 'Web applications', 'Software', 'Portals, dashboards and tools built around how you work.'],
+  ['landing-page-design', 'Landing pages', 'Campaigns', 'One page, one offer, built to turn visits into enquiries.'],
+  ['website-redesign', 'Redesigns', 'Rebuilds', 'Rebuild what is costing you leads, and keep your rankings.'],
+  ['website-speed-optimization', 'Speed', 'Performance', 'Faster pages that pass Core Web Vitals on mobile networks.'],
+  ['seo-services', 'SEO', 'Search', 'Technical and local SEO, so people nearby find you first.'],
+  ['generative-engine-optimization', 'AI search', 'GEO', 'Be the business ChatGPT, Gemini and Perplexity recommend.'],
 ] as const;
 export function ServiceIndex() {
   const root = useRef<HTMLElement>(null);
@@ -143,28 +143,24 @@ export function ServiceIndex() {
     const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
-      // Each row rises out of its own line (the list item clips it), and the rule beneath draws in.
-      const reveal = { trigger: '.tl-build-list', start: 'top 82%', once: true };
-      gsap.fromTo('.tl-build-row', { yPercent: 105 }, { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: .07, clearProps: 'transform', scrollTrigger: reveal });
-      gsap.fromTo('.tl-build-list li', { '--line': 0 }, { '--line': 1, duration: 1.5, ease: 'expo.out', stagger: .07, scrollTrigger: reveal });
+      const drift = window.matchMedia('(max-width: 899px)').matches ? 6 : 18;
+      gsap.utils.toArray<HTMLElement>('.tl-wall-row').forEach((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? drift : -drift }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 45%', scrub: .6 } }));
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="what-i-build" className="tl-build" ref={root} data-chapter="II — What I build">
-    <div className="tl-build-head">
+  return <section id="what-i-build" className="tl-wall" ref={root} data-chapter="II — What I build">
+    <div className="tl-wall-head">
       <span className="tl-kicker">II — WHAT I BUILD</span>
       <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
-      <p>Designed and built from scratch in Moradabad, for businesses here and abroad. Each one opens a page on what it involves, what it costs and how long it takes.</p>
-      <div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link></div>
+      <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Each one opens a page on what it involves, what decides the cost and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
     </div>
-    <ol className="tl-build-list">{BUILD.map(([slug, name, line], i) => <li key={slug}>
-      <Link href={'/' + slug} className="tl-build-row">
-        <span className="tl-build-n">{String(i + 1).padStart(2, '0')}</span>
-        <span className="tl-build-name">{name}</span>
-        <span className="tl-build-line">{line}</span>
-        <ArrowUpRight className="tl-build-go" size={22} strokeWidth={1.5} aria-hidden="true"/>
+    <ul className="tl-wall-list">{BUILD.map(([slug, name, tag, line], i) => <li className="tl-wall-row" key={slug}>
+      <Link href={'/' + slug}>
+        <span className="tl-wall-num">{String(i + 1).padStart(2, '0')}</span>
+        <span className="tl-wall-word">{name}</span>
+        <span className="tl-wall-desc"><small>{tag}</small>{line}</span>
       </Link>
-    </li>)}</ol>
+    </li>)}</ul>
   </section>;
 }
 
@@ -228,24 +224,28 @@ export function TypeWall() {
     const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
-      const drift = window.matchMedia('(max-width: 899px)').matches ? 6 : 18;
-      gsap.utils.toArray<HTMLElement>('.tl-wall-row').forEach((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? drift : -drift }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 45%', scrub: .6 } }));
+      // Each row rises out of its own line (the list item clips it), and the rule beneath draws in.
+      const reveal = { trigger: '.tl-build-list', start: 'top 82%', once: true };
+      gsap.fromTo('.tl-build-row', { yPercent: 105 }, { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: .07, clearProps: 'transform', scrollTrigger: reveal });
+      gsap.fromTo('.tl-build-list li', { '--line': 0 }, { '--line': 1, duration: 1.5, ease: 'expo.out', stagger: .07, scrollTrigger: reveal });
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="services" className="tl-wall" ref={root} data-chapter="IV — More services">
-    <div className="tl-wall-head">
+  return <section id="services" className="tl-build is-partners" ref={root} data-chapter="IV — More services">
+    <div className="tl-build-head">
       <span className="tl-kicker">IV — MORE SERVICES</span>
       <h2 suppressHydrationWarning>Beyond the <em>build.</em></h2>
-      <div className="tl-wall-intro"><p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I can also take on marketing, hosting, apps and business software. I scope it with you and stay your single point of contact.</p><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
+      <p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I can also take on marketing, hosting, apps and business software. I scope it with you and stay your single point of contact.</p>
+      <div className="tl-build-links"><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
     </div>
-    <ul className="tl-wall-list">{services.map((s, i) => <li className="tl-wall-row" key={s.title}>
-      <Link href="/connect">
-        <span className="tl-wall-num">{String(i + 1).padStart(2, '0')}</span>
-        <span className="tl-wall-word">{s.title}</span>
-        <span className="tl-wall-desc"><small>{s.subtitle}</small>{s.description}</span>
+    <ol className="tl-build-list">{services.map((s, i) => <li key={s.title}>
+      <Link href="/connect" className="tl-build-row">
+        <span className="tl-build-n">{String(i + 1).padStart(2, '0')}</span>
+        <span className="tl-build-name">{s.title}</span>
+        <span className="tl-build-line"><small>{s.subtitle}</small>{s.description}</span>
+        <ArrowUpRight className="tl-build-go" size={22} strokeWidth={1.5} aria-hidden="true"/>
       </Link>
-    </li>)}</ul>
+    </li>)}</ol>
   </section>;
 }
 

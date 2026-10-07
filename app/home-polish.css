@@ -168,13 +168,13 @@ html.tl-preload .tl-hero-meta>*,html.tl-preload .tl-hero-foot>*{animation-play-s
 /* Chapter rail: ticks on the left edge, the current chapter written beside them. */
 .tl-rail{display:none}
 @media(min-width:1100px) and (hover:hover) and (pointer:fine){
-  .tl-rail{position:fixed;left:22px;top:50%;z-index:30;display:flex;flex-direction:column;align-items:center;gap:16px;translate:0 -50%;color:#fff;mix-blend-mode:difference;pointer-events:none}
+  .tl-rail{position:fixed;left:22px;top:50%;z-index:30;display:flex;flex-direction:column;align-items:center;gap:16px;translate:0 -50%;color:var(--forest);pointer-events:none}
   .tl-rail ol{display:grid;gap:2px;margin:0;padding:0;list-style:none;pointer-events:auto}
   .tl-rail button{display:grid;place-items:center;width:26px;height:16px;padding:0;border:0;background:none;cursor:pointer}
   .tl-rail button::before{content:'';width:10px;height:1.5px;border-radius:2px;background:currentColor;opacity:.45;transition:width .6s var(--ease),opacity .4s}
   .tl-rail button:hover::before{opacity:.9}
   .tl-rail button.is-on::before{width:24px;opacity:1}
-  .tl-rail{transition:opacity .5s,translate .6s var(--ease)}
+  .tl-rail{transition:opacity .5s,translate .6s var(--ease),color .5s}
   .tl-rail.is-away{opacity:0;translate:-12px -50%}
   .tl-rail.is-away ol{pointer-events:none}
   .tl-rail-label{writing-mode:vertical-rl;rotate:180deg;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;opacity:.85;animation:tl-rail-in .8s var(--ease) both}
@@ -184,3 +184,11 @@ html.tl-preload .tl-hero-meta>*,html.tl-preload .tl-hero-foot>*{animation-play-s
 /* Small labels kept above 4.5:1 contrast. */
 .tl-skills dt{opacity:1;color:#4d5a52}
 .tl-note figcaption span,.tl-note time{opacity:.76}
+
+/* IV · Beyond the build, on the light index: a slightly deeper paper, and the category above each line. */
+.tl-build.is-partners{background:var(--paper-2)}
+.tl-build-line small{display:block;margin-bottom:2px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.tl-build-head p strong{font-weight:500}
+/* II · What I build, on the dark wall: its two links sit side by side. */
+.tl-wall-intro .tl-build-links{display:flex;flex-wrap:wrap;gap:14px 28px}
+.tl-rail.is-dark{color:var(--cream)}

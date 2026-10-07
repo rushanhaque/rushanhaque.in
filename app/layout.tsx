@@ -28,8 +28,8 @@ import './mobile.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
-  title: { default: 'Website Designer & Developer in Moradabad — Rushan Haque', template: '%s — Rushan Haque' },
-  description: 'Website designer and developer in Moradabad. Custom business websites, e-commerce and web apps, built from scratch, fast, and made to rank on Google and AI search.',
+  title: { default: 'Rushan Haque — Project Manager & Full-Stack Developer', template: '%s — Rushan Haque' },
+  description: 'Expressive websites. Considered words. Explore the independent design, development, and writing practice of Rushan Haque.',
   applicationName: 'Rushan Haque',
   authors: [{ name: 'Rushan Haque', url: siteOrigin }],
   creator: 'Rushan Haque',
