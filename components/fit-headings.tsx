@@ -8,9 +8,9 @@ import { useEffect } from 'react';
 // their final size in the first frame (no layout shift), and again on resize
 // and once the web fonts have loaded.
 const SCRIPT = `(function(){
-var SEL=['main h1','.tl-deck-head h2','.tl-writing-head h2','.tl-wall-head h2','.tl-person-copy h2','.tl-voices-head h2','.lab-intro h2','.study-head h2','.ft-cta h2','.rvp-top h2','main section > h2','main .container > h2'].join(',');
+var SEL=['main h1','.tl-deck-head h2','.tl-build-head h2','.tl-writing-head h2','.tl-wall-head h2','.tl-person-copy h2','.tl-voices-head h2','.lab-intro h2','.study-head h2','.ft-cta h2','.rvp-top h2','main section > h2','main .container > h2'].join(',');
 function run(){
-  var els=[].slice.call(document.querySelectorAll(SEL)).filter(function(el){return !el.closest('.gh, .tl-hero, .ad, .credential-card, .project-card')});
+  var els=[].slice.call(document.querySelectorAll(SEL)).filter(function(el){return !el.closest('.gh, .tl-hero, .ad, .credential-card, .project-card, .guide-page .page-intro')});
   els.forEach(function(el){el.style.fontSize='';el.style.whiteSpace='nowrap'});
   var floor=window.innerWidth<700?30:36,page=document.documentElement.clientWidth;
   var plan=els.map(function(el){

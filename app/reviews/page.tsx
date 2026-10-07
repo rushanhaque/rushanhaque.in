@@ -7,7 +7,7 @@ import { withoutEmoji } from '@/lib/text';
 import '@/app/review-page.css';
 
 export const dynamic = 'force-dynamic';
-export const metadata = pageMetadata('/reviews', 'Reviews', 'What people said about working with Rushan Haque, and a place to add your own.');
+export const metadata = pageMetadata('/reviews', 'Client reviews', 'What clients in India, Saudi Arabia, Poland and Nepal said about working with Rushan Haque on their websites, and a place to add your own.');
 
 const short = (d: string) => { const m = d.match(/^(\w{3})\w*\s+(\d{4})$/); return m ? `${m[1].toUpperCase()} ’${m[2].slice(2)}` : d.toUpperCase(); };
 const stars = (n: number) => <span className="rvp-stars" aria-label={`${n} out of 5`}>{Array.from({ length: 5 }, (_, i) => <Star key={i} size={13} fill={i < Math.round(n) ? 'currentColor' : 'none'} strokeWidth={1.5}/>)}</span>;

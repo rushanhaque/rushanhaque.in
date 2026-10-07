@@ -106,7 +106,7 @@ export function ParticleHero() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const step = mobile ? 3 : W > 1700 ? 4 : 3;
       target = sample(W, H, step);
-      const count = Math.min(mobile ? (lite ? 2600 : 5200) : (lite ? 6000 : 13000), target.length);
+      const count = Math.min(mobile ? (lite ? 2400 : 4200) : (lite ? 6000 : 13000), target.length);
       const old = particles;
       particles = Array.from({ length: count }, (_, i) => old[i] ?? { x: W / 2 + (Math.random() - .5) * W, y: H / 2 + (Math.random() - .5) * H, vx: 0, vy: 0, tx: 0, ty: 0, dx: Math.random() - .5, dy: Math.random() - .5, seed: Math.random(), size: Math.random() < .1 ? (mobile ? 2.3 : 2.7) : (mobile ? 1.8 : 2.1) });
       particles.length = count;

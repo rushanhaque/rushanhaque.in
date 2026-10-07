@@ -2,7 +2,7 @@ import { PageIntro } from '@/components/page-intro';
 import { ProjectArchive } from '@/components/project-archive';
 import { getPublishedContent } from '@/lib/published-content';
 import { pageMetadata } from '@/lib/seo';
-export const metadata=pageMetadata('/projects','The work','Client websites and experiments by Rushan Haque.');
+export const metadata=pageMetadata('/projects','Website portfolio — client work and projects','Websites designed and built by Rushan Haque for businesses in Moradabad and abroad: live client sites, upcoming launches and personal experiments.');
 export default async function Projects({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}) {
   const {projects}=await getPublishedContent();
   const params=await searchParams;

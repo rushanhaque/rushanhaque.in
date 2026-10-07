@@ -49,13 +49,17 @@ export function SiteHeader({ workCount }: { workCount: number }) {
   // Scroll: condense, sample the tone underneath, track the homepage section, fill the progress line.
   useEffect(() => {
     let frame = 0;
+    // Sampling what sits under the bar is a hit test, so it runs a few times a second, not every frame.
+    let sampled = 0, trailing = 0;
     const update = () => {
       frame = 0;
       const y = window.scrollY, header = root.current, b = bar.current;
       setScrolled(y > 24);
       if (header && b) {
         const r = b.getBoundingClientRect();
-        setTone(toneAt(r.left + r.width / 2, r.top + r.height / 2, header));
+        const now = performance.now();
+        if (now - sampled > 120) { sampled = now; setTone(toneAt(r.left + r.width / 2, r.top + r.height / 2, header)); }
+        else if (!trailing) trailing = window.setTimeout(() => { trailing = 0; sampled = 0; onScroll(); }, 140);
         const max = document.documentElement.scrollHeight - window.innerHeight;
         b.style.setProperty('--progress', String(max > 0 ? Math.min(1, y / max) : 0));
       }
@@ -65,7 +69,7 @@ export function SiteHeader({ workCount }: { workCount: number }) {
     const settle = window.setTimeout(update, 600);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    return () => { cancelAnimationFrame(frame); clearTimeout(settle); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+    return () => { cancelAnimationFrame(frame); clearTimeout(settle); clearTimeout(trailing); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
   }, [path]);
 
   // Refraction is a Chromium-only backdrop filter; other browsers keep the frosted glass.

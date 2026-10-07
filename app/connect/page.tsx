@@ -4,7 +4,7 @@ import { ContactForm } from '@/components/contact-form';
 import { email, phone, bookingUrl, address } from '@/lib/content';
 import '@/app/connect.css';
 
-export const metadata = pageMetadata('/connect', 'Connect', 'WhatsApp, email or a short note. Reach Rushan Haque directly.');
+export const metadata = pageMetadata('/connect', 'Get a website made — contact', 'Call, WhatsApp or email Rushan Haque, website designer and developer in Moradabad. Tell me what you need; I reply within a day.');
 
 // Moradabad at zoom 12, a 7 x 5 block of OpenStreetMap tiles centred on the city; it is only a soft backdrop.
 const TILE = { z: 12, x: 2944, y: 1705 };

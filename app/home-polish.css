@@ -132,3 +132,55 @@ html.tl-preload .tl-hero-meta>*,html.tl-preload .tl-hero-foot>*{animation-play-s
   .tl-hero-foot p{margin:0;font-size:15px;line-height:1.45}
   .tl-scroll-cue{height:46px;margin-bottom:3px}
 }
+
+/* II · What I build: a sticky title beside an index of services. */
+.tl-build{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.35fr);align-items:start;gap:40px clamp(40px,7vw,120px);padding:clamp(100px,12vw,170px) var(--g);background:var(--paper)}
+.tl-build-head{position:sticky;top:130px;display:grid;gap:22px}
+.tl-build-head h2{font-size:clamp(48px,5.6vw,100px)}
+.tl-build-head h2 em{color:var(--moss)}
+.tl-build-head p{max-width:420px;margin:0;font-size:16px;line-height:1.7;opacity:.75}
+.tl-build-links{display:flex;flex-wrap:wrap;gap:14px 28px;margin-top:4px}
+.tl-build-list{margin:0;padding:0;list-style:none;border-top:1px solid rgb(7 36 26 / .16)}
+.tl-build-list li{--line:1;position:relative;overflow:hidden}
+.tl-build-list li::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:rgb(7 36 26 / .16);transform:scaleX(var(--line));transform-origin:left;pointer-events:none}
+.tl-build-row{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:6px 18px;padding:26px 10px 26px 4px;color:var(--forest);isolation:isolate;transition:color .5s var(--ease),padding .8s var(--ease),opacity .4s}
+.tl-build-row::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:4px;background:var(--forest);transform:scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease)}
+.tl-build-n{grid-row:1/3;align-self:start;padding-top:12px;font-size:12px;letter-spacing:.14em;opacity:.5;font-variant-numeric:tabular-nums}
+.tl-build-name{font-size:clamp(28px,2.8vw,46px);font-weight:450;letter-spacing:-.045em;line-height:1.05;transition:letter-spacing .8s var(--ease)}
+.tl-build-line{grid-column:2;font-size:14px;line-height:1.55;opacity:.7}
+.tl-build-go{grid-column:3;grid-row:1/3;opacity:.35;transition:transform .7s var(--ease),opacity .3s}
+@media(hover:hover) and (pointer:fine){
+  .tl-build-row:hover{color:var(--cream);padding-inline:26px}
+  .tl-build-row:hover::before{transform:scaleY(1)}
+  .tl-build-row:hover .tl-build-name{letter-spacing:-.03em}
+  .tl-build-row:hover .tl-build-go{opacity:1;transform:rotate(45deg)}
+  .tl-build-list:hover li:not(:hover) .tl-build-row{opacity:.45}
+}
+@media(max-width:899px){
+  .tl-build{grid-template-columns:minmax(0,1fr);gap:34px;padding-block:96px 80px}
+  .tl-build-head{position:static;gap:18px}
+  .tl-build-head h2{font-size:clamp(40px,11vw,56px)}
+  .tl-build-row{grid-template-columns:34px minmax(0,1fr) auto;gap:4px 12px;padding:20px 0}
+  .tl-build-n{padding-top:8px}
+  .tl-build-name{font-size:clamp(24px,7vw,32px)}
+}
+
+/* Chapter rail: ticks on the left edge, the current chapter written beside them. */
+.tl-rail{display:none}
+@media(min-width:1100px) and (hover:hover) and (pointer:fine){
+  .tl-rail{position:fixed;left:22px;top:50%;z-index:30;display:flex;flex-direction:column;align-items:center;gap:16px;translate:0 -50%;color:#fff;mix-blend-mode:difference;pointer-events:none}
+  .tl-rail ol{display:grid;gap:2px;margin:0;padding:0;list-style:none;pointer-events:auto}
+  .tl-rail button{display:grid;place-items:center;width:26px;height:16px;padding:0;border:0;background:none;cursor:pointer}
+  .tl-rail button::before{content:'';width:10px;height:1.5px;border-radius:2px;background:currentColor;opacity:.45;transition:width .6s var(--ease),opacity .4s}
+  .tl-rail button:hover::before{opacity:.9}
+  .tl-rail button.is-on::before{width:24px;opacity:1}
+  .tl-rail{transition:opacity .5s,translate .6s var(--ease)}
+  .tl-rail.is-away{opacity:0;translate:-12px -50%}
+  .tl-rail.is-away ol{pointer-events:none}
+  .tl-rail-label{writing-mode:vertical-rl;rotate:180deg;font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;opacity:.85;animation:tl-rail-in .8s var(--ease) both}
+}
+@keyframes tl-rail-in{from{opacity:0;translate:0 -10px}}
+
+/* Small labels kept above 4.5:1 contrast. */
+.tl-skills dt{opacity:1;color:#4d5a52}
+.tl-note figcaption span,.tl-note time{opacity:.76}

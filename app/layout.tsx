@@ -6,7 +6,8 @@ import { SiteFooter } from '@/components/site-footer';
 import { MotionProvider } from '@/components/site-motion';
 import { getPublishedContent } from '@/lib/published-content';
 import { ReleaseSync } from '@/components/release-sync';
-import { siteOrigin } from '@/lib/seo';
+import { siteOrigin, jsonLd } from '@/lib/seo';
+import { siteGraph } from '@/lib/schema';
 import release from '@/generated/release.json';
 import './globals.css';
 import './experience.css';
@@ -27,8 +28,14 @@ import './mobile.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
-  title: { default: 'Rushan Haque — Project Manager & Full-Stack Developer', template: '%s — Rushan Haque' },
-  description: 'Expressive websites. Considered words. Explore the independent design, development, and writing practice of Rushan Haque.',
+  title: { default: 'Website Designer & Developer in Moradabad — Rushan Haque', template: '%s — Rushan Haque' },
+  description: 'Website designer and developer in Moradabad. Custom business websites, e-commerce and web apps, built from scratch, fast, and made to rank on Google and AI search.',
+  applicationName: 'Rushan Haque',
+  authors: [{ name: 'Rushan Haque', url: siteOrigin }],
+  creator: 'Rushan Haque',
+  category: 'Web design and development',
+  formatDetection: { telephone: true, email: true, address: true },
+  other: { 'geo.region': 'IN-UP', 'geo.placename': 'Moradabad', 'geo.position': '28.8386;78.7733', ICBM: '28.8386, 78.7733' },
   robots: { index: true, follow: true },
   icons: { icon: [{ url: '/icon.png', type: 'image/png', sizes: '512x512' }], shortcut: '/icon.png', apple: '/apple-icon.png' },
   openGraph: { images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Rushan Haque' }] },
@@ -42,9 +49,10 @@ const motionScript = `document.documentElement.dataset.motion='full'`;
 
 export default async function RootLayout({ children }: Readonly<{children: React.ReactNode}>) {
   const content=await getPublishedContent();
-  return <html lang="en" data-build-id={release.buildId} suppressHydrationWarning><head>
+  return <html lang="en-IN" data-build-id={release.buildId} suppressHydrationWarning><head>
     <script dangerouslySetInnerHTML={{ __html: motionScript }}/>
     <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
     <link rel="preload" href="/fonts/instrument-italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(siteGraph()) }}/>
   </head><body id="top"><MotionProvider><a className="skip-link" href="#main-content">Skip to content</a><ReleaseSync buildId={release.buildId}/><UsageEvents/><SiteHeader workCount={content.projects.length}/><div id="page-stack" className="page-stack">{children}</div><SiteFooter/><FitHeadings/></MotionProvider></body></html>;
 }

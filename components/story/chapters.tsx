@@ -106,7 +106,9 @@ export function VelocityMarquee({ words }: { words: string[] }) {
     const rows = gsap.utils.toArray<HTMLElement>('.tl-marquee-row', el);
     const loops = rows.map((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? -50 : 0 }, { xPercent: i % 2 ? 0 : -50, duration: 28, ease: 'none', repeat: -1 }));
     const skew = gsap.quickTo(rows, 'skewX', { duration: .5, ease: 'power3.out' });
-    const st = ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', onUpdate: self => {
+    // The loops only run while the ribbon is on screen.
+    loops.forEach(l => l.pause());
+    const st = ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', onToggle: self => loops.forEach(l => self.isActive ? l.resume() : l.pause()), onUpdate: self => {
       const v = self.getVelocity();
       skew(gsap.utils.clamp(-14, 14, v / -180));
       loops.forEach(l => gsap.to(l, { timeScale: (1 + Math.abs(v) / 260) * self.direction, duration: .2, overwrite: true, onComplete: () => { gsap.to(l, { timeScale: self.direction, duration: 1.2 }); skew(0); } }));
@@ -118,6 +120,52 @@ export function VelocityMarquee({ words }: { words: string[] }) {
     <div className="tl-marquee-row">{content}{content}</div>
     <div className="tl-marquee-row is-outline">{content}{content}</div>
   </div>;
+}
+
+/* ------------------------------------------------------------------ */
+/* II — What I build: the core services, each opening its own page.     */
+/* ------------------------------------------------------------------ */
+const BUILD = [
+  ['website-design-development', 'Business websites', 'Designed and coded from scratch, around your customers.'],
+  ['ecommerce-website-development', 'E-commerce stores', 'Online stores with Razorpay, PayU, Cashfree or Stripe.'],
+  ['website-for-exporters-moradabad', 'Export catalogues', 'Searchable catalogues and enquiries for overseas buyers.'],
+  ['web-application-development', 'Web applications', 'Portals, dashboards and tools built around how you work.'],
+  ['landing-page-design', 'Landing pages', 'One page, one offer, built to turn visits into enquiries.'],
+  ['website-redesign', 'Redesigns', 'Rebuild what is costing you leads, and keep your rankings.'],
+  ['website-speed-optimization', 'Speed', 'Faster pages that pass Core Web Vitals on mobile networks.'],
+  ['seo-services', 'SEO', 'Technical and local SEO, so people nearby find you first.'],
+  ['generative-engine-optimization', 'AI search (GEO)', 'Be the business ChatGPT, Gemini and Perplexity recommend.'],
+] as const;
+export function ServiceIndex() {
+  const root = useRef<HTMLElement>(null);
+  const { reduced } = useMotion();
+  useEffect(() => {
+    const section = root.current;
+    if (!section || reduced) return;
+    const ctx = gsap.context(() => {
+      // Each row rises out of its own line (the list item clips it), and the rule beneath draws in.
+      const reveal = { trigger: '.tl-build-list', start: 'top 82%', once: true };
+      gsap.fromTo('.tl-build-row', { yPercent: 105 }, { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: .07, clearProps: 'transform', scrollTrigger: reveal });
+      gsap.fromTo('.tl-build-list li', { '--line': 0 }, { '--line': 1, duration: 1.5, ease: 'expo.out', stagger: .07, scrollTrigger: reveal });
+    }, section);
+    return () => ctx.revert();
+  }, [reduced]);
+  return <section id="what-i-build" className="tl-build" ref={root} data-chapter="II — What I build">
+    <div className="tl-build-head">
+      <span className="tl-kicker">II — WHAT I BUILD</span>
+      <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
+      <p>Designed and built from scratch in Moradabad, for businesses here and abroad. Each one opens a page on what it involves, what it costs and how long it takes.</p>
+      <div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link></div>
+    </div>
+    <ol className="tl-build-list">{BUILD.map(([slug, name, line], i) => <li key={slug}>
+      <Link href={'/' + slug} className="tl-build-row">
+        <span className="tl-build-n">{String(i + 1).padStart(2, '0')}</span>
+        <span className="tl-build-name">{name}</span>
+        <span className="tl-build-line">{line}</span>
+        <ArrowUpRight className="tl-build-go" size={22} strokeWidth={1.5} aria-hidden="true"/>
+      </Link>
+    </li>)}</ol>
+  </section>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -146,8 +194,8 @@ export function Bookshelf() {
     return () => ctx.revert();
   }, [reduced]);
   const book = writings[active];
-  return <section id="writing" className="tl-writing" ref={root} data-chapter="II — Writing">
-    <div className="tl-writing-head"><span className="tl-kicker">II — WRITING</span><h2 suppressHydrationWarning>Notes and <em>books.</em></h2><p>Writing alongside the code: a research note, a book contribution and a book in progress. Pick a spine to see what it’s about.</p></div>
+  return <section id="writing" className="tl-writing" ref={root} data-chapter="III — Writing">
+    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2 suppressHydrationWarning>Notes and <em>books.</em></h2><p>Writing alongside the code: a research note, a book contribution and a book in progress. Pick a spine to see what it’s about.</p></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
@@ -185,9 +233,9 @@ export function TypeWall() {
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="services" className="tl-wall" ref={root} data-chapter="III — More services">
+  return <section id="services" className="tl-wall" ref={root} data-chapter="IV — More services">
     <div className="tl-wall-head">
-      <span className="tl-kicker">III — MORE SERVICES</span>
+      <span className="tl-kicker">IV — MORE SERVICES</span>
       <h2 suppressHydrationWarning>Beyond the <em>build.</em></h2>
       <div className="tl-wall-intro"><p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I can also take on marketing, hosting, apps and business software. I scope it with you and stay your single point of contact.</p><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
     </div>
@@ -254,10 +302,10 @@ export function Person() {
     return () => { ctx.revert(); section.classList.remove('is-live'); };
   }, [reduced, d]);
 
-  return <section id="journey" className="tl-person" ref={root} data-chapter="IV — Journey">
+  return <section id="journey" className="tl-person" ref={root} data-chapter="V — Journey">
     <div className="tl-person-intro">
       <div className="tl-person-copy">
-        <span className="tl-kicker">IV — JOURNEY</span>
+        <span className="tl-kicker">V — JOURNEY</span>
         <h2 suppressHydrationWarning><em>Journey.</em></h2>
         <p className="tl-bio"><strong>I work across management, design and code, because client projects need all three.</strong> {profile.bio} Below is where I’ve worked and studied.</p>
         <div className="tl-facts">
@@ -312,9 +360,9 @@ export function Voices() {
     });
     return () => mm.revert();
   }, [reduced]);
-  return <section id="reviews" className="tl-voices" ref={root} data-chapter="V — Reviews">
+  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
     <div className="tl-voices-head">
-      <div><span className="tl-kicker">V — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
+      <div><span className="tl-kicker">VI — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
       <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients, in their own words</span></div>
     </div>
     <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note <ArrowUpRight size={18} strokeWidth={1.5}/></span><span className="is-touch">Swipe through the notes <ArrowRight size={17} strokeWidth={1.5}/></span><small className="is-touch">{reviews.length} NOTES</small></p>

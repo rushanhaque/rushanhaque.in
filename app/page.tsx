@@ -4,13 +4,14 @@ import { getPublishedContent } from '@/lib/published-content';
 import { Preloader, preloadScript } from '@/components/story/preloader';
 import { SmoothScroll } from '@/components/story/smooth-scroll';
 import { ParticleHero } from '@/components/story/particle-hero';
-import { WorksDeck, VelocityMarquee, Bookshelf, TypeWall, Person, Voices } from '@/components/story/chapters';
+import { WorksDeck, VelocityMarquee, ServiceIndex, Bookshelf, TypeWall, Person, Voices } from '@/components/story/chapters';
 import './two-languages.css';
 import './home-polish.css';
 import './studies.css';
 import { LazyLab } from '@/components/studies/lazy-lab';
+import { StoryMotion } from '@/components/story/story-motion';
 
-export const metadata=pageMetadata('/','Rushan Haque — Project Manager & Full-Stack Developer','Project manager and full-stack developer in Moradabad, India. Client websites and software, delivered end to end, plus writing and research.');
+export const metadata=pageMetadata('/','Website Designer & Developer in Moradabad — Rushan Haque','Website designer and developer in Moradabad. Custom business websites, e-commerce and web apps, built from scratch, fast, and made to rank on Google and AI search.');
 
 // "Two languages": the homepage told as one story, from code to verse.
 export default async function Home(){
@@ -21,10 +22,12 @@ export default async function Home(){
     <ParticleHero/>
     <WorksDeck/>
     <VelocityMarquee words={['Developer', 'Project manager', 'Writer', 'Designer', 'Curious', 'Moradabad']}/>
+    <ServiceIndex/>
     <Bookshelf/>
     <TypeWall/>
     <Person/>
     <Voices/>
     <LazyLab/>
+    <StoryMotion/>
   </main></ContentProvider>;
 }

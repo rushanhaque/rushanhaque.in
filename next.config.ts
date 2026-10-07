@@ -46,7 +46,8 @@ const nextConfig: NextConfig = {
     {source:'/playground',destination:'/',permanent:true},{source:'/lab',destination:'/#lab',permanent:true},{source:'/studies',destination:'/#lab',permanent:true},
     {source:'/insights',destination:'/',permanent:true},{source:'/insights/:slug',destination:'/',permanent:true},
     // Pages that no longer exist go home.
-    {source:'/writing',destination:'/',permanent:true},{source:'/writing/:slug',destination:'/',permanent:true},{source:'/products',destination:'/',permanent:true},{source:'/services',destination:'/',permanent:true},{source:'/areas-served',destination:'/',permanent:true},{source:'/feed.xml',destination:'/',permanent:true},
+    {source:'/writing',destination:'/',permanent:true},{source:'/writing/:slug',destination:'/',permanent:true},{source:'/products',destination:'/',permanent:true},{source:'/services',destination:'/#what-i-build',permanent:true},{source:'/areas-served',destination:'/website-designer-in-moradabad',permanent:true},
+    {source:'/pricing',destination:'/website-cost-in-moradabad',permanent:true},{source:'/price',destination:'/website-cost-in-moradabad',permanent:true},{source:'/exporters',destination:'/website-for-exporters-moradabad',permanent:true},{source:'/hindi',destination:'/website-banwaye-moradabad',permanent:true},{source:'/feed.xml',destination:'/',permanent:true},
     // Paths from the previous portfolio.
     {source:'/review',destination:'/reviews',permanent:true},{source:'/certificates',destination:'/certifications',permanent:true},
     {source:'/work.html',destination:'/projects',permanent:true},{source:'/works-default.html',destination:'/projects',permanent:true},

@@ -1,0 +1,93 @@
+{
+  "website-designer-in-moradabad": {
+    "metaTitle": "Website Designer & Web Developer in Moradabad",
+    "alternate": "/website-banwaye-moradabad",
+    "sections": [
+      {
+        "label": "02",
+        "title": "Built for how Moradabad does business",
+        "body": [
+          "Moradabad is the Brass City: thousands of manufacturers and exporters, and a growing number of shops, clinics, schools and service firms competing for the same customers online. Each needs something different from a website, so nothing starts from a template."
+        ],
+        "items": [
+          {
+            "title": "Exporters and manufacturers",
+            "text": "Searchable product catalogues and enquiry forms for overseas buyers.",
+            "href": "/website-for-exporters-moradabad"
+          },
+          {
+            "title": "Shops and showrooms",
+            "text": "Show the range, the address and the hours, and get found when people nearby search.",
+            "href": "/website-design-development"
+          },
+          {
+            "title": "Online stores",
+            "text": "Sell across India with Razorpay, PayU or Cashfree payments and simple order management.",
+            "href": "/ecommerce-website-development"
+          },
+          {
+            "title": "Clinics, schools and services",
+            "text": "Clear information, enquiry and appointment forms, and pages that answer what people search for.",
+            "href": "/landing-page-design"
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How long a website takes in Moradabad, and how it works",
+        "table": {
+          "head": [
+            "What you need",
+            "Usually takes"
+          ],
+          "rows": [
+            [
+              "One-page site or landing page",
+              "1–2 weeks"
+            ],
+            [
+              "Business website, 5 to 10 pages",
+              "2–4 weeks"
+            ],
+            [
+              "E-commerce store or export catalogue",
+              "4–8 weeks"
+            ],
+            [
+              "Custom web application",
+              "Scoped per project"
+            ]
+          ]
+        },
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "WhatsApp, email or the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the customers."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before work starts."
+          },
+          {
+            "title": "Design, build, launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "यह पेज हिंदी में",
+            "/website-banwaye-moradabad"
+          ]
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,659 @@
+[
+  {
+    "slug": "website-cost-in-moradabad",
+    "lang": "en",
+    "eyebrow": "Cost guide",
+    "title": "What does a website cost in Moradabad?",
+    "metaTitle": "Website Cost in Moradabad: What Decides the Price (2026)",
+    "description": "What decides the cost of a website in Moradabad: the five things that change the quote, typical timelines, the yearly running costs, and how to get an exact written quote.",
+    "intro": "What actually decides the quote, how long each kind of site takes, and the running costs nobody mentions until later.",
+    "updated": "2026-10-07",
+    "schema": "article",
+    "facts": [
+      [
+        "Pricing",
+        "A fixed, written quote"
+      ],
+      [
+        "Decided by",
+        "What the site has to do"
+      ],
+      [
+        "Running costs",
+        "Domain, hosting, email"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Every website is quoted on what it has to do",
+        "body": [
+          "A website is priced by its scope, not by the number of pages alone. A one-page site, a business website, an online store and a custom web application are different pieces of work, and every project gets a written quote with a timeline before any work starts."
+        ],
+        "table": {
+          "head": [
+            "What you need",
+            "Usually takes"
+          ],
+          "rows": [
+            [
+              "One-page site or landing page",
+              "1–2 weeks"
+            ],
+            [
+              "Business website, 5 to 10 pages",
+              "2–4 weeks"
+            ],
+            [
+              "E-commerce store or export catalogue",
+              "4–8 weeks"
+            ],
+            [
+              "Custom web application or portal",
+              "Scoped per project"
+            ]
+          ]
+        },
+        "note": "Timelines depend on scope, ready content and how quickly feedback comes back."
+      },
+      {
+        "label": "02",
+        "title": "Five things that change the price",
+        "items": [
+          {
+            "title": "Distinct page types",
+            "text": "Ten pages built from one layout cost less than five pages that each need their own design."
+          },
+          {
+            "title": "Products and catalogues",
+            "text": "A catalogue of 40 products is a different job from one of 4,000. Bulk import, filters and specification tables add work."
+          },
+          {
+            "title": "Payments and accounts",
+            "text": "Online payments through Razorpay, PayU, Cashfree or Stripe, customer logins, order tracking and shipping rules each add building and testing."
+          },
+          {
+            "title": "Content",
+            "text": "If your photos and text are ready, the project moves faster and costs less. Writing and product photography add to the scope."
+          },
+          {
+            "title": "Languages and markets",
+            "text": "A second language, more than one currency, or pages aimed at buyers in other countries add design and SEO work."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "What a website costs every year",
+        "body": [
+          "The build is a one-time project. These are the recurring costs, paid to the providers directly. Register the domain and hosting in your own name, so the site always belongs to you."
+        ],
+        "table": {
+          "head": [
+            "Running cost",
+            "What it is"
+          ],
+          "rows": [
+            [
+              "Domain name (.com or .in)",
+              "Renewed every year with your registrar"
+            ],
+            [
+              "Hosting",
+              "Depends on traffic; a small, fast site costs very little"
+            ],
+            [
+              "Business email",
+              "Per person, per month, for example Google Workspace"
+            ],
+            [
+              "Changes and new features",
+              "Quoted as a small project when you need them"
+            ]
+          ]
+        }
+      },
+      {
+        "label": "04",
+        "title": "Why the cheapest website often costs more",
+        "body": [
+          "Very cheap websites are usually a template with your logo on it. They tend to load slowly, look like hundreds of other sites, and are rarely set up to be found on Google. Many are rebuilt within a year or two, so the business pays twice.",
+          "That said, sometimes a template or a website builder is the right call. If you need a simple page this week and have no budget, start there and build properly once the business needs it."
+        ],
+        "links": [
+          [
+            "Website builder or web designer?",
+            "/website-builder-vs-web-designer"
+          ]
+        ]
+      },
+      {
+        "label": "05",
+        "title": "How to get an exact price",
+        "steps": [
+          {
+            "title": "Tell me what the site has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough to start."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "To understand the business, the customers and what the website has to achieve."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, price and timeline in writing, before any work begins."
+          },
+          {
+            "title": "Design, build, launch",
+            "text": "You see the design before it is built, and the site is handed over once it is live."
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How much does a website cost in Moradabad?",
+        "a": "It depends on what the site has to do: a one-page site, a business website, an online store and a custom application are priced very differently. Tell me what you need and you get a fixed, written quote before any work starts."
+      },
+      {
+        "q": "What makes an e-commerce website cost more?",
+        "a": "The number of products, online payments, customer accounts, shipping rules and integrations. Platforms like Shopify cost less to start but charge monthly fees and transaction costs."
+      },
+      {
+        "q": "Is there a monthly fee for the website?",
+        "a": "The website itself is a one-time project. The recurring costs are your domain, hosting and email, paid to those providers directly."
+      },
+      {
+        "q": "Why do website quotes vary so much?",
+        "a": "Because a website can mean a single page or a full online store with payments, accounts and thousands of products. Compare quotes by what is included: design, the number of page types, content, SEO setup, speed, and who owns the domain and code."
+      },
+      {
+        "q": "How long does it take to build a website?",
+        "a": "A landing page usually takes 1 to 2 weeks, a business website 2 to 4 weeks, and an e-commerce store or catalogue 4 to 8 weeks. Ready content and quick feedback keep it on the shorter side."
+      },
+      {
+        "q": "Will my website rank on Google?",
+        "a": "Every site is built with technical SEO in place: fast pages, clean structure, structured data and Search Console. Ranking for competitive searches also takes content and time."
+      }
+    ],
+    "related": [
+      "website-design-development",
+      "ecommerce-website-development",
+      "website-builder-vs-web-designer"
+    ],
+    "cta": "Tell me what the site needs to do, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-for-exporters-moradabad",
+    "lang": "en",
+    "eyebrow": "Industry",
+    "title": "Websites for Moradabad exporters and manufacturers",
+    "metaTitle": "Website Design for Exporters & Manufacturers in Moradabad",
+    "description": "Websites for Moradabad’s brass, metal, wood and handicraft exporters: searchable product catalogues, enquiry forms for overseas buyers, and pages that rank in the countries you sell to.",
+    "intro": "Catalogues buyers can search, enquiries that arrive with item codes, and pages that rank where your buyers are.",
+    "updated": "2026-10-07",
+    "schema": "service",
+    "area": "Moradabad",
+    "facts": [
+      [
+        "Built for",
+        "Exporters, manufacturers and buying houses"
+      ],
+      [
+        "Materials",
+        "Brass, copper, iron, aluminium, wood"
+      ],
+      [
+        "Live examples",
+        "Taif, Aurelio, Casa&Crop, Erfolg Living"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Your buyer looks you up before the trade fair",
+        "body": [
+          "Moradabad ships metalware and handicrafts to buyers all over the world. Many of those buyers now shortlist suppliers online before they visit a fair like IHGF Delhi or Ambiente Frankfurt, and they check you again after meeting you. A PDF catalogue and a three-page website do not survive that shortlist.",
+          "A good export website does three jobs: it proves you are a real manufacturer, it shows your range in a way a buyer can search, and it turns a visit into a specific enquiry."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What an export website needs",
+        "items": [
+          {
+            "title": "A real product catalogue",
+            "text": "Every product gets its own page with photos, material, finish, dimensions and an item code, so a buyer can find one piece instead of scrolling a PDF."
+          },
+          {
+            "title": "Collections and filters",
+            "text": "The range grouped the way buyers think, by collection, material, finish and room, with filters that narrow it down."
+          },
+          {
+            "title": "Enquiries with item codes",
+            "text": "A short form or an enquiry list that sends the exact products a buyer wants, straight to your inbox or WhatsApp."
+          },
+          {
+            "title": "Proof of the factory",
+            "text": "Your process, capacity and materials, the markets you ship to, and certifications such as SMETA or BSCI where you hold them."
+          },
+          {
+            "title": "Pages that rank abroad",
+            "text": "Product and collection pages that search engines can read, fast loading on overseas connections, and structured data for Google and AI assistants."
+          },
+          {
+            "title": "New collections without a rebuild",
+            "text": "Adding a season’s range should be quick, so it is planned for from the start."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "Export websites already live",
+        "items": [
+          {
+            "title": "Taif International",
+            "text": "Metal and wooden handicraft manufacturer in Moradabad, exporting to 42 countries. Nine collections, from wooden and copper products to barware and religious supplies.",
+            "href": "https://taifinternational.co"
+          },
+          {
+            "title": "Aurelio",
+            "text": "The metal and wood atelier of AF International: furniture, lighting, urns and objets made by hand in Moradabad since 2008.",
+            "href": "https://aurelio.in"
+          },
+          {
+            "title": "Casa and Crop",
+            "text": "Manufacturers and exporters of home metalware in brass, copper and steel, shipping from Moradabad to 34 countries.",
+            "href": "https://casaandcrop.com"
+          },
+          {
+            "title": "Erfolg Living",
+            "text": "Handmade luxury metalwork: artisan copper bathtubs, sinks, lighting and furniture.",
+            "href": "https://erfolgliving.com"
+          },
+          {
+            "title": "Velora International",
+            "text": "A trade atelier hand-raising heirloom objects in brass, bronze, copper and silver since 2021. The site is being finished.",
+            "href": "https://www.veloralivings.in"
+          }
+        ]
+      },
+      {
+        "label": "04",
+        "title": "How an export site comes together",
+        "steps": [
+          {
+            "title": "Your range and your buyers",
+            "text": "We go through the collections, the item codes and the markets you sell to."
+          },
+          {
+            "title": "Catalogue structure",
+            "text": "Collections, filters and product pages planned around how buyers search."
+          },
+          {
+            "title": "Design and build",
+            "text": "A site that looks like the quality of what you make, and loads fast everywhere."
+          },
+          {
+            "title": "Search setup and launch",
+            "text": "Sitemaps, structured data and Google Search Console in place from day one."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ]
+        ],
+        "note": "Timelines depend on the size of the catalogue and the features it needs; you get a written quote before work starts."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can you upload our full product catalogue?",
+        "a": "Yes. Products can be brought in from a spreadsheet with item codes, materials, finishes and dimensions, then organised into collections and filters."
+      },
+      {
+        "q": "Do you build B2B websites that do not show prices?",
+        "a": "Yes. Most export sites show the range and collect enquiries instead of selling online. Buyers request a quote for the item codes they want."
+      },
+      {
+        "q": "Can the website be in more than one language?",
+        "a": "Yes. Key pages can be added in the languages of the markets you sell to, set up so that Google shows the right version in each country."
+      },
+      {
+        "q": "Will a website bring us overseas buyers?",
+        "a": "A website does not replace fairs or buying agents, but it is where buyers check you after meeting you and where new ones find you through search. It is built to rank for your products and to make enquiring easy."
+      },
+      {
+        "q": "Do you work with exporters outside Moradabad?",
+        "a": "Yes. The studio is in Moradabad and works with manufacturers across India, remotely or in person nearby."
+      }
+    ],
+    "related": [
+      "website-cost-in-moradabad",
+      "ecommerce-website-development",
+      "website-designer-in-moradabad"
+    ],
+    "cta": "Tell me about your range and the markets you sell to, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-builder-vs-web-designer",
+    "lang": "en",
+    "eyebrow": "Guide",
+    "title": "Website builder or web designer: which do you need?",
+    "metaTitle": "Website Builder vs Web Designer: Wix, Shopify or Custom? (2026)",
+    "description": "Website makers like Wix, Squarespace and Shopify versus hiring a web designer: an honest comparison of cost, speed, SEO and ownership for businesses in India.",
+    "intro": "An honest comparison of website makers and custom websites: cost, speed, SEO and who owns what.",
+    "updated": "2026-10-07",
+    "schema": "article",
+    "facts": [
+      [
+        "Website builder",
+        "Monthly fee, a template, you rent it"
+      ],
+      [
+        "Custom website",
+        "One-time build, your design, you own it"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "What a website builder is",
+        "body": [
+          "A website builder, also called a website maker, is a subscription service such as Wix, Squarespace, Hostinger Website Builder or Shopify. You pick a template, drag in your content and publish. The platform hosts the site, and you pay every month or year for as long as it stays online.",
+          "A web designer builds a website for your business specifically: the structure, the design, the content and the code. You pay for the build once, then for hosting and any changes."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "Side by side",
+        "table": {
+          "head": [
+            "",
+            "Website builder",
+            "Custom website"
+          ],
+          "rows": [
+            [
+              "Cost to start",
+              "Low: a subscription",
+              "Higher: a one-time build"
+            ],
+            [
+              "Cost over three years",
+              "Subscriptions, add-on apps and transaction fees add up",
+              "Mostly hosting and the domain"
+            ],
+            [
+              "Design",
+              "A template shared with many other sites",
+              "Designed for your business and your customers"
+            ],
+            [
+              "Speed",
+              "Often heavy, with scripts you cannot remove",
+              "Built lean, fast on mobile networks"
+            ],
+            [
+              "SEO",
+              "The basics, with limited control over structure",
+              "Full control: structure, speed, structured data"
+            ],
+            [
+              "Ownership",
+              "You rent the platform; leaving usually means rebuilding",
+              "Your code and content, on hosting in your name"
+            ],
+            [
+              "Who does the work",
+              "You do",
+              "A professional does it with you"
+            ]
+          ]
+        }
+      },
+      {
+        "label": "03",
+        "title": "When a builder is the right choice",
+        "items": [
+          {
+            "title": "You have almost no budget",
+            "text": "A builder gets you online for the price of a subscription. That is better than no website."
+          },
+          {
+            "title": "You need a page this week",
+            "text": "For a simple page with your details, a template is fast."
+          },
+          {
+            "title": "You are testing an idea",
+            "text": "Prove the idea first, then build properly once it works."
+          },
+          {
+            "title": "You want to run a small shop yourself",
+            "text": "Shopify is a strong choice if you want to manage everything yourself and the monthly fee plus transaction costs suit you."
+          }
+        ]
+      },
+      {
+        "label": "04",
+        "title": "When to hire a web designer",
+        "items": [
+          {
+            "title": "The website has to win customers",
+            "text": "Not just exist, but turn visitors into calls, enquiries and orders."
+          },
+          {
+            "title": "Buyers compare you with competitors",
+            "text": "Exporters, manufacturers and service firms are judged on their website before the first call."
+          },
+          {
+            "title": "You need to be found on Google",
+            "text": "Ranking in your city or industry needs control over speed, structure and content."
+          },
+          {
+            "title": "A template cannot do what you need",
+            "text": "Product catalogues, booking, customer portals or anything specific to how you work."
+          },
+          {
+            "title": "You have outgrown your builder",
+            "text": "Slow pages, rising subscriptions, or a design that no longer fits the business."
+          }
+        ]
+      },
+      {
+        "label": "05",
+        "title": "The middle path",
+        "body": [
+          "Plenty of good businesses start on a builder and move to a custom website once they grow. If your site is on Wix, Squarespace or WordPress today, a redesign can move your content across and keep your Google rankings with proper redirects."
+        ],
+        "links": [
+          [
+            "Website redesign",
+            "/website-redesign"
+          ],
+          [
+            "What decides the cost of a website",
+            "/website-cost-in-moradabad"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "What is the best website maker in India?",
+        "a": "For a do-it-yourself site, the common choices are Wix, Hostinger Website Builder and Squarespace, and Shopify for online stores. For a business that needs to stand out, rank and turn visitors into customers, a custom website built by a web designer is usually the better long-term investment."
+      },
+      {
+        "q": "Is Wix good for SEO?",
+        "a": "Wix covers the SEO basics, and Wix sites can rank. The limits are page weight and control over how pages are built, which matter more in competitive searches."
+      },
+      {
+        "q": "Can you move my website from Wix or WordPress?",
+        "a": "Yes. The content is moved across, old addresses are redirected so rankings are kept, and the new site is built to be faster."
+      },
+      {
+        "q": "Is a custom website more expensive than a builder?",
+        "a": "It costs more to start, because it is built for you. Builders charge a subscription every month for as long as the site is online, plus apps and transaction fees, so over a few years the gap is often smaller than it looks."
+      },
+      {
+        "q": "Can I edit a custom website myself?",
+        "a": "Yes, where that is part of the brief. Content that changes often gets an admin panel; content that changes twice a year does not need one."
+      }
+    ],
+    "related": [
+      "website-design-development",
+      "website-redesign",
+      "website-cost-in-moradabad"
+    ],
+    "cta": "Not sure which you need? Tell me about the business and I will tell you honestly."
+  },
+  {
+    "slug": "website-banwaye-moradabad",
+    "lang": "hi",
+    "eyebrow": "मुरादाबाद",
+    "title": "मुरादाबाद में वेबसाइट बनवाएं",
+    "metaTitle": "मुरादाबाद में वेबसाइट बनवाएं — वेबसाइट डिज़ाइनर और डेवलपर",
+    "description": "मुरादाबाद में बिज़नेस वेबसाइट, ई-कॉमर्स स्टोर या एक्सपोर्ट कैटलॉग बनवाना है? शुरू से डिज़ाइन की गई, तेज़ और Google पर दिखने वाली वेबसाइट। बातचीत हिंदी या अंग्रेज़ी में।",
+    "intro": "बिज़नेस वेबसाइट, ऑनलाइन स्टोर और एक्सपोर्ट कैटलॉग, शुरू से बनाए हुए। बातचीत हिंदी या अंग्रेज़ी में।",
+    "updated": "2026-10-07",
+    "schema": "service",
+    "area": "Moradabad",
+    "alternate": "/website-designer-in-moradabad",
+    "facts": [
+      [
+        "जगह",
+        "मुरादाबाद, उत्तर प्रदेश"
+      ],
+      [
+        "भाषा",
+        "हिंदी और अंग्रेज़ी"
+      ],
+      [
+        "कोटेशन",
+        "काम शुरू होने से पहले, लिखित"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "मैं कौन हूँ",
+        "body": [
+          "मैं Rushan Haque हूँ, मुरादाबाद का वेबसाइट डिज़ाइनर और फुल-स्टैक डेवलपर। मैं बिज़नेस के लिए वेबसाइट, ऑनलाइन स्टोर और वेब ऐप शुरू से बनाता हूँ, कोई रेडीमेड टेम्पलेट नहीं।",
+          "हर वेबसाइट तेज़ लोड होती है, मोबाइल पर अच्छी दिखती है, और इस तरह बनाई जाती है कि Google और AI असिस्टेंट उसे आसानी से पढ़ सकें।"
+        ]
+      },
+      {
+        "label": "02",
+        "title": "क्या-क्या बनता है",
+        "items": [
+          {
+            "title": "बिज़नेस वेबसाइट",
+            "text": "दुकान, शोरूम, क्लिनिक, स्कूल या सर्विस बिज़नेस के लिए पूरी वेबसाइट।",
+            "href": "/website-design-development"
+          },
+          {
+            "title": "ई-कॉमर्स स्टोर",
+            "text": "ऑनलाइन बिक्री, पेमेंट (Razorpay, PayU, Cashfree) और ऑर्डर के साथ।",
+            "href": "/ecommerce-website-development"
+          },
+          {
+            "title": "एक्सपोर्ट कैटलॉग",
+            "text": "पीतल, मेटल और हैंडीक्राफ्ट एक्सपोर्टर्स के लिए प्रोडक्ट कैटलॉग और इन्क्वायरी फॉर्म।",
+            "href": "/website-for-exporters-moradabad"
+          },
+          {
+            "title": "लैंडिंग पेज",
+            "text": "एक ऑफर या एक सर्विस के लिए एक पेज, जो ग्राहक से संपर्क करवाए।",
+            "href": "/landing-page-design"
+          },
+          {
+            "title": "SEO",
+            "text": "ताकि लोग Google पर खोजें तो आपका बिज़नेस दिखे।",
+            "href": "/seo-services"
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "वेबसाइट बनने में कितना समय लगता है",
+        "table": {
+          "head": [
+            "क्या चाहिए",
+            "समय"
+          ],
+          "rows": [
+            [
+              "एक पेज की वेबसाइट या लैंडिंग पेज",
+              "1–2 हफ्ते"
+            ],
+            [
+              "बिज़नेस वेबसाइट, 5 से 10 पेज",
+              "2–4 हफ्ते"
+            ],
+            [
+              "ई-कॉमर्स स्टोर या एक्सपोर्ट कैटलॉग",
+              "4–8 हफ्ते"
+            ],
+            [
+              "कस्टम वेब ऐप",
+              "प्रोजेक्ट के हिसाब से"
+            ]
+          ]
+        },
+        "note": "कीमत काम पर निर्भर करती है। काम शुरू होने से पहले लिखित कोटेशन और समय-सीमा मिलती है।"
+      },
+      {
+        "label": "04",
+        "title": "काम कैसे होता है",
+        "steps": [
+          {
+            "title": "बताइए क्या चाहिए",
+            "text": "WhatsApp, ईमेल या फॉर्म पर, कुछ लाइनें काफी हैं।"
+          },
+          {
+            "title": "30 मिनट की कॉल",
+            "text": "आपके बिज़नेस और ग्राहकों को समझने के लिए।"
+          },
+          {
+            "title": "लिखित कोटेशन",
+            "text": "काम, कीमत और समय-सीमा, सब लिखकर।"
+          },
+          {
+            "title": "डिज़ाइन, बिल्ड और लॉन्च",
+            "text": "बनने से पहले डिज़ाइन दिखाया जाता है, और लाइव होने के बाद वेबसाइट आपको सौंपी जाती है।"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "मुरादाबाद में वेबसाइट बनवाने में कितना खर्च आता है?",
+        "a": "खर्च इस बात पर निर्भर करता है कि वेबसाइट को क्या करना है: एक पेज, पूरी बिज़नेस वेबसाइट, ऑनलाइन स्टोर या कस्टम ऐप। आप बताइए क्या चाहिए, और काम शुरू होने से पहले आपको लिखित कोटेशन मिलेगा।"
+      },
+      {
+        "q": "वेबसाइट बनने में कितना समय लगता है?",
+        "a": "लैंडिंग पेज 1 से 2 हफ्ते, बिज़नेस वेबसाइट 2 से 4 हफ्ते, और ई-कॉमर्स या कैटलॉग 4 से 8 हफ्ते। फोटो और जानकारी तैयार हो तो काम जल्दी होता है।"
+      },
+      {
+        "q": "क्या मेरी वेबसाइट Google पर दिखेगी?",
+        "a": "हर वेबसाइट SEO के साथ बनती है: तेज़ पेज, सही स्ट्रक्चर और Google Search Console। मुश्किल कीवर्ड पर ऊपर आने में कंटेंट और समय भी लगता है।"
+      },
+      {
+        "q": "क्या हिंदी में बात हो सकती है?",
+        "a": "हाँ। बातचीत हिंदी या अंग्रेज़ी में, जिसमें आप सहज हों।"
+      },
+      {
+        "q": "डोमेन और होस्टिंग का क्या?",
+        "a": "डोमेन और होस्टिंग आपके नाम पर रजिस्टर होने चाहिए, ताकि वेबसाइट हमेशा आपकी रहे। होस्टिंग का सेटअप सर्विस का हिस्सा है।"
+      }
+    ],
+    "related": [
+      "website-designer-in-moradabad",
+      "website-cost-in-moradabad",
+      "website-for-exporters-moradabad"
+    ],
+    "cta": "बताइए वेबसाइट को क्या करना है, और आपको समय-सीमा के साथ लिखित कोटेशन मिलेगा।"
+  }
+]

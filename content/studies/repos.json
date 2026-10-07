@@ -1,6 +1,6 @@
 {
  "user": "rushanhaque",
- "fetchedAt": "2026-10-03",
+ "fetchedAt": "2026-10-07",
  "projects": [
   {
    "name": "Wayforge-AI",
@@ -429,7 +429,7 @@
    "pushed": "2026-06-13",
    "language": "HTML",
    "description": null,
-   "url": "https://infotel-care-ui.vercel.app",
+   "url": "https://github.com/rushanhaque/InfotelCareUI",
    "repo": "https://github.com/rushanhaque/InfotelCareUI"
   },
   {
@@ -439,7 +439,7 @@
    "pushed": "2026-06-24",
    "language": "TypeScript",
    "description": null,
-   "url": "https://quorum-tan.vercel.app",
+   "url": "https://github.com/rushanhaque/quorum",
    "repo": "https://github.com/rushanhaque/quorum"
   },
   {
@@ -449,7 +449,7 @@
    "pushed": "2026-06-21",
    "language": "JavaScript",
    "description": null,
-   "url": "https://superlatives-wheat.vercel.app",
+   "url": "https://github.com/rushanhaque/superlatives",
    "repo": "https://github.com/rushanhaque/superlatives"
   },
   {
@@ -459,7 +459,7 @@
    "pushed": "2026-08-01",
    "language": "JavaScript",
    "description": null,
-   "url": "https://aurelio-rho.vercel.app",
+   "url": "https://github.com/rushanhaque/Aurelio",
    "repo": "https://github.com/rushanhaque/Aurelio"
   },
   {
@@ -469,7 +469,7 @@
    "pushed": "2026-06-21",
    "language": "JavaScript",
    "description": null,
-   "url": "https://bornday-rouge.vercel.app",
+   "url": "https://github.com/rushanhaque/BornDay",
    "repo": "https://github.com/rushanhaque/BornDay"
   },
   {
@@ -489,7 +489,7 @@
    "pushed": "2026-06-25",
    "language": "HTML",
    "description": null,
-   "url": "https://ride-booking-malaysia.vercel.app",
+   "url": "https://github.com/rushanhaque/RideBooking-Malaysia",
    "repo": "https://github.com/rushanhaque/RideBooking-Malaysia"
   },
   {
@@ -499,7 +499,7 @@
    "pushed": "2026-06-27",
    "language": "JavaScript",
    "description": null,
-   "url": "https://inspection-sw.vercel.app",
+   "url": "https://github.com/rushanhaque/InspectionSW",
    "repo": "https://github.com/rushanhaque/InspectionSW"
   },
   {
@@ -529,7 +529,7 @@
    "pushed": "2026-07-22",
    "language": "JavaScript",
    "description": null,
-   "url": "https://customer-app-infotel.vercel.app",
+   "url": "https://github.com/rushanhaque/CustomerApp-Infotel",
    "repo": "https://github.com/rushanhaque/CustomerApp-Infotel"
   },
   {
@@ -549,7 +549,7 @@
    "pushed": "2026-08-05",
    "language": "CSS",
    "description": null,
-   "url": "https://casaandcroptrial.vercel.app",
+   "url": "https://github.com/rushanhaque/casaandcroptrial",
    "repo": "https://github.com/rushanhaque/casaandcroptrial"
   },
   {
@@ -559,7 +559,7 @@
    "pushed": "2026-07-28",
    "language": "JavaScript",
    "description": null,
-   "url": "https://technician-app-infotel.vercel.app",
+   "url": "https://github.com/rushanhaque/TechnicianApp-Infotel",
    "repo": "https://github.com/rushanhaque/TechnicianApp-Infotel"
   },
   {
@@ -579,7 +579,7 @@
    "pushed": "2026-08-01",
    "language": "JavaScript",
    "description": null,
-   "url": "https://crochet-template.vercel.app",
+   "url": "https://github.com/rushanhaque/CrochetTemplate",
    "repo": "https://github.com/rushanhaque/CrochetTemplate"
   },
   {
@@ -599,7 +599,7 @@
    "pushed": "2026-08-02",
    "language": "JavaScript",
    "description": null,
-   "url": "https://aeris-export-template.vercel.app",
+   "url": "https://github.com/rushanhaque/aeris-export-template",
    "repo": "https://github.com/rushanhaque/aeris-export-template"
   },
   {
@@ -609,7 +609,7 @@
    "pushed": "2026-08-02",
    "language": "JavaScript",
    "description": null,
-   "url": "https://filigrana-seven.vercel.app",
+   "url": "https://github.com/rushanhaque/Filigrana",
    "repo": "https://github.com/rushanhaque/Filigrana"
   },
   {
@@ -619,7 +619,7 @@
    "pushed": "2026-08-02",
    "language": "JavaScript",
    "description": null,
-   "url": "https://maison-quinte-designs.vercel.app",
+   "url": "https://github.com/rushanhaque/MaisonQuinteDesigns",
    "repo": "https://github.com/rushanhaque/MaisonQuinteDesigns"
   },
   {
@@ -639,17 +639,17 @@
    "pushed": "2026-08-12",
    "language": "HTML",
    "description": null,
-   "url": "https://colour-theme-select.vercel.app",
+   "url": "https://github.com/rushanhaque/ColourTheme-Select",
    "repo": "https://github.com/rushanhaque/ColourTheme-Select"
   },
   {
    "name": "rushanhaque.in",
    "title": "Rushanhaque.in",
    "date": "2026-08-15",
-   "pushed": "2026-10-03",
+   "pushed": "2026-10-06",
    "language": "TypeScript",
    "description": null,
-   "url": "https://rushanhaque-in.vercel.app",
+   "url": "https://github.com/rushanhaque/rushanhaque.in",
    "repo": "https://github.com/rushanhaque/rushanhaque.in"
   },
   {
@@ -659,7 +659,7 @@
    "pushed": "2026-09-01",
    "language": "TypeScript",
    "description": null,
-   "url": "https://smart-threat-web.vercel.app",
+   "url": "https://github.com/rushanhaque/SmartThreatWeb",
    "repo": "https://github.com/rushanhaque/SmartThreatWeb"
   },
   {
@@ -676,10 +676,10 @@
    "name": "aurelio-ecom",
    "title": "Aurelio Ecom",
    "date": "2026-09-27",
-   "pushed": "2026-10-03",
+   "pushed": "2026-10-06",
    "language": "TypeScript",
    "description": null,
-   "url": "https://aurelio-ecom.vercel.app",
+   "url": "https://github.com/rushanhaque/aurelio-ecom",
    "repo": "https://github.com/rushanhaque/aurelio-ecom"
   }
  ]

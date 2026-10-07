@@ -35,7 +35,7 @@
 .ft .copy-email:hover{opacity:1;background:rgb(243 241 230 / .08)}
 
 /* The map of the site. */
-.ft-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-content:start;padding-top:4px}
+.ft-cols{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr) minmax(0,.8fr);gap:24px;align-content:start;padding-top:4px}
 .ft-cols nav{display:grid;align-content:start}
 .ft-cols span{margin-bottom:5px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.5}
 .ft-cols a{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:28px;border-bottom:1px solid rgb(243 241 230 / .1);color:inherit;font-size:12px;text-decoration:none;
@@ -69,6 +69,7 @@
   .ft-actions{display:grid;grid-template-columns:1fr 1fr}
   .ft-btn{justify-content:center;padding:0 14px;height:46px;font-size:14px}
   .ft-cols{grid-template-columns:1fr 1fr;gap:18px}
+  .ft-cols nav:nth-child(2){order:3;grid-column:1/-1}
   .ft-cols a.ft-place{display:none}
   .ft-word{margin-top:14px}
   .ft-status{font-size:11px}
