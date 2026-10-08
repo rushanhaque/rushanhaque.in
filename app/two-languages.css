@@ -188,7 +188,7 @@ html[data-motion=reduce] .tl-scroll-cue i{animation:none}
 /* Intro curtain */
 /* ---------- Preloader ---------- */
 .tl-loader{position:fixed;inset:0;z-index:200;display:none;pointer-events:none}
-.tl-preload .tl-loader{display:block;pointer-events:auto;animation:tl-failsafe 0s 5s forwards}
+.tl-preload .tl-loader{display:block;pointer-events:auto;animation:tl-failsafe 0s 3s forwards}
 .tl-preload body{overflow:hidden}
 .tl-loader-top,.tl-loader-bottom{position:absolute;left:0;right:0;height:50.5%;background:var(--ink)}
 .tl-loader-top{top:0}

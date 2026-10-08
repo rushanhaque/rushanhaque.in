@@ -12,7 +12,7 @@ const columns = [
 const NAME = 'Rushan Haque';
 
 // The closing scene: one invitation, the map of the site, and the name set
-// across the full width. Its letters thicken where the pointer passes.
+// across the full width: the first name in the sans, the surname in the serif.
 export function SiteFooter() {
   const root = useRef<HTMLElement>(null);
   const word = useRef<HTMLDivElement>(null);
@@ -43,29 +43,22 @@ export function SiteFooter() {
     return () => ro.disconnect();
   }, []);
 
-  // Pointer: a soft light across the footer and a weight swell in the name.
+  // Pointer: a soft light across the footer.
   useEffect(() => {
     const footer = root.current, wrap = word.current;
     if (!footer || !wrap || reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    const letters = Array.from(wrap.querySelectorAll<HTMLElement>('.ft-l'));
     let frame = 0, px = -1e4, py = -1e4;
     const paint = () => {
       frame = 0;
       const box = footer.getBoundingClientRect();
       footer.style.setProperty('--gx', `${px - box.left}px`);
       footer.style.setProperty('--gy', `${py - box.top}px`);
-      for (const l of letters) {
-        const r = l.getBoundingClientRect();
-        const d = Math.hypot(px - (r.left + r.width / 2), (py - (r.top + r.height / 2)) * .6);
-        const k = Math.max(0, 1 - d / 420);
-        l.style.fontWeight = String(Math.round(380 + 420 * k * k));
-      }
     };
     const move = (e: PointerEvent) => { px = e.clientX; py = e.clientY; if (!frame) frame = requestAnimationFrame(paint); };
     const leave = () => { px = py = -1e4; if (!frame) frame = requestAnimationFrame(paint); };
     footer.addEventListener('pointermove', move, { passive: true });
     footer.addEventListener('pointerleave', leave);
-    return () => { cancelAnimationFrame(frame); footer.removeEventListener('pointermove', move); footer.removeEventListener('pointerleave', leave); letters.forEach(l => { l.style.fontWeight = ''; }); };
+    return () => { cancelAnimationFrame(frame); footer.removeEventListener('pointermove', move); footer.removeEventListener('pointerleave', leave); };
   }, [reduced]);
 
 

@@ -77,7 +77,7 @@ export function Directory({ current }: { current: string }) {
   const link = (slug: string, text: string) => <Link key={slug} href={'/' + slug} aria-current={slug === current ? 'page' : undefined}>{text}<ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.5}/></Link>;
   return <nav className="container source-directory" aria-label="Explore services, guides and locations"><h2 suppressHydrationWarning>Explore</h2><div>
     <section><h3>Services</h3>{sourcePages.filter(p => p.kind === 'Service').map(p => link(p.slug, p.title))}</section>
-    <section><h3>Guides</h3>{guides.map(g => link(g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title))}</section>
+    <section><h3>Guides</h3>{guides.filter(g => !('hideOn' in g && (g.hideOn as string[]).includes(current))).map(g => link(g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title))}</section>
     <section><h3>Areas served</h3>{sourcePages.filter(p => p.kind === 'Location').map(p => link(p.slug, p.title.replace('Website designer in ', '')))}</section>
   </div></nav>;
 }

@@ -5,8 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 import { SplitText } from 'gsap/SplitText';
-import { Draggable } from 'gsap/Draggable';
-import { InertiaPlugin } from 'gsap/InertiaPlugin';
 import { ArrowRight, ArrowUpRight, Star } from 'lucide-react';
 import { withoutEmoji } from '@/lib/text';
 import Link from '@/components/site-link';
@@ -17,7 +15,7 @@ import profile from '@/content/profile.json';
 import { BookCover, toneStyle } from '@/components/book-cover';
 import { projectLink } from '@/lib/project-access';
 
-gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, Draggable, InertiaPlugin, SplitText);
+gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, SplitText);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 
@@ -152,7 +150,7 @@ export function ServiceIndex() {
     <div className="tl-wall-head">
       <span className="tl-kicker">II — WHAT I BUILD</span>
       <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
-      <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Each one opens a page on what it involves, what decides the cost and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
+      <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Each one opens a page on what it involves, what decides the cost and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link><Link href="/website-developer-in-moradabad" className="tl-link">Web developer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
     </div>
     <ul className="tl-wall-list">{BUILD.map(([slug, name, tag, line], i) => <li className="tl-wall-row" key={slug}>
       <Link href={'/' + slug}>
@@ -352,11 +350,18 @@ export function Voices() {
       const board = section.querySelector<HTMLElement>('.tl-board')!;
       const notes = gsap.utils.toArray<HTMLElement>('.tl-note', board);
       gsap.from(notes, { y: 260, rotate: () => gsap.utils.random(-40, 40), opacity: 0, duration: 1.3, ease: 'expo.out', stagger: { each: .07, from: 'random' }, scrollTrigger: { trigger: board, start: 'top 75%', once: true } });
-      let z = 10;
-      const drags = Draggable.create(notes, { type: 'x,y', bounds: board, inertia: true, edgeResistance: .7,
-        onPress() { (this.target as HTMLElement).style.zIndex = String(++z); gsap.to(this.target, { scale: 1.06, rotate: 0, boxShadow: '0 40px 60px -30px rgba(0,0,0,.6)', duration: .3 }); },
-        onRelease() { gsap.to(this.target, { scale: 1, rotate: gsap.utils.random(-6, 6), boxShadow: '0 18px 40px -26px rgba(0,0,0,.5)', duration: .6, ease: 'back.out(2)' }); } });
-      return () => drags.forEach(d => d.kill());
+      // Dragging is desktop-only, so its plugins load only here, and only once the board is near.
+      let z = 10, live = true;
+      let drags: { kill: () => void }[] = [];
+      const arm = ScrollTrigger.create({ trigger: board, start: 'top 150%', once: true, onEnter: async () => {
+        const [{ Draggable }, { InertiaPlugin }] = await Promise.all([import('gsap/Draggable'), import('gsap/InertiaPlugin')]);
+        if (!live) return;
+        gsap.registerPlugin(Draggable, InertiaPlugin);
+        drags = Draggable.create(notes, { type: 'x,y', bounds: board, inertia: true, edgeResistance: .7,
+          onPress() { (this.target as HTMLElement).style.zIndex = String(++z); gsap.to(this.target, { scale: 1.06, rotate: 0, boxShadow: '0 40px 60px -30px rgba(0,0,0,.6)', duration: .3 }); },
+          onRelease() { gsap.to(this.target, { scale: 1, rotate: gsap.utils.random(-6, 6), boxShadow: '0 18px 40px -26px rgba(0,0,0,.5)', duration: .6, ease: 'back.out(2)' }); } });
+      } });
+      return () => { live = false; arm.kill(); drags.forEach(d => d.kill()); };
     });
     return () => mm.revert();
   }, [reduced]);

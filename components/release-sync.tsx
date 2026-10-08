@@ -37,7 +37,7 @@ export function ReleaseSync({ buildId }: { buildId: string }) {
     }
     const onFocus = () => { void check(); };
     const onPageShow = (event: PageTransitionEvent) => { if (event.persisted) void check(true); };
-    const timer = setInterval(onFocus, 30000);
+    const timer = setInterval(onFocus, 300000);
     document.addEventListener('input', protectInput);
     document.addEventListener('visibilitychange', onFocus);
     window.addEventListener('focus', onFocus);

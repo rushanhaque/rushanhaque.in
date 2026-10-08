@@ -1,5 +1,323 @@
 [
   {
+    "slug": "website-developer-in-moradabad",
+    "lang": "en",
+    "eyebrow": "Location",
+    "title": "Website developer in Moradabad",
+    "metaTitle": "Website Developer & Web Developer in Moradabad",
+    "description": "Website developer and web developer in Moradabad, Uttar Pradesh. Custom-coded business websites, e-commerce stores and web applications, with payments, integrations, hosting and support.",
+    "intro": "Custom-coded websites and web applications, developed, hosted and supported end to end by a full-stack developer based in Moradabad.",
+    "updated": "2026-10-08",
+    "schema": "service",
+    "area": "Moradabad",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Based in",
+        "Moradabad, Uttar Pradesh"
+      ],
+      [
+        "Builds",
+        "Websites, stores and web apps"
+      ],
+      [
+        "Approach",
+        "Coded from scratch, no page builders"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "A web developer, not just a template",
+        "body": [
+          "A website developer turns a design into a working site: the code, the payments, the forms, the database, the hosting and the speed. Every site here is written from scratch, without themes or drag-and-drop builders, so it does exactly what your business needs and nothing slows it down.",
+          "I am a full-stack developer based in Moradabad, so the same person plans the project, writes the code, puts it online and supports it after launch."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What gets developed",
+        "items": [
+          {
+            "title": "Business websites",
+            "text": "Fast, mobile-first sites that explain what you do and turn visitors into calls and enquiries.",
+            "href": "/website-design-development"
+          },
+          {
+            "title": "E-commerce stores",
+            "text": "Product pages, cart and checkout with Razorpay, PayU, Cashfree or Stripe.",
+            "href": "/ecommerce-website-development"
+          },
+          {
+            "title": "Web applications",
+            "text": "Portals, dashboards and internal tools built around how your business works.",
+            "href": "/web-application-development"
+          },
+          {
+            "title": "Export catalogues",
+            "text": "Searchable product catalogues and enquiry forms for overseas buyers.",
+            "href": "/website-for-exporters-moradabad"
+          },
+          {
+            "title": "Speed and fixes",
+            "text": "Slow or broken sites made fast and reliable, including sites I did not build.",
+            "href": "/website-speed-optimization"
+          },
+          {
+            "title": "Integrations",
+            "text": "Payment gateways, WhatsApp enquiries, email, spreadsheets and the tools you already use."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How it is built",
+        "items": [
+          {
+            "title": "Modern, fast code",
+            "text": "Pages are rendered on the server, so they load quickly on mobile data and search engines can read every word."
+          },
+          {
+            "title": "Mobile first",
+            "text": "Designed and tested on phones first, because that is where most of your customers will see it."
+          },
+          {
+            "title": "Search built in",
+            "text": "Clean structure, structured data, sitemaps and Core Web Vitals, from day one rather than as an add-on."
+          },
+          {
+            "title": "Hosting and handover",
+            "text": "Hosting, domain and email set up and handed over, so the site stays yours."
+          }
+        ]
+      },
+      {
+        "label": "04",
+        "title": "How a project runs",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Website maker in Moradabad",
+            "/website-maker-in-moradabad"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Is a website developer different from a website designer?",
+        "a": "A designer decides how a site looks and works; a developer builds it in code and puts it online. I do both, so one person carries the project from the first sketch to the live site."
+      },
+      {
+        "q": "Do you build with WordPress or with code?",
+        "a": "With code, by default. WordPress is used only when a project genuinely needs it, usually when a non-technical team has to publish often."
+      },
+      {
+        "q": "Can you take over development of an existing website?",
+        "a": "Yes. After a look at the code and the hosting, I can fix it, speed it up, add features or rebuild it properly."
+      },
+      {
+        "q": "Do you develop web applications as well as websites?",
+        "a": "Yes: portals, dashboards, booking and enquiry systems and internal tools, built around how your business works."
+      },
+      {
+        "q": "Do you work with clients outside Moradabad?",
+        "a": "Yes. Most work happens remotely, for clients across India and abroad, with calls in Hindi or English."
+      }
+    ],
+    "related": [
+      "web-application-development",
+      "ecommerce-website-development",
+      "website-cost-in-moradabad"
+    ],
+    "cta": "Tell me what the site or app has to do, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-maker-in-moradabad",
+    "lang": "en",
+    "eyebrow": "Location",
+    "title": "Website maker in Moradabad",
+    "metaTitle": "Website Maker in Moradabad — Get Your Website Made",
+    "description": "Looking for a website maker in Moradabad? Get a professional website made for your shop, business or export firm: designed, built and launched for you, with nothing technical on your side.",
+    "intro": "Get a website made for your business. You tell me what it needs; it is designed, built and launched for you.",
+    "updated": "2026-10-08",
+    "schema": "service",
+    "area": "Moradabad",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "You do",
+        "Tell me what you need"
+      ],
+      [
+        "I do",
+        "Design, build and launch"
+      ],
+      [
+        "Language",
+        "Hindi or English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "A website, made for you",
+        "body": [
+          "Many people searching for a website maker are offered tools like Wix, where you build the site yourself. If you would rather spend your time on your business, a person can make it for you instead: planned around your customers, written and designed properly, and put online ready to use.",
+          "If you have been looking for a website banane wala in Moradabad, this is that, done properly: no templates, no technical work on your side, and one person to talk to from start to finish."
+        ],
+        "links": [
+          [
+            "Website builder or web designer?",
+            "/website-builder-vs-web-designer"
+          ]
+        ]
+      },
+      {
+        "label": "02",
+        "title": "Websites I make",
+        "items": [
+          {
+            "title": "Shops and showrooms",
+            "text": "Your range, address, hours and directions, so people nearby find you and visit.",
+            "href": "/website-design-development"
+          },
+          {
+            "title": "Business websites",
+            "text": "What you do, who it is for and how to reach you, on every phone and computer.",
+            "href": "/website-design-development"
+          },
+          {
+            "title": "Online stores",
+            "text": "Sell online with UPI, cards and wallets through Razorpay, PayU or Cashfree.",
+            "href": "/ecommerce-website-development"
+          },
+          {
+            "title": "Export catalogues",
+            "text": "For manufacturers selling to overseas buyers.",
+            "href": "/website-for-exporters-moradabad"
+          },
+          {
+            "title": "Landing pages",
+            "text": "One page for one offer or one campaign.",
+            "href": "/landing-page-design"
+          },
+          {
+            "title": "Hindi and English pages",
+            "text": "The same site in both languages, so every customer can read it."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "What you need to get started",
+        "items": [
+          {
+            "title": "What your business does",
+            "text": "A few lines about the business and the customers you want more of."
+          },
+          {
+            "title": "Photos",
+            "text": "Of your products, work or premises. If you do not have good ones, I will tell you what to shoot."
+          },
+          {
+            "title": "Contact details",
+            "text": "Phone, WhatsApp, email and address, exactly as customers should see them."
+          },
+          {
+            "title": "A domain name",
+            "text": "If you do not have one yet, I will help you choose and register it in your name."
+          }
+        ]
+      },
+      {
+        "label": "04",
+        "title": "How it gets made",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Website developer in Moradabad",
+            "/website-developer-in-moradabad"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How do I get a website made for my business in Moradabad?",
+        "a": "Send a message on WhatsApp, by email or through the form with a few lines about your business. After a short call you get a written quote and timeline, and the website is designed, built and launched for you."
+      },
+      {
+        "q": "Do I need to know anything technical?",
+        "a": "No. You tell me what the business needs; the design, the building, the domain and the hosting are handled for you, and you get a site ready to use."
+      },
+      {
+        "q": "Can you make my website in Hindi?",
+        "a": "Yes. Pages can be in Hindi, English or both, and calls can be in either language."
+      },
+      {
+        "q": "How long does it take to make a website?",
+        "a": "Usually 1 to 2 weeks for a one-page site, 2 to 4 weeks for a business website, and 4 to 8 weeks for an online store or catalogue."
+      },
+      {
+        "q": "Will my website show on Google?",
+        "a": "Every site is built to be found: fast pages, clean structure, structured data and Google Search Console set up at launch."
+      }
+    ],
+    "related": [
+      "website-design-development",
+      "website-builder-vs-web-designer",
+      "website-cost-in-moradabad"
+    ],
+    "cta": "Tell me about your business, and you will get a written quote with a timeline."
+  },
+  {
     "slug": "website-cost-in-moradabad",
     "lang": "en",
     "eyebrow": "Cost guide",
