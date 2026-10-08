@@ -1,6 +1,6 @@
 import guides from '@/content/guides.json';
 import { PageIntro } from '@/components/page-intro';
-import { Directory, FaqBlock, GuideBlock, JsonLd, NextStep, RecentWork, type GuideSection } from '@/components/guide-blocks';
+import { accentTitle, Directory, FaqBlock, GuideBlock, GuideLead, JsonLd, NextStep, RecentWork, type GuideSection } from '@/components/guide-blocks';
 import type { Project } from '@/lib/content';
 import { siteOrigin } from '@/lib/seo';
 import { breadcrumbs, faqPage, ids, servicePage } from '@/lib/schema';
@@ -19,12 +19,9 @@ export function GuidePage({ guide, projects }: { guide: Guide; projects: Project
     <JsonLd data={page}/>
     <JsonLd data={faqPage(guide.faqs)}/>
     <JsonLd data={breadcrumbs([[guide.title, path]])}/>
-    <PageIntro eyebrow={guide.eyebrow.toUpperCase()} title={guide.title} accent="" description={guide.intro}/>
+    <PageIntro eyebrow={guide.eyebrow.toUpperCase()} title={accentTitle(guide.title, guide.lang)[0]} accent={accentTitle(guide.title, guide.lang)[1]} description={guide.intro}/>
     <div className="container source-content">
-      <section className="source-section guide-lead">
-        <ul className="source-facts">{guide.facts.map(([k, v]) => <li key={k}><span>{k}</span><b>{v}</b></li>)}</ul>
-        <p className="guide-updated">{hi ? 'अपडेट' : 'Updated'} <time dateTime={guide.updated}>{new Date(guide.updated + 'T00:00:00Z').toLocaleDateString(hi ? 'hi-IN' : 'en-IN', { month: 'long', year: 'numeric', timeZone: 'UTC' })}</time> · Rushan Haque</p>
-      </section>
+      <GuideLead facts={guide.facts} updated={guide.updated} lang={guide.lang}/>
       {guide.sections.map((s, i) => <GuideBlock key={i} section={s as GuideSection}/>)}
       <RecentWork projects={projects} title={hi ? 'हाल में बनाई गई वेबसाइटें' : 'Websites I’ve built recently.'} label={hi ? 'हाल का काम' : 'Recent work'}/>
       <FaqBlock label={faqLabel} faqs={guide.faqs} title={hi ? 'अक्सर पूछे जाने वाले सवाल' : 'Questions people actually ask'}/>

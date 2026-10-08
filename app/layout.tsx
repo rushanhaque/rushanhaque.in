@@ -25,6 +25,7 @@ import './header.css';
 import './footer.css';
 import './buttons.css';
 import './mobile.css';
+import './seo-pages.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
