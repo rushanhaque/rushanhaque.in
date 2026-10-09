@@ -202,7 +202,39 @@
     "status": "Experiment",
     "showDescription": true,
     "number": "09",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "ShadowChat is a private chat that leaves nothing behind. You open a room, share its link, and everyone who joins talks in real time. Messages are encrypted in the browser, and a single “Burn Chat” button wipes the room and its messages when you are done.",
+        "Rooms are temporary on purpose: the link expires on its own, so a conversation does not stay on any server longer than it has to."
+      ],
+      "steps": [
+        {
+          "title": "Create a room",
+          "text": "The server creates a temporary room and gives you a link to share."
+        },
+        {
+          "title": "Chat in real time",
+          "text": "Everyone who opens the link joins over a WebSocket connection, so messages appear instantly without refreshing."
+        },
+        {
+          "title": "Encrypted in the browser",
+          "text": "Messages are encrypted on each person’s device before they are sent, so what passes through the server is not readable text."
+        },
+        {
+          "title": "Burn it",
+          "text": "“Burn Chat” wipes the room and its messages. If nobody does, the room expires by itself."
+        }
+      ],
+      "stack": [
+        "Python",
+        "FastAPI",
+        "WebSockets",
+        "JavaScript",
+        "Optional Redis for rooms"
+      ],
+      "note": "A personal privacy experiment, not an audited secure messenger. For anything sensitive, use an established, independently reviewed app."
+    }
   },
   {
     "slug": "github-auto-push",
@@ -219,7 +251,34 @@
     "image": null,
     "status": "Experiment",
     "number": "10",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Auto Repo-Pusher is a small Windows app for pushing a project to GitHub without opening a terminal. You paste the folder path, paste the GitHub repository link and press “Push project”. The app handles the Git steps behind the scenes, from setting a new folder up as a repository to dealing with errors.",
+        "It is aimed at people who know their project is ready but are put off by command-line Git, initialisation steps and error messages."
+      ],
+      "steps": [
+        {
+          "title": "Point it at your project",
+          "text": "Paste the path to the folder on your computer."
+        },
+        {
+          "title": "Point it at GitHub",
+          "text": "Paste the link of the repository you want to push to."
+        },
+        {
+          "title": "Press Push project",
+          "text": "The app initialises the folder as a repository if it needs to, pushes your files, and handles errors for you instead of leaving you at a cryptic message."
+        }
+      ],
+      "stack": [
+        "Python",
+        "Flask",
+        "Git",
+        "Windows"
+      ],
+      "note": "Released as a free tool for Windows on itch.io."
+    }
   },
   {
     "slug": "shadow-kill",
@@ -227,7 +286,7 @@
     "category": "Experiments",
     "discipline": "Tool",
     "year": "2025",
-    "description": "A sound cue kills all running tasks.",
+    "description": "Knock twice on your desk and every browser closes and a spreadsheet opens.",
     "tags": [
       "Python",
       "Audio"
@@ -236,7 +295,39 @@
     "image": null,
     "status": "Experiment",
     "number": "11",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Shadow Kill is a panic button you trigger by knocking twice on your desk. It listens through the microphone, and when it hears a quick double knock it closes every web browser and opens an ordinary-looking spreadsheet, so the screen is back to “work” within a second.",
+        "It started as a joke about the boss walking in, and it is a small, honest demonstration of reacting to sound in real time."
+      ],
+      "steps": [
+        {
+          "title": "Listen for loud sounds",
+          "text": "The script keeps the microphone open and measures the loudest point of every short slice of audio."
+        },
+        {
+          "title": "Recognise a double knock",
+          "text": "A sound over the volume threshold counts as a knock. A second knock between a fraction of a second and one second later counts as the signal. Single bumps are ignored."
+        },
+        {
+          "title": "Hide everything",
+          "text": "It force-closes Chrome, Edge, Firefox, Brave and Opera, then opens a plain “Work Report” spreadsheet. A ten-second pause stops it from firing again straight away."
+        },
+        {
+          "title": "Tune it to your desk",
+          "text": "The knock volume, the time window and the list of browsers are settings at the top of the script, so it can be made more or less sensitive."
+        }
+      ],
+      "stack": [
+        "Python",
+        "sounddevice",
+        "NumPy",
+        "psutil",
+        "Windows"
+      ],
+      "note": "Closing a browser this way discards anything unsaved in it. The trial build is on GitHub."
+    }
   },
   {
     "slug": "sentry-mode",
@@ -244,7 +335,7 @@
     "category": "Experiments",
     "discipline": "IoT",
     "year": "2025",
-    "description": "IoT motion sentinel with alarms and alerts.",
+    "description": "A USB-key alarm for your PC: remove the Arduino to arm it, and any mouse movement sets off a siren and a phone alert.",
     "tags": [
       "Arduino",
       "Python"
@@ -253,7 +344,40 @@
     "image": null,
     "status": "Experiment",
     "number": "12",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Sentry Mode turns a Windows PC into a small alarm system. A spare Arduino plugged into a USB port is the physical key: while it is in, the PC is safe and relaxed. Pull it out, and the computer is armed.",
+        "If anyone touches the mouse while it is armed, the PC sounds a loud two-tone siren and sends an alert to your phone, so you know about it even when you are away from the desk."
+      ],
+      "steps": [
+        {
+          "title": "The Arduino is the key",
+          "text": "A Python script checks the USB ports every tenth of a second and recognises the Arduino board by name. The system starts disarmed with the key in."
+        },
+        {
+          "title": "Remove the key to arm",
+          "text": "When the Arduino is unplugged, the script waits three seconds so you can step away, then arms itself and records where the mouse pointer is."
+        },
+        {
+          "title": "Movement raises the alarm",
+          "text": "If the pointer moves more than a few pixels, the system switches to alarm: a two-tone siren plays through the speakers and a message is sent to a Discord channel, which arrives as a notification on your phone."
+        },
+        {
+          "title": "Plug the key back in",
+          "text": "The moment the Arduino is detected again, the siren stops and the system returns to disarmed."
+        }
+      ],
+      "stack": [
+        "Python",
+        "Arduino (as a USB key)",
+        "PySerial",
+        "PyAutoGUI",
+        "Discord webhook",
+        "Windows"
+      ],
+      "note": "It watches mouse movement only, and the siren and sound use Windows features, so it runs on Windows."
+    }
   },
   {
     "slug": "codesense-ai",
@@ -271,7 +395,40 @@
     "status": "Experiment",
     "showDescription": true,
     "number": "13",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "CodeSense AI explains code in plain English. Paste any snippet, pick the language, and it breaks the code down line by line so you can see what each part does. It is useful for beginners, and for anyone reading a language or a codebase they have not seen before.",
+        "It supports more than twenty languages, from JavaScript, Python and Java to Rust, Go, SQL and Bash, with syntax colouring like a code editor."
+      ],
+      "steps": [
+        {
+          "title": "Paste code and choose a language",
+          "text": "Use the box on the page, or start from one of the built-in examples. Ctrl + Enter explains the code straight away."
+        },
+        {
+          "title": "An AI model writes the explanation",
+          "text": "The code is sent to Meta’s Llama 3.2 3B model through Hugging Face, which returns a plain-language explanation for each line."
+        },
+        {
+          "title": "A backup if the AI is unavailable",
+          "text": "If the model cannot be reached, a rule-based explainer takes over so you still get an answer."
+        },
+        {
+          "title": "Read, copy, download",
+          "text": "Explanations appear beside the highlighted code, and any line, or the whole explanation, can be copied or downloaded."
+        }
+      ],
+      "stack": [
+        "Next.js 15",
+        "TypeScript",
+        "React",
+        "Tailwind CSS",
+        "React Three Fiber",
+        "Hugging Face Llama 3.2"
+      ],
+      "note": "AI explanations can be wrong on unusual code, so treat them as a guide and check anything important."
+    }
   },
   {
     "slug": "lingualens",
@@ -289,7 +446,39 @@
     "image": null,
     "status": "Experiment",
     "number": "14",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "LinguaLens teaches vocabulary through your phone’s camera. Point it at everyday objects (a cup, a chair, a phone) and it draws a box around each one and shows its name in French, Spanish, German, Japanese or Italian. Tap a word to hear it spoken.",
+        "Words you discover are collected in a vocabulary panel, and a quiz mode hides the labels until you tap them, so you can test yourself."
+      ],
+      "steps": [
+        {
+          "title": "The camera feeds a model in your browser",
+          "text": "TensorFlow.js runs a pre-trained object-detection model (COCO-SSD) directly on your device. Camera frames are not uploaded anywhere."
+        },
+        {
+          "title": "Detections are cleaned up",
+          "text": "Overlapping boxes are filtered, object proportions are checked, and a label only appears after the same object is seen several times, which stops flickering and many wrong guesses."
+        },
+        {
+          "title": "Words come from a dictionary",
+          "text": "The detected object name is looked up in the app’s own dictionary of translations for the five languages."
+        },
+        {
+          "title": "Hear it, save it, quiz yourself",
+          "text": "The browser’s speech synthesis pronounces the word, and what you have discovered is kept in local storage. A snapshot button saves the camera view with its boxes."
+        }
+      ],
+      "stack": [
+        "JavaScript",
+        "TensorFlow.js",
+        "COCO-SSD",
+        "Web Speech",
+        "Python (vocabulary export tool)"
+      ],
+      "note": "A hosted copy needs HTTPS for camera access, and the first load needs internet to download the model."
+    }
   },
   {
     "slug": "novellect",
@@ -307,7 +496,41 @@
     "status": "Experiment",
     "showDescription": true,
     "number": "15",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Novellect is a book recommendation tool that starts with you instead of the bestseller list. It holds a short conversation, about ten questions that mix multiple choice and open answers, builds a picture of your interests, values and taste, and then recommends ten “deep cut” books chosen to avoid the obvious titles.",
+        "Recommendations can be saved to a reading list."
+      ],
+      "steps": [
+        {
+          "title": "A ten-question consultation",
+          "text": "Some questions offer choices, others ask you to answer in your own words."
+        },
+        {
+          "title": "A profile of the reader",
+          "text": "An AI model (GPT-4o-mini, through Puter.js) maps the answers to your interests, values and cultural leanings."
+        },
+        {
+          "title": "Ten books you probably haven’t found",
+          "text": "The recommendations are chosen to be niche on purpose, steering away from the books everyone already knows."
+        },
+        {
+          "title": "Save what you like",
+          "text": "Signed-in readers can keep their recommendations in a collection."
+        }
+      ],
+      "stack": [
+        "Next.js 14",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Puter.js",
+        "Supabase",
+        "NextAuth"
+      ],
+      "note": "Book suggestions come from an AI model, so check that a title exists before you go looking for it."
+    }
   },
   {
     "slug": "cortex",
@@ -324,7 +547,40 @@
     "image": null,
     "status": "Experiment",
     "number": "16",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Cortex is a screenshot tool that tells you what to do with your screenshots. Instead of leaving hundreds of unnamed images in a folder, it reads the text in each capture, works out what it is (something to buy, a to-do, an idea, an article to read later, a piece of code) and files it with a title, a one-line summary and a priority.",
+        "It can also remind you to come back to a capture, so a screenshot becomes a task instead of clutter."
+      ],
+      "steps": [
+        {
+          "title": "Capture from the tray",
+          "text": "A desktop app (Electron) sits in the system tray. Quick Capture dims the screen so you can drag a box around any area."
+        },
+        {
+          "title": "Read the text",
+          "text": "Tesseract.js runs OCR on your device to pull the text out of the image."
+        },
+        {
+          "title": "Classify it",
+          "text": "An AI model, through Puter.js, sorts the text into one of seven categories: Buy Later, To-Do, Idea, Read Later, Inspiration, Code or Ephemeral. It suggests a title, a summary, a priority and when to remind you. A simple built-in classifier takes over when the AI is not available."
+        },
+        {
+          "title": "Review and be reminded",
+          "text": "Captures are saved on your computer and appear in a dashboard with stats. Desktop notifications bring back the ones that matter."
+        }
+      ],
+      "stack": [
+        "Electron",
+        "JavaScript",
+        "Vite",
+        "Tesseract.js (OCR)",
+        "Puter.js (AI)",
+        "Windows"
+      ],
+      "note": "Captures are stored on your own computer. Only the text read from an image is sent to the AI for sorting."
+    }
   },
   {
     "slug": "aura-ai",
@@ -341,7 +597,39 @@
     "image": null,
     "status": "Experiment",
     "number": "17",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Aura is a floating AI assistant that sits on top of your other windows as a see-through overlay. It listens through the microphone, turns what it hears into text, and drafts a suggested answer to the question it detected. You can also type a question yourself.",
+        "Its main technical idea is the window itself: the overlay is excluded from screen capture and hidden from the taskbar, so it does not show up in screen recordings or screen shares. It runs on free tools and needs no API key."
+      ],
+      "steps": [
+        {
+          "title": "Listen and transcribe",
+          "text": "Speech recognition in Chrome converts the spoken question to text in real time."
+        },
+        {
+          "title": "Ask the AI",
+          "text": "The question goes to a local model through Ollama, which runs entirely on your own machine, or to the free Pollinations.ai service as a fallback."
+        },
+        {
+          "title": "Read the draft answer",
+          "text": "A suggested answer appears in the overlay, which stays on top of other windows."
+        },
+        {
+          "title": "Control it from the keyboard",
+          "text": "Shortcuts show or hide the overlay, start or stop listening, request an answer and clear the screen without touching the mouse."
+        }
+      ],
+      "stack": [
+        "Electron",
+        "JavaScript",
+        "Ollama",
+        "Pollinations.ai",
+        "Web Speech API"
+      ],
+      "note": "Check the rules of any interview, exam or meeting before using an assistant like this."
+    }
   },
   {
     "slug": "symphony",
@@ -349,7 +637,7 @@
     "category": "Experiments",
     "discipline": "Web",
     "year": "2025",
-    "description": "In-browser piano with real sampled audio.",
+    "description": "In-browser piano with a built-in synthesizer, played with the keyboard or mouse.",
     "tags": [
       "JavaScript",
       "Audio"
@@ -358,7 +646,38 @@
     "image": null,
     "status": "Experiment",
     "number": "18",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Symphony is a piano you play in the browser, with your computer keyboard or the mouse. It has several instruments, a volume control and a reverb switch, and it starts instantly with nothing to install.",
+        "The sound is not a recording: every note is built from scratch by the browser as you press the key."
+      ],
+      "steps": [
+        {
+          "title": "Notes are generated live",
+          "text": "Each key starts a few oscillators at the right pitch, using the Web Audio API."
+        },
+        {
+          "title": "An envelope shapes the sound",
+          "text": "An attack-decay-sustain-release envelope and a low-pass filter give each note the way a real piano sound rises and fades."
+        },
+        {
+          "title": "Different instruments, different recipes",
+          "text": "Each instrument is a different combination of waveforms, detuning and envelope settings."
+        },
+        {
+          "title": "Optional reverb",
+          "text": "A generated room impulse response adds a sense of space when you switch reverb on."
+        }
+      ],
+      "stack": [
+        "JavaScript",
+        "Web Audio API",
+        "HTML",
+        "CSS"
+      ],
+      "note": "The first keypress or click starts the audio, because browsers do not allow sound before you interact with the page."
+    }
   },
   {
     "slug": "dead-drop",
@@ -366,7 +685,7 @@
     "category": "Experiments",
     "discipline": "IoT",
     "year": "2025",
-    "description": "Offline file transfer over local Wi-Fi.",
+    "description": "A pocket file server with its own Wi-Fi: send files between devices with no internet.",
     "tags": [
       "IoT",
       "NodeMCU"
@@ -375,7 +694,39 @@
     "image": null,
     "status": "Experiment",
     "number": "19",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Dead Drop is a tiny file server that lives on a single ESP8266 (NodeMCU) board and needs no internet. Power the board and it creates its own Wi-Fi network called “Dead_Drop”. Connect a phone or laptop to it and you can upload, download and delete files, with nothing going through the internet, a router or any cloud account.",
+        "It is built for the moments when you need to hand a file to someone in the same room and there is no network, no cable and no app to install: a workshop, a train, a classroom with poor reception."
+      ],
+      "steps": [
+        {
+          "title": "The board becomes a network",
+          "text": "On start-up the ESP8266 switches into access-point mode and broadcasts the Dead_Drop Wi-Fi network from the fixed address 192.168.4.1."
+        },
+        {
+          "title": "Phones are sent to the page",
+          "text": "A small DNS server answers every address with the board’s own, and the board replies to the connectivity checks that Android, iOS and Windows make. Devices treat it like a hotspot sign-in page and open the Dead Drop page by themselves."
+        },
+        {
+          "title": "The page is inside the firmware",
+          "text": "The whole interface (HTML, styling and script) is stored in the program itself, so there is nothing else to host or load."
+        },
+        {
+          "title": "Files live in the board’s flash",
+          "text": "Uploads are written to the board’s flash storage (LittleFS). The page lists them, and each file can be downloaded or deleted with one tap."
+        }
+      ],
+      "stack": [
+        "ESP8266 / NodeMCU",
+        "C++ (Arduino)",
+        "LittleFS",
+        "Captive-portal DNS",
+        "Embedded HTML and JavaScript"
+      ],
+      "note": "There is no login inside the page, so who can reach the files is decided by who can join the Wi-Fi network. Storage is limited to the board’s flash memory."
+    }
   },
   {
     "slug": "upside-sound",
@@ -394,7 +745,39 @@
     "status": "Experiment",
     "showDescription": true,
     "number": "20",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Upside Sound is a music recommender with a Stranger Things mood. Instead of asking what you like, it asks questions like “after a long, strange week, what actually refills you?”, reads your answers, and matches your personality to songs. It also tells you which character you resemble.",
+        "Everything runs in your browser. There is no account, no server and no API key."
+      ],
+      "steps": [
+        {
+          "title": "Questions that adapt",
+          "text": "A bank of 84 questions is used in a different order each session, picking the next one that will teach the engine the most about you."
+        },
+        {
+          "title": "Answers become traits",
+          "text": "The text of each answer is analysed, including negation and intensity (“I don’t really…” versus “I absolutely…”), and scored on five traits: idealism, pragmatism, intensity, introspection and sociability."
+        },
+        {
+          "title": "Traits are matched to songs",
+          "text": "Your five scores become a profile, which is compared with the same five numbers stored for every song, using cosine and euclidean distance."
+        },
+        {
+          "title": "A varied playlist",
+          "text": "The best matches are re-ranked so the “more like this” list is not ten near-identical songs, and each result links to Spotify."
+        }
+      ],
+      "stack": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Client-side recommendation engine",
+        "Spotify links"
+      ],
+      "note": "Song scores are my own judgement, so treat the results as a playful reading rather than science."
+    }
   },
   {
     "slug": "quorum",
@@ -413,6 +796,37 @@
     "status": "Experiment",
     "showDescription": true,
     "number": "21",
+    "details": {
+      "does": [
+        "Quorum asks four people one honest question about you, separately, and weaves their answers into a single keepsake: a Tribute, a Dossier or a Roast. You could never have written it about yourself, and nobody sees anyone else’s answer.",
+        "When the fourth answer arrives, the keepsake is unsealed in a small ceremony and can be downloaded as an image."
+      ],
+      "steps": [
+        {
+          "title": "Start a Quorum",
+          "text": "Choose the kind of keepsake and your name. You get an invite link to share and a private link to keep."
+        },
+        {
+          "title": "Four people answer, in private",
+          "text": "Each friend opens the invite link and adds one line. Answers are never shown back to anyone, only counted."
+        },
+        {
+          "title": "The words are woven together",
+          "text": "Once the fourth answer arrives, the app combines them into one piece, written by a built-in weaver or, if enabled, by Gemini."
+        },
+        {
+          "title": "Unseal and keep it",
+          "text": "You reveal the keepsake with an unsealing animation and download it as a PNG."
+        }
+      ],
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "Optional Gemini 2.0 Flash",
+        "Optional Upstash Redis"
+      ],
+      "note": "The privacy and reveal flow have not been independently audited."
+    },
     "caseStudy": {
       "context": "An experiment where four people answer one question privately.",
       "role": "Independent development",
@@ -451,6 +865,37 @@
     "status": "Experiment",
     "showDescription": true,
     "number": "22",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "details": {
+      "does": [
+        "Superlatives gives your friend group anonymous awards. Everyone secretly votes on questions like “who is most likely to…”, and the app reveals the winners in a small awards ceremony with confetti, vote bars and runners-up.",
+        "Play on one phone passed around the room, or online from everyone’s own phone using a shared link. No sign-up, no app store and no server."
+      ],
+      "steps": [
+        {
+          "title": "Set up the game",
+          "text": "Add 3 to 16 players, choose a prompt pack (or write your own) and decide how many awards to hand out."
+        },
+        {
+          "title": "Vote in secret",
+          "text": "In pass-and-play, the phone is handed to each voter with a privacy screen in between. Online, a host shares a room code, link or QR and everyone votes from their own device."
+        },
+        {
+          "title": "Online without a server",
+          "text": "Players connect directly to each other using WebRTC, so the votes never pass through a backend."
+        },
+        {
+          "title": "The ceremony",
+          "text": "Winners are revealed one by one, with a finale award for whoever won the most, and a results card you can share."
+        }
+      ],
+      "stack": [
+        "JavaScript",
+        "WebRTC (peer-to-peer)",
+        "Canvas",
+        "PWA, works offline for pass and play"
+      ],
+      "note": "Votes are anonymous: ballots are never shown per person."
+    }
   }
 ]
