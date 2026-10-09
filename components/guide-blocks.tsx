@@ -145,10 +145,16 @@ export function RecentWork({ projects, title = 'Websites I’ve built recently.'
 
 export function Directory({ current }: { current: string }) {
   const link = (slug: string, text: string) => <Link key={slug} href={'/' + slug} aria-current={slug === current ? 'page' : undefined}>{text}<ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.5}/></Link>;
+  const shown = guides.filter(g => !('hideOn' in g && (g.hideOn as string[]).includes(current)));
+  const group = (name?: string) => shown.filter(g => ('group' in g ? g.group : undefined) === name);
+  const industries = group('industry');
+  const areas = [...sourcePages.filter(p => p.kind === 'Location').map(p => ({ slug: p.slug, title: p.title })), ...group('area')]
+    .map(a => ({ slug: a.slug, name: a.title.replace('Website designer in ', '') })).sort((a, b) => a.name.localeCompare(b.name));
   return <nav className="container source-directory" aria-label="Explore services, guides and locations"><h2 suppressHydrationWarning>Explore</h2><div>
     <section><h3>Services</h3>{sourcePages.filter(p => p.kind === 'Service').map(p => link(p.slug, p.title))}</section>
-    <section><h3>Guides</h3>{guides.filter(g => !('hideOn' in g && (g.hideOn as string[]).includes(current))).map(g => link(g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title))}</section>
-    <section><h3>Areas served</h3>{sourcePages.filter(p => p.kind === 'Location').map(p => link(p.slug, p.title.replace('Website designer in ', '')))}</section>
+    <section><h3>Guides</h3>{group(undefined).map(g => link(g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title))}</section>
+    {industries.length > 0 && <section><h3>Industries</h3>{industries.map(g => link(g.slug, g.title.replace('Websites for ', '').replace(/^./, c => c.toUpperCase())))}</section>}
+    <section><h3>Areas served</h3>{areas.map(a => link(a.slug, a.name))}</section>
   </div></nav>;
 }
 

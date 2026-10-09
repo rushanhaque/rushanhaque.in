@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
       { source: '/:path((?!_next/static|images/|fonts/|api/|studio).*)', headers: [{ key: 'Cache-Control', value: revalidate }] },
       // Image file names are never reused (the admin uploads under new names), so they cache for a year.
       { source: '/images/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
-      { source: '/fonts/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+      { source: '/fonts/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }, { key: 'X-Robots-Tag', value: 'noindex' }] },
       { source: '/studio/:path*', headers: noStore },
       { source: '/studio', headers: noStore },
       { source: '/api/:path*', headers: noStore },

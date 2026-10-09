@@ -973,5 +973,808 @@
       "website-for-exporters-moradabad"
     ],
     "cta": "बताइए वेबसाइट को क्या करना है, और आपको समय-सीमा के साथ लिखित कोटेशन मिलेगा।"
+  },
+  {
+    "slug": "website-for-doctors-clinics",
+    "lang": "en",
+    "group": "industry",
+    "eyebrow": "Industry",
+    "title": "Websites for doctors and clinics",
+    "metaTitle": "Website Design for Doctors, Clinics & Hospitals",
+    "description": "Websites for doctors, clinics, dental practices and diagnostic centres: clear services and timings, appointment requests, Google Maps and reviews, built to be found when patients search nearby.",
+    "intro": "Clear services, timings and doctors, appointment requests that reach you, and pages patients find when they search nearby.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Built for",
+        "Clinics, doctors, dentists, labs"
+      ],
+      [
+        "Core feature",
+        "Appointment requests"
+      ],
+      [
+        "Language",
+        "Hindi and English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "What patients look for before they call",
+        "body": [
+          "Most patients search on their phone, compare two or three clinics, and call the one that answers their questions fastest: what you treat, which doctor they will see, when you are open, where you are and how to book.",
+          "A clinic website does not need to be complicated. It needs to answer those questions in seconds, look trustworthy, and make booking or calling one tap away."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What a clinic website needs",
+        "items": [
+          {
+            "title": "Services and specialities",
+            "text": "Each treatment or speciality on its own page, in plain language, so patients and Google understand what you do."
+          },
+          {
+            "title": "Doctor profiles",
+            "text": "Qualifications, experience and consulting days for every doctor, with a photo."
+          },
+          {
+            "title": "Timings and location",
+            "text": "Opening hours, a map, parking and directions, kept up to date."
+          },
+          {
+            "title": "Appointment requests",
+            "text": "A short form or a WhatsApp button that sends the request straight to your front desk."
+          },
+          {
+            "title": "Reviews and trust",
+            "text": "Patient reviews, registrations and memberships shown where people decide."
+          },
+          {
+            "title": "Local search",
+            "text": "Set up to appear when people search for your speciality near them, alongside your Google Business Profile."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How it gets built",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Landing pages for campaigns",
+            "/landing-page-design"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can patients book appointments on the website?",
+        "a": "Yes. Requests can come through a short form, WhatsApp or a booking calendar, depending on how your front desk works."
+      },
+      {
+        "q": "Can the website be in Hindi?",
+        "a": "Yes. Pages can be in Hindi, English or both, so every patient can read them."
+      },
+      {
+        "q": "Will my clinic show on Google Maps?",
+        "a": "The website is built to work with your Google Business Profile, which is what puts a clinic on Maps. I can help you set that up properly."
+      },
+      {
+        "q": "Do you build websites for hospitals and diagnostic labs too?",
+        "a": "Yes. Larger sites get departments, doctor listings and test or package pages, organised so patients find the right one quickly."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me about your clinic and how patients book today, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-for-schools-coaching",
+    "lang": "en",
+    "group": "industry",
+    "eyebrow": "Industry",
+    "title": "Websites for schools and coaching centres",
+    "metaTitle": "Website Design for Schools, Colleges & Coaching Centres",
+    "description": "Websites for schools, colleges and coaching institutes: admissions and enquiry forms, courses and fee structure pages, results, notices and galleries that parents and students can find on Google.",
+    "intro": "Admissions, courses, results and notices in one place, with enquiries that reach your office the same day.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Built for",
+        "Schools, colleges, coaching institutes"
+      ],
+      [
+        "Core feature",
+        "Admission enquiries"
+      ],
+      [
+        "Language",
+        "Hindi and English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Parents decide online before they visit",
+        "body": [
+          "Parents and students compare institutes on their phones long before they visit a campus. They look for courses, faculty, results, facilities, fees and how to apply, and they move on quickly if they cannot find them.",
+          "A good school or coaching website answers those questions clearly, shows proof of results, and turns interest into an admission enquiry."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What an education website needs",
+        "items": [
+          {
+            "title": "Courses and batches",
+            "text": "Every course, class or batch with its schedule, duration and eligibility."
+          },
+          {
+            "title": "Admission enquiries",
+            "text": "A simple enquiry or registration form that goes straight to your admissions desk or WhatsApp."
+          },
+          {
+            "title": "Results and achievements",
+            "text": "Toppers, selections and results, presented so they are easy to update every year."
+          },
+          {
+            "title": "Faculty and facilities",
+            "text": "Teachers, labs, library, transport and campus photographs."
+          },
+          {
+            "title": "Notices and events",
+            "text": "A notice board and calendar the office can update without a developer."
+          },
+          {
+            "title": "Found on Google",
+            "text": "Pages built to appear when parents search for schools or coaching in your city."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How it gets built",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Web applications and portals",
+            "/web-application-development"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can our staff post notices and results themselves?",
+        "a": "Yes. Content that changes often, like notices, results and events, gets a simple admin panel your office can use."
+      },
+      {
+        "q": "Can students register or apply online?",
+        "a": "Yes. Admission and registration forms can collect details and documents and send them to your office."
+      },
+      {
+        "q": "Do you build student or parent portals?",
+        "a": "Yes, as a web application: logins, attendance, fees or test results, scoped to what your institute actually needs."
+      },
+      {
+        "q": "Can the website be in Hindi and English?",
+        "a": "Yes. Pages can be in either language or both."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me about your institute and how admissions work today, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-for-hotels-restaurants",
+    "lang": "en",
+    "group": "industry",
+    "eyebrow": "Industry",
+    "title": "Websites for hotels and restaurants",
+    "metaTitle": "Website Design for Hotels, Restaurants & Cafes",
+    "description": "Websites for hotels, restaurants, cafes and banquet halls: menus, rooms and photos that sell, direct booking and table enquiries, Google Maps and reviews, fast on every phone.",
+    "intro": "Menus, rooms and photographs that make people want to come, with direct enquiries instead of commission-heavy platforms.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Built for",
+        "Hotels, restaurants, cafes, banquets"
+      ],
+      [
+        "Core feature",
+        "Direct bookings and enquiries"
+      ],
+      [
+        "Shown on",
+        "Phones first"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Guests choose with their eyes",
+        "body": [
+          "People pick where to eat or stay from photographs, menus and reviews, almost always on a phone. A slow site or a blurry PDF menu sends them straight back to the search results.",
+          "Your own website is also the one place where a booking does not pay a platform commission, so it should make enquiring directly the easiest option."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What a hospitality website needs",
+        "items": [
+          {
+            "title": "Menus as real pages",
+            "text": "Dishes and prices as text, not a PDF, so they load fast and Google can read them."
+          },
+          {
+            "title": "Rooms and halls",
+            "text": "Each room type, banquet hall or venue with photographs, capacity and amenities."
+          },
+          {
+            "title": "Direct bookings",
+            "text": "Table, room or event enquiries by form, call or WhatsApp, with no platform commission."
+          },
+          {
+            "title": "Photographs that sell",
+            "text": "Fast-loading galleries that show the food, rooms and atmosphere properly."
+          },
+          {
+            "title": "Maps and reviews",
+            "text": "Location, directions and reviews where guests decide, working with your Google Business Profile."
+          },
+          {
+            "title": "Events and offers",
+            "text": "Seasonal menus, packages and events that are quick to update."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How it gets built",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Online ordering and stores",
+            "/ecommerce-website-development"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can guests book directly on our website?",
+        "a": "Yes. Room, table and event enquiries can come through forms, calls or WhatsApp, so direct bookings do not pay a platform commission."
+      },
+      {
+        "q": "Can we update the menu ourselves?",
+        "a": "Yes, where that is part of the brief. Menus that change often get a simple admin panel."
+      },
+      {
+        "q": "Can you add online ordering or payments?",
+        "a": "Yes. Orders and advance payments can be taken through Razorpay, PayU or Cashfree."
+      },
+      {
+        "q": "Will our restaurant show up on Google Maps?",
+        "a": "The website is built to work with your Google Business Profile, which is what puts you on Maps, and I can help you set it up."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me about your hotel or restaurant and how bookings come in today, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-for-real-estate",
+    "lang": "en",
+    "group": "industry",
+    "eyebrow": "Industry",
+    "title": "Websites for real estate and builders",
+    "metaTitle": "Website Design for Real Estate Developers & Property Dealers",
+    "description": "Websites for builders, real estate developers and property dealers: project pages with plans and amenities, listings with filters, site-visit enquiries and lead capture that reaches your sales team fast.",
+    "intro": "Project pages that sell, listings people can filter, and site-visit enquiries that reach your sales team in minutes.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Built for",
+        "Builders, developers, property dealers"
+      ],
+      [
+        "Core feature",
+        "Lead capture and site visits"
+      ],
+      [
+        "Shown on",
+        "Phones first"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Buyers shortlist online",
+        "body": [
+          "Property buyers research for weeks before a site visit: location, floor plans, amenities, approvals, progress photographs and the builder's track record. A thin website or a single brochure loses them to the next project.",
+          "A real estate website has one main job: turn serious interest into a site visit or a call, quickly, while the buyer is still looking."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What a real estate website needs",
+        "items": [
+          {
+            "title": "A page for every project",
+            "text": "Location, floor plans, amenities, approvals and photographs, organised the way buyers compare projects."
+          },
+          {
+            "title": "Listings with filters",
+            "text": "For dealers: properties filtered by type, budget, size and locality."
+          },
+          {
+            "title": "Site-visit and callback forms",
+            "text": "Short forms and WhatsApp buttons that send leads to your sales team immediately."
+          },
+          {
+            "title": "Construction updates",
+            "text": "Progress photographs and milestones that build trust with buyers and investors."
+          },
+          {
+            "title": "Location and maps",
+            "text": "Maps, nearby landmarks and connectivity for each project."
+          },
+          {
+            "title": "Landing pages for ads",
+            "text": "Focused pages for paid campaigns, built to turn clicks into enquiries.",
+            "href": "/landing-page-design"
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How it gets built",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Web applications and CRMs",
+            "/web-application-development"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can leads go straight to our sales team?",
+        "a": "Yes. Enquiries can be sent to email, WhatsApp or a spreadsheet or CRM your team already uses."
+      },
+      {
+        "q": "Can we add new projects and listings ourselves?",
+        "a": "Yes, where that is part of the brief. Projects and listings that change often get a simple admin panel."
+      },
+      {
+        "q": "Do you build landing pages for property ads?",
+        "a": "Yes. A focused page per project or campaign usually turns paid traffic into more enquiries than a general home page."
+      },
+      {
+        "q": "Can the website show RERA details?",
+        "a": "Yes. Registration numbers and approvals can be shown on each project page where you have them."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me about your projects or listings and how leads come in today, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-designer-in-kashipur",
+    "lang": "en",
+    "group": "area",
+    "eyebrow": "Location",
+    "title": "Website designer in Kashipur",
+    "metaTitle": "Website Designer & Developer in Kashipur",
+    "description": "Website designer and web developer for businesses in Kashipur, Uttarakhand. Custom business websites, online stores and web apps, built from scratch, fast and made to be found on Google.",
+    "intro": "Custom websites for businesses in Kashipur, designed and built from nearby Moradabad.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Based in",
+        "Moradabad, Uttar Pradesh"
+      ],
+      [
+        "Serving",
+        "Kashipur, Uttarakhand"
+      ],
+      [
+        "Works",
+        "Remotely and on calls, in Hindi or English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "An industrial town that sells beyond its city",
+        "body": [
+          "Kashipur is one of the main industrial towns of Udham Singh Nagar, with manufacturers, traders and suppliers who sell well beyond the town itself.",
+          "For those businesses a website is usually the first thing a new buyer or distributor checks. It has to explain what you make, prove you are established, and make it easy to send an enquiry."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What a Kashipur website has to do",
+        "items": [
+          {
+            "title": "Show the product range",
+            "text": "Products and capabilities on searchable pages, not a single PDF brochure."
+          },
+          {
+            "title": "Look established",
+            "text": "Plant, capacity, certifications and clients presented clearly for new buyers."
+          },
+          {
+            "title": "Collect enquiries",
+            "text": "Quote requests and dealer enquiries that go straight to your inbox or WhatsApp."
+          },
+          {
+            "title": "Get found",
+            "text": "Pages built to rank when buyers search for what you make."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How a project runs",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Website developer in Moradabad",
+            "/website-developer-in-moradabad"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can you build a product catalogue for a manufacturer?",
+        "a": "Yes. Each product gets its own page with specifications, and the range gets filters and an enquiry form."
+      },
+      {
+        "q": "Do you build websites for businesses in Kashipur?",
+        "a": "Yes. The studio is in Moradabad, close to Kashipur, and projects run over calls, WhatsApp and email, with meetings where they help."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me what the site has to do for your Kashipur business, and you will get a written quote with a timeline.",
+    "area": "Kashipur"
+  },
+  {
+    "slug": "website-designer-in-rudrapur",
+    "lang": "en",
+    "group": "area",
+    "eyebrow": "Location",
+    "title": "Website designer in Rudrapur",
+    "metaTitle": "Website Designer & Developer in Rudrapur",
+    "description": "Website designer and web developer for businesses in Rudrapur, Uttarakhand. Custom business websites, online stores and web apps, built from scratch, fast and made to be found on Google.",
+    "intro": "Custom websites for businesses in Rudrapur, designed and built from nearby Moradabad.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Based in",
+        "Moradabad, Uttar Pradesh"
+      ],
+      [
+        "Serving",
+        "Rudrapur, Uttarakhand"
+      ],
+      [
+        "Works",
+        "Remotely and on calls, in Hindi or English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Built around the SIDCUL industrial belt",
+        "body": [
+          "Rudrapur, the district headquarters of Udham Singh Nagar, sits at the centre of the SIDCUL industrial estate, with automotive, packaging, food and consumer-goods manufacturers and the vendors and service firms that supply them.",
+          "Businesses here sell to procurement teams and other companies, so the website has to look as professional as the plant, and answer a buyer's questions before the first call."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What a Rudrapur website has to do",
+        "items": [
+          {
+            "title": "Speak to procurement",
+            "text": "Capabilities, capacity, quality systems and certifications laid out the way vendor teams evaluate suppliers."
+          },
+          {
+            "title": "Show the work",
+            "text": "Products, processes and industries served, with real photographs."
+          },
+          {
+            "title": "Make contact easy",
+            "text": "RFQ and enquiry forms that reach the right person quickly."
+          },
+          {
+            "title": "Hire as well as sell",
+            "text": "Careers pages that attract people to the company, not just customers."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How a project runs",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Website developer in Moradabad",
+            "/website-developer-in-moradabad"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do you build websites for vendors and suppliers in SIDCUL?",
+        "a": "Yes. Supplier websites built around capabilities, certifications and enquiries are a good fit for how procurement teams search."
+      },
+      {
+        "q": "Do you build websites for businesses in Rudrapur?",
+        "a": "Yes. The studio is in Moradabad, close to Rudrapur, and projects run over calls, WhatsApp and email, with meetings where they help."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me what the site has to do for your Rudrapur business, and you will get a written quote with a timeline.",
+    "area": "Rudrapur"
+  },
+  {
+    "slug": "website-designer-in-haldwani",
+    "lang": "en",
+    "group": "area",
+    "eyebrow": "Location",
+    "title": "Website designer in Haldwani",
+    "metaTitle": "Website Designer & Developer in Haldwani",
+    "description": "Website designer and web developer for businesses in Haldwani, Uttarakhand. Custom business websites, online stores and web apps, built from scratch, fast and made to be found on Google.",
+    "intro": "Custom websites for businesses in Haldwani, designed and built from nearby Moradabad.",
+    "updated": "2026-10-09",
+    "schema": "service",
+    "hideOn": [
+      "website-designer-in-moradabad"
+    ],
+    "facts": [
+      [
+        "Based in",
+        "Moradabad, Uttar Pradesh"
+      ],
+      [
+        "Serving",
+        "Haldwani, Uttarakhand"
+      ],
+      [
+        "Works",
+        "Remotely and on calls, in Hindi or English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "The commercial gateway to Kumaon",
+        "body": [
+          "Haldwani is the largest commercial city in Kumaon and the gateway to Nainital and the hills, with shops, wholesalers, schools, coaching centres, clinics, hotels and travel businesses serving a wide region.",
+          "Many of its customers come from outside the city, and they find businesses by searching first. A clear, fast website, linked to a Google Business Profile, is how they find you instead of a competitor."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What a Haldwani website has to do",
+        "items": [
+          {
+            "title": "Serve the whole region",
+            "text": "Make it clear which areas you serve and how to reach you from the hills and the plains."
+          },
+          {
+            "title": "Work on slow connections",
+            "text": "Fast pages that load on patchy mobile data, wherever customers are."
+          },
+          {
+            "title": "Turn visits into calls",
+            "text": "One-tap calling, WhatsApp and directions on every page."
+          },
+          {
+            "title": "Show up locally",
+            "text": "Pages and a Google Business Profile set up so you appear when people search nearby."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "How a project runs",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Website developer in Moradabad",
+            "/website-developer-in-moradabad"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do you build websites for hotels and travel businesses?",
+        "a": "Yes. Rooms, packages, photographs and direct enquiries, built to work on a phone with a weak signal."
+      },
+      {
+        "q": "Do you build websites for businesses in Haldwani?",
+        "a": "Yes. The studio is in Moradabad, close to Haldwani, and projects run over calls, WhatsApp and email, with meetings where they help."
+      }
+    ],
+    "related": [],
+    "cta": "Tell me what the site has to do for your Haldwani business, and you will get a written quote with a timeline.",
+    "area": "Haldwani"
   }
 ]
