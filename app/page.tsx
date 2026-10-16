@@ -10,6 +10,7 @@ import './home-polish.css';
 import './studies.css';
 import { LazyLab } from '@/components/studies/lazy-lab';
 import { StoryMotion } from '@/components/story/story-motion';
+import { HomeFaq } from '@/components/home-faq';
 
 export const metadata=pageMetadata('/','Website Designer & Developer in Moradabad, India | Rushan Haque','Website designer & developer in Moradabad, India. Custom business websites, online stores and web apps, fast on mobile and built to rank on Google. Fixed written quote.');
 
@@ -27,6 +28,7 @@ export default async function Home(){
     <TypeWall/>
     <Person/>
     <Voices/>
+    <HomeFaq/>
     <LazyLab/>
     <StoryMotion/>
   </main></ContentProvider>;

@@ -101,6 +101,8 @@ export function ParticleHero() {
     const build = () => {
       const box = section.getBoundingClientRect();
       W = Math.round(box.width); H = Math.round(box.height);
+      // A hidden or not-yet-laid-out hero has no size to sample yet; try again shortly.
+      if (!W || !H) { window.setTimeout(() => { if (!disposed) { build(); wake(); } }, 400); return; }
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

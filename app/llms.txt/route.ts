@@ -30,10 +30,13 @@ export async function GET() {
 ${sourcePages.filter(p => p.kind === 'Service').map(p => line(p.title, '/' + p.slug, p.description)).join('\n')}
 
 ## Guides
-${guides.map(g => line(g.title, '/' + g.slug, g.description)).join('\n')}
+${guides.filter(g => !('group' in g)).map(g => line(g.title, '/' + g.slug, g.description)).join('\n')}
+
+## Industries
+${guides.filter(g => 'group' in g && g.group === 'industry').map(g => line(g.title, '/' + g.slug, g.description)).join('\n')}
 
 ## Areas served
-${sourcePages.filter(p => p.kind === 'Location').map(p => line(p.title, '/' + p.slug, p.description)).join('\n')}
+${[...sourcePages.filter(p => p.kind === 'Location'), ...guides.filter(g => 'group' in g && g.group === 'area')].map(p => line(p.title, '/' + p.slug, p.description)).join('\n')}
 
 ## Live client websites
 ${live.map(p => `- [${p.title}](${p.url}): ${p.description}`).join('\n')}

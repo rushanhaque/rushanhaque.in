@@ -126,7 +126,7 @@ export function SiteHeader({ workCount }: { workCount: number }) {
       </svg>
       <div className="gh-bar" ref={bar} onPointerMove={sheen}>
         <Link href="/" className="gh-brand">
-          <img className="gh-mark" src="/logo-header.webp" alt="Rushan Haque" width="360" height="186"/>
+          <img className="gh-mark" src="/logo-header-184.webp" srcSet="/logo-header-184.webp 184w, /logo-header-276.webp 276w" sizes="92px" alt="Rushan Haque" width="360" height="186"/>
         </Link>
         <nav className="gh-nav" ref={navRef} aria-label="Main" onPointerLeave={() => setHover(null)}>
           <span className="gh-pill" aria-hidden="true" style={pill ? { transform: `translateX(${pill.x}px)`, width: pill.w, opacity: 1 } : { opacity: 0 }}/>
