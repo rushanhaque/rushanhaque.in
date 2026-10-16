@@ -28,6 +28,4 @@
   .project-how-steps ol{grid-template-columns:1fr;gap:10px}
   .project-how-steps li{padding:20px 18px}
 }
-@supports (animation-timeline:view()){
-  html[data-motion=full] :is(.project-how-head,.project-how-steps li,.project-how-foot){animation:rh-reveal linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
-}
+/* Reveals: see reveal.css. */

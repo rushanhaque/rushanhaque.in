@@ -45,7 +45,18 @@ export function WorksDeck() {
     const section = root.current;
     if (!section || reduced) return;
     const mm = gsap.matchMedia();
-    mm.add('(min-height: 520px)', () => {
+    // The pinned deck is for a mouse and a tall screen. On touch screens the cards
+    // stack and scroll natively, so a swipe is never held by a pinned scene.
+    mm.add('not all and (min-height: 520px) and (hover: hover) and (pointer: fine)', () => {
+      gsap.utils.toArray<HTMLElement>('.tl-deck-card', section).forEach(card => {
+        if (card.getBoundingClientRect().top < window.innerHeight) return;
+        const img = card.querySelector('img');
+        gsap.timeline({ scrollTrigger: { trigger: card, start: 'top 92%', once: true } })
+          .fromTo(card, { opacity: 0, y: 32, clipPath: 'inset(8% 4% 0% 4% round 14px)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0% round 14px)', duration: 1.1, ease: 'power3.out', clearProps: 'opacity,transform,clipPath' })
+          .fromTo(img, { scale: 1.08 }, { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'transform' }, 0);
+      });
+    });
+    mm.add('(min-height: 520px) and (hover: hover) and (pointer: fine)', () => {
       // Switch to the pinned layout before anything is measured.
       section.classList.add('is-pinned');
       setPinned(true);
@@ -74,7 +85,7 @@ export function WorksDeck() {
   return <section id="selected-work" className={`tl-deck ${pinned ? 'is-pinned' : ''}`} ref={root} data-chapter="I — Recent work">
     <div className="tl-deck-head"><span className="tl-kicker">I — RECENT WORK</span><h2 suppressHydrationWarning>Recent <em>work.</em></h2><p className="tl-deck-sub">Websites I’ve built for clients recently. The archive has everything else.</p></div>
     <div className="tl-deck-ghosts" aria-hidden="true">{works.map(w => <span className="tl-deck-ghost" key={w.slug}>{`${w.title} · ${w.title} · ${w.title}`}</span>)}</div>
-    <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" inert={i !== active ? true : undefined}>
+    <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" inert={pinned && i !== active ? true : undefined}>
       <img src={work.image!} {...responsive(work.image, '(max-width: 899px) 92vw, 62vw')} alt="" width="1600" height="900" loading={i < 2 ? 'eager' : 'lazy'} decoding="async"/>
       <span className="tl-deck-card-index">W/{String(i + 1).padStart(2, '0')}</span>
       <span className="tl-deck-card-title">{work.title}<em>{STORIES[work.slug]?.line}</em></span>
@@ -106,9 +117,12 @@ export function VelocityMarquee({ words }: { words: string[] }) {
     const skew = gsap.quickTo(rows, 'skewX', { duration: .5, ease: 'power3.out' });
     // The loops only run while the ribbon is on screen.
     loops.forEach(l => l.pause());
+    // On touch screens the ribbon just runs: momentum scrolling would make it lurch.
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const st = ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', onToggle: self => loops.forEach(l => self.isActive ? l.resume() : l.pause()), onUpdate: self => {
+      if (!fine) return;
       const v = self.getVelocity();
-      skew(gsap.utils.clamp(-14, 14, v / -180));
+      skew(gsap.utils.clamp(-6, 6, v / -300));
       loops.forEach(l => gsap.to(l, { timeScale: (1 + Math.abs(v) / 260) * self.direction, duration: .2, overwrite: true, onComplete: () => { gsap.to(l, { timeScale: self.direction, duration: 1.2 }); skew(0); } }));
     } });
     return () => { st.kill(); loops.forEach(l => l.kill()); };
@@ -141,8 +155,10 @@ export function ServiceIndex() {
     const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
-      const drift = window.matchMedia('(max-width: 899px)').matches ? 6 : 18;
-      gsap.utils.toArray<HTMLElement>('.tl-wall-row').forEach((row, i) => gsap.fromTo(row, { xPercent: i % 2 ? drift : -drift }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 45%', scrub: .6 } }));
+      // Rows rise in once, a beat apart, as they arrive. Rows already on screen stay put.
+      const rows = gsap.utils.toArray<HTMLElement>('.tl-wall-row').filter(row => row.getBoundingClientRect().top >= window.innerHeight);
+      gsap.set(rows, { opacity: 0, y: 28 });
+      ScrollTrigger.batch(rows, { start: 'top 94%', once: true, onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, duration: .9, ease: 'power3.out', stagger: .07, clearProps: 'opacity,transform' }) });
     }, section);
     return () => ctx.revert();
   }, [reduced]);
@@ -182,7 +198,7 @@ export function Bookshelf() {
     const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
-      gsap.from('.tl-book', { y: -70, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: .09, scrollTrigger: { trigger: '.tl-shelf', start: 'top 80%', once: true } });
+      gsap.from('.tl-book', { y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: .08, scrollTrigger: { trigger: '.tl-shelf', start: 'top 80%', once: true } });
       gsap.from('.tl-shelf-plank', { scaleX: .6, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.tl-shelf', start: 'top 85%', once: true } });
     }, section);
     return () => ctx.revert();
@@ -349,7 +365,7 @@ export function Voices() {
     mm.add('(min-width: 900px) and (hover: hover) and (pointer: fine)', () => {
       const board = section.querySelector<HTMLElement>('.tl-board')!;
       const notes = gsap.utils.toArray<HTMLElement>('.tl-note', board);
-      gsap.from(notes, { y: 260, rotate: () => gsap.utils.random(-40, 40), opacity: 0, duration: 1.3, ease: 'expo.out', stagger: { each: .07, from: 'random' }, scrollTrigger: { trigger: board, start: 'top 75%', once: true } });
+      gsap.from(notes, { y: 90, rotate: () => gsap.utils.random(-8, 8), opacity: 0, duration: 1.2, ease: 'power3.out', stagger: { each: .06, from: 'random' }, scrollTrigger: { trigger: board, start: 'top 75%', once: true } });
       // Dragging is desktop-only, so its plugins load only here, and only once the board is near.
       let z = 10, live = true;
       let drags: { kill: () => void }[] = [];

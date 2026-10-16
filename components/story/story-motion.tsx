@@ -35,7 +35,7 @@ export function StoryMotion() {
       });
       gsap.utils.toArray<HTMLElement>('.tl .tl-kicker').forEach(k => {
         if (k.getBoundingClientRect().top < window.innerHeight * .9) return;
-        gsap.from(k, { opacity: 0, y: 14, letterSpacing: '.42em', duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: k, start: 'top 92%', once: true } });
+        gsap.from(k, { opacity: 0, y: 12, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: k, start: 'top 92%', once: true } });
       });
     });
     return () => ctx.revert();

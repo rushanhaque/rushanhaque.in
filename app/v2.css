@@ -127,15 +127,12 @@ html[data-motion=full] .page-intro h1 .intro-line>*{animation:rh-line-up 1.1s va
 html[data-motion=full] .page-intro h1 .intro-line+.intro-line>*{animation-delay:.09s}
 html[data-motion=full] .page-intro>p,html[data-motion=full] .page-intro>.eyebrow{animation:rh-fade-up .9s var(--ease-expo) .2s both}
 @keyframes rh-line-up{from{transform:translateY(105%) rotate(2deg)}to{transform:none}}
-@keyframes rh-fade-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes rh-fade-up{from{opacity:.01;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* Scroll-driven reveals replace the JavaScript version: no flash, no delay,
-   and content above the fold is simply already there. */
+/* Block reveals are timed, not scroll-linked: see reveal.css. */
 @supports (animation-timeline:view()){
-  html[data-motion=full] [data-reveal]{animation:rh-reveal linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
   html[data-motion=full] .reading-progress{animation:rh-progress linear both;animation-timeline:scroll(root)}
 }
-@keyframes rh-reveal{from{opacity:.01;translate:0 32px}to{opacity:1;translate:0 0}}
 @keyframes rh-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* View transitions between pages: a soft lift. */

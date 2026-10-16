@@ -98,7 +98,7 @@ html[data-motion=reduce] .tl-book,html[data-motion=reduce] .tl-book-3d,html[data
 .tl-role.is-code{font:500 13px/1 ui-monospace,Consolas,monospace;letter-spacing:0;opacity:.6}
 @media(max-width:799px){.tl-hero-roles{grid-column:1/-1;grid-row:1;justify-self:start;text-align:left;font-size:22px;margin-bottom:6px}}
 
-/* Recent works on phones: the same pinned stack, sized for a narrow screen. */
+/* Recent works in a narrow desktop window: the same pinned stack, sized down. (Touch screens get the stacked cards.) */
 @media(max-width:899px){
   .tl-deck.is-pinned .tl-deck-head{top:84px;left:var(--g);right:var(--g);max-width:none}
   .tl-deck.is-pinned .tl-deck-head h2{font-size:clamp(30px,9vw,44px);line-height:1}

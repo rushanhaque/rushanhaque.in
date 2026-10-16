@@ -154,7 +154,8 @@ export function ParticleHero() {
     };
     const wake = () => { if (!frame && visible) frame = requestAnimationFrame(draw); };
 
-    const move = (e: PointerEvent) => { const b = canvas.getBoundingClientRect(); pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.active = true; calm = 0; wake(); };
+    // Only a mouse stirs the particles: a finger on a phone is scrolling, not pointing.
+    const move = (e: PointerEvent) => { if (e.pointerType !== 'mouse') return; const b = canvas.getBoundingClientRect(); pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.active = true; calm = 0; wake(); };
     const leave = () => { pointer.active = false; calm = 0; wake(); };
     section.addEventListener('pointermove', move, { passive: true });
     section.addEventListener('pointerleave', leave);

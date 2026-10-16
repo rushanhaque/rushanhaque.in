@@ -118,10 +118,7 @@
 /* Recent work sits in the same rhythm. */
 .imported-page .sx-work{padding:clamp(64px,7.5vw,112px) 0;border-top:1px solid var(--sx-line)}
 
-/* Content settles in as it scrolls into view; anything on screen at load is simply there. */
-@supports (animation-timeline:view()){
-  html[data-motion=full] :is(.sx-head,.sx-rows li,.sx-steps li,.sx-faqs details,.sx-pills,.sx-prose,.sx-cta,.sx .guide-table){animation:rh-reveal linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
-}
+/* Reveals: see reveal.css. */
 
 @media(max-width:899px){
   .sx{grid-template-columns:minmax(0,1fr);gap:22px;padding:56px 0}

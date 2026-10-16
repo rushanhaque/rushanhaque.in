@@ -173,13 +173,7 @@ select:focus-visible, summary:focus-visible { outline: 2px solid var(--forest); 
 
 .archive-grid .project-image:has(img){aspect-ratio:auto}.archive-grid .project-image .liquid-hover{height:auto}.archive-grid .project-image img{height:auto;width:100%;object-fit:contain;aspect-ratio:auto}
 
-/* Inner pages: content settles in as it scrolls into view. Scroll-driven, so it costs no JavaScript;
-   anything already on screen at load is simply there. */
-@supports (animation-timeline:view()){
-  html[data-motion=full] :is(.source-section:not(:first-child),.guide-items li,.guide-steps li,.source-work-grid li,.archive-grid>div,.credential-card,.source-directory section){animation:rh-reveal linear both;animation-timeline:view();animation-range:entry 0% entry 42%}
-  html[data-motion=full] :is(.source-work-image,.archive-grid .project-image:has(img)) img{animation:rh-settle linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
-}
-@keyframes rh-settle{from{scale:1.14}to{scale:1}}
+/* Inner pages: blocks fade and rise once as they arrive. See reveal.css. */
 
 /* Small labels kept above 4.5:1 contrast. */
 .imported-page .source-facts li span{opacity:1;color:#4d5a52}
