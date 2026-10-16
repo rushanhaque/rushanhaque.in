@@ -33,7 +33,9 @@ export function siteGraph() {
         '@type': 'ProfessionalService', '@id': ids.business, name: 'Rushan Haque — Website Design & Development',
         alternateName: ['Rushan Haque', 'Rushan Haque Web Design'], url: siteOrigin,
         description: 'Website designer and web developer in Moradabad, Uttar Pradesh. Custom business websites, e-commerce stores, export catalogues and web applications, designed and built from scratch, fast and optimised for Google and AI search.',
-        image: `${siteOrigin}/og.jpg`, logo: `${siteOrigin}/logo.webp`,
+        image: `${siteOrigin}/og.jpg`, logo: `${siteOrigin}/logo.webp`, priceRange: '₹₹', currenciesAccepted: 'INR',
+        slogan: 'Websites designed and built from scratch, made to be found.',
+        knowsAbout: ['Website design', 'Web development', 'E-commerce websites', 'Local SEO', 'Website speed optimization'],
         telephone: phone.label.replace(/\s/g, ''), email,
         address: { '@type': 'PostalAddress', streetAddress: '94 Qazi Tola', addressLocality: 'Moradabad', addressRegion: 'Uttar Pradesh', postalCode: '244001', addressCountry: 'IN' },
         geo: { '@type': 'GeoCoordinates', latitude: 28.8386, longitude: 78.7733 },
@@ -64,7 +66,7 @@ export function servicePage({ path, name, description, area }: { path: string; n
   return {
     '@context': 'https://schema.org', '@type': 'Service', '@id': `${siteOrigin}${path}#service`, name, description, url: siteOrigin + path,
     serviceType: 'Website design and development', provider: { '@id': ids.business },
-    areaServed: area ? { '@type': 'City', name: area } : areas.map(name => ({ '@type': 'City', name })),
+    areaServed: area ? { '@type': area === 'India' ? 'Country' : 'City', name: area } : areas.map(name => ({ '@type': 'City', name })),
   };
 }
 

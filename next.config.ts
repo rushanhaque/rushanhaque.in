@@ -1,5 +1,6 @@
 import sourcePages from './content/source-pages.json';
 import projects from './content/projects.json';
+import { projectAccess } from './lib/project-access';
 import type { NextConfig } from "next";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -35,8 +36,10 @@ const nextConfig: NextConfig = {
   },
   async rewrites() { return [{ source: '/version.json', destination: '/api/version' }]; },
   async redirects(){return [
+    // One canonical host: the bare domain answers with a permanent move to www, so Google never sees two copies of each page.
+    {source:'/:path*',has:[{type:'host',value:'rushanhaque.in'}],destination:'https://www.rushanhaque.in/:path*',permanent:true},
     // Live client sites have no inner page; old links go straight to the site.
-    ...projects.filter(p=>p.category!=='Experiments'&&p.url&&p.status!=='Coming soon').map(p=>({source:`/projects/${p.slug}`,destination:p.url,permanent:true})),
+    ...projects.filter(p=>projectAccess(p as Parameters<typeof projectAccess>[0])==='visit').map(p=>({source:`/projects/${p.slug}`,destination:p.url,permanent:true})),
     ...sourcePages.map(page=>({source:`/${page.slug}.html`,destination:`/${page.slug}`,permanent:true})),
     {source:'/admin.html',destination:'/studio',permanent:true},
     {source:'/work',destination:'/projects',permanent:true},{source:'/index.html',destination:'/',permanent:true},{source:'/contact.html',destination:'/connect',permanent:true},{source:'/contact',destination:'/connect',permanent:true},{source:'/write-a-review',destination:'/reviews',permanent:true},

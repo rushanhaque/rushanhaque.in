@@ -12,7 +12,7 @@ export function GuidePage({ guide, projects }: { guide: Guide; projects: Project
   const path = '/' + guide.slug;
   const hi = guide.lang === 'hi';
   const page = guide.schema === 'article'
-    ? { '@context': 'https://schema.org', '@type': 'Article', '@id': `${siteOrigin}${path}#article`, headline: guide.title, description: guide.description, inLanguage: 'en-IN', url: siteOrigin + path, mainEntityOfPage: siteOrigin + path, datePublished: guide.updated, dateModified: guide.updated, image: `${siteOrigin}/og.jpg`, author: { '@id': ids.person }, publisher: { '@id': ids.person }, about: { '@id': ids.business } }
+    ? { '@context': 'https://schema.org', '@type': 'Article', '@id': `${siteOrigin}${path}#article`, headline: guide.title, description: guide.description, inLanguage: hi ? 'hi-IN' : 'en-IN', url: siteOrigin + path, mainEntityOfPage: siteOrigin + path, datePublished: guide.updated, dateModified: guide.updated, image: `${siteOrigin}/og.jpg`, author: { '@id': ids.person }, publisher: { '@id': ids.person }, about: { '@id': ids.business } }
     : { ...servicePage({ path, name: guide.title, description: guide.description, area: guide.area }), inLanguage: hi ? 'hi-IN' : 'en-IN' };
   const faqLabel = String(guide.sections.length + 1).padStart(2, '0');
   return <main id="main-content" className="imported-page guide-page" lang={hi ? 'hi' : undefined}>

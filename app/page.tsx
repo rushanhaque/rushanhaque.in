@@ -11,7 +11,7 @@ import './studies.css';
 import { LazyLab } from '@/components/studies/lazy-lab';
 import { StoryMotion } from '@/components/story/story-motion';
 
-export const metadata=pageMetadata('/','Rushan Haque — Project Manager & Full-Stack Developer','Project manager and full-stack developer in Moradabad, India. Client websites and software, delivered end to end, plus writing and research.');
+export const metadata=pageMetadata('/','Website Designer & Developer in Moradabad, India | Rushan Haque','Website designer & developer in Moradabad, India. Custom business websites, online stores and web apps, fast on mobile and built to rank on Google. Fixed written quote.');
 
 // "Two languages": the homepage told as one story, from code to verse.
 export default async function Home(){

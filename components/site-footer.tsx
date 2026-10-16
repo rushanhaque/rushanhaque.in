@@ -8,6 +8,7 @@ import { address, bookingUrl, email, phone, socials } from '@/lib/content';
 const columns = [
   { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
   { title: 'Websites', links: [['Website designer in Moradabad', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['For exporters', '/website-for-exporters-moradabad'], ['Website cost guide', '/website-cost-in-moradabad'], ['SEO & AI search', '/seo-services']] },
+  { title: 'Areas', links: [['All of India', '/website-designer-in-india'], ['Delhi NCR', '/website-designer-in-delhi-ncr'], ['Lucknow', '/website-designer-in-lucknow'], ['Bareilly', '/website-designer-in-bareilly'], ['Meerut', '/website-designer-in-meerut'], ['Rampur', '/website-designer-in-rampur']] },
 ];
 const NAME = 'Rushan Haque';
 

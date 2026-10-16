@@ -190,8 +190,8 @@ export function ParticleHero() {
 
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
-    <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque</h1>
-    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Project manager &amp; full-stack developer · Writer</span></div>
+    <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque — Website Designer &amp; Developer in Moradabad, India</h1>
+    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Website designer &amp; developer · Project manager</span></div>
     <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

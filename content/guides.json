@@ -318,6 +318,153 @@
     "cta": "Tell me about your business, and you will get a written quote with a timeline."
   },
   {
+    "slug": "website-designer-in-india",
+    "lang": "en",
+    "eyebrow": "India",
+    "title": "Freelance website designer in India",
+    "metaTitle": "Freelance Website Designer & Developer in India",
+    "description": "Freelance website designer & web developer in India. Custom business websites, online stores and web apps for every state, fast on mobile and built to rank on Google.",
+    "intro": "Custom websites for businesses anywhere in India, designed and built by one person from start to launch.",
+    "updated": "2026-10-16",
+    "schema": "service",
+    "facts": [
+      [
+        "Based in",
+        "Moradabad, Uttar Pradesh"
+      ],
+      [
+        "Serving",
+        "Clients across India and abroad"
+      ],
+      [
+        "Works",
+        "Remotely, on calls and WhatsApp, in Hindi or English"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "One person, the whole website",
+        "body": [
+          "Most agencies pass a project between a salesperson, a designer and a developer. Here the person you first speak to is the person who designs, writes the code, sets up the hosting and launches the site, so nothing is lost in a hand-over.",
+          "Clients have come from Moradabad, Delhi NCR, Lucknow and abroad. Where you are matters less than what the website has to do: bring in enquiries, sell products, or show buyers you are serious."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What you get, wherever you are",
+        "items": [
+          {
+            "title": "Built from scratch",
+            "text": "A design made for your business, not a reused template, with code you own."
+          },
+          {
+            "title": "Fast on real phones",
+            "text": "Pages tested on mid-range Android phones and mobile data, where most Indian customers browse."
+          },
+          {
+            "title": "Set up to be found",
+            "text": "Search-friendly pages, structured data, a sitemap, Google Search Console and help with your Google Business Profile."
+          },
+          {
+            "title": "Calls and WhatsApp built in",
+            "text": "One-tap calling, WhatsApp and enquiry forms on every page, so visits turn into conversations."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "What I build",
+        "body": [
+          "Business and company websites, e-commerce stores, product catalogues for exporters and manufacturers, landing pages for ad campaigns, and web applications such as dashboards and booking tools."
+        ],
+        "links": [
+          [
+            "Website design and development",
+            "/website-design-development"
+          ],
+          [
+            "E-commerce website development",
+            "/ecommerce-website-development"
+          ],
+          [
+            "Web application development",
+            "/web-application-development"
+          ],
+          [
+            "SEO services",
+            "/seo-services"
+          ]
+        ]
+      },
+      {
+        "label": "04",
+        "title": "How a remote project runs",
+        "steps": [
+          {
+            "title": "Tell me what it has to do",
+            "text": "On WhatsApp, by email or through the form. A few lines is enough."
+          },
+          {
+            "title": "A 30-minute call",
+            "text": "In Hindi or English, about the business and the people it serves."
+          },
+          {
+            "title": "A written quote",
+            "text": "Scope, cost and timeline in writing, before any work starts."
+          },
+          {
+            "title": "Build and launch",
+            "text": "You approve the design first and review progress on a live preview link; the site is handed over once it is live."
+          }
+        ],
+        "links": [
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Website builder vs web designer",
+            "/website-builder-vs-web-designer"
+          ],
+          [
+            "How to get a website made",
+            "/how-to-get-a-website-made"
+          ]
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Do you work with clients outside Moradabad?",
+        "a": "Yes. Most projects run entirely over calls, WhatsApp and email, with a live preview link so you can follow the work from anywhere in India or abroad."
+      },
+      {
+        "q": "How much does a website cost?",
+        "a": "It depends on the number of pages, features such as online payments or a product catalogue, and how much content needs writing. Every project gets a fixed, written quote with a timeline before work starts."
+      },
+      {
+        "q": "How long does it take to build a website?",
+        "a": "A landing page usually takes one to two weeks, a business website two to four weeks, and an e-commerce store or catalogue four to eight weeks."
+      },
+      {
+        "q": "Will my website show up on Google?",
+        "a": "Every site is built with search in mind: fast pages, clear headings, structured data and a sitemap, submitted to Google Search Console. Ranking also depends on your Google Business Profile, reviews and links from other sites, and I help you set those up."
+      },
+      {
+        "q": "Do I own the website?",
+        "a": "Yes. The domain, the hosting account and the code are yours once the project is paid for."
+      }
+    ],
+    "related": [
+      "website-design-development",
+      "website-designer-in-moradabad",
+      "website-cost-in-moradabad"
+    ],
+    "cta": "Tell me what your website has to do, wherever your business is, and you will get a written quote with a timeline.",
+    "area": "India"
+  },
+  {
     "slug": "website-cost-in-moradabad",
     "lang": "en",
     "eyebrow": "Cost guide",
@@ -826,6 +973,350 @@
       "website-cost-in-moradabad"
     ],
     "cta": "Not sure which you need? Tell me about the business and I will tell you honestly."
+  },
+  {
+    "slug": "how-to-get-a-website-made",
+    "lang": "en",
+    "eyebrow": "Guide",
+    "title": "How to get a website made for your business",
+    "metaTitle": "How to Get a Website Made for Your Business in India (2026)",
+    "description": "A step-by-step guide to getting a business website made in India: what to prepare, domain and hosting, choosing a designer, what to ask, and what happens after launch.",
+    "intro": "Everything to sort out before, during and after a website is built, in the order it actually happens.",
+    "updated": "2026-10-16",
+    "schema": "article",
+    "alternate": "/website-kaise-banwaye",
+    "facts": [
+      [
+        "For",
+        "Business owners in India"
+      ],
+      [
+        "Read time",
+        "About 6 minutes"
+      ],
+      [
+        "Also in",
+        "हिंदी"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "Start with what the website has to do",
+        "body": [
+          "Before colours or pages, write down the one or two things the website must achieve. Bring in enquiries on WhatsApp, sell products online, show export buyers a catalogue, or let parents find admission details. Every later decision follows from this.",
+          "Then list who it is for: local customers searching on their phones, buyers abroad comparing suppliers, or patients looking for timings. A website built for its real visitors does far more than one built to look impressive."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "What to prepare before you call anyone",
+        "items": [
+          {
+            "title": "Your business details",
+            "text": "Name, address, phone, WhatsApp, timings and the areas you serve, written exactly the same way everywhere."
+          },
+          {
+            "title": "Photos",
+            "text": "Real photos of your work, products, shop or team. Phone photos in good daylight are better than stock images."
+          },
+          {
+            "title": "The words",
+            "text": "A few lines about the business, each service or product, and the questions customers ask most. A designer can help write the rest."
+          },
+          {
+            "title": "Examples you like",
+            "text": "Two or three websites you like, and why. It saves a lot of back and forth."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "Domain, hosting and email",
+        "body": [
+          "The domain is your address, such as yourbusiness.in or yourbusiness.com. Register it in your own name with a registrar you can log in to, so it always belongs to you.",
+          "Hosting is where the website lives. A small, fast site costs very little to host. Business email such as you@yourbusiness.in is set up separately, usually through Google Workspace or Zoho."
+        ],
+        "table": {
+          "head": [
+            "Thing",
+            "What to check"
+          ],
+          "rows": [
+            [
+              "Domain",
+              "Registered in your name, with the login details in your hands"
+            ],
+            [
+              "Hosting",
+              "Fast in India, with SSL (the padlock) included"
+            ],
+            [
+              "Email",
+              "On your own domain, not a free address"
+            ],
+            [
+              "Code",
+              "Handed over to you once the project is paid for"
+            ]
+          ]
+        }
+      },
+      {
+        "label": "04",
+        "title": "Choosing who builds it",
+        "body": [
+          "You can use a website builder like Wix or Shopify yourself, hire an agency, or work with a freelance designer and developer. Builders are quick to start but charge monthly and are harder to rank. Agencies cost more and pass work between people. A freelancer who designs and codes keeps it in one pair of hands."
+        ],
+        "links": [
+          [
+            "Website builder vs web designer",
+            "/website-builder-vs-web-designer"
+          ],
+          [
+            "What decides the cost",
+            "/website-cost-in-moradabad"
+          ],
+          [
+            "Freelance website designer in India",
+            "/website-designer-in-india"
+          ],
+          [
+            "यह गाइड हिंदी में पढ़ें",
+            "/website-kaise-banwaye"
+          ]
+        ]
+      },
+      {
+        "label": "05",
+        "title": "Questions to ask before you pay",
+        "items": [
+          {
+            "title": "Is it built from scratch or from a template?",
+            "text": "Both can work, but you should know which one you are paying for."
+          },
+          {
+            "title": "Will I own the domain, hosting and code?",
+            "text": "The answer should be yes."
+          },
+          {
+            "title": "How fast will it load on a phone?",
+            "text": "Ask to see a past site tested on Google PageSpeed Insights."
+          },
+          {
+            "title": "What is included for Google?",
+            "text": "Page titles, structured data, a sitemap, Search Console and help with your Google Business Profile."
+          },
+          {
+            "title": "What does it cost after launch?",
+            "text": "Domain, hosting and email every year, and how changes are charged."
+          }
+        ]
+      },
+      {
+        "label": "06",
+        "title": "After the website goes live",
+        "steps": [
+          {
+            "title": "Submit it to Google",
+            "text": "Add the site to Google Search Console and submit the sitemap, so Google finds every page."
+          },
+          {
+            "title": "Set up your Google Business Profile",
+            "text": "Link it to the website. This is what puts you on Google Maps for searches nearby."
+          },
+          {
+            "title": "Ask customers for reviews",
+            "text": "Reviews on your Google Business Profile are one of the strongest local signals."
+          },
+          {
+            "title": "Keep it current",
+            "text": "Add new work, products and answers to common questions. Pages that stay useful keep ranking."
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "How do I get a website made for my business?",
+        "a": "Decide what the website has to do, prepare your business details, photos and a few lines of text, register a domain in your own name, then choose a website builder, an agency or a freelance designer and get a written quote before work starts."
+      },
+      {
+        "q": "How long does it take to make a website?",
+        "a": "A landing page usually takes one to two weeks, a business website two to four weeks, and an online store or catalogue four to eight weeks, depending on how ready the content is."
+      },
+      {
+        "q": "Do I need to know coding to get a website?",
+        "a": "No. A designer and developer handles the building. You only need to explain the business and approve the design."
+      },
+      {
+        "q": "Can I get a website made remotely?",
+        "a": "Yes. Projects can run entirely over calls, WhatsApp and email, with a live preview link to follow the work from anywhere in India."
+      },
+      {
+        "q": "How will customers find my website on Google?",
+        "a": "Through a fast, well-structured site submitted to Google Search Console, a Google Business Profile linked to it, customer reviews, and links from directories and other sites."
+      }
+    ],
+    "related": [
+      "website-designer-in-india",
+      "website-cost-in-moradabad",
+      "website-builder-vs-web-designer"
+    ],
+    "cta": "Tell me what your website has to do, and you will get a written quote with a timeline."
+  },
+  {
+    "slug": "website-kaise-banwaye",
+    "lang": "hi",
+    "eyebrow": "गाइड",
+    "title": "बिज़नेस के लिए वेबसाइट कैसे बनवाएं",
+    "metaTitle": "वेबसाइट कैसे बनवाएं — बिज़नेस वेबसाइट बनवाने की पूरी गाइड (2026)",
+    "description": "बिज़नेस के लिए वेबसाइट कैसे बनवाएं: क्या तैयार रखें, डोमेन और होस्टिंग, डिज़ाइनर कैसे चुनें, और वेबसाइट बनने के बाद Google पर कैसे दिखें।",
+    "intro": "वेबसाइट बनवाने से पहले, बनते समय और बनने के बाद क्या करना है, सही क्रम में।",
+    "updated": "2026-10-16",
+    "schema": "article",
+    "alternate": "/how-to-get-a-website-made",
+    "facts": [
+      [
+        "किसके लिए",
+        "भारत के बिज़नेस मालिक"
+      ],
+      [
+        "पढ़ने का समय",
+        "लगभग 6 मिनट"
+      ],
+      [
+        "भाषा",
+        "हिंदी और अंग्रेज़ी"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "पहले तय करें कि वेबसाइट को क्या करना है",
+        "body": [
+          "रंग और पेज से पहले, एक-दो बातें लिखें जो वेबसाइट को करनी हैं। WhatsApp पर इन्क्वायरी लाना, ऑनलाइन प्रोडक्ट बेचना, विदेशी खरीदारों को कैटलॉग दिखाना, या अभिभावकों को एडमिशन की जानकारी देना। बाकी हर फैसला इसी से तय होता है।",
+          "फिर लिखें कि वेबसाइट किसके लिए है: मोबाइल पर खोजने वाले लोकल ग्राहक, सप्लायर ढूंढ रहे विदेशी खरीदार, या टाइमिंग देखने वाले मरीज़।"
+        ]
+      },
+      {
+        "label": "02",
+        "title": "किसी को कॉल करने से पहले क्या तैयार रखें",
+        "items": [
+          {
+            "title": "बिज़नेस की जानकारी",
+            "text": "नाम, पता, फोन, WhatsApp, समय और जिन इलाकों में आप काम करते हैं, हर जगह एक जैसा लिखा हुआ।"
+          },
+          {
+            "title": "फोटो",
+            "text": "अपने काम, प्रोडक्ट, दुकान या टीम की असली फोटो। दिन की रोशनी में ली गई मोबाइल फोटो भी स्टॉक फोटो से बेहतर हैं।"
+          },
+          {
+            "title": "शब्द",
+            "text": "बिज़नेस, हर सर्विस या प्रोडक्ट के बारे में कुछ लाइनें, और ग्राहक जो सवाल सबसे ज़्यादा पूछते हैं।"
+          },
+          {
+            "title": "पसंद की वेबसाइटें",
+            "text": "दो-तीन वेबसाइटें जो आपको पसंद हैं, और क्यों।"
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "डोमेन, होस्टिंग और ईमेल",
+        "body": [
+          "डोमेन आपका पता है, जैसे yourbusiness.in या yourbusiness.com। इसे अपने नाम पर रजिस्टर करवाएं, ताकि यह हमेशा आपका रहे।",
+          "होस्टिंग वह जगह है जहाँ वेबसाइट रहती है। एक छोटी, तेज़ वेबसाइट की होस्टिंग बहुत सस्ती होती है। you@yourbusiness.in जैसा बिज़नेस ईमेल अलग से Google Workspace या Zoho पर बनता है।"
+        ],
+        "table": {
+          "head": [
+            "चीज़",
+            "क्या देखें"
+          ],
+          "rows": [
+            [
+              "डोमेन",
+              "आपके नाम पर, लॉगिन आपके पास"
+            ],
+            [
+              "होस्टिंग",
+              "भारत में तेज़, SSL (ताला) के साथ"
+            ],
+            [
+              "ईमेल",
+              "आपके अपने डोमेन पर"
+            ],
+            [
+              "कोड",
+              "पेमेंट के बाद आपको सौंपा जाए"
+            ]
+          ]
+        }
+      },
+      {
+        "label": "04",
+        "title": "वेबसाइट कौन बनाए",
+        "body": [
+          "आप Wix या Shopify जैसे बिल्डर पर खुद बना सकते हैं, एजेंसी को दे सकते हैं, या फ्रीलांस डिज़ाइनर और डेवलपर के साथ काम कर सकते हैं। बिल्डर जल्दी शुरू होते हैं पर हर महीने पैसे लेते हैं। एजेंसी महंगी होती है। जो फ्रीलांसर डिज़ाइन और कोड दोनों करता है, उसके साथ पूरा काम एक ही इंसान के हाथ में रहता है।"
+        ],
+        "links": [
+          [
+            "मुरादाबाद में वेबसाइट बनवाएं",
+            "/website-banwaye-moradabad"
+          ],
+          [
+            "Read this guide in English",
+            "/how-to-get-a-website-made"
+          ]
+        ]
+      },
+      {
+        "label": "05",
+        "title": "वेबसाइट बनने के बाद",
+        "steps": [
+          {
+            "title": "Google को बताएं",
+            "text": "वेबसाइट को Google Search Console में जोड़ें और sitemap सबमिट करें।"
+          },
+          {
+            "title": "Google Business Profile बनाएं",
+            "text": "इसे वेबसाइट से जोड़ें। इसी से आप Google Maps पर आस-पास की खोज में दिखते हैं।"
+          },
+          {
+            "title": "ग्राहकों से रिव्यू मांगें",
+            "text": "Google पर रिव्यू लोकल रैंकिंग के लिए सबसे ज़रूरी चीज़ों में से हैं।"
+          },
+          {
+            "title": "वेबसाइट अपडेट रखें",
+            "text": "नया काम, नए प्रोडक्ट और आम सवालों के जवाब जोड़ते रहें।"
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "बिज़नेस के लिए वेबसाइट कैसे बनवाएं?",
+        "a": "तय करें कि वेबसाइट को क्या करना है, बिज़नेस की जानकारी, फोटो और कुछ लाइनें तैयार रखें, अपने नाम पर डोमेन रजिस्टर करें, फिर बिल्डर, एजेंसी या फ्रीलांस डिज़ाइनर चुनें और काम शुरू होने से पहले लिखित कोटेशन लें।"
+      },
+      {
+        "q": "वेबसाइट बनने में कितना समय लगता है?",
+        "a": "लैंडिंग पेज 1–2 हफ्ते, बिज़नेस वेबसाइट 2–4 हफ्ते, और ई-कॉमर्स स्टोर या कैटलॉग 4–8 हफ्ते, कंटेंट कितना तैयार है उस पर निर्भर।"
+      },
+      {
+        "q": "क्या वेबसाइट बनवाने के लिए कोडिंग आनी चाहिए?",
+        "a": "नहीं। बनाने का काम डिज़ाइनर और डेवलपर करता है। आपको सिर्फ बिज़नेस समझाना और डिज़ाइन अप्रूव करना होता है।"
+      },
+      {
+        "q": "क्या दूसरे शहर से वेबसाइट बनवा सकते हैं?",
+        "a": "हाँ। पूरा प्रोजेक्ट कॉल, WhatsApp और ईमेल पर चल सकता है, और एक लाइव प्रीव्यू लिंक से आप भारत में कहीं से भी काम देख सकते हैं।"
+      }
+    ],
+    "related": [
+      "website-banwaye-moradabad",
+      "website-designer-in-india",
+      "website-cost-in-moradabad"
+    ],
+    "cta": "बताइए वेबसाइट को आपके बिज़नेस के लिए क्या करना है, और आपको समय-सीमा के साथ लिखित कोटेशन मिलेगा।"
   },
   {
     "slug": "website-banwaye-moradabad",
