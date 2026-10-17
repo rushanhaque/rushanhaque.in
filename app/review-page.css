@@ -1,4 +1,6 @@
 /* Write a review: the strip, the card, then what people said. */
+/* The hero clears the floating header itself, so the header spacer would only show as a pale strip. */
+body:has(main.rvp) .gh-spacer{display:none}
 .rvp{--ink:#07241a;--cream:#f3f1e6;--ease:cubic-bezier(.16,1,.3,1);background:#efece3;color:var(--ink);overflow-x:clip}
 .rvp-hero{position:relative;display:grid;place-items:center;min-height:100svh;padding:clamp(96px,12vh,128px) clamp(14px,3vw,48px) clamp(32px,6vh,72px);overflow:hidden}
 .rvp-marquee{position:absolute;inset:0;display:grid;align-content:center;gap:clamp(6px,1.4vw,22px);pointer-events:none;user-select:none}
