@@ -13,7 +13,7 @@ export const auditFormId = process.env.NEXT_PUBLIC_FORMSPREE_AUDIT_ID || '';
 export const socials = [
   {name:'LinkedIn',url:'https://www.linkedin.com/in/rushanhaque/'},
   {name:'GitHub',url:'https://github.com/rushanhaque'},
-  {name:'Instagram',url:'https://www.instagram.com/rushzxcvbnm/'},
+  {name:'Instagram',url:'https://www.instagram.com/rushan.haque/'},
   {name:'WhatsApp',url:phone.whatsapp},
 ];
 export const stats = [
