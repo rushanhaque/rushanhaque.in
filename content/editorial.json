@@ -1,6 +1,34 @@
 {
   "writings": [
     {
+      "slug": "borrowed-brilliance",
+      "title": "Borrowed brilliance",
+      "originalTitle": "Borrowed brilliance",
+      "category": "Research Paper",
+      "year": "2026",
+      "status": "Published",
+      "url": "https://doi.org/10.13140/RG.2.2.25183.83367",
+      "description": "A Thesis on the Erosion of Human Skill Through AI Dependency",
+      "paragraphs": [
+        "A Thesis on the Erosion of Human Skill Through AI Dependency"
+      ],
+      "source": "Rushan Haque"
+    },
+    {
+      "slug": "the-paradox-of-algorithmic-empathy",
+      "title": "The paradox of algorithmic empathy",
+      "originalTitle": "The paradox of algorithmic empathy",
+      "category": "Research paper",
+      "year": "2026",
+      "status": "Published",
+      "url": "https://zenodo.org/records/23289920",
+      "description": "Can a machine truly understand human suffering, or does it only sound like it does?",
+      "paragraphs": [
+        "Can a machine truly understand human suffering, or does it only sound like it does?"
+      ],
+      "source": "Rushan Haque"
+    },
+    {
       "slug": "feedback-loop-collapse",
       "title": "When AI learns from its own reflection.",
       "originalTitle": "Feedback Loop Collapse of Artificial Intelligence",
@@ -98,24 +126,24 @@
       "issuer": "Tata · Forage",
       "date": "March 2026",
       "id": "E5SARHyhTifjzDZN3",
-      "category": "Job simulations",
-      "image": "/images/credential-tata-job.png"
+      "image": "/images/credential-tata-job.png",
+      "category": "Job simulations"
     },
     {
       "title": "Technology Job Simulation",
       "issuer": "Deloitte Australia · Forage",
       "date": "February 2026",
       "id": "78H3JZrwNmRRaAuyP",
-      "category": "Job simulations",
-      "image": "/images/credential-deloitte-tech.png"
+      "image": "/images/credential-deloitte-tech.png",
+      "category": "Job simulations"
     },
     {
       "title": "Software Engineering Job Simulation",
       "issuer": "JPMorgan Chase · Forage",
       "date": "February 2026",
       "id": "6kr9s9QnyXZc26ybY",
-      "category": "Job simulations",
-      "image": "/images/credential-jpmorgan-se.png"
+      "image": "/images/credential-jpmorgan-se.png",
+      "category": "Job simulations"
     },
     {
       "title": "Google Play Store Listing",
@@ -129,8 +157,8 @@
       "issuer": "Cisco",
       "date": "October 2024",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-cisco-python.png"
+      "image": "/images/credential-cisco-python.png",
+      "category": "Training"
     },
     {
       "title": "Python Essentials 2",
@@ -144,88 +172,88 @@
       "issuer": "Oracle University",
       "date": "October 2025",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-oracle-cloud.png"
+      "image": "/images/credential-oracle-cloud.png",
+      "category": "Training"
     },
     {
       "title": "Oracle Fusion AI",
       "issuer": "Oracle University",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-oracle-fusion-ai.png"
+      "image": "/images/credential-oracle-fusion-ai.png",
+      "category": "Training"
     },
     {
       "title": "Gemini Certified Student — University",
       "issuer": "Google for Education",
       "date": "2026",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-google-gemini.png"
+      "image": "/images/credential-google-gemini.png",
+      "category": "Training"
     },
     {
       "title": "Model Context Protocol",
       "issuer": "Anthropic",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-anthropic-mcp.jpg"
+      "image": "/images/credential-anthropic-mcp.jpg",
+      "category": "Training"
     },
     {
       "title": "Claude Code in Action",
       "issuer": "Anthropic",
       "date": "March 2026",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-claude-ai.jpg"
+      "image": "/images/credential-claude-ai.jpg",
+      "category": "Training"
     },
     {
       "title": "Ethical Hacking Masterclass",
       "issuer": "See document",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-ethical-hacking.png"
+      "image": "/images/credential-ethical-hacking.png",
+      "category": "Training"
     },
     {
       "title": "Python Training",
       "issuer": "See document",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-python-training.png"
+      "image": "/images/credential-python-training.png",
+      "category": "Training"
     },
     {
       "title": "AI in Digital Marketing",
       "issuer": "See document",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-ai-digital-marketing.jpeg"
+      "image": "/images/credential-ai-digital-marketing.jpeg",
+      "category": "Training"
     },
     {
       "title": "AI Tools Workshop",
       "issuer": "See document",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-ai-tools-workshop.jpeg"
+      "image": "/images/credential-ai-tools-workshop.jpeg",
+      "category": "Training"
     },
     {
       "title": "Power BI Workshop",
       "issuer": "See document",
       "date": "See document",
       "id": "",
-      "category": "Training",
-      "image": "/images/credential-power-bi.jpeg"
+      "image": "/images/credential-power-bi.jpeg",
+      "category": "Training"
     },
     {
       "title": "DUCAT Visit",
       "issuer": "DUCAT",
       "date": "See document",
       "id": "",
-      "category": "Visits",
-      "image": "/images/credential-ducat-visit.png"
+      "image": "/images/credential-ducat-visit.png",
+      "category": "Visits"
     }
   ],
   "reviews": [
