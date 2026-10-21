@@ -69,8 +69,8 @@ export function SiteFooter() {
         <h2 suppressHydrationWarning id="ft-title">Got something <em>worth building?</em></h2>
         <p>Send the brief, or just the problem. I answer everything myself, usually within a day.</p>
         <div className="ft-actions">
-          <Link href="/connect" className="ft-btn is-solid">Start a project <ArrowUpRight size={17}/></Link>
-          <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="ft-btn">Book a call <ArrowUpRight size={17}/></a>
+          <span data-magnetic=".3"><Link href="/connect" className="ft-btn is-solid">Start a project <ArrowUpRight size={17}/></Link></span>
+          <span data-magnetic=".3"><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="ft-btn">Book a call <ArrowUpRight size={17}/></a></span>
         </div>
         <dl className="ft-details">
           <div><dt>Email</dt><dd><a href={`mailto:${email}?subject=Hello%20from%20your%20site`}>{email}</a></dd></div>

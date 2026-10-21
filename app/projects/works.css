@@ -9,7 +9,6 @@
 .wk-intro .eyebrow{text-transform:uppercase;margin-bottom:clamp(24px,3vw,36px)}
 .wk-intro h1{font-size:clamp(46px,7.6vw,124px);font-weight:450;letter-spacing:-.055em;line-height:.96;max-width:12.5ch;text-wrap:balance}
 .wk-intro h1 em{color:var(--wk-ink);letter-spacing:-.02em}
-html[data-motion=full] .wk-intro h1{animation:wk-rise 1.2s var(--wk-e) both}
 html[data-motion=full] .wk-intro-foot{animation:wk-fade 1s var(--wk-e) .25s both}
 .wk-intro-foot{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px clamp(40px,7vw,120px);margin-top:clamp(40px,5vw,72px);padding-top:28px;border-top:1px solid var(--wk-line)}
 .wk-intro-foot p{font-size:17px;line-height:1.7;color:var(--wk-soft);max-width:46ch}
@@ -18,14 +17,15 @@ html[data-motion=full] .wk-intro-foot{animation:wk-fade 1s var(--wk-e) .25s both
 .wk-intro-foot dl>div:first-child{padding-top:0}
 .wk-intro-foot dt,.wk-meta dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--wk-soft);padding-top:2px}
 .wk-intro-foot dd,.wk-meta dd{margin:0}
-@keyframes wk-rise{from{opacity:0;translate:0 .25em;clip-path:inset(0 0 100% 0)}to{opacity:1;translate:0;clip-path:inset(-20% -5% -20% -5%)}}
 @keyframes wk-fade{from{opacity:0;translate:0 18px}}
 
 /* Chapters */
 .wk{margin-top:clamp(64px,9vw,128px)}
 .wk-list{list-style:none;margin:0;padding:0}
-.wk-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:center;gap:32px clamp(36px,5.5vw,96px);padding-block:clamp(48px,7vw,112px);border-top:1px solid var(--wk-line)}
-.wk-row:first-child{border-top:0;padding-top:0}
+.wk-row{position:relative;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:center;gap:32px clamp(36px,5.5vw,96px);padding-block:clamp(48px,7vw,112px)}
+.wk-row::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:var(--wk-line);transform-origin:left}
+.wk-row:first-child::before{display:none}
+.wk-row:first-child{padding-top:0}
 .wk-row.is-flip .wk-media{order:2}
 .wk-media{position:relative;display:block;border-radius:clamp(12px,1.4vw,18px)}
 .wk-media:hover .wk-frame img{transform:scale(1.035)}
@@ -49,6 +49,7 @@ html[data-motion=full] .wk-intro-foot{animation:wk-fade 1s var(--wk-e) .25s both
 /* The screenshot drifts a little against the frame as the chapter passes. */
 @supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){
   .wk-frame img{height:108%;animation:wk-drift linear both;animation-timeline:view();animation-range:cover}
+  html[data-motion=full] .wk-row[data-rv=in] .wk-frame img{animation:px-settle 2.1s var(--px-e) var(--rv-d,0s) backwards,wk-drift linear both;animation-timeline:auto,view();animation-range:normal,cover}
   @keyframes wk-drift{from{translate:0 0}to{translate:0 -7.4%}}
 }}
 
@@ -122,7 +123,6 @@ html[data-motion=full] .wk-intro-foot{animation:wk-fade 1s var(--wk-e) .25s both
 .pd-head .back-link{margin-bottom:clamp(36px,5vw,64px)}
 .pd-head .eyebrow{text-transform:uppercase}
 .pd-head h1{font-size:clamp(52px,8.4vw,140px);font-weight:450;letter-spacing:-.055em;line-height:.95;color:var(--forest)}
-html[data-motion=full] .pd-head h1{animation:wk-rise 1.2s var(--px-e) both}
 .pd-line{margin-top:14px}
 .pd-line em{font-size:clamp(22px,2.2vw,32px);color:var(--forest)}
 .pd-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px;margin-top:clamp(32px,4vw,52px);padding-block:20px;border-block:1px solid rgb(7 36 26 / .12)}
@@ -137,3 +137,19 @@ html[data-motion=full] .pd-head h1{animation:wk-rise 1.2s var(--px-e) both}
 .pd-draft .wb-sketch{padding:7% 8%;gap:clamp(16px,2.4vw,32px)}
 .pd-draft .wb-sketch b{font-size:clamp(24px,6vw,96px)}
 @media (max-width:700px){.pd-draft.wb-draft{aspect-ratio:4/3}}
+
+/* Chapter choreography: the rule draws, the window opens, then the story steps in line by line. */
+html[data-motion=full] .wk-row[data-rv=""]{opacity:1;translate:none}
+html[data-motion=full] .wk-row[data-rv=""]::before{scale:0 1}
+html[data-motion=full] .wk-row[data-rv=in]::before{transition:scale 1.6s var(--px-silk) var(--rv-d,0s)}
+html[data-motion=full] .wk-row[data-rv=""] .wk-info>:not(h3){opacity:0;translate:0 26px}
+html[data-motion=full] .wk-row[data-rv=in] .wk-info>*{transition:opacity .9s var(--wk-e) calc(var(--rv-d,0s) + var(--k,0) * 90ms + .25s),translate 1.2s var(--wk-e) calc(var(--rv-d,0s) + var(--k,0) * 90ms + .25s)}
+.wk-info>:nth-child(2){--k:1}.wk-info>:nth-child(3){--k:2}.wk-info>:nth-child(4){--k:3}.wk-info>:nth-child(5){--k:4}.wk-info>:nth-child(6){--k:5}
+.wk-info h3{--split-d:.3s}
+/* Intro details step in after the title. */
+html[data-motion=full] .wk-intro-foot dl>div{animation:wk-fade .9s var(--wk-e) both}
+.wk-intro-foot dl>div:nth-child(1){animation-delay:.45s}.wk-intro-foot dl>div:nth-child(2){animation-delay:.55s}.wk-intro-foot dl>div:nth-child(3){animation-delay:.65s}
+/* The building cards glow in cream. */
+.wb-card{--spot:rgb(243 241 230 / .09)}
+html[data-motion=full] .wb-head[data-rv=""] p{opacity:0;translate:0 20px}
+html[data-motion=full] .wb-head[data-rv=in] p{transition:opacity .9s var(--wk-e) .4s,translate 1.1s var(--wk-e) .4s}

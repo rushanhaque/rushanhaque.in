@@ -6,7 +6,11 @@ import { usePathname } from 'next/navigation';
 // arrive, on a timed ease rather than tied to the scroll position, so nothing
 // drifts under a finger on a phone. Anything already on screen when the page
 // loads is never touched, and nothing is hidden until this script has run, so
-// text paints in the first frame. Styles live in reveal.css.
+// text paints in the first frame. Styles live in reveal.css and premium.css.
+//
+// The same pass gives the site its smaller motions: split headings rise word by
+// word, labels decode like a departure board, numbers count up, cards glow under
+// the cursor and a few buttons lean towards it. None of it needs GSAP.
 const TARGETS = [
   '[data-reveal]',
   '.source-section:not(:first-child)', '.source-directory section', '.source-work-grid li',
@@ -17,6 +21,67 @@ const TARGETS = [
   '.rvp-top', '.rvp-rev', '.review-card',
   '.ft-cta', '.ft-cols>nav',
 ].join(',');
+// Split headings inside a block above play with that block (premium.css).
+const SPLITS = '[data-split=""]';
+const LABELS = ['.eyebrow', '.tl-kicker', '.wb-kicker', '.lab-kicker', '.sx-label-name', '.cn-kicker', '.sx-cta-label'].join(',');
+const COUNTS = '[data-count]';
+const GLYPHS = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+const finals = new WeakMap<Text, string>();
+
+const textsOf = (el: Element) => {
+  const out: Text[] = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  while (walk.nextNode()) { const t = walk.currentNode as Text; if (t.data.trim()) out.push(t); }
+  return out;
+};
+
+// Letters cycle through random glyphs, then settle from left to right. The label
+// keeps its height while it runs, so nothing below it moves.
+function decode(el: HTMLElement, ms = 950) {
+  if (el.dataset.dec === 'run') return;
+  const nodes = textsOf(el);
+  nodes.forEach(t => { if (finals.get(t) !== t.data) finals.set(t, t.data); });
+  const words = nodes.map(t => finals.get(t)!);
+  // Only Latin labels: random capitals over Devanagari would read as noise.
+  if (!words.length || words.some(w => /[^\x20-\x7E·—–’&]/.test(w))) return;
+  const total = words.reduce((n, w) => n + w.length, 0);
+  el.dataset.dec = 'run';
+  el.style.minHeight = `${el.offsetHeight}px`;
+  const start = performance.now();
+  const frame = (now: number) => {
+    const p = Math.min(1, (now - start) / ms);
+    let at = 0;
+    nodes.forEach((t, k) => {
+      let out = '';
+      for (const ch of words[k]) {
+        const settled = p >= .3 + .7 * (at++ / total);
+        const g = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        out += settled || !/[A-Za-z0-9]/.test(ch) ? ch : ch === ch.toLowerCase() && /[a-z]/.test(ch) ? g.toLowerCase() : g;
+      }
+      t.data = out;
+    });
+    if (p < 1) return requestAnimationFrame(frame);
+    nodes.forEach((t, k) => { t.data = words[k]; });
+    el.style.minHeight = '';
+    el.dataset.dec = 'done';
+  };
+  requestAnimationFrame(frame);
+}
+
+// Counts up to the number the page already shows, keeping its leading zero and decimals.
+function countUp(el: HTMLElement, ms = 1600) {
+  const t = textsOf(el)[0];
+  const m = t?.data.match(/^(\D*)(\d+(?:\.\d+)?)([^]*)$/);
+  if (!t || !m) return;
+  const [, pre, num, post] = m, end = parseFloat(num), dec = (num.split('.')[1] ?? '').length, width = num.length;
+  const start = performance.now();
+  const frame = (now: number) => {
+    const p = Math.min(1, (now - start) / ms), v = end * (1 - Math.pow(2, -10 * p));
+    t.data = pre + (p < 1 ? v : end).toFixed(dec).padStart(width, '0') + post;
+    if (p < 1) requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+
 
 export function Reveal() {
   const pathname = usePathname();
@@ -33,8 +98,28 @@ export function Reveal() {
         });
     }, { rootMargin: '0px 0px -6% 0px' });
 
+    // Labels and numbers play once each, the moment they are on screen.
+    const seen = new WeakSet<Element>();
+    const once = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      once.unobserve(el);
+      if (el.matches(COUNTS)) countUp(el); else decode(el);
+    }), { rootMargin: '0px 0px -8% 0px' });
+
     const scan = () => {
       const fold = window.innerHeight;
+      document.querySelectorAll<HTMLElement>(`${LABELS},${COUNTS}`).forEach(el => {
+        if (seen.has(el)) return;
+        seen.add(el);
+        once.observe(el);
+      });
+      document.querySelectorAll<HTMLElement>(SPLITS).forEach(el => {
+        if (el.dataset.rv !== undefined || el.closest(TARGETS)) return;
+        if (el.getBoundingClientRect().top < fold) { el.dataset.rv = 'in'; return; }
+        el.dataset.rv = '';
+        io.observe(el);
+      });
       document.querySelectorAll<HTMLElement>(TARGETS).forEach(el => {
         if (el.dataset.rv === 'in') return;
         // Still waiting from an earlier pass (a re-run of this effect): watch it again.
@@ -61,7 +146,42 @@ export function Reveal() {
     // Never leave anything hidden in a printout.
     const print = () => document.querySelectorAll<HTMLElement>('[data-rv=""]').forEach(el => { el.dataset.rv = 'in'; });
     window.addEventListener('beforeprint', print);
-    return () => { io.disconnect(); mo.disconnect(); clearTimeout(timer); clearTimeout(sweep); window.removeEventListener('scroll', onScroll); window.removeEventListener('beforeprint', print); };
+    // On a desktop, hovering a label decodes it again.
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const hover = (e: PointerEvent) => { const el = (e.target as Element).closest?.<HTMLElement>(LABELS); if (el) decode(el, 700); };
+    if (fine) document.addEventListener('pointerover', hover);
+    return () => { io.disconnect(); once.disconnect(); mo.disconnect(); document.removeEventListener('pointerover', hover); clearTimeout(timer); clearTimeout(sweep); window.removeEventListener('scroll', onScroll); window.removeEventListener('beforeprint', print); };
   }, [pathname]);
+
+  // Cards marked .spot carry a soft glow under the cursor, and anything marked
+  // data-magnetic leans towards it. One listener for the page, one write per frame.
+  useEffect(() => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    let frame = 0, last: PointerEvent | null = null, pulled: HTMLElement | null = null;
+    const offset = new WeakMap<HTMLElement, [number, number]>();
+    const release = () => {
+      if (!pulled) return;
+      pulled.classList.remove('is-pulled'); pulled.style.translate = ''; offset.delete(pulled); pulled = null;
+    };
+    const apply = () => {
+      frame = 0;
+      const e = last!, target = e.target as Element;
+      const spot = target.closest?.<HTMLElement>('.spot');
+      if (spot) { const r = spot.getBoundingClientRect(); spot.style.setProperty('--mx', `${e.clientX - r.left}px`); spot.style.setProperty('--my', `${e.clientY - r.top}px`); }
+      const mag = target.closest?.<HTMLElement>('[data-magnetic]') ?? null;
+      if (mag !== pulled) release();
+      if (!mag) return;
+      // Measure from where the element would sit unpulled, so it never chases itself.
+      const [dx, dy] = offset.get(mag) ?? [0, 0], r = mag.getBoundingClientRect(), k = Number(mag.dataset.magnetic) || .3;
+      const x = (e.clientX - (r.left - dx + r.width / 2)) * k, y = (e.clientY - (r.top - dy + r.height / 2)) * k;
+      offset.set(mag, [x, y]); pulled = mag; mag.classList.add('is-pulled');
+      mag.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+    };
+    const move = (e: PointerEvent) => { last = e; if (!frame) frame = requestAnimationFrame(apply); };
+    const out = (e: PointerEvent) => { if (!e.relatedTarget) release(); };
+    document.addEventListener('pointermove', move, { passive: true });
+    document.addEventListener('pointerout', out);
+    return () => { cancelAnimationFrame(frame); release(); document.removeEventListener('pointermove', move); document.removeEventListener('pointerout', out); };
+  }, []);
   return null;
 }

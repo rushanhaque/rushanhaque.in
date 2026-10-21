@@ -4,6 +4,7 @@ import { responsive } from '@/lib/images';
 import type { Project } from '@/lib/content';
 import { projectAccess, projectLink } from '@/lib/project-access';
 import { hostOf, storyOf } from '@/lib/work-stories';
+import { Split } from '@/components/split';
 
 const two = (n: number) => String(n).padStart(2, '0');
 
@@ -29,7 +30,7 @@ export function WorksList({ works }: { works: Project[] }) {
         </Link>
         <div className="wk-info">
           <span className="wk-n">{two(i + 1)}<small>/ {two(works.length)}</small></span>
-          <h3 suppressHydrationWarning>{p.title}</h3>
+          <Split as="h3" text={p.title}/>
           <p className="wk-line"><em>{story.line}</em></p>
           <p className="wk-desc">{p.description}</p>
           <dl className="wk-meta">
@@ -61,12 +62,12 @@ export function BuildingList({ items }: { items: Project[] }) {
     <div className="container">
       <div className="wb-head" data-reveal>
         <span className="wb-kicker"><i/>IN THE STUDIO NOW</span>
-        <h2 id="wb-title" suppressHydrationWarning>Currently <em>building.</em></h2>
+        <Split id="wb-title" text="Currently *building.*"/>
         <p>Sites being designed and coded right now. Each one moves up into the works above the day it launches.</p>
       </div>
       <ul className="wb-grid">
         {items.map(p => <li key={p.slug} data-reveal>
-          <Link {...projectLink(p)} className="wb-card">
+          <Link {...projectLink(p)} className="wb-card spot">
             <DraftWindow project={p}/>
             <span className="wb-body">
               <span className="wb-status"><i/>{p.status}<small>{p.year}</small></span>
@@ -76,7 +77,7 @@ export function BuildingList({ items }: { items: Project[] }) {
             </span>
           </Link>
         </li>)}
-        <li data-reveal><Link href="/connect" className="wb-card is-open">
+        <li data-reveal><Link href="/connect" className="wb-card is-open spot">
           <span className="wb-slot" aria-hidden="true"><span>{two(items.length + 1)}</span></span>
           <span className="wb-body">
             <span className="wb-status is-idle"><i/>Next in line</span>

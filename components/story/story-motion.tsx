@@ -2,9 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import { useMotion } from '@/components/site-motion';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 type Chapter = { label: string; el: HTMLElement; dark: boolean };
 const anchorOf = (el: HTMLElement) => (el.parentElement?.classList.contains('pin-spacer') ? el.parentElement : el) as HTMLElement;
@@ -15,8 +16,8 @@ const isDark = (el: HTMLElement) => {
   return a > .5 && (.2126 * r + .7152 * g + .0722 * b) / 255 < .5;
 };
 
-// The homepage's connective tissue: headings rise out of a mask as each
-// chapter arrives, and a rail
+// The homepage's connective tissue: headings are set line by line as each
+// chapter arrives (its label decodes itself, see components/reveal.tsx), and a rail
 // on the left keeps track of where you are in the story.
 export function StoryMotion() {
   const { reduced } = useMotion();
@@ -26,17 +27,20 @@ export function StoryMotion() {
 
   useEffect(() => {
     if (reduced) return;
-    // Each heading rises out of its own baseline: a clip that grows as the heading lifts,
-    // so the text never changes shape and the one-line heading fit is untouched.
+    // Each heading is set line by line: every line rises out of its own mask and
+    // un-tilts, like type being set. Once it lands the split is undone, so the
+    // one-line heading fit and any later resize see plain text again.
+    // Section leads follow a beat later, rising out of a soft blur on desktops.
     const ctx = gsap.context(() => {
+      const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       gsap.utils.toArray<HTMLElement>('.tl h2').forEach(h => {
         if (h.getBoundingClientRect().top < window.innerHeight * .9) return;
-        gsap.fromTo(h, { yPercent: 70, clipPath: 'inset(-30% -8% 100% -8%)' }, { yPercent: 0, clipPath: 'inset(-30% -8% -30% -8%)', duration: 1.25, ease: 'expo.out', clearProps: 'transform,clipPath', scrollTrigger: { trigger: h, start: 'top 90%', once: true } });
+        const split = SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'tl-line' });
+        gsap.from(split.lines, { yPercent: 118, rotate: 3.5, transformOrigin: '0% 100%', duration: 1.45, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%', once: true }, onComplete: () => split.revert() });
       });
-      gsap.utils.toArray<HTMLElement>('.tl .tl-kicker').forEach(k => {
-        if (k.getBoundingClientRect().top < window.innerHeight * .9) return;
-        gsap.from(k, { opacity: 0, y: 12, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: k, start: 'top 92%', once: true } });
-      });
+      const leads = gsap.utils.toArray<HTMLElement>('.tl-sw-head p, .tl-process-head p, .tl-wall-intro, .tl-writing-head p, .tl-build-head p, .tl-voices-actions, .tl-process-foot, .tl-sw-foot').filter(el => el.getBoundingClientRect().top >= window.innerHeight);
+      gsap.set(leads, fine ? { opacity: 0, y: 44, filter: 'blur(8px)' } : { opacity: 0, y: 36 });
+      ScrollTrigger.batch(leads, { start: 'top 90%', once: true, onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, ...(fine ? { filter: 'blur(0px)' } : {}), duration: 1.25, delay: .15, stagger: .1, ease: 'expo.out', clearProps: 'filter,transform,opacity' }) });
     });
     return () => ctx.revert();
   }, [reduced]);

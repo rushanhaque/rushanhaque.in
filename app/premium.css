@@ -34,9 +34,55 @@ h3,h4{text-wrap:balance}
 /* Service pages: recent work sits in the same window as on the Works page. */
 .source-work-card .wk-shot{box-shadow:0 1px 0 rgb(7 36 26 / .05),0 30px 60px -40px rgb(7 36 26 / .4)}
 .source-work-card:hover .wk-frame img{transform:scale(1.035)}
-html[data-motion=full] [data-rv] .source-work-card .wk-shot{transition:clip-path 1.2s var(--rv-ease-long) var(--rv-d,0s)}
-html[data-motion=full] [data-rv=""] .source-work-card .wk-shot{clip-path:inset(10% 4% 0 4% round 14px)}
-html[data-motion=full] [data-rv=in] .source-work-card .wk-shot{clip-path:inset(0 round 14px)}
 
 /* Every button is a pill, as in the header and footer. */
 .button{border-radius:99px;padding-inline:24px}
+
+/* --------------------------------------------------------------------------
+   Motion vocabulary, sitewide (components/reveal.tsx and components/split.tsx).
+   Borrowed from the studio's other sites: words that rise and un-tilt out of
+   their masks, windows that open like a shutter, dark chapters that arrive as
+   a sheet, cards that glow under the cursor, buttons that lean towards it.
+   Everything runs on transform, opacity and clip-path.
+   -------------------------------------------------------------------------- */
+:root{--px-silk:cubic-bezier(.7,0,.15,1)}
+
+/* Split headings */
+[data-split] .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .08em .14em;margin:0 -.08em -.14em}
+[data-split] .w>span{display:inline-block;transform-origin:0 100%}
+html[data-motion=full] [data-split=hero] .w>span{animation:px-word 1.35s var(--px-e) calc(var(--i,0) * 55ms + .05s) both}
+html[data-motion=full] :is([data-split][data-rv=""],[data-rv=""] [data-split]) .w>span{translate:0 115%;rotate:4deg}
+html[data-motion=full] :is([data-split][data-rv=in],[data-rv=in] [data-split]) .w>span{transition:translate 1.3s var(--px-e) calc(var(--i,0) * 45ms + var(--rv-d,0s) + var(--split-d,0s)),rotate 1.3s var(--px-e) calc(var(--i,0) * 45ms + var(--rv-d,0s) + var(--split-d,0s))}
+@keyframes px-word{from{translate:0 115%;rotate:4deg}}
+
+/* Browser windows open like a shutter while the page inside settles from a zoom.
+   Played as animations that fill backwards only, so once open the window keeps its shadow. */
+html[data-motion=full] [data-rv=""] .wk-shot{clip-path:inset(14% 9% 14% 9% round 28px)}
+html[data-motion=full] [data-rv=""] .wk-frame img{scale:1.3}
+html[data-motion=full] [data-rv=in] .wk-shot{animation:px-window 1.6s var(--px-silk) var(--rv-d,0s) backwards}
+html[data-motion=full] [data-rv=in] .wk-frame img{animation:px-settle 2.1s var(--px-e) var(--rv-d,0s) backwards}
+html[data-motion=full] .pd-media .wk-shot,html[data-motion=full] .pd-media .wb-draft{animation:px-window 1.7s var(--px-silk) .25s backwards}
+html[data-motion=full] .pd-media .wk-frame img{animation:px-settle 2.2s var(--px-e) .25s backwards}
+@keyframes px-window{from{clip-path:inset(14% 9% 14% 9% round 28px)}to{clip-path:inset(0 round 18px)}}
+@keyframes px-settle{from{scale:1.3}}
+
+/* Dark chapters arrive as a sheet: inset and rounded, flattening to full bleed as they fill the screen. */
+@supports (animation-timeline:view()){@media (min-width:1024px) and (hover:hover) and (pointer:fine){
+  html[data-motion=full] :is(.wb,.tl-voices){animation:px-sheet linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+}}
+@keyframes px-sheet{from{clip-path:inset(0 2.6% 0 2.6% round 56px 56px 0 0)}to{clip-path:inset(0 0 0 0 round 0)}}
+
+/* A soft glow that follows the cursor across a card. */
+.spot{position:relative;isolation:isolate}
+.spot::after{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(440px circle at var(--mx,50%) var(--my,50%),var(--spot,rgb(7 36 26 / .07)),transparent 65%);opacity:0;transition:opacity .5s}
+.spot:hover::after{opacity:1}
+
+/* Buttons that lean towards the cursor (wrap them; the buttons themselves never move). */
+[data-magnetic]{display:inline-flex;transition:translate .9s var(--px-e)}
+[data-magnetic].is-pulled{transition:translate .35s cubic-bezier(.2,.7,.3,1)}
+
+/* Labels hold their place while they decode. */
+:is(.eyebrow,.tl-kicker,.wb-kicker,.sx-label-name,.cn-kicker)[data-dec=run]{font-variant-numeric:tabular-nums}
+
+/* Page intros are split headings now; the older whole-title entrance stands down. */
+html[data-motion=full] .page-intro h1[data-split]{animation:none}

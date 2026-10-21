@@ -74,7 +74,9 @@ export function SelectedWork() {
   const works = projects.filter(p => placementOf(p) === 'work' && p.image);
   const building = projects.filter(p => placementOf(p) === 'building');
   const list = useRef<HTMLOListElement>(null);
+  const stage = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState(0);
+  const { reduced } = useMotion();
 
   // The chapter crossing the middle of the screen is the one in the window.
   useEffect(() => {
@@ -83,6 +85,27 @@ export function SelectedWork() {
     items.forEach(item => io.observe(item));
     return () => io.disconnect();
   }, [works.length]);
+
+  // On a desktop the window opens like a shutter the first time it comes into view,
+  // the site inside settling from a zoom, and then tilts a few degrees under the cursor.
+  useEffect(() => {
+    const win = stage.current;
+    if (!win || reduced) return;
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 1024px)', () => {
+      gsap.timeline({ scrollTrigger: { trigger: win, start: 'top 88%', once: true } })
+        .fromTo(win.querySelector('.wk-shot'), { clipPath: 'inset(16% 12% 16% 12% round 30px)' }, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.7, ease: 'expo.inOut', clearProps: 'clipPath' })
+        .fromTo(win.querySelector('.tl-sw-frames'), { scale: 1.35 }, { scale: 1, duration: 2.1, ease: 'expo.out', clearProps: 'transform' }, 0);
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      gsap.set(win, { transformPerspective: 1400 });
+      const rx = gsap.quickTo(win, 'rotationX', { duration: .9, ease: 'power3.out' }), ry = gsap.quickTo(win, 'rotationY', { duration: .9, ease: 'power3.out' });
+      const move = (e: PointerEvent) => { const r = win.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - .5) * 7); rx(((e.clientY - r.top) / r.height - .5) * -6); };
+      const leave = () => { rx(0); ry(0); };
+      win.addEventListener('pointermove', move); win.addEventListener('pointerleave', leave);
+      return () => { win.removeEventListener('pointermove', move); win.removeEventListener('pointerleave', leave); };
+    });
+    return () => mm.revert();
+  }, [reduced]);
 
   const current = works[active];
   if (!current) return null;
@@ -107,7 +130,7 @@ export function SelectedWork() {
         </li>;
       })}</ol>
       <div className="tl-sw-stage">
-        <Link {...projectLink(current)} className="tl-sw-window" tabIndex={-1} aria-hidden="true">
+        <Link {...projectLink(current)} className="tl-sw-window" ref={stage} tabIndex={-1} aria-hidden="true">
           <span className="wk-shot">
             <span className="wk-bar"><i/><i/><i/><span key={current.slug}>{hostOf(current.url) || current.title.toLowerCase()}</span></span>
             <span className="tl-sw-frames">{works.map((w, i) => <span key={w.slug} className={i < active ? 'is-past' : i === active ? 'is-on' : ''}>
@@ -124,8 +147,8 @@ export function SelectedWork() {
       </div>
     </div>
     <div className="tl-sw-foot">
-      {building.length > 0 && <Link href="/projects#building" className="tl-sw-now"><i/><span>Now building</span><b>{building.map(b => b.title).join(', ')}</b><ArrowUpRight size={16}/></Link>}
-      <Link href="/projects" className="tl-sw-all"><span>All <em>works</em></span><b>{two(works.length)}<ArrowUpRight size={30} strokeWidth={1.5}/></b></Link>
+      {building.length > 0 && <Link href="/projects#building" className="tl-sw-now" data-magnetic=".25"><i/><span>Now building</span><b>{building.map(b => b.title).join(', ')}</b><ArrowUpRight size={16}/></Link>}
+      <Link href="/projects" className="tl-sw-all" data-magnetic=".2"><span>All <em>works</em></span><b><span data-count>{two(works.length)}</span><ArrowUpRight size={30} strokeWidth={1.5}/></b></Link>
     </div>
   </section>;
 }
@@ -155,13 +178,13 @@ export function Process() {
       <h2 suppressHydrationWarning>From hello <em>to handover.</em></h2>
       <p>One person from the first call to the last fix, so nothing gets lost between a salesperson, a designer and a developer.</p>
     </div>
-    <ol className="tl-steps">{STEPS.map(([title, text, tag], i) => <li key={title} style={{ '--i': i } as React.CSSProperties}>
+    <ol className="tl-steps">{STEPS.map(([title, text, tag], i) => <li key={title} className="spot" style={{ '--i': i } as React.CSSProperties}>
       <span className="tl-step-dot" aria-hidden="true"/>
       <span className="tl-step-n">{two(i + 1)}</span>
       <h3>{title}</h3>
       <p>{text}</p>
       <small>{tag}</small>
     </li>)}</ol>
-    <div className="tl-process-foot"><Link href="/connect" className="tl-button">Start with a conversation <ArrowUpRight size={16}/></Link><Link href="/website-cost-in-moradabad" className="tl-link">What a website costs <ArrowUpRight size={16}/></Link></div>
+    <div className="tl-process-foot"><Link href="/connect" className="tl-button" data-magnetic=".3">Start with a conversation <ArrowUpRight size={16}/></Link><Link href="/website-cost-in-moradabad" className="tl-link">What a website costs <ArrowUpRight size={16}/></Link></div>
   </section>;
 }
