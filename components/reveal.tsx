@@ -9,8 +9,8 @@ import { usePathname } from 'next/navigation';
 // text paints in the first frame. Styles live in reveal.css and premium.css.
 //
 // The same pass gives the site its smaller motions: split headings rise word by
-// word, labels decode like a departure board, numbers count up, cards glow under
-// the cursor and a few buttons lean towards it. None of it needs GSAP.
+// word, labels decode like a departure board, numbers count up and cards glow
+// under the cursor. None of it needs GSAP.
 const TARGETS = [
   '[data-reveal]',
   '.source-section:not(:first-child)', '.source-directory section', '.source-work-grid li',
@@ -25,6 +25,8 @@ const TARGETS = [
 const SPLITS = '[data-split=""]';
 const LABELS = ['.eyebrow', '.tl-kicker', '.wb-kicker', '.lab-kicker', '.sx-label-name', '.cn-kicker', '.sx-cta-label'].join(',');
 const COUNTS = '[data-count]';
+// Footer links decode on hover only (they sit in their own rows, so nothing shifts).
+const HOVER = '.ft-cols a';
 const GLYPHS = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
 const finals = new WeakMap<Text, string>();
 
@@ -148,40 +150,25 @@ export function Reveal() {
     window.addEventListener('beforeprint', print);
     // On a desktop, hovering a label decodes it again.
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const hover = (e: PointerEvent) => { const el = (e.target as Element).closest?.<HTMLElement>(LABELS); if (el) decode(el, 700); };
+    const hover = (e: PointerEvent) => { const el = (e.target as Element).closest?.<HTMLElement>(`${LABELS},${HOVER}`); if (el) decode(el, 700); };
     if (fine) document.addEventListener('pointerover', hover);
     return () => { io.disconnect(); once.disconnect(); mo.disconnect(); document.removeEventListener('pointerover', hover); clearTimeout(timer); clearTimeout(sweep); window.removeEventListener('scroll', onScroll); window.removeEventListener('beforeprint', print); };
   }, [pathname]);
 
-  // Cards marked .spot carry a soft glow under the cursor, and anything marked
-  // data-magnetic leans towards it. One listener for the page, one write per frame.
+  // Cards marked .spot carry a soft glow under the cursor. One listener for the page, one write per frame.
   useEffect(() => {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    let frame = 0, last: PointerEvent | null = null, pulled: HTMLElement | null = null;
-    const offset = new WeakMap<HTMLElement, [number, number]>();
-    const release = () => {
-      if (!pulled) return;
-      pulled.classList.remove('is-pulled'); pulled.style.translate = ''; offset.delete(pulled); pulled = null;
-    };
+    let frame = 0, last: PointerEvent | null = null;
     const apply = () => {
       frame = 0;
-      const e = last!, target = e.target as Element;
-      const spot = target.closest?.<HTMLElement>('.spot');
-      if (spot) { const r = spot.getBoundingClientRect(); spot.style.setProperty('--mx', `${e.clientX - r.left}px`); spot.style.setProperty('--my', `${e.clientY - r.top}px`); }
-      const mag = target.closest?.<HTMLElement>('[data-magnetic]') ?? null;
-      if (mag !== pulled) release();
-      if (!mag) return;
-      // Measure from where the element would sit unpulled, so it never chases itself.
-      const [dx, dy] = offset.get(mag) ?? [0, 0], r = mag.getBoundingClientRect(), k = Number(mag.dataset.magnetic) || .3;
-      const x = (e.clientX - (r.left - dx + r.width / 2)) * k, y = (e.clientY - (r.top - dy + r.height / 2)) * k;
-      offset.set(mag, [x, y]); pulled = mag; mag.classList.add('is-pulled');
-      mag.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+      const e = last!, spot = (e.target as Element).closest?.<HTMLElement>('.spot');
+      if (!spot) return;
+      const r = spot.getBoundingClientRect();
+      spot.style.setProperty('--mx', `${e.clientX - r.left}px`); spot.style.setProperty('--my', `${e.clientY - r.top}px`);
     };
     const move = (e: PointerEvent) => { last = e; if (!frame) frame = requestAnimationFrame(apply); };
-    const out = (e: PointerEvent) => { if (!e.relatedTarget) release(); };
     document.addEventListener('pointermove', move, { passive: true });
-    document.addEventListener('pointerout', out);
-    return () => { cancelAnimationFrame(frame); release(); document.removeEventListener('pointermove', move); document.removeEventListener('pointerout', out); };
+    return () => { cancelAnimationFrame(frame); document.removeEventListener('pointermove', move); };
   }, []);
   return null;
 }

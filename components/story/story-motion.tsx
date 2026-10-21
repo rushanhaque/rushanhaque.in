@@ -34,9 +34,9 @@ export function StoryMotion() {
     const ctx = gsap.context(() => {
       const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       gsap.utils.toArray<HTMLElement>('.tl h2').forEach(h => {
-        if (h.getBoundingClientRect().top < window.innerHeight * .9) return;
+        if (h.getBoundingClientRect().top < window.innerHeight * .9 || h.closest('.tl-close')) return;
         const split = SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'tl-line' });
-        gsap.from(split.lines, { yPercent: 118, rotate: 3.5, transformOrigin: '0% 100%', duration: 1.45, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%', once: true }, onComplete: () => split.revert() });
+        gsap.from(split.lines, { yPercent: 118, rotate: 3.5, transformOrigin: '0% 100%', duration: 1.45, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%', once: true }, onComplete: () => { split.revert(); (window as Window & { __fitHeadings?: () => void }).__fitHeadings?.(); } });
       });
       const leads = gsap.utils.toArray<HTMLElement>('.tl-sw-head p, .tl-process-head p, .tl-wall-intro, .tl-writing-head p, .tl-build-head p, .tl-voices-actions, .tl-process-foot, .tl-sw-foot').filter(el => el.getBoundingClientRect().top >= window.innerHeight);
       gsap.set(leads, fine ? { opacity: 0, y: 44, filter: 'blur(8px)' } : { opacity: 0, y: 36 });

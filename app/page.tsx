@@ -5,7 +5,7 @@ import { Preloader, preloadScript } from '@/components/story/preloader';
 import { SmoothScroll } from '@/components/story/smooth-scroll';
 import { ParticleHero } from '@/components/story/particle-hero';
 import { VelocityMarquee, ServiceIndex, Bookshelf, TypeWall, Person, Voices } from '@/components/story/chapters';
-import { Manifesto, SelectedWork, Process } from '@/components/story/narrative';
+import { Manifesto, SelectedWork, Process, Encore } from '@/components/story/narrative';
 import './two-languages.css';
 import './home-polish.css';
 import './studies.css';
@@ -34,6 +34,7 @@ export default async function Home(){
     <Voices/>
     <HomeFaq/>
     <LazyLab/>
+    <Encore/>
     <StoryMotion/>
   </main></ContentProvider>;
 }

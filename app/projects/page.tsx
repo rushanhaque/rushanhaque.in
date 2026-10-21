@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { BuildingList, WorksList } from '@/components/works-showcase';
 import { getPublishedContent } from '@/lib/published-content';
 import { placementOf } from '@/lib/project-access';
@@ -22,6 +23,7 @@ export default async function Projects() {
         </dl>
       </div>
     </header>
+    <div className="wk-ticker" aria-hidden="true"><div>{[0, 1].map(k => <span key={k}>{works.map((p, i) => <Fragment key={p.slug}><b className={i % 2 ? 'is-serif' : 'is-line'}>{p.title}</b><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg></Fragment>)}</span>)}</div></div>
     <WorksList works={works}/>
     <BuildingList items={building}/>
   </main>;

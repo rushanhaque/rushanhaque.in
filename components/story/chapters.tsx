@@ -80,7 +80,7 @@ export function ServiceIndex() {
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="what-i-build" className="tl-wall" ref={root} data-chapter="III — What I build">
+  return <section id="what-i-build" className="tl-wall spot" ref={root} data-chapter="III — What I build">
     <div className="tl-wall-head">
       <span className="tl-kicker">III — WHAT I BUILD</span>
       <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
@@ -293,7 +293,7 @@ export function Voices() {
         gsap.registerPlugin(Draggable, InertiaPlugin);
         drags = Draggable.create(notes, { type: 'x,y', bounds: board, inertia: true, edgeResistance: .7,
           onPress() { (this.target as HTMLElement).style.zIndex = String(++z); gsap.to(this.target, { scale: 1.06, rotate: 0, boxShadow: '0 40px 60px -30px rgba(0,0,0,.6)', duration: .3 }); },
-          onRelease() { gsap.to(this.target, { scale: 1, rotate: gsap.utils.random(-6, 6), boxShadow: '0 18px 40px -26px rgba(0,0,0,.5)', duration: .6, ease: 'back.out(2)' }); } });
+          onRelease() { gsap.to(this.target, { scale: 1, rotate: 0, boxShadow: '0 18px 40px -26px rgba(0,0,0,.5)', duration: .7, ease: 'power3.out' }); } });
       } });
       return () => { live = false; arm.kill(); drags.forEach(d => d.kill()); };
     });
@@ -302,7 +302,7 @@ export function Voices() {
   return <section id="reviews" className="tl-voices" ref={root} data-chapter="VIII — Reviews">
     <div className="tl-voices-head">
       <div><span className="tl-kicker">VIII — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
-      <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients, in their own words</span></div>
+      <div className="tl-score"><b data-count>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients, in their own words</span></div>
     </div>
     <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note <ArrowUpRight size={18} strokeWidth={1.5}/></span><span className="is-touch">Swipe through the notes <ArrowRight size={17} strokeWidth={1.5}/></span><small className="is-touch">{reviews.length} NOTES</small></p>
     <div className="tl-board">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>

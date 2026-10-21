@@ -28,6 +28,7 @@ export function WorksList({ works }: { works: Project[] }) {
           <BrowserShot project={p} sizes="(max-width: 899px) 100vw, 60vw" eager={i === 0}/>
           <span className="wk-cursor" aria-hidden="true">{visit ? 'Visit site' : 'View project'}<ArrowUpRight size={15}/></span>
         </Link>
+        <span className="wk-bg-n" aria-hidden="true">{two(i + 1)}</span>
         <div className="wk-info">
           <span className="wk-n">{two(i + 1)}<small>/ {two(works.length)}</small></span>
           <Split as="h3" text={p.title}/>
@@ -58,7 +59,7 @@ export function DraftWindow({ project: p, sizes = '(max-width: 899px) 100vw, 50v
 // What is on the desk right now: each site drawn as a page still being laid out.
 export function BuildingList({ items }: { items: Project[] }) {
   if (!items.length) return null;
-  return <section id="building" className="wb" aria-labelledby="wb-title">
+  return <section id="building" className="wb spot" aria-labelledby="wb-title">
     <div className="container">
       <div className="wb-head" data-reveal>
         <span className="wb-kicker"><i/>IN THE STUDIO NOW</span>

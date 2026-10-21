@@ -10,7 +10,7 @@
 .tl-link:hover{background-size:100% 1px,100% 1px}
 .tl-link svg{transition:transform .6s var(--ease)}.tl-link:hover svg{transform:rotate(45deg)}
 .tl-button{display:inline-flex;align-items:center;gap:14px;padding:16px 24px;border-radius:99px;background:var(--signal);color:var(--ink);font-size:14px;font-weight:500;transition:transform .6s var(--ease),background .3s}
-.tl-button:hover{transform:translateY(-3px) rotate(-2deg);background:#fff}
+.tl-button:hover{background:#fff}
 body:has(.tl) .site-header{position:absolute;inset:0 0 auto;z-index:40;margin-inline:auto;border-bottom:0;background:transparent}
 body:has(.tl) .footer{margin-top:0}
 
