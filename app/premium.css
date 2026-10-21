@@ -1,0 +1,42 @@
+/* --------------------------------------------------------------------------
+   Premium layer, sitewide. Shared primitives first (the browser window that
+   frames every client site), then the finishing touches every page shares.
+   Loaded last, so it settles the earlier layers rather than fighting them.
+   -------------------------------------------------------------------------- */
+:root{--px-e:cubic-bezier(.16,1,.3,1)}
+
+/* Browser window */
+.wk-shot{display:block;border-radius:clamp(12px,1.4vw,18px);overflow:hidden;background:#e9e6dc;box-shadow:0 1px 0 rgb(7 36 26 / .05),0 2px 6px -2px rgb(7 36 26 / .08),0 50px 90px -48px rgb(7 36 26 / .45);isolation:isolate}
+.wk-bar{display:flex;align-items:center;gap:6px;height:clamp(28px,2.4vw,34px);padding:0 14px;background:#fbfaf6;border-bottom:1px solid rgb(7 36 26 / .07)}
+.wk-bar>i{width:9px;height:9px;border-radius:50%;background:#dcd8cb;flex:none}
+.wk-bar>span{margin:0 auto;translate:-24px 0;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px;letter-spacing:.01em;color:rgb(7 36 26 / .55);background:rgb(7 36 26 / .045);padding:4px 16px;border-radius:99px}
+.wk-frame{display:block;aspect-ratio:1600/772;overflow:hidden}
+.wk-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 1.4s var(--px-e)}
+
+@media (max-width:520px){.wk-bar>span{translate:-12px 0;font-size:10.5px;padding:3px 12px}.wk-bar>i{width:7px;height:7px}}
+
+/* Type that breaks well: no lone word on the last line of a paragraph, balanced small headings. */
+p,li,dd,blockquote{text-wrap:pretty}
+h3,h4{text-wrap:balance}
+
+/* Page eyebrows open with a short rule, like a chapter mark. */
+:is(.page-intro,.wk-intro,.pd-head)>.eyebrow{display:flex;align-items:center;gap:14px}
+:is(.page-intro,.wk-intro,.pd-head)>.eyebrow::before{content:'';width:28px;height:1px;background:currentColor;opacity:.55;flex:none}
+
+/* A quiet scrollbar in the house colours, where the platform lets us. */
+@media (hover:hover) and (pointer:fine){
+  html{scrollbar-width:thin;scrollbar-color:rgb(7 36 26 / .32) transparent}
+  /* Paper grain: one small tile, painted once, never animated, never in the way. */
+  body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.032;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+}
+@media print{body::after{display:none}}
+
+/* Service pages: recent work sits in the same window as on the Works page. */
+.source-work-card .wk-shot{box-shadow:0 1px 0 rgb(7 36 26 / .05),0 30px 60px -40px rgb(7 36 26 / .4)}
+.source-work-card:hover .wk-frame img{transform:scale(1.035)}
+html[data-motion=full] [data-rv] .source-work-card .wk-shot{transition:clip-path 1.2s var(--rv-ease-long) var(--rv-d,0s)}
+html[data-motion=full] [data-rv=""] .source-work-card .wk-shot{clip-path:inset(10% 4% 0 4% round 14px)}
+html[data-motion=full] [data-rv=in] .source-work-card .wk-shot{clip-path:inset(0 round 14px)}
+
+/* Every button is a pill, as in the header and footer. */
+.button{border-radius:99px;padding-inline:24px}

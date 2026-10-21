@@ -10,94 +10,12 @@ import { withoutEmoji } from '@/lib/text';
 import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
 import { useMotion } from '@/components/site-motion';
-import { responsive } from '@/lib/images';
 import profile from '@/content/profile.json';
 import { BookCover, toneStyle } from '@/components/book-cover';
-import { projectLink } from '@/lib/project-access';
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, SplitText);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-
-/* ------------------------------------------------------------------ */
-/* I — Two languages: code that rewrites itself into prose.             */
-/* ------------------------------------------------------------------ */
-/* ------------------------------------------------------------------ */
-/* II — Works: a deck of projects that fly past the camera.             */
-/* ------------------------------------------------------------------ */
-const STORIES: Record<string, { line: string; field: string }> = {
-  'erfolg-living': { line: 'Handmade luxury metalwork.', field: 'Interiors & living' },
-  taif: { line: 'Handicrafts in brass, copper and wood.', field: 'Objects & interiors' },
-  aurelio: { line: 'Furniture and lighting in metal and wood.', field: 'Brand & commerce' },
-  velora: { line: 'Hand-raised metalware. Still being built.', field: 'In development' },
-  'casa-and-crop': { line: 'Home metalware, exported worldwide.', field: 'Lifestyle & commerce' },
-};
-
-export function WorksDeck() {
-  const { projects } = useContent();
-  const works = projects.filter(p => p.category === 'Client work' && p.image).slice(0, 5);
-  const root = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
-  const [pinned, setPinned] = useState(false);
-  const { reduced } = useMotion();
-
-  useEffect(() => {
-    const section = root.current;
-    if (!section || reduced) return;
-    const mm = gsap.matchMedia();
-    // The pinned deck is for a mouse and a tall screen. On touch screens the cards
-    // stack and scroll natively, so a swipe is never held by a pinned scene.
-    mm.add('not all and (min-height: 520px) and (hover: hover) and (pointer: fine)', () => {
-      gsap.utils.toArray<HTMLElement>('.tl-deck-card', section).forEach(card => {
-        if (card.getBoundingClientRect().top < window.innerHeight) return;
-        const img = card.querySelector('img');
-        gsap.timeline({ scrollTrigger: { trigger: card, start: 'top 92%', once: true } })
-          .fromTo(card, { opacity: 0, y: 32, clipPath: 'inset(8% 4% 0% 4% round 14px)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0% round 14px)', duration: 1.1, ease: 'power3.out', clearProps: 'opacity,transform,clipPath' })
-          .fromTo(img, { scale: 1.08 }, { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'transform' }, 0);
-      });
-    });
-    mm.add('(min-height: 520px) and (hover: hover) and (pointer: fine)', () => {
-      // Switch to the pinned layout before anything is measured.
-      section.classList.add('is-pinned');
-      setPinned(true);
-      const cards = gsap.utils.toArray<HTMLElement>('.tl-deck-card', section);
-      const titles = gsap.utils.toArray<HTMLElement>('.tl-deck-ghost', section);
-      const place = (_card: HTMLElement, depth: number) => ({ xPercent: -50, yPercent: -50, z: -depth * 140, y: -depth * 34, rotateX: 0, rotateZ: 0, scale: 1 - depth * .04, opacity: depth > 3 ? 0 : 1, filter: `brightness(${1 - depth * .16})` });
-      cards.forEach((card, i) => gsap.set(card, { ...place(card, i), zIndex: cards.length - i }));
-      gsap.set(titles, { yPercent: 100, opacity: 0 }); gsap.set(titles[0], { yPercent: 0, opacity: 1 });
-      const tl = gsap.timeline({ scrollTrigger: { trigger: section, start: 'top top', end: () => `+=${cards.length * 95}%`, pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
-        onUpdate: self => setActive(Math.min(cards.length - 1, Math.round(self.progress * (cards.length - .6)))) } });
-      cards.forEach((card, i) => {
-        if (i === cards.length - 1) return;
-        const at = i;
-        tl.to(card, { y: '-125vh', z: 320, rotateX: 38, rotateZ: i % 2 ? 7 : -7, duration: 1, ease: 'power2.in' }, at)
-          .to(titles[i], { yPercent: -100, opacity: 0, duration: .6, ease: 'power2.in' }, at + .2)
-          .fromTo(titles[i + 1], { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .6, ease: 'power3.out' }, at + .45);
-        cards.slice(i + 1).forEach((next, j) => tl.to(next, { ...place(next, j), duration: 1, ease: 'power2.inOut' }, at));
-      });
-      tl.to({}, { duration: .4 });
-      return () => { section.classList.remove('is-pinned'); setPinned(false); };
-    });
-    return () => mm.revert();
-  }, [reduced, works.length]);
-
-  const current = works[active];
-  return <section id="selected-work" className={`tl-deck ${pinned ? 'is-pinned' : ''}`} ref={root} data-chapter="I — Recent work">
-    <div className="tl-deck-head"><span className="tl-kicker">I — RECENT WORK</span><h2 suppressHydrationWarning>Recent <em>work.</em></h2><p className="tl-deck-sub">Websites I’ve built for clients recently. The archive has everything else.</p></div>
-    <div className="tl-deck-ghosts" aria-hidden="true">{works.map(w => <span className="tl-deck-ghost" key={w.slug}>{`${w.title} · ${w.title} · ${w.title}`}</span>)}</div>
-    <div className="tl-deck-stage">{works.map((work, i) => <a key={work.slug} {...projectLink(work)} className="tl-deck-card" inert={pinned && i !== active ? true : undefined}>
-      <img src={work.image!} {...responsive(work.image, '(max-width: 899px) 92vw, 62vw')} alt="" width="1600" height="900" loading={i < 2 ? 'eager' : 'lazy'} decoding="async"/>
-      <span className="tl-deck-card-index">W/{String(i + 1).padStart(2, '0')}</span>
-      <span className="tl-deck-card-title">{work.title}<em>{STORIES[work.slug]?.line}</em></span>
-      <span className="tl-deck-card-visit">Visit site <ArrowUpRight size={14}/><span className="sr-only"> (opens in a new tab)</span></span>
-    </a>)}</div>
-    {current && <div className="tl-deck-info" aria-hidden="true">
-      <span className="tl-deck-count"><b>{String(active + 1).padStart(2, '0')}</b> / {String(works.length).padStart(2, '0')}</span>
-      <i className="tl-deck-progress"><span style={{ transform: `scaleX(${(active + 1) / works.length})` }}/></i>
-    </div>}
-    <Link href="/projects" className="tl-deck-archive"><span>Open the <em>archive</em></span><b>{projects.length}<ArrowUpRight size={34}/></b></Link>
-  </section>;
-}
 
 /* ------------------------------------------------------------------ */
 /* Interlude — a ribbon of words that runs faster as you scroll.        */
@@ -135,7 +53,7 @@ export function VelocityMarquee({ words }: { words: string[] }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* II — What I build: the core services, each opening its own page.     */
+/* III — What I build: the core services, each opening its own page.     */
 /* ------------------------------------------------------------------ */
 const BUILD = [
   ['website-design-development', 'Business websites', 'Websites', 'Designed and coded from scratch, around your customers.'],
@@ -162,9 +80,9 @@ export function ServiceIndex() {
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="what-i-build" className="tl-wall" ref={root} data-chapter="II — What I build">
+  return <section id="what-i-build" className="tl-wall" ref={root} data-chapter="III — What I build">
     <div className="tl-wall-head">
-      <span className="tl-kicker">II — WHAT I BUILD</span>
+      <span className="tl-kicker">III — WHAT I BUILD</span>
       <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
       <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Each one opens a page on what it involves, what decides the cost and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link><Link href="/website-developer-in-moradabad" className="tl-link">Web developer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
     </div>
@@ -179,7 +97,7 @@ export function ServiceIndex() {
 }
 
 /* ------------------------------------------------------------------ */
-/* III — Writing: a shelf of books that pull out to show their covers.  */
+/* V — Writing: a shelf of books that pull out to show their covers.  */
 /* ------------------------------------------------------------------ */
 // Spine thickness and height per book, in px at desktop scale.
 const SHAPE: Record<string, [number, number]> = {
@@ -204,8 +122,8 @@ export function Bookshelf() {
     return () => ctx.revert();
   }, [reduced]);
   const book = writings[active];
-  return <section id="writing" className="tl-writing" ref={root} data-chapter="III — Writing">
-    <div className="tl-writing-head"><span className="tl-kicker">III — WRITING</span><h2 suppressHydrationWarning>Notes and <em>books.</em></h2><p>Writing alongside the code: a research note, a book contribution and a book in progress. Pick a spine to see what it’s about.</p></div>
+  return <section id="writing" className="tl-writing" ref={root} data-chapter="V — Writing">
+    <div className="tl-writing-head"><span className="tl-kicker">V — WRITING</span><h2 suppressHydrationWarning>Notes and <em>books.</em></h2><p>Writing alongside the code: a research note, a book contribution and a book in progress. Pick a spine to see what it’s about.</p></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
@@ -228,7 +146,7 @@ export function Bookshelf() {
 }
 
 /* ------------------------------------------------------------------ */
-/* IV — Beyond the build: a wall of words, inverted by a roaming lens.  */
+/* VI — Beyond the build: a wall of words, inverted by a roaming lens.  */
 /* ------------------------------------------------------------------ */
 export function TypeWall() {
   const { services } = useContent();
@@ -245,9 +163,9 @@ export function TypeWall() {
     }, section);
     return () => ctx.revert();
   }, [reduced]);
-  return <section id="services" className="tl-build is-partners" ref={root} data-chapter="IV — More services">
+  return <section id="services" className="tl-build is-partners" ref={root} data-chapter="VI — More services">
     <div className="tl-build-head">
-      <span className="tl-kicker">IV — MORE SERVICES</span>
+      <span className="tl-kicker">VI — MORE SERVICES</span>
       <h2 suppressHydrationWarning>Beyond the <em>build.</em></h2>
       <p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I can also take on marketing, hosting, apps and business software. I scope it with you and stay your single point of contact.</p>
       <div className="tl-build-links"><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
@@ -264,7 +182,7 @@ export function TypeWall() {
 }
 
 /* ------------------------------------------------------------------ */
-/* V — The person: an aperture opens on the portrait; a line traces the */
+/* VII — The person: an aperture opens on the portrait; a line traces the */
 /* journey through every role.                                          */
 /* ------------------------------------------------------------------ */
 export function Person() {
@@ -316,10 +234,10 @@ export function Person() {
     return () => { ctx.revert(); section.classList.remove('is-live'); };
   }, [reduced, d]);
 
-  return <section id="journey" className="tl-person" ref={root} data-chapter="V — Journey">
+  return <section id="journey" className="tl-person" ref={root} data-chapter="VII — Journey">
     <div className="tl-person-intro">
       <div className="tl-person-copy">
-        <span className="tl-kicker">V — JOURNEY</span>
+        <span className="tl-kicker">VII — JOURNEY</span>
         <h2 suppressHydrationWarning><em>Journey.</em></h2>
         <p className="tl-bio"><strong>I work across management, design and code, because client projects need all three.</strong> {profile.bio} Below is where I’ve worked and studied.</p>
         <div className="tl-facts">
@@ -349,7 +267,7 @@ export function Person() {
 }
 
 /* ------------------------------------------------------------------ */
-/* VI — Voices: notes pinned to a board. Pick them up; throw them.       */
+/* VIII — Voices: notes pinned to a board. Pick them up; throw them.       */
 /* ------------------------------------------------------------------ */
 const SPOTS = [[4, 8, -6], [30, 3, 3], [57, 10, -2], [78, 4, 6], [10, 46, 4], [36, 40, -4], [62, 48, 5], [82, 42, -7], [46, 72, 2]];
 export function Voices() {
@@ -381,9 +299,9 @@ export function Voices() {
     });
     return () => mm.revert();
   }, [reduced]);
-  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
+  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VIII — Reviews">
     <div className="tl-voices-head">
-      <div><span className="tl-kicker">VI — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
+      <div><span className="tl-kicker">VIII — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
       <div className="tl-score"><b>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients, in their own words</span></div>
     </div>
     <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note <ArrowUpRight size={18} strokeWidth={1.5}/></span><span className="is-touch">Swipe through the notes <ArrowRight size={17} strokeWidth={1.5}/></span><small className="is-touch">{reviews.length} NOTES</small></p>

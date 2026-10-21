@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { z } from 'zod';
 import { ArrowDown, ArrowUp, Check, ExternalLink, ImagePlus, Loader2, Plus, RotateCcw, Trash2 } from 'lucide-react';
 import { projectsSchema, editorialSchema, validateContent, type ContentFile } from '@/lib/content-schema';
+import { placementOf, type Placement } from '@/lib/project-access';
 
 type Project = z.infer<typeof projectsSchema>[number];
 type Editorial = z.infer<typeof editorialSchema>;
@@ -115,7 +116,7 @@ export function ContentStudio() {
     let item: unknown;
     if (tab === 'projects') {
       const number = String(Math.max(0, ...projects.map(p => Number(p.number))) + 1).padStart(2, '0');
-      item = { slug: uniqueSlug('new-project', projects.map(p => p.slug)), title: 'New project', category: 'Client work', discipline: 'Web design & development', year, description: 'A short line about the project.', tags: [], url: '', image: null, status: 'Client work', number } satisfies Project;
+      item = { slug: uniqueSlug('new-project', projects.map(p => p.slug)), title: 'New project', category: 'Client work', discipline: 'Web design & development', year, description: 'A short line about the project.', tags: [], url: '', image: null, status: 'Coming soon', placement: 'building', number } satisfies Project;
     } else if (tab === 'blogs') {
       item = { slug: uniqueSlug('new-writing', ed.writings.map(w => w.slug)), title: 'New writing', originalTitle: 'New writing', category: 'Blog', year, status: 'Published', url: '', description: 'A short line about this piece.', paragraphs: ['A short line about this piece.'], source: 'Rushan Haque' } satisfies Writing;
     } else if (tab === 'reviews') {
@@ -168,7 +169,7 @@ export function ContentStudio() {
 
   const item = list[index] as Record<string, unknown> | undefined;
   const titleOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? x.title : tab === 'blogs' ? x.originalTitle : tab === 'reviews' ? x.name : `${x.value} · ${x.label}`; };
-  const subOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? `${x.category} · ${x.year}` : tab === 'blogs' ? `${x.category} · ${x.year}` : tab === 'reviews' ? [x.company, x.date].filter(Boolean).join(' · ') : ''; };
+  const subOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? `${({ work: 'Works', building: 'Currently building', hidden: 'Hidden' })[placementOf(x as unknown as Project)]} · ${x.year}` : tab === 'blogs' ? `${x.category} · ${x.year}` : tab === 'reviews' ? [x.company, x.date].filter(Boolean).join(' · ') : ''; };
 
   return <div className="ad">
     <div className="ad-connection">
@@ -179,7 +180,7 @@ export function ContentStudio() {
     <div className="ad-tabs" role="tablist">{TABS.map(t => <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)}>{t.label}<small>{t.id === 'projects' ? projects.length : t.id === 'blogs' ? ed.writings.length : t.id === 'reviews' ? ed.reviews.length : ed.stats.length}</small></button>)}</div>
 
     <div className="ad-bar">
-      <p>{tab === 'projects' ? 'The first five client projects with an image appear in Recent works on the homepage. Use the arrows to reorder.' : tab === 'blogs' ? 'Blogs and books appear on the homepage shelf. Each opens its link.' : tab === 'reviews' ? 'Reviews appear on the homepage and the Reviews page, in this order.' : 'The numbers in the Journey section of the homepage.'}</p>
+      <p>{tab === 'projects' ? 'Works set to “Works” appear on the Works page and in Selected work on the homepage; “Currently building” lists what is in progress. Use the arrows to reorder.' : tab === 'blogs' ? 'Blogs and books appear on the homepage shelf. Each opens its link.' : tab === 'reviews' ? 'Reviews appear on the homepage and the Reviews page, in this order.' : 'The numbers in the Journey section of the homepage.'}</p>
       <div className="ad-bar-actions">
         {dirty[file] && <span className="ad-unsaved">Unpublished changes</span>}
         {dirty[file] && <button className="ad-btn is-ghost" onClick={() => { if (window.confirm('Discard your unpublished changes?')) setFiles({ ...files, [file]: { ...files[file], data: JSON.parse(saved[file]) } }); }}><RotateCcw size={15}/>Discard</button>}
@@ -209,6 +210,7 @@ export function ContentStudio() {
         {tab === 'projects' && (() => { const p = item as unknown as Project; return <div className="ad-grid">
           <Field label="Title"><input value={p.title} onChange={e => update<Project>({ title: e.target.value })} maxLength={120}/></Field>
           <Field label="Collection"><select value={p.category} onChange={e => update<Project>({ category: e.target.value as Project['category'] })}><option>Client work</option><option>Experiments</option></select></Field>
+          <Field label="Show on the site as" hint="Works, Currently building, or not at all"><select value={placementOf(p)} onChange={e => update<Project>({ placement: e.target.value as Placement })}><option value="work">Works</option><option value="building">Currently building</option><option value="hidden">Hidden</option></select></Field>
           <Field label="Discipline"><input value={p.discipline} onChange={e => update<Project>({ discipline: e.target.value })}/></Field>
           <Field label="Year"><input value={p.year} inputMode="numeric" maxLength={4} onChange={e => update<Project>({ year: e.target.value })}/></Field>
           <Field label="Label" hint="Shown on the card. Pick one or write your own">

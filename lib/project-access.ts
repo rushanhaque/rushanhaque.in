@@ -2,6 +2,12 @@ import type { z } from 'zod';
 import type { projectsSchema } from '@/lib/content-schema';
 type P = z.infer<typeof projectsSchema>[number];
 export type ProjectAccess = 'visit' | 'soon' | 'request';
+export type Placement = NonNullable<P['placement']>;
+// Where a project shows on the site, set in the admin: the Works list, the "Currently building"
+// list, or nowhere. Older entries without a choice show client work and hide experiments.
+export function placementOf(p: Pick<P, 'category' | 'placement'>): Placement {
+  return p.placement ?? (p.category === 'Client work' ? 'work' : 'hidden');
+}
 // Client work with a live site is visited, unreleased work is coming soon, and experiments are shown on request.
 export function projectAccess(p: Pick<P, 'category' | 'url' | 'status'>): ProjectAccess {
   if (p.category === 'Experiments') return 'request';

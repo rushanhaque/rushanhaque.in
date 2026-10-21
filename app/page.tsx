@@ -4,10 +4,12 @@ import { getPublishedContent } from '@/lib/published-content';
 import { Preloader, preloadScript } from '@/components/story/preloader';
 import { SmoothScroll } from '@/components/story/smooth-scroll';
 import { ParticleHero } from '@/components/story/particle-hero';
-import { WorksDeck, VelocityMarquee, ServiceIndex, Bookshelf, TypeWall, Person, Voices } from '@/components/story/chapters';
+import { VelocityMarquee, ServiceIndex, Bookshelf, TypeWall, Person, Voices } from '@/components/story/chapters';
+import { Manifesto, SelectedWork, Process } from '@/components/story/narrative';
 import './two-languages.css';
 import './home-polish.css';
 import './studies.css';
+import './narrative.css';
 import { LazyLab } from '@/components/studies/lazy-lab';
 import { StoryMotion } from '@/components/story/story-motion';
 import { HomeFaq } from '@/components/home-faq';
@@ -21,9 +23,11 @@ export default async function Home(){
     <script dangerouslySetInnerHTML={{ __html: preloadScript }}/>
     <Preloader/><SmoothScroll/>
     <ParticleHero/>
-    <WorksDeck/>
+    <Manifesto/>
+    <SelectedWork/>
     <VelocityMarquee words={['Developer', 'Project manager', 'Writer', 'Designer', 'Curious', 'Moradabad']}/>
     <ServiceIndex/>
+    <Process/>
     <Bookshelf/>
     <TypeWall/>
     <Person/>

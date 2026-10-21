@@ -1,16 +1,27 @@
-import { PageIntro } from '@/components/page-intro';
-import { ProjectArchive } from '@/components/project-archive';
+import { BuildingList, WorksList } from '@/components/works-showcase';
 import { getPublishedContent } from '@/lib/published-content';
+import { placementOf } from '@/lib/project-access';
 import { pageMetadata } from '@/lib/seo';
-export const metadata=pageMetadata('/projects','Website portfolio — client work and projects','Websites designed and built by Rushan Haque for businesses in Moradabad and abroad: live client sites, upcoming launches and personal experiments.');
-export default async function Projects({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}) {
+import './works.css';
+export const metadata=pageMetadata('/projects','Website portfolio — client work','Websites designed and built by Rushan Haque for makers and exporters in Moradabad: live client sites, and the ones being built right now.');
+export default async function Projects() {
   const {projects}=await getPublishedContent();
-  const params=await searchParams;
-  const value=(key:string)=>typeof params[key]==='string'?(params[key] as string).slice(0,100):'';
-  const years=[...new Set(projects.map(p=>p.year))].sort().reverse();const statuses=[...new Set(projects.map(p=>p.status))];
-  const category=['Client work','Experiments'].includes(value('category'))?value('category'):'All';
-  const year=years.includes(value('year'))?value('year'):'All';const status=statuses.some(status=>status===value('status'))?value('status'):'All';const q=value('q');
-  const matches=projects.filter(p=>(category==='All'||p.category===category)&&(year==='All'||p.year===year)&&(status==='All'||p.status===status)&&`${p.title} ${p.description} ${p.tags.join(' ')}`.toLowerCase().includes(q.toLowerCase()));
-  
-  return <main id="main-content"><PageIntro eyebrow={`WORKS / ${projects.length}`} title="Ideas, made" accent="real." description="Client work, experiments, and the things I built to find out whether they’d work."/><ProjectArchive items={matches} total={matches.length} filters={{category,q,year,status}} years={years} statuses={statuses}/></main>;
+  const works=projects.filter(p=>placementOf(p)==='work'), building=projects.filter(p=>placementOf(p)==='building');
+  const two=(n:number)=>String(n).padStart(2,'0');
+  return <main id="main-content" className="wk-page">
+    <header className="wk-intro container no-fit">
+      <span className="eyebrow">WORKS · {two(works.length)} SELECTED{building.length?` · ${two(building.length)} IN PROGRESS`:''}</span>
+      <h1 suppressHydrationWarning>Websites for people <em>who make things.</em></h1>
+      <div className="wk-intro-foot">
+        <p>Moradabad has worked brass, copper and wood for centuries, and ships it all over the world. These are the sites I designed and coded for some of its makers: each one from scratch, each one built to sell to buyers who will never visit the workshop.</p>
+        <dl>
+          <div><dt>Built</dt><dd>From scratch, no templates</dd></div>
+          <div><dt>For</dt><dd>Makers &amp; exporters</dd></div>
+          <div><dt>From</dt><dd>Moradabad, India</dd></div>
+        </dl>
+      </div>
+    </header>
+    <WorksList works={works}/>
+    <BuildingList items={building}/>
+  </main>;
 }

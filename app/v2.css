@@ -88,13 +88,13 @@ img{height:auto}
    -------------------------------------------------------------------------- */
 [data-tilt]{transform:perspective(1100px) rotateX(var(--tilt-y,0deg)) rotateY(var(--tilt-x,0deg));transition:transform .7s var(--ease-expo);transform-style:preserve-3d}
 .project-image[data-tilt]:before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(600px circle at var(--glare-x,50%) var(--glare-y,50%),rgb(255 255 255 / .28),transparent 45%)}
-.project-card:hover [data-tilt]:before{opacity:1}
-.project-card .project-image img{transition:transform 1.2s var(--ease-expo),filter .6s}
-.project-card:hover .project-image img{transform:scale(1.06)}
-.project-card .project-caption :is(h2,h3){transition:translate .6s var(--ease-expo)}
-.project-card:hover .project-caption :is(h2,h3){translate:6px 0}
-.project-open{transition:background .3s,color .3s,transform .6s var(--ease-expo),scale .6s var(--ease-expo)}
-.project-card:hover .project-open{scale:1.12}
+
+
+
+
+
+
+
 
 /* --------------------------------------------------------------------------
    Work cinema: the frame tightens while the image leans in.

@@ -1,5 +1,24 @@
 [
   {
+    "slug": "taif",
+    "title": "Taif",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Website for a Moradabad handicraft manufacturer exporting brass, copper and wood to 42 countries.",
+    "tags": [
+      "Web Development",
+      "Design"
+    ],
+    "url": "https://taifinternational.co",
+    "image": "/images/work-taif.webp",
+    "status": "Live",
+    "placement": "work",
+    "showDescription": true,
+    "number": "02",
+    "imageBlurred": false
+  },
+  {
     "slug": "erfolg-living",
     "title": "Erfolg Living",
     "category": "Client work",
@@ -14,6 +33,7 @@
     "url": "https://erfolgliving.com",
     "image": "/images/work-erfolg-living.webp",
     "status": "Live",
+    "placement": "work",
     "showDescription": true,
     "number": "01",
     "caseStudy": {
@@ -38,62 +58,6 @@
     "imageBlurred": false
   },
   {
-    "slug": "taif",
-    "title": "Taif",
-    "category": "Client work",
-    "discipline": "Web",
-    "year": "2026",
-    "description": "Website for a Moradabad handicraft manufacturer exporting brass, copper and wood to 42 countries.",
-    "tags": [
-      "Web Development",
-      "Design"
-    ],
-    "url": "https://taifinternational.co",
-    "image": "/images/work-taif.webp",
-    "status": "Live",
-    "showDescription": true,
-    "number": "02",
-    "imageBlurred": false
-  },
-  {
-    "slug": "aurelio",
-    "title": "Aurelio",
-    "category": "Client work",
-    "discipline": "Web",
-    "year": "2026",
-    "description": "Website for Aurelio, the metal and wood atelier of AF International: handcrafted furniture, lighting and decor.",
-    "tags": [
-      "Web Development",
-      "Design",
-      "Live Site"
-    ],
-    "url": "https://aurelio.in",
-    "image": "/images/work-aurelio.webp",
-    "status": "Live",
-    "showDescription": true,
-    "number": "03",
-    "imageBlurred": false
-  },
-  {
-    "slug": "velora",
-    "title": "Velora",
-    "category": "Client work",
-    "discipline": "Web",
-    "year": "2026",
-    "description": "Website for a Moradabad atelier that hand-raises objects in brass, bronze, copper and silver. Still being built.",
-    "tags": [
-      "Web Development",
-      "Design",
-      "In Progress"
-    ],
-    "url": "https://www.veloralivings.in",
-    "image": "/images/work-velora.webp",
-    "status": "In progress",
-    "showDescription": true,
-    "number": "04",
-    "imageBlurred": false
-  },
-  {
     "slug": "casa-and-crop",
     "title": "Casa&Crop",
     "category": "Client work",
@@ -108,6 +72,7 @@
     "url": "https://casaandcrop.com",
     "image": "/images/work-casa-and-crop.webp",
     "status": "Live",
+    "placement": "work",
     "showDescription": true,
     "number": "05",
     "caseStudy": {
@@ -132,6 +97,46 @@
     "imageBlurred": false
   },
   {
+    "slug": "velora",
+    "title": "Velora",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Website for a Moradabad atelier that hand-raises objects in brass, bronze, copper and silver. Still being built.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "In Progress"
+    ],
+    "url": "https://www.veloralivings.in",
+    "image": "/images/work-velora.webp",
+    "status": "In progress",
+    "placement": "work",
+    "showDescription": true,
+    "number": "04",
+    "imageBlurred": false
+  },
+  {
+    "slug": "aurelio",
+    "title": "Aurelio",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Website for Aurelio, the metal and wood atelier of AF International: handcrafted furniture, lighting and decor.",
+    "tags": [
+      "Web Development",
+      "Design",
+      "Live Site"
+    ],
+    "url": "https://aurelio.in",
+    "image": "/images/work-aurelio.webp",
+    "status": "Live",
+    "placement": "work",
+    "showDescription": true,
+    "number": "03",
+    "imageBlurred": false
+  },
+  {
     "slug": "barha",
     "title": "Barha",
     "category": "Client work",
@@ -146,6 +151,7 @@
     "url": "",
     "image": "/images/work-barha.webp",
     "status": "Coming soon",
+    "placement": "hidden",
     "showDescription": true,
     "number": "06",
     "imageBlurred": true
@@ -165,6 +171,7 @@
     "url": "",
     "image": null,
     "status": "Coming soon",
+    "placement": "building",
     "number": "07",
     "imageBlurred": true
   },
@@ -183,6 +190,7 @@
     "url": "",
     "image": null,
     "status": "Coming soon",
+    "placement": "hidden",
     "number": "08",
     "imageBlurred": true
   },
@@ -200,6 +208,7 @@
     "url": "https://shadow-chat-7ifp.onrender.com",
     "image": "/images/work-shadow-chat.png",
     "status": "Experiment",
+    "placement": "hidden",
     "showDescription": true,
     "number": "09",
     "imageBlurred": false,
@@ -250,6 +259,7 @@
     "url": "https://rushanhaque.itch.io/autorepopusher",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "10",
     "imageBlurred": false,
     "details": {
@@ -294,6 +304,7 @@
     "url": "https://github.com/rushanhaque/killswitch/releases/tag/trial",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "11",
     "imageBlurred": false,
     "details": {
@@ -343,6 +354,7 @@
     "url": "https://github.com/rushanhaque/sentry-mode",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "12",
     "imageBlurred": false,
     "details": {
@@ -393,6 +405,7 @@
     "url": "https://code-sense-ai-omega.vercel.app/",
     "image": "/images/work-codesense-ai.png",
     "status": "Experiment",
+    "placement": "hidden",
     "showDescription": true,
     "number": "13",
     "imageBlurred": false,
@@ -445,6 +458,7 @@
     "url": "https://lingua-lens-tan.vercel.app/",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "14",
     "imageBlurred": false,
     "details": {
@@ -494,6 +508,7 @@
     "url": "https://novellect.vercel.app/",
     "image": "/images/work-novellect.png",
     "status": "Experiment",
+    "placement": "hidden",
     "showDescription": true,
     "number": "15",
     "imageBlurred": false,
@@ -546,6 +561,7 @@
     "url": "https://rushanhaque.itch.io/cortex",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "16",
     "imageBlurred": false,
     "details": {
@@ -596,6 +612,7 @@
     "url": "https://rushanhaque.itch.io/auraai",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "17",
     "imageBlurred": false,
     "details": {
@@ -645,6 +662,7 @@
     "url": "https://symphony-coral.vercel.app",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "18",
     "imageBlurred": false,
     "details": {
@@ -693,6 +711,7 @@
     "url": "https://github.com/rushanhaque/NordeMCU_FileServer",
     "image": null,
     "status": "Experiment",
+    "placement": "hidden",
     "number": "19",
     "imageBlurred": false,
     "details": {
@@ -743,6 +762,7 @@
     "url": "https://upsidesound.vercel.app/",
     "image": "/images/work-upside-sound.webp",
     "status": "Experiment",
+    "placement": "hidden",
     "showDescription": true,
     "number": "20",
     "imageBlurred": false,
@@ -794,6 +814,7 @@
     "url": "https://quorum-tan.vercel.app/",
     "image": "/images/work-quorum.webp",
     "status": "Experiment",
+    "placement": "hidden",
     "showDescription": true,
     "number": "21",
     "details": {
@@ -863,6 +884,7 @@
     "url": "https://superlatives-wheat.vercel.app/",
     "image": "/images/work-superlatives.webp",
     "status": "Experiment",
+    "placement": "hidden",
     "showDescription": true,
     "number": "22",
     "imageBlurred": false,

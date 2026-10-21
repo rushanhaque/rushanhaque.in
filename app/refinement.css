@@ -9,8 +9,8 @@ main p{overflow-wrap:break-word}
 @media(max-width:799px){
  .journey-control{margin:20px var(--page-gutter)}.journey-trigger{gap:10px}.journey-current{min-width:115px}.journey-current small{font-size:9px}
 }
-.archive-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.archive-grid>*{min-width:0}.project-card,.project-caption,.project-caption>*{min-width:0}.project-caption{flex-wrap:wrap}.project-caption :is(h2,h3){overflow-wrap:anywhere}
-@media(max-width:1100px){.archive-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:799px){.archive-grid{grid-template-columns:minmax(0,1fr)}.archive-grid .project-caption{display:block}.archive-grid .project-caption>span{max-width:none;text-align:left;font-size:12px}.archive-grid .project-caption :is(h2,h3){font-size:22px}.archive-count{gap:16px;flex-wrap:wrap}}
+
+
+
 .contact-layout>*{min-width:0}.contact-intro h1{overflow-wrap:break-word}.contact-email{flex-wrap:wrap;gap:16px}.contact-intro>.text-link{flex-wrap:wrap;line-height:1.7}
 @media(max-width:799px){.contact-intro h1{font-size:clamp(42px,12vw,68px);line-height:1.12;letter-spacing:-.045em}.contact-intro,.inquiry-form{width:100%}.contact-intro>.text-link{font-size:12px}.contact-email>a{overflow-wrap:anywhere}}

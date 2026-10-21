@@ -3,8 +3,8 @@ import { ArrowUpRight } from 'lucide-react';
 import sourcePages from '@/content/source-pages.json';
 import guides from '@/content/guides.json';
 import type { Project } from '@/lib/content';
-import { responsive } from '@/lib/images';
-import { projectAccess, projectLink } from '@/lib/project-access';
+import { placementOf, projectAccess, projectLink } from '@/lib/project-access';
+import { BrowserShot } from '@/components/works-showcase';
 import { jsonLd } from '@/lib/seo';
 import { phone } from '@/lib/content';
 import type { Section } from '@/lib/source-sections';
@@ -128,15 +128,15 @@ export function FaqBlock({ label, faqs, title = 'Questions people actually ask' 
 
 const domain = (url: string) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; } };
 
-// Live client sites, shown as quiet thumbnails.
+// Live client sites, each in the same browser window as on the Works page.
 export function RecentWork({ projects, title = 'Websites I’ve built recently.', label = 'Recent work' }: { projects: Project[]; title?: string; label?: string }) {
-  const works = projects.filter(p => p.category === 'Client work' && p.image && projectAccess(p) === 'visit').slice(0, 4);
+  const works = projects.filter(p => placementOf(p) === 'work' && p.image && projectAccess(p) === 'visit').slice(0, 4);
   if (!works.length) return null;
   return <section className="source-section source-work sx-work" aria-labelledby="source-work-title">
     <div className="source-section-label"><span>{label}</span><span>{label}</span><span/></div>
     <div className="source-work-head"><h2 suppressHydrationWarning id="source-work-title">{title}</h2><Link href="/projects" className="source-work-all">See all work</Link></div>
     <ul className="source-work-grid">{works.map(w => <li key={w.slug}><a {...projectLink(w)} className="source-work-card">
-      <span className="source-work-image"><img src={w.image!} {...responsive(w.image, '(max-width: 650px) 46vw, 520px')} alt={`${w.title} website`} width="1600" height="1000" loading="lazy" decoding="async"/></span>
+      <BrowserShot project={w} sizes="(max-width: 650px) 92vw, 620px"/>
       <span className="source-work-meta"><strong>{w.title}</strong><span>{domain(w.url)}<span className="sr-only"> (opens in a new tab)</span></span></span>
       <span className="source-work-desc">{w.description}</span>
     </a></li>)}</ul>
