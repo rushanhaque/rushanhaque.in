@@ -84,7 +84,7 @@ export function ServiceIndex() {
     <div className="tl-wall-head">
       <span className="tl-kicker">III — WHAT I BUILD</span>
       <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
-      <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Open any service to see what it involves, what shapes the price and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link><Link href="/website-developer-in-moradabad" className="tl-link">Web developer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
+      <div className="tl-wall-intro"><p><strong>Designed and built from scratch,</strong> for businesses in India and abroad. Open any service to see what it involves, what shapes the price and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-design-development" className="tl-link">How a website gets built <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-india" className="tl-link">Working with clients anywhere <ArrowUpRight size={16}/></Link></div></div>
     </div>
     <ul className="tl-wall-list">{BUILD.map(([slug, name, tag, line], i) => <li className="tl-wall-row" key={slug}>
       <Link href={'/' + slug}>
@@ -239,7 +239,7 @@ export function Person() {
       <div className="tl-person-copy">
         <span className="tl-kicker">VII — JOURNEY</span>
         <h2 suppressHydrationWarning><em>Journey.</em></h2>
-        <p className="tl-bio"><strong>I work across management, design and code, because every client project needs all three.</strong> {profile.bio} Here is where I have worked and studied.</p>
+        <p className="tl-bio"><strong>I design, code and run every project myself, because a good website needs all three.</strong> {profile.bio} Here is where I have worked and studied.</p>
         <div className="tl-facts">
           {stats.map(f => <span className="tl-fact" key={f.label}><b>{f.value}</b>{f.label}</span>)}
         </div>

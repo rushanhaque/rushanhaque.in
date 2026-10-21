@@ -37,7 +37,7 @@ export function Preloader() {
     <div className="tl-loader-top"/><div className="tl-loader-bottom"/>
     <div className="tl-loader-inner">
       <span className="tl-loader-name">{'Rushan Haque'.split('').map((c, i) => <span key={i}>{c === ' ' ? ' ' : c}</span>)}</span>
-      <div className="tl-loader-foot"><span>PROJECT MANAGER &amp; DEVELOPER — MORADABAD</span><span className="tl-loader-count">000</span></div>
+      <div className="tl-loader-foot"><span>WEBSITE DESIGNER &amp; DEVELOPER</span><span className="tl-loader-count">000</span></div>
       <div className="tl-loader-bar"><i/></div>
     </div>
   </div>;

@@ -62,12 +62,12 @@ function HeroRoles() {
     };
     const tl = gsap.timeline({ repeat: -1, repeatDelay: .3, delay: 2.4 });
     tl.call(() => { d.textContent = ''; w.textContent = ''; })
-      .add(word(d, '<developer />', 'Developer', false))
-      .add(word(w, '// & writer', '& writer.', true), '+=.15')
+      .add(word(d, '<designer />', 'Designer', false))
+      .add(word(w, '// & developer', '& developer.', true), '+=.15')
       .to({}, { duration: 2.6 });
-    return () => { tl.kill(); d.textContent = 'Developer'; d.className = 'tl-role'; w.textContent = '& writer.'; w.className = 'tl-role is-serif'; };
+    return () => { tl.kill(); d.textContent = 'Designer'; d.className = 'tl-role'; w.textContent = '& developer.'; w.className = 'tl-role is-serif'; };
   }, [reduced]);
-  return <p className="tl-hero-roles"><span className="sr-only">Developer and writer.</span><span className="tl-role" ref={dev} aria-hidden="true">Developer</span>{' '}<span className="tl-role is-serif" ref={wri} aria-hidden="true">&amp; writer.</span></p>;
+  return <p className="tl-hero-roles"><span className="sr-only">Designer and developer.</span><span className="tl-role" ref={dev} aria-hidden="true">Designer</span>{' '}<span className="tl-role is-serif" ref={wri} aria-hidden="true">&amp; developer.</span></p>;
 }
 
 // The name, drawn in a few thousand particles. They gather into the name,
@@ -194,7 +194,7 @@ export function ParticleHero() {
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
     <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque — Website Designer &amp; Developer in Moradabad, India</h1>
-    <div className="tl-hero-meta"><span>MORADABAD, IN · IST {time || '--:--'}</span><span>Website designer &amp; developer · Project manager</span></div>
-    <div className="tl-hero-foot"><p>Logic in one hand,<br/>language in the <em>other.</em></p><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
+    <div className="tl-hero-meta"><span>INDIA · IST {time || '--:--'} · WORKING WORLDWIDE</span><span>Website designer &amp; developer</span></div>
+    <div className="tl-hero-foot"><p>Websites that look the part,<br/>and <em>do the work.</em></p><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

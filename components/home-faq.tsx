@@ -4,8 +4,8 @@ import { faqPage } from '@/lib/schema';
 // The questions people search before hiring a website designer, answered on
 // the homepage so search engines and AI assistants can quote them directly.
 const FAQS = [
-  { q: 'Who builds websites in Moradabad?', a: 'Rushan Haque is a website designer and full-stack developer based in Moradabad, Uttar Pradesh. He designs and builds custom business websites, e-commerce stores, export catalogues and web applications from scratch, for clients in Moradabad, across India and abroad.' },
-  { q: 'Do you work with businesses outside Moradabad?', a: 'Yes. Projects run over calls, WhatsApp and email with a live preview link, so clients anywhere in India or abroad can follow the work. Clients so far include businesses in India, Saudi Arabia, Poland and Nepal.' },
+  { q: 'Who is Rushan Haque?', a: 'A website designer and full-stack developer based in Moradabad, India, working with businesses across India and abroad. He designs and builds custom business websites, e-commerce stores, export catalogues and web applications from scratch.' },
+  { q: 'Do you work with businesses outside India?', a: 'Yes. Clients so far are in India, Saudi Arabia, Poland and Nepal. Projects run over calls, WhatsApp and email with a live preview link, so you can follow the work from anywhere.' },
   { q: 'How much does a website cost?', a: 'It depends on what the site has to do: a landing page, a business website, an online store and a web application are priced differently. Every project gets a fixed, written quote with a timeline before any work starts.' },
   { q: 'How long does it take to make a website?', a: 'A landing page usually takes one to two weeks, a business website two to four weeks, and an e-commerce store or catalogue four to eight weeks, depending on how ready the content is.' },
   { q: 'Will my website show up on Google?', a: 'Every site is built for search: fast pages, clear headings, structured data, a sitemap and Google Search Console. Help with your Google Business Profile, which decides most “near me” results, is included.' },

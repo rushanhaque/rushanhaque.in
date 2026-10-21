@@ -18,14 +18,14 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 const two = (n: number) => String(n).padStart(2, '0');
 
 /* ------------------------------------------------------------------ */
-/* I — The short version: one sentence that lights up as you read it,  */
-/* with the work itself set into the line.                             */
+/* I — The short version: what a good website does, in one sentence    */
+/* that lights up as you read it, with real sites set into the line.   */
 /* ------------------------------------------------------------------ */
 type Piece = string | { em: string } | { img: string; cap: string };
 const STORY: Piece[] = [
-  'Moradabad has shaped', { em: 'brass' }, { img: '/images/pill/taif.webp', cap: 'Taif · brass & copper' }, 'for centuries and ships it', { img: '/images/pill/casa.webp', cap: 'Casa&Crop · 34 countries' }, 'to every corner of the world.',
-  'Its makers deserve websites as finely made as', { em: 'the things they make.' }, { img: '/images/pill/erfolg.webp', cap: 'Erfolg · a copper bath' },
-  'I design and build them', { img: '/images/pill/velora.webp', cap: 'Velora · hand-raised brass' }, 'from the first conversation', { em: 'to long after launch.' },
+  'A good website does more than', { em: 'look the part.' }, { img: '/images/pill/taif.webp', cap: 'taifinternational.co' },
+  'It loads in a blink on any phone,', { img: '/images/pill/erfolg.webp', cap: 'erfolgliving.com' }, 'shows up when people search,', { img: '/images/pill/casa.webp', cap: 'casaandcrop.com' },
+  'and turns visitors into', { em: 'customers.' }, 'I design and build websites like that, from scratch,', { img: '/images/pill/velora.webp', cap: 'veloralivings.in' }, 'from the first conversation', { em: 'to long after launch.' },
 ];
 // The short facts under the sentence: who, how, and with whom.
 const FACTS = [['Clients in', 'India, Saudi Arabia, Poland and Nepal'], ['Working over', 'Calls, WhatsApp and email, with a live preview link'], ['You speak to', 'The person writing the code']] as const;
@@ -64,7 +64,7 @@ export function Manifesto() {
           <svg viewBox="0 0 100 100"><defs><path id="tl-mf-ring" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"/></defs><text><textPath href="#tl-mf-ring">DESIGNED · CODED · HANDED OVER · </textPath></text></svg>
           <b>RH</b>
         </span>
-        <span><small>Independent since 2024</small><strong><em>Moradabad, U.P.</em></strong></span>
+        <span><small>Independent since 2024</small><strong><em>Design &amp; development</em></strong></span>
       </div>
       <dl className="tl-mf-facts">{FACTS.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
       <Link href="#journey" className="tl-link">The longer version <ArrowUpRight size={16}/></Link>
@@ -118,8 +118,8 @@ export function SelectedWork() {
   return <section id="selected-work" className="tl-sw" data-chapter="II — Selected work">
     <div className="tl-sw-head">
       <span className="tl-kicker">II — SELECTED WORK</span>
-      <h2 suppressHydrationWarning>Made in <em>Moradabad.</em></h2>
-      <p>Websites for makers and exporters, each one designed and coded from scratch. Scroll to move through them, or open one to see it live.</p>
+      <h2 suppressHydrationWarning>Recent <em>work.</em></h2>
+      <p>A few recent websites, each one designed and coded from scratch for the business it serves. Scroll to move through them, or open one to see it live.</p>
     </div>
     <div className="tl-sw-body">
       <ol className="tl-sw-list" ref={list}>{works.map((w, i) => {
@@ -233,7 +233,7 @@ export function Encore() {
       <div className="tl-close-copy">
         <span className="tl-kicker">X — YOUR CHAPTER</span>
         <h2 className="tl-close-title" suppressHydrationWarning>Your business, <em>next in line.</em></h2>
-        <p>{COUNT[works] ?? works} makers have trusted me with their websites{building ? `, and ${COUNT[building]?.toLowerCase() ?? building} more ${building === 1 ? 'is' : 'are'} on the desk` : ''}. Tell me about yours and you will have a fixed, written quote before any work begins.</p>
+        <p>{COUNT[works] ?? works} businesses have trusted me with their websites{building ? `, and ${COUNT[building]?.toLowerCase() ?? building} more ${building === 1 ? 'is' : 'are'} on the desk` : ''}. Tell me about yours and you will have a fixed, written quote before any work begins.</p>
         <div className="tl-close-actions"><Link href="/connect" className="tl-button">Start a project <ArrowUpRight size={16}/></Link><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="tl-link">Book a call <ArrowUpRight size={16}/><span className="sr-only"> (opens in a new tab)</span></a></div>
       </div>
       <Link href="/connect" className="tl-close-orb" aria-label="Start a project">

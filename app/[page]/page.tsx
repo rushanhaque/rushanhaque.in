@@ -11,7 +11,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { PageIntro } from '@/components/page-intro';
 import { email,socials } from '@/lib/content';
 const titles:Record<string,string>={certifications:'Credentials & experience',privacy:'Privacy',accessibility:'Accessibility'};
-const descriptions:Record<string,string>={certifications:'Certifications, workshops and training of Rushan Haque, website designer, full-stack developer and project manager in Moradabad, India.',privacy:'What rushanhaque.in collects through enquiries, call requests and reviews, how it is used, and how to ask for it to be deleted.',accessibility:'How rushanhaque.in works with the keyboard, touch, screen readers and browser zoom, and how to report anything in the way.'};
+const descriptions:Record<string,string>={certifications:'Certifications, workshops and training of Rushan Haque, website designer and full-stack developer based in India.',privacy:'What rushanhaque.in collects through enquiries, call requests and reviews, how it is used, and how to ask for it to be deleted.',accessibility:'How rushanhaque.in works with the keyboard, touch, screen readers and browser zoom, and how to report anything in the way.'};
 type Props={params:Promise<{page:string}>};
 export const dynamicParams=false;
 export function generateStaticParams(){return [...Object.keys(titles),...sourcePages.map(p=>p.slug),...guides.map(g=>g.slug)].map(page=>({page}));}

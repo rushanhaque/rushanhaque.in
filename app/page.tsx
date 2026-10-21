@@ -25,7 +25,7 @@ export default async function Home(){
     <ParticleHero/>
     <Manifesto/>
     <SelectedWork/>
-    <VelocityMarquee words={['Developer', 'Project manager', 'Writer', 'Designer', 'Curious', 'Moradabad']}/>
+    <VelocityMarquee words={['Website design', 'Development', 'E-commerce', 'Web apps', 'SEO', 'Speed']}/>
     <ServiceIndex/>
     <Process/>
     <Bookshelf/>
