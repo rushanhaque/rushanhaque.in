@@ -2,13 +2,13 @@
   "writings": [
     {
       "slug": "borrowed-brilliance",
-      "title": "Borrowed brilliance",
-      "originalTitle": "Borrowed brilliance",
-      "category": "Research Paper",
+      "title": "Borrowed Brilliance",
+      "originalTitle": "Borrowed Brilliance",
+      "category": "Research paper",
       "year": "2026",
       "status": "Published",
       "url": "https://doi.org/10.13140/RG.2.2.25183.83367",
-      "description": "A Thesis on the Erosion of Human Skill Through AI Dependency",
+      "description": "A thesis on the erosion of human skill through dependence on AI.",
       "paragraphs": [
         "A Thesis on the Erosion of Human Skill Through AI Dependency"
       ],
@@ -17,13 +17,13 @@
     },
     {
       "slug": "the-paradox-of-algorithmic-empathy",
-      "title": "The paradox of algorithmic empathy",
-      "originalTitle": "The paradox of algorithmic empathy",
+      "title": "The Paradox of Algorithmic Empathy",
+      "originalTitle": "The Paradox of Algorithmic Empathy",
       "category": "Research paper",
       "year": "2026",
       "status": "Published",
       "url": "https://zenodo.org/records/23289920",
-      "description": "Can a machine truly understand human suffering, or does it only sound like it does?",
+      "description": "Can a machine understand human suffering, or does it only sound as if it does?",
       "paragraphs": [
         "Can a machine truly understand human suffering, or does it only sound like it does?"
       ],
@@ -37,7 +37,7 @@
       "year": "2026",
       "status": "Published",
       "url": "https://zenodo.org/records/19024124",
-      "description": "Training AI on its own output, and what it costs: Corpus Entropy Decay.",
+      "description": "What happens when AI learns from its own output, and what it costs: corpus entropy decay.",
       "paragraphs": [
         "As models learn from model-made text, their training data drifts from the real world.",
         "This technical note names the effect Corpus Entropy Decay and traces its cost to diversity, correctness and creativity.",
@@ -73,7 +73,7 @@
       "year": "2026",
       "status": "Forthcoming",
       "url": "",
-      "description": "An upcoming book.",
+      "description": "A book in progress. More soon.",
       "paragraphs": [
         "An upcoming book. Details soon."
       ],
@@ -94,7 +94,7 @@
       "role": "UI/UX Developer",
       "company": "TechBuzz Ideas",
       "period": "Apr 2026 — Jul 2026",
-      "description": "Responsive interfaces for websites, custom software and mobile apps, with immersive experiences and next-gen animation."
+      "description": "Responsive interfaces for websites, custom software and mobile apps, with careful motion and interaction."
     },
     {
       "role": "Merchandiser",
@@ -335,7 +335,7 @@
     {
       "title": "Digital marketing",
       "subtitle": "Growth",
-      "description": "Ad campaigns measured by the results they bring.",
+      "description": "Ad campaigns judged by the enquiries and sales they bring.",
       "items": []
     },
     {

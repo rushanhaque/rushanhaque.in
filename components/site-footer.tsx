@@ -67,7 +67,7 @@ export function SiteFooter() {
     <div className="ft-inner container">
       <section className="ft-cta" aria-labelledby="ft-title">
         <h2 suppressHydrationWarning id="ft-title">Got something <em>worth building?</em></h2>
-        <p>Send the brief, or just the problem. I answer everything myself, usually within a day.</p>
+        <p>Send the brief, or just the problem. I reply to everything myself, usually within a day.</p>
         <div className="ft-actions">
           <Link href="/connect" className="ft-btn is-solid">Start a project <ArrowUpRight size={17}/></Link>
           <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="ft-btn">Book a call <ArrowUpRight size={17}/></a>

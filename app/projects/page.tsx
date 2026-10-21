@@ -15,7 +15,7 @@ export default async function Projects() {
       <span className="eyebrow">WORKS · {two(works.length)} SELECTED{building.length?` · ${two(building.length)} IN PROGRESS`:''}</span>
       <Split as="h1" hero text="Websites for people *who make things.*"/>
       <div className="wk-intro-foot">
-        <p>Moradabad has worked brass, copper and wood for centuries, and ships it all over the world. These are the sites I designed and coded for some of its makers: each one from scratch, each one built to sell to buyers who will never visit the workshop.</p>
+        <p>Moradabad has worked brass, copper and wood for centuries, and ships it all over the world. These are the websites I designed and coded for some of its makers: each one from scratch, each one made to sell to buyers who will never set foot in the workshop.</p>
         <dl>
           <div><dt>Built</dt><dd>From scratch, no templates</dd></div>
           <div><dt>For</dt><dd>Makers &amp; exporters</dd></div>

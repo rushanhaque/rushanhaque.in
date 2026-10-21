@@ -56,12 +56,12 @@ export function VelocityMarquee({ words }: { words: string[] }) {
 /* III — What I build: the core services, each opening its own page.     */
 /* ------------------------------------------------------------------ */
 const BUILD = [
-  ['website-design-development', 'Business websites', 'Websites', 'Designed and coded from scratch, around your customers.'],
+  ['website-design-development', 'Business websites', 'Websites', 'Built from scratch around how your customers decide.'],
   ['ecommerce-website-development', 'E-commerce stores', 'Commerce', 'Online stores with Razorpay, PayU, Cashfree or Stripe.'],
-  ['website-for-exporters-moradabad', 'Export catalogues', 'Exporters', 'Searchable catalogues and enquiries for overseas buyers.'],
+  ['website-for-exporters-moradabad', 'Export catalogues', 'Exporters', 'Searchable catalogues that turn overseas buyers into enquiries.'],
   ['web-application-development', 'Web applications', 'Software', 'Portals, dashboards and tools built around how you work.'],
   ['landing-page-design', 'Landing pages', 'Campaigns', 'One page, one offer, built to turn visits into enquiries.'],
-  ['website-redesign', 'Redesigns', 'Rebuilds', 'Rebuild what is costing you leads, and keep your rankings.'],
+  ['website-redesign', 'Redesigns', 'Rebuilds', 'Fix what is costing you leads, without losing your rankings.'],
   ['website-speed-optimization', 'Speed', 'Performance', 'Faster pages that pass Core Web Vitals on mobile networks.'],
   ['seo-services', 'SEO', 'Search', 'Technical and local SEO, so people nearby find you first.'],
   ['generative-engine-optimization', 'AI search', 'GEO', 'Be the business ChatGPT, Gemini and Perplexity recommend.'],
@@ -84,7 +84,7 @@ export function ServiceIndex() {
     <div className="tl-wall-head">
       <span className="tl-kicker">III — WHAT I BUILD</span>
       <h2 suppressHydrationWarning>Websites, <em>end to end.</em></h2>
-      <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Each one opens a page on what it involves, what decides the cost and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link><Link href="/website-developer-in-moradabad" className="tl-link">Web developer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
+      <div className="tl-wall-intro"><p><strong>Designed and built from scratch in Moradabad,</strong> for businesses here and abroad. Open any service to see what it involves, what shapes the price and how long it takes.</p><div className="tl-build-links"><Link href="/website-cost-in-moradabad" className="tl-link">What it costs <ArrowUpRight size={16}/></Link><Link href="/website-designer-in-moradabad" className="tl-link">Website designer in Moradabad <ArrowUpRight size={16}/></Link><Link href="/website-developer-in-moradabad" className="tl-link">Web developer in Moradabad <ArrowUpRight size={16}/></Link></div></div>
     </div>
     <ul className="tl-wall-list">{BUILD.map(([slug, name, tag, line], i) => <li className="tl-wall-row" key={slug}>
       <Link href={'/' + slug}>
@@ -123,7 +123,7 @@ export function Bookshelf() {
   }, [reduced]);
   const book = writings[active];
   return <section id="writing" className="tl-writing" ref={root} data-chapter="V — Writing">
-    <div className="tl-writing-head"><span className="tl-kicker">V — WRITING</span><h2 suppressHydrationWarning>Notes and <em>books.</em></h2><p>Writing alongside the code: a research note, a book contribution and a book in progress. Pick a spine to see what it’s about.</p></div>
+    <div className="tl-writing-head"><span className="tl-kicker">V — WRITING</span><h2 suppressHydrationWarning>Papers and <em>books.</em></h2><p>Research papers, a technical note and books, written alongside the client work. Pick a spine to see what each one is about.</p></div>
     <div className="tl-shelf">
       <div className="tl-shelf-books">{writings.map((w, i) => {
         const [t, h] = SHAPE[w.slug] ?? [48, 380];
@@ -167,7 +167,7 @@ export function TypeWall() {
     <div className="tl-build-head">
       <span className="tl-kicker">VI — MORE SERVICES</span>
       <h2 suppressHydrationWarning>Beyond the <em>build.</em></h2>
-      <p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I can also take on marketing, hosting, apps and business software. I scope it with you and stay your single point of contact.</p>
+      <p><strong>Need more than a website?</strong> With partners I’ve worked with and trust, I also take on marketing, hosting, apps and business software. I scope the work with you and stay your one point of contact.</p>
       <div className="tl-build-links"><Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link></div>
     </div>
     <ol className="tl-build-list">{services.map((s, i) => <li key={s.title}>
@@ -239,7 +239,7 @@ export function Person() {
       <div className="tl-person-copy">
         <span className="tl-kicker">VII — JOURNEY</span>
         <h2 suppressHydrationWarning><em>Journey.</em></h2>
-        <p className="tl-bio"><strong>I work across management, design and code, because client projects need all three.</strong> {profile.bio} Below is where I’ve worked and studied.</p>
+        <p className="tl-bio"><strong>I work across management, design and code, because every client project needs all three.</strong> {profile.bio} Here is where I have worked and studied.</p>
         <div className="tl-facts">
           {stats.map(f => <span className="tl-fact" key={f.label}><b>{f.value}</b>{f.label}</span>)}
         </div>
@@ -302,7 +302,7 @@ export function Voices() {
   return <section id="reviews" className="tl-voices" ref={root} data-chapter="VIII — Reviews">
     <div className="tl-voices-head">
       <div><span className="tl-kicker">VIII — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
-      <div className="tl-score"><b data-count>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews from clients, in their own words</span></div>
+      <div className="tl-score"><b data-count>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} reviews, written by clients in their own words</span></div>
     </div>
     <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Drag a note <ArrowUpRight size={18} strokeWidth={1.5}/></span><span className="is-touch">Swipe through the notes <ArrowRight size={17} strokeWidth={1.5}/></span><small className="is-touch">{reviews.length} NOTES</small></p>
     <div className="tl-board">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>

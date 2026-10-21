@@ -10,7 +10,7 @@ export function LabSection() {
     <header className="lab-intro">
       <span className="lab-kicker">IX — THE LAB</span>
       <h2 suppressHydrationWarning id="lab-title">Don’t take my word. <em>Test it.</em></h2>
-      <p>Four small demos you can try right here. Each one runs on real work and real data, not mock-ups.</p>
+      <p>Four small experiments you can try right here. Each runs on real work and real data, not mock-ups.</p>
     </header>
     <XrayStudy/>
     <ResizeStudy/>

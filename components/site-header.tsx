@@ -149,7 +149,7 @@ export function SiteHeader({ workCount }: { workCount: number }) {
         </div>
         <aside className="gh-panel-card">
           <span>Let’s build</span>
-          <p>Got something worth building? Send the brief, or just the problem. I answer everything myself, usually within a day.</p>
+          <p>Got something worth building? Send the brief, or just the problem. I reply to everything myself, usually within a day.</p>
           <div className="gh-panel-actions">
             <Link href="/connect" className="gh-cta" onClick={() => close(false)}>Start a project <ArrowUpRight size={15}/></Link>
             <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="gh-ghost">Book a call <ArrowUpRight size={15}/></a>

@@ -23,10 +23,12 @@ const two = (n: number) => String(n).padStart(2, '0');
 /* ------------------------------------------------------------------ */
 type Piece = string | { em: string } | { img: string; cap: string };
 const STORY: Piece[] = [
-  'Moradabad has worked', { em: 'brass' }, { img: '/images/pill/taif.webp', cap: 'Taif · brass & copper' }, 'for centuries, and ships it', { img: '/images/pill/casa.webp', cap: 'Casa&Crop · 34 countries' }, 'across the world.',
-  'Its makers deserve websites as fine as', { em: 'the things they make.' }, { img: '/images/pill/erfolg.webp', cap: 'Erfolg · a copper bath' },
-  'I design and build them', { img: '/images/pill/rushan.webp', cap: 'Rushan Haque' }, 'from the first call', { em: 'to long after launch.' },
+  'Moradabad has shaped', { em: 'brass' }, { img: '/images/pill/taif.webp', cap: 'Taif · brass & copper' }, 'for centuries and ships it', { img: '/images/pill/casa.webp', cap: 'Casa&Crop · 34 countries' }, 'to every corner of the world.',
+  'Its makers deserve websites as finely made as', { em: 'the things they make.' }, { img: '/images/pill/erfolg.webp', cap: 'Erfolg · a copper bath' },
+  'I design and build them', { img: '/images/pill/velora.webp', cap: 'Velora · hand-raised brass' }, 'from the first conversation', { em: 'to long after launch.' },
 ];
+// The short facts under the sentence: who, how, and with whom.
+const FACTS = [['Clients in', 'India, Saudi Arabia, Poland and Nepal'], ['Working over', 'Calls, WhatsApp and email, with a live preview link'], ['You speak to', 'The person writing the code']] as const;
 
 export function Manifesto() {
   const root = useRef<HTMLElement>(null);
@@ -36,7 +38,9 @@ export function Manifesto() {
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
       // Walk the sentence in reading order, so each picture opens exactly where it sits.
-      const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.tl-mf-text', start: 'top 78%', end: 'bottom 52%', scrub: .6 } });
+      // A phone screen is short, so there the sentence finishes lighting while it is still in view.
+      const phone = window.matchMedia('(max-width: 899px)').matches;
+      const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.tl-mf-text', start: phone ? 'top 88%' : 'top 78%', end: phone ? 'bottom 66%' : 'bottom 52%', scrub: .6 } });
       section.querySelectorAll<HTMLElement>('.tl-mf-text > *').forEach(el => {
         if (el.classList.contains('tl-mf-pill')) tl.fromTo(el, { clipPath: 'inset(0 50% 0 50% round 999px)' }, { clipPath: 'inset(0 0% 0 0% round 999px)', duration: .6 }, '>-0.2').fromTo(el.querySelector('img'), { scale: 1.6 }, { scale: 1, duration: .8 }, '<');
         else tl.fromTo(el, { opacity: .14 }, { opacity: 1, duration: .3 }, '>-0.22');
@@ -62,7 +66,7 @@ export function Manifesto() {
         </span>
         <span><small>Independent since 2024</small><strong><em>Moradabad, U.P.</em></strong></span>
       </div>
-      <p>Clients so far are in India, Saudi Arabia, Poland and Nepal. Every project runs over calls, WhatsApp and email with a live preview link, so you can follow the work from anywhere, and you deal with the person writing the code.</p>
+      <dl className="tl-mf-facts">{FACTS.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
       <Link href="#journey" className="tl-link">The longer version <ArrowUpRight size={16}/></Link>
     </div>
   </section>;
@@ -115,7 +119,7 @@ export function SelectedWork() {
     <div className="tl-sw-head">
       <span className="tl-kicker">II — SELECTED WORK</span>
       <h2 suppressHydrationWarning>Made in <em>Moradabad.</em></h2>
-      <p>Websites for makers and exporters, each one designed and coded from scratch. Scroll through them, or open any one.</p>
+      <p>Websites for makers and exporters, each one designed and coded from scratch. Scroll to move through them, or open one to see it live.</p>
     </div>
     <div className="tl-sw-body">
       <ol className="tl-sw-list" ref={list}>{works.map((w, i) => {
@@ -159,10 +163,10 @@ export function SelectedWork() {
 /* IV — How it works: four steps on one line that draws itself in.     */
 /* ------------------------------------------------------------------ */
 const STEPS = [
-  ['A conversation', 'A call or a WhatsApp message. You tell me about the business, and I ask what the site has to do for it.', 'Call · WhatsApp · Email'],
-  ['A fixed, written quote', 'Scope, price and timeline in writing before any work starts, so you know what you are paying for.', 'Fixed price'],
-  ['Design, then code', 'You see and approve the design first. Then it is coded from scratch, and you follow along on a live preview link.', 'Live preview link'],
-  ['Launch, and after', 'Domain, hosting and Google Search Console set up in your name. I stay a message away long after launch.', 'Yours to own'],
+  ['A conversation', 'A call or a WhatsApp message. You tell me about the business; I ask what the website has to do for it.', 'Call · WhatsApp · Email'],
+  ['A fixed, written quote', 'Scope, price and timeline in writing before any work begins. No surprises later.', 'Fixed price'],
+  ['Design, then code', 'You see and approve the design first. Then it is coded from scratch, and you watch it come together on a live preview link.', 'Live preview link'],
+  ['Launch, and after', 'Domain, hosting and Google Search Console, all set up in your name. After launch, I am still a message away.', 'Yours to own'],
 ] as const;
 
 export function Process() {
@@ -229,7 +233,7 @@ export function Encore() {
       <div className="tl-close-copy">
         <span className="tl-kicker">X — YOUR CHAPTER</span>
         <h2 className="tl-close-title" suppressHydrationWarning>Your business, <em>next in line.</em></h2>
-        <p>{COUNT[works] ?? works} makers have trusted me with their websites{building ? `, and ${COUNT[building]?.toLowerCase() ?? building} more ${building === 1 ? 'is' : 'are'} on the desk` : ''}. Tell me about yours, and you get a fixed, written quote before any work starts.</p>
+        <p>{COUNT[works] ?? works} makers have trusted me with their websites{building ? `, and ${COUNT[building]?.toLowerCase() ?? building} more ${building === 1 ? 'is' : 'are'} on the desk` : ''}. Tell me about yours and you will have a fixed, written quote before any work begins.</p>
         <div className="tl-close-actions"><Link href="/connect" className="tl-button">Start a project <ArrowUpRight size={16}/></Link><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="tl-link">Book a call <ArrowUpRight size={16}/><span className="sr-only"> (opens in a new tab)</span></a></div>
       </div>
       <Link href="/connect" className="tl-close-orb" aria-label="Start a project">

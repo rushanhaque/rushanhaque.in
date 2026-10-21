@@ -20,7 +20,7 @@ export default function Connect() {
       <section className="cn-intro" aria-labelledby="cn-title">
         <span className="cn-kicker">CONNECT</span>
         <h1 suppressHydrationWarning id="cn-title">So, what are we <em>building?</em></h1>
-        <p>A project, a half-formed idea, or just hello. I answer everything myself, usually within a day.</p>
+        <p>A project, a half-formed idea, or just hello. I reply to everything myself, usually within a day.</p>
         <div className="cn-direct">
           <a className="cn-card is-primary" href={phone.whatsapp} target="_blank" rel="noopener noreferrer">
             <span className="cn-icon"><MessageCircle size={22}/></span>

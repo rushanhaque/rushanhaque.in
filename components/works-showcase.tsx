@@ -64,7 +64,7 @@ export function BuildingList({ items }: { items: Project[] }) {
       <div className="wb-head" data-reveal>
         <span className="wb-kicker"><i/>IN THE STUDIO NOW</span>
         <Split id="wb-title" text="Currently *building.*"/>
-        <p>Sites being designed and coded right now. Each one moves up into the works above the day it launches.</p>
+        <p>Websites on the desk right now, in design or in code. Each one joins the works above on the day it launches.</p>
       </div>
       <ul className="wb-grid">
         {items.map(p => <li key={p.slug} data-reveal>
@@ -83,7 +83,7 @@ export function BuildingList({ items }: { items: Project[] }) {
           <span className="wb-body">
             <span className="wb-status is-idle"><i/>Next in line</span>
             <strong>Your business?</strong>
-            <span className="wb-desc">I take on a few projects at a time. Tell me what you need, and every project starts with a fixed, written quote.</span>
+            <span className="wb-desc">I take on a few projects at a time. Tell me what you need; every project starts with a fixed, written quote.</span>
             <span className="wb-go">Start a project<ArrowUpRight size={15}/></span>
           </span>
         </Link></li>
