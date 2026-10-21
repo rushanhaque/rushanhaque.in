@@ -122,7 +122,7 @@ export function GuideLead({ facts, updated, lang }: { facts: string[][]; updated
   </section>;
 }
 
-export function FaqBlock({ label, faqs, title = 'Questions people actually ask' }: { label: string; faqs: { q: string; a: string }[]; title?: string }) {
+export function FaqBlock({ label, faqs, title = 'What clients ask' }: { label: string; faqs: { q: string; a: string }[]; title?: string }) {
   return <Sx kind="faq" sticky num={label} name="Questions" title={title}><Faqs faqs={faqs.map((f, i) => ({ num: pad(i), q: f.q, a: [f.a], plain: true }))}/></Sx>;
 }
 

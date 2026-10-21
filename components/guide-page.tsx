@@ -24,7 +24,7 @@ export function GuidePage({ guide, projects }: { guide: Guide; projects: Project
       <GuideLead facts={guide.facts} updated={guide.updated} lang={guide.lang}/>
       {guide.sections.map((s, i) => <GuideBlock key={i} section={s as GuideSection}/>)}
       <RecentWork projects={projects} title={hi ? 'हाल में बनाई गई वेबसाइटें' : 'Websites I’ve built recently.'} label={hi ? 'हाल का काम' : 'Recent work'}/>
-      <FaqBlock label={faqLabel} faqs={guide.faqs} title={hi ? 'अक्सर पूछे जाने वाले सवाल' : 'Questions people actually ask'}/>
+      <FaqBlock label={faqLabel} faqs={guide.faqs} title={hi ? 'अक्सर पूछे जाने वाले सवाल' : 'What clients ask'}/>
       <NextStep text={guide.cta} lang={guide.lang}/>
     </div>
     <Directory current={guide.slug}/>
