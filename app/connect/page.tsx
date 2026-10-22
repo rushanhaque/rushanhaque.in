@@ -1,8 +1,7 @@
 import { pageMetadata } from '@/lib/seo';
-import { ArrowUpRight, Mail, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, CalendarCheck, Mail, MessageCircle } from 'lucide-react';
 import { ContactForm } from '@/components/contact-form';
 import { email, phone, bookingUrl, address } from '@/lib/content';
-import { getPublishedContent } from '@/lib/published-content';
 import '@/app/connect.css';
 
 export const metadata = pageMetadata('/connect', 'Get a website made — contact', 'Call, WhatsApp or email Rushan Haque, website designer and developer. Tell me what you need; I reply within a day.');
@@ -11,10 +10,7 @@ export const metadata = pageMetadata('/connect', 'Get a website made — contact
 const TILE = { z: 12, x: 2944, y: 1705 };
 const tiles = Array.from({ length: 35 }, (_, i) => ({ x: TILE.x - 3 + (i % 7), y: TILE.y - 2 + Math.floor(i / 7) }));
 
-export default async function Connect() {
-  const { reviews } = await getPublishedContent();
-  const ratings = reviews.map(r => Number(r.rating) || 5);
-  const average = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : '5.0';
+export default function Connect() {
   return <main id="main-content" className="cn">
     <div className="cn-map" aria-hidden="true">
       <div className="cn-tiles">{tiles.map(t => <img key={`${t.x}-${t.y}`} src={`https://tile.openstreetmap.org/${TILE.z}/${t.x}/${t.y}.png`} alt="" width={256} height={256} loading="lazy" decoding="async" referrerPolicy="origin"/>)}</div>
@@ -37,8 +33,8 @@ export default async function Connect() {
             <ArrowUpRight className="cn-go" size={20}/>
           </a>
         </div>
-        <ul className="cn-proof" aria-label="At a glance"><li><b>{average}</b><span>from {reviews.length} client reviews</span></li><li><b>4</b><span>countries with clients</span></li><li><b>1 day</b><span>usual reply time</span></li></ul>
-        <p className="cn-meta"><a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="text-link">Book a call <ArrowUpRight size={15}/></a><span>{address.label}</span></p>
+        <a className="cn-book" href={bookingUrl} target="_blank" rel="noopener noreferrer"><CalendarCheck size={20}/>Book a call<ArrowUpRight size={18}/><span className="sr-only"> (opens in a new tab)</span></a>
+        <p className="cn-meta"><span>{address.label}</span></p>
       </section>
       <section className="cn-form" aria-label="Send a note"><ContactForm/></section>
     </div>

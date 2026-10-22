@@ -176,3 +176,10 @@ html[data-motion=full] .wb-head[data-rv=in] p{transition:opacity .9s var(--wk-e)
   @keyframes wk-num{from{translate:0 -20%}to{translate:0 -80%}}
 }
 @media (max-width:899px){.wk-bg-n{top:22%;font-size:46vw}}
+
+/* Simpler rows: number and field, the name, one line, and the link. */
+.wk-n i{width:24px;height:1px;background:currentColor;opacity:.4}
+.wk-line{margin-top:6px}
+.wk-go{margin-top:22px}
+.wk-intro-foot{grid-template-columns:minmax(0,1fr)}
+.wk-intro-foot p{max-width:40ch}

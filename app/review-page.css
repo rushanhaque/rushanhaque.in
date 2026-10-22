@@ -90,3 +90,17 @@ html[data-motion=reduce] .rvp-row,html[data-motion=reduce] .rvp-pill i{animation
   .rvp-row{font-size:clamp(44px,15vw,64px)}
   .rvp-card{margin-top:clamp(70px,22vw,110px);width:100%;border-radius:24px;box-shadow:0 30px 60px -34px rgb(7 36 26 / .55)}
 }
+
+/* Liquid glass: the card is tinted glass over the ribbon behind it. It blurs and brightens what
+   sits under it, with a lit top edge, a soft inner glow and a slow sheen across the surface. */
+.rvp-card{
+  isolation:isolate;overflow:hidden;
+  background:linear-gradient(155deg,rgb(24 66 50 / .78),rgb(7 36 26 / .66) 55%,rgb(12 48 36 / .74));
+  -webkit-backdrop-filter:blur(22px) saturate(1.7) brightness(1.08);backdrop-filter:blur(22px) saturate(1.7) brightness(1.08);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .32),inset 0 -1px 0 rgb(255 255 255 / .06),inset 0 0 0 1px rgb(255 255 255 / .12),inset 0 24px 48px -28px rgb(255 255 255 / .18),0 40px 80px -34px rgb(7 36 26 / .6)}
+.rvp-card::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(70% 50% at 18% 0%,rgb(255 255 255 / .2),transparent 60%),radial-gradient(60% 45% at 100% 100%,rgb(255 255 255 / .08),transparent 65%)}
+.rvp-card::after{content:'';position:absolute;inset:-40% -20%;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgb(255 255 255 / .13) 50%,transparent 58%);translate:-60% 0;animation:rvp-sheen 9s var(--ease,cubic-bezier(.16,1,.3,1)) 1.5s infinite}
+@keyframes rvp-sheen{0%,55%{translate:-60% 0}100%{translate:60% 0}}
+.rvf input:not(.rvf-trap),.rvf textarea{background:rgb(255 255 255 / .07);border-color:rgb(255 255 255 / .16);box-shadow:inset 0 1px 0 rgb(255 255 255 / .08)}
+.rvf input:focus,.rvf textarea:focus{background:rgb(255 255 255 / .12);border-color:rgb(255 255 255 / .55)}
+@media (prefers-reduced-motion:reduce){.rvp-card::after{animation:none}}

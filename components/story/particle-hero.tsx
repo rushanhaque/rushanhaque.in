@@ -194,7 +194,7 @@ export function ParticleHero() {
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
     <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque — Website Designer &amp; Developer</h1>
-    <div className="tl-hero-meta"><span>INDIA · IST {time || '--:--'} · WORKING WORLDWIDE</span><span>Website designer &amp; developer</span></div>
-    <div className="tl-hero-foot"><p>Websites that look the part,<br/>and <em>do the work.</em></p><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
+    <div className="tl-hero-meta"><span>INDIA · IST {time || '--:--'}</span><span>Website designer &amp; developer</span></div>
+    <div className="tl-hero-foot"><span/><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

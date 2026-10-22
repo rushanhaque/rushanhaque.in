@@ -30,15 +30,9 @@ export function WorksList({ works }: { works: Project[] }) {
         </Link>
         <span className="wk-bg-n" aria-hidden="true">{two(i + 1)}</span>
         <div className="wk-info">
-          <span className="wk-n">{two(i + 1)}<small>/ {two(works.length)}</small></span>
+          <span className="wk-n">{two(i + 1)}<small>/ {two(works.length)}</small><i/>{story.field}</span>
           <Split as="h3" text={p.title}/>
           <p className="wk-line"><em>{story.line}</em></p>
-          <p className="wk-desc">{p.description}</p>
-          <dl className="wk-meta">
-            <div><dt>Field</dt><dd>{story.field}</dd></div>
-            <div><dt>Year</dt><dd>{p.year}</dd></div>
-            <div><dt>Status</dt><dd><span className={`wk-status ${visit ? 'is-live' : ''}`}><i/>{p.status}</span></dd></div>
-          </dl>
           <Link {...projectLink(p)} className="wk-go">{visit && host ? host : 'About the project'}<ArrowUpRight size={16}/>{visit && <span className="sr-only"> (opens in a new tab)</span>}</Link>
         </div>
       </li>;
