@@ -32,7 +32,7 @@ export function siteGraph() {
       {
         '@type': 'ProfessionalService', '@id': ids.business, name: 'Rushan Haque — Website Design & Development',
         alternateName: ['Rushan Haque', 'Rushan Haque Web Design'], url: siteOrigin,
-        description: 'Website designer and web developer in Moradabad, Uttar Pradesh. Custom business websites, e-commerce stores, export catalogues and web applications, designed and built from scratch, fast and optimised for Google and AI search.',
+        description: 'Website designer and web developer for businesses in India and abroad. Custom business websites, e-commerce stores, export catalogues and web applications, designed and built from scratch, fast and optimised for Google and AI search.',
         image: `${siteOrigin}/og.jpg`, logo: `${siteOrigin}/logo.webp`, priceRange: '₹₹', currenciesAccepted: 'INR',
         slogan: 'Websites designed and built from scratch, made to be found.',
         knowsAbout: ['Website design', 'Web development', 'E-commerce websites', 'Local SEO', 'Website speed optimization'],

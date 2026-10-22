@@ -14,7 +14,7 @@ export async function GET() {
   const line = (title: string, path: string, text: string) => `- [${title}](${siteOrigin}${path}): ${text}`;
   const body = `# Rushan Haque
 
-> Website designer and full-stack developer based in Moradabad, Uttar Pradesh, India. Designs and builds custom business websites, e-commerce stores, export catalogues and web applications from scratch, for clients in Moradabad, across India and abroad. Fast, mobile-first, and set up to be found on Google and in AI search.
+> Website designer and full-stack developer based in India, working with businesses across India and abroad. Designs and builds custom business websites, e-commerce stores, export catalogues and web applications from scratch. Fast, mobile-first, and set up to be found on Google and in AI search.
 
 ## Key facts
 - Location: ${address.label} (works remotely across India and worldwide)
@@ -22,7 +22,7 @@ export async function GET() {
 - Languages: English, Hindi, French
 - Pricing: every project gets a fixed, written quote with a timeline before work starts.
 - Typical timelines: landing page 1–2 weeks; business website 2–4 weeks; e-commerce or catalogue 4–8 weeks.
-- Specialism: websites for Moradabad's brass, metal, wood and handicraft exporters and manufacturers.
+- Specialism: custom business websites, online stores, export catalogues and web applications, designed and coded from scratch.
 - Client reviews: ${reviews.length} reviews, average ${(reviews.reduce((a, r) => a + Number(r.rating || 5), 0) / Math.max(1, reviews.length)).toFixed(1)} out of 5, at ${siteOrigin}/reviews
 - Profiles: ${socials.filter(s => s.name !== 'WhatsApp').map(s => s.url).join(', ')}
 
