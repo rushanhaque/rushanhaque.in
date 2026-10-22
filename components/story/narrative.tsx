@@ -54,7 +54,6 @@ export function Manifesto() {
       if ('em' in piece) return piece.em.split(' ').map(w => <span className="tl-mf-w is-em" key={key++}><em>{w}</em> </span>);
       return [<span className="tl-mf-pill" key={key++}><img src={piece.img} alt="" width="400" height="160" loading="lazy" decoding="async"/><span className="tl-mf-cap">{piece.cap}</span></span>];
     })}</p>
-    <div className="tl-mf-foot"><Link href="#journey" className="tl-link">About me <ArrowUpRight size={16}/></Link></div>
   </section>;
 }
 
