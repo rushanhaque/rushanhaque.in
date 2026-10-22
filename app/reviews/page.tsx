@@ -19,7 +19,7 @@ export default async function WriteReview() {
   const row = 'DESIGN/DEVELOPMENT/';
   return <main id="main-content" className="rvp">
     <section className="rvp-hero">
-      <div className="rvp-marquee" aria-hidden="true">{[0, 1, 2].map(i => <div key={i} className={`rvp-row ${i === 1 ? 'is-reverse' : ''}`}><span>{row.repeat(6)}</span><span>{row.repeat(6)}</span></div>)}</div>
+      <div className="rvp-marquee" aria-hidden="true">{Array.from({ length: 14 }, (_, i) => i).map(i => <div key={i} className={`rvp-row ${i % 2 ? 'is-reverse' : ''}`}><span>{row.repeat(6)}</span><span>{row.repeat(6)}</span></div>)}</div>
       <div className="rvp-card">
         <div className="rvp-pitch">
           <span className="rvp-pill"><i aria-hidden="true"/>Open submission</span>
