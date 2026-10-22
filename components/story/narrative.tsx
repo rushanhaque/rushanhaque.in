@@ -23,8 +23,7 @@ const two = (n: number) => String(n).padStart(2, '0');
 /* ------------------------------------------------------------------ */
 type Piece = string | { em: string } | { img: string; cap: string };
 const STORY: Piece[] = [
-  'A good website does more than', { em: 'look the part.' }, { img: '/images/pill/taif.webp', cap: 'taifinternational.co' },
-  'It loads in a blink on any phone,', { img: '/images/pill/erfolg.webp', cap: 'erfolgliving.com' }, 'shows up when people search,', { img: '/images/pill/casa.webp', cap: 'casaandcrop.com' },
+  'A good website', { img: '/images/pill/taif.webp', cap: 'taifinternational.co' }, 'loads in a blink on any phone,', { img: '/images/pill/erfolg.webp', cap: 'erfolgliving.com' }, 'shows up when people search,', { img: '/images/pill/casa.webp', cap: 'casaandcrop.com' },
   'and turns visitors into', { em: 'customers.' }, 'I design and build websites like that, from scratch,', { img: '/images/pill/velora.webp', cap: 'veloralivings.in' }, 'from the first conversation', { em: 'to long after launch.' },
 ];
 
