@@ -81,3 +81,12 @@ body:has(main.rvp) .gh-spacer{display:none}
 html[data-motion=reduce] .rvp-row,html[data-motion=reduce] .rvp-pill i{animation:none}
 
 @media(max-height:760px) and (min-width:900px){.rvp-pitch ol{display:none}.rvp-hero{padding-block:88px 24px}}
+
+/* Phones: the card is taller than the screen, so the giant ribbon only showed as scraps around it.
+   Here it becomes a calm, faint ribbon above the card, and the card gets room to breathe. */
+@media(max-width:600px){
+  .rvp-hero{display:block;min-height:0;padding:96px 14px 40px;background:radial-gradient(120% 60% at 50% 0%,rgb(7 36 26 / .06),transparent 70%)}
+  .rvp-marquee{inset:88px 0 auto 0;gap:4px;align-content:start;opacity:.12;mask-image:linear-gradient(#000 40%,transparent);-webkit-mask-image:linear-gradient(#000 40%,transparent)}
+  .rvp-row{font-size:clamp(44px,15vw,64px)}
+  .rvp-card{margin-top:clamp(70px,22vw,110px);width:100%;border-radius:24px;box-shadow:0 30px 60px -34px rgb(7 36 26 / .55)}
+}
