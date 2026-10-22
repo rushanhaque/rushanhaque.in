@@ -192,3 +192,7 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:none;backdrop-filter:none}
   .ft-actions{gap:8px}
   .ft-btn{height:42px}
 }
+/* On wide screens the menu is only the green card: nothing pale behind it. */
+@media(min-width:1100px){
+  .gh-panel{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:12px 0 0}
+}
