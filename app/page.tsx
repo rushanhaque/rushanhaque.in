@@ -14,7 +14,7 @@ import { LazyLab } from '@/components/studies/lazy-lab';
 import { StoryMotion } from '@/components/story/story-motion';
 import { HomeFaq } from '@/components/home-faq';
 
-export const metadata=pageMetadata('/','Rushan Haque | Website Designer & Developer','Website designer and developer for businesses in India and abroad. Custom websites, online stores and web apps, fast on mobile and built to rank on Google. Fixed, written quote.');
+export const metadata=pageMetadata('/','Rushan Haque | Website Designer & Developer','Website designer and developer for businesses in India and abroad. Custom websites, online stores and web apps, fast on mobile and built to rank on Google.');
 
 // "Two languages": the homepage told as one story, from code to verse.
 export default async function Home(){

@@ -121,3 +121,24 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
 /* Dark chapters carry a wide, faint light that follows the pointer. */
 :is(.tl-wall,.tl-close-card,.wb).spot{--spot:rgb(243 241 230 / .07);--spot-size:720px}
 :is(.tl-wall,.wb).spot::after{z-index:0}
+
+/* Certificates: a search field and filter pills in place of form controls. */
+.cat-bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;padding:22px 0;border-block:1px solid rgb(7 36 26 / .12)}
+.cat-search{position:relative;display:flex;align-items:center;flex:1 1 280px;max-width:420px}
+.cat-search svg{position:absolute;left:18px;color:#5d6a62;pointer-events:none}
+.cat-search input{width:100%;height:50px;padding:0 18px 0 46px;border:0;border-radius:99px;background:#fbf9f2;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:15px;color:#07241a;transition:box-shadow .3s}
+.cat-search input:focus{outline:none;box-shadow:inset 0 0 0 2px #07241a}
+.cat-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.cat-tabs button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:99px;background:transparent;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:14px;color:#07241a;transition:background .35s,color .35s,box-shadow .35s}
+.cat-tabs button small{font-size:11px;opacity:.55;font-variant-numeric:tabular-nums}
+.cat-tabs button:hover{box-shadow:inset 0 0 0 1px #07241a}
+.cat-tabs button[aria-pressed=true]{background:#07241a;color:#f3f1e6;box-shadow:none}
+.cat-count{margin-left:auto;font-size:13px;color:#5d6a62}
+@media (max-width:700px){.cat-search{max-width:none;flex-basis:100%}.cat-tabs{flex-wrap:nowrap;overflow-x:auto;margin-inline:-20px;padding-inline:20px;scrollbar-width:none}.cat-tabs button{flex:none}.cat-count{display:none}}
+
+/* Service pages: the areas served as a wrapped grid of pills, not a long column. */
+.source-directory section.is-areas{grid-column:1/-1;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px}
+.source-directory .is-areas h3{flex-basis:100%}
+.source-directory .is-areas a{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border:0;border-radius:99px;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:14px;transition:background .35s,color .35s,box-shadow .35s}
+.source-directory .is-areas a:hover{padding-inline:15px;background:#07241a;color:#f3f1e6;box-shadow:none}
+.source-directory .is-areas a svg{width:13px;height:13px}

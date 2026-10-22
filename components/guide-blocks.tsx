@@ -154,7 +154,7 @@ export function Directory({ current }: { current: string }) {
     <section><h3>Services</h3>{sourcePages.filter(p => p.kind === 'Service').map(p => link(p.slug, p.title))}</section>
     <section><h3>Guides</h3>{group(undefined).map(g => link(g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title))}</section>
     {industries.length > 0 && <section><h3>Industries</h3>{industries.map(g => link(g.slug, g.title.replace('Websites for ', '').replace(/^./, c => c.toUpperCase())))}</section>}
-    <section><h3>Areas served</h3>{areas.map(a => link(a.slug, a.name))}</section>
+    <section className="is-areas"><h3>Areas served</h3>{areas.map(a => link(a.slug, a.name))}</section>
   </div></nav>;
 }
 

@@ -16,7 +16,7 @@ export default async function WriteReview() {
   const { reviews } = await getPublishedContent();
   const ratings = reviews.map(r => Number(r.rating)).filter(Boolean);
   const average = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : '5.0';
-  const row = 'DEVELOPER/WRITER/';
+  const row = 'DESIGN/DEVELOPMENT/';
   return <main id="main-content" className="rvp">
     <section className="rvp-hero">
       <div className="rvp-marquee" aria-hidden="true">{[0, 1, 2].map(i => <div key={i} className={`rvp-row ${i === 1 ? 'is-reverse' : ''}`}><span>{row.repeat(6)}</span><span>{row.repeat(6)}</span></div>)}</div>
