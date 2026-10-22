@@ -129,7 +129,7 @@ export function FaqBlock({ label, faqs, title = 'What clients ask' }: { label: s
 const domain = (url: string) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; } };
 
 // Live client sites, each in the same browser window as on the Works page.
-export function RecentWork({ projects, title = 'Websites I’ve built recently.', label = 'Recent work' }: { projects: Project[]; title?: string; label?: string }) {
+export function RecentWork({ projects, title = 'Websites I’ve built recently.', label = 'Recent works' }: { projects: Project[]; title?: string; label?: string }) {
   const works = projects.filter(p => placementOf(p) === 'work' && p.image && projectAccess(p) === 'visit').slice(0, 4);
   if (!works.length) return null;
   return <section className="source-section source-work sx-work" aria-labelledby="source-work-title">
