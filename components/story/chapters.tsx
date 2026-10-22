@@ -12,6 +12,7 @@ import { useContent } from '@/components/content-provider';
 import { useMotion } from '@/components/site-motion';
 import profile from '@/content/profile.json';
 import { BookCover, toneStyle } from '@/components/book-cover';
+import { ClientMap } from '@/components/client-map';
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, DrawSVGPlugin, SplitText);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -218,6 +219,7 @@ export function Voices() {
     return () => mm.revert();
   }, [reduced]);
   return <section id="reviews" className="tl-voices" ref={root} data-chapter="VIII — Reviews">
+    <ClientMap/>
     <div className="tl-voices-head">
       <div><span className="tl-kicker">VIII — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
       <div className="tl-score"><b data-count>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} client reviews</span></div>

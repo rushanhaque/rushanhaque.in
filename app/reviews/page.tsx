@@ -1,3 +1,4 @@
+import { ClientMap } from '@/components/client-map';
 import { pageMetadata } from '@/lib/seo';
 import { Star } from 'lucide-react';
 import { ReviewForm } from '@/components/review-form';
@@ -31,6 +32,7 @@ export default async function WriteReview() {
       </div>
     </section>
     <section className="rvp-said" aria-labelledby="rvp-said-title">
+      <ClientMap/>
       <div className="rvp-head"><span>02</span><i/><span>REVIEWS</span></div>
       <div className="rvp-top">
         <h2 suppressHydrationWarning id="rvp-said-title">What they <em>said.</em></h2>
