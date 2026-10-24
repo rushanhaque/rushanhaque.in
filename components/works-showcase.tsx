@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
-import { responsive } from '@/lib/images';
+import { planOf, responsive } from '@/lib/images';
+import { Plan } from '@/components/plan';
 import type { Project } from '@/lib/content';
 import { projectAccess, projectLink } from '@/lib/project-access';
 import { hostOf, storyOf } from '@/lib/work-stories';
@@ -11,9 +12,10 @@ const two = (n: number) => String(n).padStart(2, '0');
 // A screenshot set in a quiet browser window, with the site's own address in the bar.
 export function BrowserShot({ project, sizes, eager = false }: { project: Project; sizes: string; eager?: boolean }) {
   const host = hostOf(project.url);
+  const plan = project.imageBlurred ? undefined : planOf(project.image);
   return <span className="wk-shot">
     <span className="wk-bar" aria-hidden="true"><i/><i/><i/><span>{host || project.title.toLowerCase()}</span></span>
-    <span className="wk-frame">{project.image && <img className={project.imageBlurred ? 'unreleased-preview' : undefined} src={project.image} {...responsive(project.image, sizes)} alt={`${project.title} website`} width="1600" height="772" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding="async"/>}</span>
+    <span className="wk-frame">{project.image && <img className={project.imageBlurred ? 'unreleased-preview' : undefined} src={project.image} {...responsive(project.image, sizes)} alt={`${project.title} website`} width="1600" height="772" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding="async"/>}{plan && <Plan src={plan} label={host || project.title}/>}</span>
   </span>;
 }
 
@@ -77,7 +79,7 @@ export function BuildingList({ items }: { items: Project[] }) {
           <span className="wb-body">
             <span className="wb-status is-idle"><i/>Next in line</span>
             <strong>Your business?</strong>
-            <span className="wb-desc">I take on a few projects at a time. Tell me what you need; every project starts with a fixed, written quote.</span>
+            <span className="wb-desc">I take on a few projects at a time. Tell me what you need, and the next one could be yours.</span>
             <span className="wb-go">Start a project<ArrowUpRight size={15}/></span>
           </span>
         </Link></li>

@@ -27,18 +27,20 @@ export function Choreography() {
       mm.add('(max-width: 1023px)', () => {
         all('.tl-sw-list > li').forEach(li => {
           const shot = li.querySelector('.tl-sw-shot .wk-shot');
-          const img = li.querySelector('.tl-sw-shot img');
+          const img = li.querySelectorAll('.tl-sw-shot .wk-frame img');
           if (shot) gsap.fromTo(shot, { clipPath: 'inset(14% 10% 14% 10% round 28px)' }, { clipPath: 'inset(0% 0% 0% 0% round 14px)', ease: 'none', scrollTrigger: { trigger: li, start: 'top 95%', end: 'top 45%', scrub: .6 } });
-          if (img) gsap.fromTo(img, { scale: 1.3 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: li, start: 'top 95%', end: 'top 30%', scrub: .6 } });
+          if (img.length) gsap.fromTo(img, { scale: 1.3 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: li, start: 'top 95%', end: 'top 30%', scrub: .6 } });
           gsap.from(li.querySelectorAll('.tl-sw-title .ch'), { yPercent: 110, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .022, scrollTrigger: once(li.querySelector('.tl-sw-title')!, 'top 90%') });
           gsap.from(li.querySelectorAll('.tl-sw-n, .tl-sw-line, .tl-sw-visit'), { y: 24, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, scrollTrigger: once(li.querySelector('.tl-sw-n')!, 'top 92%') });
         });
       });
 
-      // Clientele: the cells step in across the grid, row by row.
-      const cells = all('.tl-clients-grid > li');
-      if (cells.length) gsap.from(cells, { y: 46, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: { each: .07, grid: 'auto', from: 'start' }, scrollTrigger: once('.tl-clients-grid') });
-      all('.tl-clients-grid > li').forEach(li => gsap.from(li.querySelectorAll('.tl-client-name, .tl-client img'), { scale: .92, opacity: 0, duration: 1.4, ease: 'expo.out', delay: .15, scrollTrigger: once(li, 'top 90%') }));
+      // Clientele: the grid is ruled line by line, like a sheet being drawn up, then the names set in.
+      const grid = document.querySelector('.tl-clients-grid');
+      if (grid) {
+        ScrollTrigger.create({ trigger: grid, start: 'top 82%', once: true, onEnter: () => grid.classList.add('is-ruled') });
+        gsap.from(grid.querySelectorAll('.tl-client > *:not(.tl-client-go)'), { y: 26, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: .06, delay: .45, scrollTrigger: once(grid, 'top 82%') });
+      }
 
       // Currently working on: each sheet rises, then its drawing is unveiled from below.
       all('.tl-now-card').forEach((card, i) => {
@@ -48,12 +50,16 @@ export function Choreography() {
           .from(card.querySelectorAll('.tl-now-top, strong, .tl-now-line, .tl-now-spec'), { y: 20, opacity: 0, duration: .9, ease: 'expo.out', stagger: .07 }, '<.5');
       });
 
+      // Capabilities: the forest opens out from a framed panel to the full width as it arrives.
+      if (document.querySelector('.tl-caps')) gsap.fromTo('.tl-caps', { clipPath: 'inset(0% 4% 0% 4% round 44px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.tl-caps', start: 'top bottom', end: 'top 25%', scrub: .5 } });
+
       // Capabilities: the directory fills in cell by cell; each title rises out of a mask.
       const caps = all('.tl-cap');
       if (caps.length) {
         gsap.set(caps, { opacity: 0, y: 40 });
         gsap.set(caps.map(c => c.querySelector('h3')), { clipPath: 'inset(0% 0% 100% 0%)', y: 24 });
         ScrollTrigger.batch(caps, { start: 'top 90%', once: true, onEnter: batch => {
+          batch.forEach((c, i) => gsap.delayedCall(.25 + i * .09, () => c.classList.add('is-drawn')));
           gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: .09 });
           gsap.to(batch.map(c => c.querySelector('h3')), { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.2, ease: 'expo.out', stagger: .09, delay: .1 });
         } });

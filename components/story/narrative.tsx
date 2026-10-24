@@ -7,7 +7,8 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
 import { useMotion } from '@/components/site-motion';
-import { responsive } from '@/lib/images';
+import { planOf, responsive } from '@/lib/images';
+import { Plan } from '@/components/plan';
 import { placementOf, projectAccess, projectLink } from '@/lib/project-access';
 import { hostOf, storyOf } from '@/lib/work-stories';
 import { BrowserShot, DraftWindow } from '@/components/works-showcase';
@@ -73,12 +74,14 @@ export function SelectedWork() {
   const list = useRef<HTMLOListElement>(null);
   const stage = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState(0);
+  // The window opens on the first site as a drawing, which then builds into the site.
+  const [intro, setIntro] = useState(true);
   const { reduced } = useMotion();
 
   // The chapter crossing the middle of the screen is the one in the window.
   useEffect(() => {
     const items = Array.from(list.current?.children ?? []) as HTMLElement[];
-    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i)); }), { rootMargin: '-48% 0px -48% 0px' });
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (!e.isIntersecting) return; const i = Number((e.target as HTMLElement).dataset.i); setActive(i); if (i) setIntro(false); }), { rootMargin: '-48% 0px -48% 0px' });
     items.forEach(item => io.observe(item));
     return () => io.disconnect();
   }, [works.length]);
@@ -123,7 +126,8 @@ export function SelectedWork() {
             <span className="wk-bar"><i/><i/><i/><span key={current.slug}>{hostOf(current.url) || current.title.toLowerCase()}</span></span>
             <span className="tl-sw-frames">{works.map((w, i) => <span key={w.slug} className={i < active ? 'is-past' : i === active ? 'is-on' : ''}>
               <img src={w.image!} {...responsive(w.image, '(max-width: 1023px) 1px, 56vw')} alt="" width="1600" height="772" loading="lazy" decoding="async"/>
-            </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} active={active}/></span>
+            </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} active={active}/>
+              {intro && planOf(works[0].image) && <Plan src={planOf(works[0].image)!} label={hostOf(works[0].url) || works[0].title} mode="time" delay={1300}/>}</span>
           </span>
           <span className="tl-sw-cursor">{projectAccess(current) === 'visit' ? 'Visit site' : 'View project'}<ArrowUpRight size={15}/></span>
         </Link>
@@ -208,7 +212,7 @@ export function CurrentlyBuilding() {
         <span className="tl-now-body">
           <span className="tl-now-top"><span className="tl-now-n">{two(items.length + 1)}</span><span className="tl-now-status is-idle">Open slot</span></span>
           <strong>Your project <em>here.</em></strong>
-          <span className="tl-now-line">I take on a few projects at a time, each with a fixed, written quote.</span>
+          <span className="tl-now-line">I take on a few projects at a time. The next one could be yours.</span>
         </span>
         <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>
       </Link></li>

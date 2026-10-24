@@ -1,11 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ArrowUpRight, Star } from 'lucide-react';
 import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
 import { ClientMap } from '@/components/client-map';
 import { withoutEmoji } from '@/lib/text';
 import { hostOf, storyOf } from '@/lib/work-stories';
+import { CapArt } from '@/components/story/cap-art';
 
 const two = (n: number) => String(n).padStart(2, '0');
 
@@ -30,7 +31,7 @@ export function Clientele() {
         {c.logo ? <img src={c.logo} alt={c.name} loading="lazy" decoding="async"/> : <span className="tl-client-name">{c.name}</span>}
         {fieldOf(c.url) && <span className="tl-client-field" aria-hidden="true">{fieldOf(c.url)}</span>}
       </>;
-      return <li key={c.name + i}>{c.url
+      return <li key={c.name + i} style={{ '--i': i } as React.CSSProperties}>{c.url
         ? <a className="tl-client" href={c.url} target="_blank" rel="noopener noreferrer">{inner}<ArrowUpRight className="tl-client-go" size={16} aria-hidden="true"/><span className="sr-only"> (opens in a new tab)</span></a>
         : <div className="tl-client">{inner}</div>}</li>;
     })}</ul>
@@ -53,6 +54,7 @@ export function Capabilities() {
     </div>
     <ul className="tl-caps-grid">{services.map((s, i) => <li key={s.title} className="tl-cap spot">
       <span className="tl-cap-top"><span className="tl-cap-n">{two(i + 1)}</span><span className="tl-cap-tag">{s.subtitle}</span></span>
+      <CapArt title={`${s.title} ${s.subtitle}`}/>
       <h3>{s.title}</h3>
       <p>{s.description}</p>
     </li>)}</ul>
@@ -89,7 +91,8 @@ export function Testimonials() {
     <div className="tl-testi-body" {...hold}>
       <figure className="tl-testi-quote" key={active}>
         <span className="tl-testi-mark" aria-hidden="true">“</span>
-        <blockquote>{withoutEmoji(r.quote)}</blockquote>
+        {/* Each word rises out of its own line, so a new review is set rather than swapped. */}
+        <blockquote>{withoutEmoji(r.quote).split(/\s+/).filter(Boolean).map((w, i) => <Fragment key={i}>{i > 0 && ' '}<span className="tl-w"><span style={{ '--i': i } as React.CSSProperties}>{w}</span></span></Fragment>)}</blockquote>
         <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span></figcaption>
       </figure>
       <div className={`tl-testi-meter ${paused ? 'is-paused' : ''}`} aria-hidden="true"><i key={active}/></div>

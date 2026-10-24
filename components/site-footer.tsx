@@ -1,14 +1,24 @@
 'use client';
+import { useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
 import { bookingUrl, email, phone, socials } from '@/lib/content';
 
 const columns = [
   { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
-  { title: 'Websites', links: [['Website design', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['Websites for exporters', '/website-for-exporters-moradabad'], ['Website cost guide', '/website-cost-in-moradabad'], ['SEO & AI search', '/seo-services']] },
+  { title: 'Websites', links: [['Website design', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['Websites for exporters', '/website-for-exporters-moradabad'], ['SEO & AI search', '/seo-services']] },
 ];
 // A short footer: one invitation, three small lists, and a single closing line.
 export function SiteFooter() {
+  // The signature is drawn in outline, then inked in, the first time it comes into view.
+  const mark = useRef<SVGSVGElement>(null);
+  useEffect(() => {
+    const el = mark.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add('is-drawn'); io.disconnect(); } }, { threshold: .35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return <footer className="ft">
     <div className="ft-inner container">
       <section className="ft-cta" aria-labelledby="ft-title">
@@ -35,7 +45,7 @@ export function SiteFooter() {
       <a href="#top" className="ft-top">Back to top <ArrowUpRight size={14}/></a>
     </div>
     {/* The signature: the name set across the full width, cut by the page's edge. */}
-    <svg className="ft-mark" viewBox="0 0 1000 118" aria-hidden="true" focusable="false">
+    <svg className="ft-mark" ref={mark} viewBox="0 0 1000 118" aria-hidden="true" focusable="false">
       <defs><linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".12"/></linearGradient></defs>
       <text x="0" y="150" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
     </svg>
