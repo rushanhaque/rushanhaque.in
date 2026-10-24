@@ -1,7 +1,7 @@
 import sourcePages from '@/content/source-pages.json';
 import profile from '@/content/profile.json';
 import { siteOrigin } from '@/lib/seo';
-import { email, phone, socials } from '@/lib/content';
+import { email, phone, reviews, socials } from '@/lib/content';
 
 // One identity graph for search engines and AI assistants: the person, the
 // practice and the site, linked by @id so every page can point back to them.
@@ -9,6 +9,11 @@ export const ids = { person: `${siteOrigin}/#person`, business: `${siteOrigin}/#
 
 const areas = ['Moradabad', ...sourcePages.filter(p => p.kind === 'Location').map(p => p.title.replace('Website designer in ', '')).filter(a => a !== 'Moradabad')];
 const services = sourcePages.filter(p => p.kind === 'Service');
+// Countries clients have written from (the reviews), plus the rest of the world: every project runs remotely.
+const countries = ['India', ...Array.from(new Set(reviews.map(r => r.location).filter((l): l is string => !!l && l !== 'India')))];
+const served = [...countries.map(name => ({ '@type': 'Country', name })), { '@type': 'Place', name: 'Worldwide' }];
+const ratings = reviews.map(r => Number(r.rating) || 5);
+const rating = ratings.length ? { '@type': 'AggregateRating', ratingValue: (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1), reviewCount: ratings.length, bestRating: 5, worstRating: 1 } : undefined;
 
 export function siteGraph() {
   return {
@@ -25,6 +30,7 @@ export function siteGraph() {
         address: { '@type': 'PostalAddress', addressLocality: 'Moradabad', addressRegion: 'Uttar Pradesh', postalCode: '244001', addressCountry: 'IN' },
         knowsLanguage: profile.languages,
         knowsAbout: ['Website design', 'Web development', 'E-commerce websites', 'Web applications', 'SEO', 'Generative engine optimization', 'Website speed optimization', 'Next.js', 'React', 'AWS'],
+        hasOccupation: { '@type': 'Occupation', name: 'Website designer and developer', occupationLocation: served, skills: 'Web design, front-end and back-end development, e-commerce, SEO, generative engine optimization' },
         alumniOf: { '@type': 'CollegeOrUniversity', name: 'Moradabad Institute of Technology' },
         sameAs: socials.filter(s => s.name !== 'WhatsApp').map(s => s.url),
         worksFor: { '@id': ids.business },
@@ -40,10 +46,11 @@ export function siteGraph() {
         address: { '@type': 'PostalAddress', streetAddress: '94 Qazi Tola', addressLocality: 'Moradabad', addressRegion: 'Uttar Pradesh', postalCode: '244001', addressCountry: 'IN' },
         geo: { '@type': 'GeoCoordinates', latitude: 28.8386, longitude: 78.7733 },
         hasMap: 'https://maps.google.com/?q=Moradabad,+India',
-        areaServed: [...areas.map(name => ({ '@type': 'City', name })), { '@type': 'Country', name: 'India' }],
+        areaServed: [...areas.map(name => ({ '@type': 'City', name })), ...served],
+        ...(rating ? { aggregateRating: rating } : {}),
         founder: { '@id': ids.person }, knowsLanguage: profile.languages,
         sameAs: socials.filter(s => s.name !== 'WhatsApp').map(s => s.url),
-        contactPoint: { '@type': 'ContactPoint', telephone: phone.label.replace(/\s/g, ''), email, contactType: 'sales', availableLanguage: profile.languages, areaServed: 'IN' },
+        contactPoint: { '@type': 'ContactPoint', telephone: phone.label.replace(/\s/g, ''), email, contactType: 'sales', availableLanguage: profile.languages, areaServed: countries },
         hasOfferCatalog: {
           '@type': 'OfferCatalog', name: 'Website services',
           itemListElement: services.map(s => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.title, url: `${siteOrigin}/${s.slug}`, description: s.description } })),
@@ -66,7 +73,7 @@ export function servicePage({ path, name, description, area }: { path: string; n
   return {
     '@context': 'https://schema.org', '@type': 'Service', '@id': `${siteOrigin}${path}#service`, name, description, url: siteOrigin + path,
     serviceType: 'Website design and development', provider: { '@id': ids.business },
-    areaServed: area ? { '@type': area === 'India' ? 'Country' : 'City', name: area } : areas.map(name => ({ '@type': 'City', name })),
+    areaServed: area === 'Worldwide' ? served : area ? { '@type': area === 'India' ? 'Country' : 'City', name: area } : areas.map(name => ({ '@type': 'City', name })),
   };
 }
 

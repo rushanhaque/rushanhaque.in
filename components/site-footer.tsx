@@ -7,7 +7,7 @@ import release from '@/generated/release.json';
 
 const columns = [
   { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
-  { title: 'Websites', links: [['Website design', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['Websites for exporters', '/website-for-exporters-moradabad'], ['SEO & AI search', '/seo-services']] },
+  { title: 'Websites', links: [['Hire a developer', '/hire-website-developer'], ['Website design', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['Websites for exporters', '/website-for-exporters-moradabad'], ['SEO & AI search', '/seo-services']] },
 ];
 // A short footer: one invitation, three small lists, and a single closing line.
 export function SiteFooter() {

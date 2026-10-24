@@ -38,7 +38,7 @@ import './finish.css';
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
   title: { default: 'Rushan Haque | Website Designer & Developer', template: '%s — Rushan Haque' },
-  description: 'Rushan Haque designs and builds custom websites, online stores and web apps for businesses in India and abroad, fast on mobile and made to rank.',
+  description: 'Freelance website designer and developer. Rushan Haque designs and builds custom websites, online stores and web apps for businesses in India and worldwide: fast on mobile, made to rank on Google and to be quoted in AI answers.',
   applicationName: 'Rushan Haque',
   authors: [{ name: 'Rushan Haque', url: siteOrigin }],
   creator: 'Rushan Haque',

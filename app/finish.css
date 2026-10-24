@@ -252,3 +252,11 @@ main.tl .tl-kicker .tl-sheet{order:2;flex:none;font-size:10px;letter-spacing:.18
   -webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent)}
 .tl-hero-xy{margin-left:18px;padding-left:18px;border-left:1px solid rgb(7 36 26 / .25);font-variant-numeric:tabular-nums;white-space:pre}
 @media (hover:none),(max-width:799px){.tl-hero-xy{display:none}}
+
+/* ---------- About: the facts as a title block ---------- */
+.ab-hero .ab-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:clamp(36px,4vw,56px) 0 0;border-top:1px solid rgb(7 36 26 / .16);border-left:1px solid rgb(7 36 26 / .16)}
+.ab-facts>div{display:grid;gap:6px;padding:14px 18px 16px;border-right:1px solid rgb(7 36 26 / .16);border-bottom:1px solid rgb(7 36 26 / .16)}
+.ab-facts dt{font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+.ab-facts dd{margin:0;font-size:15px;line-height:1.45;color:var(--forest)}
+@media (max-width:899px){.ab-hero .ab-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.ab-hero .ab-facts{grid-template-columns:1fr}}

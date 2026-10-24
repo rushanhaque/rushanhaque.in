@@ -18,7 +18,7 @@ export async function GET(){
     {path:'/about',priority:'0.8'},
     {path:'/website-designer-in-moradabad',priority:'0.9'},
     {path:'/website-designer-in-india',priority:'0.9'},
-    ...guides.filter(g=>g.slug!=='website-designer-in-india').map(g=>({path:'/'+g.slug,priority:'0.8',lastmod:updated(g)})),
+    ...guides.filter(g=>g.slug!=='website-designer-in-india').map(g=>({path:'/'+g.slug,priority:g.slug==='hire-website-developer'?'0.9':'0.8',lastmod:updated(g)})),
     ...sourcePages.filter(p=>p.slug!=='website-designer-in-moradabad').map(p=>({path:'/'+p.slug,priority:p.kind==='Service'?'0.8':'0.7'})),
     {path:'/projects',priority:'0.7'},{path:'/connect',priority:'0.7'},{path:'/reviews',priority:'0.6'},{path:'/certifications',priority:'0.5'},{path:'/schedule',priority:'0.5'},
     // Live client sites redirect to the site itself, so only pages served here are listed.

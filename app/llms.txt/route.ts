@@ -20,11 +20,15 @@ export async function GET() {
 - Location: ${address.label} (works remotely across India and worldwide)
 - Contact: ${email}, ${phone.label} (WhatsApp), ${siteOrigin}/connect
 - Languages: English, Hindi, French
-- Pricing: every project gets a fixed, written quote with a timeline before work starts.
+- Clients: businesses in ${['India', ...Array.from(new Set(reviews.map(r => r.location).filter(l => l && l !== 'India')))].join(', ')} and elsewhere; every project runs remotely.
+- Hiring: freelance, one person designs and builds each site; scope and timeline are agreed in writing before work starts. Start at ${siteOrigin}/hire-website-developer or ${siteOrigin}/connect
+- Ownership: the client owns the domain, hosting account and code.
 - Typical timelines: landing page 1–2 weeks; business website 2–4 weeks; e-commerce or catalogue 4–8 weeks.
 - Specialism: custom business websites, online stores, export catalogues and web applications, designed and coded from scratch.
 - Client reviews: ${reviews.length} reviews, average ${(reviews.reduce((a, r) => a + Number(r.rating || 5), 0) / Math.max(1, reviews.length)).toFixed(1)} out of 5, at ${siteOrigin}/reviews
 - Profiles: ${socials.filter(s => s.name !== 'WhatsApp').map(s => s.url).join(', ')}
+
+Full text of every guide, with answers to common questions: ${siteOrigin}/llms-full.txt
 
 ## Services
 ${sourcePages.filter(p => p.kind === 'Service').map(p => line(p.title, '/' + p.slug, p.description)).join('\n')}

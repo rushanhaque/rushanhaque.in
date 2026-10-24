@@ -1,5 +1,176 @@
 [
   {
+    "slug": "hire-website-developer",
+    "lang": "en",
+    "eyebrow": "Worldwide",
+    "title": "Hire a website developer, wherever you are",
+    "metaTitle": "Hire a Website Developer, Worldwide",
+    "description": "Hire a freelance website designer and developer who works remotely with businesses in any country: custom websites, online stores and web apps, built from scratch, fast and made to be found on Google and in AI answers.",
+    "intro": "One designer and developer for your whole website, from the first call to launch and after, working remotely with businesses in India and abroad.",
+    "updated": "2026-10-25",
+    "schema": "service",
+    "area": "Worldwide",
+    "facts": [
+      [
+        "Based in",
+        "India (IST, UTC+5:30)"
+      ],
+      [
+        "Works with",
+        "Businesses in India and abroad, fully remote"
+      ],
+      [
+        "Languages",
+        "English, Hindi and French"
+      ],
+      [
+        "Builds with",
+        "Next.js, React and cloud hosting"
+      ]
+    ],
+    "sections": [
+      {
+        "label": "01",
+        "title": "One developer, start to launch",
+        "body": [
+          "When you hire me, the person on your first call is the person who designs the pages, writes the code, sets up hosting and launches the site. There is no account manager in between and nothing is lost in a hand-over.",
+          "Every website is designed for the business it serves and built from scratch, not assembled from a template, so it loads fast, reads well on a phone and has a structure search engines understand."
+        ]
+      },
+      {
+        "label": "02",
+        "title": "Working across countries and time zones",
+        "items": [
+          {
+            "title": "Written updates",
+            "text": "Progress is shared in writing and on a live preview link, so you can follow the work in your own time zone."
+          },
+          {
+            "title": "Calls when you need them",
+            "text": "Video or phone calls in English, Hindi or French, booked at a time that suits you."
+          },
+          {
+            "title": "You own everything",
+            "text": "The domain, the hosting account and the code are in your name once the project is complete."
+          },
+          {
+            "title": "Support after launch",
+            "text": "Fixes, updates and new pages after the site is live, from the same person who built it."
+          }
+        ]
+      },
+      {
+        "label": "03",
+        "title": "What you can hire me for",
+        "body": [
+          "Business and company websites, e-commerce stores, product catalogues for exporters, landing pages for campaigns, web applications such as dashboards and booking tools, and redesigns of sites that have stopped working for the business."
+        ],
+        "links": [
+          [
+            "Website design and development",
+            "/website-design-development"
+          ],
+          [
+            "E-commerce website development",
+            "/ecommerce-website-development"
+          ],
+          [
+            "Web application development",
+            "/web-application-development"
+          ],
+          [
+            "Website redesign",
+            "/website-redesign"
+          ],
+          [
+            "SEO services",
+            "/seo-services"
+          ],
+          [
+            "Generative engine optimization",
+            "/generative-engine-optimization"
+          ]
+        ]
+      },
+      {
+        "label": "04",
+        "title": "How a remote project runs",
+        "steps": [
+          {
+            "title": "Tell me what the website has to do",
+            "text": "By email, WhatsApp or the contact form. A few lines is enough to start."
+          },
+          {
+            "title": "A call about your business",
+            "text": "Who your customers are, what they need to find, and what a good result looks like."
+          },
+          {
+            "title": "A written plan",
+            "text": "The pages, features and timeline agreed in writing before any work starts."
+          },
+          {
+            "title": "Design, build and launch",
+            "text": "You approve the design first, review the build on a live preview link, and the site goes live once you are happy with it."
+          }
+        ]
+      },
+      {
+        "label": "05",
+        "title": "What to check before you hire any developer",
+        "items": [
+          {
+            "title": "Live sites, not mock-ups",
+            "text": "Ask for websites that are online now and open them on your own phone."
+          },
+          {
+            "title": "Ownership",
+            "text": "Make sure the domain, hosting and code will be yours, not rented from the developer."
+          },
+          {
+            "title": "Speed and search",
+            "text": "A good build is fast on mobile data and ships with a sitemap, structured data and clean headings."
+          },
+          {
+            "title": "Who does the work",
+            "text": "Find out whether the person you speak to is the person who builds the site, or whether it is passed on."
+          }
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Can I hire you if my business is outside India?",
+        "a": "Yes. Projects run remotely over email, WhatsApp and video calls, with a live preview link, so clients can work with me from any country."
+      },
+      {
+        "q": "Are you a freelancer or an agency?",
+        "a": "A freelancer. I design and build every website myself, and work with trusted partners only for services such as ad campaigns or social media management, while staying your single point of contact."
+      },
+      {
+        "q": "How long does it take to build a website?",
+        "a": "A landing page usually takes one to two weeks, a business website two to four weeks, and an e-commerce store or catalogue four to eight weeks."
+      },
+      {
+        "q": "Who owns the website when it is finished?",
+        "a": "You do. The domain, the hosting account and the code are yours once the project is complete."
+      },
+      {
+        "q": "Will my website show up on Google and in AI answers?",
+        "a": "Every site is built for search: fast pages, clear headings, structured data and a sitemap, submitted to Google Search Console, and written so AI assistants can quote it. Rankings also depend on reviews and links from other sites, and I help you build those."
+      },
+      {
+        "q": "What do you need from me to start?",
+        "a": "A short description of your business and what the website has to do. Content such as photos and text can come later, and I can help write it."
+      }
+    ],
+    "related": [
+      "website-designer-in-india",
+      "website-design-development",
+      "how-to-get-a-website-made"
+    ],
+    "cta": "Tell me what your website has to do, wherever your business is, and you will get a written plan with a timeline."
+  },
+  {
     "slug": "website-developer-in-moradabad",
     "lang": "en",
     "eyebrow": "Location",
