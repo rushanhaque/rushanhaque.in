@@ -126,7 +126,7 @@ export function SelectedWork() {
             <span className="wk-bar"><i/><i/><i/><span key={current.slug}>{hostOf(current.url) || current.title.toLowerCase()}</span></span>
             <span className="tl-sw-frames">{works.map((w, i) => <span key={w.slug} className={i < active ? 'is-past' : i === active ? 'is-on' : ''}>
               <img src={w.image!} {...responsive(w.image, '(max-width: 1023px) 1px, 56vw')} alt="" width="1600" height="772" loading="lazy" decoding="async"/>
-            </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} active={active}/>
+            </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} plans={works.map(w => planOf(w.image) ?? '').join('|')} active={active}/>
               {planOf(current.image) && <Plan key={current.slug} src={planOf(current.image)!} label={hostOf(current.url) || current.title} mode={intro ? 'time' : 'lens'} delay={1300}/>}</span>
           </span>
           <span className="tl-sw-cursor">{projectAccess(current) === 'visit' ? 'Visit site' : 'View project'}<ArrowUpRight size={15}/></span>
