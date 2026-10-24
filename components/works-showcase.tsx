@@ -48,8 +48,22 @@ export function DraftWindow({ project: p, sizes = '(max-width: 899px) 100vw, 50v
     <span className="wk-bar"><i/><i/><i/><span>{hostOf(p.url) || 'in progress'}</span></span>
     {p.image
       ? <img className={p.imageBlurred ? 'unreleased-preview' : undefined} src={p.image} {...responsive(p.image, sizes)} alt="" width="1600" height="772" loading="lazy" decoding="async"/>
-      : <span className="wb-sketch"><b>{p.title}<i/></b><span className="wb-lines"><i/><i/><i/></span><span className="wb-tiles"><i/><i/><i/></span></span>}
+      : <span className="wb-sketch"><b>{p.title}<i/></b><Plot/></span>}
   </span>;
+}
+
+// The page under the headline, drawn by a pen as you watch and drawn again in a loop:
+// copy lines, a button, and three image boxes crossed through, the way a drawing marks
+// where a picture will go.
+const PLOT = [
+  'M0 8H300', 'M0 24H236', 'M0 40H150',
+  'M8 58H74a9 9 0 0 1 0 18H8a9 9 0 0 1 0-18Z',
+  ...[0, 1, 2].flatMap(k => { const x = k * 138; return [`M${x} 96H${x + 124}V156H${x}Z`, `M${x} 96L${x + 124} 156M${x + 124} 96L${x} 156`]; }),
+];
+function Plot() {
+  return <svg className="wb-plot" viewBox="-2 0 404 160" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false">
+    {PLOT.map((d, i) => <path key={i} d={d} pathLength={1} className={i > 3 && i % 2 === 1 ? 'is-cross' : undefined} style={{ '--k': i } as React.CSSProperties}/>)}
+  </svg>;
 }
 
 // What is on the desk right now: each site drawn as a page still being laid out.

@@ -77,11 +77,11 @@ html.tl-preload .tl-hero-dim{animation-play-state:paused}
 }
 
 /* ---------- Section labels: each runs into a ruled line, like a sheet's title strip ---------- */
-main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker,main.tl .tl-testi-head .tl-kicker{display:flex;align-items:center;gap:14px}
-main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{content:'';flex:1;min-width:40px;height:1px;background:currentColor;opacity:.22}
+main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero,.tl-caps-head,.tl-close-copy,.tl-mf)>.tl-kicker,main.tl .tl-testi-head .tl-kicker{display:flex;align-items:center;gap:14px}
+main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero,.tl-caps-head,.tl-close-copy,.tl-mf)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{content:'';flex:1;min-width:40px;height:1px;background:currentColor;opacity:.22}
 
 /* Motion support for components/story/choreography.tsx */
-main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{transform:scaleX(var(--rule,1));transform-origin:left}
+main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero,.tl-caps-head,.tl-close-copy,.tl-mf)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{transform:scaleX(var(--rule,1));transform-origin:left}
 @media (max-width:1023px){.tl-sw-title{overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}.tl-sw-shot .wk-shot{display:block;overflow:hidden}}
 
 /* ---------- Site drawings: each screenshot opens as its line drawing, then a scan builds it ---------- */
@@ -196,3 +196,35 @@ main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-perso
 @keyframes tl-sheet-set{from{opacity:0;transform:translateY(6px)}}
 /* With WebGL the window draws and builds each site itself; the drawing layer is kept for the lens only. */
 .tl-sw-window.is-gl .tl-sw-frames>span.plan.plan:not(.is-lens){visibility:hidden}
+
+/* ---------- The site being built, drawn by a pen in a loop (works-showcase.tsx) ---------- */
+.wb-plot{display:block;flex:1 1 0;min-height:0;width:100%;height:100%;max-height:200px;overflow:visible}
+.wb-plot path{fill:none;stroke:rgb(243 241 230 / .5);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1 1;stroke-dashoffset:1;
+  animation:wb-plot 10s cubic-bezier(.6,0,.3,1) calc(var(--k) * 320ms) infinite}
+.wb-plot path.is-cross{stroke:rgb(194 155 92 / .7);stroke-width:1}
+@keyframes wb-plot{0%{stroke-dashoffset:1;opacity:1}18%{stroke-dashoffset:0}78%{stroke-dashoffset:0;opacity:1}90%,100%{stroke-dashoffset:0;opacity:0}}
+
+/* ---------- Between pages: the next page is scanned in over the last, behind a brass line ---------- */
+.vt-scan{position:fixed;top:0;left:-100vw;z-index:-1;width:100vw;height:100vh;height:100lvh;pointer-events:none;view-transition-name:vt-scan;
+  background:linear-gradient(90deg,transparent calc(100% - 46px),rgb(194 155 92 / .28) calc(100% - 2px),#c29b5c calc(100% - 2px))}
+::view-transition{background:transparent}
+::view-transition-old(root){animation:vt-hold .95s linear both}
+::view-transition-new(root){animation:vt-build .95s cubic-bezier(.7,0,.15,1) both}
+::view-transition-group(vt-scan){z-index:4;animation:vt-line .95s cubic-bezier(.7,0,.15,1) both}
+::view-transition-old(vt-scan),::view-transition-new(vt-scan){animation:none;mix-blend-mode:normal}
+::view-transition-old(vt-scan){display:none}
+@keyframes vt-hold{to{filter:brightness(.94)}}
+@keyframes vt-build{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes vt-line{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+html[data-motion=reduce] ::view-transition-group(*),html[data-motion=reduce] ::view-transition-new(*),html[data-motion=reduce] ::view-transition-old(*){animation:none!important}
+
+/* ---------- Clientele: the green fill carries the drawing of the client's site ---------- */
+.tl-clients .tl-client.has-plan::after{content:'';position:absolute;inset:0;z-index:-1;background:var(--plan) center/cover no-repeat;filter:invert(1) sepia(.4) saturate(.6);mix-blend-mode:screen;opacity:0;clip-path:inset(100% 0 0 0);
+  transition:clip-path .8s cubic-bezier(.7,0,.15,1),opacity .6s ease}
+.tl-clients a.tl-client.has-plan:hover::after{clip-path:inset(0 0 0 0);opacity:.15}
+@media (hover:none){.tl-clients .tl-client.has-plan::after{display:none}}
+
+/* ---------- Sheet numbers at the end of each chapter's label ---------- */
+main.tl .tl-kicker::after{order:1}
+main.tl .tl-kicker .tl-sheet{order:2;flex:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-variant-numeric:tabular-nums;opacity:.75}
+@media (max-width:600px){main.tl .tl-kicker .tl-sheet{display:none}}

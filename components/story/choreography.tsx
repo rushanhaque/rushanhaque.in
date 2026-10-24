@@ -79,9 +79,19 @@ export function Choreography() {
       // Footer: the signature rises into the foot of the page.
       from('.ft-mark text', '.ft-mark', { y: 90, duration: 1.6, ease: 'expo.out' }, 'top 100%');
     });
+    // Each chapter is a sheet in the set: its label ends in its sheet number, after the rule.
+    const kickers = Array.from(document.querySelectorAll<HTMLElement>('main.tl [data-chapter]')).map(c => c.querySelector<HTMLElement>('.tl-kicker')).filter((k): k is HTMLElement => !!k);
+    const tags = kickers.map((k, i) => {
+      const tag = document.createElement('span');
+      tag.className = 'tl-sheet';
+      tag.setAttribute('aria-hidden', 'true');
+      tag.textContent = `Sheet ${String(i + 1).padStart(2, '0')} / ${String(kickers.length).padStart(2, '0')}`;
+      k.appendChild(tag);
+      return tag;
+    });
     // Late content (fonts, lazy sections) moves things down; re-measure once it settles.
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 1200);
-    return () => { clearTimeout(refresh); ctx.revert(); };
+    return () => { clearTimeout(refresh); tags.forEach(t => t.remove()); ctx.revert(); };
   }, [reduced]);
   return null;
 }

@@ -7,6 +7,7 @@ import { ClientMap } from '@/components/client-map';
 import { withoutEmoji } from '@/lib/text';
 import { hostOf, storyOf } from '@/lib/work-stories';
 import { CapArt } from '@/components/story/cap-art';
+import { planOf } from '@/lib/images';
 
 const two = (n: number) => String(n).padStart(2, '0');
 
@@ -18,7 +19,10 @@ export function Clientele() {
   const { clients, projects } = useContent();
   const list = clients ?? [];
   // A client with a site in the works carries that site's field as a caption.
-  const fieldOf = (url: string) => { const h = hostOf(url); const p = h ? projects.find(x => hostOf(x.url) === h) : undefined; return p ? storyOf(p).field : ''; };
+  const workOf = (url: string) => { const h = hostOf(url); return h ? projects.find(x => hostOf(x.url) === h) : undefined; };
+  const fieldOf = (url: string) => { const p = workOf(url); return p ? storyOf(p).field : ''; };
+  // Under the pointer, a client's cell fills with forest and shows the drawing of the site built for them.
+  const drawingOf = (url: string) => { const plan = planOf(workOf(url)?.image); return plan ? { '--plan': `url(${plan})` } as React.CSSProperties : undefined; };
   if (!list.length) return null;
   return <section id="clientele" className="tl-clients" data-chapter="II — Clientele">
     <div className="tl-clients-head">
@@ -32,7 +36,7 @@ export function Clientele() {
         {fieldOf(c.url) && <span className="tl-client-field" aria-hidden="true">{fieldOf(c.url)}</span>}
       </>;
       return <li key={c.name + i} style={{ '--i': i } as React.CSSProperties}>{c.url
-        ? <a className="tl-client" href={c.url} target="_blank" rel="noopener noreferrer">{inner}<ArrowUpRight className="tl-client-go" size={16} aria-hidden="true"/><span className="sr-only"> (opens in a new tab)</span></a>
+        ? <a className={`tl-client ${drawingOf(c.url) ? 'has-plan' : ''}`} style={drawingOf(c.url)} href={c.url} target="_blank" rel="noopener noreferrer">{inner}<ArrowUpRight className="tl-client-go" size={16} aria-hidden="true"/><span className="sr-only"> (opens in a new tab)</span></a>
         : <div className="tl-client">{inner}</div>}</li>;
     })}</ul>
   </section>;
