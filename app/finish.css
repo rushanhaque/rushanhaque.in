@@ -180,3 +180,6 @@ main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-perso
 .tl-loader-guides{position:absolute;top:0;left:-50vw;right:-50vw;height:1.05em;pointer-events:none}
 .tl-loader-guides i{position:absolute;left:0;right:0;height:1px;background:repeating-linear-gradient(90deg,rgb(243 241 230 / .5) 0 5px,transparent 5px 10px);transform:scaleX(0);transform-origin:0 50%}
 .tl-loader-guides i:nth-child(even){transform-origin:100% 50%}
+.type-guides[style*="width"]{right:auto}
+.type-guides.is-light .tl-guide{background:repeating-linear-gradient(90deg,rgb(243 241 230 / .6) 0 5px,transparent 5px 10px)}
+.type-guides.is-light.is-drawn .tl-guide{opacity:.26}
