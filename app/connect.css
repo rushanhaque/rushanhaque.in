@@ -68,3 +68,9 @@ body:has(.cn) .ft{display:none}
   .cn-grid{gap:16px}
   .cn-intro{gap:10px}
 }
+
+/* The one-screen layout only holds when the window is tall enough; a short laptop window scrolls. */
+@media(min-width:900px) and (max-height:700px){
+  .cn{height:auto;min-height:100svh;overflow:visible;padding-block:96px 48px}
+  .cn-grid{margin-top:0}
+}

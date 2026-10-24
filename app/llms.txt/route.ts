@@ -42,6 +42,7 @@ ${[...sourcePages.filter(p => p.kind === 'Location'), ...guides.filter(g => 'gro
 ${live.map(p => `- [${p.title}](${p.url}): ${p.description}`).join('\n')}
 
 ## Other pages
+${line('About', '/about', 'Who builds the websites: background, writeups and blogs, and two small lab demos.')}
 ${line('Portfolio', '/projects', 'Client websites, upcoming launches and personal software experiments.')}
 ${line('Credentials', '/certifications', 'Certifications and training.')}
 ${line('Contact', '/connect', 'WhatsApp, email or a short form; replies within a day.')}

@@ -196,3 +196,16 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:none;backdrop-filter:none}
 @media(min-width:1100px){
   .gh-panel{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:12px 0 0}
 }
+
+/* The header is always the cream bar now, so its "dark" tone (set over dark sections) must look
+   exactly like the light one: dark button, cream label. */
+.gh[data-tone=dark] .gh-bar .gh-cta{--b-ink:#f3f1e6;--b-fill:#f3f1e6;--b-fill-ink:#07241a;--b-ring:#07241a;background:#07241a}
+.gh[data-tone=dark] .gh-bar{color:#07241a}
+.gh[data-tone=dark] .gh-nav a{color:#07241a}
+
+/* Touch screens: every text link and small control gets a comfortable tap height. */
+@media (pointer:coarse),(max-width:899px){
+  :is(.tl-link,.wk-go,.source-work-all,.credential-card .text-link,.wb-go){min-height:44px;display:inline-flex;align-items:center}
+  .ft-cols a{min-height:40px}
+  .ft-mail a{display:inline-flex;align-items:center;min-height:40px}
+}
