@@ -1,5 +1,33 @@
 [
   {
+    "slug": "svg-express",
+    "title": "SVG express",
+    "category": "Client work",
+    "discipline": "Web design & development",
+    "year": "2026",
+    "description": "Online platform for SVG express",
+    "tags": [],
+    "url": "https://svg-express-demo.vercel.app/",
+    "image": "/images/svg-express.webp",
+    "status": "Coming soon",
+    "placement": "building",
+    "number": "24"
+  },
+  {
+    "slug": "filigrana",
+    "title": "Filigrana",
+    "category": "Client work",
+    "discipline": "Web design & development",
+    "year": "2026",
+    "description": "Website for an ethnic wear brand",
+    "tags": [],
+    "url": "https://filigrana-seven.vercel.app/",
+    "image": "/images/filigrana.webp",
+    "status": "Coming soon",
+    "placement": "building",
+    "number": "23"
+  },
+  {
     "slug": "taif",
     "title": "Taif",
     "category": "Client work",
@@ -15,8 +43,8 @@
     "status": "Live",
     "placement": "work",
     "showDescription": true,
-    "number": "02",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "number": "02"
   },
   {
     "slug": "erfolg-living",
@@ -35,6 +63,7 @@
     "status": "Live",
     "placement": "work",
     "showDescription": true,
+    "imageBlurred": false,
     "number": "01",
     "caseStudy": {
       "context": "An interiors brand site that opens on a finished space.",
@@ -54,8 +83,7 @@
         }
       ],
       "reflection": "Product discovery and mobile crops are not yet covered."
-    },
-    "imageBlurred": false
+    }
   },
   {
     "slug": "casa-and-crop",
@@ -74,6 +102,7 @@
     "status": "Live",
     "placement": "work",
     "showDescription": true,
+    "imageBlurred": false,
     "number": "05",
     "caseStudy": {
       "context": "Furnishings shown in one full-frame interior scene.",
@@ -93,8 +122,7 @@
         }
       ],
       "reflection": "Labels, keyboard access and mobile crops still need checking."
-    },
-    "imageBlurred": false
+    }
   },
   {
     "slug": "velora",
@@ -113,8 +141,8 @@
     "status": "In progress",
     "placement": "work",
     "showDescription": true,
-    "number": "04",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "number": "04"
   },
   {
     "slug": "aurelio",
@@ -133,8 +161,8 @@
     "status": "Live",
     "placement": "work",
     "showDescription": true,
-    "number": "03",
-    "imageBlurred": false
+    "imageBlurred": false,
+    "number": "03"
   },
   {
     "slug": "barha",
@@ -153,8 +181,8 @@
     "status": "Coming soon",
     "placement": "hidden",
     "showDescription": true,
-    "number": "06",
-    "imageBlurred": true
+    "imageBlurred": true,
+    "number": "06"
   },
   {
     "slug": "chaudharysons-co",
@@ -172,8 +200,8 @@
     "image": null,
     "status": "Coming soon",
     "placement": "building",
-    "number": "07",
-    "imageBlurred": true
+    "imageBlurred": true,
+    "number": "07"
   },
   {
     "slug": "vienna",
@@ -191,8 +219,8 @@
     "image": null,
     "status": "Coming soon",
     "placement": "hidden",
-    "number": "08",
-    "imageBlurred": true
+    "imageBlurred": true,
+    "number": "08"
   },
   {
     "slug": "shadow-chat",
@@ -210,8 +238,8 @@
     "status": "Experiment",
     "placement": "hidden",
     "showDescription": true,
-    "number": "09",
     "imageBlurred": false,
+    "number": "09",
     "details": {
       "does": [
         "ShadowChat is a private chat that leaves nothing behind. You open a room, share its link, and everyone who joins talks in real time. Messages are encrypted in the browser, and a single “Burn Chat” button wipes the room and its messages when you are done.",
@@ -260,8 +288,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "10",
     "imageBlurred": false,
+    "number": "10",
     "details": {
       "does": [
         "Auto Repo-Pusher is a small Windows app for pushing a project to GitHub without opening a terminal. You paste the folder path, paste the GitHub repository link and press “Push project”. The app handles the Git steps behind the scenes, from setting a new folder up as a repository to dealing with errors.",
@@ -305,8 +333,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "11",
     "imageBlurred": false,
+    "number": "11",
     "details": {
       "does": [
         "Shadow Kill is a panic button you trigger by knocking twice on your desk. It listens through the microphone, and when it hears a quick double knock it closes every web browser and opens an ordinary-looking spreadsheet, so the screen is back to “work” within a second.",
@@ -355,8 +383,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "12",
     "imageBlurred": false,
+    "number": "12",
     "details": {
       "does": [
         "Sentry Mode turns a Windows PC into a small alarm system. A spare Arduino plugged into a USB port is the physical key: while it is in, the PC is safe and relaxed. Pull it out, and the computer is armed.",
@@ -407,8 +435,8 @@
     "status": "Experiment",
     "placement": "hidden",
     "showDescription": true,
-    "number": "13",
     "imageBlurred": false,
+    "number": "13",
     "details": {
       "does": [
         "CodeSense AI explains code in plain English. Paste any snippet, pick the language, and it breaks the code down line by line so you can see what each part does. It is useful for beginners, and for anyone reading a language or a codebase they have not seen before.",
@@ -459,8 +487,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "14",
     "imageBlurred": false,
+    "number": "14",
     "details": {
       "does": [
         "LinguaLens teaches vocabulary through your phone’s camera. Point it at everyday objects (a cup, a chair, a phone) and it draws a box around each one and shows its name in French, Spanish, German, Japanese or Italian. Tap a word to hear it spoken.",
@@ -510,8 +538,8 @@
     "status": "Experiment",
     "placement": "hidden",
     "showDescription": true,
-    "number": "15",
     "imageBlurred": false,
+    "number": "15",
     "details": {
       "does": [
         "Novellect is a book recommendation tool that starts with you instead of the bestseller list. It holds a short conversation, about ten questions that mix multiple choice and open answers, builds a picture of your interests, values and taste, and then recommends ten “deep cut” books chosen to avoid the obvious titles.",
@@ -562,8 +590,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "16",
     "imageBlurred": false,
+    "number": "16",
     "details": {
       "does": [
         "Cortex is a screenshot tool that tells you what to do with your screenshots. Instead of leaving hundreds of unnamed images in a folder, it reads the text in each capture, works out what it is (something to buy, a to-do, an idea, an article to read later, a piece of code) and files it with a title, a one-line summary and a priority.",
@@ -613,8 +641,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "17",
     "imageBlurred": false,
+    "number": "17",
     "details": {
       "does": [
         "Aura is a floating AI assistant that sits on top of your other windows as a see-through overlay. It listens through the microphone, turns what it hears into text, and drafts a suggested answer to the question it detected. You can also type a question yourself.",
@@ -663,8 +691,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "18",
     "imageBlurred": false,
+    "number": "18",
     "details": {
       "does": [
         "Symphony is a piano you play in the browser, with your computer keyboard or the mouse. It has several instruments, a volume control and a reverb switch, and it starts instantly with nothing to install.",
@@ -712,8 +740,8 @@
     "image": null,
     "status": "Experiment",
     "placement": "hidden",
-    "number": "19",
     "imageBlurred": false,
+    "number": "19",
     "details": {
       "does": [
         "Dead Drop is a tiny file server that lives on a single ESP8266 (NodeMCU) board and needs no internet. Power the board and it creates its own Wi-Fi network called “Dead_Drop”. Connect a phone or laptop to it and you can upload, download and delete files, with nothing going through the internet, a router or any cloud account.",
@@ -764,8 +792,8 @@
     "status": "Experiment",
     "placement": "hidden",
     "showDescription": true,
-    "number": "20",
     "imageBlurred": false,
+    "number": "20",
     "details": {
       "does": [
         "Upside Sound is a music recommender with a Stranger Things mood. Instead of asking what you like, it asks questions like “after a long, strange week, what actually refills you?”, reads your answers, and matches your personality to songs. It also tells you which character you resemble.",
@@ -816,6 +844,7 @@
     "status": "Experiment",
     "placement": "hidden",
     "showDescription": true,
+    "imageBlurred": false,
     "number": "21",
     "details": {
       "does": [
@@ -866,8 +895,7 @@
         }
       ],
       "reflection": "Privacy and the reveal flow have not been audited."
-    },
-    "imageBlurred": false
+    }
   },
   {
     "slug": "superlatives",
@@ -886,8 +914,8 @@
     "status": "Experiment",
     "placement": "hidden",
     "showDescription": true,
-    "number": "22",
     "imageBlurred": false,
+    "number": "22",
     "details": {
       "does": [
         "Superlatives gives your friend group anonymous awards. Everyone secretly votes on questions like “who is most likely to…”, and the app reveals the winners in a small awards ceremony with confetti, vote bars and runners-up.",
