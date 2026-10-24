@@ -42,7 +42,7 @@ function HeroRoles() {
 // The name, set large, flipping into place letter by letter like a departure board each
 // time the site opens (pure CSS, so it starts with the first paint; the intro holds it
 // until the curtain opens). Behind it, a writer's manuscript and a developer's code.
-// As you leave, the name tips back like a drawing laid on the table, and lifts away.
+// As you leave, the name rises and fades away.
 export function NameHero() {
   const root = useRef<HTMLElement>(null);
   const { reduced } = useMotion();
@@ -51,12 +51,10 @@ export function NameHero() {
     const section = root.current;
     if (!section || reduced) return;
     const ctx = gsap.context(() => {
-      const phone = window.matchMedia('(max-width: 799px)').matches;
-      gsap.set('.tl-hero-plane', { transformPerspective: 1600, transformOrigin: '50% 50%' });
+      // The name rises gently and fades as you leave; the desk behind it drifts the other way.
       gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: .4 } })
-        .to('.tl-hero-plane', { rotateX: phone ? 38 : 50, rotateZ: phone ? -10 : -18, scale: phone ? .9 : .82, yPercent: -6, duration: .65 }, 0)
-        .to('.tl-hero-plane', { opacity: 0, yPercent: -16, duration: .35 }, .65)
-        .to('.tl-hero-art', { scale: 1.12, yPercent: 8, duration: 1 }, 0);
+        .to('.tl-hero-plane', { yPercent: -18, opacity: 0, duration: 1 }, 0)
+        .to('.tl-hero-art', { scale: 1.08, yPercent: 8, duration: 1 }, 0);
     }, section);
     return () => ctx.revert();
   }, [reduced]);

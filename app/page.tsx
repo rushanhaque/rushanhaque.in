@@ -1,4 +1,5 @@
 import { pageMetadata } from '@/lib/seo';
+import { Person } from '@/components/story/chapters';
 import { Reach } from '@/components/story/reach';
 import { Choreography } from '@/components/story/choreography';
 import { ContentProvider } from '@/components/content-provider';
@@ -28,6 +29,7 @@ export default async function Home(){
     <SelectedWork/>
     <Clientele/>
     <Reach/>
+    <Person n="IV"/>
     <CurrentlyBuilding/>
     <Capabilities/>
     <Voices/>

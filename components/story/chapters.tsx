@@ -69,7 +69,7 @@ export function Bookshelf() {
 /* Journey: an aperture opens on the portrait; a line traces the */
 /* journey through every role.                                          */
 /* ------------------------------------------------------------------ */
-export function Person() {
+export function Person({ n = 'II' }: { n?: string }) {
   const { experience, education, stats } = useContent();
     const root = useRef<HTMLElement>(null);
   const path = useRef<SVGPathElement>(null);
@@ -117,10 +117,10 @@ export function Person() {
     return () => { ctx.revert(); section.classList.remove('is-live'); };
   }, [reduced, d]);
 
-  return <section id="journey" className="tl-person" ref={root} data-chapter="II — Journey">
+  return <section id="journey" className="tl-person" ref={root} data-chapter={`${n} — Journey`}>
     <div className="tl-person-intro">
       <div className="tl-person-copy">
-        <span className="tl-kicker">II — JOURNEY</span>
+        <span className="tl-kicker">{n} — JOURNEY</span>
         <h2 suppressHydrationWarning><em>Journey.</em></h2>
         <p className="tl-bio">{profile.bio}</p>
         <div className="tl-facts">
