@@ -75,6 +75,7 @@ function HeroRoles() {
 export function ParticleHero() {
   const root = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dimRef = useRef<HTMLSpanElement>(null);
   const [time, setTime] = useState('');
   const { reduced } = useMotion();
 
@@ -108,6 +109,13 @@ export function ParticleHero() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const step = mobile ? 3 : W > 1700 ? 4 : 3;
       target = sample(W, H, step);
+      // A dimension line above the name, as on a drawing: its true width, in pixels.
+      const m = document.createElement('canvas').getContext('2d')!;
+      const { lines, size, top } = layout(m, W, H);
+      const nameW = Math.round(Math.max(...lines.map(l => m.measureText(l).width)));
+      section.style.setProperty('--name-w', `${nameW}px`);
+      section.style.setProperty('--name-top', `${Math.round(top - size * .62)}px`);
+      if (dimRef.current) dimRef.current.textContent = `${nameW.toLocaleString('en-US')} PX`;
       const count = Math.min(mobile ? (lite ? 2400 : 4200) : (lite ? 6000 : 10000), target.length);
       const old = particles;
       particles = Array.from({ length: count }, (_, i) => old[i] ?? { x: W / 2 + (Math.random() - .5) * W, y: H / 2 + (Math.random() - .5) * H, vx: 0, vy: 0, tx: 0, ty: 0, dx: Math.random() - .5, dy: Math.random() - .5, seed: Math.random(), size: Math.random() < .1 ? (mobile ? 2.3 : 2.7) : (mobile ? 1.8 : 2.1) });
@@ -172,7 +180,7 @@ export function ParticleHero() {
     const st = ScrollTrigger.create({ trigger: section, start: 'top top', end: 'bottom top', scrub: true, onUpdate: self => { explode = self.progress; calm = 0; wake(); } });
     // A context so every inline style it sets is restored if motion is switched off.
     const motionCtx = gsap.context(() => {
-      gsap.to(section.querySelectorAll('.tl-hero-meta, .tl-hero-foot'), { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: '40% top', scrub: true } });
+      gsap.to(section.querySelectorAll('.tl-hero-meta, .tl-hero-foot, .tl-hero-dim'), { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: '40% top', scrub: true } });
     }, section);
 
     section.classList.add('is-live');
@@ -195,6 +203,7 @@ export function ParticleHero() {
     <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
     <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque — Website Designer &amp; Developer</h1>
     <div className="tl-hero-meta"><span>INDIA · IST {time || '--:--'}</span><span>Website designer &amp; developer</span></div>
-    <div className="tl-hero-foot"><span/><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
+    <div className="tl-hero-dim" aria-hidden="true"><span ref={dimRef}/></div>
+    <div className="tl-hero-foot"><span className="tl-hero-status"><i className="tl-live-dot"/>Available for new projects</span><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

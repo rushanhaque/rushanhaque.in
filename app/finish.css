@@ -1,0 +1,81 @@
+/* --------------------------------------------------------------------------
+   Finishing details, drawn like an architect's sheet: a dimension line over
+   the name, registration marks, title blocks on the cards, and the name set
+   across the foot of every page. Loads last.
+   -------------------------------------------------------------------------- */
+
+/* ---------- Hero ---------- */
+.tl-hero-dim{position:absolute;z-index:1;left:calc(50% - var(--name-w,0px) / 2);width:var(--name-w,0px);top:var(--name-top,30%);display:flex;align-items:center;gap:14px;height:11px;color:var(--forest);opacity:.42;pointer-events:none;
+  animation:tl-dim-in 1.6s cubic-bezier(.7,0,.15,1) 1.5s both}
+.tl-hero-dim::before,.tl-hero-dim::after{content:'';flex:1;height:100%;background:linear-gradient(currentColor,currentColor) 0 50%/100% 1px no-repeat}
+.tl-hero-dim::before{border-left:1px solid}
+.tl-hero-dim::after{border-right:1px solid}
+.tl-hero-dim span{font-size:10px;letter-spacing:.22em;font-variant-numeric:tabular-nums;white-space:nowrap}
+@keyframes tl-dim-in{from{clip-path:inset(0 50% 0 50%)}to{clip-path:inset(0 0 0 0)}}
+html.tl-preload .tl-hero-dim{animation-play-state:paused}
+.tl-hero:not(.is-live) .tl-hero-dim{display:none}
+
+.tl-hero-status{display:inline-flex;align-items:center;gap:10px;justify-self:start;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+/* Registration marks where the hero's rule meets the column guides. */
+.tl-hero-foot::before,.tl-hero-foot::after{content:'';position:absolute;top:-6px;width:11px;height:11px;opacity:.55;
+  background:linear-gradient(var(--forest),var(--forest)) center/1px 100% no-repeat,linear-gradient(var(--forest),var(--forest)) center/100% 1px no-repeat}
+.tl-hero-foot::before{left:-6px}
+.tl-hero-foot::after{right:-6px}
+@media (max-width:799px){
+  .tl-hero-dim{display:none}
+  .tl-hero-status{font-size:10px}
+}
+
+/* ---------- II — Clientele: each cell fills with forest from below ---------- */
+.tl-clients .tl-client{overflow:hidden;isolation:isolate;transition:color .6s var(--ease)}
+.tl-clients .tl-client::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--forest);clip-path:inset(100% 0 0 0);transition:clip-path .8s cubic-bezier(.7,0,.15,1)}
+.tl-clients a.tl-client:hover{background:transparent;color:var(--cream)}
+.tl-clients a.tl-client:hover::before{clip-path:inset(0 0 0 0)}
+.tl-clients a.tl-client:hover img{filter:brightness(0) invert(1);mix-blend-mode:normal;opacity:.95}
+.tl-clients .tl-client-name{transition:translate .8s cubic-bezier(.16,1,.3,1)}
+.tl-clients a.tl-client:hover .tl-client-name{translate:0 -6px}
+.tl-clients .tl-client-field{position:absolute;left:16px;right:16px;bottom:14px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (hover:none){.tl-clients .tl-client::before{display:none}}
+
+/* ---------- III — Currently working on: drawing sheets with a title block ---------- */
+.tl-now .tl-now-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(16px,2vw,28px)}
+.tl-now .tl-now-card{grid-template-columns:minmax(0,1fr);gap:0;padding:0;border-radius:0;background:rgb(255 255 255 / .38);box-shadow:inset 0 0 0 1px rgb(7 36 26 / .16);transition:background .5s,box-shadow .5s}
+.tl-now .tl-now-card:hover{background:rgb(255 255 255 / .62);box-shadow:inset 0 0 0 1px rgb(7 36 26 / .3)}
+.tl-now .tl-now-sheet{position:relative;display:block;padding:14px;border-bottom:1px solid rgb(7 36 26 / .16)}
+.tl-now .tl-now-card .wb-draft{border-radius:4px;transition:scale 1s cubic-bezier(.16,1,.3,1)}
+.tl-now .tl-now-card:hover .wb-draft{scale:1.012}
+.tl-now .tl-now-body{gap:10px;padding:20px 24px 26px}
+.tl-now .tl-now-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tl-now .tl-now-n{font-size:11px;letter-spacing:.14em;font-variant-numeric:tabular-nums;opacity:.5}
+.tl-now .tl-now-body strong em{font-family:var(--font-serif);font-style:italic;font-weight:400;color:#9c7740}
+.tl-now .tl-now-line{max-width:40ch;padding-right:28px}
+.tl-now .tl-now-spec{display:grid;grid-template-columns:auto minmax(0,1fr);margin-top:8px;border-top:1px solid rgb(7 36 26 / .14)}
+.tl-now .tl-now-spec>span{display:grid;gap:5px;padding:12px 20px 0 0;font-size:14px}
+.tl-now .tl-now-spec>span+span{padding-left:20px;border-left:1px solid rgb(7 36 26 / .14)}
+.tl-now .tl-now-spec small{font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+.tl-now .tl-now-go{top:auto;right:22px;bottom:24px}
+/* The open slot: a hatched, empty sheet waiting for the next project. */
+.tl-now .tl-now-card.is-open{background:transparent;box-shadow:none;outline:1px dashed rgb(7 36 26 / .32);outline-offset:-1px}
+.tl-now .tl-now-card.is-open:hover{background:rgb(255 255 255 / .3);outline-color:rgb(7 36 26 / .5)}
+.tl-now .tl-now-slot{display:grid;place-items:center;aspect-ratio:16/10;border-radius:4px;background:repeating-linear-gradient(135deg,rgb(7 36 26 / .07) 0 1px,transparent 1px 13px);font-family:var(--font-serif);font-style:italic;font-size:clamp(90px,10vw,170px);line-height:1;color:rgb(7 36 26 / .16);transition:color .6s}
+.tl-now .tl-now-card.is-open:hover .tl-now-slot{color:rgb(156 119 64 / .5)}
+.tl-now .tl-now-status.is-idle::before{background:#9c7740;animation:none}
+
+/* ---------- V — Testimonials: the map sits clear of the index ---------- */
+.tl-testi .cmap.cmap{left:42%;top:68%}
+
+/* ---------- Footer: a base line, then the name across the full width ---------- */
+.ft{overflow:hidden}
+.ft-base{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;margin-top:clamp(28px,3.4vw,48px);padding-top:16px;border-top:1px solid rgb(243 241 230 / .14)}
+.ft-base .ft-legal{padding:0}
+.ft-top{display:inline-flex;align-items:center;gap:6px;min-height:32px;font-size:12px;opacity:.7;transition:opacity .3s}
+.ft-top:hover{opacity:1}
+.ft-top svg{rotate:-45deg}
+.ft-mark{display:block;width:calc(100% - clamp(24px,5.55vw,80px) * 2);height:auto;margin:clamp(18px,2.4vw,34px) auto 0;overflow:hidden;font-family:'Geist Variable',Arial,sans-serif;font-size:158px;font-weight:600;letter-spacing:-.04em;pointer-events:none;user-select:none}
+@media (max-width:700px){
+  .ft-base{margin-top:22px}
+}
+
+/* ---------- Section labels: each runs into a ruled line, like a sheet's title strip ---------- */
+main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker,main.tl .tl-testi-head .tl-kicker{display:flex;align-items:center;gap:14px}
+main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{content:'';flex:1;min-width:40px;height:1px;background:currentColor;opacity:.22}

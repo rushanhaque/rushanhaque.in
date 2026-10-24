@@ -31,6 +31,7 @@ import './seo-pages.css';
 import './reveal.css';
 import './premium.css';
 import './backgrounds.css';
+import './finish.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),

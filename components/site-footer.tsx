@@ -5,7 +5,7 @@ import { bookingUrl, email, phone, socials } from '@/lib/content';
 
 const columns = [
   { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
-  { title: 'Websites', links: [['Website designer in Moradabad', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['For exporters', '/website-for-exporters-moradabad'], ['Website cost guide', '/website-cost-in-moradabad'], ['SEO & AI search', '/seo-services']] },
+  { title: 'Websites', links: [['Website design', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['Websites for exporters', '/website-for-exporters-moradabad'], ['Website cost guide', '/website-cost-in-moradabad'], ['SEO & AI search', '/seo-services']] },
 ];
 // A short footer: one invitation, three small lists, and a single closing line.
 export function SiteFooter() {
@@ -30,6 +30,14 @@ export function SiteFooter() {
         </nav>
       </div>
     </div>
-    <p className="ft-legal container">© {new Date().getFullYear()} Rushan Haque</p>
+    <div className="ft-base container">
+      <p className="ft-legal">© {new Date().getFullYear()} Rushan Haque · Designed and built by hand</p>
+      <a href="#top" className="ft-top">Back to top <ArrowUpRight size={14}/></a>
+    </div>
+    {/* The signature: the name set across the full width, cut by the page's edge. */}
+    <svg className="ft-mark" viewBox="0 0 1000 118" aria-hidden="true" focusable="false">
+      <defs><linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".12"/></linearGradient></defs>
+      <text x="0" y="150" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
+    </svg>
   </footer>;
 }

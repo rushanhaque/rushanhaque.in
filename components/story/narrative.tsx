@@ -190,12 +190,28 @@ export function CurrentlyBuilding() {
       <span className="tl-kicker"><i className="tl-live-dot"/>III — CURRENTLY WORKING ON</span>
       <h2 suppressHydrationWarning>Currently <em>working on.</em></h2>
     </div>
-    <ul className="tl-now-grid">{items.map(p => <li key={p.slug}>
+    <ul className="tl-now-grid">{items.map((p, i) => <li key={p.slug}>
       <Link {...projectLink(p)} className="tl-now-card spot">
-        <DraftWindow project={p} sizes="(max-width: 899px) 92vw, 40vw"/>
-        <span className="tl-now-body"><span className="tl-now-status">{p.status}</span><strong>{p.title}</strong><span className="tl-now-line">{storyOf(p).line}</span></span>
+        <span className="tl-now-sheet"><DraftWindow project={p} sizes="(max-width: 899px) 92vw, 46vw"/></span>
+        <span className="tl-now-body">
+          <span className="tl-now-top"><span className="tl-now-n">{two(i + 1)}</span><span className="tl-now-status">{p.status}</span></span>
+          <strong>{p.title}</strong>
+          <span className="tl-now-line">{storyOf(p).line}</span>
+          <span className="tl-now-spec"><span><small>Year</small>{p.year}</span><span><small>Scope</small>{p.tags.filter(t => !/soon/i.test(t)).join(' · ') || p.discipline}</span></span>
+        </span>
         <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>
       </Link>
-    </li>)}</ul>
+    </li>)}
+      {/* The open slot: the next project on the desk could be yours. */}
+      <li><Link href="/connect" className="tl-now-card is-open spot">
+        <span className="tl-now-sheet" aria-hidden="true"><span className="tl-now-slot">{two(items.length + 1)}</span></span>
+        <span className="tl-now-body">
+          <span className="tl-now-top"><span className="tl-now-n">{two(items.length + 1)}</span><span className="tl-now-status is-idle">Open slot</span></span>
+          <strong>Your project <em>here.</em></strong>
+          <span className="tl-now-line">I take on a few projects at a time, each with a fixed, written quote.</span>
+        </span>
+        <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>
+      </Link></li>
+    </ul>
   </section>;
 }

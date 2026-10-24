@@ -5,6 +5,7 @@ import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
 import { ClientMap } from '@/components/client-map';
 import { withoutEmoji } from '@/lib/text';
+import { hostOf, storyOf } from '@/lib/work-stories';
 
 const two = (n: number) => String(n).padStart(2, '0');
 
@@ -13,8 +14,10 @@ const two = (n: number) => String(n).padStart(2, '0');
 /* come from the admin; until one is uploaded, the name is set instead. */
 /* ------------------------------------------------------------------ */
 export function Clientele() {
-  const { clients } = useContent();
+  const { clients, projects } = useContent();
   const list = clients ?? [];
+  // A client with a site in the works carries that site's field as a caption.
+  const fieldOf = (url: string) => { const h = hostOf(url); const p = h ? projects.find(x => hostOf(x.url) === h) : undefined; return p ? storyOf(p).field : ''; };
   if (!list.length) return null;
   return <section id="clientele" className="tl-clients" data-chapter="II — Clientele">
     <div className="tl-clients-head">
@@ -25,6 +28,7 @@ export function Clientele() {
       const inner = <>
         <small aria-hidden="true">{two(i + 1)}</small>
         {c.logo ? <img src={c.logo} alt={c.name} loading="lazy" decoding="async"/> : <span className="tl-client-name">{c.name}</span>}
+        {fieldOf(c.url) && <span className="tl-client-field" aria-hidden="true">{fieldOf(c.url)}</span>}
       </>;
       return <li key={c.name + i}>{c.url
         ? <a className="tl-client" href={c.url} target="_blank" rel="noopener noreferrer">{inner}<ArrowUpRight className="tl-client-go" size={16} aria-hidden="true"/><span className="sr-only"> (opens in a new tab)</span></a>
