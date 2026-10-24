@@ -375,6 +375,32 @@
       "items": []
     }
   ],
+  "clients": [
+    {
+      "name": "Taif International",
+      "url": "https://taifinternational.co"
+    },
+    {
+      "name": "Erfolg Living",
+      "url": "https://erfolgliving.com"
+    },
+    {
+      "name": "Casa&Crop",
+      "url": "https://casaandcrop.com"
+    },
+    {
+      "name": "Velora",
+      "url": "https://www.veloralivings.in"
+    },
+    {
+      "name": "Aurelio",
+      "url": "https://aurelio.in"
+    },
+    {
+      "name": "Chaudharysons & Co.",
+      "url": ""
+    }
+  ],
   "stats": [
     {
       "value": "17",

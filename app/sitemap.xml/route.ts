@@ -15,6 +15,7 @@ export async function GET(){
   const updated=(g:{updated?:string})=>g.updated&&g.updated<=today?g.updated:today;
   const entries:Entry[]=[
     {path:'',priority:'1.0'},
+    {path:'/about',priority:'0.8'},
     {path:'/website-designer-in-moradabad',priority:'0.9'},
     {path:'/website-designer-in-india',priority:'0.9'},
     ...guides.filter(g=>g.slug!=='website-designer-in-india').map(g=>({path:'/'+g.slug,priority:'0.8',lastmod:updated(g)})),

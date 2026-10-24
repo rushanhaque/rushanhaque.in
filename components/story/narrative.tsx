@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 const two = (n: number) => String(n).padStart(2, '0');
 
 /* ------------------------------------------------------------------ */
-/* I — The short version: what a good website does, in one sentence    */
+/* Intro (on /about): what a good website does, in one sentence    */
 /* that lights up as you read it, with real sites set into the line.   */
 /* ------------------------------------------------------------------ */
 type Piece = string | { em: string } | { img: string; cap: string };
@@ -64,7 +64,7 @@ function Letters({ text }: { text: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* II — Selected work: the stories scroll on the left while a browser  */
+/* I — Recent works: the stories scroll on the left while a browser  */
 /* window holds still on the right and changes site as each one passes. */
 /* ------------------------------------------------------------------ */
 export function SelectedWork() {
@@ -99,9 +99,9 @@ export function SelectedWork() {
 
   const current = works[active];
   if (!current) return null;
-  return <section id="selected-work" className="tl-sw" data-chapter="II — Recent works">
+  return <section id="selected-work" className="tl-sw" data-chapter="I — Recent works">
     <div className="tl-sw-head">
-      <span className="tl-kicker">II — RECENT WORKS</span>
+      <span className="tl-kicker">I — RECENT WORKS</span>
       <h2 suppressHydrationWarning>Recent <em>works.</em></h2>
     </div>
     <div className="tl-sw-body">
@@ -141,41 +141,7 @@ export function SelectedWork() {
 }
 
 /* ------------------------------------------------------------------ */
-/* IV — How it works: four steps on one line that draws itself in.     */
-/* ------------------------------------------------------------------ */
-const STEPS = [
-  ['A conversation', 'A call or a WhatsApp message. You tell me about the business; I ask what the website has to do for it.', 'Call · WhatsApp · Email'],
-  ['A fixed, written quote', 'Scope, price and timeline in writing before any work begins. No surprises later.', 'Fixed price'],
-  ['Design, then code', 'You see and approve the design first. Then it is coded from scratch, and you watch it come together on a live preview link.', 'Live preview link'],
-  ['Launch, and after', 'Domain, hosting and Google Search Console, all set up in your name. After launch, I am still a message away.', 'Yours to own'],
-] as const;
-
-export function Process() {
-  const root = useRef<HTMLElement>(null);
-  useEffect(() => {
-    const section = root.current;
-    if (!section) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { section.classList.add('is-in'); io.disconnect(); } }, { rootMargin: '0px 0px -25% 0px' });
-    io.observe(section.querySelector('.tl-steps')!);
-    return () => io.disconnect();
-  }, []);
-  return <section id="process" className="tl-process" ref={root} data-chapter="IV — How it works">
-    <div className="tl-process-head">
-      <span className="tl-kicker">IV — HOW IT WORKS</span>
-      <h2 suppressHydrationWarning>From hello <em>to handover.</em></h2>
-    </div>
-    <ol className="tl-steps"><li className="tl-steps-spark" aria-hidden="true"/>{STEPS.map(([title, text, tag], i) => <li key={title} className="spot" style={{ '--i': i } as React.CSSProperties}>
-      <span className="tl-step-dot" aria-hidden="true"/>
-      <span className="tl-step-n">{two(i + 1)}</span>
-      <h3>{title}</h3>
-      <p>{text}</p>
-      <small>{tag}</small>
-    </li>)}</ol>
-  </section>;
-}
-
-/* ------------------------------------------------------------------ */
-/* X — Next in line: the one closing ask. Leave your website and an    */
+/* VI — Next in line: the one closing ask. Leave your website and an    */
 /* email, and I send back an audit. A forest card opens as it arrives.  */
 /* ------------------------------------------------------------------ */
 export function Encore() {
@@ -196,14 +162,14 @@ export function Encore() {
     ro.observe(section.parentElement!);
     return () => { ctx.revert(); ro.disconnect(); clearTimeout(timer); };
   }, [reduced]);
-  return <section id="next" className="tl-close" ref={root} data-chapter="X — Your website">
+  return <section id="next" className="tl-close" ref={root} data-chapter="VI — Your website">
     <div className="tl-close-card spot">
       <svg className="tl-close-lines" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <g className="is-a">{Array.from({ length: 9 }, (_, i) => <ellipse key={i} cx="400" cy="400" rx={50 + i * 44} ry="360"/>)}</g>
         <g className="is-b">{Array.from({ length: 7 }, (_, i) => <ellipse key={i} cx="400" cy="400" rx="380" ry={36 + i * 50}/>)}</g>
       </svg>
       <div className="tl-close-copy">
-        <span className="tl-kicker">X — YOUR WEBSITE</span>
+        <span className="tl-kicker">VI — YOUR WEBSITE</span>
         <h2 className="tl-close-title" suppressHydrationWarning>Your business, <em>next in line.</em></h2>
         <p>Send me your website and I will send back a free audit.</p>
         <AuditCard/>

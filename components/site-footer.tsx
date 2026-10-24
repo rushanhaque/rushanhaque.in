@@ -4,7 +4,7 @@ import Link from '@/components/site-link';
 import { bookingUrl, email, phone, socials } from '@/lib/content';
 
 const columns = [
-  { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
+  { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
   { title: 'Websites', links: [['Website designer in Moradabad', '/website-designer-in-moradabad'], ['E-commerce websites', '/ecommerce-website-development'], ['For exporters', '/website-for-exporters-moradabad'], ['Website cost guide', '/website-cost-in-moradabad'], ['SEO & AI search', '/seo-services']] },
 ];
 // A short footer: one invitation, three small lists, and a single closing line.

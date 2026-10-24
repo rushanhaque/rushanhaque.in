@@ -12,6 +12,7 @@ export const editorialSchema=z.object({
  certifications:z.array(z.object({title:text,issuer:text,date:text,id:z.string().max(200),image:image.optional(),category:z.enum(['Training','Job simulations','Offer letters','Experience','Visits']).optional()}).strict()).max(100),
  reviews:z.array(z.object({name:text,company:z.string().max(200),location:z.string().max(100),date:z.string().max(40),rating:z.string().regex(/^([1-5](\.\d)?)?$/,'Use a rating from 1 to 5, e.g. 5.0.'),quote:text}).strict()).max(100),
  services:z.array(z.object({title:text,subtitle:text,description:text,items:z.array(text).max(20)}).strict()).max(20),
+ clients:z.array(z.object({name:text,logo:image.optional(),url}).strict()).max(60).optional(),
  stats:z.array(z.object({value:z.string().trim().min(1).max(12),label:z.string().trim().min(1).max(80)}).strict()).max(8),
  insights:z.array(z.object({slug,title:text,tag:text,text,paragraphs:z.array(text).min(1).max(100)}).strict()).max(100).refine(unique,'Insight slugs must be unique.'),
 }).strict();

@@ -10,13 +10,15 @@ type Editorial = z.infer<typeof editorialSchema>;
 type Writing = Editorial['writings'][number];
 type Review = Editorial['reviews'][number];
 type Stat = Editorial['stats'][number];
+type Client = NonNullable<Editorial['clients']>[number];
 type Files = { projects: { sha: string; data: Project[] }; editorial: { sha: string; data: Editorial } };
 type Status = { ready: boolean; repository: string; branch: string };
-type Tab = 'projects' | 'blogs' | 'reviews' | 'numbers';
+type Tab = 'projects' | 'clients' | 'blogs' | 'reviews' | 'numbers';
 type Publish = { file: ContentFile; state: 'saving' | 'building' | 'live' | 'slow'; url?: string; hash?: string };
 
 const TABS: { id: Tab; label: string; file: ContentFile }[] = [
   { id: 'projects', label: 'Works', file: 'projects' },
+  { id: 'clients', label: 'Clients', file: 'editorial' },
   { id: 'blogs', label: 'Blogs', file: 'editorial' },
   { id: 'reviews', label: 'Reviews', file: 'editorial' },
   { id: 'numbers', label: 'Numbers', file: 'editorial' },
@@ -52,7 +54,7 @@ export function ContentStudio() {
   const [readOnly, setReadOnly] = useState(false);
   const [error, setError] = useState('');
   const [tab, setTab] = useState<Tab>('projects');
-  const [pick, setPick] = useState<Record<Tab, number>>({ projects: 0, blogs: 0, reviews: 0, numbers: 0 });
+  const [pick, setPick] = useState<Record<Tab, number>>({ projects: 0, clients: 0, blogs: 0, reviews: 0, numbers: 0 });
   const [publish, setPublish] = useState<Publish | null>(null);
   const [notice, setNotice] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -89,12 +91,12 @@ export function ContentStudio() {
   const projects = files.projects.data, ed = files.editorial.data;
   const setProjects = (next: Project[]) => setFiles({ ...files, projects: { ...files.projects, data: next } });
   const setEd = (next: Partial<Editorial>) => setFiles({ ...files, editorial: { ...files.editorial, data: { ...ed, ...next } } });
-  const list: unknown[] = tab === 'projects' ? projects : tab === 'blogs' ? ed.writings : tab === 'reviews' ? ed.reviews : ed.stats;
+  const list: unknown[] = tab === 'projects' ? projects : tab === 'clients' ? (ed.clients ?? []) : tab === 'blogs' ? ed.writings : tab === 'reviews' ? ed.reviews : ed.stats;
   const index = Math.min(pick[tab], Math.max(0, list.length - 1));
   const select = (i: number) => setPick({ ...pick, [tab]: i });
   const setList = (next: unknown[]) => {
     if (tab === 'projects') setProjects(next as Project[]);
-    else setEd(tab === 'blogs' ? { writings: next as Writing[] } : tab === 'reviews' ? { reviews: next as Review[] } : { stats: next as Stat[] });
+    else setEd(tab === 'clients' ? { clients: next as Client[] } : tab === 'blogs' ? { writings: next as Writing[] } : tab === 'reviews' ? { reviews: next as Review[] } : { stats: next as Stat[] });
   };
   const update = <T,>(patch: Partial<T>) => {
     const current = list[index] as { slug?: string };
@@ -119,6 +121,8 @@ export function ContentStudio() {
       item = { slug: uniqueSlug('new-project', projects.map(p => p.slug)), title: 'New project', category: 'Client work', discipline: 'Web design & development', year, description: 'A short line about the project.', tags: [], url: '', image: null, status: 'Coming soon', placement: 'building', number } satisfies Project;
     } else if (tab === 'blogs') {
       item = { slug: uniqueSlug('new-writing', ed.writings.map(w => w.slug)), title: 'New writing', originalTitle: 'New writing', category: 'Blog', year, status: 'Published', url: '', description: 'A short line about this piece.', paragraphs: ['A short line about this piece.'], source: 'Rushan Haque' } satisfies Writing;
+    } else if (tab === 'clients') {
+      item = { name: 'New client', url: '' } satisfies Client;
     } else if (tab === 'reviews') {
       item = { name: 'Name', company: '', location: '', date: month, rating: '5.0', quote: 'What they said.' } satisfies Review;
     } else item = { value: '0', label: 'New number' } satisfies Stat;
@@ -168,8 +172,8 @@ export function ContentStudio() {
   }
 
   const item = list[index] as Record<string, unknown> | undefined;
-  const titleOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? x.title : tab === 'blogs' ? x.originalTitle : tab === 'reviews' ? x.name : `${x.value} · ${x.label}`; };
-  const subOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? `${({ work: 'Works', building: 'Currently building', hidden: 'Hidden' })[placementOf(x as unknown as Project)]} · ${x.year}` : tab === 'blogs' ? `${x.category} · ${x.year}` : tab === 'reviews' ? [x.company, x.date].filter(Boolean).join(' · ') : ''; };
+  const titleOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? x.title : tab === 'clients' ? x.name : tab === 'blogs' ? x.originalTitle : tab === 'reviews' ? x.name : `${x.value} · ${x.label}`; };
+  const subOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? `${({ work: 'Works', building: 'Currently building', hidden: 'Hidden' })[placementOf(x as unknown as Project)]} · ${x.year}` : tab === 'clients' ? (x.logo ? 'Logo added' : 'Name only') : tab === 'blogs' ? `${x.category} · ${x.year}` : tab === 'reviews' ? [x.company, x.date].filter(Boolean).join(' · ') : ''; };
 
   return <div className="ad">
     <div className="ad-connection">
@@ -177,10 +181,10 @@ export function ContentStudio() {
       <p>{status.ready ? <>Connected to <b>{status.repository}</b> on <b>{status.branch}</b>. Publishing commits there and Vercel updates the site.</> : <>No GitHub token on Vercel, so you can browse but not publish. Add <code>GITHUB_TOKEN</code> (a fine-grained token with Contents: read and write on {status.repository}) and redeploy.</>}</p>
     </div>
 
-    <div className="ad-tabs" role="tablist">{TABS.map(t => <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)}>{t.label}<small>{t.id === 'projects' ? projects.length : t.id === 'blogs' ? ed.writings.length : t.id === 'reviews' ? ed.reviews.length : ed.stats.length}</small></button>)}</div>
+    <div className="ad-tabs" role="tablist">{TABS.map(t => <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)}>{t.label}<small>{t.id === 'projects' ? projects.length : t.id === 'clients' ? (ed.clients ?? []).length : t.id === 'blogs' ? ed.writings.length : t.id === 'reviews' ? ed.reviews.length : ed.stats.length}</small></button>)}</div>
 
     <div className="ad-bar">
-      <p>{tab === 'projects' ? 'Works set to “Works” appear on the Works page and in Selected work on the homepage; “Currently building” lists what is in progress. Use the arrows to reorder.' : tab === 'blogs' ? 'Blogs and books appear on the homepage shelf. Each opens its link.' : tab === 'reviews' ? 'Reviews appear on the homepage and the Reviews page, in this order.' : 'The numbers in the Journey section of the homepage.'}</p>
+      <p>{tab === 'clients' ? 'Clients appear in the Clientele section of the homepage, in this order. Upload a logo (a transparent PNG works best); without one, the name is shown.' : tab === 'projects' ? 'Works set to “Works” appear on the Works page and in Selected work on the homepage; “Currently building” lists what is in progress. Use the arrows to reorder.' : tab === 'blogs' ? 'Blogs and books appear on the homepage shelf. Each opens its link.' : tab === 'reviews' ? 'Reviews appear on the homepage and the Reviews page, in this order.' : 'The numbers in the Journey section of the homepage.'}</p>
       <div className="ad-bar-actions">
         {dirty[file] && <span className="ad-unsaved">Unpublished changes</span>}
         {dirty[file] && <button className="ad-btn is-ghost" onClick={() => { if (window.confirm('Discard your unpublished changes?')) setFiles({ ...files, [file]: { ...files[file], data: JSON.parse(saved[file]) } }); }}><RotateCcw size={15}/>Discard</button>}
@@ -197,7 +201,7 @@ export function ContentStudio() {
 
     <div className="ad-work">
       <aside className="ad-list">
-        <button className="ad-add" onClick={add}><Plus size={16}/>Add {tab === 'projects' ? 'work' : tab === 'blogs' ? 'blog' : tab === 'reviews' ? 'review' : 'number'}</button>
+        <button className="ad-add" onClick={add}><Plus size={16}/>Add {tab === 'projects' ? 'work' : tab === 'clients' ? 'client' : tab === 'blogs' ? 'blog' : tab === 'reviews' ? 'review' : 'number'}</button>
         <ol>{list.map((it, i) => <li key={i}><button aria-current={i === index} onClick={() => select(i)}><strong>{titleOf(it) || 'Untitled'}</strong>{subOf(it) && <small>{subOf(it)}</small>}</button></li>)}</ol>
       </aside>
 
@@ -241,6 +245,17 @@ export function ContentStudio() {
             <div className="ad-image">{w.image ? <img src={w.image} alt=""/> : <span>Designed cover</span>}
               <label className="ad-btn is-ghost">{uploading ? <Loader2 className="ad-spin" size={15}/> : <ImagePlus size={15}/>}{w.image ? 'Replace' : 'Upload'}<input type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={e => upload(e.target.files?.[0], path => update<Writing>({ image: path }), `writing-${w.slug}`)}/></label>
               {w.image && <button className="ad-btn is-ghost" onClick={() => update<Writing>({ image: undefined })}>Remove</button>}
+            </div>
+          </Field>
+        </div>; })()}
+
+        {tab === 'clients' && (() => { const k = item as unknown as Client; return <div className="ad-grid">
+          <Field label="Name"><input value={k.name} onChange={e => update<Client>({ name: e.target.value })} maxLength={120}/></Field>
+          <Field label="Website" hint="Optional"><input value={k.url} placeholder="https://" onChange={e => update<Client>({ url: e.target.value.trim() })}/></Field>
+          <Field label="Logo" hint="A transparent PNG or SVG-like mark works best">
+            <div className="ad-image">{k.logo ? <img src={k.logo} alt=""/> : <span>Name shown instead</span>}
+              <label className="ad-btn is-ghost">{uploading ? <Loader2 className="ad-spin" size={15}/> : <ImagePlus size={15}/>}{k.logo ? 'Replace' : 'Upload'}<input type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={e => upload(e.target.files?.[0], path => update<Client>({ logo: path }), `logo-${k.name}`)}/></label>
+              {k.logo && <button className="ad-btn is-ghost" onClick={() => update<Client>({ logo: undefined })}>Remove</button>}
             </div>
           </Field>
         </div>; })()}

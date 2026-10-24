@@ -6,8 +6,8 @@
    Art: public/images/bg (contours, a dotted world map, a certificate guilloche,
    and a blurred montage of the client sites).
    -------------------------------------------------------------------------- */
-:is(.tl-mf,.tl-now,.tl-writing,.tl-person,.tl-voices,.wk-intro,.page-intro,.pd-head,.not-found,.rvp-said){position:relative;isolation:isolate}
-:is(.tl-mf,.tl-now,.tl-writing,.tl-person,.wk-intro,.page-intro,.pd-head,.not-found)::before,.ft-inner::before{
+:is(.tl-mf,.tl-now,.tl-writing,.tl-person,.tl-testi,.tl-caps,.wk-intro,.page-intro,.pd-head,.not-found,.rvp-said,.ab-hero){position:relative;isolation:isolate}
+:is(.tl-mf,.tl-now,.tl-writing,.tl-person,.tl-caps,.ab-hero,.wk-intro,.page-intro,.pd-head,.not-found)::before,.ft-inner::before{
   content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:var(--art-bg,var(--art-color,#07241a));opacity:var(--art-o,.07);
   -webkit-mask-image:var(--art,none),var(--fade,linear-gradient(#000,#000));mask-image:var(--art,none),var(--fade,linear-gradient(#000,#000));
@@ -51,18 +51,17 @@ main:has(.cat-bar) .page-intro::before{--art:url(/images/bg/guilloche.svg);--art
   --fade:linear-gradient(90deg,#000,transparent 70%)}
 
 /* Reviews: the clients' countries on a dotted map (components/client-map.tsx); the board lets it show through. */
-.tl-voices .tl-board{background-color:rgb(7 36 26 / .45)}
-.tl-voices,.rvp-said{overflow:clip}
+.rvp-said{overflow:clip}
 .cmap{--dot:#f3f1e6;--dot-o:.15;--arc:#e2c487;position:absolute;left:50%;top:52%;z-index:-1;width:min(1500px,150%);aspect-ratio:1000/594;translate:-50% -50%;pointer-events:none;
   -webkit-mask-image:radial-gradient(60% 60% at 58% 42%,#000 30%,transparent 80%);mask-image:radial-gradient(60% 60% at 58% 42%,#000 30%,transparent 80%)}
 .cmap::before{content:'';position:absolute;inset:0;background:var(--dot);opacity:var(--dot-o);-webkit-mask:url(/images/bg/world-dots.svg) center/100% 100% no-repeat;mask:url(/images/bg/world-dots.svg) center/100% 100% no-repeat}
 .cmap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.cmap-arc{fill:none;stroke:var(--arc);stroke-width:1.6;stroke-linecap:round;opacity:.5;stroke-dasharray:1;stroke-dashoffset:1;animation:cmap-draw 6s cubic-bezier(.65,0,.35,1) var(--d,0s) infinite}
+.cmap-arc{fill:none;stroke:var(--arc);stroke-width:1.6;stroke-linecap:round;opacity:var(--arc-o,.5);stroke-dasharray:1;stroke-dashoffset:1;animation:cmap-draw 6s cubic-bezier(.65,0,.35,1) var(--d,0s) infinite}
 .cmap-pin{fill:var(--arc);opacity:.75}
 .cmap-pin.is-home{fill:var(--dot);opacity:.9}
 .cmap-ring{fill:none;stroke:var(--arc);stroke-width:1.2;opacity:0;transform-box:fill-box;transform-origin:center;animation:cmap-ping 6s ease-out var(--d,0s) infinite}
 .cmap-ring.is-home{stroke:var(--dot);animation-duration:3s}
-@keyframes cmap-draw{0%{stroke-dashoffset:1}35%,80%{stroke-dashoffset:0;opacity:.5}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes cmap-draw{0%{stroke-dashoffset:1}35%,80%{stroke-dashoffset:0;opacity:var(--arc-o,.5)}100%{stroke-dashoffset:0;opacity:0}}
 @keyframes cmap-ping{0%{opacity:.7;scale:.3}40%,100%{opacity:0;scale:1.6}}
 .rvp-said .cmap{--dot:#07241a;--dot-o:.08;--arc:#9c7740;top:34%;width:min(1300px,140%)}
 @media (prefers-reduced-motion:reduce){.cmap-arc{animation:none;stroke-dashoffset:0}.cmap-ring{animation:none}}
@@ -74,4 +73,13 @@ main:has(.cat-bar) .page-intro::before{--art:url(/images/bg/guilloche.svg);--art
   .cmap{width:240%;top:40%}
   .rvp-said .cmap{width:260%;top:14%}
   main:has(.cat-bar) .page-intro::before{--art-pos:right -40vw top -60px;--art-size:520px auto}
+}
+
+/* Capabilities: contour lines in cream across the forest. About header: the guilloche, faintly. */
+.tl-caps::before{--art:url(/images/bg/contours.svg);--art-size:1600px auto;--art-pos:left bottom;--art-color:#f3f1e6;--art-o:.06;--fade:linear-gradient(90deg,#000,transparent 75%)}
+.ab-hero::before{--art:url(/images/bg/contours.svg);--art-size:1500px auto;--art-pos:right top;--art-o:.07;--fade:radial-gradient(70% 100% at 85% 0%,#000 20%,transparent 75%)}
+
+/* Architectural column guides: two hairlines on the page's gutters, through the story pages. */
+@media (min-width:1024px){
+  body:has(main.tl)::before{content:'';position:fixed;inset:0 clamp(24px,5.55vw,80px);z-index:1;pointer-events:none;border-inline:1px solid rgb(128 128 116 / .14)}
 }

@@ -5,9 +5,9 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
 import { bookingUrl, email, socials } from '@/lib/content';
 
-const nav = [['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews']] as const;
+const nav = [['Works', '/projects'], ['About', '/about'], ['Reviews', '/reviews']] as const;
 const groups = [
-  { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
+  { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
 ] as const;
 
 // Reads the colour of whatever sits under a point, skipping the header itself,
