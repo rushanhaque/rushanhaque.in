@@ -47,11 +47,31 @@ export function PlanScan() {
       play(e.target as HTMLElement);
     }), { threshold: .4 });
 
+    // Once a site is built, a lens under the pointer shows its drawing again (mouse only).
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const lenses: [HTMLElement, () => void][] = [];
+    const lens = (el: HTMLElement) => {
+      const host = el.parentElement;
+      if (!fine || !host) return;
+      const move = (e: PointerEvent) => {
+        if (!el.classList.contains('is-done')) return;
+        const box = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${e.clientX - box.left}px`);
+        el.style.setProperty('--my', `${e.clientY - box.top}px`);
+        el.classList.add('is-lens');
+      };
+      const leave = () => el.classList.remove('is-lens');
+      host.addEventListener('pointermove', move);
+      host.addEventListener('pointerleave', leave);
+      lenses.push([el, () => { host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave); }]);
+    };
     const seen = new WeakSet<Element>();
     const scan = () => document.querySelectorAll<HTMLElement>('.plan').forEach(el => {
       if (seen.has(el)) return;
       seen.add(el);
-      if (el.dataset.plan === 'time' || el.getBoundingClientRect().top < window.innerHeight * .8) timed.observe(el);
+      lens(el);
+      if (el.dataset.plan === 'lens') set(el, 1);
+      else if (el.dataset.plan === 'time' || el.getBoundingClientRect().top < window.innerHeight * .8) timed.observe(el);
       else { set(el, 0); live.push(el); }
     });
     scan();
@@ -61,7 +81,7 @@ export function PlanScan() {
     mo.observe(document.body, { childList: true, subtree: true });
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
-    return () => { live.length = 0; timed.disconnect(); mo.disconnect(); clearTimeout(timer); cancelAnimationFrame(frame); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); };
+    return () => { lenses.forEach(([, off]) => off()); live.length = 0; timed.disconnect(); mo.disconnect(); clearTimeout(timer); cancelAnimationFrame(frame); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); };
   }, [pathname]);
   return null;
 }

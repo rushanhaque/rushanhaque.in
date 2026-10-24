@@ -127,7 +127,7 @@ export function SelectedWork() {
             <span className="tl-sw-frames">{works.map((w, i) => <span key={w.slug} className={i < active ? 'is-past' : i === active ? 'is-on' : ''}>
               <img src={w.image!} {...responsive(w.image, '(max-width: 1023px) 1px, 56vw')} alt="" width="1600" height="772" loading="lazy" decoding="async"/>
             </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} active={active}/>
-              {intro && planOf(works[0].image) && <Plan src={planOf(works[0].image)!} label={hostOf(works[0].url) || works[0].title} mode="time" delay={1300}/>}</span>
+              {planOf(current.image) && <Plan key={current.slug} src={planOf(current.image)!} label={hostOf(current.url) || current.title} mode={intro ? 'time' : 'lens'} delay={1300}/>}</span>
           </span>
           <span className="tl-sw-cursor">{projectAccess(current) === 'visit' ? 'Visit site' : 'View project'}<ArrowUpRight size={15}/></span>
         </Link>
