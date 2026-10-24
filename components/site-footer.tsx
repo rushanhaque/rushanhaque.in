@@ -51,9 +51,9 @@ export function SiteFooter() {
       <a href="#top" className="ft-top">Back to top <ArrowUpRight size={14}/></a>
     </div>
     {/* The signature: the name set across the full width, cut by the page's edge. */}
-    <svg className="ft-mark" ref={mark} viewBox="0 0 1000 118" aria-hidden="true" focusable="false">
-      <defs><linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".12"/></linearGradient></defs>
-      <text x="0" y="150" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
+    <svg className="ft-mark" ref={mark} viewBox="0 0 1000 152" aria-hidden="true" focusable="false">
+      <defs><linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".4"/></linearGradient></defs>
+      <text x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
     </svg>
   </footer>;
 }

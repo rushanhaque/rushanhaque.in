@@ -1,5 +1,8 @@
 'use client';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useMotion } from '@/components/site-motion';
 import { ArrowUpRight, Star } from 'lucide-react';
 import Link from '@/components/site-link';
 import { useContent } from '@/components/content-provider';
@@ -9,6 +12,7 @@ import { hostOf, storyOf } from '@/lib/work-stories';
 import { CapArt } from '@/components/story/cap-art';
 import { planOf } from '@/lib/images';
 
+gsap.registerPlugin(ScrollTrigger);
 const two = (n: number) => String(n).padStart(2, '0');
 
 /* ------------------------------------------------------------------ */
@@ -49,9 +53,9 @@ export function Clientele() {
 export function Capabilities() {
   const { services } = useContent();
   if (!services.length) return null;
-  return <section id="services" className="tl-caps" data-chapter="IV — Capabilities">
+  return <section id="services" className="tl-caps" data-chapter="V — Capabilities">
     <div className="tl-caps-head">
-      <span className="tl-kicker">IV — CAPABILITIES</span>
+      <span className="tl-kicker">V — CAPABILITIES</span>
       <h2 suppressHydrationWarning>Beyond <em>the build.</em></h2>
       <p>Websites are the core. With partners I trust, I take on the rest and stay your one point of contact.</p>
       <Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link>
@@ -66,44 +70,55 @@ export function Capabilities() {
 }
 
 /* ------------------------------------------------------------------ */
-/* V — Testimonials: one review at a time, set large, over the map of  */
-/* where clients wrote from. It moves on by itself and pauses while you */
-/* read or choose from the index.                                       */
+/* VI — Reviews: notes pinned to a board, over the dotted map of where  */
+/* clients wrote from. On a desktop, pick them up and throw them; on a  */
+/* phone they line up to be swiped through.                             */
 /* ------------------------------------------------------------------ */
-export function Testimonials() {
+const SPOTS = [[4, 8, -6], [30, 3, 3], [57, 10, -2], [78, 4, 6], [10, 46, 4], [36, 40, -4], [62, 48, 5], [82, 42, -7], [46, 72, 2]];
+export function Voices() {
   const { reviews } = useContent();
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const root = useRef<HTMLElement>(null);
+  const { reduced } = useMotion();
   const ratings = reviews.map(r => Number(r.rating) || 5);
   const average = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : '5.0';
-
   useEffect(() => {
-    if (paused || reviews.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const t = window.setTimeout(() => setActive(i => (i + 1) % reviews.length), 7000);
-    return () => window.clearTimeout(t);
-  }, [active, paused, reviews.length]);
-
-  const r = reviews[active];
-  if (!r) return null;
-  const hold = { onPointerEnter: () => setPaused(true), onPointerLeave: () => setPaused(false), onFocus: () => setPaused(true), onBlur: () => setPaused(false) };
-  return <section id="reviews" className="tl-testi" data-chapter="V — Testimonials">
+    const section = root.current;
+    if (!section || reduced) return;
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 900px) and (hover: hover) and (pointer: fine)', () => {
+      const board = section.querySelector<HTMLElement>('.tl-board')!;
+      const notes = gsap.utils.toArray<HTMLElement>('.tl-note', board);
+      gsap.from(notes, { y: 90, rotate: () => gsap.utils.random(-8, 8), opacity: 0, duration: 1.2, ease: 'power3.out', stagger: { each: .06, from: 'random' }, scrollTrigger: { trigger: board, start: 'top 75%', once: true } });
+      // Dragging is desktop-only, so its plugins load only here, and only once the board is near.
+      let z = 10, live = true;
+      let drags: { kill: () => void }[] = [];
+      const arm = ScrollTrigger.create({ trigger: board, start: 'top 150%', once: true, onEnter: async () => {
+        const [{ Draggable }, { InertiaPlugin }] = await Promise.all([import('gsap/Draggable'), import('gsap/InertiaPlugin')]);
+        if (!live) return;
+        gsap.registerPlugin(Draggable, InertiaPlugin);
+        drags = Draggable.create(notes, { type: 'x,y', bounds: board, inertia: true, edgeResistance: .7,
+          onPress() { (this.target as HTMLElement).style.zIndex = String(++z); gsap.to(this.target, { scale: 1.06, rotate: 0, boxShadow: '0 40px 60px -30px rgba(7,36,26,.45)', duration: .3 }); },
+          onRelease() { gsap.to(this.target, { scale: 1, rotate: 0, boxShadow: '0 18px 40px -26px rgba(7,36,26,.4)', duration: .7, ease: 'power3.out' }); } });
+      } });
+      return () => { live = false; arm.kill(); drags.forEach(d => d.kill()); };
+    });
+    mm.add('(max-width: 899px), (hover: none)', () => {
+      gsap.from(section.querySelectorAll('.tl-note'), { x: 50, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: section.querySelector('.tl-board'), start: 'top 85%', once: true } });
+    });
+    return () => mm.revert();
+  }, [reduced]);
+  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
     <ClientMap/>
-    <div className="tl-testi-head">
-      <div><span className="tl-kicker">V — TESTIMONIALS</span><h2 suppressHydrationWarning>In their <em>own words.</em></h2></div>
-      <div className="tl-testi-score"><b data-count>{average}</b><span><span className="tl-testi-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={14} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} client reviews</span></div>
+    <div className="tl-voices-head">
+      <div><span className="tl-kicker">VI — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
+      <div className="tl-score"><b data-count>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} client reviews</span></div>
     </div>
-    <div className="tl-testi-body" {...hold}>
-      <figure className="tl-testi-quote" key={active}>
-        <span className="tl-testi-mark" aria-hidden="true">“</span>
-        {/* Each word rises out of its own line, so a new review is set rather than swapped. */}
-        <blockquote>{withoutEmoji(r.quote).split(/\s+/).filter(Boolean).map((w, i) => <Fragment key={i}>{i > 0 && ' '}<span className="tl-w"><span style={{ '--i': i } as React.CSSProperties}>{w}</span></span></Fragment>)}</blockquote>
-        <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span></figcaption>
-      </figure>
-      <div className={`tl-testi-meter ${paused ? 'is-paused' : ''}`} aria-hidden="true"><i key={active}/></div>
-      <ol className="tl-testi-index" aria-label="Reviews">{reviews.map((x, i) => <li key={x.name + i}>
-        <button type="button" aria-pressed={i === active} onClick={() => setActive(i)}><span>{two(i + 1)}</span>{x.name}</button>
-      </li>)}</ol>
-    </div>
-    <div className="tl-testi-actions"><Link href="/reviews" className="tl-button">Read all reviews <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Write a review <ArrowUpRight size={16}/></Link></div>
+    <div className="tl-board" data-native-scroll="">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>
+      <span className="tl-note-pin" aria-hidden="true"/>
+      <blockquote>“{withoutEmoji(r.quote)}”</blockquote>
+      <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span>{r.date && <time>{r.date}</time>}</figcaption>
+    </figure>; })}</div>
+    <p className="tl-board-hint" aria-hidden="true"><span className="is-fine">Pick a note up and throw it.</span><span className="is-touch">Swipe through the notes <small>{two(reviews.length)} REVIEWS</small></span></p>
+    <div className="tl-voices-actions"><Link href="/reviews" className="tl-button">Read all reviews <ArrowUpRight size={16}/></Link><Link href="/reviews" className="tl-link">Write a review <ArrowUpRight size={16}/></Link></div>
   </section>;
 }

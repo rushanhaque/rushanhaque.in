@@ -1,12 +1,13 @@
 import { pageMetadata } from '@/lib/seo';
+import { Reach } from '@/components/story/reach';
 import { Choreography } from '@/components/story/choreography';
 import { ContentProvider } from '@/components/content-provider';
 import { getPublishedContent } from '@/lib/published-content';
 import { Preloader, preloadScript } from '@/components/story/preloader';
 import { SmoothScroll } from '@/components/story/smooth-scroll';
-import { ParticleHero } from '@/components/story/particle-hero';
+import { NameHero } from '@/components/story/name-hero';
 import { SelectedWork, CurrentlyBuilding, Encore } from '@/components/story/narrative';
-import { Clientele, Capabilities, Testimonials } from '@/components/story/premium-sections';
+import { Clientele, Capabilities, Voices } from '@/components/story/premium-sections';
 import { StoryMotion } from '@/components/story/story-motion';
 import './two-languages.css';
 import './home-polish.css';
@@ -23,12 +24,13 @@ export default async function Home(){
   return <ContentProvider value={content}><main id="main-content" className="tl">
     <script dangerouslySetInnerHTML={{ __html: preloadScript }}/>
     <Preloader/><SmoothScroll/>
-    <ParticleHero/>
+    <NameHero/>
     <SelectedWork/>
     <Clientele/>
+    <Reach/>
     <CurrentlyBuilding/>
     <Capabilities/>
-    <Testimonials/>
+    <Voices/>
     <Encore/>
     <StoryMotion/>
     <Choreography/>

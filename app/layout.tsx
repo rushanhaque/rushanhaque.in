@@ -7,6 +7,7 @@ import { MotionProvider } from '@/components/site-motion';
 import { Reveal } from '@/components/reveal';
 import { PlanScan } from '@/components/plan-scan';
 import { TypeGuides } from '@/components/type-guides';
+import { OffscreenPause } from '@/components/offscreen-pause';
 import { getPublishedContent } from '@/lib/published-content';
 import { placementOf } from '@/lib/project-access';
 import { ReleaseSync } from '@/components/release-sync';
@@ -65,5 +66,5 @@ export default async function RootLayout({ children }: Readonly<{children: React
     <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
     <link rel="preload" href="/fonts/instrument-italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(siteGraph()) }}/>
-  </head><body id="top"><MotionProvider><a className="skip-link" href="#main-content">Skip to content</a><ReleaseSync buildId={release.buildId}/><UsageEvents/><SiteHeader workCount={content.projects.filter(p=>placementOf(p)==='work').length}/><div className="vt-scan" aria-hidden="true"/><div id="page-stack" className="page-stack">{children}</div><SiteFooter/><FitHeadings/><Reveal/><PlanScan/><TypeGuides/></MotionProvider></body></html>;
+  </head><body id="top"><MotionProvider><a className="skip-link" href="#main-content">Skip to content</a><ReleaseSync buildId={release.buildId}/><UsageEvents/><SiteHeader workCount={content.projects.filter(p=>placementOf(p)==='work').length}/><div className="vt-scan" aria-hidden="true"/><div id="page-stack" className="page-stack">{children}</div><SiteFooter/><FitHeadings/><Reveal/><PlanScan/><TypeGuides/><OffscreenPause/></MotionProvider></body></html>;
 }

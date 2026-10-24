@@ -72,11 +72,9 @@ export function SelectedWork() {
   const { projects } = useContent();
   const works = projects.filter(p => placementOf(p) === 'work' && p.image);
   const list = useRef<HTMLOListElement>(null);
-  const stage = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState(0);
   // The window opens on the first site as a drawing, which then builds into the site.
   const [intro, setIntro] = useState(true);
-  const { reduced } = useMotion();
 
   // The chapter crossing the middle of the screen is the one in the window.
   useEffect(() => {
@@ -85,20 +83,6 @@ export function SelectedWork() {
     items.forEach(item => io.observe(item));
     return () => io.disconnect();
   }, [works.length]);
-
-  // On a desktop the window opens like a shutter the first time it comes into view,
-  // the site inside settling from a zoom.
-  useEffect(() => {
-    const win = stage.current;
-    if (!win || reduced) return;
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 1024px)', () => {
-      gsap.timeline({ scrollTrigger: { trigger: win, start: 'top 88%', once: true } })
-        .fromTo(win.querySelector('.wk-shot'), { clipPath: 'inset(16% 12% 16% 12% round 30px)' }, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.7, ease: 'expo.inOut', clearProps: 'clipPath' })
-        .fromTo(win.querySelector('.tl-sw-frames'), { scale: 1.35 }, { scale: 1, duration: 2.1, ease: 'expo.out', clearProps: 'transform' }, 0);
-    });
-    return () => mm.revert();
-  }, [reduced]);
 
   const current = works[active];
   if (!current) return null;
@@ -121,7 +105,7 @@ export function SelectedWork() {
         </li>;
       })}</ol>
       <div className="tl-sw-stage">
-        <Link {...projectLink(current)} className="tl-sw-window" ref={stage} tabIndex={-1} aria-hidden="true">
+        <Link {...projectLink(current)} className="tl-sw-window" tabIndex={-1} aria-hidden="true">
           <span className="wk-shot">
             <span className="wk-bar"><i/><i/><i/><span key={current.slug}>{hostOf(current.url) || current.title.toLowerCase()}</span></span>
             <span className="tl-sw-frames">{works.map((w, i) => <span key={w.slug} className={i < active ? 'is-past' : i === active ? 'is-on' : ''}>
@@ -166,14 +150,14 @@ export function Encore() {
     ro.observe(section.parentElement!);
     return () => { ctx.revert(); ro.disconnect(); clearTimeout(timer); };
   }, [reduced]);
-  return <section id="next" className="tl-close" ref={root} data-chapter="VI — Your website">
+  return <section id="next" className="tl-close" ref={root} data-chapter="VII — Your website">
     <div className="tl-close-card spot">
       <svg className="tl-close-lines" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <g className="is-a">{Array.from({ length: 9 }, (_, i) => <ellipse key={i} cx="400" cy="400" rx={50 + i * 44} ry="360"/>)}</g>
         <g className="is-b">{Array.from({ length: 7 }, (_, i) => <ellipse key={i} cx="400" cy="400" rx="380" ry={36 + i * 50}/>)}</g>
       </svg>
       <div className="tl-close-copy">
-        <span className="tl-kicker">VI — YOUR WEBSITE</span>
+        <span className="tl-kicker">VII — YOUR WEBSITE</span>
         <h2 className="tl-close-title" suppressHydrationWarning>Your business, <em>next in line.</em></h2>
         <p>Send me your website and I will send back a free audit.</p>
         <AuditCard/>
@@ -189,9 +173,9 @@ export function CurrentlyBuilding() {
   const { projects } = useContent();
   const items = projects.filter(p => placementOf(p) === 'building');
   if (!items.length) return null;
-  return <section id="currently" className="tl-now" data-chapter="III — Currently working on">
+  return <section id="currently" className="tl-now" data-chapter="IV — Currently working on">
     <div className="tl-now-head">
-      <span className="tl-kicker"><i className="tl-live-dot"/>III — CURRENTLY WORKING ON</span>
+      <span className="tl-kicker"><i className="tl-live-dot"/>IV — CURRENTLY WORKING ON</span>
       <h2 suppressHydrationWarning>Currently <em>working on.</em></h2>
     </div>
     <ul className="tl-now-grid">{items.map((p, i) => <li key={p.slug}>

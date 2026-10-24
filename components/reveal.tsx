@@ -47,7 +47,9 @@ function decode(el: HTMLElement, ms = 950) {
   if (!words.length || words.some(w => /[^\x20-\x7E·—–’&]/.test(w))) return;
   const total = words.reduce((n, w) => n + w.length, 0);
   el.dataset.dec = 'run';
-  el.style.minHeight = `${el.offsetHeight}px`;
+  // Random glyphs run wider than the label and could wrap it onto a new line: hold its height exactly.
+  const height = `${el.offsetHeight}px`;
+  el.style.minHeight = height; el.style.maxHeight = height; el.style.overflow = 'hidden';
   const start = performance.now();
   const frame = (now: number) => {
     const p = Math.min(1, (now - start) / ms);
@@ -63,7 +65,7 @@ function decode(el: HTMLElement, ms = 950) {
     });
     if (p < 1) return requestAnimationFrame(frame);
     nodes.forEach((t, k) => { t.data = words[k]; });
-    el.style.minHeight = '';
+    el.style.minHeight = ''; el.style.maxHeight = ''; el.style.overflow = '';
     el.dataset.dec = 'done';
   };
   requestAnimationFrame(frame);

@@ -69,19 +69,27 @@ function guide(target: Target, title: HTMLElement) {
     layer.innerHTML = placed.map((p, k) => `<i class="tl-guide" style="top:${p.y}px;--i:${k}">${p.name ? `<span>${p.name}</span>` : ''}</i>`).join('');
   };
 
-  let timer = 0;
+  let timer = 0, started = false;
   const later = () => { clearTimeout(timer); timer = window.setTimeout(measure, 150); };
-  measure();
-  // Titles rise in and fonts settle: measure again once they have.
-  const settle = [900, 2200, 3600].map(ms => window.setTimeout(measure, ms));
-  title.addEventListener('animationend', later);
-  title.addEventListener('transitionend', later);
-  document.fonts?.ready.then(later);
+  const settle: number[] = [];
   const ro = new ResizeObserver(later);
-  ro.observe(title); ro.observe(document.body);
-  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { window.setTimeout(() => { measure(); layer.classList.add('is-drawn'); }, 450); settle.push(...[1500, 2700].map(ms => window.setTimeout(measure, ms))); io.disconnect(); } }, { threshold: .6 });
+  // Measuring starts only once the title is within a screen, so a card far down the page
+  // costs nothing while the page loads.
+  const start = () => {
+    if (started) return;
+    started = true;
+    measure();
+    settle.push(...[900, 2200, 3600].map(ms => window.setTimeout(measure, ms)));
+    title.addEventListener('animationend', later);
+    title.addEventListener('transitionend', later);
+    document.fonts?.ready.then(later);
+    ro.observe(title); ro.observe(document.body);
+  };
+  const soon = new IntersectionObserver(([e]) => { if (e.isIntersecting) { soon.disconnect(); start(); } }, { rootMargin: '0px 0px 100% 0px' });
+  soon.observe(title);
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { start(); window.setTimeout(() => { measure(); layer.classList.add('is-drawn'); }, 450); settle.push(...[1500, 2700].map(ms => window.setTimeout(measure, ms))); io.disconnect(); } }, { threshold: .6 });
   io.observe(title);
-  return () => { title.removeEventListener('animationend', later); title.removeEventListener('transitionend', later); clearTimeout(timer); settle.forEach(clearTimeout); ro.disconnect(); io.disconnect(); layer.remove(); };
+  return () => { soon.disconnect(); title.removeEventListener('animationend', later); title.removeEventListener('transitionend', later); clearTimeout(timer); settle.forEach(clearTimeout); ro.disconnect(); io.disconnect(); layer.remove(); };
 }
 
 export function TypeGuides() {
