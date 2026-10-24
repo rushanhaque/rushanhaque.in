@@ -79,3 +79,7 @@ html.tl-preload .tl-hero-dim{animation-play-state:paused}
 /* ---------- Section labels: each runs into a ruled line, like a sheet's title strip ---------- */
 main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker,main.tl .tl-testi-head .tl-kicker{display:flex;align-items:center;gap:14px}
 main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{content:'';flex:1;min-width:40px;height:1px;background:currentColor;opacity:.22}
+
+/* Motion support for components/story/choreography.tsx */
+main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-person-copy,.ab-hero)>.tl-kicker::after,main.tl .tl-testi-head .tl-kicker::after{transform:scaleX(var(--rule,1));transform-origin:left}
+@media (max-width:1023px){.tl-sw-title{overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}.tl-sw-shot .wk-shot{display:block;overflow:hidden}}

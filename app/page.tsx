@@ -1,4 +1,5 @@
 import { pageMetadata } from '@/lib/seo';
+import { Choreography } from '@/components/story/choreography';
 import { ContentProvider } from '@/components/content-provider';
 import { getPublishedContent } from '@/lib/published-content';
 import { Preloader, preloadScript } from '@/components/story/preloader';
@@ -30,5 +31,6 @@ export default async function Home(){
     <Testimonials/>
     <Encore/>
     <StoryMotion/>
+    <Choreography/>
   </main></ContentProvider>;
 }

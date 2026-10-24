@@ -1,4 +1,5 @@
 import { pageMetadata } from '@/lib/seo';
+import { Choreography } from '@/components/story/choreography';
 import { ContentProvider } from '@/components/content-provider';
 import { getPublishedContent } from '@/lib/published-content';
 import { SmoothScroll } from '@/components/story/smooth-scroll';
@@ -34,5 +35,6 @@ export default async function About(){
     <Bookshelf/>
     <LazyLab/>
     <StoryMotion/>
+    <Choreography/>
   </main></ContentProvider>;
 }
