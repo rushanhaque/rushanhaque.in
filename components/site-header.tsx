@@ -144,7 +144,7 @@ export function SiteHeader({ workCount }: { workCount: number }) {
         <div className="gh-panel-links">
           {groups.map((g, gi) => <nav key={g.title} aria-label={g.title}>
             <span>{g.title}</span>
-            {g.links.map(([label, url], i) => <Link key={url} href={url} aria-current={current(url)} onClick={() => close(false)} style={{ '--i': gi * 6 + i } as React.CSSProperties}>{label}<ArrowUpRight size={18}/></Link>)}
+            {g.links.map(([label, url], i) => <Link key={url} href={url} aria-current={current(url)} onClick={() => close(false)} style={{ '--i': gi * 6 + i } as React.CSSProperties}><small aria-hidden="true">{String(i + 1).padStart(2, '0')}</small>{label}<ArrowUpRight size={18}/></Link>)}
           </nav>)}
         </div>
         <aside className="gh-panel-card">

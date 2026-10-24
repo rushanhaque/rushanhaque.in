@@ -198,7 +198,7 @@ main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-perso
 .tl-sw-window.is-gl .tl-sw-frames>span.plan.plan:not(.is-lens){visibility:hidden}
 
 /* ---------- The site being built, drawn by a pen in a loop (works-showcase.tsx) ---------- */
-.wb-plot{display:block;flex:1 1 0;min-height:0;width:100%;height:100%;max-height:200px;overflow:visible}
+.wb-plot{display:block;flex:0 1 auto;min-height:0;width:100%;height:auto;aspect-ratio:404/160;max-height:240px;overflow:visible}
 .wb-plot path{fill:none;stroke:rgb(243 241 230 / .5);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1 1;stroke-dashoffset:1;
   animation:wb-plot 10s cubic-bezier(.6,0,.3,1) calc(var(--k) * 320ms) infinite}
 .wb-plot path.is-cross{stroke:rgb(194 155 92 / .7);stroke-width:1}
@@ -228,3 +228,19 @@ html[data-motion=reduce] ::view-transition-group(*),html[data-motion=reduce] ::v
 main.tl .tl-kicker::after{order:1}
 main.tl .tl-kicker .tl-sheet{order:2;flex:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-variant-numeric:tabular-nums;opacity:.75}
 @media (max-width:600px){main.tl .tl-kicker .tl-sheet{display:none}}
+
+/* ---------- Footer: the sheet's title block ---------- */
+.ft-block{display:flex;flex-wrap:wrap;margin:0;border:1px solid rgb(243 241 230 / .18)}
+.ft-block>div{display:grid;gap:4px;padding:9px 14px}
+.ft-block>div+div{border-left:1px solid rgb(243 241 230 / .18)}
+.ft-block dt{font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+.ft-block dd{margin:0;font-size:12.5px;font-variant-numeric:tabular-nums;opacity:.85}
+@media (max-width:520px){.ft-block>div:nth-child(2){display:none}.ft-block>div:nth-child(3){border-left:1px solid rgb(243 241 230 / .18)}}
+
+/* ---------- Menu: numbered like a sheet index, each rule drawn as it opens ---------- */
+.gh-panel-links a{position:relative;justify-content:flex-start;border-bottom-color:transparent}
+.gh-panel-links a small{flex:none;width:2.6em;font-size:11px;letter-spacing:.12em;font-style:normal;font-family:'Geist Variable',Arial,sans-serif;font-variant-numeric:tabular-nums;opacity:.45}
+.gh-panel-links a svg{margin-left:auto}
+.gh-panel-links a::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:rgb(7 36 26 / .14);transform:scaleX(0);transform-origin:0 50%;transition:transform .9s cubic-bezier(.7,0,.15,1) calc(var(--i) * 45ms + 120ms)}
+.gh.is-open .gh-panel-links a::after{transform:scaleX(1)}
+.wb-draft .wb-sketch{min-height:0}

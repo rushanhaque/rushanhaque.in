@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
 import { bookingUrl, email, phone, socials } from '@/lib/content';
+import release from '@/generated/release.json';
 
 const columns = [
   { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
@@ -41,7 +42,12 @@ export function SiteFooter() {
       </div>
     </div>
     <div className="ft-base container">
-      <p className="ft-legal">© {new Date().getFullYear()} Rushan Haque · Designed and built by hand</p>
+      {/* The drawing's title block: who drew it, at what scale, and the revision now live (the deployed commit). */}
+      <dl className="ft-block">
+        <div><dt>Drawn &amp; built by hand</dt><dd>© {new Date().getFullYear()} Rushan Haque</dd></div>
+        <div><dt>Scale</dt><dd>1:1</dd></div>
+        {release.commit && <div><dt>Revision</dt><dd>{release.commit.slice(0, 7)}</dd></div>}
+      </dl>
       <a href="#top" className="ft-top">Back to top <ArrowUpRight size={14}/></a>
     </div>
     {/* The signature: the name set across the full width, cut by the page's edge. */}
