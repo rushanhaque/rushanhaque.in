@@ -77,6 +77,7 @@ export function ParticleHero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dimRef = useRef<HTMLSpanElement>(null);
   const guidesRef = useRef<HTMLDivElement>(null);
+  const coordRef = useRef<HTMLSpanElement>(null);
   const [time, setTime] = useState('');
   const { reduced } = useMotion();
 
@@ -172,7 +173,9 @@ export function ParticleHero() {
     const wake = () => { if (!frame && visible) frame = requestAnimationFrame(draw); };
 
     // Only a mouse stirs the particles: a finger on a phone is scrolling, not pointing.
-    const move = (e: PointerEvent) => { if (e.pointerType !== 'mouse') return; const b = canvas.getBoundingClientRect(); pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.active = true; calm = 0; wake(); };
+    // Like a drafting program, the corner reads out where the pointer is on the sheet.
+    const readout = (x: number, y: number) => { if (coordRef.current) coordRef.current.textContent = `X ${String(Math.round(x)).padStart(4, '0')}  Y ${String(Math.round(y)).padStart(4, '0')}`; };
+    const move = (e: PointerEvent) => { if (e.pointerType !== 'mouse') return; const b = canvas.getBoundingClientRect(); pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.active = true; readout(pointer.x, pointer.y); calm = 0; wake(); };
     const leave = () => { pointer.active = false; calm = 0; wake(); };
     section.addEventListener('pointermove', move, { passive: true });
     section.addEventListener('pointerleave', leave);
@@ -186,10 +189,18 @@ export function ParticleHero() {
     const resize = () => { if (touch && window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { build(); calm = 0; wake(); }, 180); };
     window.addEventListener('resize', resize);
 
-    const st = ScrollTrigger.create({ trigger: section, start: 'top top', end: 'bottom top', scrub: true, onUpdate: self => { explode = self.progress; calm = 0; wake(); } });
+    const st = ScrollTrigger.create({ trigger: section, start: 'top top', end: 'bottom top', scrub: true, onUpdate: self => { explode = Math.max(0, (self.progress - .32) / .68); calm = 0; wake(); } });
     // A context so every inline style it sets is restored if motion is switched off.
     const motionCtx = gsap.context(() => {
-      gsap.to(section.querySelectorAll('.tl-hero-meta, .tl-hero-foot, .tl-hero-dim, .tl-hero-guides'), { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: '40% top', scrub: true } });
+      gsap.to(section.querySelectorAll('.tl-hero-meta, .tl-hero-foot'), { opacity: 0, y: -40, ease: 'none', scrollTrigger: { trigger: section, start: 'top top', end: '40% top', scrub: true } });
+      // Plan to axonometric: as you leave, the drawing tips back onto the table, its grid
+      // showing, before the particles lift away.
+      const plane = section.querySelector<HTMLElement>('.tl-hero-plane')!;
+      const phone = window.matchMedia('(max-width: 799px)').matches;
+      gsap.set(plane, { transformPerspective: 1800, transformOrigin: '50% 46%' });
+      gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: .4 } })
+        .to(plane, { rotateX: phone ? 44 : 56, rotateZ: phone ? -18 : -32, scale: phone ? .86 : .78, '--tilt': 1, duration: .62 })
+        .to(plane, { opacity: 0, duration: .38 });
     }, section);
 
     section.classList.add('is-live');
@@ -209,11 +220,13 @@ export function ParticleHero() {
   }, [reduced]);
 
   return <section className="tl-hero" ref={root} data-chapter="Prologue">
-    <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
+    <div className="tl-hero-plane">
+      <canvas ref={canvasRef} className="tl-hero-canvas" aria-hidden="true"/>
+      <div className="tl-hero-guides" ref={guidesRef} aria-hidden="true"/>
+      <div className="tl-hero-dim" aria-hidden="true"><span ref={dimRef}/></div>
+    </div>
     <h1 suppressHydrationWarning className="tl-hero-fallback">Rushan Haque — Website Designer &amp; Developer</h1>
-    <div className="tl-hero-meta"><span>INDIA · IST {time || '--:--'}</span><span>Website designer &amp; developer</span></div>
-    <div className="tl-hero-guides" ref={guidesRef} aria-hidden="true"/>
-    <div className="tl-hero-dim" aria-hidden="true"><span ref={dimRef}/></div>
+    <div className="tl-hero-meta"><span>INDIA · IST {time || '--:--'}<span className="tl-hero-xy" ref={coordRef} aria-hidden="true">X 0000  Y 0000</span></span><span>Website designer &amp; developer</span></div>
     <div className="tl-hero-foot"><span className="tl-hero-status"><i className="tl-live-dot"/>Available for new projects</span><span className="tl-scroll-cue" aria-hidden="true"><i/></span><HeroRoles/></div>
   </section>;
 }

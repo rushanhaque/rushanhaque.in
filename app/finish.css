@@ -244,3 +244,11 @@ main.tl .tl-kicker .tl-sheet{order:2;flex:none;font-size:10px;letter-spacing:.18
 .gh-panel-links a::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:rgb(7 36 26 / .14);transform:scaleX(0);transform-origin:0 50%;transition:transform .9s cubic-bezier(.7,0,.15,1) calc(var(--i) * 45ms + 120ms)}
 .gh.is-open .gh-panel-links a::after{transform:scaleX(1)}
 .wb-draft .wb-sketch{min-height:0}
+
+/* ---------- Hero: the drawing tips back into an axonometric plane as you leave ---------- */
+.tl-hero-plane{--tilt:0;position:absolute;inset:0;transform-style:flat;will-change:transform}
+.tl-hero-plane::before{content:'';position:absolute;inset:-30% -20%;opacity:calc(var(--tilt) * .9);pointer-events:none;
+  background:linear-gradient(rgb(7 36 26 / .14) 1px,transparent 1px) 0 0/64px 64px,linear-gradient(90deg,rgb(7 36 26 / .14) 1px,transparent 1px) 0 0/64px 64px;
+  -webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent)}
+.tl-hero-xy{margin-left:18px;padding-left:18px;border-left:1px solid rgb(7 36 26 / .25);font-variant-numeric:tabular-nums;white-space:pre}
+@media (hover:none),(max-width:799px){.tl-hero-xy{display:none}}
