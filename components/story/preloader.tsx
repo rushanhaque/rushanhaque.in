@@ -25,6 +25,8 @@ export function Preloader() {
     tl.from(el.querySelectorAll('.tl-loader-name span'), { yPercent: 110, duration: .7, stagger: .03, ease: 'expo.out' }, 0)
       .to(value, { n: 100, duration: .85, ease: 'power3.inOut', onUpdate: () => { count.textContent = String(Math.round(value.n)).padStart(3, '0'); } }, 0)
       .to(el.querySelector('.tl-loader-bar i'), { scaleX: 1, duration: .85, ease: 'power3.inOut' }, 0)
+      .to(el.querySelectorAll('.tl-loader-guides i'), { scaleX: 1, duration: .8, stagger: .07, ease: 'expo.inOut' }, 0)
+      .to(el.querySelectorAll('.tl-loader-guides i'), { opacity: 0, duration: .3, ease: 'none' }, .9)
       .to(el.querySelectorAll('.tl-loader-name span'), { yPercent: -110, duration: .45, stagger: .015, ease: 'expo.in' }, .85)
       .to(el.querySelector('.tl-loader-top'), { yPercent: -100, duration: .75, ease: 'expo.inOut' }, 1.05)
       .to(el.querySelector('.tl-loader-bottom'), { yPercent: 100, duration: .75, ease: 'expo.inOut' }, 1.05)
@@ -36,7 +38,11 @@ export function Preloader() {
   return <div className="tl-loader" ref={root} aria-hidden="true">
     <div className="tl-loader-top"/><div className="tl-loader-bottom"/>
     <div className="tl-loader-inner">
+      {/* The name rises onto its construction lines: cap height, x-height, baseline, descender (Geist's own metrics). */}
+      <div className="tl-loader-type">
+      <span className="tl-loader-guides">{[.17, .34, .88, 1.03].map((top, k) => <i key={k} style={{ top: `${top}em`, '--k': k } as React.CSSProperties}/>)}</span>
       <span className="tl-loader-name">{'Rushan Haque'.split('').map((c, i) => <span key={i}>{c === ' ' ? ' ' : c}</span>)}</span>
+      </div>
       <div className="tl-loader-foot"><span>WEBSITE DESIGNER &amp; DEVELOPER</span><span className="tl-loader-count">000</span></div>
       <div className="tl-loader-bar"><i/></div>
     </div>
