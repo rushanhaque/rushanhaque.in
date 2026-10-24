@@ -183,3 +183,14 @@ main.tl :is(.tl-sw-head,.tl-clients-head,.tl-now-head,.tl-writing-head,.tl-perso
 .type-guides[style*="width"]{right:auto}
 .type-guides.is-light .tl-guide{background:repeating-linear-gradient(90deg,rgb(243 241 230 / .6) 0 5px,transparent 5px 10px)}
 .type-guides.is-light.is-drawn .tl-guide{opacity:.26}
+
+/* ---------- Audit form: their site becomes the next sheet's title block ---------- */
+.tl-audit-form .tl-audit-sheet{grid-column:1/-1;justify-self:start;display:inline-flex;max-width:100%;margin:6px 0 0;border:1px solid rgb(243 241 230 / .28);color:rgb(243 241 230 / .7);font-size:10px;font-weight:500;letter-spacing:.16em;line-height:1;text-transform:uppercase;transition:border-color .5s,color .5s}
+.tl-audit-sheet>*{padding:7px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-audit-sheet>*+*{border-left:1px solid rgb(243 241 230 / .28);transition:border-color .5s}
+.tl-audit-sheet b{flex:none;font-weight:600}
+.tl-audit-sheet span{max-width:min(320px,60vw);text-transform:none;letter-spacing:.06em;font-size:11px}
+.tl-audit-sheet.is-set{border-color:#d9b779;color:#f3f1e6}
+.tl-audit-sheet.is-set>*+*{border-color:#d9b779}
+.tl-audit-sheet.is-set span{animation:tl-sheet-set .6s cubic-bezier(.16,1,.3,1)}
+@keyframes tl-sheet-set{from{opacity:0;transform:translateY(6px)}}

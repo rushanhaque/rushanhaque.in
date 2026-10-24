@@ -61,5 +61,7 @@ export function AuditCard() {
       <a className="tl-link" href={`${phone.whatsapp}?text=${encodeURIComponent(`Audit request\n\n${summary()}`)}`} target="_blank" rel="noopener noreferrer">WhatsApp <ArrowUpRight size={15}/></a>
     </div>}
     {error && <p className="tl-audit-error" role="alert">{error}</p>}
+    {/* A drawing's title block, labelled with their site as they type it: the next sheet in the set. */}
+    <p className={`tl-audit-sheet ${site.includes('.') ? 'is-set' : ''}`} aria-hidden="true"><b>DWG</b><span key={site.includes('.') ? 'set' : 'empty'}>{site || 'yourbusiness.com'}</span><b>Audit</b></p>
   </form>;
 }
