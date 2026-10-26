@@ -463,3 +463,6 @@ html[data-motion=full] [data-rv] .wk-shot:has(.plan) .wk-frame img,html[data-mot
 }
 .tl-hero.is-name .tl-hero-roles{contain:layout style}
 @media (max-width:600px){.tl-close-sheet footer{font-size:9px;letter-spacing:.1em}}
+/* Cards on the desk sit on the page like sheets: a lit top edge and a soft fall of shadow that deepens under the pointer. */
+.tl-now .tl-now-card:not(.is-open){box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14),inset 0 1px 0 rgb(255 255 255 / .8),0 2px 0 rgb(7 36 26 / .06),0 22px 40px -30px rgb(7 36 26 / .4);transition:background .5s,box-shadow .6s cubic-bezier(.65,0,.15,1)}
+.tl-now .tl-now-card:not(.is-open):hover{box-shadow:inset 0 0 0 1px rgb(7 36 26 / .2),inset 0 1px 0 rgb(255 255 255 / .9),0 3px 0 rgb(7 36 26 / .08),0 40px 70px -36px rgb(7 36 26 / .5)}

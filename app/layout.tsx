@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
   // Ownership tags for Google Search Console and Bing Webmaster Tools, set as Vercel environment variables.
   verification: { ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}), ...(process.env.BING_SITE_VERIFICATION ? { other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } } : {}) },
-  icons: { icon: [{ url: '/icon.png', type: 'image/png', sizes: '512x512' }], shortcut: '/icon.png', apple: '/apple-icon.png' },
+  icons: { icon: [{ url: '/favicon-48.png', type: 'image/png', sizes: '48x48' }, { url: '/icon.png', type: 'image/png', sizes: '512x512' }], shortcut: '/icon.png', apple: '/apple-icon.png' },
   openGraph: { images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'Rushan Haque' }] },
   twitter: { card: 'summary_large_image', images: ['/og.jpg'] },
 };

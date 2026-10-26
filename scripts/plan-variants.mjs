@@ -8,7 +8,7 @@ import { join } from 'node:path';
 
 const source = 'public/images';
 const target = join(source, 'plan');
-const width = 1200;
+const width = 1000;
 mkdirSync(target, { recursive: true });
 mkdirSync('generated', { recursive: true });
 
@@ -40,7 +40,7 @@ async function draw(file, out) {
     const a = Math.pow(t, .8) * .92;
     for (let c = 0; c < 3; c++) px[i * 3 + c] = Math.round(PAPER[c] + (INK[c] - PAPER[c]) * a);
   }
-  await sharp(px, { raw: { width: w, height: h, channels: 3 } }).webp({ quality: 72 }).toFile(out);
+  await sharp(px, { raw: { width: w, height: h, channels: 3 } }).webp({ quality: 60, effort: 6 }).toFile(out);
 }
 
 const manifest = {};
