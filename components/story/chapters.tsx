@@ -135,7 +135,7 @@ export function Person({ n = 'II' }: { n?: string }) {
       <div className="tl-path-head-row"><span className="tl-kicker">[01] EXPERIENCE · [02] EDUCATION</span><span className="tl-path-legend" aria-hidden="true"><i className="is-work"/>Experience<i className="is-study"/>Education</span></div>
       <div className="tl-path-list">
         <svg className="tl-path-svg" aria-hidden="true">
-          <defs><linearGradient id="tl-path-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff"/><stop offset=".35" stopColor="#07241a"/><stop offset="1" stopColor="#07241a"/></linearGradient></defs>
+          <defs><linearGradient id="tl-path-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff"/><stop offset=".35" stopColor="#07241a"/><stop offset="1" stopColor="#7a1f3d"/></linearGradient></defs>
           <path className="tl-path-track" d={d}/>
           <path className="tl-path-ink" ref={path} d={d}/>
           <g className="tl-path-head" ref={head}><circle r="14"/><circle r="4.5"/></g>

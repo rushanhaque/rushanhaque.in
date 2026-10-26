@@ -108,7 +108,7 @@ p{text-wrap:pretty}
 .cf-btn:hover{transform:translateY(-2px)}.cf-btn:disabled{opacity:.7;cursor:progress;transform:none}
 .cf-spin{animation:cf-spin 1s linear infinite}@keyframes cf-spin{to{transform:rotate(360deg)}}
 .cf-note{font-size:13px;opacity:.6}
-.cf-error{margin:0;padding:10px 14px;border-radius:10px;background:#efe9df;font-size:14px}
+.cf-error{margin:0;padding:10px 14px;border-radius:10px;background:#fbe9ee;color:#5c1630;font-size:14px}
 .cf-fallback{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}.cf-fallback a:not(.cf-btn){color:inherit;font-size:14px}
 .cf-done{align-content:center;justify-items:start;min-height:320px}
 .cf-tick{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#07241a;color:#ffffff}

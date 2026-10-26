@@ -214,7 +214,7 @@
 .tl-now-head h2{font-size:clamp(46px,6.4vw,112px)}
 .tl-now-grid{list-style:none;margin:clamp(32px,4vw,56px) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:clamp(14px,1.6vw,22px)}
 .tl-now-card{position:relative;display:grid;gap:18px;height:100%;padding:12px 12px 22px;border-radius:24px;background:var(--paper-2);box-shadow:inset 0 0 0 1px rgb(7 36 26 / .1);transition:background .5s,box-shadow .5s}
-.tl-now-card:hover{background:#ebe7d9;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .24)}
+.tl-now-card:hover{background:#f6f7f5;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .24)}
 .tl-now-card .wb-draft{height:auto;aspect-ratio:16/10;color:var(--cream);border-radius:16px}
 .tl-now-body{display:grid;gap:8px;padding:0 10px}
 .tl-now-status{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
