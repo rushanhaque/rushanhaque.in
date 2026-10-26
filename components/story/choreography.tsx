@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { soon } from '@/lib/soon';
 import { useMotion } from '@/components/site-motion';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,6 +15,9 @@ export function Choreography() {
   useEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {});
+    let gone = false;
+    // Set-ups queue rather than all running in the frame their sections come near.
+    const later = (setup: () => void) => soon(() => { if (!gone) ctx.add(setup); });
     const watchers: IntersectionObserver[] = [];
     const once = (trigger: Element | string, start = 'top 86%') => ({ trigger, start, once: true });
     const all = <T extends Element = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);
@@ -22,14 +26,14 @@ export function Choreography() {
     const near = (sel: string, setup: () => void) => {
       const el = document.querySelector(sel);
       if (!el) return;
-      const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); ctx.add(setup); }, { rootMargin: '0px 0px 120% 0px' });
+      const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); later(setup); }, { rootMargin: '0px 0px 120% 0px' });
       io.observe(el);
       watchers.push(io);
     };
     const from = (sel: string, trigger: string, vars: gsap.TweenVars, start?: string) => near(trigger, () => { const t = all(sel); if (t.length) gsap.from(t, { ...vars, scrollTrigger: once(trigger, start) }); });
 
     // Section labels: the ruled line draws out from the label.
-    all('main.tl .tl-kicker').forEach(k => { const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); ctx.add(() => gsap.fromTo(k, { '--rule': 0 }, { '--rule': 1, duration: 1.6, ease: 'expo.out', scrollTrigger: once(k, 'top 92%') })); }, { rootMargin: '0px 0px 80% 0px' }); io.observe(k); watchers.push(io); });
+    all('main.tl .tl-kicker').forEach(k => { const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); later(() => gsap.fromTo(k, { '--rule': 0 }, { '--rule': 1, duration: 1.6, ease: 'expo.out', scrollTrigger: once(k, 'top 92%') })); }, { rootMargin: '0px 0px 80% 0px' }); io.observe(k); watchers.push(io); });
 
     // Recent works on phones and tablets: the picture slides up from below; the title climbs in letter by letter.
     if (window.matchMedia('(max-width: 1023px)').matches) all('.tl-sw-list > li').forEach((li, i) => near(`.tl-sw-list > li:nth-child(${i + 1})`, () => {
@@ -91,7 +95,7 @@ export function Choreography() {
     });
     // Late content (fonts, lazy sections) moves things down; re-measure once it settles.
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 1200);
-    return () => { clearTimeout(refresh); watchers.forEach(w => w.disconnect()); tags.forEach(t => t.remove()); ctx.revert(); };
+    return () => { gone = true; clearTimeout(refresh); watchers.forEach(w => w.disconnect()); tags.forEach(t => t.remove()); ctx.revert(); };
   }, [reduced]);
   return null;
 }

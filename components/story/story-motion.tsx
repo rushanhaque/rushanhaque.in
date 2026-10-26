@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
+import { soon } from '@/lib/soon';
 import { useMotion } from '@/components/site-motion';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -27,7 +28,7 @@ export function StoryMotion() {
 
   useEffect(() => {
     if (reduced) return;
-    let near: IntersectionObserver | null = null;
+    let near: IntersectionObserver | null = null, gone = false;
     // Each heading is set line by line: every line rises out of its own mask and
     // un-tilts, like type being set. Once it lands the split is undone, so the
     // one-line heading fit and any later resize see plain text again.
@@ -36,10 +37,10 @@ export function StoryMotion() {
       const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       // Each heading is split only as it comes within half a screen, so the page's first
       // moments are not spent measuring headings far below.
-      const set = (h: HTMLElement) => ctx.add(() => {
+      const set = (h: HTMLElement) => soon(() => !gone && ctx.add(() => {
         const split = SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'tl-line' });
         gsap.from(split.lines, { yPercent: 118, rotate: 3.5, transformOrigin: '0% 100%', duration: 1.45, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 90%', once: true }, onComplete: () => { split.revert(); (window as Window & { __fitHeadings?: () => void }).__fitHeadings?.(); } });
-      });
+      }));
       const heads = gsap.utils.toArray<HTMLElement>('.tl h2').filter(h => h.getBoundingClientRect().top >= window.innerHeight * .9 && !h.closest('.tl-close'));
       near = new IntersectionObserver(entries => entries.forEach(e => { if (!e.isIntersecting) return; near?.unobserve(e.target); set(e.target as HTMLElement); }), { rootMargin: '0px 0px 60% 0px' });
       heads.forEach(h => near!.observe(h));
@@ -47,7 +48,7 @@ export function StoryMotion() {
       gsap.set(leads, fine ? { opacity: 0, y: 44, filter: 'blur(8px)' } : { opacity: 0, y: 36 });
       ScrollTrigger.batch(leads, { start: 'top 90%', once: true, onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, ...(fine ? { filter: 'blur(0px)' } : {}), duration: 1.25, delay: .15, stagger: .1, ease: 'expo.out', clearProps: 'filter,transform,opacity' }) });
     });
-    return () => { near?.disconnect(); ctx.revert(); };
+    return () => { gone = true; near?.disconnect(); ctx.revert(); };
   }, [reduced]);
 
   // Chapter rail: the current chapter is the last one whose top has passed the middle of the

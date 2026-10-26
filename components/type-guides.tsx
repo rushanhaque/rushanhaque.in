@@ -13,7 +13,7 @@ const TARGETS: Target[] = [
   { title: '.ab-hero h1, .wk-intro h1, .pd-head h1, .page-intro h1, .not-found h1' },
   { title: '.rvp-pitch h1', box: '.rvp-pitch', tone: 'light' },
   { title: '#cn-title', box: '.cn-grid > :first-child' },
-  { title: '.tl-close-title', box: '.tl-close-card', tone: 'light' },
+  { title: '.tl-close-title', box: '.tl-close-copy', tone: 'light' },
 ];
 const KINDS: [string, (m: (ch: string) => TextMetrics, base: number) => number][] = [
   ['Cap height', (m, b) => b - m('H').actualBoundingBoxAscent],

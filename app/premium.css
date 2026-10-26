@@ -94,9 +94,10 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
   background:linear-gradient(105deg,var(--brass-lo) 0%,var(--brass-mid) 36%,var(--brass-hi) 47%,var(--brass-mid) 58%,var(--brass-lo) 100%) 100% 0/300% 100% no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
   padding-right:.1em;margin-right:-.1em;
-  animation:px-glint 9s cubic-bezier(.45,0,.2,1) calc(var(--i,0) * 90ms + 1.2s) infinite
+  animation:px-glint 3.2s cubic-bezier(.45,0,.2,1) calc(var(--i,0) * 90ms + .6s) 1 both
 }
-@keyframes px-glint{0%,64%{background-position:100% 0}100%{background-position:0 0}}
+/* One pass of light as the heading arrives (a section off screen holds it until it is seen), then still: a looping glint restyled the page every frame. */
+@keyframes px-glint{from{background-position:100% 0}to{background-position:0 0}}
 @media (forced-colors:active){:is(h1,h2) em,.tl-mf-w.is-em em{background:none;-webkit-text-fill-color:currentColor;color:CanvasText}}
 
 /* --------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { useNear } from '@/components/story/use-near';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -103,6 +104,12 @@ export function SelectedWork() {
     <div className="tl-sw-head">
       <span className="tl-kicker">I — RECENT WORKS</span>
       <h2 suppressHydrationWarning>Recent <em>works.</em></h2>
+      {/* The sheet index: every work on one list, the one in the window marked. */}
+      <ol className="tl-sw-index" aria-label="Works in this section">{works.map((w, i) => <li key={w.slug} className={i === active ? 'is-on' : ''} style={{ '--i': i } as React.CSSProperties}>
+        <button type="button" onClick={() => (list.current?.children[i] as HTMLElement | undefined)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+          <small>{two(i + 1)}</small><span>{w.title}</span><em>{storyOf(w).field}</em>
+        </button>
+      </li>)}</ol>
     </div>
     <div className="tl-sw-body">
       <ol className="tl-sw-list" ref={list}>{works.map((w, i) => {
@@ -145,24 +152,36 @@ export function SelectedWork() {
 /* VI — Next in line: the one closing ask. Leave your website and an    */
 /* email, and I send back an audit. A forest card opens as it arrives.  */
 /* ------------------------------------------------------------------ */
+const AUDIT: [string, string][] = [
+  ['Speed', 'How fast it opens on a phone'],
+  ['Search', 'How Google and AI answers read it'],
+  ['Mobile', 'Every screen, phone to desktop'],
+  ['Design', 'The first impression, section by section'],
+  ['Enquiries', 'Where visitors leave before they call'],
+];
 export function Encore({ n = 'VII' }: { n?: string }) {
   const root = useRef<HTMLElement>(null);
   const { reduced } = useMotion();
+  const near = useNear(root);
   useEffect(() => {
     const section = root.current;
-    if (!section || reduced) return;
+    if (!section || reduced || !near) return;
     const ctx = gsap.context(() => {
       gsap.fromTo('.tl-close-card', { clipPath: 'inset(12% 7% 12% 7% round 64px)' }, { clipPath: 'inset(0% 0% 0% 0% round 32px)', ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'top 35%', scrub: .6 } });
       const title = section.querySelector<HTMLElement>('.tl-close-title')!;
       const split = SplitText.create(title, { type: 'chars,words', charsClass: 'tl-close-ch' });
-      gsap.from(split.chars, { rotateX: -100, yPercent: 40, opacity: 0, transformOrigin: '50% 100% -20px', duration: 1.2, ease: 'expo.out', stagger: .028, scrollTrigger: { trigger: title, start: 'top 85%', once: true }, onComplete: () => { split.revert(); (window as Window & { __fitHeadings?: () => void }).__fitHeadings?.(); } });
+      gsap.from(split.chars, { rotateX: -100, yPercent: 40, opacity: 0, transformOrigin: '50% 100% -20px', duration: 1.2, ease: 'expo.out', stagger: .016, scrollTrigger: { trigger: title, start: 'top 85%', once: true }, onComplete: () => { split.revert(); (window as Window & { __fitHeadings?: () => void }).__fitHeadings?.(); } });
+      gsap.timeline({ scrollTrigger: { trigger: '.tl-close-sheet', start: 'top 80%', once: true } })
+        .from('.tl-close-sheet', { clipPath: 'inset(0% 0% 100% 0%)', duration: 1.1, ease: 'expo.inOut' })
+        .from('.tl-close-sheet li', { opacity: 0, x: -14, duration: .7, ease: 'expo.out', stagger: .09 }, .5)
+        .from('.tl-close-sheet path', { strokeDashoffset: 1, duration: .5, ease: 'power2.out', stagger: .09 }, .75);
       gsap.from('.tl-close-copy > :not(h2):not(.tl-kicker)', { opacity: 0, y: 28, duration: 1.1, ease: 'expo.out', stagger: .1, scrollTrigger: { trigger: '.tl-close-copy', start: 'top 80%', once: true } });
     }, section);
     let timer = 0;
     const ro = new ResizeObserver(() => { clearTimeout(timer); timer = window.setTimeout(() => ScrollTrigger.refresh(), 250); });
     ro.observe(section.parentElement!);
     return () => { ctx.revert(); ro.disconnect(); clearTimeout(timer); };
-  }, [reduced]);
+  }, [reduced, near]);
   return <section id="next" className="tl-close" ref={root} data-chapter={`${n} — Your website`}>
     <div className="tl-close-card spot">
       <svg className="tl-close-lines" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -175,6 +194,15 @@ export function Encore({ n = 'VII' }: { n?: string }) {
         <p>Send me your website and I will send back a free audit.</p>
         <AuditCard/>
       </div>
+      {/* What comes back: the audit's sheet, each line ticked off as the card opens. */}
+      <aside className="tl-close-sheet" aria-label="What the audit covers">
+        <header><span>Audit sheet</span><span>A-01</span></header>
+        <ol>{AUDIT.map(([k, d], i) => <li key={k}>
+          <small>{two(i + 1)}</small><span><b>{k}</b>{d}</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path pathLength={1} d="M4 10.5 8.2 14.5 16 5.5"/></svg>
+        </li>)}</ol>
+        <footer><span>Free, written by me</span><span>Back within a day</span></footer>
+      </aside>
     </div>
   </section>;
 }

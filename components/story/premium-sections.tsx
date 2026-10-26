@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { useNear } from '@/components/story/use-near';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMotion } from '@/components/site-motion';
@@ -82,9 +83,10 @@ export function Voices() {
   const { reduced } = useMotion();
   const ratings = reviews.map(r => Number(r.rating) || 5);
   const average = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : '5.0';
+  const near = useNear(root);
   useEffect(() => {
     const section = root.current;
-    if (!section || reduced) return;
+    if (!section || reduced || !near) return;
     const mm = gsap.matchMedia();
     mm.add('(min-width: 900px) and (hover: hover) and (pointer: fine)', () => {
       const board = section.querySelector<HTMLElement>('.tl-board')!;
@@ -107,7 +109,7 @@ export function Voices() {
       gsap.from(section.querySelectorAll('.tl-note'), { x: 50, opacity: 0, duration: 1, ease: 'expo.out', stagger: .07, scrollTrigger: { trigger: section.querySelector('.tl-board'), start: 'top 85%', once: true } });
     });
     return () => mm.revert();
-  }, [reduced]);
+  }, [reduced, near]);
   return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
     <ClientMap/>
     <div className="tl-voices-head">

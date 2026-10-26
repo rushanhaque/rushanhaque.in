@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { useNear } from '@/components/story/use-near';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
@@ -76,11 +77,12 @@ export function Person({ n = 'II' }: { n?: string }) {
   const head = useRef<SVGGElement>(null);
   const [d, setD] = useState('');
   const { reduced } = useMotion();
+  const near = useNear(root);
 
   // Draws a winding path through each role's marker.
   useEffect(() => {
     const section = root.current;
-    if (!section) return;
+    if (!section || !near) return;
     const list = section.querySelector<HTMLElement>('.tl-path-list')!;
     const measure = () => {
       const box = list.getBoundingClientRect();
@@ -96,7 +98,7 @@ export function Person({ n = 'II' }: { n?: string }) {
     measure();
     const ro = new ResizeObserver(measure); ro.observe(list);
     return () => ro.disconnect();
-  }, []);
+  }, [near]);
 
   useEffect(() => {
     const section = root.current;
