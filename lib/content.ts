@@ -4,7 +4,7 @@ export const projects = projectData;
 export type Project = import('zod').z.infer<typeof import('@/lib/content-schema').projectsSchema>[number];
 export const email = 'rushanulhaque@gmail.com';
 export const phone = { label: '+91 76680 47608', whatsapp: 'https://wa.me/917668047608' };
-export const address = { label: '94 Qazi tola, Moradabad, 244001, India', map: 'https://maps.google.com/?q=Moradabad,+India' };
+export const address = { label: 'Moradabad, India', map: 'https://maps.google.com/?q=Moradabad,+India' };
 export const bookingUrl = 'https://cal.com/rushan-haque-emssbo/call';
 // Formspree form ID (the part after formspree.io/f/). Set NEXT_PUBLIC_FORMSPREE_ID on Vercel.
 export const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || '';

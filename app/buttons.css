@@ -1,42 +1,52 @@
 /* ------------------------------------------------------------------
    Buttons and links: one hover across the site. The button never moves.
-   Pill buttons: a curved fill rises from the bottom and flattens, the label
-   rolls up into its contrast colour, and the arrow leaves top-right and
-   returns from bottom-left. Text links: the underline slides out and redraws.
-   The label roll is pure CSS (two text-shadows), so no markup is changed.
+   Pill buttons take a poche, the way a cut wall is filled on a drawing:
+   a band of hatching sweeps across, solid brass floods in behind it, the
+   label turns to ink as the fill passes, and a brass hairline closes in
+   around the pill like an offset line. On the way out the solid lifts
+   first and the hatching follows. Text links: the underline slides out and
+   redraws. No markup is changed.
    ------------------------------------------------------------------ */
-:root{--b-ease:cubic-bezier(.65,0,.15,1);--b-roll:2.4em}
+:root{--b-ease:cubic-bezier(.65,0,.15,1);--b-brass:#d4af6a}
 
-:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button){
+:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo){
   position:relative;isolation:isolate;overflow:hidden;
-  --b-ink:#f3f1e6;--b-fill:#f3f1e6;--b-fill-ink:#07241a;--b-ring:#07241a;
-  color:transparent!important;text-shadow:0 0 0 var(--b-ink),0 var(--b-roll) 0 var(--b-fill-ink);
-  transition:text-shadow .6s var(--b-ease),box-shadow .45s var(--b-ease);transform:none!important;translate:none!important
+  color:transparent!important;text-shadow:0 0 0 var(--b-ink);
+  outline:1px solid transparent;outline-offset:12px;
+  transition:text-shadow .3s var(--b-ease),outline-offset .55s var(--b-ease),outline-color .45s var(--b-ease),background-color .3s;
+  transform:none!important;translate:none!important
 }
-/* Light pills on dark surfaces, and outline buttons, invert the other way. */
-:is(.gh[data-tone=dark] .gh-bar .gh-cta,.gh-panel-card .gh-cta,.ft-btn.is-solid,.rvf-send){--b-ink:#07241a;--b-fill:#07241a;--b-fill-ink:#f3f1e6;--b-ring:rgb(243 241 230 / .45)}
-:is(.ft-btn:not(.is-solid),.gh-ghost){--b-ink:#f3f1e6;--b-fill:#f3f1e6;--b-fill-ink:#07241a;--b-ring:transparent}
-.button.outline{--b-ink:#07241a;--b-fill:#07241a;--b-fill-ink:#f3f1e6;--b-ring:transparent}
+/* Colours carry no weight (:where), so a section can recolour its own button. */
+:where(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo){--b-ink:#f3f1e6;--b-fill:var(--b-brass);--b-fill-ink:#07241a;--b-line:rgb(212 175 106 / .95)}
+/* Light pills (cream on dark, or the light studio pills) start in ink. */
+:where(.gh[data-tone=dark] .gh-bar .gh-cta,.gh-panel-card .gh-cta,.ft-btn.is-solid,.rvf-send,.button.outline,.tl-button,.sx-actions a:first-child,.ad-btn:not(.is-solid),.wb-go.is-demo,.imported-page .source-actions a:first-child){--b-ink:#07241a}
+.tl-voices .tl-button,.tl-testi .tl-button{--b-ink:#f3f1e6}
+/* The brass booking button fills the other way: ink, with brass type. */
+.cn-book{--b-ink:#07241a;--b-fill:#07241a;--b-fill-ink:#e8cf96;--b-line:rgb(7 36 26 / .55)}
+:is(.header-contact,.study-button,.float-nav-cta)::after{content:none!important}
 
-:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button)::before{
-  content:'';position:absolute;inset:-2px;z-index:-1;pointer-events:none;background:var(--b-fill);
-  border-radius:50% 50% 0 0 / 100% 100% 0 0;transform:translateY(104%);
-  transition:transform .6s var(--b-ease),border-radius .6s var(--b-ease)
+:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::before,:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::after{
+  content:''!important;position:absolute;inset:-1px;z-index:-1;pointer-events:none;border-radius:inherit;
+  clip-path:inset(0 100% 0 0);transition:clip-path .5s var(--b-ease)
 }
-:is(.button,.header-contact,.study-button,.float-nav-cta)::after{content:none!important}
+/* The hatching leads, the solid follows; leaving, the solid goes first. */
+:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::before{background:repeating-linear-gradient(-55deg,var(--b-fill) 0 1.3px,transparent 1.3px 5.5px);transition-delay:.12s}
+:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::after{background:var(--b-fill);transition-duration:.42s}
 
-:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button) svg{
-  color:var(--b-ink);transition:color .45s var(--b-ease);transform:none!important
-}
+:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo) svg{color:var(--b-ink);transition:color .3s var(--b-ease);transform:none!important}
 
 @media(hover:hover) and (pointer:fine){
-  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button):is(:hover,:focus-visible):not(:disabled){
-    text-shadow:0 calc(var(--b-roll) * -1) 0 var(--b-ink),0 0 0 var(--b-fill-ink);box-shadow:inset 0 0 0 1px var(--b-ring)
-  }
-  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button):is(:hover,:focus-visible):not(:disabled)::before{transform:translateY(0);border-radius:0}
-  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button):is(:hover,:focus-visible):not(:disabled) svg{color:var(--b-fill-ink);animation:b-arrow .62s var(--b-ease)}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):is(:hover,:focus-visible):not(:disabled),:is(.tl-now-card,.wb-card):is(:hover,:focus-visible) :is(.tl-now-demo,.wb-go.is-demo){text-shadow:0 0 0 var(--b-fill-ink);outline-color:var(--b-line);outline-offset:4px;transition-delay:.16s,0s,0s,0s}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):is(:hover,:focus-visible):not(:disabled)::before,:is(.tl-now-card,.wb-card):is(:hover,:focus-visible) :is(.tl-now-demo,.wb-go.is-demo)::before{clip-path:inset(0 -1% 0 0);transition-delay:0s;transition-duration:.48s}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):is(:hover,:focus-visible):not(:disabled)::after,:is(.tl-now-card,.wb-card):is(:hover,:focus-visible) :is(.tl-now-demo,.wb-go.is-demo)::after{clip-path:inset(0 -1% 0 0);transition-delay:.13s;transition-duration:.55s}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):is(:hover,:focus-visible):not(:disabled) svg,:is(.tl-now-card,.wb-card):is(:hover,:focus-visible) :is(.tl-now-demo,.wb-go.is-demo) svg{color:var(--b-fill-ink);transition-delay:.2s;animation:b-arrow .62s var(--b-ease) .1s}
 }
-:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button):active:not(:disabled){filter:brightness(.96)}
+/* A finger gets the fill on press. */
+@media(hover:none){
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):active:not(:disabled)::after{clip-path:inset(0 -1% 0 0);transition-duration:.3s}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):active:not(:disabled){text-shadow:0 0 0 var(--b-fill-ink)}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo):active:not(:disabled) svg{color:var(--b-fill-ink)}
+}
 @keyframes b-arrow{0%{transform:translate(0,0)}42%{transform:translate(140%,-140%);opacity:0}43%{transform:translate(-140%,140%);opacity:0}100%{transform:translate(0,0);opacity:1}}
 
 /* Text links: the underline slides away to the right and redraws from the left. */
@@ -53,5 +63,5 @@
 @keyframes b-retrace{0%{background-size:100% 1px,0 1px}48%{background-size:0 1px,0 1px}100%{background-size:0 1px,100% 1px}}
 
 @media(forced-colors:active){
-  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button){color:ButtonText!important;text-shadow:none}
+  :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo){color:ButtonText!important;text-shadow:none}
 }
