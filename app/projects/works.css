@@ -208,3 +208,4 @@ html[data-motion=full] .wb-head[data-rv=in] p{transition:opacity .9s var(--wk-e)
 .pr-empty p{margin:0;font-size:clamp(18px,1.6vw,22px);opacity:.75}
 @media (max-width:899px){.pr-head{grid-template-columns:1fr}}
 .pr-head>:is(h2,h1,div,span)[id="pr-title"],.pr-head #pr-title{font-size:clamp(46px,6vw,104px);font-weight:450;letter-spacing:-.05em;line-height:.98}
+.wb-go.is-demo{align-self:flex-start;min-height:40px;padding:0 16px;border-radius:99px;background:var(--cream,#f3f1e6);color:var(--forest,#07241a);font-weight:500}

@@ -73,13 +73,26 @@ export function SelectedWork() {
   const works = projects.filter(p => placementOf(p) === 'work' && p.image);
   const list = useRef<HTMLOListElement>(null);
   const [active, setActive] = useState(0);
-  // The window opens on the first site as a drawing, which then builds into the site.
-  const [intro, setIntro] = useState(true);
+  const stage = useRef<HTMLAnchorElement>(null);
+  const { reduced } = useMotion();
+  // On a desktop the window slides up into view the first time it arrives, the site inside
+  // settling from a zoom. The drawing is kept for the hover lens.
+  useEffect(() => {
+    const win = stage.current;
+    if (!win || reduced) return;
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 1024px)', () => {
+      gsap.timeline({ scrollTrigger: { trigger: win, start: 'top 85%', once: true } })
+        .fromTo(win.querySelector('.wk-shot'), { clipPath: 'inset(100% 0% 0% 0% round 18px)' }, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.5, ease: 'expo.inOut', clearProps: 'clipPath' })
+        .fromTo(win.querySelector('.tl-sw-frames'), { scale: 1.18 }, { scale: 1, duration: 1.9, ease: 'expo.out', clearProps: 'transform' }, .1);
+    });
+    return () => mm.revert();
+  }, [reduced]);
 
   // The chapter crossing the middle of the screen is the one in the window.
   useEffect(() => {
     const items = Array.from(list.current?.children ?? []) as HTMLElement[];
-    const io = new IntersectionObserver(entries => entries.forEach(e => { if (!e.isIntersecting) return; const i = Number((e.target as HTMLElement).dataset.i); setActive(i); if (i) setIntro(false); }), { rootMargin: '-48% 0px -48% 0px' });
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (!e.isIntersecting) return; const i = Number((e.target as HTMLElement).dataset.i); setActive(i); }), { rootMargin: '-48% 0px -48% 0px' });
     items.forEach(item => io.observe(item));
     return () => io.disconnect();
   }, [works.length]);
@@ -96,7 +109,7 @@ export function SelectedWork() {
         const story = storyOf(w), visit = projectAccess(w) === 'visit', host = hostOf(w.url);
         return <li key={w.slug} data-i={i} className={i === active ? 'is-on' : ''}>
           <Link {...projectLink(w)} className="tl-sw-item">
-            <span className="tl-sw-shot"><BrowserShot project={w} sizes="(max-width: 1023px) 92vw, 1px"/></span>
+            <span className="tl-sw-shot"><BrowserShot project={w} sizes="(max-width: 1023px) 92vw, 1px" drawing="lens"/></span>
             <span className="tl-sw-n">{two(i + 1)}<i/>{story.field}</span>
             <span className="tl-sw-title"><span className="sr-only">{w.title}</span><Letters text={w.title}/></span>
             <span className="tl-sw-line"><em>{story.line}</em></span>
@@ -105,13 +118,13 @@ export function SelectedWork() {
         </li>;
       })}</ol>
       <div className="tl-sw-stage">
-        <Link {...projectLink(current)} className="tl-sw-window" tabIndex={-1} aria-hidden="true">
+        <Link {...projectLink(current)} className="tl-sw-window" ref={stage} tabIndex={-1} aria-hidden="true">
           <span className="wk-shot">
             <span className="wk-bar"><i/><i/><i/><span key={current.slug}>{hostOf(current.url) || current.title.toLowerCase()}</span></span>
             <span className="tl-sw-frames">{works.map((w, i) => <span key={w.slug} className={i < active ? 'is-past' : i === active ? 'is-on' : ''}>
               <img src={w.image!} {...responsive(w.image, '(max-width: 1023px) 1px, 56vw')} alt="" width="1600" height="772" loading="lazy" decoding="async"/>
-            </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} plans={works.map(w => planOf(w.image) ?? '').join('|')} active={active}/>
-              {planOf(current.image) && <Plan key={current.slug} src={planOf(current.image)!} label={hostOf(current.url) || current.title} mode={intro ? 'time' : 'lens'} delay={1300}/>}</span>
+            </span>)}<LiquidWindow sources={works.map(w => w.image).join('|')} plans="" active={active}/>
+              {planOf(current.image) && <Plan key={current.slug} src={planOf(current.image)!} label={hostOf(current.url) || current.title} mode="lens"/>}</span>
           </span>
           <span className="tl-sw-cursor">{projectAccess(current) === 'visit' ? 'Visit site' : 'View project'}<ArrowUpRight size={15}/></span>
         </Link>
@@ -179,13 +192,15 @@ export function CurrentlyBuilding() {
       <h2 suppressHydrationWarning>Currently <em>working on.</em></h2>
     </div>
     <ul className="tl-now-grid">{items.map((p, i) => <li key={p.slug}>
-      <Link {...projectLink(p)} className="tl-now-card spot">
+      {/* With a demo online, the card opens it; the button says so. */}
+      <Link {...(p.url ? { href: p.url, target: '_blank', rel: 'noopener noreferrer' } : projectLink(p))} className="tl-now-card spot">
         <span className="tl-now-sheet"><DraftWindow project={p} sizes="(max-width: 899px) 92vw, 46vw"/></span>
         <span className="tl-now-body">
           <span className="tl-now-top"><span className="tl-now-n">{two(i + 1)}</span><span className="tl-now-status">{p.status}</span></span>
           <strong>{p.title}</strong>
+          {p.url && <span className="tl-now-demo">View demo <ArrowUpRight size={15}/><span className="sr-only"> (opens in a new tab)</span></span>}
         </span>
-        <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>
+        {!p.url && <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>}
       </Link>
     </li>)}
       {/* The open slot: the next project on the desk could be yours. */}

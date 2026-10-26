@@ -31,9 +31,13 @@ export function Choreography() {
     // Section labels: the ruled line draws out from the label.
     all('main.tl .tl-kicker').forEach(k => { const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); ctx.add(() => gsap.fromTo(k, { '--rule': 0 }, { '--rule': 1, duration: 1.6, ease: 'expo.out', scrollTrigger: once(k, 'top 92%') })); }, { rootMargin: '0px 0px 80% 0px' }); io.observe(k); watchers.push(io); });
 
-    // Recent works on phones and tablets: the picture opens as its drawing and the scan builds it
-    // (components/plan-scan.tsx); here the title climbs in letter by letter.
+    // Recent works on phones and tablets: the picture slides up from below; the title climbs in letter by letter.
     if (window.matchMedia('(max-width: 1023px)').matches) all('.tl-sw-list > li').forEach((li, i) => near(`.tl-sw-list > li:nth-child(${i + 1})`, () => {
+      // The picture slides up into view, the site settling from a zoom.
+      const shot = li.querySelector('.tl-sw-shot .wk-shot');
+      if (shot) gsap.timeline({ scrollTrigger: once(shot, 'top 90%') })
+        .fromTo(shot, { clipPath: 'inset(100% 0% 0% 0% round 14px)' }, { clipPath: 'inset(0% 0% 0% 0% round 14px)', duration: 1.3, ease: 'expo.inOut', clearProps: 'clipPath' })
+        .fromTo(shot.querySelectorAll('.wk-frame > img'), { scale: 1.18 }, { scale: 1, duration: 1.7, ease: 'expo.out', clearProps: 'scale,transform' }, .1);
       gsap.from(li.querySelectorAll('.tl-sw-title .ch'), { yPercent: 110, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .022, scrollTrigger: once(li.querySelector('.tl-sw-title')!, 'top 90%') });
       gsap.from(li.querySelectorAll('.tl-sw-n, .tl-sw-line, .tl-sw-visit'), { y: 24, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08, scrollTrigger: once(li.querySelector('.tl-sw-n')!, 'top 92%') });
     }));

@@ -10,12 +10,12 @@ import { Split } from '@/components/split';
 const two = (n: number) => String(n).padStart(2, '0');
 
 // A screenshot set in a quiet browser window, with the site's own address in the bar.
-export function BrowserShot({ project, sizes, eager = false }: { project: Project; sizes: string; eager?: boolean }) {
+export function BrowserShot({ project, sizes, eager = false, drawing = 'scan' }: { project: Project; sizes: string; eager?: boolean; drawing?: 'scan' | 'lens' }) {
   const host = hostOf(project.url);
   const plan = project.imageBlurred ? undefined : planOf(project.image);
   return <span className="wk-shot">
     <span className="wk-bar" aria-hidden="true"><i/><i/><i/><span>{host || project.title.toLowerCase()}</span></span>
-    <span className="wk-frame">{project.image && <img className={project.imageBlurred ? 'unreleased-preview' : undefined} src={project.image} {...responsive(project.image, sizes)} alt={`${project.title} website`} width="1600" height="772" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding="async"/>}{plan && <Plan src={plan} label={host || project.title}/>}</span>
+    <span className="wk-frame">{project.image && <img className={project.imageBlurred ? 'unreleased-preview' : undefined} src={project.image} {...responsive(project.image, sizes)} alt={`${project.title} website`} width="1600" height="772" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding="async"/>}{plan && <Plan src={plan} label={host || project.title} mode={drawing === 'lens' ? 'lens' : undefined}/>}</span>
   </span>;
 }
 
@@ -78,13 +78,13 @@ export function BuildingList({ items }: { items: Project[] }) {
       </div>
       <ul className="wb-grid">
         {items.map(p => <li key={p.slug} data-reveal>
-          <Link {...projectLink(p)} className="wb-card spot">
+          <Link {...(p.url ? { href: p.url, target: '_blank', rel: 'noopener noreferrer' } : projectLink(p))} className="wb-card spot">
             <DraftWindow project={p}/>
             <span className="wb-body">
               <span className="wb-status"><i/>{p.status}<small>{p.year}</small></span>
               <strong>{p.title}</strong>
               <span className="wb-desc">{p.description}</span>
-              <span className="wb-go">About the project<ArrowUpRight size={15}/></span>
+              <span className={`wb-go ${p.url ? 'is-demo' : ''}`}>{p.url ? 'View demo' : 'About the project'}<ArrowUpRight size={15}/>{p.url && <span className="sr-only"> (opens in a new tab)</span>}</span>
             </span>
           </Link>
         </li>)}
