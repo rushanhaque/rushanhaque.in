@@ -14,14 +14,14 @@
 .project-how-does p:first-child{font-size:clamp(21px,2vw,30px);line-height:1.45;letter-spacing:-.02em;color:var(--ink)}
 .project-how-steps{display:grid;gap:26px}
 .project-how-steps ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
-.project-how-steps li{display:grid;align-content:start;gap:12px;padding:26px 24px 28px;border-radius:18px;background:#fbfaf6;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .08);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
+.project-how-steps li{display:grid;align-content:start;gap:12px;padding:26px 24px 28px;border-radius:18px;background:#ffffff;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .08);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
 .project-how-steps li:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14),0 24px 40px -30px rgb(7 36 26 / .4)}
 .project-how-steps li>span{font-size:12px;letter-spacing:.14em;color:#07241a99;font-variant-numeric:tabular-nums}
 .project-how-steps h3{margin:0;font-size:clamp(19px,1.6vw,23px);font-weight:500;line-height:1.25;letter-spacing:-.025em}
 .project-how-steps p{margin:0;font-size:15px;line-height:1.65;color:var(--gray)}
 .project-how-foot{display:grid;grid-template-columns:1fr 2fr;gap:70px;align-items:start}
 .project-how-foot>div{display:grid;gap:16px}
-.project-how-note p{max-width:44em;margin:0;padding:18px 22px;border-radius:14px;background:#efede6;font-size:15px;line-height:1.65;color:var(--ink)}
+.project-how-note p{max-width:44em;margin:0;padding:18px 22px;border-radius:14px;background:#f2f2f1;font-size:15px;line-height:1.65;color:var(--ink)}
 @media(max-width:1000px){.project-how-steps ol{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:799px){
   .project-how-head,.project-how-foot{grid-template-columns:1fr;gap:20px}

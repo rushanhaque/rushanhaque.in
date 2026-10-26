@@ -6,8 +6,8 @@
 :root{--px-e:cubic-bezier(.16,1,.3,1)}
 
 /* Browser window */
-.wk-shot{display:block;border-radius:clamp(12px,1.4vw,18px);overflow:hidden;background:#e9e6dc;box-shadow:0 1px 0 rgb(7 36 26 / .05),0 2px 6px -2px rgb(7 36 26 / .08),0 50px 90px -48px rgb(7 36 26 / .45);isolation:isolate}
-.wk-bar{display:flex;align-items:center;gap:6px;height:clamp(28px,2.4vw,34px);padding:0 14px;background:#fbfaf6;border-bottom:1px solid rgb(7 36 26 / .07)}
+.wk-shot{display:block;border-radius:clamp(12px,1.4vw,18px);overflow:hidden;background:#ececea;box-shadow:0 1px 0 rgb(7 36 26 / .05),0 2px 6px -2px rgb(7 36 26 / .08),0 50px 90px -48px rgb(7 36 26 / .45);isolation:isolate}
+.wk-bar{display:flex;align-items:center;gap:6px;height:clamp(28px,2.4vw,34px);padding:0 14px;background:#ffffff;border-bottom:1px solid rgb(7 36 26 / .07)}
 .wk-bar>i{width:9px;height:9px;border-radius:50%;background:#dcd8cb;flex:none}
 .wk-bar>span{margin:0 auto;translate:-24px 0;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px;letter-spacing:.01em;color:rgb(7 36 26 / .55);background:rgb(7 36 26 / .045);padding:4px 16px;border-radius:99px}
 .wk-frame{display:block;aspect-ratio:1600/772;overflow:hidden}
@@ -88,8 +88,8 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
    Brass, the city's metal. Headline accents are cast in it, and a slow glint
    crosses them now and then, word by word. Darker on paper, lighter on forest.
    -------------------------------------------------------------------------- */
-:root{--brass-lo:#6e5024;--brass-mid:#9c7740;--brass-hi:#dcb974}
-:is(.tl-wall,.tl-voices,.wb,.ft,.rvp-card,.tl-close-card){--brass-lo:#c39b5c;--brass-mid:#e2c487;--brass-hi:#fff1cc}
+:root{--brass-lo:#4e1027;--brass-mid:#7a1f3d;--brass-hi:#b0476a}
+:is(.tl-wall,.wb,.ft,.rvp-card,.tl-close-card,.tl-reach,.tl-caps,.sx-cta,.gh-panel-card){--brass-lo:#c9768d;--brass-mid:#e8adbd;--brass-hi:#fde8ee}
 :is(h1,h2) em,.tl-mf-w.is-em em{
   background:linear-gradient(105deg,var(--brass-lo) 0%,var(--brass-mid) 36%,var(--brass-hi) 47%,var(--brass-mid) 58%,var(--brass-lo) 100%) 100% 0/300% 100% no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
@@ -120,20 +120,20 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
 @keyframes px-sheen{from{background-position:150% 0}to{background-position:-50% 0}}
 
 /* Dark chapters carry a wide, faint light that follows the pointer. */
-:is(.tl-wall,.tl-close-card,.wb).spot{--spot:rgb(243 241 230 / .07);--spot-size:720px}
+:is(.tl-wall,.tl-close-card,.wb).spot{--spot:rgb(255 255 255 / .07);--spot-size:720px}
 :is(.tl-wall,.wb).spot::after{z-index:0}
 
 /* Certificates: a search field and filter pills in place of form controls. */
 .cat-bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;padding:22px 0;border-block:1px solid rgb(7 36 26 / .12)}
 .cat-search{position:relative;display:flex;align-items:center;flex:1 1 280px;max-width:420px}
 .cat-search svg{position:absolute;left:18px;color:#5d6a62;pointer-events:none}
-.cat-search input{width:100%;height:50px;padding:0 18px 0 46px;border:0;border-radius:99px;background:#fbf9f2;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:15px;color:#07241a;transition:box-shadow .3s}
+.cat-search input{width:100%;height:50px;padding:0 18px 0 46px;border:0;border-radius:99px;background:#ffffff;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:15px;color:#07241a;transition:box-shadow .3s}
 .cat-search input:focus{outline:none;box-shadow:inset 0 0 0 2px #07241a}
 .cat-tabs{display:flex;flex-wrap:wrap;gap:6px}
 .cat-tabs button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:99px;background:transparent;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:14px;color:#07241a;transition:background .35s,color .35s,box-shadow .35s}
 .cat-tabs button small{font-size:11px;opacity:.55;font-variant-numeric:tabular-nums}
 .cat-tabs button:hover{box-shadow:inset 0 0 0 1px #07241a}
-.cat-tabs button[aria-pressed=true]{background:#07241a;color:#f3f1e6;box-shadow:none}
+.cat-tabs button[aria-pressed=true]{background:#07241a;color:#ffffff;box-shadow:none}
 .cat-count{margin-left:auto;font-size:13px;color:#5d6a62}
 @media (max-width:700px){.cat-search{max-width:none;flex-basis:100%}.cat-tabs{flex-wrap:nowrap;overflow-x:auto;margin-inline:-20px;padding-inline:20px;scrollbar-width:none}.cat-tabs button{flex:none}.cat-count{display:none}}
 
@@ -141,7 +141,7 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
 .source-directory section.is-areas{grid-column:1/-1;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px}
 .source-directory .is-areas h3{flex-basis:100%}
 .source-directory .is-areas a{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border:0;border-radius:99px;box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14);font-size:14px;transition:background .35s,color .35s,box-shadow .35s}
-.source-directory .is-areas a:hover{padding-inline:15px;background:#07241a;color:#f3f1e6;box-shadow:none}
+.source-directory .is-areas a:hover{padding-inline:15px;background:#07241a;color:#ffffff;box-shadow:none}
 .source-directory .is-areas a svg{width:13px;height:13px}
 
 /* --------------------------------------------------------------------------
@@ -169,12 +169,12 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
    The header: a plain, opaque rectangle across the top. No glass, no floating pill.
    -------------------------------------------------------------------------- */
 .gh,.gh.is-scrolled{top:0;left:0;right:0;width:100%;max-width:none;translate:none;transition:none}
-.gh-bar{height:64px;padding:0 var(--space-gutter,24px);border-radius:0;background:#f3f1e6;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 1px 0 rgb(7 36 26 / .12)}
+.gh-bar{height:64px;padding:0 var(--space-gutter,24px);border-radius:0;background:#ffffff;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 1px 0 rgb(7 36 26 / .12)}
 html.gh-liquid .gh-bar{-webkit-backdrop-filter:none;backdrop-filter:none}
 .gh.is-scrolled .gh-bar{height:60px}
 .gh-bar::before,.gh-bar::after{display:none}
 .gh[data-tone=dark]{color:var(--gh-ink)}
-.gh[data-tone=dark] .gh-bar{background:#f3f1e6;box-shadow:0 1px 0 rgb(7 36 26 / .12)}
+.gh[data-tone=dark] .gh-bar{background:#ffffff;box-shadow:0 1px 0 rgb(7 36 26 / .12)}
 .gh[data-tone=dark] .gh-mark{filter:none}
 .gh[data-tone=dark] .gh-nav{background:rgb(7 36 26 / .05);box-shadow:none}
 .gh[data-tone=dark] .gh-pill{background:#fff;box-shadow:0 1px 0 rgb(7 36 26 / .1)}
@@ -183,7 +183,7 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:none;backdrop-filter:none}
 .gh-panel{left:0;right:0}
 .gh-spacer{height:64px}
 @media(max-width:700px){.gh,.gh.is-scrolled{top:0;width:100%}.gh-bar,.gh.is-scrolled .gh-bar{height:56px;padding:0 14px}.gh-spacer{height:56px}}
-.gh-panel{margin-top:0;border-radius:0;background:#f3f1e6;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 24px 40px -24px rgb(7 36 26 / .3),0 1px 0 rgb(7 36 26 / .12)}
+.gh-panel{margin-top:0;border-radius:0;background:#ffffff;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 24px 40px -24px rgb(7 36 26 / .3),0 1px 0 rgb(7 36 26 / .12)}
 @media(max-width:700px){.gh-panel{border-radius:0;max-height:calc(100svh - 56px)}}
 @media(max-width:640px){
   /* On a phone the footer keeps to the essentials: the invitation, the two short lists, one line. */
@@ -200,7 +200,7 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:none;backdrop-filter:none}
 
 /* The header is always the cream bar now, so its "dark" tone (set over dark sections) must look
    exactly like the light one: dark button, cream label. */
-.gh[data-tone=dark] .gh-bar .gh-cta{--b-ink:#f3f1e6;--b-fill:#f3f1e6;--b-fill-ink:#07241a;--b-ring:#07241a;background:#07241a}
+.gh[data-tone=dark] .gh-bar .gh-cta{--b-ink:#ffffff;--b-fill:#ffffff;--b-fill-ink:#07241a;--b-ring:#07241a;background:#07241a}
 .gh[data-tone=dark] .gh-bar{color:#07241a}
 .gh[data-tone=dark] .gh-nav a{color:#07241a}
 

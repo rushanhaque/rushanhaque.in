@@ -33,12 +33,12 @@ void main(){
   float on=step(.001,uS)*step(uS,.999);
   float built=1.-smoothstep(uS-.0015,uS+.0015,uv.x);
   vec3 from=mix(texture2D(uFromP,fuv).rgb,texture2D(uFrom,fuv).rgb,built);
-  from+=vec3(.76,.61,.36)*(exp(-pow((uv.x-uS)/.0028,2.))*.9+exp(-pow((uv.x-uS)/.035,2.))*.16)*on;
+  from+=vec3(.62,.16,.30)*(exp(-pow((uv.x-uS)/.0028,2.))*.9+exp(-pow((uv.x-uS)/.035,2.))*.16)*on;
   from*=1.-.4*uP;
   vec2 t=(uv-.5)/(1.+.14*(1.-uP))+.5-push*.5;
   float k=seam*.008;
   vec3 to=vec3(texture2D(uTo,cover(t+vec2(k,0.),uToA)).r,texture2D(uTo,cover(t,uToA)).g,texture2D(uTo,cover(t-vec2(k,0.),uToA)).b);
-  vec3 col=mix(from,to,m)+vec3(.96,.8,.5)*seam*.3;
+  vec3 col=mix(from,to,m)+vec3(.85,.45,.56)*seam*.3;
   col+=vec3(1.)*uH*smoothstep(.42,.36,r)*smoothstep(.3,.38,r)*.05;
   gl_FragColor=vec4(col,1.);
 }`;

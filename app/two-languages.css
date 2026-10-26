@@ -2,7 +2,7 @@
    Two languages — homepage story
    Paper and ink, forest and lime. Every chapter has one signature motion.
    ========================================================================== */
-.tl{--paper:#efece3;--paper-2:#e6e2d4;--ink:#07241a;--forest:#07241a;--moss:#07241a;--lime:#f3f1e6;--signal:#f3f1e6;--cream:#f3f1e6;--g:clamp(24px,5.55vw,80px);--ease:cubic-bezier(.16,1,.3,1);background:var(--paper);color:var(--forest);overflow-x:clip}
+.tl{--paper:#ffffff;--paper-2:#f4f5f3;--ink:#07241a;--forest:#07241a;--moss:#07241a;--lime:#ffffff;--signal:#ffffff;--cream:#ffffff;--g:clamp(24px,5.55vw,80px);--ease:cubic-bezier(.16,1,.3,1);background:var(--paper);color:var(--forest);overflow-x:clip}
 .tl em{font-family:var(--font-serif);font-style:italic;font-weight:400}
 .tl h2{font-weight:450;letter-spacing:-.055em;line-height:.98}
 .tl-kicker{display:block;font-size:11px;font-weight:500;letter-spacing:.16em;opacity:.7}
@@ -22,7 +22,7 @@ html:not(.tl-preload) .tl-loader{display:none}
 
 
 /* ---------- Hero ---------- */
-.tl-hero{position:relative;height:100vh;height:100svh;min-height:600px;overflow:hidden;background:radial-gradient(120% 90% at 70% 0%,#f6f4ec,var(--paper) 60%)}
+.tl-hero{position:relative;height:100vh;height:100svh;min-height:600px;overflow:hidden;background:radial-gradient(120% 90% at 70% 0%,#ffffff,var(--paper) 60%)}
 .tl-hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .tl-hero-fallback{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-size:clamp(56px,11vw,190px);font-weight:500;letter-spacing:-.06em;line-height:.95}
 .tl-hero-fallback em{display:block;color:var(--moss)}
@@ -148,7 +148,7 @@ html[data-motion=reduce] .tl-scroll-cue i{animation:none}
 .tl-loader-name span{display:inline-block}
 .tl-loader-foot{position:absolute;left:var(--g);right:var(--g);bottom:calc(var(--g) + 22px);display:flex;justify-content:space-between;align-items:flex-end;font-size:11px;letter-spacing:.16em}
 .tl-loader-count{font:500 clamp(40px,6vw,96px)/.8 ui-monospace,"SF Mono",Consolas,monospace;letter-spacing:-.04em;color:var(--signal)}
-.tl-loader-bar{position:absolute;left:var(--g);right:var(--g);bottom:var(--g);height:1px;background:rgb(243 241 230 / .2)}
+.tl-loader-bar{position:absolute;left:var(--g);right:var(--g);bottom:var(--g);height:1px;background:rgb(255 255 255 / .2)}
 .tl-loader-bar i{display:block;height:100%;background:var(--signal);transform:scaleX(0);transform-origin:left}
 
 /* Scroll cue in the works deck section */

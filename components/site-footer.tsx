@@ -63,8 +63,8 @@ export function SiteFooter() {
     {/* The signature: the name set across the full width; a brass light follows the pointer over it. */}
     <svg className="ft-mark" ref={mark} viewBox="0 0 1000 152" aria-hidden="true" focusable="false">
       <defs>
-        <linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".4"/></linearGradient>
-        <radialGradient id="ft-mark-glow" ref={glow} gradientUnits="userSpaceOnUse" cx="500" cy="76" r="190"><stop offset="0" stopColor="#f1d49a"/><stop offset=".45" stopColor="#d9b779"/><stop offset="1" stopColor="#c29b5c" stopOpacity="0"/></radialGradient>
+        <linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" stopOpacity=".95"/><stop offset="1" stopColor="#ffffff" stopOpacity=".4"/></linearGradient>
+        <radialGradient id="ft-mark-glow" ref={glow} gradientUnits="userSpaceOnUse" cx="500" cy="76" r="190"><stop offset="0" stopColor="#f1d49a"/><stop offset=".45" stopColor="#d98ba0"/><stop offset="1" stopColor="#c9768d" stopOpacity="0"/></radialGradient>
       </defs>
       <text x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
       <text className="ft-mark-glow" x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-glow)">Rushan Haque</text>

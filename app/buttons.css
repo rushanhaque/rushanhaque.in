@@ -12,7 +12,7 @@
    shadow, pressing sinks the face into the plinth. All of it is shadow:
    the button itself never shifts a pixel.
    ------------------------------------------------------------------ */
-:root{--b-ease:cubic-bezier(.65,0,.15,1);--b-brass:#d4af6a}
+:root{--b-ease:cubic-bezier(.65,0,.15,1);--b-brass:#7a1f3d}
 
 :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo){
   position:relative;isolation:isolate;overflow:hidden;
@@ -23,16 +23,16 @@
   transform:none!important;translate:none!important
 }
 /* Colours carry no weight (:where), so a section can recolour its own button. */
-:where(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo){--b-ink:#f3f1e6;--b-fill:var(--b-brass);--b-fill-ink:#07241a;--b-line:rgb(212 175 106 / .95);
-  --b-hi:rgb(255 255 255 / .16);--b-gloss:rgb(255 255 255 / .12);--b-lo:rgb(0 0 0 / .35);--b-edge:#02110b;--b-lift:rgb(4 23 15 / .55);--b-fill-edge:#8a6630}
+:where(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo){--b-ink:#ffffff;--b-fill:var(--b-brass);--b-fill-ink:#ffffff;--b-line:rgb(122 31 61 / .7);
+  --b-hi:rgb(255 255 255 / .16);--b-gloss:rgb(255 255 255 / .12);--b-lo:rgb(0 0 0 / .35);--b-edge:#02110b;--b-lift:rgb(4 23 15 / .55);--b-fill-edge:#4e1027}
 /* Light pills (cream on dark, or the light studio pills) start in ink. */
 :where(.gh[data-tone=dark] .gh-bar .gh-cta,.gh-panel-card .gh-cta,.ft-btn.is-solid,.rvf-send,.button.outline,.tl-button,.sx-actions a:first-child,.ad-btn:not(.is-solid),.wb-go.is-demo,.imported-page .source-actions a:first-child){--b-ink:#07241a;
-  --b-hi:rgb(255 255 255 / .95);--b-gloss:rgb(255 255 255 / .5);--b-lo:rgb(7 36 26 / .14);--b-edge:#c9c1a8;--b-lift:rgb(7 36 26 / .3)}
+  --b-hi:rgb(255 255 255 / .95);--b-gloss:rgb(255 255 255 / .5);--b-lo:rgb(7 36 26 / .14);--b-edge:#d3d6d3;--b-lift:rgb(7 36 26 / .3)}
 /* Outline pills have no body to stand up, only a faint lit rim. */
 :where(.gh-ghost,.ft-btn:not(.is-solid),.sx-actions a+a,.ad-btn.is-ghost,.button.outline){--b-hi:rgb(255 255 255 / .1);--b-gloss:transparent;--b-lo:transparent;--b-edge:transparent;--b-lift:transparent}
-.tl-voices .tl-button,.tl-testi .tl-button{--b-ink:#f3f1e6;--b-hi:rgb(255 255 255 / .16);--b-gloss:rgb(255 255 255 / .12);--b-lo:rgb(0 0 0 / .35);--b-edge:#02110b;--b-lift:rgb(4 23 15 / .55)}
+.tl-voices .tl-button,.tl-testi .tl-button{--b-ink:#ffffff;--b-hi:rgb(255 255 255 / .16);--b-gloss:rgb(255 255 255 / .12);--b-lo:rgb(0 0 0 / .35);--b-edge:#02110b;--b-lift:rgb(4 23 15 / .55)}
 /* The brass booking button fills the other way: ink, with brass type. */
-.cn-book{--b-ink:#07241a;--b-fill:#07241a;--b-fill-ink:#e8cf96;--b-line:rgb(7 36 26 / .55);--b-hi:rgb(255 255 255 / .6);--b-gloss:rgb(255 255 255 / .35);--b-lo:rgb(90 60 20 / .3);--b-edge:#8f6c34;--b-lift:rgb(120 85 30 / .55);--b-fill-edge:#02110b}
+.cn-book{--b-ink:#ffffff;--b-fill:#07241a;--b-fill-ink:#ffffff;--b-line:rgb(7 36 26 / .55);--b-hi:rgb(255 255 255 / .6);--b-gloss:rgb(255 255 255 / .35);--b-lo:rgb(80 18 40 / .3);--b-edge:#4e1027;--b-lift:rgb(100 24 50 / .55);--b-fill-edge:#02110b}
 :is(.header-contact,.study-button,.float-nav-cta)::after{content:none!important}
 
 :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::before,:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::after{
@@ -41,7 +41,7 @@
 }
 /* The hatching leads, the solid follows; leaving, the solid goes first. */
 :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::before{background:repeating-linear-gradient(-55deg,var(--b-fill) 0 1.3px,transparent 1.3px 5.5px);transition-delay:.12s}
-:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::after{background:var(--b-fill);box-shadow:inset 0 1px 0 rgb(255 255 255 / .5),inset 0 14px 18px -14px rgb(255 255 255 / .35),inset 0 -2px 4px -1px rgb(70 45 10 / .35);transition-duration:.42s}
+:is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo)::after{background:var(--b-fill);box-shadow:inset 0 1px 0 rgb(255 255 255 / .5),inset 0 14px 18px -14px rgb(255 255 255 / .35),inset 0 -2px 4px -1px rgb(60 12 30 / .35);transition-duration:.42s}
 
 :is(.gh-cta,.gh-ghost,.ft-btn,.cf-btn,.ar-submit,.rvf-send,.button,.imported-page .source-actions a:first-child,.ad-gate .button,.tl-button,.cn-book,.sx-actions a,.ad-btn,.tl-now-demo,.wb-go.is-demo) svg{color:var(--b-ink);transition:color .3s var(--b-ease);transform:none!important}
 

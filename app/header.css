@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------
    Header: a floating liquid-glass bar, always on screen.
    ------------------------------------------------------------------ */
-.gh{--gh-ink:#07241a;--gh-paper:#f3f1e6;--gh-ease:cubic-bezier(.16,1,.3,1);--gh-spring:cubic-bezier(.22,1,.36,1);
+.gh{--gh-ink:#07241a;--gh-paper:#ffffff;--gh-ease:cubic-bezier(.16,1,.3,1);--gh-spring:cubic-bezier(.22,1,.36,1);
   position:fixed;z-index:90;top:calc(12px + env(safe-area-inset-top,0px));left:50%;translate:-50% 0;
   width:min(calc(100% - 2 * var(--space-gutter)),1440px);max-width:var(--cmax,none);transition:width .7s var(--gh-ease),top .7s var(--gh-ease);color:var(--gh-ink);font-family:var(--font-sans)}
 .gh.is-scrolled{top:calc(10px + env(safe-area-inset-top,0px));width:min(1020px,calc(100% - 2 * var(--space-gutter)))}
@@ -14,7 +14,7 @@
 
 /* The glass itself. */
 .gh-bar{--mx:50%;--my:0%;--progress:0;position:relative;display:flex;align-items:center;gap:clamp(10px,2vw,28px);height:66px;padding:0 9px 0 10px;border-radius:999px;isolation:isolate;
-  background:linear-gradient(180deg,rgb(255 255 255 / .58),rgb(250 248 241 / .34));
+  background:linear-gradient(180deg,rgb(255 255 255 / .58),rgb(255 255 255 / .34));
   -webkit-backdrop-filter:blur(20px) saturate(180%) brightness(1.04);backdrop-filter:blur(20px) saturate(180%) brightness(1.04);
   box-shadow:inset 0 1px 0 rgb(255 255 255 / .85),inset 0 -1px 0 rgb(7 36 26 / .06),inset 0 0 0 1px rgb(255 255 255 / .38),0 1px 2px rgb(7 36 26 / .06),0 14px 34px -14px rgb(7 36 26 / .28);
   transition:height .7s var(--gh-ease),background .6s,box-shadow .6s,color .6s}
@@ -74,7 +74,7 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:url(#gh-refract) blur(14px) satur
 
 /* Menu panel: the same glass, opening out of the bar. */
 .gh-panel{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);margin-top:10px;padding:clamp(22px,3vw,40px);border-radius:28px;color:var(--gh-ink);
-  background:linear-gradient(180deg,rgb(255 255 255 / .82),rgb(248 246 238 / .74));-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
+  background:linear-gradient(180deg,rgb(255 255 255 / .82),rgb(255 255 255 / .74));-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
   box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgb(255 255 255 / .5),0 30px 70px -24px rgb(7 36 26 / .45);
   max-height:calc(100svh - 110px);overflow:auto;overscroll-behavior:contain;
   opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transform-origin:top center;transition:opacity .35s,transform .6s var(--gh-ease),visibility 0s .6s}
@@ -94,8 +94,8 @@ html.gh-liquid .gh-bar{-webkit-backdrop-filter:url(#gh-refract) blur(14px) satur
 .gh-panel-card p{margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.45;letter-spacing:-.01em}
 .gh-panel-actions{display:flex;flex-wrap:wrap;gap:10px}
 .gh-panel-card .gh-cta{background:var(--gh-paper);color:var(--gh-ink)}
-.gh-ghost{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 18px;border-radius:999px;border:1px solid rgb(243 241 230 / .3);color:inherit;font-size:14px;text-decoration:none;transition:background .3s}
-.gh-ghost:hover{background:rgb(243 241 230 / .1)}
+.gh-ghost{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 18px;border-radius:999px;border:1px solid rgb(255 255 255 / .3);color:inherit;font-size:14px;text-decoration:none;transition:background .3s}
+.gh-ghost:hover{background:rgb(255 255 255 / .1)}
 .gh-mail{color:inherit;font-size:15px;text-underline-offset:4px;overflow-wrap:anywhere}
 .gh-socials{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px}
 .gh-socials a{color:inherit;opacity:.7;text-decoration:none;transition:opacity .3s}

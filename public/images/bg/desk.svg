@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
   <!-- The hero's backdrop: a developer's code and a writer's manuscript, side by side on one desk.
-       Drawn for rushanhaque.in. Ink #07241a, brass #9c7740. Shown faint and washed behind the name. -->
+       Drawn for rushanhaque.in. Ink #07241a, brass #7a1f3d. Shown faint and washed behind the name. -->
   <defs>
     <style>
       .code{font:500 21px/1 ui-monospace,'SF Mono',Menlo,Consolas,monospace;fill:#07241a}
       .num{font:400 17px/1 ui-monospace,'SF Mono',Menlo,Consolas,monospace;fill:#07241a;opacity:.35}
-      .kw{fill:#9c7740}
+      .kw{fill:#7a1f3d}
       .str{fill:#3d6b52}
       .dim{opacity:.45}
       .prose{font:italic 400 27px/1 Georgia,'Times New Roman',serif;fill:#07241a}
       .head{font:400 44px/1 Georgia,'Times New Roman',serif;fill:#07241a}
-      .hand{font:italic 400 24px/1 'Segoe Script','Bradley Hand','Snell Roundhand',cursive;fill:#9c7740}
-      .mark{fill:none;stroke:#9c7740;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+      .hand{font:italic 400 24px/1 'Segoe Script','Bradley Hand','Snell Roundhand',cursive;fill:#7a1f3d}
+      .mark{fill:none;stroke:#7a1f3d;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
       .rule{stroke:#07241a;stroke-width:1;opacity:.14}
       .edge{fill:none;stroke:#07241a;stroke-width:1.4;opacity:.55}
       .tab{font:500 15px/1 ui-monospace,'SF Mono',Menlo,Consolas,monospace;fill:#07241a;opacity:.6}
@@ -42,7 +42,7 @@
       <text class="num" x="22" y="480">13</text><text class="code" x="84" y="480">}</text>
       <text class="num" x="22" y="520">14</text>
       <text class="num" x="22" y="560">15</text><text class="code" x="84" y="560">build(<tspan class="str">'your business'</tspan>)</text>
-      <rect x="352" y="541" width="12" height="25" fill="#9c7740" opacity=".8"/>
+      <rect x="352" y="541" width="12" height="25" fill="#7a1f3d" opacity=".8"/>
     </g>
   </g>
 
@@ -56,7 +56,7 @@
       <line class="rule" x1="40" y1="500" x2="600" y2="500"/><line class="rule" x1="40" y1="550" x2="600" y2="550"/>
       <line class="rule" x1="40" y1="600" x2="600" y2="600"/><line class="rule" x1="40" y1="650" x2="600" y2="650"/>
       <line class="rule" x1="40" y1="700" x2="600" y2="700"/>
-      <line x1="84" y1="160" x2="84" y2="760" stroke="#9c7740" stroke-width="1.2" opacity=".5"/>
+      <line x1="84" y1="160" x2="84" y2="760" stroke="#7a1f3d" stroke-width="1.2" opacity=".5"/>
     </g>
     <text class="tab" x="40" y="62">CHAPTER THREE</text>
     <text class="head" x="40" y="126">On making things</text>

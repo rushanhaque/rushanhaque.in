@@ -1,5 +1,5 @@
 /* Open Form, edition 02. Azurio-inspired editorial scale and overlapping geometry. */
-:root{--paper:#fbfcf8;--signature-ease:cubic-bezier(.16,1,.3,1)}
+:root{--paper:#ffffff;--signature-ease:cubic-bezier(.16,1,.3,1)}
 body{background:var(--paper)}
 .site-header{background:color-mix(in srgb,var(--paper) 93%,transparent)}
 @keyframes lens-arrive{from{opacity:0;transform:translateY(15px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}

@@ -16,7 +16,7 @@ let sharp = null;
 try { sharp = (await import('sharp')).default; } catch { console.warn('sharp unavailable: no plan drawings.'); }
 
 // Ink and paper, in the site's own colours.
-const INK = [7, 36, 26], PAPER = [243, 241, 230];
+const INK = [7, 36, 26], PAPER = [255, 255, 255];
 
 async function draw(file, out) {
   const { data, info } = await sharp(file).resize({ width }).greyscale().blur(.8).raw().toBuffer({ resolveWithObject: true });

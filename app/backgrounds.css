@@ -27,7 +27,7 @@
   --art:linear-gradient(#000,#000);--art-o:.38;--fade:radial-gradient(80% 75% at 50% 40%,#000 25%,transparent 80%)}
 
 /* Writeups and blogs: ruled paper with a brass margin line. */
-.tl-writing::before{--art-bg:linear-gradient(90deg,transparent calc(var(--g) - 22px),rgb(156 119 64 / .9) calc(var(--g) - 22px) calc(var(--g) - 21px),transparent calc(var(--g) - 21px)),repeating-linear-gradient(transparent 0 35px,rgb(7 36 26 / .55) 35px 36px);
+.tl-writing::before{--art-bg:linear-gradient(90deg,transparent calc(var(--g) - 22px),rgb(122 31 61 / .9) calc(var(--g) - 22px) calc(var(--g) - 21px),transparent calc(var(--g) - 21px)),repeating-linear-gradient(transparent 0 35px,rgb(7 36 26 / .55) 35px 36px);
   --art:linear-gradient(#000,#000);--art-o:.08;--fade:linear-gradient(90deg,#000 30%,transparent 62%)}
 
 /* Journey: contour lines, the ground covered. */
@@ -47,12 +47,12 @@ main:has(.cat-bar) .page-intro::before{--art:url(/images/bg/guilloche.svg);--art
 
 /* Footer: contours in cream on the forest. */
 .ft-inner{position:relative;isolation:isolate}
-.ft-inner::before{inset:-40px calc(50% - 50vw) -20px;--art:url(/images/bg/contours.svg);--art-size:1500px auto;--art-pos:left center;--art-color:#f3f1e6;--art-o:.06;
+.ft-inner::before{inset:-40px calc(50% - 50vw) -20px;--art:url(/images/bg/contours.svg);--art-size:1500px auto;--art-pos:left center;--art-color:#ffffff;--art-o:.06;
   --fade:linear-gradient(90deg,#000,transparent 70%)}
 
 /* Reviews: the clients' countries on a dotted map (components/client-map.tsx); the board lets it show through. */
 .rvp-said{overflow:clip}
-.cmap{--dot:#f3f1e6;--dot-o:.15;--arc:#e2c487;position:absolute;left:50%;top:52%;z-index:-1;width:min(1500px,150%);aspect-ratio:1000/594;translate:-50% -50%;pointer-events:none;
+.cmap{--dot:#ffffff;--dot-o:.15;--arc:#e8adbd;position:absolute;left:50%;top:52%;z-index:-1;width:min(1500px,150%);aspect-ratio:1000/594;translate:-50% -50%;pointer-events:none;
   -webkit-mask-image:radial-gradient(60% 60% at 58% 42%,#000 30%,transparent 80%);mask-image:radial-gradient(60% 60% at 58% 42%,#000 30%,transparent 80%)}
 .cmap::before{content:'';position:absolute;inset:0;background:var(--dot);opacity:var(--dot-o);-webkit-mask:url(/images/bg/world-dots.svg) center/100% 100% no-repeat;mask:url(/images/bg/world-dots.svg) center/100% 100% no-repeat}
 .cmap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -63,7 +63,7 @@ main:has(.cat-bar) .page-intro::before{--art:url(/images/bg/guilloche.svg);--art
 .cmap-ring.is-home{stroke:var(--dot);animation-duration:3s}
 @keyframes cmap-draw{0%{stroke-dashoffset:1}35%,80%{stroke-dashoffset:0;opacity:var(--arc-o,.5)}100%{stroke-dashoffset:0;opacity:0}}
 @keyframes cmap-ping{0%{opacity:.7;scale:.3}40%,100%{opacity:0;scale:1.6}}
-.rvp-said .cmap{--dot:#07241a;--dot-o:.08;--arc:#9c7740;top:34%;width:min(1300px,140%)}
+.rvp-said .cmap{--dot:#07241a;--dot-o:.08;--arc:#7a1f3d;top:34%;width:min(1300px,140%)}
 @media (prefers-reduced-motion:reduce){.cmap-arc{animation:none;stroke-dashoffset:0}.cmap-ring{animation:none}}
 
 /* Phones: the same art, scaled to the screen and a touch fainter. */
@@ -76,7 +76,7 @@ main:has(.cat-bar) .page-intro::before{--art:url(/images/bg/guilloche.svg);--art
 }
 
 /* Capabilities: contour lines in cream across the forest. About header: the guilloche, faintly. */
-.tl-caps::before{--art:url(/images/bg/contours.svg);--art-size:1600px auto;--art-pos:left bottom;--art-color:#f3f1e6;--art-o:.06;--fade:linear-gradient(90deg,#000,transparent 75%)}
+.tl-caps::before{--art:url(/images/bg/contours.svg);--art-size:1600px auto;--art-pos:left bottom;--art-color:#ffffff;--art-o:.06;--fade:linear-gradient(90deg,#000,transparent 75%)}
 .ab-hero::before{--art:url(/images/bg/contours.svg);--art-size:1500px auto;--art-pos:right top;--art-o:.07;--fade:radial-gradient(70% 100% at 85% 0%,#000 20%,transparent 75%)}
 
 /* Architectural column guides: two hairlines on the page's gutters, through the story pages. */
