@@ -466,3 +466,40 @@ html[data-motion=full] [data-rv] .wk-shot:has(.plan) .wk-frame img,html[data-mot
 /* Cards on the desk sit on the page like sheets: a lit top edge and a soft fall of shadow that deepens under the pointer. */
 .tl-now .tl-now-card:not(.is-open){box-shadow:inset 0 0 0 1px rgb(7 36 26 / .14),inset 0 1px 0 rgb(255 255 255 / .8),0 2px 0 rgb(7 36 26 / .06),0 22px 40px -30px rgb(7 36 26 / .4);transition:background .5s,box-shadow .6s cubic-bezier(.65,0,.15,1)}
 .tl-now .tl-now-card:not(.is-open):hover{box-shadow:inset 0 0 0 1px rgb(7 36 26 / .2),inset 0 1px 0 rgb(255 255 255 / .9),0 3px 0 rgb(7 36 26 / .08),0 40px 70px -36px rgb(7 36 26 / .5)}
+
+/* ---------- Phones: the quick-start dock (mobile-dock.tsx) ---------- */
+.m-dock{display:none}
+@media (max-width:899px){
+  .m-dock{--ft-paper:#f3f1e6;--ft-ink:#07241a;position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;width:min(calc(100% - 24px),420px);padding:7px;border-radius:999px;background:rgb(7 36 26 / .95);color:#f3f1e6;box-shadow:inset 0 1px 0 rgb(255 255 255 / .1),0 2px 0 #02110b,0 24px 44px -18px rgb(4 23 15 / .7);opacity:0;pointer-events:none;transform:translate(-50%,calc(100% + 30px));transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .4s}
+  .m-dock.is-on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+  .m-dock .ft-btn{height:46px;justify-content:center;padding:0 18px;font-size:14px}
+  body:has(.gh.is-open) .m-dock,body:has(input:focus,textarea:focus,select:focus) .m-dock{opacity:0;pointer-events:none;transform:translate(-50%,calc(100% + 30px))}
+}
+
+/* ---------- Phones: the name fills the first screen; small print stays readable ---------- */
+@media (max-width:799px){
+  .tl-hero-name{font-size:min(27.5vw,16.5vh)}
+}
+@media (max-width:600px){
+  main .eyebrow,.page-intro .eyebrow{font-size:11px!important;letter-spacing:.16em}
+  .credential-id{font-size:11px!important}
+  .sx-facts li span,.ab-facts dt{font-size:11px!important}
+  .rvf label>span,.rvf legend{font-size:12px;opacity:.75}
+  .rvp-pill{font-size:11px}
+  .rvp-pitch ol{font-size:12px}
+  .tl-kicker{font-size:11.5px}
+}
+@media (max-width:899px){
+  /* 16px fields: iOS zooms the page into anything smaller when it is tapped. */
+  input:not([type=checkbox]):not([type=radio]),textarea,select{font-size:max(16px,1em)!important}
+  /* Taps answer at once (no double-tap-zoom wait), and a pressed card sinks into the page. */
+  a,button,label,summary{touch-action:manipulation}
+  .tl-now .tl-now-card:not(.is-open):active,.wb-card:active,.tl-sw-item:active .wk-shot,.wk-row a:active .wk-shot{box-shadow:inset 0 0 0 1px rgb(7 36 26 / .2),0 6px 14px -10px rgb(7 36 26 / .4)!important;transition-duration:.12s}
+}
+/* The footer is drawn only once it is near: nothing on the page is measured from below it. */
+footer.ft{content-visibility:auto;contain-intrinsic-size:auto 900px}
+@media (max-width:600px){
+  .rvp .rvp-pill,.rvp .rvp-sum small{font-size:11px}
+  .tl-voices .tl-note time,.tl-reach .tl-reach-steps small{font-size:11px}
+  .tl-reach .tl-reach-scale{font-size:10px}
+}
