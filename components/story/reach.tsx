@@ -41,6 +41,26 @@ const PLACES: Place[] = [
   { name: 'Agra', lat: 27.18, lon: 78.01, stage: 1, label: 'l' },
   { name: 'Kanpur', lat: 26.45, lon: 80.33, stage: 1, label: 'b' },
   { name: 'Lucknow', lat: 26.85, lon: 80.95, stage: 1, label: 'r' },
+  // The metros: every one served remotely, over calls and WhatsApp.
+  { name: 'Jaipur', lat: 26.91, lon: 75.79, stage: 1, label: 'l' },
+  { name: 'Chandigarh', lat: 30.73, lon: 76.78, stage: 1, label: 'l' },
+  { name: 'Ahmedabad', lat: 23.02, lon: 72.57, stage: 1, label: 'l' },
+  { name: 'Indore', lat: 22.72, lon: 75.86, stage: 1 },
+  { name: 'Mumbai', lat: 19.08, lon: 72.88, stage: 1, label: 'l' },
+  { name: 'Pune', lat: 18.52, lon: 73.86, stage: 1, label: 'b' },
+  { name: 'Hyderabad', lat: 17.39, lon: 78.49, stage: 1, label: 'r' },
+  { name: 'Bengaluru', lat: 12.97, lon: 77.59, stage: 1, label: 'l' },
+  { name: 'Chennai', lat: 13.08, lon: 80.27, stage: 1, label: 'r' },
+  { name: 'Kolkata', lat: 22.57, lon: 88.36, stage: 1, label: 'r' },
+  { name: 'Patna', lat: 25.59, lon: 85.14, stage: 1, label: 'r' },
+  { name: 'Guwahati', lat: 26.14, lon: 91.74, stage: 1 },
+];
+// Where work is taken from, beyond the client countries: shown lighter, as reach, not as clients.
+const REACH = [
+  { city: 'Dubai', lat: 25.2, lon: 55.27, side: 'b' as Side }, { city: 'London', lat: 51.51, lon: -.13, side: 'l' as Side },
+  { city: 'New York', lat: 40.71, lon: -74.01, side: 'r' as Side }, { city: 'Toronto', lat: 43.65, lon: -79.38, side: 't' as Side },
+  { city: 'Singapore', lat: 1.35, lon: 103.82, side: 'r' as Side }, { city: 'Sydney', lat: -33.87, lon: 151.21, side: 'l' as Side },
+  { city: 'Berlin', lat: 52.52, lon: 13.4, side: 't' as Side },
 ];
 const ABROAD: Record<string, { lat: number; lon: number; city: string; side: Side }> = {
   'Saudi Arabia': { lat: 24.71, lon: 46.68, city: 'Riyadh', side: 'l' },
@@ -51,9 +71,7 @@ const CORE = ['Uttar Pradesh'];
 const STRONG = ['Uttarakhand', 'NCT of Delhi'];
 
 // The camera for each chapter, as [west, south, east, north] in degrees.
-const BOXES: [number, number, number, number][] = [[77.55, 27.95, 79.95, 29.75], [67.5, 7.5, 97.5, 36.5], [-128, -38, 152, 66]];
-// A tall, narrow map frames the world around where the clients are instead.
-const NARROW_WORLD: [number, number, number, number] = [-2, -6, 110, 60];
+const BOXES: [number, number, number, number][] = [[77.55, 27.95, 79.95, 29.75], [67.5, 7.5, 97.5, 36.5], [-125, -40, 156, 62]];
 
 const W = 1000, K = W / (2 * Math.PI), merc = (lat: number) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360)), TOP = merc(76);
 const project = (lon: number, lat: number): [number, number] => [((lon + 180) * Math.PI / 180) * K, (TOP - merc(lat)) * K];
@@ -86,8 +104,8 @@ export function Reach() {
   const countries = 1 + abroad.length;
   const STEPS = [
     { k: '01 · Home base', h: 'It starts in Moradabad.', d: 'Where I design and build, in western Uttar Pradesh, with Rampur, Amroha, Sambhal and Bareilly all close by.' },
-    { k: '02 · India', h: 'Then across India.', d: `Delhi NCR, Lucknow, Dehradun, Agra and ${PLACES.length + 1} cities in all, worked with over calls and WhatsApp.` },
-    { k: '03 · Worldwide', h: 'And anywhere online.', d: abroad.length ? `Clients in ${abroad.join(', ')} so far. Every project runs remotely, so where you are is never the limit.` : 'Every project runs remotely, so where you are is never the limit.' },
+    { k: '02 · India', h: 'Then across India.', d: `From Delhi NCR and Lucknow to Mumbai, Bengaluru, Hyderabad and Kolkata: ${PLACES.length + 1} cities, served over calls and WhatsApp.` },
+    { k: '03 · Worldwide', h: 'And anywhere online.', d: abroad.length ? `Clients in ${abroad.join(', ')} already, and open to businesses from Dubai and London to New York, Singapore and Sydney. Every project runs remotely, so where you are is never the limit.` : 'Every project runs remotely, so where you are is never the limit.' },
   ];
 
   // Fetch the map once the section is within a couple of screens.
@@ -101,6 +119,7 @@ export function Reach() {
 
   const home = project(HOME.lon, HOME.lat);
   const places = PLACES.map(p => ({ ...p, at: project(p.lon, p.lat) }));
+  const reach = REACH.map(r => ({ ...r, at: project(r.lon, r.lat) }));
   const far = abroad.map(c => ({ country: c, ...ABROAD[c], at: project(ABROAD[c].lon, ABROAD[c].lat) }));
 
   // The scroll scene: built once the map is in, rebuilt when the stage changes shape.
@@ -118,7 +137,7 @@ export function Reach() {
     const build = () => {
       ctx?.revert();
       const aspect = svg.clientWidth / Math.max(1, svg.clientHeight);
-      const views = BOXES.map((b, i) => frame(i === 2 && aspect < 1.2 ? NARROW_WORLD : b, aspect));
+      const views = BOXES.map(b => frame(b, aspect));
       ctx = gsap.context(() => {
         const q = gsap.utils.selector(svg);
         gsap.set(svg, { attr: { viewBox: views[0] } });
@@ -207,16 +226,19 @@ export function Reach() {
             </g>
             <g>
               {places.map(p => <path key={p.name} className={`rm-route s${p.stage}`} pathLength={1} d={arc(home, p.at, .3)}/>)}
+              {reach.map(p => <path key={p.city} className="rm-route s2 is-reach" pathLength={1} d={arc(home, p.at, .24)}/>)}
               {far.map(p => <path key={p.city} className="rm-route s2 is-far" pathLength={1} d={arc(home, p.at, .28)}/>)}
             </g>
             <g>
               {[0, 1, 2].map(i => <circle key={i} className="rm-ring" cx={home[0]} cy={home[1]} style={{ animationDelay: `${i}s` }}/>)}
               {places.map(p => <circle key={p.name} className={`rm-pin s${p.stage}`} cx={p.at[0]} cy={p.at[1]} r=".6"/>)}
+              {reach.map(p => <circle key={p.city} className="rm-pin s2 is-reach" cx={p.at[0]} cy={p.at[1]} r="1.2"/>)}
               {far.map(p => <circle key={p.city} className="rm-pin s2 is-far" cx={p.at[0]} cy={p.at[1]} r="1.6"/>)}
               <circle className="rm-pin is-home" cx={home[0]} cy={home[1]} r="1"/>
             </g>
             <g className="rm-labels">
               {places.filter(p => p.label).map(p => { const o = SIDE[p.label!]; return <text key={p.name} className={`rm-label s${p.stage}`} x={p.at[0]} y={p.at[1]} dx={o.dx} dy={o.dy} textAnchor={o.anchor}>{p.name}</text>; })}
+              {reach.map(p => { const o = SIDE[p.side]; return <text key={p.city} className="rm-label s2 is-reach" x={p.at[0]} y={p.at[1]} dx={o.dx} dy={o.dy} textAnchor={o.anchor}>{p.city}</text>; })}
               {far.map(p => { const o = SIDE[p.side]; return <text key={p.city} className="rm-label s2" x={p.at[0]} y={p.at[1]} dx={o.dx} dy={o.dy} textAnchor={o.anchor}>{p.city}, {p.country}</text>; })}
               <text className="rm-label is-home" x={home[0]} y={home[1]} dy="-1.25em" textAnchor="middle">Moradabad · home</text>
             </g>

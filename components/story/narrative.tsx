@@ -184,8 +184,6 @@ export function CurrentlyBuilding() {
         <span className="tl-now-body">
           <span className="tl-now-top"><span className="tl-now-n">{two(i + 1)}</span><span className="tl-now-status">{p.status}</span></span>
           <strong>{p.title}</strong>
-          <span className="tl-now-line">{storyOf(p).line}</span>
-          <span className="tl-now-spec"><span><small>Year</small>{p.year}</span><span><small>Scope</small>{p.tags.filter(t => !/soon/i.test(t)).join(' · ') || p.discipline}</span></span>
         </span>
         <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>
       </Link>
@@ -196,7 +194,6 @@ export function CurrentlyBuilding() {
         <span className="tl-now-body">
           <span className="tl-now-top"><span className="tl-now-n">{two(items.length + 1)}</span><span className="tl-now-status is-idle">Open slot</span></span>
           <strong>Your project <em>here.</em></strong>
-          <span className="tl-now-line">I take on a few projects at a time. The next one could be yours.</span>
         </span>
         <ArrowUpRight className="tl-now-go" size={22} strokeWidth={1.5}/>
       </Link></li>
