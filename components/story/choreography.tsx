@@ -70,7 +70,7 @@ export function Choreography() {
 
     // About: the facts count in, the journey rows slide toward the line.
     from('.tl-fact', '.tl-facts', { y: 30, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .08 });
-    near('.tl-path-list', () => all('.tl-path-item').forEach(item => gsap.from(item.querySelector('div'), { x: item.classList.contains('is-right') ? 40 : -40, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: once(item, 'top 88%') })));
+    near('.tl-path-list', () => all('.tl-path-item').forEach(item => gsap.from(item.querySelector('div'), { x: item.classList.contains('is-right') ? 40 : -40, opacity: 0, duration: .9, ease: 'expo.out', scrollTrigger: once(item, 'top 95%') })));
     from('.tl-book-info > *', '.tl-book-info', { y: 22, opacity: 0, duration: 1, ease: 'expo.out', stagger: .08 }, 'top 92%');
 
     // Footer: the signature rises into the foot of the page.

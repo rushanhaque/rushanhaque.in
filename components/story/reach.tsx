@@ -195,10 +195,10 @@ export function Reach() {
   };
 
   const cls = (n: string) => (CORE.includes(n) ? 'is-core' : STRONG.includes(n) ? 'is-strong' : 'is-rest');
-  return <section id="where" className="tl-reach" ref={root} data-chapter="III — Where I work">
+  return <section id="where" className="tl-reach" ref={root} data-chapter="II — Where I work">
     <div className="tl-reach-stage">
       <div className="tl-reach-copy">
-        <span className="tl-kicker">III — WHERE I WORK</span>
+        <span className="tl-kicker">II — WHERE I WORK</span>
         <h2 suppressHydrationWarning>Moradabad, India, <em>everywhere.</em></h2>
         <div className="tl-reach-story" aria-live="polite">
           <span key={`k${step}`}>{STEPS[step].k}</span>

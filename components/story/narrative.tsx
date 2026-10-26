@@ -132,7 +132,7 @@ export function SelectedWork() {
 /* VI — Next in line: the one closing ask. Leave your website and an    */
 /* email, and I send back an audit. A forest card opens as it arrives.  */
 /* ------------------------------------------------------------------ */
-export function Encore() {
+export function Encore({ n = 'VII' }: { n?: string }) {
   const root = useRef<HTMLElement>(null);
   const { reduced } = useMotion();
   useEffect(() => {
@@ -150,14 +150,14 @@ export function Encore() {
     ro.observe(section.parentElement!);
     return () => { ctx.revert(); ro.disconnect(); clearTimeout(timer); };
   }, [reduced]);
-  return <section id="next" className="tl-close" ref={root} data-chapter="VIII — Your website">
+  return <section id="next" className="tl-close" ref={root} data-chapter={`${n} — Your website`}>
     <div className="tl-close-card spot">
       <svg className="tl-close-lines" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <g className="is-a">{Array.from({ length: 9 }, (_, i) => <ellipse key={i} cx="400" cy="400" rx={50 + i * 44} ry="360"/>)}</g>
         <g className="is-b">{Array.from({ length: 7 }, (_, i) => <ellipse key={i} cx="400" cy="400" rx="380" ry={36 + i * 50}/>)}</g>
       </svg>
       <div className="tl-close-copy">
-        <span className="tl-kicker">VIII — YOUR WEBSITE</span>
+        <span className="tl-kicker">{n} — YOUR WEBSITE</span>
         <h2 className="tl-close-title" suppressHydrationWarning>Your business, <em>next in line.</em></h2>
         <p>Send me your website and I will send back a free audit.</p>
         <AuditCard/>
@@ -173,9 +173,9 @@ export function CurrentlyBuilding() {
   const { projects } = useContent();
   const items = projects.filter(p => placementOf(p) === 'building');
   if (!items.length) return null;
-  return <section id="currently" className="tl-now" data-chapter="V — Currently working on">
+  return <section id="currently" className="tl-now" data-chapter="IV — Currently working on">
     <div className="tl-now-head">
-      <span className="tl-kicker"><i className="tl-live-dot"/>V — CURRENTLY WORKING ON</span>
+      <span className="tl-kicker"><i className="tl-live-dot"/>IV — CURRENTLY WORKING ON</span>
       <h2 suppressHydrationWarning>Currently <em>working on.</em></h2>
     </div>
     <ul className="tl-now-grid">{items.map((p, i) => <li key={p.slug}>

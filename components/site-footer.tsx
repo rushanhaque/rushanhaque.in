@@ -3,7 +3,6 @@ import { useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Link from '@/components/site-link';
 import { bookingUrl, email, phone, socials } from '@/lib/content';
-import release from '@/generated/release.json';
 
 const columns = [
   { title: 'Explore', links: [['Home', '/'], ['Works', '/projects'], ['About', '/about'], ['Certificates', '/certifications'], ['Reviews', '/reviews'], ['Connect', '/connect']] },
@@ -12,13 +11,29 @@ const columns = [
 // A short footer: one invitation, three small lists, and a single closing line.
 export function SiteFooter() {
   // The signature is drawn in outline, then inked in, the first time it comes into view.
+  // Under the pointer (or a finger), a brass light moves across the letters.
   const mark = useRef<SVGSVGElement>(null);
+  const glow = useRef<SVGRadialGradientElement>(null);
   useEffect(() => {
-    const el = mark.current;
-    if (!el) return;
+    const el = mark.current, g = glow.current;
+    if (!el || !g) return;
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add('is-drawn'); io.disconnect(); } }, { threshold: .35 });
     io.observe(el);
-    return () => io.disconnect();
+    let frame = 0, x = 500, y = 76;
+    const paint = () => { frame = 0; g.setAttribute('cx', x.toFixed(1)); g.setAttribute('cy', y.toFixed(1)); };
+    const move = (e: PointerEvent) => {
+      const m = el.getScreenCTM();
+      if (!m) return;
+      const pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
+      x = pt.x; y = pt.y;
+      el.classList.add('is-lit');
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+    const leave = () => el.classList.remove('is-lit');
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerleave', leave);
+    el.addEventListener('pointercancel', leave);
+    return () => { io.disconnect(); cancelAnimationFrame(frame); el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave); el.removeEventListener('pointercancel', leave); };
   }, []);
   return <footer className="ft">
     <div className="ft-inner container">
@@ -42,18 +57,17 @@ export function SiteFooter() {
       </div>
     </div>
     <div className="ft-base container">
-      {/* The drawing's title block: who drew it, at what scale, and the revision now live (the deployed commit). */}
-      <dl className="ft-block">
-        <div><dt>Drawn &amp; built by hand</dt><dd>© {new Date().getFullYear()} Rushan Haque</dd></div>
-        <div><dt>Scale</dt><dd>1:1</dd></div>
-        {release.commit && <div><dt>Revision</dt><dd>{release.commit.slice(0, 7)}</dd></div>}
-      </dl>
+      <p className="ft-legal">© {new Date().getFullYear()} Rushan Haque</p>
       <a href="#top" className="ft-top">Back to top <ArrowUpRight size={14}/></a>
     </div>
-    {/* The signature: the name set across the full width, cut by the page's edge. */}
+    {/* The signature: the name set across the full width; a brass light follows the pointer over it. */}
     <svg className="ft-mark" ref={mark} viewBox="0 0 1000 152" aria-hidden="true" focusable="false">
-      <defs><linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".4"/></linearGradient></defs>
+      <defs>
+        <linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3f1e6" stopOpacity=".95"/><stop offset="1" stopColor="#f3f1e6" stopOpacity=".4"/></linearGradient>
+        <radialGradient id="ft-mark-glow" ref={glow} gradientUnits="userSpaceOnUse" cx="500" cy="76" r="190"><stop offset="0" stopColor="#f1d49a"/><stop offset=".45" stopColor="#d9b779"/><stop offset="1" stopColor="#c29b5c" stopOpacity="0"/></radialGradient>
+      </defs>
       <text x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
+      <text className="ft-mark-glow" x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-glow)">Rushan Haque</text>
     </svg>
   </footer>;
 }

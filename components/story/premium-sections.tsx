@@ -21,17 +21,18 @@ const two = (n: number) => String(n).padStart(2, '0');
 /* ------------------------------------------------------------------ */
 export function Clientele() {
   const { clients, projects } = useContent();
-  const list = clients ?? [];
+  // Only clients with a logo are shown; until one is added in the admin, the section stays away.
+  const list = (clients ?? []).filter(c => c.logo);
   // A client with a site in the works carries that site's field as a caption.
   const workOf = (url: string) => { const h = hostOf(url); return h ? projects.find(x => hostOf(x.url) === h) : undefined; };
   const fieldOf = (url: string) => { const p = workOf(url); return p ? storyOf(p).field : ''; };
   // Under the pointer, a client's cell fills with forest and shows the drawing of the site built for them.
   const drawingOf = (url: string) => { const plan = planOf(workOf(url)?.image); return plan ? { '--plan': `url(${plan})` } as React.CSSProperties : undefined; };
   if (!list.length) return null;
-  return <section id="clientele" className="tl-clients" data-chapter="II — Clientele">
+  return <section id="clientele" className="tl-clients" data-chapter="VII — Clientele">
     <div className="tl-clients-head">
-      <span className="tl-kicker">II — CLIENTELE</span>
-      <h2 suppressHydrationWarning>Selected <em>clientele.</em></h2>
+      <span className="tl-kicker">VII — CLIENTELE</span>
+      <h2 suppressHydrationWarning><em>Clientele.</em></h2>
     </div>
     <ul className="tl-clients-grid">{list.map((c, i) => {
       const inner = <>
@@ -53,9 +54,9 @@ export function Clientele() {
 export function Capabilities() {
   const { services } = useContent();
   if (!services.length) return null;
-  return <section id="services" className="tl-caps" data-chapter="VI — Capabilities">
+  return <section id="services" className="tl-caps" data-chapter="V — Capabilities">
     <div className="tl-caps-head">
-      <span className="tl-kicker">VI — CAPABILITIES</span>
+      <span className="tl-kicker">V — CAPABILITIES</span>
       <h2 suppressHydrationWarning>Beyond <em>the build.</em></h2>
       <p>Websites are the core. With partners I trust, I take on the rest and stay your one point of contact.</p>
       <Link href="/connect" className="tl-link">Talk it through <ArrowUpRight size={16}/></Link>
@@ -107,13 +108,13 @@ export function Voices() {
     });
     return () => mm.revert();
   }, [reduced]);
-  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VII — Reviews">
+  return <section id="reviews" className="tl-voices" ref={root} data-chapter="VI — Reviews">
     <ClientMap/>
     <div className="tl-voices-head">
-      <div><span className="tl-kicker">VII — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
+      <div><span className="tl-kicker">VI — REVIEWS</span><h2 suppressHydrationWarning>What <em>they said.</em></h2></div>
       <div className="tl-score"><b data-count>{average}</b><span><span className="tl-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={16} fill="currentColor" strokeWidth={0}/>)}</span>{reviews.length} client reviews</span></div>
     </div>
-    <div className="tl-board" data-native-scroll="">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>
+    <div className="tl-board">{reviews.map((r, i) => { const [x, y, rot] = SPOTS[i % SPOTS.length]; return <figure className="tl-note" key={r.name + i} style={{ '--x': `${x}%`, '--y': `${y}%`, '--r': `${rot}deg` } as React.CSSProperties}>
       <span className="tl-note-pin" aria-hidden="true"/>
       <blockquote>“{withoutEmoji(r.quote)}”</blockquote>
       <figcaption><strong>{r.name}</strong><span>{[r.company, r.location].filter(Boolean).join(' · ')}</span>{r.date && <time>{r.date}</time>}</figcaption>

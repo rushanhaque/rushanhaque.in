@@ -28,6 +28,25 @@
     "number": "23"
   },
   {
+    "slug": "ibm-consultancy",
+    "title": "IBM Consultancy",
+    "category": "Client work",
+    "discipline": "Web",
+    "year": "2026",
+    "description": "Website for a New Delhi immigration and visa consultancy: passports, visas, study and work abroad.",
+    "tags": [
+      "Web Development",
+      "Design"
+    ],
+    "url": "https://www.ibmconsultancy.com",
+    "image": "/images/ibm-consultancy.webp",
+    "status": "Live",
+    "placement": "work",
+    "showDescription": true,
+    "imageBlurred": false,
+    "number": "01"
+  },
+  {
     "slug": "taif",
     "title": "Taif",
     "category": "Client work",

@@ -27,13 +27,13 @@ export default async function Home(){
     <Preloader/><SmoothScroll/>
     <NameHero/>
     <SelectedWork/>
-    <Clientele/>
     <Reach/>
-    <Person n="IV"/>
+    <Person n="III"/>
     <CurrentlyBuilding/>
     <Capabilities/>
     <Voices/>
-    <Encore/>
+    <Clientele/>
+    <Encore n={(content.clients ?? []).some(c => c.logo) ? 'VIII' : 'VII'}/>
     <StoryMotion/>
     <Choreography/>
   </main></ContentProvider>;
