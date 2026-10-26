@@ -104,12 +104,6 @@ export function SelectedWork() {
     <div className="tl-sw-head">
       <span className="tl-kicker">I — RECENT WORKS</span>
       <h2 suppressHydrationWarning>Recent <em>works.</em></h2>
-      {/* The sheet index: every work on one list, the one in the window marked. */}
-      <ol className="tl-sw-index" aria-label="Works in this section">{works.map((w, i) => <li key={w.slug} className={i === active ? 'is-on' : ''} style={{ '--i': i } as React.CSSProperties}>
-        <button type="button" onClick={() => (list.current?.children[i] as HTMLElement | undefined)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
-          <small>{two(i + 1)}</small><span>{w.title}</span><em>{storyOf(w).field}</em>
-        </button>
-      </li>)}</ol>
     </div>
     <div className="tl-sw-body">
       <ol className="tl-sw-list" ref={list}>{works.map((w, i) => {

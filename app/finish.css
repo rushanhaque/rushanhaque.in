@@ -420,21 +420,6 @@ html[data-motion=full] [data-rv] .wk-shot:has(.plan) .wk-frame img,html[data-mot
   .tl-caps .tl-cap-tag{grid-column:5;grid-row:1;justify-self:end;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
 }
 
-/* ---------- I — Recent works: the sheet index beside the title (desktop) ---------- */
-.tl-sw-index{display:none}
-@media (min-width:1024px){
-  .tl-sw-head{grid-template-columns:minmax(0,1fr) minmax(340px,.62fr)}
-  .tl-sw-index{display:grid;align-self:end;margin:0 0 12px;padding:0;list-style:none;border-top:1px solid rgb(7 36 26 / .18)}
-  .tl-sw-index li{border-bottom:1px solid rgb(7 36 26 / .1)}
-  .tl-sw-index button{position:relative;display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:baseline;gap:14px;width:100%;padding:12px 0;color:inherit;text-align:left;opacity:.55;transition:opacity .5s}
-  .tl-sw-index :is(li.is-on,li:hover) button{opacity:1}
-  .tl-sw-index small{font-size:10.5px;letter-spacing:.14em;font-variant-numeric:tabular-nums;transition:color .5s}
-  .tl-sw-index li.is-on small{color:#7a1f3d}
-  .tl-sw-index span{overflow:hidden;font-size:17px;font-weight:500;letter-spacing:-.015em;white-space:nowrap;text-overflow:ellipsis}
-  .tl-sw-index em{font-family:var(--font-serif);font-size:15px;color:#5c1630;white-space:nowrap}
-  .tl-sw-index button::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:#7a1f3d;transform:scaleX(0);transform-origin:0 50%;transition:transform .8s cubic-bezier(.16,1,.3,1)}
-  .tl-sw-index :is(li.is-on,li:hover) button::after{transform:scaleX(1)}
-}
 /* IV — every card on the desk sits on one row when there is room. */
 .tl-now .tl-now-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
 /* ---------- The closing card: the audit sheet beside the form ---------- */
@@ -507,12 +492,8 @@ footer.ft{content-visibility:auto;contain-intrinsic-size:auto 900px}
 /* ---------- I — Recent works (desktop): the window and the first work start right under the title ---------- */
 @media (min-width:1024px){
   .tl-sw{--sw-top:clamp(104px,15vh,150px)}
-  .tl-sw .tl-sw-head{grid-template-columns:minmax(0,1fr) minmax(320px,440px);align-items:end}
+  .tl-sw .tl-sw-head{grid-template-columns:minmax(0,1fr);align-items:end}
   .tl-sw .tl-sw-head h2{align-self:end;margin:0}
-  .tl-sw .tl-sw-index{align-self:end;margin:0 0 .6em}
-  .tl-sw .tl-sw-index button{padding:9px 0}
-  .tl-sw .tl-sw-index span{font-size:15.5px}
-  .tl-sw .tl-sw-index em{font-size:14px}
   /* Pulled up so that, before it sticks, the window sits a short step below the title. */
   .tl-sw .tl-sw-body{margin-top:calc(clamp(36px,4vw,64px) - var(--sw-top))}
   .tl-sw .tl-sw-stage{justify-content:flex-start;padding-top:var(--sw-top)}
