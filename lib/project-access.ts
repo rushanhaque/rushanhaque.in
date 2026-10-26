@@ -4,7 +4,7 @@ type P = z.infer<typeof projectsSchema>[number];
 export type ProjectAccess = 'visit' | 'soon' | 'request';
 export type Placement = NonNullable<P['placement']>;
 // Where a project shows on the site, set in the admin: the Works list, the "Currently building"
-// list, or nowhere. Older entries without a choice show client work and hide experiments.
+// list, the Products shelf on the Works page, or nowhere. Older entries without a choice show client work and hide experiments.
 export function placementOf(p: Pick<P, 'category' | 'placement'>): Placement {
   return p.placement ?? (p.category === 'Client work' ? 'work' : 'hidden');
 }

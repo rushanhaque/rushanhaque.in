@@ -1,4 +1,4 @@
-import { BuildingList, WorksList } from '@/components/works-showcase';
+import { BuildingList, ProductsList, WorksList } from '@/components/works-showcase';
 import { getPublishedContent } from '@/lib/published-content';
 import { placementOf } from '@/lib/project-access';
 import { jsonLd, pageMetadata, siteOrigin } from '@/lib/seo';
@@ -9,7 +9,7 @@ import './works.css';
 export const metadata=pageMetadata('/projects','Website portfolio — client work','Websites designed and built by Rushan Haque for businesses in India and abroad: live client sites, and the ones being built right now.');
 export default async function Projects() {
   const {projects}=await getPublishedContent();
-  const works=projects.filter(p=>placementOf(p)==='work'), building=projects.filter(p=>placementOf(p)==='building');
+  const works=projects.filter(p=>placementOf(p)==='work'), building=projects.filter(p=>placementOf(p)==='building'), products=projects.filter(p=>placementOf(p)==='product');
   const two=(n:number)=>String(n).padStart(2,'0');
   // The works as a list of creative works, each linking to the live site or its page here.
   const list = { '@context': 'https://schema.org', '@type': 'CollectionPage', url: `${siteOrigin}/projects`, name: 'Website portfolio', isPartOf: { '@id': ids.website }, author: { '@id': ids.person },
@@ -25,5 +25,6 @@ export default async function Projects() {
     </header>
     <WorksList works={works}/>
     <BuildingList items={building}/>
+    <ProductsList items={products}/>
   </main>;
 }

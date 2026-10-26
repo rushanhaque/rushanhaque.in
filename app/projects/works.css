@@ -183,3 +183,28 @@ html[data-motion=full] .wb-head[data-rv=in] p{transition:opacity .9s var(--wk-e)
 .wk-go{margin-top:22px}
 .wk-intro-foot{grid-template-columns:minmax(0,1fr)}
 .wk-intro-foot p{max-width:40ch}
+
+/* ---------- Products: a shelf of cards, picture first ---------- */
+.pr{padding-block:clamp(80px,10vw,150px)}
+.pr-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.7fr);align-items:end;gap:18px 60px}
+.pr-head .eyebrow{grid-column:1/-1}
+.pr-head p{max-width:40ch;font-size:16px;line-height:1.6;opacity:.72}
+.pr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(16px,2vw,28px);margin:clamp(36px,4vw,56px) 0 0;padding:0;list-style:none}
+.pr-card{display:grid;height:100%;background:rgb(255 255 255 / .38);box-shadow:inset 0 0 0 1px rgb(7 36 26 / .16);transition:background .5s,box-shadow .5s}
+.pr-card:hover{background:rgb(255 255 255 / .62);box-shadow:inset 0 0 0 1px rgb(7 36 26 / .3)}
+.pr-media{display:block;margin:8px 8px 0;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:#e9e6dc}
+.pr-media img{width:100%;height:100%;object-fit:cover;transition:scale 1.2s cubic-bezier(.16,1,.3,1)}
+.pr-card:hover .pr-media img{scale:1.03}
+.pr-blank{display:grid;place-items:center;height:100%;font-family:var(--font-serif);font-style:italic;font-size:clamp(70px,8vw,120px);color:rgb(7 36 26 / .16);background:repeating-linear-gradient(135deg,rgb(7 36 26 / .06) 0 1px,transparent 1px 13px)}
+.pr-body{display:grid;gap:6px;align-content:start;padding:16px 18px 20px}
+.pr-kind{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.pr-body strong{font-size:clamp(22px,1.9vw,28px);font-weight:450;letter-spacing:-.035em;line-height:1.1}
+.pr-desc{font-size:14.5px;line-height:1.5;opacity:.72;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pr-go{display:inline-flex;align-items:center;gap:6px;margin-top:6px;min-height:32px;font-size:14px}
+.pr-go svg{transition:rotate .5s cubic-bezier(.16,1,.3,1)}
+.pr-card:hover .pr-go svg{rotate:45deg}
+.pr-empty{display:flex;align-items:center;gap:clamp(18px,3vw,36px);margin-top:clamp(36px,4vw,56px);padding:clamp(24px,3vw,40px);border:1px dashed rgb(7 36 26 / .3)}
+.pr-empty span{font-family:var(--font-serif);font-style:italic;font-size:clamp(56px,6vw,96px);line-height:1;color:rgb(7 36 26 / .18)}
+.pr-empty p{margin:0;font-size:clamp(18px,1.6vw,22px);opacity:.75}
+@media (max-width:899px){.pr-head{grid-template-columns:1fr}}
+.pr-head>:is(h2,h1,div,span)[id="pr-title"],.pr-head #pr-title{font-size:clamp(46px,6vw,104px);font-weight:450;letter-spacing:-.05em;line-height:.98}

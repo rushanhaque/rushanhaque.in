@@ -173,7 +173,7 @@ export function ContentStudio() {
 
   const item = list[index] as Record<string, unknown> | undefined;
   const titleOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? x.title : tab === 'clients' ? x.name : tab === 'blogs' ? x.originalTitle : tab === 'reviews' ? x.name : `${x.value} · ${x.label}`; };
-  const subOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? `${({ work: 'Works', building: 'Currently building', hidden: 'Hidden' })[placementOf(x as unknown as Project)]} · ${x.year}` : tab === 'clients' ? (x.logo ? 'Logo added' : 'Name only') : tab === 'blogs' ? `${x.category} · ${x.year}` : tab === 'reviews' ? [x.company, x.date].filter(Boolean).join(' · ') : ''; };
+  const subOf = (it: unknown) => { const x = it as Record<string, string>; return tab === 'projects' ? `${({ work: 'Works', building: 'Currently building', product: 'Products', hidden: 'Hidden' })[placementOf(x as unknown as Project)]} · ${x.year}` : tab === 'clients' ? (x.logo ? 'Logo added' : 'Name only') : tab === 'blogs' ? `${x.category} · ${x.year}` : tab === 'reviews' ? [x.company, x.date].filter(Boolean).join(' · ') : ''; };
 
   return <div className="ad">
     <div className="ad-connection">
@@ -214,7 +214,7 @@ export function ContentStudio() {
         {tab === 'projects' && (() => { const p = item as unknown as Project; return <div className="ad-grid">
           <Field label="Title"><input value={p.title} onChange={e => update<Project>({ title: e.target.value })} maxLength={120}/></Field>
           <Field label="Collection"><select value={p.category} onChange={e => update<Project>({ category: e.target.value as Project['category'] })}><option>Client work</option><option>Experiments</option></select></Field>
-          <Field label="Show on the site as" hint="Works, Currently building, or not at all"><select value={placementOf(p)} onChange={e => update<Project>({ placement: e.target.value as Placement })}><option value="work">Works</option><option value="building">Currently building</option><option value="hidden">Hidden</option></select></Field>
+          <Field label="Show on the site as" hint="Works, Currently building, Products, or not at all"><select value={placementOf(p)} onChange={e => update<Project>({ placement: e.target.value as Placement })}><option value="work">Works</option><option value="building">Currently building</option><option value="product">Products</option><option value="hidden">Hidden</option></select></Field>
           <Field label="Discipline"><input value={p.discipline} onChange={e => update<Project>({ discipline: e.target.value })}/></Field>
           <Field label="Year"><input value={p.year} inputMode="numeric" maxLength={4} onChange={e => update<Project>({ year: e.target.value })}/></Field>
           <Field label="Label" hint="Shown on the card. Pick one or write your own">

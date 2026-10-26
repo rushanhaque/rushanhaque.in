@@ -101,3 +101,33 @@ export function BuildingList({ items }: { items: Project[] }) {
     </div>
   </section>;
 }
+
+// Products: things made to sell or use on their own, added from the admin with
+// "Show on the site as: Products". Until the first one is in, the shelf says so.
+export function ProductsList({ items }: { items: Project[] }) {
+  return <section id="products" className="pr container" aria-labelledby="pr-title">
+    <div className="pr-head" data-reveal>
+      <span className="eyebrow">PRODUCTS{items.length ? ` · ${two(items.length)}` : ''}</span>
+      <Split id="pr-title" text="Products, *made to use.*"/>
+      <p>Tools and products of my own, built with the same care as client work.</p>
+    </div>
+    {items.length ? <ul className="pr-grid">
+      {items.map((p, i) => {
+        const visit = !!p.url && projectAccess(p) === 'visit';
+        return <li key={p.slug} data-reveal>
+          <Link {...projectLink(p)} className="pr-card">
+            <span className="pr-media">{p.image
+              ? <img src={p.image} {...responsive(p.image, '(max-width: 899px) 92vw, 30vw')} alt={`${p.title}`} width="1600" height="1000" loading="lazy" decoding="async"/>
+              : <span className="pr-blank" aria-hidden="true">{two(i + 1)}</span>}</span>
+            <span className="pr-body">
+              <span className="pr-kind">{two(i + 1)} · {p.discipline}</span>
+              <strong>{p.title}</strong>
+              <span className="pr-desc">{p.description}</span>
+              <span className="pr-go">{visit ? `Visit ${hostOf(p.url)}` : 'About the product'}<ArrowUpRight size={15}/></span>
+            </span>
+          </Link>
+        </li>;
+      })}
+    </ul> : <div className="pr-empty" data-reveal><span aria-hidden="true">01</span><p>The first products are on the way.</p></div>}
+  </section>;
+}
