@@ -195,7 +195,7 @@ export function Reach() {
           },
         });
         // 01 · home: Uttar Pradesh lights, the neighbouring cities join by their routes.
-        tl.to(q('.rm-state.is-core'), { fill: '#4f2234', duration: .6 }, .1)
+        tl.to(q('.rm-state.is-core'), { fill: '#3a5a4e', duration: .6 }, .1)
           .set(q('.rm-route.s0'), { opacity: 1 }, .3)
           .to(q('.rm-route.s0'), { strokeDashoffset: 0, duration: .9, stagger: .06, ease: 'power1.inOut' }, .3)
           .to(q('.rm-pin.s0'), { opacity: 1, duration: .3, stagger: .06 }, .7)
@@ -204,7 +204,7 @@ export function Reach() {
           // 02 · India: the camera pulls back, the states fill, routes reach the rest.
           .to(svgs, { attr: { viewBox: views[1] }, duration: 2.2, ease: 'power2.inOut' }, 1.9)
           .to(q('.rm-label.s0, .rm-label.is-home'), { opacity: 0, duration: .4 }, 2)
-          .to(q('.rm-state.is-strong'), { fill: '#33262b', duration: .6 }, 2.6)
+          .to(q('.rm-state.is-strong'), { fill: '#1d3d31', duration: .6 }, 2.6)
           .to(q('.rm-state.is-rest'), { fill: '#0f3829', duration: .8, stagger: .01 }, 2.8)
           .set(q('.rm-route.s1'), { opacity: 1 }, 3)
           .to(q('.rm-route.s1'), { strokeDashoffset: 0, duration: 1, stagger: .04, ease: 'power1.inOut' }, 3)

@@ -7,7 +7,7 @@ import { join } from 'node:path';
 // The fonts never change, so they are read once.
 const fonts = Promise.all(['normal', 'italic'].map(style => readFile(join(process.cwd(), `assets/og/instrument-serif-latin-400-${style}.woff`))));
 
-const ink = '#07241a', cream = '#ffffff', brass = '#d98ba0';
+const ink = '#07241a', cream = '#ffffff', brass = '#ffffff';
 // Titles in a script the serif has no letters for (the Hindi guides) fall back to the name.
 const latin = (s: string) => /^[\u0000-ɏ‐-›₹ ]*$/.test(s);
 

@@ -64,7 +64,7 @@ export function SiteFooter() {
     <svg className="ft-mark" ref={mark} viewBox="0 0 1000 152" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="ft-mark-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" stopOpacity=".92"/><stop offset=".55" stopColor="#ffffff" stopOpacity=".55"/><stop offset="1" stopColor="#ffffff" stopOpacity=".08"/></linearGradient>
-        <radialGradient id="ft-mark-glow" ref={glow} gradientUnits="userSpaceOnUse" cx="500" cy="76" r="190"><stop offset="0" stopColor="#fde8ee"/><stop offset=".45" stopColor="#d98ba0"/><stop offset="1" stopColor="#c9768d" stopOpacity="0"/></radialGradient>
+        <radialGradient id="ft-mark-glow" ref={glow} gradientUnits="userSpaceOnUse" cx="500" cy="76" r="190"><stop offset="0" stopColor="#ffffff"/><stop offset=".45" stopColor="#ffffff"/><stop offset="1" stopColor="#dfe5e1" stopOpacity="0"/></radialGradient>
       </defs>
       <text x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-ink)">Rushan Haque</text>
       <text className="ft-mark-glow" x="0" y="118" textLength="1000" lengthAdjust="spacing" fill="url(#ft-mark-glow)">Rushan Haque</text>

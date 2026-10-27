@@ -89,7 +89,7 @@ html[data-motion=full] .page-intro h1[data-split]{animation:none}
    crosses them now and then, word by word. Darker on paper, lighter on forest.
    -------------------------------------------------------------------------- */
 :root{--brass-lo:#4e1027;--brass-mid:#7a1f3d;--brass-hi:#b0476a}
-:is(.tl-wall,.wb,.ft,.rvp-card,.tl-close-card,.tl-reach,.tl-caps,.sx-cta,.gh-panel-card){--brass-lo:#c9768d;--brass-mid:#e8adbd;--brass-hi:#fde8ee}
+:is(.tl-wall,.wb,.ft,.rvp-card,.tl-close-card,.tl-reach,.tl-caps,.sx-cta,.gh-panel-card){--brass-lo:#dfe5e1;--brass-mid:#ffffff;--brass-hi:#ffffff}
 :is(h1,h2) em,.tl-mf-w.is-em em{
   background:linear-gradient(105deg,var(--brass-lo) 0%,var(--brass-mid) 36%,var(--brass-hi) 47%,var(--brass-mid) 58%,var(--brass-lo) 100%) 100% 0/300% 100% no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
