@@ -5,7 +5,7 @@
     "category": "Client work",
     "discipline": "Web application",
     "year": "2026",
-    "description": "Advanced inventory management software with catalogue, pro formas and quotation generation.",
+    "description": "An inventory workspace for product businesses: a searchable product library by category, shareable catalogues, and quotations and pro forma invoices generated in a few clicks, with every change logged.",
     "tags": [
       "Inventory",
       "Catalogues",
@@ -39,6 +39,47 @@
         {
           "title": "Track the work",
           "text": "The dashboard shows totals at a glance and an activity log of everything that changed."
+        }
+      ],
+      "stack": []
+    }
+  },
+  {
+    "slug": "mailwright",
+    "title": "Mailwright",
+    "category": "Client work",
+    "discipline": "Web application",
+    "year": "2026",
+    "description": "A mail-merge and bulk email sender: write once with personal fields, import contacts, and send a tailored email to every recipient, with saved templates, subject suggestions and tone-aware rephrasing.",
+    "tags": [
+      "Mail merge",
+      "Bulk email",
+      "Templates",
+      "Campaigns"
+    ],
+    "url": "",
+    "image": "/images/mailwright.webp",
+    "status": "Live",
+    "placement": "product",
+    "number": "26",
+    "details": {
+      "does": [
+        "Sends one email to many people, each personalised with their own name, company and details.",
+        "Keeps saved templates and contact lists ready, so a send takes minutes rather than an afternoon.",
+        "Suggests subject lines and rephrases the message in the tone you choose, from professional to friendly."
+      ],
+      "steps": [
+        {
+          "title": "Write",
+          "text": "Start from a saved template or a blank page, with fields like [name] and [company name] dropped into the subject and message."
+        },
+        {
+          "title": "Add contacts",
+          "text": "Import a contact list and every field maps onto the placeholders in the email."
+        },
+        {
+          "title": "Send",
+          "text": "Send in one go with Quick Send, or plan a full campaign; each recipient gets their own version."
         }
       ],
       "stack": []
