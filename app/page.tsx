@@ -10,6 +10,8 @@ import { NameHero } from '@/components/story/name-hero';
 import { SelectedWork, CurrentlyBuilding, Encore } from '@/components/story/narrative';
 import { Clientele, Capabilities, Voices } from '@/components/story/premium-sections';
 import { StoryMotion } from '@/components/story/story-motion';
+import { ProductsList } from '@/components/works-showcase';
+import { placementOf } from '@/lib/project-access';
 import './two-languages.css';
 import './home-polish.css';
 import './narrative.css';
@@ -30,6 +32,8 @@ export default async function Home(){
     <Reach/>
     <Person n="III"/>
     <CurrentlyBuilding/>
+    {/* The products, as on the Works page. */}
+    {content.projects.some(p => placementOf(p) === 'product') && <ProductsList items={content.projects.filter(p => placementOf(p) === 'product')}/>}
     <Capabilities/>
     <Voices/>
     <Clientele/>
