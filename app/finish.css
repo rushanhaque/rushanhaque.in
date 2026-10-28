@@ -542,3 +542,18 @@ html{scrollbar-color:rgb(7 36 26 / .4) transparent}
 /* On the green sections the only partner colour is white: selection and focus follow. */
 :is(.tl-reach,.tl-caps,.tl-close-card,.ft,.wb,.sx-cta,.gh-panel-card,.rvp-card,.cn-card.is-primary,.m-dock) ::selection{background:#fff;color:#07241a}
 :is(.tl-reach,.tl-caps,.tl-close-card,.ft,.wb,.sx-cta,.gh-panel-card,.rvp-card,.m-dock) :focus-visible{outline-color:#fff}
+
+/* ---------- Currently building (/projects) and the homepage desk: previews at the screenshots' own 2:1 shape ---------- */
+.wb .wb-card{position:relative;border-radius:8px;translate:none!important}
+.wb .wb-card .wb-draft{height:auto;border-radius:4px}
+.wb .wb-card .wb-draft img,.tl-now .tl-now-card .wb-draft img{flex:none;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;object-position:top}
+.tl-now .tl-now-card .wb-draft,.tl-now .tl-now-slot{aspect-ratio:auto}
+.tl-now .tl-now-slot{aspect-ratio:2/1.12}
+.wb .wb-slot{height:auto;aspect-ratio:2/1.12;border-radius:4px}
+.wb .wb-card.is-open{border-radius:8px}
+/* The title's link covers the card; the buttons sit above it. */
+.wb .wb-hit{color:inherit;text-decoration:none}
+.wb .wb-hit::after{content:'';position:absolute;inset:0;z-index:0;border-radius:inherit}
+.wb .wb-actions{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:6px}
+.wb .wb-actions .wb-go{margin-top:0;padding-top:0}
+.wb .wb-quote{height:40px;padding:0 16px;font-size:13.5px}

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MessageCircle } from 'lucide-react';
 import Link from '@/components/site-link';
 import { planOf, responsive } from '@/lib/images';
 import { Plan } from '@/components/plan';
@@ -6,6 +6,10 @@ import type { Project } from '@/lib/content';
 import { projectAccess, projectLink } from '@/lib/project-access';
 import { hostOf, storyOf } from '@/lib/work-stories';
 import { Split } from '@/components/split';
+import { phone } from '@/lib/content';
+
+// A WhatsApp chat that opens with the message already written, naming the project seen.
+export const quoteLink = (title: string) => `${phone.whatsapp}?text=${encodeURIComponent(`Hi Rushan, I saw ${title} on your portfolio and I would like a quote for a website like it.`)}`;
 
 const two = (n: number) => String(n).padStart(2, '0');
 
@@ -77,17 +81,22 @@ export function BuildingList({ items }: { items: Project[] }) {
         <p>Websites on the desk right now, in design or in code. Each one joins the works above on the day it launches.</p>
       </div>
       <ul className="wb-grid">
-        {items.map(p => <li key={p.slug} data-reveal>
-          <Link {...(p.url ? { href: p.url, target: '_blank', rel: 'noopener noreferrer' } : projectLink(p))} className="wb-card spot">
+        {items.map(p => {
+          const open = p.url ? { href: p.url, target: '_blank', rel: 'noopener noreferrer' } : projectLink(p);
+          // The whole card opens the demo (the title's link covers it); the two buttons sit above that.
+          return <li key={p.slug} data-reveal><div className="wb-card spot">
             <DraftWindow project={p}/>
             <span className="wb-body">
               <span className="wb-status"><i/>{p.status}<small>{p.year}</small></span>
-              <strong>{p.title}</strong>
+              <strong><Link {...open} className="wb-hit">{p.title}{p.url && <span className="sr-only"> (opens in a new tab)</span>}</Link></strong>
               <span className="wb-desc">{p.description}</span>
-              <span className={`wb-go ${p.url ? 'is-demo' : ''}`}>{p.url ? 'View demo' : 'About the project'}<ArrowUpRight size={15}/>{p.url && <span className="sr-only"> (opens in a new tab)</span>}</span>
+              <span className="wb-actions">
+                <Link {...open} className={`wb-go ${p.url ? 'is-demo' : ''}`} tabIndex={-1} aria-hidden="true">{p.url ? 'View demo' : 'About the project'}<ArrowUpRight size={15}/></Link>
+                <a className="ft-btn wb-quote" href={quoteLink(p.title)} target="_blank" rel="noopener noreferrer"><MessageCircle size={15}/>Get a quote<span className="sr-only"> on WhatsApp (opens in a new tab)</span></a>
+              </span>
             </span>
-          </Link>
-        </li>)}
+          </div></li>;
+        })}
         <li data-reveal><Link href="/connect" className="wb-card is-open spot">
           <span className="wb-slot" aria-hidden="true"><span>{two(items.length + 1)}</span></span>
           <span className="wb-body">
