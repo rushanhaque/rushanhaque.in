@@ -1,5 +1,50 @@
 [
   {
+    "slug": "inventory-software",
+    "title": "Inventory management software",
+    "category": "Client work",
+    "discipline": "Web application",
+    "year": "2026",
+    "description": "Advanced inventory management software with catalogue, pro formas and quotation generation.",
+    "tags": [
+      "Inventory",
+      "Catalogues",
+      "Quotations",
+      "Pro formas"
+    ],
+    "url": "",
+    "image": "/images/inventory-software.webp",
+    "status": "Live",
+    "placement": "product",
+    "number": "25",
+    "details": {
+      "does": [
+        "Keeps the whole product library in one place, organised by category, with prices and images.",
+        "Turns products into catalogues, quotations and pro forma invoices in a few clicks.",
+        "Logs every change, so the team can see who created, edited or deleted what, and when."
+      ],
+      "steps": [
+        {
+          "title": "Build the library",
+          "text": "Products are added with codes, categories, prices and photos, and found instantly with search."
+        },
+        {
+          "title": "Make a catalogue",
+          "text": "Choose products to share as a catalogue and see how often it is viewed."
+        },
+        {
+          "title": "Quote and invoice",
+          "text": "Generate quotations and pro forma invoices straight from the library, ready to send."
+        },
+        {
+          "title": "Track the work",
+          "text": "The dashboard shows totals at a glance and an activity log of everything that changed."
+        }
+      ],
+      "stack": []
+    }
+  },
+  {
     "slug": "svg-express",
     "title": "SVG express",
     "category": "Client work",
