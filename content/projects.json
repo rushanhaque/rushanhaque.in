@@ -94,7 +94,7 @@
     "description": "Online platform for SVG express",
     "tags": [],
     "url": "https://svg-express-demo.vercel.app/",
-    "image": "/images/svg-express.webp",
+    "image": "/images/svg-express-v2.webp",
     "status": "Coming soon",
     "placement": "building",
     "number": "24"
@@ -108,7 +108,7 @@
     "description": "Website for an ethnic wear brand",
     "tags": [],
     "url": "https://filigrana-seven.vercel.app/",
-    "image": "/images/filigrana.webp",
+    "image": "/images/filigrana-v2.webp",
     "status": "Coming soon",
     "placement": "building",
     "number": "23"
@@ -125,7 +125,7 @@
       "Design"
     ],
     "url": "https://www.ibmconsultancy.com",
-    "image": "/images/ibm-consultancy.webp",
+    "image": "/images/ibm-consultancy-v2.webp",
     "status": "Live",
     "placement": "work",
     "showDescription": true,
