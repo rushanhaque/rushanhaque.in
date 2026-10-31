@@ -14,7 +14,7 @@
 .hero__name { display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: 0.22em; margin: 0; white-space: nowrap; font-family: var(--serif); font-size: clamp(52px, 12.6vw, 230px); font-weight: 500; line-height: 0.95; letter-spacing: -0.055em; perspective: 900px; transform-style: preserve-3d; pointer-events: none; }
 .hero__line { display: block; overflow: hidden; padding: 0.02em 0.06em 0.1em; margin: -0.02em -0.06em -0.1em; }
 .hero__txt { display: block; }
-.hero__name em { font-style: italic; font-weight: 400; color: var(--brass-2); letter-spacing: -0.01em; padding-right: 0.04em; }
+.hero__name em { font-style: normal; font-weight: inherit; color: var(--brass-2); letter-spacing: inherit; }
 .hero__cue { position: absolute; left: 50%; bottom: clamp(24px, 5vh, 48px); width: 1px; height: 56px; background: rgba(255, 255, 255, 0.2); overflow: hidden; }
 .hero__cue i { position: absolute; left: 0; top: 0; width: 1px; height: 40%; background: var(--brass-2); animation: drip 2.2s var(--ease-silk) infinite; }
 @keyframes drip { from { transform: translateY(-100%); } to { transform: translateY(260%); } }
