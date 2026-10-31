@@ -1,0 +1,13 @@
+{
+  "name": "Rushan Haque — Website Developer & Designer",
+  "short_name": "Rushan Haque",
+  "description": "Website developer, designer and writer in Moradabad, India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#120a0c",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/favicon-48.png", "sizes": "48x48", "type": "image/png" }
+  ]
+}

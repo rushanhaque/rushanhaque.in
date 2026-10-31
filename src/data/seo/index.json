@@ -1,0 +1,232 @@
+[
+ {
+  "slug": "ecommerce-website-development",
+  "title": "E-commerce website development",
+  "kind": "service",
+  "description": "Custom e-commerce website development for Indian businesses — product pages, cart and checkout built for mobile, patchy connections and UPI-first payments."
+ },
+ {
+  "slug": "generative-engine-optimization",
+  "title": "Generative Engine Optimization",
+  "kind": "service",
+  "description": "GEO services — getting your business cited by ChatGPT, Perplexity, Gemini and Google AI Overviews. Structured data, answer-shaped content and AI crawler access."
+ },
+ {
+  "slug": "landing-page-design",
+  "title": "Landing page design",
+  "kind": "service",
+  "description": "High-converting landing page design and development for paid campaigns — one page, one action, built to make the traffic you buy pay for itself."
+ },
+ {
+  "slug": "seo-services",
+  "title": "SEO services",
+  "kind": "service",
+  "description": "SEO services for businesses in India — technical SEO, local SEO and on-page work done by the person who builds the site, not sold as a monthly retainer for reports."
+ },
+ {
+  "slug": "web-application-development",
+  "title": "Web application development",
+  "kind": "service",
+  "description": "Custom web application development — internal tools, dashboards and product front-ends built for businesses whose work does not fit off-the-shelf software."
+ },
+ {
+  "slug": "website-design-development",
+  "title": "Website design and development",
+  "kind": "service",
+  "description": "Custom website design and development for businesses across India. Built from scratch, not from a template — fast, mobile-first and built to rank."
+ },
+ {
+  "slug": "website-designer-in-aligarh",
+  "title": "Website designer in Aligarh",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-amroha",
+  "title": "Website designer in Amroha",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-bareilly",
+  "title": "Website designer in Bareilly",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-bijnor",
+  "title": "Website designer in Bijnor",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-delhi-ncr",
+  "title": "Website designer in Delhi NCR",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-kanpur",
+  "title": "Website designer in Kanpur",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-lucknow",
+  "title": "Website designer in Lucknow",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-meerut",
+  "title": "Website designer in Meerut",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-moradabad",
+  "title": "Website designer in Moradabad",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-rampur",
+  "title": "Website designer in Rampur",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-sambhal",
+  "title": "Website designer in Sambhal",
+  "kind": "area"
+ },
+ {
+  "slug": "website-redesign",
+  "title": "Website redesign",
+  "kind": "service",
+  "description": "Website redesign that starts by diagnosing what is actually costing you — speed, mobile layout, structure or search visibility — instead of restyling and hoping."
+ },
+ {
+  "slug": "website-speed-optimization",
+  "title": "Website speed optimization",
+  "kind": "service",
+  "description": "Website speed optimization and Core Web Vitals fixes, measured on real mid-range phones over mobile data — how your visitors actually load the site."
+ },
+ {
+  "slug": "hire-website-developer",
+  "title": "Hire a website developer, wherever you are",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-developer-in-moradabad",
+  "title": "Website developer in Moradabad",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-maker-in-moradabad",
+  "title": "Website maker in Moradabad",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-designer-in-india",
+  "title": "Freelance website designer in India",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-cost-in-moradabad",
+  "title": "What does a website cost in Moradabad?",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-for-exporters-moradabad",
+  "title": "Websites for Moradabad exporters and manufacturers",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-builder-vs-web-designer",
+  "title": "Website builder or web designer: which do you need?",
+  "kind": "guide"
+ },
+ {
+  "slug": "how-to-get-a-website-made",
+  "title": "How to get a website made for your business",
+  "kind": "guide"
+ },
+ {
+  "slug": "website-kaise-banwaye",
+  "title": "बिज़नेस के लिए वेबसाइट कैसे बनवाएं",
+  "kind": "guide",
+  "lang": "hi"
+ },
+ {
+  "slug": "website-banwaye-moradabad",
+  "title": "मुरादाबाद में वेबसाइट बनवाएं",
+  "kind": "guide",
+  "lang": "hi"
+ },
+ {
+  "slug": "website-for-doctors-clinics",
+  "title": "Websites for doctors and clinics",
+  "kind": "industry"
+ },
+ {
+  "slug": "website-for-schools-coaching",
+  "title": "Websites for schools and coaching centres",
+  "kind": "industry"
+ },
+ {
+  "slug": "website-for-hotels-restaurants",
+  "title": "Websites for hotels and restaurants",
+  "kind": "industry"
+ },
+ {
+  "slug": "website-for-real-estate",
+  "title": "Websites for real estate and builders",
+  "kind": "industry"
+ },
+ {
+  "slug": "website-designer-in-kashipur",
+  "title": "Website designer in Kashipur",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-rudrapur",
+  "title": "Website designer in Rudrapur",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-haldwani",
+  "title": "Website designer in Haldwani",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-dehradun",
+  "title": "Website designer in Dehradun",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-haridwar",
+  "title": "Website designer in Haridwar",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-saharanpur",
+  "title": "Website designer in Saharanpur",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-muzaffarnagar",
+  "title": "Website designer in Muzaffarnagar",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-agra",
+  "title": "Website designer in Agra",
+  "kind": "area"
+ },
+ {
+  "slug": "website-designer-in-noida",
+  "title": "Website designer in Noida",
+  "kind": "area"
+ },
+ {
+  "slug": "website-for-small-business",
+  "title": "Websites for small businesses",
+  "kind": "industry"
+ },
+ {
+  "slug": "website-for-professionals",
+  "title": "Websites for CAs, lawyers and consultants",
+  "kind": "industry"
+ }
+]

@@ -1,5 +1,0 @@
-/* Perspective: a continuous editorial journey, driven by native scroll. */
-body:has(.perspective-home) .site-header{position:absolute;z-index:30;top:0;left:50%;transform:translateX(-50%);height:105px;border-bottom:0;color:var(--forest)}
-@media(max-width:799px){body:has(.perspective-home) .site-header{height:88px}}
-
-/* Each chapter has its own material: elastic type, paper, then a working drawing. */
