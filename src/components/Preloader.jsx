@@ -2,16 +2,22 @@ import { useLayoutEffect, useRef } from 'react'
 import { gsap, reduced } from '../lib/gsap'
 import { stopScroll, startScroll } from '../lib/lenis'
 import { low, tier } from '../lib/device'
+import { works, building } from '../data/content'
+import { small } from '../lib/img'
+
+// the client sites that flip through the name, like the panels in a film studio's opening
+const REEL = [...works, ...building].map((w) => small(w.image))
 
 const pad = (n) => String(Math.round(n)).padStart(3, '0')
 
 /**
- * "Light." Rushan means light, so the site opens on it. In the dark, one point of brass light
- * (already painted by the HTML before any script runs, see #boot in scripts/prerender.mjs).
- * While the site loads, the name's meaning comes up in three scripts (Urdu, Hindi, English),
- * specks of dust drift in to the light, and a line of light spreads from it as the gauge. At
- * 100 the line flares and tears open like a horizon: the dark parts in two, the dust bursts out
- * across the page, and the hero's name gathers from its dots.
+ * The name, three ways. In the dark, one point of brass light (already painted by the HTML
+ * before any script runs, see #boot in scripts/prerender.mjs). While the site loads, the name
+ * rises in Hindi, then Urdu; then in English the way a film studio's opening titles do it: the
+ * client sites flip at speed inside the letters while the name pulls back and its letters close
+ * in, slowing until it locks in brass and a light runs across it. Dust drifts in to the light
+ * and a line of light spreads as the gauge; at 100 the line tears open like a horizon and the
+ * hero's name gathers from its dots.
  *
  * First visit to the home page only; a tap or a key skips ahead. Every other arrival, reduced
  * motion and entry-level phones go straight to the page.
@@ -100,7 +106,9 @@ export default function Preloader({ onReady, onFinish }) {
 
     // ---- the gauge: real progress (fonts in), never shorter than the words need ----
     const fonts = document.fonts?.ready ?? Promise.resolve()
-    const ready = Promise.race([Promise.all([fonts, new Promise((r) => setTimeout(r, 1250))]), new Promise((r) => setTimeout(r, 4000))])
+    const ready = Promise.race([Promise.all([fonts, new Promise((r) => setTimeout(r, 2150))]), new Promise((r) => setTimeout(r, 4500))])
+    // the reel's frames load at once, so the montage never flips to an empty frame
+    const frames = REEL.map((src) => { const im = new Image(); im.decoding = 'async'; im.src = src; return im })
     const show = () => {
       counter.textContent = pad(state.p * 100)
       el.style.setProperty('--p', state.p.toFixed(4))
@@ -109,15 +117,32 @@ export default function Preloader({ onReady, onFinish }) {
 
     const intro = gsap.timeline()
       .fromTo(q('.pl__corner'), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.06, ease: 'expo' }, 0.1)
-      .fromTo(q('.pl__def'), { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'expo' }, 0.25)
-      .to(state, { p: 0.88, duration: 1.3, ease: 'power1.inOut', onUpdate: show }, 0.05)
-    // the meaning in three scripts: Urdu, Hindi, then English
-    const words = q('.pl__word')
-    words.forEach((w, i) => {
-      const at = 0.12 + i * 0.42
-      intro.fromTo(w, { yPercent: 70, autoAlpha: 0, filter: blur(8) }, { yPercent: 0, autoAlpha: 1, filter: blur(0), duration: 0.55, ease: 'expo' }, at)
-      if (i < words.length - 1) intro.to(w, { yPercent: -60, autoAlpha: 0, filter: blur(6), duration: 0.38, ease: 'power2.in' }, at + 0.36)
+      .to(state, { p: 0.88, duration: 2.05, ease: 'power1.inOut', onUpdate: show }, 0.05)
+    // the name in Hindi, then Urdu, each rising and leaving in turn
+    q('.pl__word.is-hi, .pl__word.is-ur').forEach((w, i) => {
+      const at = 0.1 + i * 0.36
+      intro.fromTo(w, { yPercent: 70, autoAlpha: 0, filter: blur(8) }, { yPercent: 0, autoAlpha: 1, filter: blur(0), duration: 0.5, ease: 'expo' }, at)
+      intro.to(w, { yPercent: -60, autoAlpha: 0, filter: blur(6), duration: 0.28, ease: 'power2.in' }, at + 0.28)
     })
+    // then the name in English, the opening-titles way: the work flips through the letters
+    // while the name pulls back from close up and its letters close in, slowing until it locks
+    // in brass and a light runs across it
+    const reel = q('.pl__word.is-reel')[0]
+    const gold = q('.pl__word.is-gold')[0]
+    const flip = { i: 0 }
+    let shown = -1
+    const showFrame = () => {
+      const k = Math.floor(flip.i) % frames.length
+      if (k !== shown) { shown = k; reel.style.backgroundImage = `url("${frames[k].src}")` }
+    }
+    intro
+      .set(reel, { autoAlpha: 1 }, 0.95)
+      .fromTo(reel, { scale: 1.5, letterSpacing: '0.24em' }, { scale: 1, letterSpacing: '-0.035em', duration: 1.15, ease: 'expo.out' }, 0.95)
+      .fromTo(flip, { i: 0 }, { i: frames.length * 2 + 0.5, duration: 1.05, ease: 'power2.out', onUpdate: showFrame }, 0.95)
+      .set(gold, { visibility: 'visible', opacity: 0 }, 1.85)
+      .to(gold, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 1.85)
+      .to(reel, { autoAlpha: 0, duration: 0.35 }, 1.9)
+      .fromTo(gold, { '--sheen': '-60%' }, { '--sheen': '160%', duration: 0.75, ease: 'power2.inOut' }, 1.93)
 
     let revealed = false
     const reveal = () => {
@@ -126,7 +151,7 @@ export default function Preloader({ onReady, onFinish }) {
       intro.kill()
       gsap.timeline({ defaults: { ease: 'expo' }, onComplete: finish })
         .to(state, { p: 1, duration: 0.3, ease: 'power2.out', onUpdate: show }, 0)
-        .to(q('.pl__corner, .pl__def'), { autoAlpha: 0, duration: 0.35, ease: 'power2.in' }, 0.15)
+        .to(q('.pl__corner'), { autoAlpha: 0, duration: 0.35, ease: 'power2.in' }, 0.15)
         .to(q('.pl__word'), { autoAlpha: 0, scale: 1.06, filter: blur(10), duration: 0.45, ease: 'power2.in' }, 0.2)
         // the line flares, and the light swells behind it
         .to(q('.pl__line'), { scaleY: 3, duration: 0.25, ease: 'power2.out' }, 0.3)
@@ -170,11 +195,11 @@ export default function Preloader({ onReady, onFinish }) {
       <canvas className="pl__dust" ref={dust} />
       <i className="pl__line" />
       <div className="pl__words">
-        <span className="pl__word is-ur" lang="ur" dir="rtl">روشن</span>
-        <span className="pl__word is-hi" lang="hi">रौशन</span>
-        <span className="pl__word is-en">light.</span>
+        <span className="pl__word is-hi" lang="hi">रुशान</span>
+        <span className="pl__word is-ur" lang="ur" dir="rtl">رشان</span>
+        <span className="pl__word is-reel">Rushan</span>
+        <span className="pl__word is-gold">Rushan</span>
       </div>
-      <p className="pl__def">Rushan, from the Persian <em>rōshan</em>: bright, full of light.</p>
       <span className="pl__corner is-tl">Rushan Haque</span>
       <span className="pl__corner is-tr pl__count"><b>000</b>%</span>
       <span className="pl__corner is-bl">Moradabad, India</span>

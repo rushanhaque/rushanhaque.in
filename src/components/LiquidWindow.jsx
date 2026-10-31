@@ -7,8 +7,8 @@ import { low } from '../lib/device'
 // with a thin seam and a split of colour along it, while the old site sinks back and the new
 // one settles from a zoom. Under the cursor the page bulges softly, like glass. A site with a
 // line drawing arrives as the drawing, and once the wipe has passed a brass scan builds it into
-// the site. It draws only while something moves. Without WebGL, or on a phone, the plain
-// frames underneath carry on.
+// the site. It draws only while something moves. Without WebGL, or on an entry-level phone,
+// the plain frames underneath carry on.
 const VERT = 'attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}'
 const FRAG = `precision mediump float;
 varying vec2 v;
@@ -58,7 +58,7 @@ export default function LiquidWindow({ items, active }) {
   useEffect(() => {
     const el = canvas.current
     const win = el?.closest('.sc__window')
-    if (!el || !win || low() || !window.matchMedia('(min-width: 900px)').matches) return
+    if (!el || !win || low()) return
     const pairs = sources.split('|').map((p) => p.split('>'))
     let gl = null
     let running = false

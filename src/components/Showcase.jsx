@@ -10,9 +10,10 @@ const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, '') } c
 
 /**
  * The featured sites in one browser window, as in the previous portfolio. Each name in the
- * list takes the window when it reaches the middle of the screen: on wide screens a liquid
- * front rises through the page with the next site behind it (LiquidWindow); on phones, or
- * without WebGL, its card wipes up over the last one.
+ * list takes the window as its words arrive level with it: a liquid front rises through the
+ * page with the next site behind it (LiquidWindow); on entry-level phones, or without WebGL,
+ * its card wipes up over the last one. On wide screens the words hold beside the window's
+ * centre while it is theirs.
  */
 export default function Showcase({ items, external = false }) {
   const root = useRef(null)
@@ -23,7 +24,8 @@ export default function Showcase({ items, external = false }) {
     () => {
       const q = gsap.utils.selector(root)
       // an item takes the window while it crosses the line where the eye rests
-      const line = window.innerWidth < 900 ? '68%' : 'center'
+      // on wide screens a site takes the window just as its words arrive level with it
+      const line = window.innerWidth >= 900 && window.innerHeight > 520 ? '15%' : window.innerWidth < 900 ? '68%' : 'center'
       q('.sc__item').forEach((el, i) => ScrollTrigger.create({ trigger: el, start: `top ${line}`, end: `bottom ${line}`, onToggle: (s) => s.isActive && setActive(i) }))
       if (reduced()) return
       gsap.timeline({ scrollTrigger: { trigger: q('.sc__window')[0], start: 'top 85%', once: true } })
@@ -40,6 +42,8 @@ export default function Showcase({ items, external = false }) {
       <ol className="sc__list">
         {items.map((w, i) => (
           <li className={`sc__item ${i === active ? 'is-on' : ''}`} key={w.slug}>
+            {/* on wide screens the words hold level with the middle of the window while it is theirs */}
+            <div className="sc__copy">
             <span className="sc__no">{two(i + 1)}</span>
             <h3 className="sc__name" aria-label={w.title}>
               {w.title.split('').map((c, k) => <span className="ch" aria-hidden="true" key={k} style={{ '--c': k }}>{c === ' ' ? '\u00a0' : c}</span>)}
@@ -49,6 +53,7 @@ export default function Showcase({ items, external = false }) {
             {external
               ? <a href={w.url} target="_blank" rel="noopener noreferrer" className="sc__link">Preview the build <Icon name="arrowUpRight" size={14} /></a>
               : <TLink to={`/work/${w.slug}`} label={w.title} className="sc__link">View the case <Icon name="arrowRight" size={14} /></TLink>}
+            </div>
           </li>
         ))}
       </ol>

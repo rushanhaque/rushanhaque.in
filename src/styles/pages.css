@@ -279,6 +279,16 @@
 .sc__list { margin: 0; padding: 0; list-style: none; }
 .sc__item { min-height: 72vh; display: grid; align-content: center; gap: 12px; padding: 40px 0; opacity: 0.32; transition: opacity 0.7s var(--ease); }
 .sc__item.is-on { opacity: 1; }
+.sc__copy { display: grid; gap: 12px; min-width: 0; }
+/* wide screens: each site's words hold level with the middle of the window for their whole
+   stretch of scroll, then give way to the next */
+@media (min-width: 900px) and (min-height: 521px) {
+  /* a screen-tall sticky box, its words centred where the window's centre is (the window sits
+     centred below the header, with the meter's 40px under it) */
+  .sc__item { display: block; min-height: 165vh; padding: 0; }
+  .sc__copy { position: sticky; top: 0; min-height: 100vh; min-height: 100svh; align-content: center; padding: calc(var(--hdr-h) + 34px) 0 0; }
+  .sc__stage { padding-top: var(--hdr-h); }
+}
 .sc__no { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); }
 .sc__name { margin: 0; overflow: hidden; padding-bottom: 0.06em; font-size: clamp(2.6rem, 4.8vw, 5.4rem); line-height: 0.98; letter-spacing: -0.01em; }
 .sc__name .ch { display: inline-block; translate: 0 40%; opacity: 0.5; transition: translate 0.9s var(--ease), opacity 0.9s var(--ease); transition-delay: calc(var(--c) * 28ms); }
