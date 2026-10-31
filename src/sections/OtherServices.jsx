@@ -46,6 +46,8 @@ export default function OtherServices() {
         if (!drawn.has(i)) { drawn.add(i); draw(i) }
       }
       // the sheet at the left margin, under the title, leads; the others ease back by distance
+      // (on touch screens only the lead is marked: reshaping cards under a swipe makes them wobble)
+      const touch = isTouch()
       const measure = () => {
         const lead = el.querySelector('.osv__viewport').getBoundingClientRect().left + parseFloat(getComputedStyle(track).paddingLeft) + cards[0].offsetWidth / 2
         let best = 0
@@ -53,10 +55,12 @@ export default function OtherServices() {
         cards.forEach((c, k) => {
           const r = c.getBoundingClientRect()
           const d = (r.left + r.width / 2 - lead) / window.innerWidth
-          c.style.setProperty('--d', Math.min(1, Math.abs(d) * 1.6).toFixed(3))
-          // sheets already read leave quickly; the ones ahead stay half seen
-          c.style.setProperty('--o', (d < 0 ? 1 - Math.min(1, -d * 3.2) : 1 - Math.min(1, d * 1.6) * 0.5).toFixed(3))
-          c.style.setProperty('--x', d.toFixed(3))
+          if (!touch) {
+            c.style.setProperty('--d', Math.min(1, Math.abs(d) * 1.6).toFixed(3))
+            // sheets already read leave quickly; the ones ahead stay half seen
+            c.style.setProperty('--o', (d < 0 ? 1 - Math.min(1, -d * 3.2) : 1 - Math.min(1, d * 1.6) * 0.5).toFixed(3))
+            c.style.setProperty('--x', d.toFixed(3))
+          }
           if (Math.abs(d) < bd) { bd = Math.abs(d); best = k }
         })
         select(best)
@@ -69,7 +73,13 @@ export default function OtherServices() {
         if (!ctx.conditions.wide || ctx.conditions.still) {
           // a native swipe row: the lead sheet follows the row's own scroll
           const row = el.querySelector('.osv__viewport')
-          const onScroll = () => { measure(); fill && (fill.style.transform = `scaleX(${row.scrollLeft / Math.max(1, row.scrollWidth - row.clientWidth)})`) }
+          // read the row at most once a frame, however fast the swipe reports
+          let queued = false
+          const onScroll = () => {
+            if (queued) return
+            queued = true
+            requestAnimationFrame(() => { queued = false; measure(); if (fill) fill.style.transform = `scaleX(${row.scrollLeft / Math.max(1, row.scrollWidth - row.clientWidth)})` })
+          }
           row.addEventListener('scroll', onScroll, { passive: true })
           const st = ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: onScroll })
           return () => { row.removeEventListener('scroll', onScroll); st.kill() }

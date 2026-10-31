@@ -1,6 +1,6 @@
 import { useRef, Fragment } from 'react'
 import { useParams } from 'react-router-dom'
-import { gsap, useGSAP } from '../lib/gsap'
+import { gsap, useGSAP, isTouch } from '../lib/gsap'
 import { useReveals } from '../lib/useReveals'
 import { allProjects, projectBySlug, reviews } from '../data/content'
 import { small, srcSet } from '../lib/img'
@@ -61,7 +61,7 @@ export default function Case() {
       .from(q('.case__title .ch'), { yPercent: 120, rotateX: -90, stagger: 0.03, duration: 1.4 })
       .from(q('.case__meta > *'), { y: 30, autoAlpha: 0, stagger: 0.06, duration: 1 }, 0.4)
       .fromTo(q('.case__cover'), { clipPath: 'inset(18% 12% 0% 12% round 999px 999px 0 0)' }, { clipPath: 'inset(0% 0% 0% 0% round 24px 24px 0 0)', duration: 1.8, ease: 'expo' }, 0.3)
-    gsap.fromTo(q('.case__cover img'), { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: q('.case__cover')[0], start: 'top bottom', end: 'bottom top', scrub: true } })
+    if (!isTouch()) gsap.fromTo(q('.case__cover img'), { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: q('.case__cover')[0], start: 'top bottom', end: 'bottom top', scrub: true } })
   }, { scope: root, dependencies: [slug] })
 
   if (!p) return <NotFound />

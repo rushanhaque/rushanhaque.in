@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap, ScrollTrigger, useGSAP, reduced } from '../lib/gsap'
+import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
 import { scrollTo } from '../lib/lenis'
 import { small, srcSet } from '../lib/img'
 import { createShards, sample } from '../lib/shards'
@@ -31,6 +31,7 @@ export default function RecentWorks() {
       const card = q('.rw__card')[0]
       const bar = q('.rw__bar i')[0]
       const still = reduced()
+      const touch = isTouch()
       let goal = 0
       let shown = 0
       let pair = -1
@@ -91,9 +92,11 @@ export default function RecentWorks() {
         end: () => `+=${(n - 1) * 80 + 30}%`,
         pin: true,
         scrub: true,
-        snap: { snapTo: 1 / (n - 1), duration: { min: 0.35, max: 0.9 }, delay: 0.1, ease: 'power2.inOut' },
+        // a phone's momentum scroll and a snap pull against each other; there the scroll only
+        // chooses the site, and each change plays through in time on its own
+        ...(touch ? {} : { snap: { snapTo: 1 / (n - 1), duration: { min: 0.35, max: 0.9 }, delay: 0.1, ease: 'power2.inOut' } }),
         invalidateOnRefresh: true,
-        onUpdate: (s) => { goal = s.progress * (n - 1) },
+        onUpdate: (s) => { goal = touch ? Math.round(s.progress * (n - 1)) : s.progress * (n - 1) },
         onRefresh: layout,
       })
       // development only: hold the morph at any point to inspect it

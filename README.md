@@ -97,6 +97,6 @@ Every section opens with the same heading component (`src/components/Head.jsx`):
 - The map data and the drag library load only when they are needed.
 - Reveals animate transform, opacity and clip-path only.
 - The intro plays about two seconds on a first visit to the home page only; anyone arriving deeper (often from a search) goes straight to the page.
-- **Three device tiers** (`src/lib/device.js`). Entry-level phones (2 GB memory or 2 cores), Data Saver and 2G/3G connections get the CSS gradient instead of the WebGL hero, the plain crossfade instead of the particle shatter, the plain wipe instead of the liquid window, native scrolling, and no frosted glass. Mid-range devices keep every scene at fewer pixels and particles.
+- **Three device tiers** (`src/lib/device.js`). Entry-level phones (2 GB memory or 2 cores), Data Saver and 2G connections get the CSS gradient instead of the WebGL hero, the plain crossfade instead of the particle shatter, the plain wipe instead of the liquid window, native scrolling, and no frosted glass. Mid-range devices keep every scene at fewer pixels and particles.
 - The landing pages' text stays out of the main bundle: the header and footer carry only a small generated index (`scripts/seo-index.mjs`).
 - `prefers-reduced-motion` turns off smooth scroll, the pinned scenes and the shader animation.

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { gsap, useGSAP } from '../lib/gsap'
+import { gsap, useGSAP, isTouch } from '../lib/gsap'
 import { srcSet } from '../lib/img'
 import { products } from '../data/content'
 import { TLink } from '../components/Transition'
@@ -14,7 +14,10 @@ export default function Instruments() {
       const q = gsap.utils.selector(root)
       q('.prod__item').forEach((item) => {
         const frame = item.querySelector('.prod__frame')
-        gsap.fromTo(frame, { rotateX: 24, scale: 0.88, y: 60 }, { rotateX: 0, scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: item.querySelector('.prod__stage'), start: 'top bottom', end: 'top 30%', scrub: 0.6 } })
+        // on a phone the page scrolls on its own thread, so a frame reshaped by the scroll lags a
+        // frame behind and shakes; there it rises once instead of following the finger
+        if (isTouch()) gsap.from(frame, { y: 40, autoAlpha: 0, duration: 1.1, ease: 'expo', scrollTrigger: { trigger: item.querySelector('.prod__stage'), start: 'top 85%', once: true } })
+        else gsap.fromTo(frame, { rotateX: 24, scale: 0.88, y: 60 }, { rotateX: 0, scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: item.querySelector('.prod__stage'), start: 'top bottom', end: 'top 30%', scrub: 0.6 } })
         gsap.timeline({ scrollTrigger: { trigger: item.querySelector('.prod__steps'), start: 'top 85%', end: 'bottom 60%', scrub: 0.5 } })
           .fromTo(item.querySelector('.prod__line'), { scaleX: 0 }, { scaleX: 1, ease: 'none' }, 0)
           .fromTo(item.querySelectorAll('.prod__step'), { opacity: 0.3 }, { opacity: 1, stagger: 0.3, ease: 'none' }, 0)

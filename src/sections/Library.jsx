@@ -1,22 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { writings } from '../data/content'
 import Head from '../components/Head'
 import Icon from '../components/Icon'
 
 /**
  * 08 — Writing. Papers, notes and books stand on a shelf as 3D volumes — cover, spine, page
- * block. Hover or focus one and it turns to face you; on phones, swipe along the shelf.
+ * block. Hover, focus or tap one and it turns to face you; phones show the whole shelf at once.
  */
 export default function Library({ id = 'writing', n = '08' }) {
   const [sel, setSel] = useState(0)
   const shelf = useRef(null)
   const b = writings[sel]
-  useEffect(() => {
-    if (window.innerWidth >= 1000) return
-    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setSel(+e.target.dataset.i)), { root: shelf.current, rootMargin: '0px -42% 0px -42%', threshold: 0 })
-    shelf.current.querySelectorAll('.lib__slot').forEach((el) => io.observe(el))
-    return () => io.disconnect()
-  }, [])
   return (
     <section className="lib sec" data-theme="stone" data-chapter="Writing" id={id}>
       <div className="wrap">

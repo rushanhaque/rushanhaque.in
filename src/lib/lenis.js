@@ -1,12 +1,12 @@
 import Lenis from 'lenis'
-import { gsap, ScrollTrigger, reduced } from './gsap'
+import { gsap, ScrollTrigger, reduced, isTouch } from './gsap'
 import { low } from './device'
 
 let lenis = null
 
 export function initLenis() {
-  // native scrolling is the smoothest there is on an entry-level phone
-  if (lenis || reduced() || low()) return lenis
+  // native scrolling is the smoothest there is on phones and tablets (Lenis only smooths wheels)
+  if (lenis || reduced() || low() || isTouch()) return lenis
   lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 0.95 })
   lenis.on('scroll', ScrollTrigger.update)
   // page heights change with every route and pinned scene, so re-measure whenever the triggers do

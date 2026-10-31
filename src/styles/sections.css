@@ -363,16 +363,19 @@
 .lib__text { max-width: 46ch; color: var(--muted); }
 .lib__link { width: fit-content; display: inline-flex; align-items: center; gap: 8px; padding-bottom: 3px; border-bottom: 1px solid var(--fg); }
 .lib__link.is-muted { opacity: 0.5; border-color: var(--line); }
+/* phones and tablets: the whole shelf at once, every volume on show, the chosen one turned to face you */
 @media (max-width: 1000px) {
-  .lib__room { grid-template-columns: minmax(0, 1fr); }
+  .lib__room { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .lib__shelf, .lib__detail { grid-column: 1; }
-  .lib__shelf { overflow-x: auto; scroll-snap-type: x mandatory; gap: 0; padding: 70px 34vw 0; scrollbar-width: none; }
-  .lib__shelf::-webkit-scrollbar { display: none; }
-  .lib__shelf::after, .lib__shelf::before { display: none; }
-  .lib__slot { flex: none; padding: 0 12px 18px; scroll-snap-align: center; background: linear-gradient(180deg, #e2c58f 0, #b08a4f 2px, #6e4d2c 3px, #553a21 55%, #3b2815 100%) bottom / 100% 18px no-repeat; }
-  .book, .book.is-sel { width: calc(var(--w) * 0.96); }
-  .book .book__body { transform: rotateY(34deg) scale(0.92); }
-  .book.is-sel .book__body { transform: rotateY(0deg) translateZ(30px) translateY(-14px); }
+  .lib__shelf { justify-content: center; gap: 4px; padding: 56px 4px 18px; perspective: 1100px; }
+  .book { --w: clamp(70px, 21vw, 118px); height: calc(var(--h) * 0.74); width: calc(var(--w) * 0.5); }
+  .book.is-sel { width: var(--w); }
+  .book .book__body { transform: rotateY(62deg); }
+  .book.is-sel .book__body { transform: rotateY(12deg) translateZ(18px) translateY(-10px); }
+  .book__cover { gap: 5px; padding: 10px 8px; }
+  .book__cover strong { margin-top: 4px; font-size: 12px; }
+  .book__cover small, .book__author { font-size: 7px; }
+  .book__spine span { font-size: 10.5px; }
 }
 
 /* ═════════ 09 · ABOUT — sentence and dossier ═════════ */

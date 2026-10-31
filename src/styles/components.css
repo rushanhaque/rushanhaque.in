@@ -116,7 +116,13 @@ a:hover .roll__chars > span, button:hover .roll__chars > span { transform: trans
   .fo__ruler:hover .fo__segs li > * { opacity: 1; transition-delay: 0.12s; }
   .fo__ruler:hover .fo__segs li::before { height: 100%; opacity: 0.18; }
 }
-@media (hover: none), (pointer: coarse) { .fo__ruler { pointer-events: none; } }
+@media (hover: none), (pointer: coarse) {
+  .fo__ruler { pointer-events: none; }
+  /* a blur behind a bar that scrolls is redrawn every frame; on phones a solid tint reads the same */
+  .fo::before, .fo__ruler::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .fo { --fo-glass: rgba(255, 255, 255, 0.95); }
+  .fo[data-tone='dark'] { --fo-glass: rgba(18, 10, 12, 0.9); }
+}
 .fo.is-open .fo__ruler { opacity: 0; pointer-events: none; }
 
 @media (max-width: 1099px) {

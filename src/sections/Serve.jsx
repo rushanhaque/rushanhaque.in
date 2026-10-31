@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap, ScrollTrigger, useGSAP, reduced } from '../lib/gsap'
+import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
 import { scrollTo } from '../lib/lenis'
 import { serve } from '../data/content'
 import { Kicker } from '../components/Head'
@@ -96,7 +96,7 @@ export default function Serve() {
   // the map opens from an inset card to the full stage as the section arrives
   useGSAP(
     () => {
-      if (reduced()) return
+      if (reduced() || isTouch()) return
       const phone = window.innerWidth < 900
       gsap.fromTo(root.current.querySelector('.serve__map'),
         { clipPath: phone ? 'inset(4% 3% 4% 3% round 20px)' : 'inset(7% 4% 7% 4% round 28px)' },
