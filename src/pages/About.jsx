@@ -21,7 +21,7 @@ function Cred({ c, onOpen }) {
     ref.current.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`)
   }
   return (
-    <button className="cred" ref={ref} onPointerMove={move} onClick={() => c.image && onOpen(c)} aria-label={`${c.title}${c.issuer ? `, ${c.issuer}` : ''}`}>
+    <button className="cred" ref={ref} onPointerMove={move} onClick={() => c.image && onOpen(c)}>
       <span className="cred__media">
         {c.image ? <img src={c.image} alt="" loading="lazy" /> : <span className="cred__seal">{c.issuer.split(' ')[0]}</span>}
         <span className="cred__glare" />

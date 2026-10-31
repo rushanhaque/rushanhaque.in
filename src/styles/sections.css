@@ -368,7 +368,7 @@
   .lib__room { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .lib__shelf, .lib__detail { grid-column: 1; }
   .lib__shelf { justify-content: center; gap: 4px; padding: 56px 4px 18px; perspective: 1100px; }
-  .book { --w: clamp(70px, 21vw, 118px); height: calc(var(--h) * 0.74); width: calc(var(--w) * 0.5); }
+  .book { --w: clamp(70px, 22.5vw, 118px); height: calc(var(--h) * 0.74); width: calc(var(--w) * 0.5); }
   .book.is-sel { width: var(--w); }
   .book .book__body { transform: rotateY(62deg); }
   .book.is-sel .book__body { transform: rotateY(12deg) translateZ(18px) translateY(-10px); }
@@ -426,3 +426,39 @@
 .bridge__line { max-width: 24ch; margin: 0; font-size: clamp(1.8rem, 3.5vw, 3.5rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.04em; text-align: center; text-wrap: balance; }
 .bridge__line em { color: var(--accent); }
 
+
+/* ═════════ PHONES — landscape, legibility, the map at full bleed ═════════ */
+/* a phone turned on its side has a desktop's shape at a quarter of the height: the scroll-staged
+   scenes go side by side again, compacted to fit */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 1000px) {
+  .rw__pin { padding-top: calc(var(--hdr-h) + 8px); padding-bottom: 10px; gap: 8px; }
+  .rw__head .kick { display: none; }
+  .rw__title { font-size: 1.7rem; }
+  .rw__count b { font-size: 17px; }
+  .rw__stage { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: minmax(0, 1fr); align-content: stretch; gap: 22px; padding-top: 0; }
+  .rw__visual { order: 0; height: 100%; padding: 2px 0 0; container-type: size; }
+  .rw__fig { width: min(100cqw, calc((100cqh - 4px) * 2.07)); }
+  .rw__gl { left: -24px; width: calc(100% + 24px + var(--pad)); }
+  .rw__copy { gap: 6px; align-content: center; }
+  .rw__name { font-size: 1.45rem; }
+  .rw__line { display: none; }
+  .rw__tabs button { padding: 4px 0; }
+
+  .serve { height: 300vh; }
+  .serve__stage { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr); grid-template-rows: minmax(0, 1fr) auto; gap: 4px 24px; padding: calc(var(--hdr-h) + 4px) var(--pad) 8px; }
+  .serve__shade { background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 32%, transparent 52%); }
+  .serve__copy { position: relative; z-index: 2; display: grid; grid-column: 1; grid-row: 1; align-self: center; gap: 8px; }
+  .serve__copy > .kick, .serve__stats, .serve__clocks, .serve__d, .serve__scale, .serve__hud, .serve__north { display: none; }
+  .serve__title { font-size: 1.9rem; }
+  .serve__story { order: 0; margin-top: 0; min-height: 0; gap: 12px; padding-top: 10px; }
+  .serve__num { font-size: 2.4rem; }
+  .serve__h { margin: 4px 0 0; font-size: 1.15rem; }
+  .serve__tabs { grid-column: 1 / -1; grid-row: 2; order: 0; }
+  .serve__tabs button { min-height: 40px; padding: 10px 0 2px; }
+}
+/* on touch screens the map is simply open; its opening clip only plays with a mouse */
+@media (hover: none) { .serve__map { clip-path: none; } }
+@media (max-width: 899px) {
+  .serve__scale { font-size: 10px; }
+  .osv__no, .osv__of, .osv__tags li, .rev__note time { font-size: 10.5px; }
+}

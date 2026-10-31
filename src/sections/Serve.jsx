@@ -24,10 +24,13 @@ const TZ = { Riyadh: 'Asia/Riyadh', Warsaw: 'Europe/Warsaw', Kathmandu: 'Asia/Ka
 const nice = (v) => { const p = 10 ** Math.floor(Math.log10(v)); const m = v / p; return (m >= 5 ? 5 : m >= 2 ? 2 : 1) * p }
 const group = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
-// Frame a [west, south, east, north] box into the open part of the stage: right of the copy on
-// wide screens, between the title and the story on phones.
+// Copy beside the map on wide screens and on phones turned on their side; stacked otherwise.
+const sideBySide = () => window.innerWidth >= 900 || (window.innerWidth > window.innerHeight && window.innerHeight <= 520)
+
+// Frame a [west, south, east, north] box into the open part of the stage: right of the copy
+// when they sit side by side, between the title and the story when stacked.
 const frame = (box, w, h, s) => {
-  const wide = window.innerWidth >= 900
+  const wide = sideBySide()
   const [rx0, rx1, ry0, ry1] = wide ? [0.44, 0.95, 0.16, 0.8] : [0.05, 0.95, 0.27, 0.6]
   const [x0, y0] = project(box[0], box[3])
   const [x1, y1] = project(box[2], box[1])
@@ -85,7 +88,7 @@ export default function Serve() {
     const u = c.w / px
     el.setAttribute('viewBox', `${c.x.toFixed(2)} ${c.y.toFixed(2)} ${c.w.toFixed(2)} ${c.h.toFixed(2)}`)
     el.style.setProperty('--u', u.toFixed(4))
-    const [lon, lat] = unproject(c.x + c.w * (window.innerWidth >= 900 ? 0.695 : 0.5), c.y + c.h * (window.innerWidth >= 900 ? 0.48 : 0.435))
+    const [lon, lat] = unproject(c.x + c.w * (sideBySide() ? 0.695 : 0.5), c.y + c.h * (sideBySide() ? 0.48 : 0.435))
     if (hud.current) hud.current.textContent = `${Math.abs(lat).toFixed(2)}° ${lat >= 0 ? 'N' : 'S'}  ${Math.abs(lon).toFixed(2)}° ${lon >= 0 ? 'E' : 'W'}`
     const kmPerPx = u * (360 / W) * 111.32 * Math.cos((Math.max(-60, Math.min(60, lat)) * Math.PI) / 180)
     const km = nice(kmPerPx * 96)

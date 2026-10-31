@@ -280,7 +280,7 @@
 .sc__item { min-height: 72vh; display: grid; align-content: center; gap: 12px; padding: 40px 0; opacity: 0.32; transition: opacity 0.7s var(--ease); }
 .sc__item.is-on { opacity: 1; }
 .sc__no { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); }
-.sc__name { margin: 0; font-size: clamp(2.6rem, 4.8vw, 5.4rem); line-height: 0.98; letter-spacing: -0.01em; }
+.sc__name { margin: 0; overflow: hidden; padding-bottom: 0.06em; font-size: clamp(2.6rem, 4.8vw, 5.4rem); line-height: 0.98; letter-spacing: -0.01em; }
 .sc__name .ch { display: inline-block; translate: 0 40%; opacity: 0.5; transition: translate 0.9s var(--ease), opacity 0.9s var(--ease); transition-delay: calc(var(--c) * 28ms); }
 .sc__item.is-on .sc__name .ch { translate: 0 0; opacity: 1; }
 .sc__field { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
@@ -417,3 +417,34 @@
   .lp__table th, .lp__table td { border: 0; padding: 4px 14px; }
 }
 @media (max-width: 520px) { .lp__dir > div { grid-template-columns: minmax(0, 1fr); } .lp__btn { height: 48px; } }
+
+/* ───────── Phones: Currently building on its side, and thumb-sized targets everywhere ───────── */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 1000px) {
+  .sc { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 28px; }
+  .sc__stage { order: 0; position: sticky; top: 0; height: 100vh; height: 100svh; margin: 0; padding: calc(var(--hdr-h) + 10px) 0 12px; background: none; box-shadow: none; align-content: center; gap: 10px; }
+  .sc__item { min-height: 82svh; align-content: center; padding: 20px 0; }
+  .sc__name { font-size: clamp(1.8rem, 4.6vw, 2.6rem); }
+  .sc__desc { font-size: 14px; }
+}
+/* small text links keep their look, but take a fingertip: an invisible margin of touch around each */
+@media (pointer: coarse) {
+  .fo__mark, .rw__case, .rw__visit, .prod__link, .lib__link, .sc__link, .ftr__link, .ftr__mail, .ftr__legal, .ftr__dir a, .lp__crumb a { position: relative; }
+  .fo__mark::before, .rw__case::before, .rw__visit::before, .prod__link::before, .lib__link::before, .sc__link::before { content: ''; position: absolute; inset: -12px -8px; }
+  .ftr__link::before, .ftr__mail::before { content: ''; position: absolute; inset: -9px -6px; }
+  .lp__crumb a::before, .lp__items h3 a::before { content: ''; position: absolute; inset: -12px -8px; }
+  .lp__items h3 a { position: relative; }
+  .lp__dir a { display: block; padding: 11px 0; }
+  .ftr__legal::before, .ftr__top::before { content: ''; position: absolute; inset: -14px -8px; }
+  .ftr__top { position: relative; }
+  .ftr__dir { line-height: 2.2; }
+  .case__back, .case__visit { position: relative; }
+  .case__back::before, .case__visit::before { content: ''; position: absolute; inset: -12px -8px; }
+  .ftr__dir a::before { content: ''; position: absolute; inset: -6px -3px; }
+  .rw__tabs button { padding: 13px 0; }
+  .ct__row a { padding-block: 5px; }
+  .ct__foot a { display: inline-block; padding-block: 10px; }
+  .ct__foot > div { gap: 0; }
+}
+/* a link in the footer's index never breaks across two lines; lines break between links */
+.ftr__dir a { white-space: nowrap; }
+@media (max-width: 899px) { .ftr__dir span, .lab__tabs sup { font-size: 10px; } }

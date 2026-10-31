@@ -229,12 +229,16 @@ function Legal({ slug }) {
  */
 export default function Landing() {
   const { slug } = useParams()
+  // an address that is none of these pages is the 404, decided before any page hooks run
+  return guideBySlug(slug) || sourceBySlug(slug) || LEGAL[slug] ? <LandingPage slug={slug} /> : <NotFound />
+}
+
+function LandingPage({ slug }) {
   const root = useRef(null)
   useReveals(root, 'ivory')
   const guide = guideBySlug(slug)
   const page = !guide && sourceBySlug(slug)
   const legal = !guide && !page && LEGAL[slug]
-  if (!guide && !page && !legal) return <NotFound />
   const hi = guide?.lang === 'hi'
 
   let body

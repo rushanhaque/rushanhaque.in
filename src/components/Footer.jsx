@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from 'react'
+import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import { gsap, useGSAP, reduced } from '../lib/gsap'
 import { site } from '../config/site'
 import { scrollTo } from '../lib/lenis'
@@ -64,10 +64,16 @@ function Directory() {
     ['Areas', areas.map((a) => [a.slug, a.name])],
     ['Guides', [...articles, ...industries].map((g) => [g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title])],
   ]
+  // on phones the index folds behind one line; the links stay in the page for search engines
+  const [open, setOpen] = useState(false)
   return (
-    <nav className="ftr__dir wrap" aria-label="Services, areas and guides">
+    <nav className={`ftr__dir wrap ${open ? 'is-open' : ''}`} aria-label="Services, areas and guides">
+      <button type="button" className="ftr__dir-toggle" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        Services, areas and guides <Icon name={open ? 'arrowUp' : 'arrowDown'} size={13} />
+      </button>
       {groups.map(([name, links]) => (
-        <p key={name}><span>{name}</span>{links.map(([slug, text]) => <TLink key={slug} to={`/${slug}`}>{text}</TLink>)}</p>
+        // a space after each link, so a line can break between them
+        <p key={name}><span>{name}</span>{links.map(([slug, text]) => <Fragment key={slug}><TLink to={`/${slug}`}>{text}</TLink>{' '}</Fragment>)}</p>
       ))}
     </nav>
   )

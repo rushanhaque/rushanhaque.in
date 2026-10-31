@@ -101,7 +101,6 @@ export const products = [
 export const building = [
   { slug: 'filigrana', title: 'Filigrana', field: 'Ethnic wear', sheet: 'A–101', url: 'https://filigrana-seven.vercel.app/', image: '/img/work/filigrana-v2.webp', plan: '/img/plan/filigrana-v2.webp', w: 1600, h: 808, description: 'Website for an ethnic wear brand.' },
   { slug: 'svg-express', title: 'SVG Express', field: 'Online platform', sheet: 'A–102', url: 'https://svg-express-demo.vercel.app/', image: '/img/work/svg-express-v2.webp', plan: '/img/plan/svg-express-v2.webp', w: 1199, h: 573, description: 'Online platform for SVG Express.' },
-  { slug: 'chaudharysons-co', title: 'Chaudharysons & Co.', field: 'Client website', sheet: 'A–103', url: 'https://chaudharysons.vercel.app/', image: '/img/work/chaudharysons-co.webp', plan: '/img/plan/chaudharysons-co.webp', w: 1600, h: 808, description: 'A new client website, being designed and built now.' },
 ]
 
 export const experiments = [
