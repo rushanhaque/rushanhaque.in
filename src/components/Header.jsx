@@ -6,7 +6,7 @@ import { site } from '../config/site'
 import { works } from '../data/content'
 import { titleFor } from '../lib/pages'
 import { TLink } from './Transition'
-import Contents from './Contents'
+import Mark from './Logo'
 import Icon from './Icon'
 
 export function Clock({ tz = site.tz }) {
@@ -16,16 +16,6 @@ export function Clock({ tz = site.tz }) {
     return () => clearInterval(id)
   }, [])
   return <span className="clock">{new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz }).format(now)}</span>
-}
-
-export function Monogram({ size = 30 }) {
-  return (
-    <svg className="mono" width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <path d="M8 36V17a12 12 0 0 1 24 0v19" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M14 36V18a6 6 0 0 1 12 0v18" stroke="currentColor" strokeWidth="1" opacity=".55" />
-      <path d="M4 36h32" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  )
 }
 
 const DARK = ['night', 'wine']
@@ -47,16 +37,13 @@ const room = (s) => (s.parentElement?.classList.contains('pin-spacer') ? s.paren
  * The Folio. The header reads like the running head of a book: the name on the left folds to
  * initials once you leave the cover, the middle names the chapter you are in, and the bar's
  * bottom edge is a ruler of the whole page, a tick for every chapter. Hover the ruler and it
- * opens into a timeline you can click or drag to travel the page; Contents opens the book's
- * contents page.
+ * opens into a timeline you can click or drag to travel the page.
  */
 export default function Header() {
   const { pathname } = useLocation()
   const root = useRef(null)
   const ruler = useRef(null)
-  const toc = useRef(null)
   const marks = useRef([])
-  const [open, setOpen] = useState(false)
   const [tone, setTone] = useState('light')
   const [solid, setSolid] = useState(false)
   const [folded, setFolded] = useState(false)
@@ -122,16 +109,14 @@ export default function Header() {
   }, [pathname, measure, track])
 
   // the running head rolls the old chapter out as the new one comes in
-  const name = open ? 'Contents' : on >= 0 && list[on] ? list[on].name : PAGE(pathname)
-  const no = open ? '§' : on >= 0 ? two(on + 1) : '—'
+  const name = on >= 0 && list[on] ? list[on].name : PAGE(pathname)
+  const no = on >= 0 ? two(on + 1) : '—'
   useEffect(() => {
     setHead((h) => (h.cur?.name === name ? h : { cur: { name, no }, prev: h.cur }))
     const t = setTimeout(() => setHead((h) => ({ ...h, prev: null })), 700)
     return () => clearTimeout(t)
   }, [name, no])
 
-  useEffect(() => setOpen(false), [pathname])
-  const close = useCallback(() => { setOpen(false); toc.current?.focus({ preventScroll: true }) }, [])
 
   // the ruler: a click goes to the start of the chapter under it, a drag scrubs the page
   const drag = useRef(null)
@@ -166,11 +151,11 @@ export default function Header() {
   const segs = [{ name: PAGE(pathname), at: 0, i: -1 }, ...list.map((m, i) => ({ ...m, i }))].filter((s, k, a) => k > 0 || (a[1]?.at ?? 1) > 0.002)
   return (
     <>
-      <header ref={root} className={`fo ${solid && !open ? 'is-solid' : ''} ${folded && !open ? 'is-folded' : ''} ${open ? 'is-open' : ''}`} data-tone={open ? 'light' : tone}>
+      <header ref={root} className={`fo ${solid ? 'is-solid' : ''} ${folded ? 'is-folded' : ''}`} data-tone={tone}>
         <div className="fo__bar">
           <TLink to="/" className="fo__mark" label="Index" aria-label={`${site.name}, home`}>
-            <span className="fo__w">R<span className="fo__fold"><span>ushan</span></span><span className="fo__dot" aria-hidden="true"><span>.</span></span></span>{' '}
-            <em className="fo__w">H<span className="fo__fold"><span>aque</span></span><span className="fo__dot" aria-hidden="true"><span>.</span></span></em>
+            <Mark size={30} />
+            <span className="fo__fold"><span className="fo__name">Rushan Haque</span></span>
           </TLink>
 
           <p className="fo__head" aria-live="polite">
@@ -185,11 +170,6 @@ export default function Header() {
               <TLink to="/work" aria-current={current('/work')}>Work<sup>{two(works.length)}</sup></TLink>
               <TLink to="/about" aria-current={current('/about')}>About</TLink>
             </nav>
-            <button ref={toc} type="button" className="fo__toc" aria-expanded={open} aria-controls="contents" onClick={() => setOpen((o) => !o)}>
-              <span className="fo__toc-label" aria-hidden="true"><span>Contents</span><span>Close</span></span>
-              <span className="sr-only">{open ? 'Close contents' : 'Open contents'}</span>
-              <span className="fo__toc-ico" aria-hidden="true"><i /><i /></span>
-            </button>
             <TLink to="/contact" className="fo__cta">Let’s talk <Icon name="arrowUpRight" size={14} /></TLink>
           </div>
         </div>
@@ -207,7 +187,7 @@ export default function Header() {
           <span className="fo__track" aria-hidden="true"><i className="fo__fill" /></span>
           <span className="fo__reader" aria-hidden="true" />
           {hover && <span className="fo__cursor" aria-hidden="true" />}
-          {/* pointer travel only; Contents is the way through for keyboards and screen readers */}
+          {/* pointer travel only; the chapters are each reachable by scrolling and by their links */}
           <ol className="fo__segs" aria-hidden="true">
             {segs.map((s, k) => {
               const end = segs[k + 1]?.at ?? 1
@@ -220,7 +200,6 @@ export default function Header() {
           </ol>
         </div>
       </header>
-      <Contents open={open} onClose={close} here={pathname === '/' && on >= 0 ? list[on]?.id : null} />
     </>
   )
 }

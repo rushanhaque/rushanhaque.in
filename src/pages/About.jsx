@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, Fragment } from 'react'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
 import { useReveals } from '../lib/useReveals'
 import { site } from '../config/site'
-import { certifications, insights, languages, skills } from '../data/content'
+import { certifications, languages, skills } from '../data/content'
 import Library from '../sections/Library'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
@@ -108,19 +108,6 @@ export default function About() {
       </section>
 
       <Library id="writing" n="03" />
-
-      <section className="notes wrap" data-theme="ivory" data-chapter="Notes on the craft" id="notes">
-        <header className="notes__head"><Kicker n="04" label="Notes on the craft" /><h2 data-split>Three things I <em>believe.</em></h2></header>
-        <div className="notes__grid">
-          {insights.map((n, k) => (
-            <article key={n.title} data-reveal data-delay={k * 0.08}>
-              <span className="notes__tag">0{k + 1} — {n.tag}</span>
-              <h3>{n.title}</h3>
-              <p>{n.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
 
       <Footer />
 

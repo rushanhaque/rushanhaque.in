@@ -32,8 +32,6 @@ export default function OtherServices() {
       const track = el.querySelector('.osv__track')
       const cards = gsap.utils.toArray('.osv__card', el)
       const paths = cards.map((c) => c.querySelector('.osv__glyph path'))
-      const count = el.querySelector('.osv__count b')
-      const fill = el.querySelector('.osv__bar i')
       const drawn = new Set()
       let on = -1
 
@@ -42,7 +40,6 @@ export default function OtherServices() {
         if (i === on) return
         on = i
         cards.forEach((c, k) => c.classList.toggle('is-on', k === i))
-        if (count) count.textContent = two(Math.min(i + 1, services.length))
         if (!drawn.has(i)) { drawn.add(i); draw(i) }
       }
       // the sheet at the left margin, under the title, leads; the others ease back by distance
@@ -78,7 +75,7 @@ export default function OtherServices() {
           const onScroll = () => {
             if (queued) return
             queued = true
-            requestAnimationFrame(() => { queued = false; measure(); if (fill) fill.style.transform = `scaleX(${row.scrollLeft / Math.max(1, row.scrollWidth - row.clientWidth)})` })
+            requestAnimationFrame(() => { queued = false; measure() })
           }
           row.addEventListener('scroll', onScroll, { passive: true })
           const st = ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: onScroll })
@@ -96,7 +93,6 @@ export default function OtherServices() {
             pin: el.querySelector('.osv__stage'),
             scrub: 0.8,
             invalidateOnRefresh: true,
-            onUpdate: (s) => fill && (fill.style.transform = `scaleX(${s.progress})`),
           },
         })
         // the cards are measured every frame while the section is in view, so the scrub's glide shows
@@ -139,11 +135,6 @@ export default function OtherServices() {
               <Button to="/contact" variant="solid">Start a conversation</Button>
             </li>
           </ul>
-        </div>
-        <div className="wrap osv__foot" aria-hidden="true">
-          <span className="osv__hint">Scroll to browse</span>
-          <span className="osv__bar"><i /></span>
-          <span className="osv__count"><b>01</b> / {two(services.length)}</span>
         </div>
       </div>
     </section>

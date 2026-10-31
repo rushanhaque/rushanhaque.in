@@ -105,3 +105,6 @@ section[data-theme], footer[data-theme] { position: relative; z-index: 1; backgr
 [data-tier='low'] * { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 [data-tier='low'] .fo { --fo-glass: rgba(255, 255, 255, 0.96); }
 [data-tier='low'] .fo[data-tone='dark'] { --fo-glass: rgba(18, 10, 12, 0.92); }
+
+/* the page itself is white: a gap between sections never shows a dark theme colour through */
+.page { background: #ffffff; }

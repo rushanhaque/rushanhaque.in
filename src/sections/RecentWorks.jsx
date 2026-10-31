@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
-import { scrollTo } from '../lib/lenis'
 import { small, srcSet } from '../lib/img'
 import { createShards, sample } from '../lib/shards'
-import { low, tier } from '../lib/device'
+import { tier } from '../lib/device'
 import { works } from '../data/content'
 import { TLink } from '../components/Transition'
 import { Kicker, Count } from '../components/Head'
@@ -29,7 +28,6 @@ export default function RecentWorks() {
       const imgs = q('.rw__img')
       const canvas = q('.rw__gl')[0]
       const card = q('.rw__card')[0]
-      const bar = q('.rw__bar i')[0]
       const still = reduced()
       const touch = isTouch()
       let goal = 0
@@ -65,7 +63,6 @@ export default function RecentWorks() {
         const mix = Math.min(1, Math.max(0, (shown - k - 0.05) / 0.7))
         const near = Math.round(shown)
         if (near !== last) { last = near; setActive(near) }
-        bar.style.transform = `scaleX(${shown / (n - 1)})`
         if (morph && colours) {
           if (k !== pair) { pair = k; morph.setPair(colours[k], colours[k + 1]) }
           // the particles are only a stand-in: as they settle, the real screenshot takes over
@@ -101,18 +98,16 @@ export default function RecentWorks() {
       })
       // development only: hold the morph at any point to inspect it
       if (import.meta.env.DEV) root.current.__hold = (v) => { goal = v; shown = v; dirty = true }
-      root.current.__go = (i) => scrollTo(st.start + ((st.end - st.start) * i) / (n - 1), { duration: 1.4 })
 
       // the pictures are sampled into particles once the section is close
       const phone = window.innerWidth < 900
-      const cols = (phone ? 170 : 300) * (tier() === 'mid' ? 0.75 : 1) | 0
+      // every device gets the grains: entry-level ones a lighter grid of larger grains
+      const cols = (phone ? 170 : 300) * ({ high: 1, mid: 0.75, low: 0.55 }[tier()]) | 0
       const rows = Math.round(cols / (1600 / 773))
       let alive = true
       const prep = ScrollTrigger.create({
         trigger: root.current, start: 'top 250%', once: true,
         onEnter: async () => {
-          // an entry-level phone keeps the plain crossfade
-          if (low()) return
           const pics = await Promise.all(works.map((w) => new Promise((res) => {
             const im = new Image()
             im.decoding = 'async'
@@ -149,7 +144,6 @@ export default function RecentWorks() {
     root.current.querySelectorAll('.rw__img').forEach((im, i) => (im.style.opacity = i === active ? 1 : 0))
   }, [active])
 
-  const go = (i) => (reduced() ? setActive(i) : root.current.__go?.(i))
   const w = works[active]
   return (
     <section className="rw" ref={root} data-theme="ivory" data-chapter="Recent works" id="work" aria-label="Recent works">
@@ -187,18 +181,16 @@ export default function RecentWorks() {
           </div>
         </div>
 
-        <footer className="rw__foot wrap">
-          <ol className="rw__tabs">
-            {works.map((x, i) => (
-              <li key={x.slug}>
-                <button type="button" className={i === active ? 'is-on' : ''} aria-current={i === active ? 'true' : undefined} onClick={() => go(i)}>
-                  <small>{two(i + 1)}</small>{x.short || x.title}
-                </button>
-              </li>
-            ))}
-          </ol>
-          <span className="rw__bar" aria-hidden="true"><i /></span>
-        </footer>
+        {/* with reduced motion there is no scroll scene, so these are the way from site to site */}
+        <ol className="rw__tabs wrap">
+          {works.map((x, i) => (
+            <li key={x.slug}>
+              <button type="button" className={i === active ? 'is-on' : ''} aria-current={i === active ? 'true' : undefined} onClick={() => setActive(i)}>
+                <small>{two(i + 1)}</small>{x.short || x.title}
+              </button>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   )

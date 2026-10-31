@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
-import { scrollTo } from '../lib/lenis'
 import { serve } from '../data/content'
 import { Kicker } from '../components/Head'
 
@@ -171,7 +170,6 @@ export default function Serve() {
         rest.forEach((p) => (p.style.fillOpacity = (0.35 + Math.min(1, shown) * 0.65).toFixed(3)))
         if (cities) cities.textContent = String(Math.round(1 + Math.min(1, Math.max(0, shown)) * 31))
         if (countries) countries.textContent = String(Math.round(1 + Math.min(1, Math.max(0, shown - 1)) * 3))
-        serve.steps.forEach((_, i) => root.current.style.setProperty(`--f${i}`, Math.min(1, Math.max(0, shown - i + 1)).toFixed(3)))
         if (step !== last) { last = step; setStep(step) }
       }
       const tick = () => {
@@ -194,11 +192,6 @@ export default function Serve() {
     { scope: root, dependencies: [data] },
   )
 
-  const go = (i) => {
-    const el = root.current
-    const top = el.getBoundingClientRect().top + window.scrollY
-    scrollTo(top + (el.offsetHeight - window.innerHeight) * [0.02, 0.5, 0.98][i], { duration: 1.6 })
-  }
   const cls = (n) => (CORE.includes(n) ? 'is-core' : NEAR.includes(n) ? 'is-near' : 'is-rest')
   const time = (tz) => (now ? new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz }).format(now) : '--:--')
   const clocks = places.filter((p) => TZ[p.name])
@@ -264,15 +257,6 @@ export default function Serve() {
           <span>Scale <b ref={ratio}>1 : 400 000</b></span>
         </div>
 
-        <ol className="serve__tabs">
-          {serve.steps.map((x, i) => (
-            <li key={x.key}>
-              <button type="button" className={i === step ? 'is-on' : i < step ? 'is-past' : ''} aria-current={i === step ? 'step' : undefined} onClick={() => go(i)}>
-                <small>0{i + 1}</small><span>{x.key}</span><i style={{ '--f': `var(--f${i}, 0)` }} />
-              </button>
-            </li>
-          ))}
-        </ol>
       </div>
     </section>
   )

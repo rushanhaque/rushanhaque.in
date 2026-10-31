@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import { gsap, useGSAP, reduced } from '../lib/gsap'
 import { site } from '../config/site'
-import { scrollTo } from '../lib/lenis'
 import { TLink } from './Transition'
 import { RollText } from './Button'
 import { Clock } from './Header'
@@ -24,21 +23,27 @@ export function OrbLink({ to = '/contact', text = 'Start a project' }) {
   )
 }
 
-// the wordmark is sized from the margins, measured once the fonts are in
+/**
+ * The signature: the name in ivory with a second copy in engraved brass laid exactly over it,
+ * hidden. As it arrives the letters rise, then a light sweeps once across and the brass shows
+ * through wherever it falls. After that the light follows the pointer (a tap places it on
+ * touch screens). The letters never move; only the light does.
+ */
 function Wordmark() {
   const ref = useRef(null)
+  const chars = (cls) => <span className={`ftr__word-in ${cls}`} aria-hidden="true">{site.name.split('').map((c, i) => <span className="ftr__ch" key={i}>{c === ' ' ? ' ' : c}</span>)}</span>
+  // sized from the margins once the fonts are in: edge to edge, never taller than ~10% of the width
   useEffect(() => {
     const el = ref.current
     let last = 0
     const fit = (force) => {
       if (!force && el.clientWidth === last) return
       last = el.clientWidth
-      const inner = el.firstElementChild
+      const ch = el.querySelector('.is-ivory').children
       el.style.fontSize = '100px'
+      const text = ch[ch.length - 1].getBoundingClientRect().right - ch[0].getBoundingClientRect().left
       const room = el.clientWidth - parseFloat(getComputedStyle(el).paddingLeft) * 2
-      // a quiet signature: about 12% of the width on phones, 5% on wider screens
-      const fit = (100 * room) / inner.scrollWidth
-      el.style.fontSize = `${Math.min(fit, window.innerWidth * (window.innerWidth < 900 ? 0.12 : 0.05))}px`
+      el.style.fontSize = `${Math.min((100 * room) / text, window.innerWidth * (window.innerWidth < 900 ? 0.16 : 0.1))}px`
     }
     fit(true)
     document.fonts?.ready.then(() => fit(true))
@@ -47,13 +52,46 @@ function Wordmark() {
     return () => ro.disconnect()
   }, [])
   useGSAP(() => {
+    const el = ref.current
     if (reduced()) return
-    gsap.from(ref.current.querySelectorAll('.ftr__ch'), { yPercent: 110, duration: 1.4, ease: 'expo', stagger: 0.04, scrollTrigger: { trigger: ref.current, start: 'top 95%', once: true } })
+    const light = { x: -20, y: 50, r: 0 }
+    const apply = () => {
+      el.style.setProperty('--mx', `${light.x}%`)
+      el.style.setProperty('--my', `${light.y}%`)
+      el.style.setProperty('--r', `${light.r}px`)
+    }
+    const span = () => Math.max(160, el.clientHeight * 1.1)
+    gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 92%', once: true } })
+      .from(el.querySelectorAll('.ftr__ch'), { yPercent: 110, duration: 1.4, ease: 'expo', stagger: 0.035 }, 0)
+      .to(light, { r: () => span(), duration: 0.4, ease: 'power2.out', onUpdate: apply }, 0.7)
+      .to(light, { x: 120, duration: 2, ease: 'power2.inOut', onUpdate: apply }, 0.7)
+      .to(light, { r: 0, duration: 0.5, ease: 'power2.in', onUpdate: apply }, 2.3)
+    // the light follows the pointer, eased so it glides rather than jumps
+    const to = { x: 50, y: 50 }
+    const glide = gsap.quickTo(light, 'x', { duration: 0.6, ease: 'power3.out', onUpdate: apply })
+    const glideY = gsap.quickTo(light, 'y', { duration: 0.6, ease: 'power3.out', onUpdate: apply })
+    const layer = el.querySelector('.is-brass')
+    const at = (e) => {
+      const r = layer.getBoundingClientRect()
+      to.x = ((e.clientX - r.left) / r.width) * 100
+      to.y = ((e.clientY - r.top) / r.height) * 100
+      glide(to.x)
+      glideY(to.y)
+    }
+    const enter = (e) => { gsap.to(light, { r: span(), duration: 0.5, ease: 'power2.out', onUpdate: apply }); at(e) }
+    // after a tap the light lingers a moment before it fades
+    const leave = (e) => gsap.to(light, { r: 0, duration: 0.6, delay: e?.pointerType === 'touch' ? 1.4 : 0, ease: 'power2.inOut', onUpdate: apply })
+    el.addEventListener('pointerenter', enter)
+    el.addEventListener('pointermove', at)
+    el.addEventListener('pointerleave', leave)
+    return () => { el.removeEventListener('pointerenter', enter); el.removeEventListener('pointermove', at); el.removeEventListener('pointerleave', leave) }
   }, { scope: ref })
   return (
-    <p className="ftr__word" ref={ref} aria-hidden="true">
-      <span className="ftr__word-in">{site.name.split('').map((c, i) => <span className="ftr__ch" key={i}>{c === ' ' ? '\u00a0' : c}</span>)}</span>
-    </p>
+    <div className="ftr__word" ref={ref}>
+      <span className="sr-only">{site.name}</span>
+      {chars('is-ivory')}
+      {chars('is-brass')}
+    </div>
   )
 }
 
@@ -63,6 +101,7 @@ function Directory() {
     ['Services', services.map((p) => [p.slug, p.title])],
     ['Areas', areas.map((a) => [a.slug, a.name])],
     ['Guides', [...articles, ...industries].map((g) => [g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title])],
+    ['Site', [['privacy', 'Privacy'], ['accessibility', 'Accessibility']]],
   ]
   // the index folds behind one line; its links stay in the page for search engines
   const [open, setOpen] = useState(false)
@@ -115,16 +154,6 @@ export default function Footer({ cta = true }) {
       </div>
       <Directory />
       <Wordmark />
-      <div className="ftr__base wrap">
-        <span>© {new Date().getFullYear()} {site.name}</span>
-        <TLink to="/privacy" className="ftr__legal">Privacy</TLink>
-        <TLink to="/accessibility" className="ftr__legal">Accessibility</TLink>
-        <span className="ftr__colophon">Set in Geist and Instrument Serif. Designed and built by hand in {site.city}.</span>
-        <button className="ftr__top" onClick={() => scrollTo(0, { duration: 2 })}>
-          <RollText>Back to top</RollText>
-          <Icon name="arrowUpRight" size={14} className="ftr__top-ico" />
-        </button>
-      </div>
     </footer>
   )
 }

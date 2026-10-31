@@ -9,7 +9,7 @@ import extras from '../data/seo/seo-extras.json'
 import { services, areas, industries, articles, LEGAL } from './pages'
 
 export const ORIGIN = site.url.replace(/\/$/, '')
-const OG = `${ORIGIN}/og.jpg`
+const OG = `${ORIGIN}/og.png`
 export const ids = { person: `${ORIGIN}/#person`, business: `${ORIGIN}/#business`, website: `${ORIGIN}/#website` }
 const phone = site.phone.label.replace(/\s/g, '')
 
@@ -45,7 +45,7 @@ export function siteGraph() {
         '@type': 'ProfessionalService', '@id': ids.business, name: 'Rushan Haque – Website Designer & Developer',
         alternateName: ['Rushan Haque', 'Rushan Haque Web Design'], url: `${ORIGIN}/`,
         description: 'Website designer and web developer in Moradabad, India, for businesses across India and abroad: custom business websites, online stores, export catalogues and web applications, designed and built from scratch, fast and optimised for Google and AI search.',
-        image: OG, logo: `${ORIGIN}/favicon-48.png`, priceRange: '₹₹', currenciesAccepted: 'INR',
+        image: OG, logo: `${ORIGIN}/icon-512.png`, priceRange: '₹₹', currenciesAccepted: 'INR',
         telephone: phone, email: site.email, address,
         geo: { '@type': 'GeoCoordinates', latitude: 28.8386, longitude: 78.7733 },
         hasMap: 'https://maps.google.com/?q=Moradabad,+Uttar+Pradesh,+India',

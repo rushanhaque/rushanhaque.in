@@ -18,7 +18,6 @@ const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, '') } c
 export default function Showcase({ items, external = false }) {
   const root = useRef(null)
   const [active, setActive] = useState(0)
-  const n = items.length
 
   useGSAP(
     () => {
@@ -31,7 +30,6 @@ export default function Showcase({ items, external = false }) {
       gsap.timeline({ scrollTrigger: { trigger: q('.sc__window')[0], start: 'top 85%', once: true } })
         .fromTo(q('.sc__window'), { clipPath: 'inset(100% 0% 0% 0% round 14px)' }, { clipPath: 'inset(0% 0% 0% 0% round 14px)', duration: 1.4, ease: 'expo', clearProps: 'clipPath' }, 0)
         .from(q('.sc__frames'), { scale: 1.18, duration: 1.8, ease: 'expo', clearProps: 'scale' }, 0)
-        .from(q('.sc__meter > *'), { y: 14, autoAlpha: 0, stagger: 0.06, duration: 0.9 }, 0.4)
     },
     { scope: root },
   )
@@ -71,11 +69,6 @@ export default function Showcase({ items, external = false }) {
             ))}
             <LiquidWindow items={items} active={active} />
           </div>
-        </div>
-        <div className="sc__meter">
-          <span><b>{two(active + 1)}</b> / {two(n)}</span>
-          <span className="sc__progress"><i style={{ transform: `scaleX(${(active + 1) / n})` }} /></span>
-          <span className={`status status--${it.status === 'Live' ? 'live' : 'wip'}`}><i />{it.status}</span>
         </div>
       </div>
     </div>

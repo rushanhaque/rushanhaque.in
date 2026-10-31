@@ -37,7 +37,7 @@
 @media (prefers-reduced-motion: reduce) { .hero__aperture, .hero__ring { display: none; } }
 
 /* ═════════ 01 · RECENT WORKS — the card that shatters into the next ═════════ */
-.rw__pin { position: relative; height: 100vh; height: 100svh; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(12px, 2.2vh, 24px); padding: calc(var(--hdr-h) + 20px) 0 clamp(18px, 2.6vh, 30px); overflow: hidden; }
+.rw__pin { position: relative; height: 100vh; height: 100svh; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: clamp(12px, 2.2vh, 24px); padding: calc(var(--hdr-h) + 20px) 0 clamp(18px, 2.6vh, 30px); overflow: hidden; }
 .rw__pin::before { content: ''; position: absolute; inset: 0; background: radial-gradient(55% 60% at 64% 52%, rgba(74, 34, 40, 0.05), transparent 70%); pointer-events: none; }
 .rw__head { position: relative; z-index: 2; }
 .rw__head .kick { margin-bottom: 14px; }
@@ -64,14 +64,14 @@
 .rw__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 /* the shards fly within the card's own row, never over the words, title or tabs; the edges fade */
 .rw__gl { position: absolute; z-index: 2; max-width: none; left: -32px; top: -28px; width: calc(100% + 32px + var(--pad)); height: calc(100% + 56px); opacity: 0; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent, #000 30px, #000 calc(100% - 44px), transparent), linear-gradient(90deg, transparent, #000 22px, #000 calc(100% - 36px), transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent, #000 30px, #000 calc(100% - 44px), transparent), linear-gradient(90deg, transparent, #000 22px, #000 calc(100% - 36px), transparent); mask-composite: intersect; }
-.rw__foot { position: relative; z-index: 2; display: grid; gap: 12px; }
-.rw__tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+/* the site-to-site tabs exist only for reduced motion, where there is no scroll scene */
+.rw__tabs { display: none; }
+@media (prefers-reduced-motion: reduce) { .rw__tabs { display: grid; } }
+.rw__tabs { position: relative; z-index: 2; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
 .rw__tabs button { display: flex; align-items: baseline; gap: 10px; width: 100%; padding: 6px 0; color: var(--muted); font-size: 14px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.4s var(--ease); }
 .rw__tabs button small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--accent); opacity: 0.6; transition: opacity 0.4s; }
 .rw__tabs button:hover, .rw__tabs button.is-on { color: var(--fg); }
 .rw__tabs button.is-on small { opacity: 1; }
-.rw__bar { position: relative; display: block; height: 1px; background: var(--line); overflow: hidden; }
-.rw__bar i { position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; }
 @media (max-width: 899px) {
   .rw__pin { padding-top: calc(var(--hdr-h) + 20px); gap: 14px; }
   .rw__title { font-size: clamp(2.2rem, 10vw, 3rem); }
@@ -127,22 +127,41 @@
 }
 
 /* ═════════ 04 · CLIENTELE ═════════ */
-.cli__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.cli__plot { position: relative; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.cli__plot > a, .cli__plot > div { position: relative; display: grid; grid-template-rows: 1fr auto; gap: 16px; height: 100%; min-height: clamp(150px, 13vw, 210px); padding: clamp(20px, 2vw, 30px); overflow: hidden; isolation: isolate; }
-.cli__plot > a::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--fg); transform: scaleY(0); transform-origin: 50% 100%; transition: transform 0.6s var(--ease); }
-.cli__plot > a:hover { color: var(--bg); }
-.cli__plot > a:hover::before { transform: none; }
-.cli__mark { align-self: center; justify-self: center; text-align: center; font-family: var(--serif); font-weight: 400; font-size: clamp(1.2rem, 1.7vw, 1.7rem); letter-spacing: -0.04em; line-height: 1.1; transition: transform 0.6s var(--ease); }
-.cli__mark img { max-height: 48px; max-width: 70%; margin: 0 auto; filter: grayscale(1); opacity: 0.8; transition: filter 0.4s, opacity 0.4s; }
-.cli__plot > a:hover .cli__mark { transform: translateY(-4px); }
-.cli__plot > a:hover .cli__mark img { filter: none; opacity: 1; }
-.cli__meta { display: flex; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); transition: color 0.4s; }
-.cli__plot > a:hover .cli__meta { color: inherit; opacity: 0.75; }
-.cli__plot--open .cli__mark { font-style: italic; color: var(--accent); }
-.cli__plot--open > a:hover .cli__mark { color: var(--bg); }
+
+/* ═════════ 04 · CLIENTELE — a ledger of the brands ═════════ */
+.cli__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.cli__card { position: relative; display: grid; grid-template-rows: auto 1fr auto; min-height: clamp(168px, 14vw, 220px); padding: clamp(14px, 1.4vw, 20px); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background-color 0.5s var(--ease); }
+.cli__card--open { grid-template-rows: 1fr; padding: 0; }
+.cli__card--open > a { display: grid; grid-template-rows: auto 1fr auto; height: 100%; padding: clamp(14px, 1.4vw, 20px); }
+.cli__top { display: flex; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.cli__top span:first-child { color: var(--accent); }
+.cli__mark { align-self: center; justify-self: center; display: grid; place-items: center; width: 100%; min-height: 64px; padding: 14px 6px; text-align: center; font-size: clamp(1.15rem, 1.6vw, 1.55rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.03em; }
+.cli__mark img { max-width: min(78%, 180px); max-height: 52px; object-fit: contain; filter: grayscale(1) contrast(1.05); opacity: 0.82; transition: filter 0.5s var(--ease), opacity 0.5s var(--ease); }
+.cli__mark em { color: var(--accent); }
+.cli__field { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; color: var(--muted); }
+.cli__card--open .cli__field { display: inline-flex; justify-content: center; align-items: center; gap: 6px; color: var(--fg); }
+/* under the pointer: a light tint and four brass corner marks, and nothing moves */
+.cli__ticks { --c: var(--brass); position: absolute; inset: 8px; pointer-events: none; opacity: 0; transition: opacity 0.5s var(--ease);
+  background:
+    linear-gradient(var(--c), var(--c)) left top / 12px 1px no-repeat, linear-gradient(var(--c), var(--c)) left top / 1px 12px no-repeat,
+    linear-gradient(var(--c), var(--c)) right top / 12px 1px no-repeat, linear-gradient(var(--c), var(--c)) right top / 1px 12px no-repeat,
+    linear-gradient(var(--c), var(--c)) left bottom / 12px 1px no-repeat, linear-gradient(var(--c), var(--c)) left bottom / 1px 12px no-repeat,
+    linear-gradient(var(--c), var(--c)) right bottom / 12px 1px no-repeat, linear-gradient(var(--c), var(--c)) right bottom / 1px 12px no-repeat; }
+@media (hover: hover) {
+  .cli__card:hover { background: var(--stone); }
+  .cli__card:hover .cli__ticks { opacity: 1; }
+  .cli__card:hover .cli__mark img { filter: none; opacity: 1; }
+  .cli__card--open:hover { background: var(--fg); color: var(--bg); }
+  .cli__card--open:hover .cli__mark em, .cli__card--open:hover .cli__top span, .cli__card--open:hover .cli__field { color: inherit; }
+}
 @media (max-width: 1000px) { .cli__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 640px) { .cli__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cli__meta span:last-child { display: none; } }
+@media (max-width: 640px) {
+  .cli__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cli__card { min-height: 150px; padding: 12px; }
+  .cli__card--open > a { padding: 12px; }
+  .cli__mark { font-size: 1.05rem; padding: 10px 2px; }
+  .cli__top, .cli__field { font-size: 9.5px; letter-spacing: 0.1em; }
+}
 
 /* ═════════ 05 · WHERE I SERVE — a paper map, scrubbed by the scroll ═════════ */
 .serve { height: 360vh; }
@@ -206,13 +225,6 @@
 .serve__bar::before { content: '0'; position: absolute; left: 0; bottom: calc(100% + 5px); translate: -50% 0; }
 .serve__bar::after { content: attr(data-km); position: absolute; right: 0; bottom: calc(100% + 5px); white-space: nowrap; }
 
-.serve__tabs { position: relative; z-index: 2; grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 2vw, 32px); margin: 0; padding: 0; list-style: none; }
-.serve__tabs button { position: relative; width: 100%; min-height: 48px; display: flex; align-items: baseline; gap: 12px; padding: 16px 0 4px; color: var(--fg); text-align: left; opacity: 0.45; transition: opacity 0.4s; }
-.serve__tabs button:is(.is-on, .is-past, :hover) { opacity: 1; }
-.serve__tabs small { font-family: var(--mono); font-size: 10.5px; color: var(--accent); }
-.serve__tabs span { font-family: var(--serif); font-size: 1.2rem; }
-.serve__tabs i { position: absolute; left: 0; right: 0; top: 0; height: 2px; overflow: hidden; background: var(--line); }
-.serve__tabs i::after { content: ''; position: absolute; inset: 0; background: var(--accent); transform: scaleX(var(--f)); transform-origin: 0 50%; }
 @media (max-width: 899px) {
   .serve { height: 320vh; }
   .serve__stage { display: flex; flex-direction: column; gap: 10px; padding: calc(var(--hdr-h) + 6px) var(--pad) 16px; }
@@ -229,8 +241,6 @@
   .serve__clocks { margin-top: 10px; }
   .serve__clocks li { padding: 4px 9px; font-size: 11px; }
   .serve__clocks li:nth-child(n + 5) { display: none; }
-  .serve__tabs { order: 4; gap: 10px; }
-  .serve__tabs span { font-size: 1rem; }
   .serve__stats, .serve__hud, .serve__north { display: none; }
   .serve__scale { top: calc(25svh + 4px); bottom: auto; gap: 7px; font-size: 9px; }
 }
@@ -271,11 +281,6 @@
 .osv__card--cta .osv__no { position: static; color: var(--brass-2); }
 .osv__ask { margin: 0; font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 500; line-height: 1; letter-spacing: -0.04em; }
 .osv__card--cta .btn { align-self: flex-start; }
-.osv__foot { display: flex; align-items: center; gap: 18px; margin-top: clamp(14px, 2.6vh, 28px); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-.osv__bar { position: relative; flex: 1; height: 1px; overflow: hidden; background: var(--line); }
-.osv__bar i { position: absolute; inset: 0; background: var(--fg); transform: scaleX(0); transform-origin: 0 50%; }
-.osv__count { font-variant-numeric: tabular-nums; }
-.osv__count b { font-weight: 400; color: var(--fg); }
 @media (max-height: 760px) and (min-width: 900px) {
   .osv__tags { display: none; }
   .osv__text { font-size: 13.5px; }
@@ -289,9 +294,6 @@
   .osv__card { height: auto; max-height: none; scroll-snap-align: start; }
   .osv__plate { flex: none; aspect-ratio: 16 / 10; }
   .osv__card--cta { min-height: 340px; }
-  .osv__foot { margin-top: 0; }
-  .osv__hint { font-size: 0; }
-  .osv__hint::before { content: 'Swipe to browse'; font-size: 10.5px; }
 }
 @media (max-width: 899px) { .osv { --cw: min(82vw, 380px); } }
 
@@ -383,12 +385,15 @@
 /* the profile card carries its own night palette, so the buttons inside follow it */
 .pro__card { --card: #2a1219; --bg: #1a0f12; --fg: #ffffff; --muted: rgba(255, 255, 255, 0.62); --line: rgba(255, 255, 255, 0.16); --accent: var(--brass-2); --hi: #2a1219; position: relative; display: flex; flex-direction: column; gap: 28px; padding: clamp(24px, 2.6vw, 40px); border-radius: 24px; background: radial-gradient(120% 80% at 100% 0%, #2c1519 0%, var(--bg) 55%); color: var(--fg); overflow: hidden; }
 .pro__card::before { content: ''; position: absolute; right: -14%; bottom: -30%; width: 70%; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(217, 185, 126, 0.16); box-shadow: 0 0 0 40px rgba(217, 185, 126, 0.03), 0 0 0 80px rgba(217, 185, 126, 0.02); pointer-events: none; }
-.pro__mark { color: var(--brass-2); }
-.pro__who { display: grid; gap: 10px; margin-top: auto; }
+.pro__mark { color: #f6eee4; }
+.pro__mark .mark__dot { fill: var(--brass-2); }
+.pro__who { display: grid; gap: 10px; }
+/* the name heads the card, under the mark; the details settle at its foot */
+
 .pro__sig { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 4vw, 4.2rem); line-height: 0.95; letter-spacing: -0.05em; }
 .pro__sig em { font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: var(--brass-2); }
 .pro__role { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
-.pro__meta { display: grid; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.pro__meta { display: grid; margin: auto 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .pro__meta li { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .pro__meta span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .pro__meta b { font-weight: 500; font-size: 14px; font-variant-numeric: tabular-nums; }
@@ -417,7 +422,6 @@
 }
 
 /* ═════════ type refinements ═════════ */
-.cli__mark { font-size: clamp(1.5rem, 2.1vw, 2.3rem); font-weight: 400; }
 
 /* ═════════ STORY — narration between chapters ═════════ */
 .bridge { padding-block: clamp(24px, 4vw, 64px) clamp(56px, 7vw, 112px); }
@@ -453,8 +457,6 @@
   .serve__story { order: 0; margin-top: 0; min-height: 0; gap: 12px; padding-top: 10px; }
   .serve__num { font-size: 2.4rem; }
   .serve__h { margin: 4px 0 0; font-size: 1.15rem; }
-  .serve__tabs { grid-column: 1 / -1; grid-row: 2; order: 0; }
-  .serve__tabs button { min-height: 40px; padding: 10px 0 2px; }
 }
 /* on touch screens the map is simply open; its opening clip only plays with a mouse */
 @media (hover: none) { .serve__map { clip-path: none; } }
