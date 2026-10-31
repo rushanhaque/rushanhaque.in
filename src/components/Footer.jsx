@@ -36,9 +36,9 @@ function Wordmark() {
       const inner = el.firstElementChild
       el.style.fontSize = '100px'
       const room = el.clientWidth - parseFloat(getComputedStyle(el).paddingLeft) * 2
-      // edge to edge on phones; on wider screens a quieter signature, never taller than about 7.5% of the width
+      // a quiet signature: about 12% of the width on phones, 5% on wider screens
       const fit = (100 * room) / inner.scrollWidth
-      el.style.fontSize = `${window.innerWidth < 900 ? fit : Math.min(fit, window.innerWidth * 0.075)}px`
+      el.style.fontSize = `${Math.min(fit, window.innerWidth * (window.innerWidth < 900 ? 0.12 : 0.05))}px`
     }
     fit(true)
     document.fonts?.ready.then(() => fit(true))
@@ -64,7 +64,7 @@ function Directory() {
     ['Areas', areas.map((a) => [a.slug, a.name])],
     ['Guides', [...articles, ...industries].map((g) => [g.slug, g.lang === 'hi' ? `${g.title} (हिंदी)` : g.title])],
   ]
-  // on phones the index folds behind one line; the links stay in the page for search engines
+  // the index folds behind one line; its links stay in the page for search engines
   const [open, setOpen] = useState(false)
   return (
     <nav className={`ftr__dir wrap ${open ? 'is-open' : ''}`} aria-label="Services, areas and guides">
