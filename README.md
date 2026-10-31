@@ -96,7 +96,7 @@ Every section opens with the same heading component (`src/components/Head.jsx`):
 - The hero shader is one fragment shader drawn at a fraction of screen resolution, and only while the hero is on screen. Without WebGL a CSS gradient shows instead.
 - The map data and the drag library load only when they are needed.
 - Reveals animate transform, opacity and clip-path only.
-- The intro plays about two seconds on a first visit to the home page only; anyone arriving deeper (often from a search) goes straight to the page.
+- The loader, "Light.", plays about three seconds on a first visit to the home page only (a tap or key skips ahead); anyone arriving deeper, returning, on reduced motion or on an entry-level phone goes straight to the page. Its first frame, the point of light, is written into the home page's HTML, so it shows before any script loads. It animates only transform and opacity, plus one small canvas of dust (110 specks on phones).
 - **Three device tiers** (`src/lib/device.js`). Entry-level phones (2 GB memory or 2 cores), Data Saver and 2G connections get the CSS gradient instead of the WebGL hero, the plain crossfade instead of the particle shatter, the plain wipe instead of the liquid window, native scrolling, and no frosted glass. Mid-range devices keep every scene at fewer pixels and particles.
 - The landing pages' text stays out of the main bundle: the header and footer carry only a small generated index (`scripts/seo-index.mjs`).
 - `prefers-reduced-motion` turns off smooth scroll, the pinned scenes and the shader animation.

@@ -21,10 +21,21 @@ const verify = {
   bing: process.env.BING_SITE_VERIFICATION || process.env.VITE_BING_SITE_VERIFICATION || '',
 }
 
+// The home page's first frame, in the HTML itself: the dark and the point of light the loader
+// opens on, painted before any script arrives. The loader takes it over on mount; anyone who
+// won't see the intro (a repeat visit, reduced motion, an entry-level phone) never sees it.
+const BOOT = `<style>#boot{position:fixed;inset:0;z-index:290;background:#0c0607}#boot i{position:absolute;left:50%;top:50%;width:46vmin;height:46vmin;margin:-23vmin 0 0 -23vmin;border-radius:50%;scale:.8;background:radial-gradient(closest-side,rgba(228,199,143,.5),rgba(217,185,126,.14) 38%,transparent 72%)}#boot i::after{content:'';position:absolute;left:50%;top:50%;width:5px;height:5px;margin:-2.5px;border-radius:50%;background:#fff6e2;box-shadow:0 0 12px 3px rgba(255,238,200,.8),0 0 40px 10px rgba(228,199,143,.35)}</style>
+    <noscript><style>#boot{display:none}</style></noscript>`
+const BOOT_BODY = `<div id="boot" aria-hidden="true"><i></i></div>
+    <script>try{var n=navigator,c=n.connection||{};if(sessionStorage.getItem('rh:intro')||matchMedia('(prefers-reduced-motion: reduce)').matches||(n.deviceMemory||8)<=2||(n.hardwareConcurrency||8)<=2||c.saveData||/(^|-)2g$/.test(c.effectiveType||''))document.getElementById('boot').remove()}catch(e){}</script>
+    `
+
 function page(head, html) {
+  const home = head.path === '/'
   const out = template
     .replace('<html lang="en">', `<html lang="${head.lang === 'hi' ? 'hi' : 'en'}">`)
-    .replace('<!--app-head-->', headHtml(head, { verify }))
+    .replace('<!--app-head-->', headHtml(head, { verify }) + (home ? `\n    ${BOOT}` : ''))
+    .replace('<div id="root">', `${home ? BOOT_BODY : ''}<div id="root">`)
     .replace('<!--app-html-->', html)
   // a page that failed to render must stop the build, not ship empty
   const failed = html.match(/data-msg="([^"]*)"/)
