@@ -76,31 +76,11 @@ a:hover .roll__chars > span, button:hover .roll__chars > span { transform: trans
 .fo__cta .icon { transition: translate 0.4s var(--ease); }
 .fo__cta:hover .icon { translate: 2px -2px; }
 
-/* the ruler: the whole page along the bar's bottom edge, a tick where each chapter begins */
-.fo__ruler { position: absolute; left: var(--pad); right: var(--pad); top: calc(100% - 1px); height: 1px; color: var(--fo-fg); cursor: pointer; touch-action: none; user-select: none; transition: height 0.45s var(--ease), opacity 0.4s; }
-.fo__ruler::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; height: 20px; }
-.fo__ruler::after { content: ''; position: absolute; inset: 0; background: var(--fo-glass); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); border-radius: 0 0 8px 8px; opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+/* the reading line: a hairline under the bar that fills as you read down the page */
+.fo__ruler { position: absolute; left: var(--pad); right: var(--pad); top: calc(100% - 1px); height: 1px; pointer-events: none; }
 .fo__track { position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 1px; background: var(--fo-line); }
 .fo__fill { position: absolute; inset: 0; background: var(--fo-acc); transform: scaleX(var(--p, 0)); transform-origin: 0 50%; }
-.fo__reader { position: absolute; z-index: 2; top: 0; left: calc(var(--p, 0) * 100%); width: 7px; height: 7px; background: var(--fo-acc); translate: -50% -50%; rotate: 45deg; transition: background-color 0.5s; }
-.fo__cursor { position: absolute; z-index: 2; top: 0; bottom: 0; left: calc(var(--h, 0) * 100%); width: 1px; background: var(--fo-fg); opacity: 0; transition: opacity 0.3s; }
-.fo__segs { position: absolute; z-index: 1; inset: 0; margin: 0; padding: 0; list-style: none; }
-.fo__segs li { position: absolute; top: 0; height: 100%; display: flex; align-items: center; gap: 6px; padding: 0 10px; overflow: hidden; white-space: nowrap; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fo-mute); transition: color 0.3s, background-color 0.3s; }
-.fo__segs li::before { content: ''; position: absolute; left: 0; top: 0; width: 1px; height: 5px; background: var(--fo-fg); opacity: 0.4; transition: height 0.45s var(--ease); }
-.fo__segs li:first-child::before { display: none; }
-.fo__segs li > * { opacity: 0; transition: opacity 0.3s; }
-.fo__segs b { font-weight: 500; color: var(--fo-acc); }
-.fo__segs span { overflow: hidden; text-overflow: ellipsis; }
-.fo__segs li.is-on { color: var(--fo-fg); }
-.fo__segs li.is-hover { background: color-mix(in srgb, var(--fo-acc) 9%, transparent); color: var(--fo-fg); }
-@media (hover: hover) and (pointer: fine) {
-  .fo__ruler:hover { height: 30px; }
-  .fo__ruler:hover::after, .fo__ruler:hover .fo__cursor { opacity: 1; }
-  .fo__ruler:hover .fo__segs li > * { opacity: 1; transition-delay: 0.12s; }
-  .fo__ruler:hover .fo__segs li::before { height: 100%; opacity: 0.18; }
-}
 @media (hover: none), (pointer: coarse) {
-  .fo__ruler { pointer-events: none; }
   /* a blur behind a bar that scrolls is redrawn every frame; on phones a solid tint reads the same */
   .fo::before, .fo__ruler::after { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .fo { --fo-glass: rgba(255, 255, 255, 0.95); }

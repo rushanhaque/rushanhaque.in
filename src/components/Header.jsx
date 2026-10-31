@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ScrollTrigger } from '../lib/gsap'
-import { scrollTo } from '../lib/lenis'
 import { site } from '../config/site'
 import { works } from '../data/content'
 import { titleFor } from '../lib/pages'
@@ -36,13 +35,11 @@ const room = (s) => (s.parentElement?.classList.contains('pin-spacer') ? s.paren
 /**
  * The Folio. The header reads like the running head of a book: the name on the left folds to
  * initials once you leave the cover, the middle names the chapter you are in, and the bar's
- * bottom edge is a ruler of the whole page, a tick for every chapter. Hover the ruler and it
- * opens into a timeline you can click or drag to travel the page.
+ * bottom edge is a hairline that fills as you read down the page.
  */
 export default function Header() {
   const { pathname } = useLocation()
   const root = useRef(null)
-  const ruler = useRef(null)
   const marks = useRef([])
   const [tone, setTone] = useState('light')
   const [solid, setSolid] = useState(false)
@@ -50,7 +47,6 @@ export default function Header() {
   const [list, setList] = useState([])
   const [on, setOn] = useState(-1)
   const [head, setHead] = useState({ cur: null, prev: null })
-  const [hover, setHover] = useState(null)
 
   // the bar takes the palette of the room under it
   useEffect(() => {
@@ -117,38 +113,7 @@ export default function Header() {
     return () => clearTimeout(t)
   }, [name, no])
 
-
-  // the ruler: a click goes to the start of the chapter under it, a drag scrubs the page
-  const drag = useRef(null)
-  const at = (e) => {
-    const r = ruler.current.getBoundingClientRect()
-    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width))
-  }
-  const chapterAt = (f) => { let i = -1; list.forEach((m, k) => { if (f >= m.at) i = k }); return i }
-  const max = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
-  const onDown = (e) => {
-    if (e.button !== 0) return
-    ruler.current.setPointerCapture(e.pointerId)
-    drag.current = { x: e.clientX, moved: false }
-  }
-  const onMove = (e) => {
-    const f = at(e)
-    setHover({ f, i: chapterAt(f) })
-    if (!drag.current) return
-    if (Math.abs(e.clientX - drag.current.x) > 4) drag.current.moved = true
-    if (drag.current.moved) scrollTo(f * max(), { immediate: true, force: true })
-  }
-  const onUp = (e) => {
-    if (!drag.current) return
-    const { moved } = drag.current
-    drag.current = null
-    if (moved) return
-    const i = chapterAt(at(e))
-    scrollTo(i >= 0 ? marks.current[i].top : 0, { duration: 1.6 })
-  }
-
   const current = (url) => (pathname.startsWith(url) ? 'page' : undefined)
-  const segs = [{ name: PAGE(pathname), at: 0, i: -1 }, ...list.map((m, i) => ({ ...m, i }))].filter((s, k, a) => k > 0 || (a[1]?.at ?? 1) > 0.002)
   return (
     <>
       <header ref={root} className={`fo ${solid ? 'is-solid' : ''} ${folded ? 'is-folded' : ''}`} data-tone={tone}>
@@ -174,30 +139,9 @@ export default function Header() {
           </div>
         </div>
 
-        <div
-          className="fo__ruler"
-          ref={ruler}
-          onPointerDown={onDown}
-          onPointerMove={onMove}
-          onPointerUp={onUp}
-          onPointerCancel={() => (drag.current = null)}
-          onPointerLeave={() => setHover(null)}
-          style={hover ? { '--h': hover.f } : undefined}
-        >
-          <span className="fo__track" aria-hidden="true"><i className="fo__fill" /></span>
-          <span className="fo__reader" aria-hidden="true" />
-          {hover && <span className="fo__cursor" aria-hidden="true" />}
-          {/* pointer travel only; the chapters are each reachable by scrolling and by their links */}
-          <ol className="fo__segs" aria-hidden="true">
-            {segs.map((s, k) => {
-              const end = segs[k + 1]?.at ?? 1
-              return (
-                <li key={s.name + k} style={{ left: `${s.at * 100}%`, width: `${(end - s.at) * 100}%` }} className={`${s.i === on ? 'is-on' : ''} ${hover && hover.i === s.i ? 'is-hover' : ''}`}>
-                  <b>{s.i >= 0 ? two(s.i + 1) : '00'}</b><span>{s.name}</span>
-                </li>
-              )
-            })}
-          </ol>
+        {/* the reading line: how far down the page you are */}
+        <div className="fo__ruler" aria-hidden="true">
+          <span className="fo__track"><i className="fo__fill" /></span>
         </div>
       </header>
     </>
