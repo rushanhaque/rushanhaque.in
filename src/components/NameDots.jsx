@@ -20,7 +20,9 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
     if (reduced()) return
     const ctx = canvas.getContext('2d')
     const lite = tier() !== 'high'
-    const dpr = lite ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)
+    // drawn at the screen's own density, so the dots stay sharp on phones (most are 3x); the
+    // cost lies in the number of dots, which `lite` lowers, not in the canvas resolution
+    const dpr = Math.min(window.devicePixelRatio || 1, tier() === 'low' ? 2 : 3)
     const phone = window.innerWidth < 900
     let W = 0
     let H = 0
@@ -72,7 +74,8 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       const words = [section.querySelector('.hero__l1 .hero__txt'), section.querySelector('.hero__l2 em')]
       const step = phone ? 2 : W > 1700 ? 3.5 : 3
-      const budget = phone ? (lite ? 3000 : 5200) : (lite ? 6000 : 10000)
+      const level = tier()
+      const budget = phone ? (level === 'low' ? 3000 : level === 'mid' ? 4400 : 5200) : (lite ? 6000 : 10000)
       const targets = words.map((el) => (el ? sample(el, step) : []))
       const total = targets[0].length + targets[1].length || 1
       groups = targets.map((t, k) => {
