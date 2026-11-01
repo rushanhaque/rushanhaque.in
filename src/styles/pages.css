@@ -377,7 +377,7 @@
 .lp__faqs summary span { font-family: var(--mono); font-size: 10.5px; font-weight: 400; color: var(--accent); }
 .lp__faqs details p { margin: 0 0 18px 50px; max-width: 62ch; font-size: 15.5px; line-height: 1.7; color: var(--muted); }
 .lp__shots { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px); margin: 0; padding: 0; list-style: none; }
-.lp__shots a { display: grid; gap: 10px; }
+.lp__shots a { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
 .lp__shots img { width: 100%; height: auto; aspect-ratio: 1600 / 773; object-fit: cover; object-position: top; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); transition: box-shadow 0.5s var(--ease); }
 .lp__shots a:hover img { box-shadow: 0 0 0 1px rgba(32, 24, 20, 0.2), 0 30px 50px -36px rgba(36, 20, 26, 0.5); }
 .lp__shot-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; }
@@ -432,7 +432,7 @@
 @media (hover: none), (max-width: 899px) {
   .sc { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .sc > .sc__stage { display: none; }
-  .sc__item, .sc__item:last-child { display: grid; min-height: 0; align-content: start; gap: 18px; padding: 0 0 clamp(44px, 9vw, 72px); opacity: 1; }
+  .sc__item, .sc__item:last-child { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; min-height: 0; align-content: start; gap: 18px; padding: 0 0 clamp(44px, 9vw, 72px); opacity: 1; }
   .sc__copy { position: static; }
   .sc__name .ch { translate: 0 0; opacity: 1; }
   .sc__shot { display: block; overflow: hidden; border-radius: 12px; background: var(--hi); box-shadow: 0 0 0 1px var(--line), 0 40px 70px -46px rgba(36, 20, 26, 0.45); }

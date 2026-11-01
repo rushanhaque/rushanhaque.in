@@ -38,9 +38,12 @@
 
 /* ═════════ 01 · RECENT WORKS — a deck of cases ═════════ */
 .rw__list { --ink: #f6f1ec; --ink-2: rgba(246, 241, 236, 0.62); --ink-3: rgba(246, 241, 236, 0.14); margin: clamp(36px, 5vw, 72px) 0 0; padding: 0; list-style: none; display: grid; gap: clamp(28px, 4vw, 48px); }
-.rw__card { position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: clamp(16px, 1.6vw, 24px); background: #150c0f; color: var(--ink); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 60px 120px -60px rgba(26, 12, 17, 0.55); transform-origin: 50% 0; will-change: transform; }
+.rw__item { min-width: 0; }
+/* a plain block, not a flex column: on iPhones a flex item will not shrink below its picture's own width (1600px) */
+.rw__card { position: relative; display: block; min-width: 0; overflow: hidden; border-radius: clamp(16px, 1.6vw, 24px); background: #150c0f; color: var(--ink); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 60px 120px -60px rgba(26, 12, 17, 0.55); transform-origin: 50% 0; will-change: transform; }
 .rw__media { position: relative; display: block; overflow: hidden; aspect-ratio: 1600 / 773; margin: 10px 10px 0; border-radius: clamp(10px, 1.1vw, 16px); background: #22161a; cursor: pointer; }
-.rw__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transform-origin: 50% 0; will-change: transform; transition: filter 0.8s var(--ease); }
+/* the picture fills the frame the ratio sets; its own size never reaches the layout */
+.rw__media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: top; transform-origin: 50% 0; will-change: transform; transition: filter 0.8s var(--ease); }
 .rw__media::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); pointer-events: none; }
 .rw__shade { position: absolute; inset: 0; z-index: 2; background: #0b0507; opacity: 0; pointer-events: none; }
 
