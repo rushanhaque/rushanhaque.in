@@ -19,7 +19,7 @@ export default function Home() {
   const root = useRef(null)
   useReveals(root, 'night')
   return (
-    <div className="page page--home page--rooms" ref={root}>
+    <div className="page page--home" ref={root}>
       <Hero />
       <RecentWorks />
       <Drafting />

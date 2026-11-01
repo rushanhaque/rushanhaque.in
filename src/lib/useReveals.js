@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger, SplitText, useGSAP, reduced } from './gsap'
-import { setTheme, rooms } from './theme'
+import { setTheme } from './theme'
 import { useApp } from './app'
 
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -16,40 +16,31 @@ const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
  *   data-line                        a hairline draws itself from the left
  *   data-parallax="0.12"             the inner image drifts against the scroll
  *   .beam                            its travelling light runs only while on screen
- *   data-theme | data-theme-from     the header and cursor switch palette as the section arrives
+ *   data-theme | data-theme-start    the whole page morphs to this palette as the section crosses 55%
  */
 export function useReveals(scope, initialTheme = 'ivory') {
   const { ready } = useApp()
 
   useGSAP(
     () => {
-      // a page of rooms changes colour as a whole, when the next room reaches the middle of the
-      // screen; anywhere else only the header follows, as each section reaches it
-      const root = scope.current
-      const roomy = root.classList.contains('page--rooms')
-      rooms(roomy)
       setTheme(initialTheme, true)
       if (!ready) return
-      const line = roomy ? 0.5 : 0
+      const root = scope.current
       const once = (el, start = 'top 88%') => ({ trigger: el, start, once: true })
 
-      // the palette is whichever room sits under the header, read after every crossing settles,
-      // so a long jump (an anchor, the command palette) can never leave the wrong one behind
+      // Start-only triggers, as in the Halcyon template: each section owns the palette from the
+      // moment its top passes 55% of the screen until the next one's does, and scrolling back
+      // past it hands the palette back to the one before. Robust to pins and to instant jumps.
       const themed = [...root.querySelectorAll('[data-theme]')]
-      let queued = false
-      const resolve = () => {
-        if (queued) return
-        queued = true
-        queueMicrotask(() => {
-          queued = false
-          const at = line ? window.innerHeight * line : 72
-          const under = themed.filter((el) => el.getBoundingClientRect().top <= at).pop()
-          if (under) return setTheme(under.dataset.theme, false, at)
-          const first = themed[0]
-          setTheme(first?.dataset.themeFrom && first.getBoundingClientRect().top < window.innerHeight * 1.4 ? first.dataset.themeFrom : initialTheme)
+      themed.forEach((el, i) => {
+        const prev = i ? themed[i - 1].dataset.theme : initialTheme
+        ScrollTrigger.create({
+          trigger: el,
+          start: el.dataset.themeStart || 'top 55%',
+          onEnter: () => setTheme(el.dataset.theme),
+          onLeaveBack: () => setTheme(prev),
         })
-      }
-      themed.forEach((el) => ScrollTrigger.create({ trigger: el, start: line ? `top ${line * 100}%` : 'top 72px', onToggle: resolve }))
+      })
       root.querySelectorAll('.beam').forEach((el) => ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', toggleClass: { targets: el, className: 'is-live' } }))
       root.querySelectorAll('[data-colorize]').forEach((el) => ScrollTrigger.create({ trigger: el, start: 'top 64%', end: 'bottom 36%', toggleClass: { targets: el, className: 'is-color' } }))
       if (reduced()) return
@@ -66,6 +57,7 @@ export function useReveals(scope, initialTheme = 'ivory') {
           type: lines ? 'lines' : 'words,lines',
           mask: lines ? 'lines' : 'words',
           linesClass: 'split-line',
+          wordsClass: 'split-word',
           autoSplit: true,
           // split into whole words and lines, the text still reads correctly, so no label is added
           aria: 'none',

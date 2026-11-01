@@ -12,8 +12,8 @@ const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, '') } c
  * The featured sites in one browser window, as in the previous portfolio. Each name in the
  * list takes the window as its words arrive level with it: a liquid front rises through the
  * page with the next site behind it (LiquidWindow); on entry-level phones, or without WebGL,
- * its card wipes up over the last one. On wide screens the words hold beside the window's
- * centre while it is theirs.
+ * its card wipes up over the last one. On wide screens the window holds under the header and
+ * each site's words hold level with its picture while it is theirs.
  */
 export default function Showcase({ items, external = false }) {
   const root = useRef(null)
@@ -23,8 +23,8 @@ export default function Showcase({ items, external = false }) {
     () => {
       const q = gsap.utils.selector(root)
       // an item takes the window while it crosses the line where the eye rests
-      // on wide screens a site takes the window just as its words arrive level with it
-      const line = window.innerWidth >= 900 && window.innerHeight > 520 ? '15%' : window.innerWidth < 900 ? '68%' : 'center'
+      // on wide screens a site takes the window as its words rise to meet it
+      const line = window.innerWidth >= 900 && window.innerHeight > 520 ? '42%' : window.innerWidth < 900 ? '68%' : 'center'
       q('.sc__item').forEach((el, i) => ScrollTrigger.create({ trigger: el, start: `top ${line}`, end: `bottom ${line}`, onToggle: (s) => s.isActive && setActive(i) }))
       if (reduced()) return
       gsap.timeline({ scrollTrigger: { trigger: q('.sc__window')[0], start: 'top 85%', once: true } })

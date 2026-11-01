@@ -76,7 +76,7 @@
 .ab__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px 5vw; align-items: end; }
 .ab__copy { display: grid; gap: 30px; }
 .ab__title { display: grid; font-size: var(--fs-display); line-height: 0.84; perspective: 900px; }
-.ab__w { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.ab__w { display: block; overflow: hidden; padding: 0.12em 0.1em 0.18em 0; margin: -0.12em -0.1em -0.18em 0; }
 .ab__w.is-em { font-style: italic; color: var(--accent); padding-left: 0.6em; }
 .ab__title .ch { display: inline-block; transform-origin: 50% 100%; }
 .ab__intro { display: grid; gap: 18px; max-width: 58ch; }
@@ -275,14 +275,16 @@
 /* wide screens: each site's words hold level with the middle of the window for their whole
    stretch of scroll, then give way to the next */
 @media (min-width: 900px) and (min-height: 521px) {
-  /* a screen-tall sticky box, its words centred where the window's centre is (the window sits
-     centred below the header, with the meter's 40px under it) */
-  .sc__item { display: block; min-height: 165vh; padding: 0; }
-  .sc__copy { position: sticky; top: 0; min-height: 100vh; min-height: 100svh; align-content: center; padding: calc(var(--hdr-h) + 34px) 0 0; }
-  .sc__stage { padding-top: var(--hdr-h); }
+  /* the window holds just under the header, and each site's words hold level with the top of
+     its picture while it is theirs, then scroll away as the next site's arrive */
+  .sc { --sc-top: calc(var(--hdr-h) + clamp(20px, 4vh, 44px)); align-items: start; }
+  .sc__item { display: block; align-content: start; min-height: 88vh; padding: 0; }
+  .sc__item:last-child { min-height: 62vh; }
+  .sc__copy { position: sticky; top: calc(var(--sc-top) + 38px + clamp(16px, 3vh, 32px)); }
+  .sc > .sc__stage { top: var(--sc-top); align-self: start; height: auto; padding-top: 0; align-content: start; }
 }
 .sc__no { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); }
-.sc__name { margin: 0; overflow: hidden; padding-bottom: 0.06em; font-size: clamp(2.6rem, 4.8vw, 5.4rem); line-height: 0.98; letter-spacing: -0.01em; }
+.sc__name { margin: 0 0 -0.16em; overflow: hidden; padding: 0.1em 0.08em 0.22em 0; margin-top: -0.1em; font-size: clamp(2.6rem, 4.8vw, 5.4rem); line-height: 0.98; letter-spacing: -0.01em; }
 .sc__name .ch { display: inline-block; translate: 0 40%; opacity: 0.5; transition: translate 0.9s var(--ease), opacity 0.9s var(--ease); transition-delay: calc(var(--c) * 28ms); }
 .sc__item.is-on .sc__name .ch { translate: 0 0; opacity: 1; }
 .sc__field { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
