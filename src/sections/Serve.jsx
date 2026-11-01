@@ -238,7 +238,6 @@ export default function Serve() {
             <div key={`s${step}`}>
               <span className="serve__label">{s.label}</span>
               <p className="serve__h">{s.title}</p>
-              <p className="serve__d">{s.text}</p>
               {step === 2 && (
                 <ul className="serve__clocks" aria-label="Local time where clients are">
                   {clocks.map((c, i) => <li key={c.name} style={{ '--i': i }}><span>{c.name}</span><time>{time(TZ[c.name])}</time></li>)}

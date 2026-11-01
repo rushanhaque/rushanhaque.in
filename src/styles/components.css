@@ -158,7 +158,8 @@ a:hover .roll__chars > span, button:hover .roll__chars > span { transform: trans
 .pl__line { --w: min(78vw, 980px); position: absolute; left: 50%; top: 50%; width: var(--w); height: 1px; margin: -0.5px 0 0 calc(var(--w) / -2); background: linear-gradient(90deg, transparent, #e4c78f 22%, #fff6e2 50%, #e4c78f 78%, transparent); box-shadow: 0 0 14px 1px rgba(228, 199, 143, 0.45); scale: var(--p) 1; }
 .pl__words { position: absolute; left: 0; right: 0; bottom: calc(50% + clamp(14px, 2.6vh, 30px)); display: grid; place-items: end center; pointer-events: none; }
 .pl__word { grid-area: 1 / 1; padding: 0 0.1em; line-height: 1.15; white-space: nowrap; opacity: 0; visibility: hidden; will-change: transform, opacity; }
-.pl__word.is-ur { font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Noto Naskh Arabic', 'Geeza Pro', 'Segoe UI', serif; font-size: clamp(58px, 15vw, 150px); line-height: 1.5; }
+/* Nastaliq reaches well below its line; the room keeps a phone from clipping it */
+.pl__word.is-ur { padding-bottom: 0.45em; margin-bottom: -0.45em; font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Noto Naskh Arabic', 'Geeza Pro', 'Segoe UI', serif; font-size: clamp(58px, 15vw, 150px); line-height: 1.5; }
 .pl__word.is-hi { font-family: 'Noto Sans Devanagari', 'Kohinoor Devanagari', 'Nirmala UI', 'Mangal', var(--sans); font-size: clamp(56px, 14.5vw, 144px); font-weight: 500; letter-spacing: -0.01em; }
 .pl__word.is-en { font-family: var(--sans); font-size: clamp(56px, 14.5vw, 144px); font-weight: 500; letter-spacing: -0.03em; }
 .pl__corner { position: absolute; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(246, 238, 228, 0.58); }

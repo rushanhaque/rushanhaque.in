@@ -57,7 +57,6 @@ void main() {
   float horizon = exp(-abs(hy) * 14.0) * 0.75 + exp(-abs(hy) * 3.2) * 0.1;
   col += uC * horizon * (0.55 + 0.45 * sin(uTime * 0.4));
 
-  col += uC * smoothstep(0.012, 0.0, abs(d - 0.42 * (0.6 + 0.4 * uHover))) * 0.1 * uHover;
   col += vec3(1.0) * lens * 0.035;
 
   col *= smoothstep(1.55, 0.25, length(p * vec2(0.75, 1.0)));

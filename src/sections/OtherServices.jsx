@@ -42,11 +42,16 @@ export default function OtherServices() {
         cards.forEach((c, k) => c.classList.toggle('is-on', k === i))
         if (!drawn.has(i)) { drawn.add(i); draw(i) }
       }
-      // the sheet at the left margin, under the title, leads; the others ease back by distance
+      // the lead sheet stands at the left margin as the row starts and travels to the right one as
+      // it ends, so the last sheet leads once it has come in; the others ease back by distance
       // (on touch screens only the lead is marked: reshaping cards under a swipe makes them wobble)
       const touch = isTouch()
+      let travelled = () => 0
       const measure = () => {
-        const lead = el.querySelector('.osv__viewport').getBoundingClientRect().left + parseFloat(getComputedStyle(track).paddingLeft) + cards[0].offsetWidth / 2
+        const view = el.querySelector('.osv__viewport').getBoundingClientRect()
+        const pad = parseFloat(getComputedStyle(track).paddingLeft)
+        const w = cards[0].offsetWidth
+        const lead = view.left + pad + w / 2 + Math.min(1, Math.max(0, travelled())) * Math.max(0, view.width - pad * 2 - w)
         let best = 0
         let bd = Infinity
         cards.forEach((c, k) => {
@@ -77,12 +82,18 @@ export default function OtherServices() {
             queued = true
             requestAnimationFrame(() => { queued = false; measure() })
           }
+          travelled = () => row.scrollLeft / Math.max(1, row.scrollWidth - row.clientWidth)
           row.addEventListener('scroll', onScroll, { passive: true })
           const st = ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: onScroll })
           return () => { row.removeEventListener('scroll', onScroll); st.kill() }
         }
-        // travel until the last sheet stands where the first began
-        const dist = () => Math.max(0, cards[cards.length - 1].offsetLeft - cards[0].offsetLeft)
+        // travel until the last sheet reaches the right margin, with nothing left to come in
+        const dist = () => {
+          const last = cards[cards.length - 1]
+          const pad = parseFloat(getComputedStyle(track).paddingLeft)
+          return Math.max(0, last.offsetLeft - cards[0].offsetLeft + last.offsetWidth + pad * 2 - el.querySelector('.osv__viewport').clientWidth)
+        }
+        travelled = () => -gsap.getProperty(track, 'x') / Math.max(1, dist())
         const tween = gsap.to(track, {
           x: () => -dist(),
           ease: 'none',

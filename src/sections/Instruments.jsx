@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { gsap, useGSAP, isTouch } from '../lib/gsap'
 import { srcSet } from '../lib/img'
 import { products } from '../data/content'
-import { TLink } from '../components/Transition'
 import Head from '../components/Head'
 import Icon from '../components/Icon'
 
@@ -38,7 +37,6 @@ export default function Instruments() {
               <ul className="prod__does" data-stagger>
                 {p.does.map((d) => <li key={d}><Icon name="check" size={16} />{d}</li>)}
               </ul>
-              <TLink to={`/work/${p.slug}`} className="prod__link">Read the case <Icon name="arrowRight" size={14} /></TLink>
             </div>
             <div className="prod__stage">
               <div className="prod__frame" data-spot>

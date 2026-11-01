@@ -3,6 +3,7 @@ import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
 import { small, srcSet } from '../lib/img'
 import { createParticles, sample } from '../lib/particles'
 import { tier } from '../lib/device'
+import { setNormalize } from '../lib/lenis'
 import { works } from '../data/content'
 import { TLink } from '../components/Transition'
 import { Kicker, Count } from '../components/Head'
@@ -93,6 +94,10 @@ export default function RecentWorks() {
         return
       }
 
+      // touch only, set up below: one site per swipe
+      let engage = null
+      let hold = null
+      let glide = null
       // on touch the stage is held by CSS (sticky, the section made tall enough, see .rw) since a
       // pin set from script lands a frame behind the phone's own scrolling and jolts
       const st = ScrollTrigger.create({
@@ -106,8 +111,49 @@ export default function RecentWorks() {
         ...(touch ? {} : { snap: { snapTo: 1 / (n - 1), duration: { min: 0.35, max: 0.9 }, delay: 0.1, ease: 'power2.inOut' } }),
         invalidateOnRefresh: true,
         onUpdate: (s) => go(Math.round(s.progress * (n - 1))),
+        onToggle: (s) => { if (s.isActive) engage?.(s.direction) },
         onRefresh: layout,
       })
+
+      // On touch a swipe moves exactly one site. A flick's momentum would otherwise carry the
+      // scroll past two or three, so while the stage is held the page's own scrolling pauses
+      // and each swipe glides to the next site's place; a swipe past the first or last lets go.
+      if (touch) {
+        const at = (i) => st.start + ((st.end - st.start) * i) / (n - 1)
+        let idx = 0
+        let swiped = false
+        let leaving = false
+        const to = (y, done) => {
+          glide?.kill()
+          const sy = { y: window.scrollY }
+          glide = gsap.to(sy, { y, duration: 0.85, ease: 'power2.inOut', onUpdate: () => window.scrollTo(0, sy.y), onComplete: done })
+        }
+        const step = (d) => {
+          const i = idx + d
+          if (i >= 0 && i < n) { idx = i; to(at(i)); return }
+          leaving = true
+          hold.disable()
+          setNormalize(true)
+          to(d > 0 ? st.end + 2 : st.start - 2, () => { leaving = false })
+        }
+        hold = ScrollTrigger.observe({
+          target: window, type: 'touch', preventDefault: true, tolerance: 12,
+          onPress: () => { swiped = false },
+          // a finger moving up scrolls the page on, to the next site
+          onUp: () => { if (!swiped) { swiped = true; step(1) } },
+          onDown: () => { if (!swiped) { swiped = true; step(-1) } },
+        })
+        hold.disable()
+        engage = (dir) => {
+          if (leaving || hold.isEnabled) return
+          setNormalize(false)
+          hold.enable()
+          // the swipe that brought the stage in doesn't also move it on
+          swiped = true
+          idx = dir < 0 ? n - 1 : 0
+          to(at(idx))
+        }
+      }
       // development only: hold the morph at any point to inspect it
       if (import.meta.env.DEV) root.current.__hold = (v) => { gsap.killTweensOf(pos); goal = Math.round(v); pos.v = shown = v; dirty = true }
 
@@ -153,6 +199,9 @@ export default function RecentWorks() {
         gsap.killTweensOf(pos)
         ro.disconnect()
         st.kill()
+        glide?.kill()
+        if (hold?.isEnabled) setNormalize(true)
+        hold?.kill()
         prep.kill()
         morph?.destroy()
       }
