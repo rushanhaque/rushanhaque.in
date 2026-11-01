@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
 import { small, srcSet } from '../lib/img'
-import { createShards, sample } from '../lib/shards'
+import { createParticles, sample } from '../lib/particles'
 import { tier } from '../lib/device'
 import { works } from '../data/content'
 import { TLink } from '../components/Transition'
@@ -12,10 +12,11 @@ const two = (n) => String(n).padStart(2, '0')
 const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, '') } catch { return '' } }
 
 /**
- * 01 — Recent works. One card holds the stage. Scroll on and it breaks into glass shards that
- * lift, turn over and settle back as the next site, in a sweep from left to right. At rest the
- * card is the real screenshot; the particles only stand in while it changes. The scroll snaps
- * to each site, so a change never stops halfway.
+ * 01 — Recent works. One card holds the stage. Scroll on and it pours apart into particles,
+ * as the "Why Axiom" field does: every grain of the picture sets off at its own moment, swirls
+ * on a current and settles into its place in the next site (lib/particles.js). At rest the
+ * card is the real screenshot; the particles only stand in while it changes. The scroll only
+ * chooses the site; each change plays out whole in its own time.
  */
 export default function RecentWorks() {
   const root = useRef(null)
@@ -60,7 +61,7 @@ export default function RecentWorks() {
         if (to === goal) return
         goal = to
         const steps = Math.abs(goal - pos.v)
-        gsap.to(pos, { v: goal, duration: Math.min(2.8, 1.6 + (steps - 1) * 0.6), ease: steps > 1.2 ? 'none' : 'sine.inOut', overwrite: true, onUpdate: () => { shown = pos.v; dirty = true } })
+        gsap.to(pos, { v: goal, duration: Math.min(3, 1.9 + (steps - 1) * 0.6), ease: steps > 1.2 ? 'none' : 'sine.inOut', overwrite: true, onUpdate: () => { shown = pos.v; dirty = true } })
       }
 
       const frame = () => {
@@ -72,10 +73,12 @@ export default function RecentWorks() {
         if (near !== last) { last = near; setActive(near) }
         if (morph && colours) {
           if (k !== pair) { pair = k; morph.setPair(colours[k], colours[k + 1]) }
-          // the particles are only a stand-in: as they settle, the real screenshot takes over
-          // from them, so the card is never left showing the grains
-          const handover = Math.min(1, Math.max(0, (mix - 0.8) / 0.17))
-          imgs.forEach((_, i) => setOpacity(i, i === k ? 1 - Math.min(1, mix / 0.04) : i === k + 1 ? handover : 0))
+          // the particles are only a stand-in: the old screenshot gives way to them as they set
+          // off, the new one comes up underneath while they land (so the last grains settle
+          // onto the picture, not over gaps), and the grains go once the last are home
+          const under = Math.min(1, Math.max(0, (mix - 0.62) / 0.3))
+          const handover = Math.min(1, Math.max(0, (mix - 0.93) / 0.07))
+          imgs.forEach((_, i) => setOpacity(i, i === k ? 1 - Math.min(1, mix / 0.1) : i === k + 1 ? under * under * (3 - 2 * under) : 0))
           const live = mix > 0 && handover < 1
           canvas.style.opacity = live ? (1 - handover).toFixed(3) : 0
           if (live) morph.draw(mix)
@@ -111,7 +114,7 @@ export default function RecentWorks() {
       // the pictures are sampled into particles once the section is close
       const phone = window.innerWidth < 900
       // every device gets the grains: entry-level ones a lighter grid of larger grains
-      const cols = (phone ? 170 : 300) * ({ high: 1, mid: 0.75, low: 0.55 }[tier()]) | 0
+      const cols = (phone ? 110 : 170) * ({ high: 1, mid: 0.85, low: 0.7 }[tier()]) | 0
       const rows = Math.round(cols / (1600 / 773))
       let alive = true
       const prep = ScrollTrigger.create({
@@ -125,7 +128,7 @@ export default function RecentWorks() {
             im.src = small(w.image)
           })))
           if (!alive || pics.some((p) => !p)) return
-          morph = createShards(canvas, { cols, rows, shard: phone ? 16 : 20 })
+          morph = createParticles(canvas, { cols, rows })
           if (!morph) return
           colours = pics.map((p) => sample(p, cols, rows))
           layout()
