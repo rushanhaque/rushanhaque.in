@@ -33,8 +33,8 @@ const PAGE = (p) => {
 const room = (s) => (s.parentElement?.classList.contains('pin-spacer') ? s.parentElement : s)
 
 /**
- * The Folio. The header reads like the running head of a book: the name on the left folds to
- * initials once you leave the cover, the middle names the chapter you are in, and the bar's
+ * The Folio. The header reads like the running head of a book: the RH mark on the left, inked
+ * in as the page opens, the middle names the chapter you are in, and the bar's
  * bottom edge is a hairline that fills as you read down the page.
  */
 export default function Header() {
@@ -119,8 +119,7 @@ export default function Header() {
       <header ref={root} className={`fo ${solid ? 'is-solid' : ''} ${folded ? 'is-folded' : ''}`} data-tone={tone}>
         <div className="fo__bar">
           <TLink to="/" className="fo__mark" label="Index" aria-label={`${site.name}, home`}>
-            <Mark size={30} />
-            <span className="fo__fold"><span className="fo__name">Rushan Haque</span></span>
+            <Mark size={36} />
           </TLink>
 
           <p className="fo__head" aria-live="polite">

@@ -58,7 +58,7 @@
 /* the frame stays put; only the picture inside it changes */
 .rw__card { position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 1600 / 773; overflow: hidden; border-radius: 10px; background: var(--card); box-shadow: 0 0 0 1px var(--line), 0 60px 100px -50px rgba(36, 20, 26, 0.45); transition: box-shadow 0.6s var(--ease); }
 .rw__card:hover { box-shadow: 0 0 0 1px rgba(32, 24, 20, 0.2), 0 70px 110px -50px rgba(36, 20, 26, 0.55); }
-.rw__fig { display: grid; gap: 10px; width: min(100cqw, calc((100cqh - 38px) * 2.07)); margin: 0; }
+.rw__fig { display: grid; gap: 10px; width: min(88cqw, calc((100cqh - 38px) * 2.07 * 0.88)); margin: 0; }
 .rw__cap { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--muted); animation: infoIn 0.7s var(--ease); }
 .rw__cap span { font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 .rw__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
@@ -78,7 +78,7 @@
   .rw__stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: start; gap: 0; padding-top: 2.5vh; }
   .rw__visual { order: -1; height: auto; padding: 14px 0 26px; container-type: normal; }
   .rw__card { width: 100%; }
-  .rw__fig { width: 100%; }
+  .rw__fig { width: 90%; }
   .rw__cap { display: none; }
 
   .rw__gl { left: calc(var(--pad) * -1); width: calc(100% + var(--pad) * 2); }
@@ -441,7 +441,7 @@
   .rw__count b { font-size: 17px; }
   .rw__stage { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: minmax(0, 1fr); align-content: stretch; gap: 22px; padding-top: 0; }
   .rw__visual { order: 0; height: 100%; padding: 2px 0 0; container-type: size; }
-  .rw__fig { width: min(100cqw, calc((100cqh - 4px) * 2.07)); }
+  .rw__fig { width: min(90cqw, calc((100cqh - 4px) * 2.07 * 0.9)); }
   .rw__gl { left: -24px; width: calc(100% + 24px + var(--pad)); }
   .rw__copy { gap: 6px; align-content: center; }
   .rw__name { font-size: 1.45rem; }

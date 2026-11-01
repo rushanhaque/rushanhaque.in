@@ -49,13 +49,14 @@ void main() {
   float dl = length(dir);
   dir = dl > 0.001 ? dir / dl : vec2(0.0, -1.0);
   if (dir.x < 0.0) dir.x *= uLeft;
-  sc += dir * fly * (26.0 + aR.z * 74.0) * uK;
-  sc.y -= fly * (12.0 + aR.w * 40.0) * uK;
+  sc += dir * fly * (44.0 + aR.z * 120.0) * uK;
+  sc.y -= fly * (22.0 + aR.w * 64.0) * uK;
 
-  // in flight the shard comes apart into grains: each drifts off on its own line, carried a
-  // little up and to the right as if by a breeze, then finds its place again
-  float loose = pow(fly, 1.4);
-  vec2 grain = (aJ - 0.5) * uCell * 20.0 * loose;
+  // the shard holds together as glass for most of its flight and only at the top comes apart
+  // into grains: each drifts off on its own line, carried a little up and to the right as if by
+  // a breeze, then finds its place again
+  float loose = pow(fly, 2.4);
+  vec2 grain = (aJ - 0.5) * uCell * 11.0 * loose;
   float turn = (aJ.x - 0.5) * 6.2831 * loose;
   grain = vec2(grain.x * cos(turn) - grain.y * sin(turn), grain.x * sin(turn) + grain.y * cos(turn));
   vec2 wind = vec2(0.75, -0.28) * loose * (16.0 + aJ.y * 60.0) * uK;
@@ -67,9 +68,11 @@ void main() {
   gl_Position = vec4(clip.x, -clip.y, -z * 0.5, 1.0);
   // square while it is part of the picture, a small round grain once it is loose
   gl_PointSize = (uCell + 0.8) * (1.0 + z * 0.5) * mix(1.0, 0.62 + aJ.x * 0.3, smoothstep(0.0, 0.6, fly));
-  vRound = smoothstep(0.05, 0.4, fly);
+  vRound = smoothstep(0.55, 0.9, fly);
   vCol = e < 0.5 ? aCA : aCB;
-  vShade = (0.72 + 0.28 * abs(flip) + fly * 0.06) * (1.0 + (aJ.y - 0.5) * 0.22 * fly);
+  // a shard turned edge-on catches the light like a pane of glass
+  float glint = pow(1.0 - abs(flip), 3.0) * (0.45 + aR.y * 0.4);
+  vShade = (0.72 + 0.28 * abs(flip) + fly * 0.06 + glint) * (1.0 + (aJ.y - 0.5) * 0.22 * fly);
 }
 `
 

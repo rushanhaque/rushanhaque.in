@@ -52,15 +52,22 @@ export default function RecentWorks() {
         dirty = true
       }
 
+      // The scroll only chooses the site; the change then plays out whole, in its own time, so
+      // the card is always seen breaking apart and settling as the next one however fast you go.
+      // Skipping several sites at once runs through each of them, a little quicker.
+      const pos = { v: 0 }
+      const go = (to) => {
+        if (to === goal) return
+        goal = to
+        const steps = Math.abs(goal - pos.v)
+        gsap.to(pos, { v: goal, duration: Math.min(2.8, 1.6 + (steps - 1) * 0.6), ease: steps > 1.2 ? 'none' : 'sine.inOut', overwrite: true, onUpdate: () => { shown = pos.v; dirty = true } })
+      }
+
       const frame = () => {
-        const d = goal - shown
-        if (Math.abs(d) > 0.0004) { shown += d * 0.085; dirty = true } else if (shown !== goal) { shown = goal; dirty = true }
         if (!dirty) return
         dirty = false
         const k = Math.min(Math.max(Math.floor(shown), 0), n - 2)
-        // each change runs through the first three quarters of its stretch of scroll, so the
-        // last quarter is already rest and a scroll that stops a little short still lands sharp
-        const mix = Math.min(1, Math.max(0, (shown - k - 0.05) / 0.7))
+        const mix = Math.min(1, Math.max(0, (shown - k) / 0.94))
         const near = Math.round(shown)
         if (near !== last) { last = near; setActive(near) }
         if (morph && colours) {
@@ -95,11 +102,11 @@ export default function RecentWorks() {
         // chooses the site, and each change plays through in time on its own
         ...(touch ? {} : { snap: { snapTo: 1 / (n - 1), duration: { min: 0.35, max: 0.9 }, delay: 0.1, ease: 'power2.inOut' } }),
         invalidateOnRefresh: true,
-        onUpdate: (s) => { goal = touch ? Math.round(s.progress * (n - 1)) : s.progress * (n - 1) },
+        onUpdate: (s) => go(Math.round(s.progress * (n - 1))),
         onRefresh: layout,
       })
       // development only: hold the morph at any point to inspect it
-      if (import.meta.env.DEV) root.current.__hold = (v) => { goal = v; shown = v; dirty = true }
+      if (import.meta.env.DEV) root.current.__hold = (v) => { gsap.killTweensOf(pos); goal = Math.round(v); pos.v = shown = v; dirty = true }
 
       // the pictures are sampled into particles once the section is close
       const phone = window.innerWidth < 900
@@ -118,7 +125,7 @@ export default function RecentWorks() {
             im.src = small(w.image)
           })))
           if (!alive || pics.some((p) => !p)) return
-          morph = createShards(canvas, { cols, rows, shard: phone ? 10 : 12 })
+          morph = createShards(canvas, { cols, rows, shard: phone ? 16 : 20 })
           if (!morph) return
           colours = pics.map((p) => sample(p, cols, rows))
           layout()
@@ -131,6 +138,7 @@ export default function RecentWorks() {
       return () => {
         alive = false
         gsap.ticker.remove(frame)
+        gsap.killTweensOf(pos)
         ro.disconnect()
         st.kill()
         prep.kill()
