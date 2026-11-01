@@ -41,6 +41,11 @@ export default function Showcase({ items, external = false }) {
         {items.map((w, i) => (
           <li className={`sc__item ${i === active ? 'is-on' : ''}`} key={w.slug}>
             {/* on wide screens the words hold level with the middle of the window while it is theirs */}
+            {/* on touch screens each site shows its own picture here; nothing is held while you scroll */}
+            <span className="sc__shot" aria-hidden="true">
+              <span className="sc__shot-bar"><i /><i /><i /><b>{host(w.url)}</b></span>
+              <img src={small(w.image)} srcSet={srcSet(w.image)} sizes="92vw" alt="" width={w.w} height={w.h} loading="lazy" decoding="async" />
+            </span>
             <div className="sc__copy">
             <span className="sc__no">{two(i + 1)}</span>
             <h3 className="sc__name" aria-label={w.title}>

@@ -56,7 +56,8 @@ export default function LiquidWindow({ items, active }) {
   useEffect(() => {
     const el = canvas.current
     const win = el?.closest('.sc__window')
-    if (!el || !win || low()) return
+    // nothing to draw where the window is not shown (touch screens show each site in the list)
+    if (!el || !win || low() || !win.offsetParent) return
     const pairs = sources.split('|').map((p) => p.split('>'))
     let gl = null
     let running = false

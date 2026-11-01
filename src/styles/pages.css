@@ -426,10 +426,25 @@
   .sc__name { font-size: clamp(1.8rem, 4.6vw, 2.6rem); }
   .sc__desc { font-size: 14px; }
 }
+/* On touch screens nothing in Currently building is held: a window kept still while the page
+   moves under it shakes on phones. Each site shows its own picture in the list instead. */
+.sc__shot { display: none; }
+@media (hover: none), (max-width: 899px) {
+  .sc { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .sc > .sc__stage { display: none; }
+  .sc__item, .sc__item:last-child { display: grid; min-height: 0; align-content: start; gap: 18px; padding: 0 0 clamp(44px, 9vw, 72px); opacity: 1; }
+  .sc__copy { position: static; }
+  .sc__name .ch { translate: 0 0; opacity: 1; }
+  .sc__shot { display: block; overflow: hidden; border-radius: 12px; background: var(--hi); box-shadow: 0 0 0 1px var(--line), 0 40px 70px -46px rgba(36, 20, 26, 0.45); }
+  .sc__shot-bar { display: flex; align-items: center; gap: 5px; height: 30px; padding: 0 12px; border-bottom: 1px solid var(--line); }
+  .sc__shot-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+  .sc__shot-bar b { margin: 0 auto; font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: 0.04em; color: var(--muted); }
+  .sc__shot img { display: block; width: 100%; aspect-ratio: 1600 / 772; object-fit: cover; object-position: top; }
+}
 /* small text links keep their look, but take a fingertip: an invisible margin of touch around each */
 @media (pointer: coarse) {
-  .fo__mark, .ar__case, .ar__visit, .prod__link, .lib__link, .sc__link, .ftr__link, .ftr__mail, .ftr__legal, .ftr__dir a, .lp__crumb a { position: relative; }
-  .fo__mark::before, .ar__case::before, .ar__visit::before, .prod__link::before, .lib__link::before, .sc__link::before { content: ''; position: absolute; inset: -12px -8px; }
+  .fo__mark, .rw__case, .rw__visit, .prod__link, .lib__link, .sc__link, .ftr__link, .ftr__mail, .ftr__legal, .ftr__dir a, .lp__crumb a { position: relative; }
+  .fo__mark::before, .rw__case::before, .rw__visit::before, .prod__link::before, .lib__link::before, .sc__link::before { content: ''; position: absolute; inset: -12px -8px; }
   .ftr__link::before, .ftr__mail::before { content: ''; position: absolute; inset: -9px -6px; }
   .lp__crumb a::before, .lp__items h3 a::before { content: ''; position: absolute; inset: -12px -8px; }
   .lp__items h3 a { position: relative; }
@@ -440,7 +455,6 @@
   .case__back, .case__visit { position: relative; }
   .case__back::before, .case__visit::before { content: ''; position: absolute; inset: -12px -8px; }
   .ftr__dir a::before { content: ''; position: absolute; inset: -6px -3px; }
-  .ar__stops button { padding: 13px 0; }
   .fo__nav a::before { content: ''; position: absolute; inset: 0 -8px; }
 }
 /* a link in the footer's index never breaks across two lines; lines break between links */
