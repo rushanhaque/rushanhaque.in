@@ -65,7 +65,7 @@ Logos show in greyscale and turn to full colour on hover. Clients without a logo
 `npm run build` builds the browser bundle, then a server bundle (`src/entry-server.jsx`) that `scripts/prerender.mjs` uses to write every route as a finished HTML page: words, title, description, canonical, language alternates and structured data already in place. The browser app then takes over. Unknown addresses get a real 404 page.
 
 - **Vercel** (the live site): `vercel.json` sets the build, clean URLs (`/about` serves `about.html`), the bare domain → `www` move, permanent redirects from every address the previous site used (`/projects`, `/connect`, `/reviews`, `/pricing`…), and caching and security headers.
-- **Contact form**: set `VITE_FORMSPREE_ID` (see `.env.example`). Without it, the form opens the visitor's mail app or WhatsApp.
+- **Contact form**: sends through Formspree (form `mdeanqre`, set in `src/config/site.js`; `VITE_FORMSPREE_ID` overrides it). If Formspree is unreachable, the form offers email or WhatsApp with the message already written.
 - **Search Console and Bing**: set `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION` in Vercel's environment variables (the same names the previous site used) and the meta tags are written into every page at build time. DNS verification works too and needs nothing here.
 - **Domain**: `https://www.rushanhaque.in` lives in `src/config/site.js` (`url`); everything else, including the sitemap and robots.txt, is generated from it.
 

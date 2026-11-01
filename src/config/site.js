@@ -10,7 +10,8 @@ export const site = {
   email: 'rushanulhaque@gmail.com',
   phone: { label: '+91 76680 47608', href: 'tel:+917668047608', whatsapp: 'https://wa.me/917668047608' },
   booking: 'https://cal.com/rushan-haque-emssbo/call',
-  formspree: import.meta.env.VITE_FORMSPREE_ID || '',
+  // the contact form's Formspree id (public: it ships in the page either way); VITE_FORMSPREE_ID overrides it
+  formspree: import.meta.env.VITE_FORMSPREE_ID || 'mdeanqre',
   nav: [
     { label: 'Work', to: '/work' },
     { label: 'About', to: '/about' },
