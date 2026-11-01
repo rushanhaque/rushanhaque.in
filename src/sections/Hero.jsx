@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { gsap, ScrollTrigger, useGSAP, reduced } from '../lib/gsap'
+import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
 import { setTheme } from '../lib/theme'
 import { useApp } from '../lib/app'
 import { site } from '../config/site'
@@ -65,15 +65,18 @@ export default function Hero() {
       if (reduced()) return
       const q = gsap.utils.selector(root)
       const phone = window.innerWidth < 900
+      // a phone scrolls on its own thread, and a pin set from script lands a frame late and
+      // jolts; there the hero is held by CSS (sticky in a taller run, see .hero-run) instead
+      const touch = isTouch()
       gsap
         .timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
-            trigger: root.current,
+            trigger: touch ? root.current.parentElement : root.current,
             start: 'top top',
-            end: phone ? '+=110%' : '+=150%',
+            end: touch ? 'bottom bottom' : phone ? '+=110%' : '+=150%',
             scrub: 0.9,
-            pin: true,
+            pin: !touch,
             onUpdate: (s) => {
               progress.current = s.progress
               setTheme(s.progress > 0.78 ? 'ivory' : 'night')
@@ -99,6 +102,7 @@ export default function Hero() {
   )
 
   return (
+    <div className="hero-run">
     <section className="hero" ref={root} id="top" aria-label="Introduction">
       <HeroShader intro={ready} progress={progress} />
       <NameDots intro={ready} progress={progress} />
@@ -120,5 +124,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </div>
   )
 }

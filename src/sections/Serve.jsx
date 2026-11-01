@@ -181,8 +181,12 @@ export default function Serve() {
       layout()
       if (still) { arrive = 1; goal = shown = 0; paint() }
       const enter = ScrollTrigger.create({ trigger: root.current, start: 'top 75%', end: 'top top', onUpdate: (s) => { arrive = still ? 1 : s.progress; dirty = true } })
-      const st = ScrollTrigger.create({ trigger: root.current, start: 'top top', end: 'bottom bottom', onUpdate: (s) => { goal = s.progress * (frames.length - 1); if (still) shown = Math.round(goal); dirty = true } })
-      goal = shown = st.progress * (serve.steps.length - 1)
+      // on a phone the scroll only chooses the stage and the camera flies there in its own time:
+      // a camera tied to a momentum scroll trails it by a frame and shakes
+      const touch = isTouch()
+      const at = (p) => (touch ? Math.round(p * (frames.length - 1)) : p * (frames.length - 1))
+      const st = ScrollTrigger.create({ trigger: root.current, start: 'top top', end: 'bottom bottom', onUpdate: (s) => { goal = at(s.progress); if (still) shown = Math.round(goal); dirty = true } })
+      goal = shown = touch ? Math.round(st.progress * (serve.steps.length - 1)) : st.progress * (serve.steps.length - 1)
       arrive = enter.progress || (st.progress > 0 ? 1 : 0)
       gsap.ticker.add(tick)
       const ro = new ResizeObserver(layout)

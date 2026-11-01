@@ -83,11 +83,13 @@ export default function RecentWorks() {
         return
       }
 
+      // on touch the stage is held by CSS (sticky, the section made tall enough, see .rw) since a
+      // pin set from script lands a frame behind the phone's own scrolling and jolts
       const st = ScrollTrigger.create({
         trigger: root.current,
         start: 'top top',
-        end: () => `+=${(n - 1) * 80 + 30}%`,
-        pin: true,
+        end: touch ? 'bottom bottom' : () => `+=${(n - 1) * 80 + 30}%`,
+        pin: !touch,
         scrub: true,
         // a phone's momentum scroll and a snap pull against each other; there the scroll only
         // chooses the site, and each change plays through in time on its own
@@ -146,7 +148,7 @@ export default function RecentWorks() {
 
   const w = works[active]
   return (
-    <section className="rw" ref={root} data-theme="ivory" data-chapter="Recent works" id="work" aria-label="Recent works">
+    <section className="rw" ref={root} style={{ '--run': (n - 1) * 80 + 130 }} data-theme="ivory" data-chapter="Recent works" id="work" aria-label="Recent works">
       <div className="rw__pin">
         <header className="rw__head wrap">
           <Kicker n="01" label="Client sites" />

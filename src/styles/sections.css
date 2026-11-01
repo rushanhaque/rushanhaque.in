@@ -460,6 +460,21 @@
 }
 /* on touch screens the map is simply open; its opening clip only plays with a mouse */
 @media (hover: none) { .serve__map { clip-path: none; } }
+/* On touch screens a scene is held by CSS rather than pinned from script: the page scrolls on
+   its own thread there, and a pin set from script lands a frame late and jolts. The section is
+   made as tall as the scroll its scene needs and the stage sticks to the top through it. */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .hero-run { height: 250vh; height: 250svh; }
+  .hero-run > .hero { position: sticky; top: 0; }
+  .rw { height: calc(var(--run) * 1svh); }
+  .rw__pin { position: sticky; top: 0; }
+  /* the map repaints whole while a route's traffic runs, so on a phone the routes stay still */
+  .sv__run.is-on { animation: none; opacity: 0; }
+  .serve__bar { transition: none; }
+}
+@media (hover: none) and (prefers-reduced-motion: no-preference) and (max-width: 899px) {
+  .hero-run { height: 210vh; height: 210svh; }
+}
 @media (max-width: 899px) {
   .serve__scale { font-size: 10px; }
   .osv__no, .osv__of, .osv__tags li, .rev__note time { font-size: 10.5px; }
