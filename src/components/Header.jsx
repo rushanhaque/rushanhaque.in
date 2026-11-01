@@ -119,7 +119,7 @@ export default function Header() {
       <header ref={root} className={`fo ${solid ? 'is-solid' : ''} ${folded ? 'is-folded' : ''}`} data-tone={tone}>
         <div className="fo__bar">
           <TLink to="/" className="fo__mark" label="Index" aria-label={`${site.name}, home`}>
-            <Mark size={36} />
+            <Mark size={30} />
           </TLink>
 
           <p className="fo__head" aria-live="polite">

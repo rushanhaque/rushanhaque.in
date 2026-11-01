@@ -33,7 +33,7 @@ export default function Profile() {
         <Head n="09" label="Who I am" title={<em>About</em>} lede="A developer and writer from Moradabad, working with businesses in India and abroad." />
         <div className="pro__dossier">
           <aside className="pro__card" data-spot>
-            <span className="pro__mark"><Mark size={44} /></span>
+            <span className="pro__mark"><Mark size={40} /></span>
             <div className="pro__who">
               <p className="pro__sig">Rushan <em>Haque</em></p>
               <p className="pro__role">{site.role}</p>

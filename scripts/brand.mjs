@@ -2,10 +2,10 @@
 // and the 1200×630 share image. Rendered with headless Chrome so the share image is set in the
 // site's own fonts. Run after changing the mark:  node scripts/brand.mjs
 //
-// The mark: R and H as one ligature. The R's bowl rounds into the H's first stem, which both
-// letters share; the R's leg comes down to that stem's foot; one horizontal is the R's bowl
-// closing and the H's crossbar. Thick verticals and hairline curves and bars, as in Roman
-// inscriptions, with a brass full stop: the point of light the site opens on (Rushan: light).
+// The mark: R and H cut like a high-contrast Roman, thick stems and hairline bars and serifs,
+// the R's bowl swelling at its right. The letters stand apart, and the H's crossbar runs on past
+// the letter to a brass full stop: a line drawn out to the point of light the site opens on
+// (Rushan: light). The same drawing as src/components/Logo.jsx.
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
@@ -15,11 +15,17 @@ import { pathToFileURL } from 'node:url'
 const root = path.resolve(import.meta.dirname, '..')
 const pub = path.join(root, 'public')
 
-export function mark({ ink = '#201814', dot = '#b08a4f', bg = null, rx = 14, thick = 3.6, thin = 1.6 } = {}) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">${bg ? `<rect width="64" height="64" rx="${rx}" fill="${bg}"/>` : ''}<g stroke="${ink}" stroke-linecap="butt" stroke-linejoin="miter"><path d="M9 13V51M30 13V51M50 13V51M17.5 31L30 51" stroke-width="${thick}"/><path d="M9 13.8H21A8.6 8.6 0 0 1 21 31M9 31H50" stroke-width="${thin}"/><path d="M4.5 51H13.5M25.5 51H34.5M45.5 51H54.5M4.5 13H9M25.5 13H34.5M45.5 13H54.5" stroke-width="${(thin * 0.85).toFixed(2)}"/></g><circle cx="58.6" cy="49" r="2.6" fill="${dot}"/></svg>`
+// square: the mark centred on a square sheet (the icons); otherwise its own 72 × 48 box
+export function mark({ ink = '#201814', dot = '#b08a4f', bg = null, rx = 14, T = 3.8, t = 1.3, r = 2.5, square = false } = {}) {
+  const sv = t * 0.85
+  const top = 8 + sv / 2
+  const base = 40 - sv / 2
+  const box = square ? '-6.3 -18 84 84' : '0 0 72 48'
+  const [bx, by, bw, bh] = box.split(' ')
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${box}" fill="none">${bg ? `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="${(rx * bw) / 64}" fill="${bg}"/>` : ''}<g fill="${ink}"><path d="M17 8.2A8.4 8.4 0 0 1 17 25L17 23.7A5 7.1 0 0 0 17 9.5Z"/><path d="M12.4 24.4L15.9 24.4L25.4 40L21.7 40Z"/></g><g stroke="${ink}" stroke-linecap="butt"><path d="M8 8V40M35 8V40M53 8V40" stroke-width="${T}"/><path d="M8 8.85H17M8 24.35H17M35 24H64" stroke-width="${t}"/><path d="M3.6 ${top}H8M3.6 ${base}H12.4M19.6 ${base}H27.2M30.6 ${top}H39.4M48.6 ${top}H57.4M30.6 ${base}H39.4M48.6 ${base}H57.4" stroke-width="${sv.toFixed(2)}"/></g><circle cx="67.4" cy="24" r="${r}" fill="${dot}"/></svg>`
 }
 // the tile used wherever the mark stands alone: maroon, ivory strokes, a brass point
-const tile = (big, rx = 14) => mark({ bg: '#241419', rx, ink: '#f6eee4', dot: '#e4c78f', thick: big ? 3.6 : 4.4, thin: big ? 1.6 : 2.2 })
+const tile = (big, rx = 14) => mark({ bg: '#241419', rx, ink: '#f6eee4', dot: '#e4c78f', square: true, T: big ? 4 : 5.4, t: big ? 1.5 : 2.6, r: big ? 2.8 : 3.6 })
 
 const chrome = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', '/usr/bin/google-chrome', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'].find((p) => fs.existsSync(p))
 if (!chrome) throw new Error('Chrome or Edge is needed to render the PNGs')
@@ -44,10 +50,10 @@ shot('og.png', `<style>
 @font-face{font-family:Geist;src:url(${font('geist.woff2')}) format('woff2-variations');font-weight:100 900}
 @font-face{font-family:Serif;src:url(${font('instrument-italic.woff2')}) format('woff2');font-style:italic}
 @font-face{font-family:Mono;src:url(${font('martian.woff2')}) format('woff2-variations')}
-.og{position:relative;width:1200px;height:630px;box-sizing:border-box;display:grid;grid-template-columns:330px 1fr;align-items:center;gap:72px;padding:0 90px;background:radial-gradient(60% 80% at 22% 50%,#372028 0%,#1a0e12 55%,#120a0c 100%);color:#f6eee4;font-family:Geist}
-.og svg{width:330px;height:330px}
+.og{position:relative;width:1200px;height:630px;box-sizing:border-box;display:grid;grid-template-columns:360px 1fr;align-items:center;gap:72px;padding:0 90px;background:radial-gradient(60% 80% at 22% 50%,#372028 0%,#1a0e12 55%,#120a0c 100%);color:#f6eee4;font-family:Geist}
+.og svg{width:360px;height:240px}
 .k{font:500 15px Mono;letter-spacing:.2em;text-transform:uppercase;color:#e4c78f}
-h1{margin:22px 0 0;font:500 96px/0.95 Geist;letter-spacing:-.05em}
+h1{margin:22px 0 0;font:500 84px/0.95 Geist;letter-spacing:-.05em;white-space:nowrap}
 p{margin:26px 0 0;font:400 30px/1.3 Geist;letter-spacing:-.02em;color:rgba(246,238,228,.82)}
 p em{font-family:Serif;font-size:1.12em;color:#e4c78f}
 .r{position:absolute;left:90px;right:90px;bottom:54px;display:flex;justify-content:space-between;font:400 14px Mono;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,238,228,.5);border-top:1px solid rgba(246,238,228,.14);padding-top:18px}
