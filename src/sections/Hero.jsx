@@ -79,7 +79,8 @@ export default function Hero() {
             pin: !touch,
             onUpdate: (s) => {
               progress.current = s.progress
-              setTheme(s.progress > 0.78 ? 'ivory' : 'night')
+              // only while the hero holds the screen: past it, the rooms below choose the colour
+              if (s.isActive) setTheme(s.progress > 0.78 ? 'ivory' : 'night')
             },
           },
         })

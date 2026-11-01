@@ -17,9 +17,9 @@ const two = (n) => String(n).padStart(2, '0')
  * pointer a card takes a light tint and four brass corner marks, and nothing moves. The last
  * card is kept open for the next brand.
  */
-export default function Clientele() {
+export default function Clientele({ theme = 'ivory' }) {
   return (
-    <section className="cli sec" data-theme="ivory" data-chapter="Clientele" id="clientele">
+    <section className="cli sec" data-theme={theme} data-chapter="Clientele" id="clientele">
       <div className="wrap">
         <Head n="04" label="Brands I work with" title={<em>Clientele</em>} count={clients.length} lede="Brands in India, Saudi Arabia, Poland and Nepal — most of them export houses selling to buyers in dozens of countries." />
         <ul className="cli__grid" data-batch>

@@ -148,7 +148,7 @@
     linear-gradient(var(--c), var(--c)) left bottom / 12px 1px no-repeat, linear-gradient(var(--c), var(--c)) left bottom / 1px 12px no-repeat,
     linear-gradient(var(--c), var(--c)) right bottom / 12px 1px no-repeat, linear-gradient(var(--c), var(--c)) right bottom / 1px 12px no-repeat; }
 @media (hover: hover) {
-  .cli__card:hover { background: var(--stone); }
+  .cli__card:hover { background: var(--card); }
   .cli__card:hover .cli__ticks { opacity: 1; }
   .cli__card:hover .cli__mark img { filter: none; opacity: 1; }
   .cli__card--open:hover { background: var(--fg); color: var(--bg); }

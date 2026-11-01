@@ -108,3 +108,18 @@ section[data-theme], footer[data-theme] { position: relative; z-index: 1; backgr
 
 /* the page itself is white: a gap between sections never shows a dark theme colour through */
 .page { background: #ffffff; }
+
+/* Rooms (the home page): the sections are see-through and take the page's palette, which
+   changes as a whole when the next room reaches the middle of the screen (lib/theme.js). The
+   backdrop behind them holds the colour and opens the new one out from where the rooms meet. */
+.page--rooms { background: transparent; }
+.page--rooms section[data-theme] { --bg: inherit; --fg: inherit; --muted: inherit; --line: inherit; --card: inherit; --accent: inherit; --hi: inherit; background-color: transparent; }
+.atmos { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none; }
+.has-rooms .atmos { display: block; }
+.atmos__wash, .atmos__edge { position: absolute; left: 0; right: 0; visibility: hidden; opacity: 0; }
+.atmos__wash { inset: 0; will-change: clip-path; }
+/* the thread of light on each edge of the opening colour */
+.atmos__edge { top: 0; height: 1px; margin-top: -0.5px; background: linear-gradient(90deg, transparent, rgba(217, 185, 126, 0.55) 18%, #f0d9a8 50%, rgba(217, 185, 126, 0.55) 82%, transparent); box-shadow: 0 0 14px 1px rgba(217, 185, 126, 0.45); will-change: transform, opacity; }
+/* a dark room is lit from above, like a lamp over the desk */
+.atmos::after { content: ''; position: absolute; inset: 0; background: radial-gradient(70% 55% at 50% -8%, rgba(217, 185, 126, 0.13), transparent 70%), radial-gradient(60% 50% at 50% 115%, rgba(0, 0, 0, 0.35), transparent 70%); opacity: 0; transition: opacity 1.4s var(--ease); }
+.has-rooms[data-theme='night'] .atmos::after, .has-rooms[data-theme='wine'] .atmos::after { opacity: 1; }

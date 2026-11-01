@@ -19,19 +19,19 @@ export default function Home() {
   const root = useRef(null)
   useReveals(root, 'night')
   return (
-    <div className="page page--home" ref={root}>
+    <div className="page page--home page--rooms" ref={root}>
       <Hero />
       <RecentWorks />
       <Drafting />
       <Instruments />
-      <Bridge>Behind every build is a business, and most of them <em>make things by hand</em> in brass, copper and wood.</Bridge>
-      <Clientele />
+      <Bridge theme="wine">Behind every build is a business, and most of them <em>make things by hand</em> in brass, copper and wood.</Bridge>
+      <Clientele theme="wine" />
       <Serve />
       <OtherServices />
       <Bridge>The work is half the story. <em>The rest is what clients say</em> once it’s live.</Bridge>
       <Voices />
-      <Bridge>And when the screens go quiet, <em>I write.</em></Bridge>
-      <Library />
+      <Bridge theme="night">And when the screens go quiet, <em>I write.</em></Bridge>
+      <Library theme="night" />
       <Profile />
       <Footer />
     </div>

@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger, SplitText, useGSAP, reduced } from './gsap'
-import { setTheme } from './theme'
+import { setTheme, rooms } from './theme'
 import { useApp } from './app'
 
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -23,9 +23,14 @@ export function useReveals(scope, initialTheme = 'ivory') {
 
   useGSAP(
     () => {
+      // a page of rooms changes colour as a whole, when the next room reaches the middle of the
+      // screen; anywhere else only the header follows, as each section reaches it
+      const root = scope.current
+      const roomy = root.classList.contains('page--rooms')
+      rooms(roomy)
       setTheme(initialTheme, true)
       if (!ready) return
-      const root = scope.current
+      const line = roomy ? 0.5 : 0
       const once = (el, start = 'top 88%') => ({ trigger: el, start, once: true })
 
       // the palette is whichever room sits under the header, read after every crossing settles,
@@ -37,13 +42,14 @@ export function useReveals(scope, initialTheme = 'ivory') {
         queued = true
         queueMicrotask(() => {
           queued = false
-          const under = themed.filter((el) => el.getBoundingClientRect().top <= 72).pop()
-          if (under) return setTheme(under.dataset.theme)
+          const at = line ? window.innerHeight * line : 72
+          const under = themed.filter((el) => el.getBoundingClientRect().top <= at).pop()
+          if (under) return setTheme(under.dataset.theme, false, at)
           const first = themed[0]
           setTheme(first?.dataset.themeFrom && first.getBoundingClientRect().top < window.innerHeight * 1.4 ? first.dataset.themeFrom : initialTheme)
         })
       }
-      themed.forEach((el) => ScrollTrigger.create({ trigger: el, start: 'top 72px', onToggle: resolve }))
+      themed.forEach((el) => ScrollTrigger.create({ trigger: el, start: line ? `top ${line * 100}%` : 'top 72px', onToggle: resolve }))
       root.querySelectorAll('.beam').forEach((el) => ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', toggleClass: { targets: el, className: 'is-live' } }))
       root.querySelectorAll('[data-colorize]').forEach((el) => ScrollTrigger.create({ trigger: el, start: 'top 64%', end: 'bottom 36%', toggleClass: { targets: el, className: 'is-color' } }))
       if (reduced()) return

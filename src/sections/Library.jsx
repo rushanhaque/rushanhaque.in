@@ -7,12 +7,12 @@ import Icon from '../components/Icon'
  * 08 — Writing. Papers, notes and books stand on a shelf as 3D volumes — cover, spine, page
  * block. Hover, focus or tap one and it turns to face you; phones show the whole shelf at once.
  */
-export default function Library({ id = 'writing', n = '08' }) {
+export default function Library({ id = 'writing', n = '08', theme = 'stone' }) {
   const [sel, setSel] = useState(0)
   const shelf = useRef(null)
   const b = writings[sel]
   return (
-    <section className="lib sec" data-theme="stone" data-chapter="Writing" id={id}>
+    <section className="lib sec" data-theme={theme} data-chapter="Writing" id={id}>
       <div className="wrap">
         <Head n={n} label="Papers and books" title={<em>Writing</em>} count={writings.length} lede="Research on what AI does to the way we think, a book contribution, Urdu poetry — and a book on the architecture of thought, in progress." />
         <div className="lib__room">
