@@ -24,6 +24,8 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
     // cost lies in the number of dots, which `lite` lowers, not in the canvas resolution
     const dpr = Math.min(window.devicePixelRatio || 1, tier() === 'low' ? 2 : 3)
     const phone = window.innerWidth < 900
+    // a length in whole device pixels, so a dot never ends on a half-lit pixel
+    const px = (v) => Math.max(1, Math.round(v * dpr)) / dpr
     let W = 0
     let H = 0
     let groups = [[], []]
@@ -35,7 +37,8 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
     const pointer = { x: -9999, y: -9999, on: false }
 
     // draw each word where the page set it, at 1/step scale, and keep the inked pixels
-    const sample = (el, step) => {
+    // on a phone the name is small, so its dots sit on an even grid: a wobble there frays the letters
+    const sample = (el, step, wobble) => {
       const w = Math.ceil(W / step)
       const h = Math.ceil(H / step)
       const c = document.createElement('canvas')
@@ -60,7 +63,7 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
       g.fillText(text, 0, 0)
       const data = g.getImageData(0, 0, w, h).data
       const pts = []
-      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 140) pts.push([(x + 0.5 + (Math.random() - 0.5) * 0.5) * step, (y + 0.5 + (Math.random() - 0.5) * 0.5) * step])
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 140) pts.push([(x + 0.5 + (Math.random() - 0.5) * wobble) * step, (y + 0.5 + (Math.random() - 0.5) * wobble) * step])
       return pts
     }
 
@@ -73,16 +76,17 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
       canvas.height = H * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       const words = [section.querySelector('.hero__l1 .hero__txt'), section.querySelector('.hero__l2 em')]
-      const step = phone ? 2 : W > 1700 ? 3.5 : 3
+      // a phone's name is a fifth the size of a desktop's, so it is sampled more finely to keep its shape
+      const step = phone ? 1.3 : W > 1700 ? 3.5 : 3
       const level = tier()
-      const budget = phone ? (level === 'low' ? 3000 : level === 'mid' ? 4400 : 5200) : (lite ? 6000 : 10000)
-      const targets = words.map((el) => (el ? sample(el, step) : []))
+      const budget = phone ? (level === 'low' ? 4000 : level === 'mid' ? 6000 : 8000) : (lite ? 6000 : 10000)
+      const targets = words.map((el) => (el ? sample(el, step, phone ? 0 : 0.5) : []))
       const total = targets[0].length + targets[1].length || 1
       groups = targets.map((t, k) => {
         const n = Math.min(t.length, Math.round((budget * t.length) / total))
         const old = groups[k] || []
         return Array.from({ length: n }, (_, i) => {
-          const p = old[i] || { x: W / 2 + (Math.random() - 0.5) * W, y: H / 2 + (Math.random() - 0.5) * H, vx: 0, vy: 0, dx: Math.random() - 0.5, dy: Math.random() - 0.5, seed: Math.random(), size: Math.random() < 0.12 ? (phone ? 2.4 : 2.6) : phone ? 1.9 : 1.8 }
+          const p = old[i] || { x: W / 2 + (Math.random() - 0.5) * W, y: H / 2 + (Math.random() - 0.5) * H, vx: 0, vy: 0, dx: Math.random() - 0.5, dy: Math.random() - 0.5, seed: Math.random(), size: px(Math.random() < 0.12 ? (phone ? 1.7 : 2.6) : phone ? 1.25 : 1.8) }
           const [x, y] = t[Math.floor((i / n) * t.length)] || [W / 2, H / 2]
           p.tx = x
           p.ty = y
@@ -127,7 +131,8 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
           p.x += p.vx
           p.y += p.vy
           motion += Math.abs(p.vx) + Math.abs(p.vy)
-          if (alpha > 0.01) ctx.fillRect(p.x, p.y, p.size, p.size)
+          // each dot lands on the screen's own pixels, so its edges stay crisp rather than smeared
+          if (alpha > 0.01) ctx.fillRect(Math.round(p.x * dpr) / dpr, Math.round(p.y * dpr) / dpr, p.size, p.size)
         }
       })
       ctx.globalAlpha = 1

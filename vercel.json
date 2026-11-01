@@ -48,13 +48,23 @@
       "permanent": true
     },
     {
+      "source": "/work/inventory-software",
+      "destination": "/products/inventory-software",
+      "permanent": true
+    },
+    {
+      "source": "/work/mailwright",
+      "destination": "/products/mailwright",
+      "permanent": true
+    },
+    {
       "source": "/projects/inventory-software",
-      "destination": "/work/inventory-software",
+      "destination": "/products/inventory-software",
       "permanent": true
     },
     {
       "source": "/projects/mailwright",
-      "destination": "/work/mailwright",
+      "destination": "/products/mailwright",
       "permanent": true
     },
     {

@@ -6,12 +6,13 @@ import App from './App'
 import Home from './pages/Home'
 import Work from './pages/Work'
 import Case from './pages/Case'
+import Product from './pages/Product'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Landing from './pages/Landing'
 import NotFound from './pages/NotFound'
 
-const pages = { Home, Work, Case, About, Contact, Landing, NotFound }
+const pages = { Home, Work, Case, Product, About, Contact, Landing, NotFound }
 
 export function render(url) {
   return renderToString(

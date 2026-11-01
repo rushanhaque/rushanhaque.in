@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useRef } from 'react
 import { useLocation, useNavigate } from 'react-router-dom'
 import { gsap } from '../lib/gsap'
 import { scrollTo } from '../lib/lenis'
-import { projectBySlug } from '../data/content'
+import { projectBySlug, productBySlug } from '../data/content'
 
 const Ctx = createContext({ go: () => {} })
 export const usePageTransition = () => useContext(Ctx)
@@ -12,6 +12,7 @@ const labelFor = (to) => {
   if (path === '/') return 'Index'
   const [, a, b] = path.split('/')
   if (a === 'work' && b) return projectBySlug(b)?.title || 'Work'
+  if (a === 'products' && b) return productBySlug(b)?.title || 'Products'
   return a.charAt(0).toUpperCase() + a.slice(1)
 }
 

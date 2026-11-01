@@ -100,7 +100,7 @@ export function routes() {
       path: '/work', priority: '0.8', title: T('Work — Websites, Stores & Software Built in India'),
       description: `Selected work by Rushan Haque: websites for ${works.slice(0, 4).map((w) => w.title).join(', ')} and more, plus inventory software and Mailwright.`,
       images: works.map((w) => w.image),
-      ld: [crumbs([['Work', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Selected work', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works, ...products].map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })) }],
+      ld: [crumbs([['Work', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Selected work', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })), ...products.map((p) => ({ '@type': 'SoftwareApplication', name: p.title, url: `${ORIGIN}/products/${p.slug}` }))] }],
     },
     {
       path: '/about', priority: '0.8', title: T('About — Developer & Writer from Moradabad, India'),
@@ -112,14 +112,25 @@ export function routes() {
       description: `Start a website project with Rushan Haque in Moradabad, India. WhatsApp ${site.phone.label}, email ${site.email} or book a call. Replies within a day.`,
       ld: [crumbs([['Contact', '/contact']]), { '@context': 'https://schema.org', '@type': 'ContactPage', url: `${ORIGIN}/contact`, about: { '@id': ids.business } }],
     },
-    ...[...works, ...products].map((p) => ({
+    ...works.map((p) => ({
       path: `/work/${p.slug}`, priority: '0.7', images: [p.image],
-      title: T(`${p.title} — ${p.field} ${products.includes(p) ? 'software' : 'website'}`),
+      title: T(`${p.title} — ${p.field} website`),
       description: p.description,
       ld: [crumbs([['Work', '/work'], [p.title, `/work/${p.slug}`]]), {
-        '@context': 'https://schema.org', '@type': products.includes(p) ? 'SoftwareApplication' : 'CreativeWork', name: p.title, description: p.description,
+        '@context': 'https://schema.org', '@type': 'CreativeWork', name: p.title, description: p.description,
         url: `${ORIGIN}/work/${p.slug}`, image: ORIGIN + p.image, creator: { '@id': ids.person }, dateCreated: p.year,
-        ...(products.includes(p) ? { applicationCategory: 'BusinessApplication', operatingSystem: 'Web' } : {}), ...(p.url ? { sameAs: p.url } : {}),
+        ...(p.url ? { sameAs: p.url } : {}),
+      }],
+    })),
+    // the products, each with its own page to read about it and ask for a quote
+    ...products.map((p) => ({
+      path: `/products/${p.slug}`, priority: '0.8', images: [p.image],
+      title: T(`${p.title} — ${p.field} for businesses`),
+      description: `${p.description} Request a quote or book a call.`,
+      ld: [crumbs([['Products', '/#products'], [p.title, `/products/${p.slug}`]]), {
+        '@context': 'https://schema.org', '@type': 'SoftwareApplication', '@id': `${ORIGIN}/products/${p.slug}#app`, name: p.title, description: p.description,
+        url: `${ORIGIN}/products/${p.slug}`, image: ORIGIN + p.image, applicationCategory: 'BusinessApplication', operatingSystem: 'Web',
+        creator: { '@id': ids.person }, provider: { '@id': ids.business }, dateCreated: p.year, featureList: p.does,
       }],
     })),
     ...guides.map((g) => {

@@ -1,8 +1,8 @@
 import { useRef, Fragment } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { gsap, useGSAP, isTouch } from '../lib/gsap'
 import { useReveals } from '../lib/useReveals'
-import { allProjects, projectBySlug, reviews } from '../data/content'
+import { works, products, projectBySlug, reviews } from '../data/content'
 import { small, srcSet } from '../lib/img'
 import { TLink } from '../components/Transition'
 import Button from '../components/Button'
@@ -73,8 +73,10 @@ export default function Case() {
   }, { scope: root, dependencies: [slug] })
 
   if (!p) return <NotFound />
-  const i = allProjects.indexOf(p)
-  const next = allProjects[(i + 1) % allProjects.length]
+  // a product has its own page now; its old case-study address hands over to it
+  if (products.includes(p)) return <Navigate to={`/products/${p.slug}`} replace />
+  const i = works.indexOf(p)
+  const next = works[(i + 1) % works.length]
   const review = reviews.find((r) => (r.company && p.title.toLowerCase().includes(r.company.toLowerCase().split(' ')[0])) || r.quote.toLowerCase().includes(p.short.toLowerCase()))
 
   return (

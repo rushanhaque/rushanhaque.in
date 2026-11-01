@@ -24,8 +24,9 @@ export function useReveals(scope, initialTheme = 'ivory') {
   useGSAP(
     () => {
       setTheme(initialTheme, true)
-      if (!ready) return
       const root = scope.current
+      // a page that rendered something else instead (a not-found page, a redirect) has nothing to reveal
+      if (!ready || !root) return
       const once = (el, start = 'top 88%') => ({ trigger: el, start, once: true })
 
       // Start-only triggers, as in the Halcyon template: each section owns the palette from the

@@ -209,7 +209,7 @@ function Legal({ slug }) {
   const mail = <a href={`mailto:${site.email}`}>{site.email}</a>
   return slug === 'privacy' ? (
     <div className="lp__prose">
-      <h2>What I collect</h2><p>The contact form sends the details you enter (how to reach you and your message) to my inbox through Formspree; if it can’t, it opens your email or WhatsApp instead. I use them only to reply.</p>
+      <h2>What I collect</h2><p>The contact and quote forms send the details you enter (how to reach you, your message and, on a quote request, your name, business and team size) to my inbox through Formspree; if it can’t, it opens your email or WhatsApp instead. I use them only to reply.</p>
       <h2>Tracking</h2><p>No analytics, no advertising trackers and no tracking cookies.</p>
       <h2>Your data</h2><p>To ask about or delete your information, email {mail}.</p>
     </div>

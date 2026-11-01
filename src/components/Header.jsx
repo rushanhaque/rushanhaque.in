@@ -24,6 +24,7 @@ const PAGE = (p) => {
   if (p === '/') return 'Introduction'
   if (p === '/work') return 'Selected work'
   if (p.startsWith('/work/')) return 'Case study'
+  if (p.startsWith('/products/')) return 'Product'
   if (p === '/about') return 'About'
   if (p === '/contact') return 'Connect'
   const slug = p.slice(1)

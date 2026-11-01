@@ -296,6 +296,7 @@ export const faq = [
 
 export const allProjects = [...works, ...products]
 export const projectBySlug = (slug) => allProjects.find((p) => p.slug === slug)
+export const productBySlug = (slug) => products.find((p) => p.slug === slug)
 
 // The home page's chapters, as the header's Contents lists them: number, name, the line under
 // it, and a one-sentence abstract.

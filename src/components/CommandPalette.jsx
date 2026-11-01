@@ -27,7 +27,7 @@ export default function CommandPalette() {
       ['Recent works', '#work'], ['Currently building', '#drafting'], ['Products', '#products'], ['Clientele', '#clientele'], ['Where I serve', '#serve'],
       ['Other services', '#services'], ['Reviews', '#reviews'], ['Writing', '#writing'], ['About', '#about'],
     ].map(([label, hash]) => ({ group: 'Home', label, hint: 'Jump to section', run: () => (location.pathname === '/' ? scrollTo(hash, { offset: -20 }) : go(`/${hash}`)) }))
-    const cases = [...works, ...products].map((p) => ({ group: 'Projects', label: p.title, hint: p.field, run: () => go(`/work/${p.slug}`) }))
+    const cases = [...works.map((p) => ({ group: 'Projects', label: p.title, hint: p.field, run: () => go(`/work/${p.slug}`) })), ...products.map((p) => ({ group: 'Products', label: p.title, hint: 'Request a quote', run: () => go(`/products/${p.slug}`) }))]
     const util = [
       { group: 'Actions', label: 'Copy email address', hint: site.email, icon: 'copy', run: () => { navigator.clipboard?.writeText(site.email); flash('Email copied') } },
       { group: 'Actions', label: 'Message on WhatsApp', hint: site.phone.label, icon: 'whatsapp', run: () => window.open(site.phone.whatsapp, '_blank', 'noopener') },

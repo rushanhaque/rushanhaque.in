@@ -122,7 +122,11 @@ ${[...articles, ...industries].map((g) => link(g.title, `/${g.slug}`, g.descript
 
 ## Client work
 
-${[...works, ...products].map((p) => link(p.title, `/work/${p.slug}`, `${p.description}${p.url ? ` Live at ${p.url}` : ''}`)).join('\n')}
+${works.map((p) => link(p.title, `/work/${p.slug}`, `${p.description}${p.url ? ` Live at ${p.url}` : ''}`)).join('\n')}
+
+## Products
+
+${products.map((p) => link(p.title, `/products/${p.slug}`, `${p.description} Request a quote or book a call on the page.`)).join('\n')}
 
 ## Writing
 
