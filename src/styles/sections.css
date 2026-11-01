@@ -75,13 +75,22 @@
 .rw__badge.is-on > span { scale: 1; }
 @media (hover: none) { .rw__badge { display: none; } }
 
-/* wide screens: the cards are held in a stack, each a little below the last */
-@media (min-width: 900px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+/* every screen: the cards are held in a stack, each a little below the last */
+@media (prefers-reduced-motion: no-preference) {
   .rw__list { gap: 0; padding-bottom: 14vh; }
-  .rw__item { position: sticky; top: calc(var(--hdr-h) + 16px + var(--i) * 12px); height: calc(100vh - var(--hdr-h) - 32px - 5 * 12px); height: calc(100svh - var(--hdr-h) - 32px - 5 * 12px); padding-bottom: 0; }
+  .rw__item { position: sticky; top: calc(var(--hdr-h) + 16px + var(--i) * 12px); }
   .rw__item + .rw__item { margin-top: 18vh; }
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .rw__item { height: calc(100vh - var(--hdr-h) - 32px - 5 * 12px); height: calc(100svh - var(--hdr-h) - 32px - 5 * 12px); }
   .rw__card { width: min(100%, calc((100svh - var(--hdr-h) - 92px - 86px) * 2.07 + 20px)); margin-inline: auto; }
   .rw__media:hover img { filter: brightness(1.04); }
+}
+/* phones: the cards are small, so they stack tighter and each holds a little longer */
+@media (max-width: 899px) and (prefers-reduced-motion: no-preference) {
+  .rw__item { top: calc(var(--hdr-h) + 14px + var(--i) * 9px); }
+  .rw__item + .rw__item { margin-top: 30svh; }
+  .rw__list { padding-bottom: 26svh; }
 }
 @media (max-width: 1180px) and (min-width: 900px) {
   .rw__bar { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: 'name facts links' 'meta facts links'; }

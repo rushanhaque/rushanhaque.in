@@ -27,6 +27,15 @@ export default function Showcase({ items, external = false }) {
       const line = window.innerWidth >= 900 && window.innerHeight > 520 ? '42%' : window.innerWidth < 900 ? '68%' : 'center'
       q('.sc__item').forEach((el, i) => ScrollTrigger.create({ trigger: el, start: `top ${line}`, end: `bottom ${line}`, onToggle: (s) => s.isActive && setActive(i) }))
       if (reduced()) return
+      // on touch screens each site's own picture opens out of a smaller frame and settles as it
+      // scrolls up; nothing is held still, so it follows the finger exactly
+      gsap.matchMedia().add('(hover: none), (max-width: 899px)', () => {
+        q('.sc__shot').forEach((shot) => {
+          gsap.timeline({ scrollTrigger: { trigger: shot, start: 'top 95%', end: 'top 40%', scrub: 0.5 } })
+            .fromTo(shot, { clipPath: 'inset(12% 9% 12% 9% round 22px)' }, { clipPath: 'inset(0% 0% 0% 0% round 12px)', ease: 'none' }, 0)
+            .fromTo(shot.querySelector('img'), { scale: 1.25, yPercent: 8 }, { scale: 1, yPercent: 0, ease: 'none' }, 0)
+        })
+      })
       gsap.timeline({ scrollTrigger: { trigger: q('.sc__window')[0], start: 'top 85%', once: true } })
         .fromTo(q('.sc__window'), { clipPath: 'inset(100% 0% 0% 0% round 14px)' }, { clipPath: 'inset(0% 0% 0% 0% round 14px)', duration: 1.4, ease: 'expo', clearProps: 'clipPath' }, 0)
         .from(q('.sc__frames'), { scale: 1.18, duration: 1.8, ease: 'expo', clearProps: 'scale' }, 0)

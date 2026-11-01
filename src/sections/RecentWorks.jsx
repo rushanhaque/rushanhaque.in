@@ -13,10 +13,10 @@ const clamp = (v) => Math.min(1, Math.max(0, v))
 /**
  * 01 — Recent works, as a deck of cases. Each site is a large dark card: the home page edge to
  * edge, and a bar beneath with its number, field, name, year and the ways in. On wide screens
- * the cards are held in a stack as you scroll: the next one rises over the last, which recedes
- * and dims, so a sliver of every case read so far stays at the top. A card settles its picture
- * and lifts its name in as it arrives. On phones (and with reduced motion) the cards simply
- * follow one another down the page; nothing is held, so nothing can shake.
+ * the cards are held in a stack as you scroll, on phones as on desktops: the next one rises over
+ * the last, which recedes and dims, so a sliver of every case read so far stays at the top. A
+ * card settles its picture and lifts its name in as it arrives. With reduced motion the cards
+ * simply follow one another down the page.
  */
 export default function RecentWorks() {
   const root = useRef(null)
@@ -32,7 +32,7 @@ export default function RecentWorks() {
       // every card names itself as it comes into view, on every screen
       const arrive = ScrollTrigger.batch(cards, { start: 'top 82%', onEnter: (b) => b.forEach((c) => c.classList.add('is-in')) })
 
-      mm.add('(min-width: 900px) and (hover: hover) and (prefers-reduced-motion: no-preference)', () => {
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
         const imgs = cards.map((c) => c.querySelector('.rw__media img'))
         const shades = cards.map((c) => c.querySelector('.rw__shade'))
         // where each card stops, and where it would be without stopping (heights are not moved by sticking)
