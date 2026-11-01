@@ -17,13 +17,13 @@ const TOKEN = new RegExp([
   /<div class="(?:source-actions|source-faq)">/.source,                                                              // wrappers
 ].join('|'), 'g');
 
-const text = (html        ) => html.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&#x27;|&#39;/g, '’').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
-const paras = (html        ) => [...html.matchAll(/<p>([\s\S]*?)<\/p>/g)].map(m => m[1].trim());
+const text = (html) => html.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&#x27;|&#39;/g, '’').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
+const paras = (html) => [...html.matchAll(/<p>([\s\S]*?)<\/p>/g)].map(m => m[1].trim());
 
-export function parseSection(raw        , index        )          {
+export function parseSection(raw, index) {
   const html = raw.replace(/<\/?div>/g, '');
   let crumb = '', num = '', name = '', title = '', label = '';
-  const intro           = [], items                                                   = [], facts                     = [], links           = [], actions           = [], faqs                                            = [];
+  const intro = [], items = [], facts = [], links = [], actions = [], faqs = [];
   let rest = html;
   for (const m of html.matchAll(TOKEN)) {
     rest = rest.replace(m[0], '');
@@ -46,7 +46,7 @@ export function parseSection(raw        , index        )          {
   // Anything left over that is not markup means the section was not fully understood.
   if (text(rest.replace(/<details>[\s\S]*?<\/details>/g, ''))) return { kind: 'raw', html: raw };
   const head = { num, name, title, intro };
-  let parsed         ;
+  let parsed;
   if (index === 0) parsed = { kind: 'lead', crumb, num, name, facts, paras: intro, actions };
   else if (faqs.length) parsed = { ...head, kind: 'faq', faqs };
   else if (!title && label) parsed = { kind: 'cta', label, paras: intro, actions };
@@ -59,8 +59,8 @@ export function parseSection(raw        , index        )          {
 }
 
 // The section's content in source order, used only to prove nothing was lost.
-export function sectionHtml(s         )         {
-  const head = (h      ) => `<span>${h.num}</span><span>${h.name}</span><h2>${h.title}</h2>${h.intro.map(p => `<p>${p}</p>`).join('')}`;
+export function sectionHtml(s) {
+  const head = (h) => `<span>${h.num}</span><span>${h.name}</span><h2>${h.title}</h2>${h.intro.map(p => `<p>${p}</p>`).join('')}`;
   switch (s.kind) {
     case 'lead': return `${s.crumb}<span>${s.num}</span><span>${s.name}</span>${s.facts.map(([k, v]) => `<span>${k}</span><b>${v}</b>`).join('')}${s.paras.map(p => `<p>${p}</p>`).join('')}${s.actions.map(a => `<a>${a.text}</a>`).join('')}`;
     case 'list': return head(s) + s.items.map(i => `<h3>${i.title}</h3><span>${i.num}</span>${i.text.map(p => `<p>${p}</p>`).join('')}`).join('');

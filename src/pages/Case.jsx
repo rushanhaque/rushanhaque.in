@@ -16,10 +16,14 @@ const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, '') } c
 /** Drawing ⟷ building: drag the brass divider to compare the line drawing with the finished site. */
 function Compare({ p }) {
   const ref = useRef(null)
+  // the divider's place, and the value the slider reports to assistive tech
+  const put = (k) => {
+    ref.current?.style.setProperty('--k', k)
+    ref.current?.querySelector('.cmp__handle')?.setAttribute('aria-valuenow', Math.round(k * 100))
+  }
   const set = (x) => {
     const r = ref.current.getBoundingClientRect()
-    const k = Math.min(1, Math.max(0, (x - r.left) / r.width))
-    ref.current.style.setProperty('--k', k)
+    put(Math.min(1, Math.max(0, (x - r.left) / r.width)))
   }
   const drag = (e) => {
     set(e.clientX)
@@ -32,12 +36,14 @@ function Compare({ p }) {
   }
   const key = (e) => {
     const cur = parseFloat(getComputedStyle(ref.current).getPropertyValue('--k')) || 0.5
-    if (e.key === 'ArrowLeft') ref.current.style.setProperty('--k', Math.max(0, cur - 0.05))
-    if (e.key === 'ArrowRight') ref.current.style.setProperty('--k', Math.min(1, cur + 0.05))
+    if (e.key === 'ArrowLeft') { e.preventDefault(); put(Math.max(0, cur - 0.05)) }
+    if (e.key === 'ArrowRight') { e.preventDefault(); put(Math.min(1, cur + 0.05)) }
+    if (e.key === 'Home') { e.preventDefault(); put(0) }
+    if (e.key === 'End') { e.preventDefault(); put(1) }
   }
   useGSAP(() => {
     const o = { k: 0.08 }
-    gsap.to(o, { k: 0.5, duration: 2.2, ease: 'expo', onUpdate: () => ref.current?.style.setProperty('--k', o.k), scrollTrigger: { trigger: ref.current, start: 'top 70%', once: true } })
+    gsap.to(o, { k: 0.5, duration: 2.2, ease: 'expo', onUpdate: () => put(o.k), scrollTrigger: { trigger: ref.current, start: 'top 70%', once: true } })
   }, { scope: ref })
   return (
     <div className="cmp" ref={ref} style={{ aspectRatio: `${p.w} / ${p.h}` }} onPointerDown={drag}>
@@ -45,7 +51,7 @@ function Compare({ p }) {
       <img className="cmp__render" src={p.image} alt={`${p.title}, finished`} loading="lazy" />
       <span className="cmp__label cmp__label--l">The drawing</span>
       <span className="cmp__label cmp__label--r">The building</span>
-      <button className="cmp__handle" role="slider" aria-label="Compare drawing and finished site" aria-valuemin={0} aria-valuemax={100} onKeyDown={key}><Icon name="arrowLeft" size={14} /><Icon name="arrowRight" size={14} /></button>
+      <button className="cmp__handle" role="slider" aria-label="Compare drawing and finished site" aria-valuemin={0} aria-valuemax={100} aria-valuenow={50} onKeyDown={key}><Icon name="arrowLeft" size={14} /><Icon name="arrowRight" size={14} /></button>
     </div>
   )
 }

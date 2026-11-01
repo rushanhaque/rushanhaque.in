@@ -135,10 +135,19 @@ export default function RecentWorks() {
         },
       })
 
+      // if the GPU is taken back (a phone's tab in the background), fall back to the crossfade
+      const lost = () => {
+        morph = null
+        canvas.style.opacity = 0
+        dirty = true
+      }
+      canvas.addEventListener('webglcontextlost', lost)
+
       gsap.ticker.add(frame)
       const ro = new ResizeObserver(layout)
       ro.observe(card)
       return () => {
+        canvas.removeEventListener('webglcontextlost', lost)
         alive = false
         gsap.ticker.remove(frame)
         gsap.killTweensOf(pos)

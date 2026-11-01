@@ -10,14 +10,40 @@ import CommandPalette from './components/CommandPalette'
 import Seo from './components/Seo'
 import Home from './pages/Home'
 
-const LAZY = {
-  Home,
-  Work: lazy(() => import('./pages/Work')),
-  Case: lazy(() => import('./pages/Case')),
-  About: lazy(() => import('./pages/About')),
-  Contact: lazy(() => import('./pages/Contact')),
-  Landing: lazy(() => import('./pages/Landing')),
-  NotFound: lazy(() => import('./pages/NotFound')),
+const load = {
+  Work: () => import('./pages/Work'),
+  Case: () => import('./pages/Case'),
+  About: () => import('./pages/About'),
+  Contact: () => import('./pages/Contact'),
+  Landing: () => import('./pages/Landing'),
+  NotFound: () => import('./pages/NotFound'),
+}
+const LAZY = { Home, ...Object.fromEntries(Object.entries(load).map(([k, f]) => [k, lazy(f)])) }
+
+// which page a path shows, matching the routes below
+const pageFor = (path) => {
+  const p = path.replace(/\/+$/, '') || '/'
+  if (p === '/') return 'Home'
+  if (p === '/work') return 'Work'
+  if (/^\/work\/[^/]+$/.test(p)) return 'Case'
+  if (p === '/about') return 'About'
+  if (p === '/contact') return 'Contact'
+  return /^\/[^/]+$/.test(p) ? 'Landing' : 'NotFound'
+}
+
+/**
+ * The pages for the first render, with the one at `path` already loaded. A lazy page always
+ * suspends on its first render, which would swap the pre-rendered page for an empty fallback
+ * until its code arrived; fetched first, it renders straight over the same words.
+ */
+export async function preload(path) {
+  const key = pageFor(path)
+  if (!load[key]) return LAZY
+  try {
+    return { ...LAZY, [key]: (await load[key]()).default }
+  } catch {
+    return LAZY
+  }
 }
 
 /**

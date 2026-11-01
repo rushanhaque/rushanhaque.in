@@ -156,8 +156,16 @@ export default function HeroShader({ intro = false, progress, colors = ['#0c0607
     const tick = (time) => { if (visible && !document.hidden) draw(time) }
     if (!still) gsap.ticker.add(tick)
     api.current = { s, draw, still }
+    // a phone can take the GPU back from a tab in the background; the CSS gradient takes over
+    const lost = () => {
+      gsap.ticker.remove(tick)
+      canvas.remove()
+      api.current = null
+    }
+    canvas.addEventListener('webglcontextlost', lost)
 
     return () => {
+      canvas.removeEventListener('webglcontextlost', lost)
       gsap.ticker.remove(tick)
       window.removeEventListener('pointermove', move)
       document.removeEventListener('mouseleave', out)
