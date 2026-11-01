@@ -74,7 +74,7 @@ export default function Journey({ n = '01' }) {
       <div className="jr__list">
         <svg className="jr__svg" aria-hidden="true">
           <defs>
-            <linearGradient id="jr-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset=".3" stopColor="#4a2228" /><stop offset="1" stopColor="#2b1418" /></linearGradient>
+            <linearGradient id="jr-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset=".3" stopColor="#42242d" /><stop offset="1" stopColor="#241419" /></linearGradient>
           </defs>
           <path className="jr__track" d={d} />
           <path className="jr__ink" ref={line} d={d} />

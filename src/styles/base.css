@@ -10,10 +10,10 @@
 @font-face { font-family: 'Martian Mono'; src: url('/fonts/martian.woff2') format('woff2-variations'); font-weight: 100 800; font-stretch: 75% 112.5%; font-style: normal; font-display: swap; size-adjust: 86%; }
 
 :root {
-  --bg: #ffffff; --fg: #201814; --muted: rgba(32, 24, 20, 0.6); --line: rgba(32, 24, 20, 0.14); --card: #f5f1ee; --accent: #4a2228; --hi: #ffffff;
+  --bg: #ffffff; --fg: #201814; --muted: rgba(32, 24, 20, 0.6); --line: rgba(32, 24, 20, 0.14); --card: #f5f1ee; --accent: #42242d; --hi: #ffffff;
 
   --ivory: #ffffff; --paper: #ffffff; --stone: #f7f4f1; --ink: #201814;
-  --wine: #2b1418; --wine-2: #4a2228; --wine-3: #6a3b42;
+  --wine: #241419; --wine-2: #42242d; --wine-3: #5f3a45;
   --brass: #b08a4f; --brass-2: #d9b97e;
 
   --serif: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -64,10 +64,10 @@ p { text-wrap: pretty; hanging-punctuation: first; }
 .split-line { padding-bottom: 0.08em; margin-bottom: -0.08em; }
 
 /* every room carries its own palette, so its colours are right however fast you scroll */
-section[data-theme='night'], footer[data-theme='night'] { --bg: #120a0c; --fg: #ffffff; --muted: rgba(255, 255, 255, 0.62); --line: rgba(255, 255, 255, 0.14); --card: #1a0f12; --accent: #d9b97e; --hi: #2a1219; }
-section[data-theme='ivory'], footer[data-theme='ivory'] { --bg: #ffffff; --fg: #201814; --muted: rgba(32, 24, 20, 0.6); --line: rgba(32, 24, 20, 0.12); --card: #f5f1ee; --accent: #4a2228; --hi: #ffffff; }
-section[data-theme='stone'], footer[data-theme='stone'] { --bg: #f7f4f1; --fg: #201814; --muted: rgba(32, 24, 20, 0.62); --line: rgba(32, 24, 20, 0.15); --card: #efe9e4; --accent: #4a2228; --hi: #ffffff; }
-section[data-theme='wine'], footer[data-theme='wine'] { --bg: #2b1418; --fg: #ffffff; --muted: rgba(255, 255, 255, 0.64); --line: rgba(255, 255, 255, 0.16); --card: #36191e; --accent: #d9b97e; --hi: #3f2026; }
+section[data-theme='night'], footer[data-theme='night'] { --bg: #120a0c; --fg: #ffffff; --muted: rgba(255, 255, 255, 0.62); --line: rgba(255, 255, 255, 0.14); --card: #1a0f12; --accent: #d9b97e; --hi: #261419; }
+section[data-theme='ivory'], footer[data-theme='ivory'] { --bg: #ffffff; --fg: #201814; --muted: rgba(32, 24, 20, 0.6); --line: rgba(32, 24, 20, 0.12); --card: #f5f1ee; --accent: #42242d; --hi: #ffffff; }
+section[data-theme='stone'], footer[data-theme='stone'] { --bg: #f7f4f1; --fg: #201814; --muted: rgba(32, 24, 20, 0.62); --line: rgba(32, 24, 20, 0.15); --card: #efe9e4; --accent: #42242d; --hi: #ffffff; }
+section[data-theme='wine'], footer[data-theme='wine'] { --bg: #241419; --fg: #ffffff; --muted: rgba(255, 255, 255, 0.64); --line: rgba(255, 255, 255, 0.16); --card: #2e1a20; --accent: #d9b97e; --hi: #371f27; }
 section[data-theme], footer[data-theme] { position: relative; z-index: 1; background-color: var(--bg); color: var(--fg); overflow-x: clip; }
 
 /* the section system */

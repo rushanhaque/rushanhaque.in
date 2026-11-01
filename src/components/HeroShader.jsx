@@ -76,7 +76,7 @@ const rgb = (hex) => {
  * The hero's background: one fragment shader on a full-screen triangle, drawn at reduced
  * resolution and only while it is on screen. Without WebGL the section's CSS gradient shows.
  */
-export default function HeroShader({ intro = false, progress, colors = ['#0c0607', '#33191d', '#d9b97e'] }) {
+export default function HeroShader({ intro = false, progress, colors = ['#0c0607', '#321b22', '#d9b97e'] }) {
   const wrap = useRef(null)
   const api = useRef(null)
 
