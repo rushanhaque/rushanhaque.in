@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import { gsap, ScrollTrigger, useGSAP, reduced } from '../lib/gsap'
 import { small, srcSet } from '../lib/img'
 import { TLink } from './Transition'
@@ -44,7 +44,16 @@ export default function Showcase({ items, external = false }) {
             <div className="sc__copy">
             <span className="sc__no">{two(i + 1)}</span>
             <h3 className="sc__name" aria-label={w.title}>
-              {w.title.split('').map((c, k) => <span className="ch" aria-hidden="true" key={k} style={{ '--c': k }}>{c === ' ' ? '\u00a0' : c}</span>)}
+              {/* letters held together per word, so a line can only break between words */}
+              {w.title.split(' ').map((word, j, all) => {
+                const at = all.slice(0, j).join(' ').length + (j ? 1 : 0)
+                return (
+                  <Fragment key={j}>
+                    {j > 0 && ' '}
+                    <span className="sc__word" aria-hidden="true">{[...word].map((c, k) => <span className="ch" key={k} style={{ '--c': at + k }}>{c}</span>)}</span>
+                  </Fragment>
+                )
+              })}
             </h3>
             <p className="sc__field">{[w.field, w.year].filter(Boolean).join(' · ')}</p>
             <p className="sc__desc">{w.description}</p>

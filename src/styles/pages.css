@@ -285,6 +285,7 @@
 }
 .sc__no { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); }
 .sc__name { margin: 0 0 -0.16em; overflow: hidden; padding: 0.1em 0.08em 0.22em 0; margin-top: -0.1em; font-size: clamp(2.6rem, 4.8vw, 5.4rem); line-height: 0.98; letter-spacing: -0.01em; }
+.sc__word { display: inline-block; white-space: nowrap; }
 .sc__name .ch { display: inline-block; translate: 0 40%; opacity: 0.5; transition: translate 0.9s var(--ease), opacity 0.9s var(--ease); transition-delay: calc(var(--c) * 28ms); }
 .sc__item.is-on .sc__name .ch { translate: 0 0; opacity: 1; }
 .sc__field { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }

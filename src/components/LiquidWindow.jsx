@@ -5,15 +5,15 @@ import { low } from '../lib/device'
 // The showcase window from the previous portfolio, drawn on one WebGL canvas. A change of site
 // runs a liquid wipe: a noise-edged front rises through the page (or falls, scrolling back)
 // with a thin seam and a split of colour along it, while the old site sinks back and the new
-// one settles from a zoom. Under the cursor the page bulges softly, like glass. A site with a
-// line drawing arrives as the drawing, and once the wipe has passed a brass scan builds it into
-// the site. It draws only while something moves. Without WebGL, or on an entry-level phone,
+// one settles from a zoom. Under the cursor the page bulges softly, like glass, and a lens
+// ringed in brass shows the site's line drawing beneath it. It draws only while something
+// moves. Without WebGL, or on an entry-level phone,
 // the plain frames underneath carry on.
 const VERT = 'attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}'
 const FRAG = `precision mediump float;
 varying vec2 v;
 uniform sampler2D uFrom,uTo,uFromP;
-uniform float uFromA,uToA,uA,uP,uDir,uT,uH,uS;
+uniform float uFromA,uToA,uA,uP,uDir,uT,uH;
 uniform vec2 uM;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),u.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),u.x),u.y);}
@@ -31,22 +31,20 @@ void main(){
   float seam=exp(-pow(edge/.055,2.))*step(.001,uP)*step(uP,.999);
   vec2 push=vec2(0.,seam*.05*(uDir>0.?-1.:1.));
   vec2 fuv=cover((uv-.5)/(1.+.07*uP)+.5+push,uFromA);
-  float on=step(.001,uS)*step(uS,.999);
-  float built=1.-smoothstep(uS-.0015,uS+.0015,uv.x);
-  vec3 from=mix(texture2D(uFromP,fuv).rgb,texture2D(uFrom,fuv).rgb,built);
-  from+=vec3(.69,.54,.31)*(exp(-pow((uv.x-uS)/.0028,2.))*.9+exp(-pow((uv.x-uS)/.035,2.))*.16)*on;
+  float lens=uH*(1.-uP);
+  vec3 from=mix(texture2D(uFrom,fuv).rgb,texture2D(uFromP,fuv).rgb,lens*smoothstep(.235,.215,r));
+  from+=vec3(.69,.54,.31)*lens*exp(-pow((r-.225)/.0045,2.))*.8;
   from*=1.-.4*uP;
   vec2 t=(uv-.5)/(1.+.14*(1.-uP))+.5-push*.5;
   float k=seam*.008;
   vec3 to=vec3(texture2D(uTo,cover(t+vec2(k,0.),uToA)).r,texture2D(uTo,cover(t,uToA)).g,texture2D(uTo,cover(t-vec2(k,0.),uToA)).b);
   vec3 col=mix(from,to,m)+vec3(.72,.58,.42)*seam*.3;
-  col+=vec3(1.)*uH*smoothstep(.42,.36,r)*smoothstep(.3,.38,r)*.05;
   gl_FragColor=vec4(col,1.);
 }`
 
 const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2)
 
-/** `items` carry `image` and, optionally, `plan` (the line drawing); `active` is the site shown. */
+/** `items` carry `image` and, optionally, `plan` (the line drawing, shown under the cursor); `active` is the site shown. */
 export default function LiquidWindow({ items, active }) {
   const canvas = useRef(null)
   const go = useRef(() => {})
@@ -65,19 +63,17 @@ export default function LiquidWindow({ items, active }) {
     let dead = false
     const tex = pairs.map(() => null)
     const aspect = pairs.map(() => 1)
-    // a site without a drawing uses its own picture for one, so it simply arrives built
+    // a site without a drawing shows its own picture under the lens
     const ptex = pairs.map(() => null)
-    // sc: how far the current site is built (0 = drawing); scan: when its scan starts, or -1
-    const s = { cur: want.current, to: -1, p: 0, dir: 1, start: 0, t: 0, h: 0, ht: 0, m: [0.5, 0.5], mt: [0.5, 0.5], sc: 0, scan: -1, seen: false }
+    const s = { cur: want.current, to: -1, p: 0, dir: 1, start: 0, t: 0, h: 0, ht: 0, m: [0.5, 0.5], mt: [0.5, 0.5] }
     let u = {}
 
     const draw = () => {
       if (!gl || !tex[s.cur]) return
       const next = s.to >= 0 ? s.to : s.cur
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex[s.cur])
-      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, ptex[next] ?? tex[next])
+      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tex[next])
       gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, ptex[s.cur] ?? tex[s.cur])
-      gl.uniform1f(u.uS, ptex[s.cur] ? s.sc : 1)
       gl.uniform1f(u.uFromA, aspect[s.cur]); gl.uniform1f(u.uToA, aspect[next])
       gl.uniform1f(u.uA, el.width / el.height); gl.uniform1f(u.uP, s.p); gl.uniform1f(u.uDir, s.dir)
       gl.uniform1f(u.uT, s.t); gl.uniform1f(u.uH, s.h); gl.uniform2f(u.uM, s.m[0], s.m[1])
@@ -89,12 +85,7 @@ export default function LiquidWindow({ items, active }) {
       if (s.to >= 0) {
         const x = Math.min(1, (now - s.start) / 1350)
         s.p = ease(x); s.t += 0.016; busy = true
-        if (x >= 1) { s.cur = s.to; s.to = -1; s.p = 0; s.sc = 0; s.scan = now + 120 }
-      }
-      if (s.scan >= 0) {
-        const x = Math.min(1, Math.max(0, (now - s.scan) / 1700))
-        s.sc = ease(x); busy = true
-        if (x >= 1) s.scan = -1
+        if (x >= 1) { s.cur = s.to; s.to = -1; s.p = 0 }
       }
       s.h += (s.ht - s.h) * 0.09; s.m[0] += (s.mt[0] - s.m[0]) * 0.14; s.m[1] += (s.mt[1] - s.m[1]) * 0.14
       if (Math.abs(s.ht - s.h) > 0.002 || Math.hypot(s.mt[0] - s.m[0], s.mt[1] - s.m[1]) > 0.0015) busy = true
@@ -105,9 +96,8 @@ export default function LiquidWindow({ items, active }) {
     go.current = (i) => {
       if (!gl || (i === s.cur && s.to < 0)) return
       if (!tex[i]) return
-      if (s.to >= 0) { s.cur = s.to; s.sc = 0 }
-      if (i === s.cur) { s.to = -1; s.p = 0; s.scan = performance.now(); wake(); return }
-      s.scan = -1
+      if (s.to >= 0) s.cur = s.to
+      if (i === s.cur) { s.to = -1; s.p = 0; wake(); return }
       s.dir = i > s.cur ? 1 : -1; s.to = i; s.start = performance.now(); s.p = 0
       wake()
     }
@@ -132,7 +122,7 @@ export default function LiquidWindow({ items, active }) {
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW)
       const loc = gl.getAttribLocation(prog, 'p')
       gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
-      u = Object.fromEntries(['uFrom', 'uTo', 'uFromP', 'uFromA', 'uToA', 'uA', 'uP', 'uDir', 'uT', 'uH', 'uM', 'uS'].map((k) => [k, gl.getUniformLocation(prog, k)]))
+      u = Object.fromEntries(['uFrom', 'uTo', 'uFromP', 'uFromA', 'uToA', 'uA', 'uP', 'uDir', 'uT', 'uH', 'uM'].map((k) => [k, gl.getUniformLocation(prog, k)]))
       gl.uniform1i(u.uFrom, 0); gl.uniform1i(u.uTo, 1); gl.uniform1i(u.uFromP, 2)
       size()
       // the current site first, then the rest in the background
@@ -151,26 +141,18 @@ export default function LiquidWindow({ items, active }) {
           done(t, img)
         }).catch(() => {})
       }
-      order.forEach((i) => {
-        const [image, plan] = pairs[i]
-        // the drawing comes first, so the first site can open on it
-        if (plan) load(plan, (t) => { ptex[i] = t; if (i === s.cur) draw() })
-        load(image, (t, img) => {
-          tex[i] = t
-          aspect[i] = img.naturalWidth / img.naturalHeight
-          if (i === s.cur) { draw(); win.classList.add('is-gl') }
-          if (i === want.current && i !== s.cur) go.current(i)
-        })
-      })
+      order.forEach((i) => load(pairs[i][0], (t, img) => {
+        tex[i] = t
+        aspect[i] = img.naturalWidth / img.naturalHeight
+        if (i === s.cur) { draw(); win.classList.add('is-gl') }
+        if (i === want.current && i !== s.cur) go.current(i)
+      }))
+      // the drawings are only seen under the cursor, so they load after the pictures
+      order.forEach((i) => pairs[i][1] && load(pairs[i][1], (t) => { ptex[i] = t }))
     }
 
     // start only as the section comes near, so the first load of the page is untouched
     const near = ScrollTrigger.create({ trigger: el, start: 'top 200%', once: true, onEnter: init })
-    // the first site opens as a drawing and builds once the window is properly in view
-    const intro = ScrollTrigger.create({
-      trigger: el, start: 'top 55%', once: true,
-      onEnter: () => { if (s.seen) return; s.seen = true; if (s.to < 0 && s.scan < 0 && s.sc < 1) { s.scan = performance.now() + 900; wake() } },
-    })
     const ro = new ResizeObserver(size)
     ro.observe(el)
     const move = (e) => { const r = el.getBoundingClientRect(); s.mt = [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; s.ht = 1; wake() }
@@ -182,7 +164,7 @@ export default function LiquidWindow({ items, active }) {
     return () => {
       dead = true
       gsap.ticker.remove(tick)
-      near.kill(); intro.kill(); ro.disconnect()
+      near.kill(); ro.disconnect()
       win.removeEventListener('pointermove', move); win.removeEventListener('pointerleave', leave); el.removeEventListener('webglcontextlost', lost)
       win.classList.remove('is-gl')
       gl?.getExtension('WEBGL_lose_context')?.loseContext()
