@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
+import { scrollTo } from '../lib/lenis'
+import { low } from '../lib/device'
 import { small, srcSet } from '../lib/img'
-import { createParticles, sample } from '../lib/particles'
-import { tier } from '../lib/device'
-import { setNormalize } from '../lib/lenis'
 import { works } from '../data/content'
 import { TLink } from '../components/Transition'
 import { Kicker, Count } from '../components/Head'
@@ -11,257 +10,216 @@ import Icon from '../components/Icon'
 
 const two = (n) => String(n).padStart(2, '0')
 const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, '') } catch { return '' } }
+const sstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
+
+// how far past the last arch the walk goes, in arches: the light at the end of the hall opens
+const TAIL = 0.8
+// the fanlight's rays, as angles across the half-ellipse
+const RAYS = [18, 36, 54, 72, 90, 108, 126, 144, 162].map((a) => (a * Math.PI) / 180)
+
+/** The fanlight over each window: brass rays from the sill to the arch, after the old havelis. */
+function Fan() {
+  return (
+    <svg className="ar__fan" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M2 44 A98 42 0 0 1 198 44" />
+      <path d="M58 44 A42 18 0 0 1 142 44" />
+      {RAYS.map((a) => <path key={a} d={`M${100 + 42 * Math.cos(a)} ${44 - 18 * Math.sin(a)} L${100 + 98 * Math.cos(a)} ${44 - 42 * Math.sin(a)}`} />)}
+    </svg>
+  )
+}
 
 /**
- * 01 — Recent works. One card holds the stage. Scroll on and it pours apart into particles,
- * as the "Why Axiom" field does: every grain of the picture sets off at its own moment, swirls
- * on a current and settles into its place in the next site (lib/particles.js). At rest the
- * card is the real screenshot; the particles only stand in while it changes. The scroll only
- * chooses the site; each change plays out whole in its own time.
+ * 01 — Recent works, as an arcade you walk through. Each site hangs in its own arched window
+ * with a brass fanlight. Scrolling walks you down a winding hall: the next window waits further
+ * on, turned a little to one side; it comes to stand before you, and as you walk on it lifts
+ * overhead and you pass beneath it. Brass floor lines run on to a point of light at the end of
+ * the hall, and after the last window that light opens into the next room.
+ *
+ * Plain 3D-transformed layers rather than WebGL, so every browser draws it on the graphics chip.
+ * On wide screens the section is pinned; on touch screens it is held by CSS (sticky) and the
+ * walk simply follows the scroll. With reduced motion the windows stand in a plain gallery.
  */
 export default function RecentWorks() {
   const root = useRef(null)
+  const trigger = useRef(null)
   const [active, setActive] = useState(0)
   const n = works.length
 
   useGSAP(
     () => {
-      const q = gsap.utils.selector(root)
-      const imgs = q('.rw__img')
-      const canvas = q('.rw__gl')[0]
-      const card = q('.rw__card')[0]
-      const still = reduced()
+      if (reduced()) return
+      const el = root.current
+      const q = gsap.utils.selector(el)
+      const world = q('.ar__world')[0]
+      const sway = q('.ar__sway')[0]
+      const arches = q('.ar__arch')
+      const rungs = q('.ar__rung')
+      const rails = q('.ar__rail')
+      const light = q('.ar__light')[0]
+      const wash = q('.ar__wash')[0]
+      const fill = q('.ar__fill')[0]
       const touch = isTouch()
-      let goal = 0
-      let shown = 0
-      let pair = -1
-      let last = -1
-      let dirty = true
-      let morph = null
-      let colours = null
-      const opacity = imgs.map(() => -1)
 
-      const setOpacity = (i, v) => {
-        const o = Math.round(v * 1000) / 1000
-        if (o !== opacity[i]) { opacity[i] = o; imgs[i].style.opacity = o }
+      // the hall's measures, taken from the laid-out window and read again on every refresh
+      const m = { D: 1000, P: 1100, X: 500, H: 500, S: 340, F: 300, R: 800, phone: false }
+      const measure = () => {
+        const w = arches[0].offsetWidth
+        const phone = window.innerWidth < 900
+        m.phone = phone
+        m.D = phone ? 820 : 1000
+        m.P = phone ? 820 : 1100
+        m.H = arches[0].offsetHeight
+        m.X = w * (phone ? 0.52 : 0.6)
+        m.S = m.D * 0.34
+        m.F = m.H * 0.5 + w * 0.09
+        m.R = w * (phone ? 0.85 : 1.05)
+        world.style.perspective = `${m.P}px`
+        rails.forEach((r, k) => { r.style.transform = `translate3d(${k ? m.R : -m.R}px, ${m.F}px, ${-m.D * 2.6}px) rotateX(90deg)`; r.style.height = `${m.D * 5.2}px`; r.style.marginTop = `${-m.D * 2.6}px` })
+        rungs.forEach((r) => { r.style.width = `${m.R * 2}px`; r.style.marginLeft = `${-m.R}px` })
       }
 
-      const layout = () => {
-        if (!morph) return
-        const a = canvas.getBoundingClientRect()
-        const b = card.getBoundingClientRect()
-        morph.layout({ x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }, { left: window.innerWidth < 900 ? 1 : 0.3 })
-        dirty = true
-      }
-
-      // The scroll only chooses the site; the change then plays out whole, in its own time, so
-      // the card is always seen breaking apart and settling as the next one however fast you go.
-      // Skipping several sites at once runs through each of them, a little quicker.
-      const pos = { v: 0 }
-      const go = (to) => {
-        if (to === goal) return
-        goal = to
-        const steps = Math.abs(goal - pos.v)
-        gsap.to(pos, { v: goal, duration: Math.min(3, 1.9 + (steps - 1) * 0.6), ease: steps > 1.2 ? 'none' : 'sine.inOut', overwrite: true, onUpdate: () => { shown = pos.v; dirty = true } })
-      }
-
-      const frame = () => {
-        if (!dirty) return
-        dirty = false
-        const k = Math.min(Math.max(Math.floor(shown), 0), n - 2)
-        const mix = Math.min(1, Math.max(0, (shown - k) / 0.94))
-        const near = Math.round(shown)
-        if (near !== last) { last = near; setActive(near) }
-        if (morph && colours) {
-          if (k !== pair) { pair = k; morph.setPair(colours[k], colours[k + 1]) }
-          // the particles are only a stand-in: the old screenshot gives way to them as they set
-          // off, the new one comes up underneath while they land (so the last grains settle
-          // onto the picture, not over gaps), and the grains go once the last are home
-          const under = Math.min(1, Math.max(0, (mix - 0.62) / 0.3))
-          const handover = Math.min(1, Math.max(0, (mix - 0.93) / 0.07))
-          imgs.forEach((_, i) => setOpacity(i, i === k ? 1 - Math.min(1, mix / 0.1) : i === k + 1 ? under * under * (3 - 2 * under) : 0))
-          const live = mix > 0 && handover < 1
-          canvas.style.opacity = live ? (1 - handover).toFixed(3) : 0
-          if (live) morph.draw(mix)
-        } else {
-          // no WebGL (or not loaded yet): a plain crossfade
-          imgs.forEach((_, i) => setOpacity(i, i === k ? 1 - mix : i === k + 1 ? mix : 0))
-        }
-      }
-
-      if (still) {
-        imgs.forEach((im, i) => (im.style.opacity = i === 0 ? 1 : 0))
-        return
-      }
-
-      // touch only, set up below: one site per swipe
-      let engage = null
-      let hold = null
-      let glide = null
-      // on touch the stage is held by CSS (sticky, the section made tall enough, see .rw) since a
-      // pin set from script lands a frame behind the phone's own scrolling and jolts
-      const st = ScrollTrigger.create({
-        trigger: root.current,
-        start: 'top top',
-        end: touch ? 'bottom bottom' : () => `+=${(n - 1) * 80 + 30}%`,
-        pin: !touch,
-        scrub: true,
-        // a phone's momentum scroll and a snap pull against each other; there the scroll only
-        // chooses the site, and each change plays through in time on its own
-        ...(touch ? {} : { snap: { snapTo: 1 / (n - 1), duration: { min: 0.35, max: 0.9 }, delay: 0.1, ease: 'power2.inOut' } }),
-        invalidateOnRefresh: true,
-        onUpdate: (s) => go(Math.round(s.progress * (n - 1))),
-        onToggle: (s) => { if (s.isActive) engage?.(s.direction) },
-        onRefresh: layout,
-      })
-
-      // On touch a swipe moves exactly one site. A flick's momentum would otherwise carry the
-      // scroll past two or three, so while the stage is held the page's own scrolling pauses
-      // and each swipe glides to the next site's place; a swipe past the first or last lets go.
-      if (touch) {
-        const at = (i) => st.start + ((st.end - st.start) * i) / (n - 1)
-        let idx = 0
-        let swiped = false
-        let leaving = false
-        const to = (y, done) => {
-          glide?.kill()
-          const sy = { y: window.scrollY }
-          glide = gsap.to(sy, { y, duration: 0.85, ease: 'power2.inOut', onUpdate: () => window.scrollTo(0, sy.y), onComplete: done })
-        }
-        const step = (d) => {
-          const i = idx + d
-          if (i >= 0 && i < n) { idx = i; to(at(i)); return }
-          leaving = true
-          hold.disable()
-          setNormalize(true)
-          to(d > 0 ? st.end + 2 : st.start - 2, () => { leaving = false })
-        }
-        hold = ScrollTrigger.observe({
-          target: window, type: 'touch', preventDefault: true, tolerance: 12,
-          onPress: () => { swiped = false },
-          // a finger moving up scrolls the page on, to the next site
-          onUp: () => { if (!swiped) { swiped = true; step(1) } },
-          onDown: () => { if (!swiped) { swiped = true; step(-1) } },
+      // the walk, 0 at the first window to 1 past the last
+      const cam = { p: 0 }
+      let shown = -1
+      const render = () => {
+        const { D, X } = m
+        const c = cam.p * (n - 1 + TAIL) * D
+        arches.forEach((a, i) => {
+          const z = c - i * D
+          // ahead: drifts to its side of the hall and turns to face the walk; passed: lifts overhead
+          const k = sstep(0, D, -z)
+          // on a phone the hall winds left and right; on a wide screen, where it ends at the right
+          // margin, it winds back into the open room on the left
+          const side = m.phone ? (i % 2 ? 1 : -1) : i % 2 ? -1 : -0.4
+          const x = side * X * k
+          const y = z > 0 ? -z * 0.75 : 0
+          const zz = Math.min(z, D * 0.7)
+          let op = z > 0 ? 1 - sstep(D * 0.1, D * 0.55, z) : 1 - sstep(D * 2.3, D * 3.2, -z)
+          op *= 1 - 0.4 * sstep(D * 0.3, D * 2.6, -z)
+          a.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${zz.toFixed(1)}px) rotateY(${(-side * 20 * k).toFixed(2)}deg)`
+          a.style.opacity = op.toFixed(3)
+          a.style.visibility = op < 0.01 ? 'hidden' : 'visible'
+          const front = Math.abs(z) < D * 0.35
+          if (front !== a.classList.contains('is-front')) { a.classList.toggle('is-front', front); a.tabIndex = front ? 0 : -1 }
         })
-        hold.disable()
-        engage = (dir) => {
-          if (leaving || hold.isEnabled) return
-          setNormalize(false)
-          hold.enable()
-          // the swipe that brought the stage in doesn't also move it on
-          swiped = true
-          idx = dir < 0 ? n - 1 : 0
-          to(at(idx))
-        }
+        // the floor's lines come towards you as you walk
+        const off = ((c % m.S) + m.S) % m.S
+        rungs.forEach((r, k) => {
+          const z = off - (k + 1) * m.S
+          r.style.transform = `translate3d(0, ${m.F}px, ${z.toFixed(1)}px)`
+          r.style.opacity = (0.9 * (1 - sstep(0, m.S * rungs.length, -z)) * (1 - sstep(-m.S * 0.6, 0, z))).toFixed(3)
+        })
+        // the light at the end of the hall grows as you near it, then opens into the next room
+        const p = Math.min(1, c / ((n - 1) * D))
+        const end = sstep(n - 1, n - 1 + TAIL, c / D)
+        light.style.transform = `translate(-50%, -50%) scale(${(0.8 + p * 0.5 + end * 9).toFixed(3)})`
+        light.style.opacity = (0.45 + p * 0.4 + end * 0.15).toFixed(3)
+        wash.style.opacity = sstep(0.45, 1, end).toFixed(3)
+        fill.style.transform = `scaleX(${p.toFixed(4)})`
+        const i = Math.min(n - 1, Math.max(0, Math.round(c / D)))
+        if (i !== shown) { shown = i; setActive(i) }
       }
-      // development only: hold the morph at any point to inspect it
-      if (import.meta.env.DEV) root.current.__hold = (v) => { gsap.killTweensOf(pos); goal = Math.round(v); pos.v = shown = v; dirty = true }
 
-      // the pictures are sampled into particles once the section is close
-      const phone = window.innerWidth < 900
-      // every device gets the grains: entry-level ones a lighter grid of larger grains
-      const cols = (phone ? 110 : 170) * ({ high: 1, mid: 0.85, low: 0.7 }[tier()]) | 0
-      const rows = Math.round(cols / (1600 / 773))
-      let alive = true
-      const prep = ScrollTrigger.create({
-        trigger: root.current, start: 'top 250%', once: true,
-        onEnter: async () => {
-          const pics = await Promise.all(works.map((w) => new Promise((res) => {
-            const im = new Image()
-            im.decoding = 'async'
-            im.onload = () => res(im)
-            im.onerror = () => res(null)
-            im.src = small(w.image)
-          })))
-          if (!alive || pics.some((p) => !p)) return
-          morph = createParticles(canvas, { cols, rows })
-          if (!morph) return
-          colours = pics.map((p) => sample(p, cols, rows))
-          layout()
+      measure()
+      render()
+      const tween = gsap.to(cam, {
+        p: 1,
+        ease: 'none',
+        onUpdate: render,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top top',
+          end: touch ? 'bottom bottom' : `+=${(n - 1 + TAIL) * 85}%`,
+          pin: !touch && q('.ar__stage')[0],
+          scrub: touch ? 0.35 : 0.7,
+          // with a wheel the walk comes to rest in front of a window; a finger's own momentum is left alone
+          ...(touch ? {} : { snap: { snapTo: [...works.map((_, i) => i / (n - 1 + TAIL)), 1], duration: { min: 0.4, max: 1 }, delay: 0.15, ease: 'power2.inOut' } }),
+          invalidateOnRefresh: true,
+          onRefresh: () => { measure(); render() },
         },
       })
+      trigger.current = tween.scrollTrigger
 
-      // if the GPU is taken back (a phone's tab in the background), fall back to the crossfade
-      const lost = () => {
-        morph = null
-        canvas.style.opacity = 0
-        dirty = true
+      // on a desktop the hall sways a little with the pointer, as if you turned your head
+      let off = () => {}
+      if (!touch && !low()) {
+        const ry = gsap.quickTo(sway, 'rotationY', { duration: 1.2, ease: 'power3.out' })
+        const rx = gsap.quickTo(sway, 'rotationX', { duration: 1.2, ease: 'power3.out' })
+        const move = (e) => { ry((e.clientX / window.innerWidth - 0.5) * 6); rx((e.clientY / window.innerHeight - 0.5) * -4) }
+        window.addEventListener('pointermove', move, { passive: true })
+        off = () => window.removeEventListener('pointermove', move)
       }
-      canvas.addEventListener('webglcontextlost', lost)
-
-      gsap.ticker.add(frame)
-      const ro = new ResizeObserver(layout)
-      ro.observe(card)
-      return () => {
-        canvas.removeEventListener('webglcontextlost', lost)
-        alive = false
-        gsap.ticker.remove(frame)
-        gsap.killTweensOf(pos)
-        ro.disconnect()
-        st.kill()
-        glide?.kill()
-        if (hold?.isEnabled) setNormalize(true)
-        hold?.kill()
-        prep.kill()
-        morph?.destroy()
-      }
+      return () => { off(); trigger.current = null }
     },
     { scope: root },
   )
 
-  // without motion, the tabs simply swap the picture
-  useEffect(() => {
-    if (!reduced()) return
-    root.current.querySelectorAll('.rw__img').forEach((im, i) => (im.style.opacity = i === active ? 1 : 0))
-  }, [active])
+  // the stops along the bottom walk you to a window
+  const jump = (i) => {
+    const st = trigger.current
+    if (!st) return
+    scrollTo(st.start + ((st.end - st.start) * i) / (n - 1 + TAIL))
+  }
 
   const w = works[active]
   return (
-    <section className="rw" ref={root} style={{ '--run': (n - 1) * 80 + 130 }} data-theme="ivory" data-chapter="Recent works" id="work" aria-label="Recent works">
-      <div className="rw__pin">
-        <header className="rw__head wrap">
+    <section className="ar" ref={root} style={{ '--run': Math.round((n - 1 + TAIL) * 85 + 100) }} data-theme="ivory" data-chapter="Recent works" id="work" aria-label="Recent works">
+      <div className="ar__stage">
+        <header className="ar__head wrap">
           <Kicker n="01" label="Client sites" />
-          <div className="rw__headrow">
-            <h2 className="rw__title">Recent <em>works</em><Count n={n} /></h2>
-            <span className="rw__count"><b>{two(active + 1)}</b> / {two(n)}</span>
+          <div className="ar__headrow">
+            <h2 className="ar__title">Recent <em>works</em><Count n={n} /></h2>
+            <span className="ar__count" aria-hidden="true"><b>{two(active + 1)}</b> / {two(n)}</span>
           </div>
         </header>
 
-        <div className="rw__stage wrap">
-          <div className="rw__copy" key={w.slug} aria-live="polite">
-            <span className="rw__no">{two(active + 1)} · {w.field}</span>
-            <h3 className="rw__name">{w.title}</h3>
-            <p className="rw__line">{w.line}</p>
-            <div className="rw__links">
-              <TLink to={`/work/${w.slug}`} label={w.title} className="rw__case">View the case <Icon name="arrowRight" size={14} /></TLink>
-              <a href={w.url} target="_blank" rel="noopener noreferrer" className="rw__visit">{host(w.url)} <Icon name="arrowUpRight" size={14} /></a>
-            </div>
-            <span className={`status status--${w.status === 'Live' ? 'live' : 'wip'}`}><i />{w.status}</span>
-          </div>
-
-          <div className="rw__visual">
-            <canvas className="rw__gl" aria-hidden="true" />
-            <figure className="rw__fig">
-            <TLink to={`/work/${w.slug}`} label={w.title} className="rw__card" aria-label={`${w.title}: view the case`}>
+        <div className="ar__world">
+          <i className="ar__light" aria-hidden="true" />
+          <div className="ar__sway">
+            <div className="ar__hall">
+              <i className="ar__rail" aria-hidden="true" />
+              <i className="ar__rail" aria-hidden="true" />
+              {Array.from({ length: low() ? 6 : 10 }, (_, k) => <i className="ar__rung" aria-hidden="true" key={k} />)}
               {works.map((x, i) => (
-                <img key={x.slug} className="rw__img" src={small(x.image)} srcSet={srcSet(x.image)} sizes="(max-width: 899px) 92vw, 70vw" alt={i === active ? `${x.title} website` : ''} width={x.w} height={x.h} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" style={{ opacity: i === 0 ? 1 : 0 }} />
+                <TLink key={x.slug} to={`/work/${x.slug}`} label={x.title} zoom className={`ar__arch ${i === 0 ? 'is-front' : ''}`} tabIndex={i === 0 ? 0 : -1} aria-label={`${x.title}: view the case`}>
+                  <span className="ar__mould" aria-hidden="true" />
+                  <span className="ar__frame">
+                    <span className="ar__lunette"><Fan /></span>
+                    <span className="ar__pane media">
+                      <img src={small(x.image)} srcSet={srcSet(x.image)} sizes="(max-width: 899px) 90vw, 56vw" alt={`${x.title} website`} width={x.w} height={x.h} decoding="async" />
+                    </span>
+                  </span>
+                  <span className="ar__plate" aria-hidden="true"><b>{two(i + 1)}</b>{x.title}</span>
+                </TLink>
               ))}
-            </TLink>
-            <figcaption className="rw__cap" key={w.slug}><span>Fig. {two(active + 1)}</span> — Home page, {host(w.url)}</figcaption>
-            </figure>
+            </div>
           </div>
+          <i className="ar__wash" aria-hidden="true" />
         </div>
 
-        {/* with reduced motion there is no scroll scene, so these are the way from site to site */}
-        <ol className="rw__tabs wrap">
-          {works.map((x, i) => (
-            <li key={x.slug}>
-              <button type="button" className={i === active ? 'is-on' : ''} aria-current={i === active ? 'true' : undefined} onClick={() => setActive(i)}>
-                <small>{two(i + 1)}</small>{x.short || x.title}
-              </button>
-            </li>
-          ))}
-        </ol>
+        <div className="ar__copy" key={w.slug} aria-live="polite">
+          <span className="ar__no">{two(active + 1)} · {w.field}</span>
+          <h3 className="ar__name">{w.title}</h3>
+          <p className="ar__line">{w.line}</p>
+          <div className="ar__links">
+            <TLink to={`/work/${w.slug}`} label={w.title} className="ar__case">View the case <Icon name="arrowRight" size={14} /></TLink>
+            <a href={w.url} target="_blank" rel="noopener noreferrer" className="ar__visit">{host(w.url)} <Icon name="arrowUpRight" size={14} /></a>
+          </div>
+          <span className={`status status--${w.status === 'Live' ? 'live' : 'wip'}`}><i />{w.status}</span>
+        </div>
+
+        <nav className="ar__stops wrap" aria-label="Recent works">
+          <span className="ar__track" aria-hidden="true"><i className="ar__fill" /></span>
+          <ol>
+            {works.map((x, i) => (
+              <li key={x.slug}>
+                <button type="button" className={i === active ? 'is-on' : ''} aria-current={i === active ? 'true' : undefined} onClick={() => jump(i)}>
+                  <small>{two(i + 1)}</small>{x.short || x.title}
+                </button>
+              </li>
+            ))}
+          </ol>
+        </nav>
       </div>
     </section>
   )

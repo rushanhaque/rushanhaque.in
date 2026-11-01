@@ -40,9 +40,6 @@ export function scrollTo(target, opts = {}) {
   window.scrollTo({ top, behavior: opts.immediate ? 'auto' : 'smooth' })
 }
 
-// a scene that takes the scroll over for a while pauses this meanwhile
-export const setNormalize = (on) => (on ? normalizer?.enable() : normalizer?.disable())
-
 export function stopScroll() {
   normalizer?.disable()
   if (lenis) lenis.stop()

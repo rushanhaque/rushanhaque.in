@@ -428,8 +428,8 @@
 }
 /* small text links keep their look, but take a fingertip: an invisible margin of touch around each */
 @media (pointer: coarse) {
-  .fo__mark, .rw__case, .rw__visit, .prod__link, .lib__link, .sc__link, .ftr__link, .ftr__mail, .ftr__legal, .ftr__dir a, .lp__crumb a { position: relative; }
-  .fo__mark::before, .rw__case::before, .rw__visit::before, .prod__link::before, .lib__link::before, .sc__link::before { content: ''; position: absolute; inset: -12px -8px; }
+  .fo__mark, .ar__case, .ar__visit, .prod__link, .lib__link, .sc__link, .ftr__link, .ftr__mail, .ftr__legal, .ftr__dir a, .lp__crumb a { position: relative; }
+  .fo__mark::before, .ar__case::before, .ar__visit::before, .prod__link::before, .lib__link::before, .sc__link::before { content: ''; position: absolute; inset: -12px -8px; }
   .ftr__link::before, .ftr__mail::before { content: ''; position: absolute; inset: -9px -6px; }
   .lp__crumb a::before, .lp__items h3 a::before { content: ''; position: absolute; inset: -12px -8px; }
   .lp__items h3 a { position: relative; }
@@ -440,7 +440,7 @@
   .case__back, .case__visit { position: relative; }
   .case__back::before, .case__visit::before { content: ''; position: absolute; inset: -12px -8px; }
   .ftr__dir a::before { content: ''; position: absolute; inset: -6px -3px; }
-  .rw__tabs button { padding: 13px 0; }
+  .ar__stops button { padding: 13px 0; }
   .fo__nav a::before { content: ''; position: absolute; inset: 0 -8px; }
 }
 /* a link in the footer's index never breaks across two lines; lines break between links */

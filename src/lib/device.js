@@ -1,6 +1,6 @@
 // How much the device can carry, decided once. 'low' is an entry-level phone, Data Saver or a
 // 2G connection: the WebGL scenes give way to their plain fallbacks and scrolling stays
-// native. 'mid' keeps every scene but draws it with fewer pixels and particles.
+// native. 'mid' keeps every scene but draws it with fewer pixels.
 let cached = null
 
 export function tier() {

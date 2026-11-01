@@ -36,60 +36,97 @@
 }
 @media (prefers-reduced-motion: reduce) { .hero__aperture, .hero__ring { display: none; } }
 
-/* ═════════ 01 · RECENT WORKS — the card that shatters into the next ═════════ */
-.rw__pin { position: relative; height: 100vh; height: 100svh; display: grid; grid-template-rows: auto minmax(0, 1fr); gap: clamp(12px, 2.2vh, 24px); padding: calc(var(--hdr-h) + 20px) 0 clamp(18px, 2.6vh, 30px); overflow: hidden; }
-.rw__pin::before { content: ''; position: absolute; inset: 0; background: radial-gradient(55% 60% at 64% 52%, rgba(66, 36, 45, 0.05), transparent 70%); pointer-events: none; }
-.rw__head { position: relative; z-index: 2; }
-.rw__head .kick { margin-bottom: 14px; }
-.rw__headrow { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
-.rw__title { margin: 0; font-size: var(--fs-h2); }
-.rw__count { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.rw__count b { font-size: 22px; font-weight: 500; color: var(--fg); }
-.rw__stage { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 2.9fr) minmax(0, 9.1fr); gap: clamp(28px, 3.6vw, 64px); align-items: center; min-height: 0; }
-.rw__copy { display: grid; gap: 14px; align-content: center; min-width: 0; animation: infoIn 0.7s var(--ease); }
-.rw__no { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-.rw__name { margin: 0; font-size: clamp(2.2rem, 3.8vw, 4.2rem); line-height: 1; }
-.rw__line { max-width: 30ch; margin: 0; font-size: var(--fs-lead); line-height: 1.5; color: var(--muted); }
-.rw__links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 6px; font-size: 14px; }
-.rw__case, .rw__visit { display: inline-flex; align-items: center; gap: 7px; padding-bottom: 3px; border-bottom: 1px solid var(--line); transition: color 0.3s, border-color 0.3s; }
-.rw__case:hover, .rw__visit:hover { color: var(--accent); border-color: var(--accent); }
-.rw__copy .status { margin-top: 4px; }
-.rw__visual { position: relative; display: grid; place-items: center end; height: 100%; min-height: 0; padding-top: 6px; container-type: size; }
-/* the frame stays put; only the picture inside it changes */
-.rw__card { position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 1600 / 773; overflow: hidden; border-radius: 10px; background: var(--card); box-shadow: 0 0 0 1px var(--line), 0 60px 100px -50px rgba(36, 20, 26, 0.45); transition: box-shadow 0.6s var(--ease); }
-.rw__card:hover { box-shadow: 0 0 0 1px rgba(32, 24, 20, 0.2), 0 70px 110px -50px rgba(36, 20, 26, 0.55); }
-.rw__fig { display: grid; gap: 10px; width: min(80cqw, calc((100cqh - 38px) * 2.07 * 0.8)); margin: 0; }
-.rw__cap { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--muted); animation: infoIn 0.7s var(--ease); }
-.rw__cap span { font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-.rw__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-/* the particles swirl a little beyond the card while it changes, never far over the words; the edges fade */
-.rw__gl { position: absolute; z-index: 2; max-width: none; left: -80px; top: -72px; width: calc(100% + 80px + var(--pad)); height: calc(100% + 144px); opacity: 0; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, transparent, #000 48px, #000 calc(100% - 48px), transparent), linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 28px), transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent, #000 48px, #000 calc(100% - 48px), transparent), linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 28px), transparent); mask-composite: intersect; }
-/* the site-to-site tabs exist only for reduced motion, where there is no scroll scene */
-.rw__tabs { display: none; }
-@media (prefers-reduced-motion: reduce) { .rw__tabs { display: grid; } }
-.rw__tabs { position: relative; z-index: 2; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
-.rw__tabs button { display: flex; align-items: baseline; gap: 10px; width: 100%; padding: 6px 0; color: var(--muted); font-size: 14px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.4s var(--ease); }
-.rw__tabs button small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--accent); opacity: 0.6; transition: opacity 0.4s; }
-.rw__tabs button:hover, .rw__tabs button.is-on { color: var(--fg); }
-.rw__tabs button.is-on small { opacity: 1; }
-@media (max-width: 899px) {
-  .rw__pin { padding-top: calc(var(--hdr-h) + 20px); gap: 14px; }
-  .rw__title { font-size: clamp(2.2rem, 10vw, 3rem); }
-  .rw__stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: start; gap: 0; padding-top: 2.5vh; }
-  .rw__visual { order: -1; height: auto; padding: 14px 0 26px; container-type: normal; place-items: start center; }
-  .rw__card { width: 100%; }
-  .rw__fig { width: 90%; }
-  .rw__cap { display: none; }
+/* ═════════ 01 · RECENT WORKS — an arcade you walk through ═════════ */
+/* --w is the window's width; --vx/--vy the point of light the hall runs to */
+.ar { --w: min(52vw, 860px, calc((100svh - 300px) * 1.3)); --ah: calc(var(--w) * 0.703); --vx: calc(100% - var(--pad) - var(--w) / 2); --vy: calc(var(--hdr-h) + 150px + var(--ah) / 2); position: relative; }
+.ar__stage { position: relative; height: 100vh; height: 100svh; overflow: hidden; }
+.ar__head { position: absolute; z-index: 3; top: calc(var(--hdr-h) + 20px); left: 0; right: 0; }
+.ar__head .kick { margin-bottom: 14px; }
+.ar__headrow { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
+.ar__title { margin: 0; font-size: var(--fs-h2); }
+.ar__count { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ar__count b { font-size: 22px; font-weight: 500; color: var(--fg); }
 
-  .rw__gl { left: calc(var(--pad) * -1); width: calc(100% + var(--pad) * 2); }
-  .rw__copy { gap: 10px; }
-  .rw__name { font-size: clamp(1.9rem, 8.6vw, 2.6rem); }
-  .rw__line { font-size: 15px; }
-  .rw__tabs { gap: 6px; }
-  .rw__tabs button { justify-content: center; font-size: 0; }
-  .rw__tabs button small { font-size: 11px; }
+.ar__world { position: absolute; inset: 0; perspective: 1100px; perspective-origin: var(--vx) var(--vy); }
+.ar__sway { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: var(--vx) var(--vy); }
+.ar__hall { position: absolute; left: var(--vx); top: var(--vy); width: 0; height: 0; transform-style: preserve-3d; }
+.ar__light { position: absolute; left: var(--vx); top: var(--vy); width: 130vmin; height: 130vmin; border-radius: 50%; background: radial-gradient(closest-side, rgba(246, 230, 198, 0.95), rgba(228, 199, 143, 0.42) 28%, rgba(217, 185, 126, 0.12) 58%, transparent 78%); transform: translate(-50%, -50%); pointer-events: none; will-change: transform, opacity; }
+.ar__wash { position: absolute; inset: 0; background: var(--bg); opacity: 0; pointer-events: none; }
+.ar__rail { position: absolute; left: 0; top: 0; width: 1px; margin-left: -0.5px; background: linear-gradient(transparent, rgba(176, 138, 79, 0.5) 40%, rgba(176, 138, 79, 0.6)); }
+.ar__rung { position: absolute; left: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(176, 138, 79, 0.6) 20%, rgba(176, 138, 79, 0.6) 80%, transparent); will-change: transform, opacity; }
+
+/* a window: a fanlight in brass over the site, framed by a second, finer arch */
+.ar__arch { position: absolute; left: calc(var(--w) / -2); top: calc(var(--ah) / -2); display: block; width: var(--w); pointer-events: none; will-change: transform, opacity; }
+.ar__arch:not(:first-child) { opacity: 0; }
+.ar__arch.is-front { pointer-events: auto; }
+.ar__frame { position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: 50% 50% 0 0 / 31.3% 31.3% 0 0; background: #fffdf9; box-shadow: 0 0 0 1px rgba(176, 138, 79, 0.55), 0 70px 100px -60px rgba(36, 20, 26, 0.5); }
+.ar__mould { position: absolute; inset: calc(var(--w) * -0.02) calc(var(--w) * -0.02) 0; border: 1px solid rgba(176, 138, 79, 0.42); border-bottom: 0; border-radius: 50% 50% 0 0 / 32.5% 32.5% 0 0; pointer-events: none; }
+.ar__lunette { position: relative; flex: none; aspect-ratio: 200 / 44; background: radial-gradient(70% 150% at 50% 100%, #fff8ea, #f3e7d3 64%, #eadbc1); border-bottom: 1px solid rgba(176, 138, 79, 0.55); }
+.ar__fan { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ar__fan path { fill: none; stroke: var(--brass); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0.75; }
+.ar__pane { position: relative; display: block; flex: none; aspect-ratio: 1600 / 773; overflow: hidden; background: var(--card); }
+.ar__pane img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: scale 1.1s var(--ease); }
+.ar__arch.is-front:hover .ar__pane img { scale: 1.035; }
+.ar__arch:focus-visible { outline: none; }
+.ar__arch:focus-visible .ar__frame { box-shadow: 0 0 0 2px var(--accent), 0 70px 100px -60px rgba(36, 20, 26, 0.5); }
+.ar__plate { position: absolute; left: 0; right: 0; top: calc(100% + 16px); display: flex; justify-content: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.ar__plate b { font-weight: 500; color: var(--accent); }
+
+/* the words for the window in front, and the stops along the bottom */
+.ar__copy { position: absolute; z-index: 3; left: var(--pad); top: calc(var(--hdr-h) + 140px); bottom: 90px; width: min(26vw, 380px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; animation: infoIn 0.7s var(--ease); }
+.ar__no { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.ar__name { margin: 0; font-size: clamp(2.2rem, 3.6vw, 4rem); line-height: 1; }
+.ar__line { max-width: 30ch; margin: 0; font-size: var(--fs-lead); line-height: 1.5; color: var(--muted); }
+.ar__links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 6px; font-size: 14px; }
+.ar__case, .ar__visit { display: inline-flex; align-items: center; gap: 7px; padding-bottom: 3px; border-bottom: 1px solid var(--line); transition: color 0.3s, border-color 0.3s; }
+.ar__case:hover, .ar__visit:hover { color: var(--accent); border-color: var(--accent); }
+.ar__copy .status { margin-top: 4px; }
+.ar__stops { position: absolute; z-index: 3; left: 0; right: 0; bottom: clamp(16px, 3vh, 30px); }
+.ar__track { display: block; height: 1px; margin-bottom: 8px; background: var(--line); }
+.ar__fill { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; }
+.ar__stops ol { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ar__stops button { display: flex; align-items: baseline; gap: 10px; width: 100%; padding: 6px 0; color: var(--muted); font-size: 14px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.4s var(--ease); }
+.ar__stops button small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--accent); opacity: 0.6; transition: opacity 0.4s; }
+.ar__stops button:hover, .ar__stops button.is-on { color: var(--fg); }
+.ar__stops button.is-on small { opacity: 1; }
+
+@media (max-width: 899px) {
+  .ar { --w: min(86vw, 520px, calc((100svh - 380px) * 1.42)); --vx: 50%; --vy: calc(var(--hdr-h) + 132px + var(--ah) / 2); }
+  .ar__head .kick { margin-bottom: 10px; }
+  .ar__title { font-size: clamp(2.2rem, 10vw, 3rem); }
+  .ar__plate { display: none; }
+  .ar__copy { right: var(--pad); width: auto; top: calc(var(--vy) + var(--ah) / 2 + 30px); bottom: auto; justify-content: flex-start; gap: 9px; }
+  .ar__name { font-size: clamp(1.9rem, 8.6vw, 2.6rem); }
+  .ar__line { font-size: 15px; }
+  .ar__stops ol { display: none; }
+  .ar__track { margin-bottom: 0; }
 }
-@media (max-width: 899px) and (max-height: 700px) { .rw__line { display: none; } }
+@media (max-width: 899px) and (max-height: 700px) { .ar__line { display: none; } }
+/* a phone on its side: the window to the right, the words beside it */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 1000px) {
+  .ar { --w: min(50vw, calc((100svh - 110px) * 1.42)); --vx: calc(100% - var(--pad) - var(--w) / 2); --vy: calc(50% + 24px); }
+  .ar__head { top: calc(var(--hdr-h) + 6px); }
+  .ar__head .kick, .ar__count, .ar__line { display: none; }
+  .ar__title { font-size: 1.6rem; }
+  .ar__copy { right: auto; width: 38vw; top: calc(var(--hdr-h) + 40px); bottom: 24px; justify-content: center; }
+  .ar__name { font-size: 1.45rem; }
+}
+/* on touch screens the stage is held by CSS through a section as tall as the walk */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .ar { height: calc(var(--run) * 1svh); }
+  .ar__stage { position: sticky; top: 0; }
+}
+/* without motion the windows simply stand in a gallery */
+@media (prefers-reduced-motion: reduce) {
+  .ar__stage { height: auto; overflow: visible; padding-bottom: var(--sec); }
+  .ar__head { position: relative; top: auto; padding-top: calc(var(--hdr-h) + 20px); }
+  .ar__count, .ar__copy, .ar__stops, .ar__light, .ar__wash, .ar__rail, .ar__rung { display: none; }
+  .ar__world, .ar__sway { position: relative; inset: auto; }
+  .ar__hall { position: relative; left: auto; top: auto; width: auto; height: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 72px 40px; padding: 48px var(--pad) 32px; }
+  .ar__arch { position: relative; left: auto; top: auto; width: auto; opacity: 1 !important; visibility: visible !important; transform: none !important; pointer-events: auto; }
+  .ar__mould { inset: -8px -8px 0; }
+  .ar__plate { display: flex; justify-content: flex-start; position: static; margin-top: 16px; }
+}
 
 /* ═════════ 02 · CURRENTLY BUILDING — the previous portfolio's card switch (styles with the showcase in pages.css) ═════════ */
 .draft .sc { margin-bottom: 0; }
@@ -436,18 +473,6 @@
 /* a phone turned on its side has a desktop's shape at a quarter of the height: the scroll-staged
    scenes go side by side again, compacted to fit */
 @media (orientation: landscape) and (max-height: 520px) and (max-width: 1000px) {
-  .rw__pin { padding-top: calc(var(--hdr-h) + 8px); padding-bottom: 10px; gap: 8px; }
-  .rw__head .kick { display: none; }
-  .rw__title { font-size: 1.7rem; }
-  .rw__count b { font-size: 17px; }
-  .rw__stage { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: minmax(0, 1fr); align-content: stretch; gap: 22px; padding-top: 0; }
-  .rw__visual { order: 0; height: 100%; padding: 2px 0 0; container-type: size; }
-  .rw__fig { width: min(90cqw, calc((100cqh - 4px) * 2.07 * 0.9)); }
-  .rw__gl { left: -24px; width: calc(100% + 24px + var(--pad)); }
-  .rw__copy { gap: 6px; align-content: center; }
-  .rw__name { font-size: 1.45rem; }
-  .rw__line { display: none; }
-  .rw__tabs button { padding: 4px 0; }
 
   .serve { height: 300vh; }
   .serve__stage { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr); grid-template-rows: minmax(0, 1fr) auto; gap: 4px 24px; padding: calc(var(--hdr-h) + 4px) var(--pad) 8px; }
@@ -467,8 +492,6 @@
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
   .hero-run { height: 250vh; height: 250svh; }
   .hero-run > .hero { position: sticky; top: 0; }
-  .rw { height: calc(var(--run) * 1svh); }
-  .rw__pin { position: sticky; top: 0; }
   /* the map repaints whole while a route's traffic runs, so on a phone the routes stay still */
   .sv__run.is-on { animation: none; opacity: 0; }
   .serve__bar { transition: none; }
