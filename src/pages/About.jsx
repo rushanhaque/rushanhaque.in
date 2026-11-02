@@ -3,6 +3,8 @@ import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
 import { useReveals } from '../lib/useReveals'
 import { site } from '../config/site'
 import { certifications, languages, skills } from '../data/content'
+// the About text is edited from /admin, which commits this file
+import editable from '../data/editable.json'
 import Library from '../sections/Library'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
@@ -68,7 +70,7 @@ export default function About() {
               {['Rushan', 'Haque'].map((w, k) => <Fragment key={w}>{k > 0 && ' '}<span className={`ab__w ${k ? 'is-em' : ''}`}>{w.split('').map((c, j) => <span className="ch" key={j}>{c}</span>)}</span></Fragment>)}
             </h1>
             <div className="ab__intro">
-              <p className="ab__lede">I’m a website designer and full-stack developer based in India, studying Computer Science (IoT). I take client websites from first conversation to launch: discovery, design, development, hosting and handover, and I stay in touch long after the site goes live.</p>
+              <p className="ab__lede">{editable.aboutBio}</p>
               <div className="ab__ctas"><Button to="/contact" variant="solid">Work with me</Button><Button href={site.booking} variant="ghost" icon="calendar">Book a call</Button></div>
             </div>
           </div>

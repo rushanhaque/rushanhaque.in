@@ -84,7 +84,7 @@
   .rw__item { position: sticky; top: calc(var(--hdr-h) + 16px + var(--i) * 12px); height: calc(100vh - var(--hdr-h) - 32px - 5 * 12px); height: calc(100svh - var(--hdr-h) - 32px - 5 * 12px); padding-bottom: 0; }
   .rw__item + .rw__item { margin-top: 18vh; }
   /* the card runs margin to margin, like the words above it; on a short screen the picture keeps its width and gives up a sliver of its foot so the card still fits */
-  .rw__media { max-height: calc(100svh - var(--hdr-h) - 92px - 90px); }
+  .rw__media { width: calc(100% - 20px); max-height: calc(100svh - var(--hdr-h) - 92px - 90px); }
   .rw__media:hover img { filter: brightness(1.04); }
 }
 @media (max-width: 1180px) and (min-width: 900px) {

@@ -46,7 +46,7 @@ The hero carries small print in its corners (where, and the years of selected wo
 
 **Footer signature.** The name in ivory with an engraved-brass copy laid over it: as it arrives the letters rise and a light sweeps once across, and after that the light follows the pointer (a tap places it on phones), turning the letters to engraved brass wherever it falls. The letters never move.
 
-**Client logos.** Drop a file named after the client into `src/assets/clients/` (`taif-international.svg`, `erfolg-living.png`, …; the folder's README lists every name) and it replaces the wordmark in the Clientele ledger on the next build. There is no admin panel in this site; adding one would need a CMS or a small backend.
+**Client logos.** Drop a file named after the client into `src/assets/clients/` (`taif-international.svg`, `erfolg-living.png`, …; the folder's README lists every name) and it replaces the wordmark in the Clientele ledger on the next build.
 
 **Contact** comes from the previous portfolio: a one-screen Connect page over a softened OpenStreetMap view of Moradabad, with WhatsApp and email cards, a booking button and a two-field form. Buttons fill with the old hatch-then-solid sweep.
 
@@ -59,6 +59,16 @@ Put each logo in `public/img/clients/`, as SVG preferably (a transparent PNG als
 ```
 
 Logos show in greyscale and turn to full colour on hover. Clients without a logo keep their wordmark.
+
+## Admin
+
+`/admin` (kept out of search and the sitemap) edits the About text, shown on the About page and the home page's About section. Sign in with the admin password, change the text, press Publish: the change is committed to `src/data/editable.json` on GitHub, Vercel rebuilds, and it is live about a minute later. Two Vercel serverless functions do the work (`api/admin/session.js`, `api/admin/content.js`) and need these environment variables on Vercel, the same names the previous site's admin used:
+
+| Variable | What it is |
+|---|---|
+| `ADMIN_PUBLISH_SECRET` | the admin password |
+| `GITHUB_TOKEN` | a GitHub fine-grained token with *Contents: Read and write* on `rushanhaque/rushanhaque.in` |
+| `CMS_SESSION_SECRET` | optional: a long random string that signs the sign-in cookie (the password is used if absent) |
 
 ## Deploying
 

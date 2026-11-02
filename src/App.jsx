@@ -14,6 +14,7 @@ const load = {
   Work: () => import('./pages/Work'),
   Case: () => import('./pages/Case'),
   Product: () => import('./pages/Product'),
+  Admin: () => import('./pages/Admin'),
   About: () => import('./pages/About'),
   Contact: () => import('./pages/Contact'),
   Landing: () => import('./pages/Landing'),
@@ -30,6 +31,7 @@ const pageFor = (path) => {
   if (/^\/products\/[^/]+$/.test(p)) return 'Product'
   if (p === '/about') return 'About'
   if (p === '/contact') return 'Contact'
+  if (p === '/admin') return 'Admin'
   return /^\/[^/]+$/.test(p) ? 'Landing' : 'NotFound'
 }
 
@@ -56,7 +58,7 @@ export default function App({ pages = LAZY, server = false }) {
   const [ready, setReady] = useState(server)
   const [loaderGone, setLoaderGone] = useState(server)
   const location = useLocation()
-  const { Home: HomePage, Work, Case, Product, About, Contact, Landing, NotFound } = pages
+  const { Home: HomePage, Work, Case, Product, About, Contact, Admin, Landing, NotFound } = pages
 
   useEffect(() => {
     initLenis()
@@ -85,6 +87,7 @@ export default function App({ pages = LAZY, server = false }) {
               <Route path="/products/:slug" element={<Product />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/:slug" element={<Landing />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

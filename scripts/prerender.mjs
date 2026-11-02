@@ -52,6 +52,7 @@ const write = (file, text) => {
 const list = routes()
 for (const r of list) write(r.path === '/' ? 'index.html' : `${r.path.slice(1)}.html`, page(r, render(r.path)))
 write('404.html', page(headFor('/404'), render('/404')))
+write('admin.html', page({ path: '/admin', title: 'Admin | Rushan Haque', description: 'Owner admin.', robots: 'noindex, nofollow', ld: [] }, render('/admin')))
 
 // 2. the sitemap, with language pairs and the screenshots each page shows
 const today = new Date().toISOString().slice(0, 10)
@@ -75,6 +76,8 @@ const bots = ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User',
 write('robots.txt', `# rushanhaque.in — open to search engines and AI assistants alike
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
 
 ${bots.map((b) => `User-agent: ${b}`).join('\n')}
 Allow: /

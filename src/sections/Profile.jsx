@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import editable from '../data/editable.json'
 import { gsap, useGSAP } from '../lib/gsap'
 import { site } from '../config/site'
 import { experience, stats } from '../data/content'
@@ -49,7 +50,7 @@ export default function Profile() {
           </aside>
 
           <div className="pro__main">
-            <p className="pro__bio" data-reveal>I’m a website designer and full-stack developer based in India, studying Computer Science (IoT). I take client websites from first conversation to launch: discovery, design, development, hosting and handover, and I stay in touch long after the site goes live.</p>
+            <p className="pro__bio" data-reveal>{editable.aboutBio}</p>
             <dl className="pro__facts" data-stagger>
               {facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>

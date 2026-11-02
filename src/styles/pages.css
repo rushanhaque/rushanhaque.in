@@ -549,3 +549,16 @@ a.prod__frame:hover { box-shadow: 0 70px 120px -50px rgba(50, 22, 31, 0.55), 0 0
 .prod__more { width: fit-content; display: inline-flex; align-items: center; gap: 10px; margin-top: 6px; padding: 13px 20px; border-radius: 999px; background: var(--fg); color: var(--bg); font-size: 14.5px; font-weight: 500; transition: background 0.35s var(--ease), gap 0.4s var(--ease); }
 .prod__more:hover { background: var(--accent); gap: 14px; }
 @media (pointer: coarse) { .pr__link, .pr__back { position: relative; } .pr__link::before, .pr__back::before { content: ''; position: absolute; inset: -12px -8px; } }
+
+/* ───────── Admin: sign in, edit, publish ───────── */
+.adm { min-height: 100vh; min-height: 100svh; padding-top: calc(var(--hdr-h) + clamp(40px, 8vh, 96px)); padding-bottom: clamp(60px, 10vh, 120px); }
+.adm__head { display: grid; gap: 14px; margin-bottom: clamp(28px, 4vw, 44px); }
+.adm__head h1 { margin: 0; font-size: var(--fs-h2); line-height: 1; }
+.adm__card { max-width: 720px; }
+.adm__wait { color: var(--muted); }
+.adm__meta { display: flex; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); }
+.adm__done { margin: 0; padding: 12px 14px; border-radius: 12px; background: rgba(46, 125, 80, 0.1); color: #1f6b43; font-size: 14px; }
+.adm__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.adm__ghost { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); transition: color 0.3s, border-color 0.3s; }
+.adm__ghost:hover:not(:disabled) { color: var(--fg); border-color: var(--fg); }
+.adm__ghost:disabled { opacity: 0.4; cursor: default; }

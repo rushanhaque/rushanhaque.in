@@ -27,6 +27,7 @@ const PAGE = (p) => {
   if (p.startsWith('/products/')) return 'Product'
   if (p === '/about') return 'About'
   if (p === '/contact') return 'Connect'
+  if (p === '/admin') return 'Admin'
   const slug = p.slice(1)
   return titleFor(slug) || 'Page'
 }
