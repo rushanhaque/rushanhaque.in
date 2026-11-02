@@ -5,6 +5,9 @@
 /* the name is drawn in dots; the type stays laid out underneath for sampling and screen readers */
 .hero__dots { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; pointer-events: none; }
 .hero.is-dots .hero__name, .hero.is-dots .hero__name em { color: transparent; }
+/* a phone shows the real type until the scroll begins, then hands it to the dots */
+.hero__name .hero__txt, .hero__name em { transition: color 0.25s var(--ease); }
+.hero.is-shatter .hero__name .hero__txt, .hero.is-shatter .hero__name em { color: transparent; }
 .hero__inner { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(14px, 2.6vh, 30px); }
 /* the roles line from the previous portfolio: code first, then the words */
 .hero__roles { position: relative; z-index: 3; margin: 0; font-size: clamp(1.25rem, 2.2vw, 2.1rem); font-weight: 450; letter-spacing: -0.03em; line-height: 1.1; color: #ffffff; text-align: center; white-space: nowrap; }
@@ -80,7 +83,8 @@
   .rw__list { gap: 0; padding-bottom: 14vh; }
   .rw__item { position: sticky; top: calc(var(--hdr-h) + 16px + var(--i) * 12px); height: calc(100vh - var(--hdr-h) - 32px - 5 * 12px); height: calc(100svh - var(--hdr-h) - 32px - 5 * 12px); padding-bottom: 0; }
   .rw__item + .rw__item { margin-top: 18vh; }
-  .rw__card { width: min(100%, calc((100svh - var(--hdr-h) - 92px - 86px) * 2.07 + 20px)); margin-inline: auto; }
+  /* the card runs margin to margin, like the words above it; on a short screen the picture keeps its width and gives up a sliver of its foot so the card still fits */
+  .rw__media { max-height: calc(100svh - var(--hdr-h) - 92px - 90px); }
   .rw__media:hover img { filter: brightness(1.04); }
 }
 @media (max-width: 1180px) and (min-width: 900px) {

@@ -4,6 +4,64 @@ import { useApp } from './app'
 
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
+// Places that move in their own way (held or dragged scenes, page openings), and words already
+// choreographed by an attribute, which the reveals below leave alone.
+const OWN = [
+  '[data-split]', '[data-reveal]', '[data-img]', '[data-stagger]', '[data-batch]', '[data-noreveal]',
+  '.hero', '.pl', '.serve__stage', '.osv__track', '.rev__board', '.lib__shelf', '.sc__stage', '.prod__stage', '.ftr__word',
+  '.rw__list', '.sc__copy', '.bridge', '.cn-intro', '.cn-form', '.ab__intro', '.pr__intro', '.case__meta', '.nf', '.cf', '.jr__list',
+].join(',')
+const free = (el) => !el.closest(OWN) && !el.querySelector('[data-split]')
+const CARDS = '.prod__does > li, .lp__items > li, .lp__steps > li, .lp__facts > div, .lp__faqs > details, .lp__dir section, .ftr__col, .cred, .case__steps > li, .pr__steps > li, .pr__call, .pro__card'
+const FRAMES = '.lp__shots a, .sc__shot, .case__next-media'
+
+/**
+ * The reveals of the IBM Consultancy site, for everything a page has not choreographed itself.
+ * They play once, as each thing arrives, and never follow the scroll, so nothing shakes on phones.
+ *   headings   the letters turn up into place, one after another
+ *   cards      rise in batches, settling from a slight shrink
+ *   pictures   open out of an inset frame while the picture settles from a zoom
+ *   text       paragraphs, buttons and labels fade up
+ */
+function revealRest(root) {
+  const once = (el, start = 'top 88%') => ({ trigger: el, start, once: true })
+
+  root.querySelectorAll('h2, h3').forEach((el) => {
+    if (!free(el)) return
+    SplitText.create(el, {
+      type: 'words,chars', wordsClass: 'rv-word', charsClass: 'rv-char',
+      onSplit(self) {
+        return gsap.from(self.chars, {
+          yPercent: 115, rotateX: -80, opacity: 0, transformPerspective: 600, transformOrigin: '50% 100%',
+          duration: 1.3, ease: 'expo', stagger: { amount: Math.min(0.55, self.chars.length * 0.022) }, scrollTrigger: once(el),
+        })
+      },
+    })
+  })
+
+  const cards = gsap.utils.toArray(root.querySelectorAll(CARDS)).filter(free)
+  if (cards.length) {
+    gsap.set(cards, { autoAlpha: 0, y: 50, scale: 0.96 })
+    ScrollTrigger.batch(cards, { start: 'top 92%', once: true, onEnter: (b) => gsap.to(b, { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, ease: 'expo', stagger: 0.09, clearProps: 'transform,opacity,visibility' }) })
+  }
+
+  gsap.utils.toArray(root.querySelectorAll(FRAMES)).filter(free).forEach((el) => {
+    // the picture settles from a zoom only where its frame crops it; elsewhere it would spill past the page
+    const crops = /hidden|clip/.test(getComputedStyle(el).overflow)
+    const img = crops && el.querySelector('img')
+    gsap.fromTo(el, { clipPath: 'inset(14% 8% 14% 8% round 18px)' }, { clipPath: 'inset(0% 0% 0% 0% round 12px)', duration: 1.5, ease: 'silk', clearProps: 'clipPath', scrollTrigger: once(el, 'top 92%') })
+    if (img) gsap.fromTo(img, { scale: 1.3 }, { scale: 1, duration: 1.9, ease: 'expo', clearProps: 'scale', scrollTrigger: once(el, 'top 92%') })
+  })
+
+  // text not inside a card that already rises
+  const inCard = (el) => cards.some((c) => c.contains(el))
+  const words = gsap.utils.toArray(root.querySelectorAll('p, .btn, .lp__btn, .eyebrow, .rw__links, .lp__links')).filter((el) => free(el) && !inCard(el) && el.offsetParent !== null)
+  if (words.length) {
+    gsap.set(words, { autoAlpha: 0, y: 28 })
+    ScrollTrigger.batch(words, { start: 'top 94%', once: true, onEnter: (b) => gsap.to(b, { autoAlpha: 1, y: 0, duration: 1.1, ease: 'expo', stagger: 0.06, clearProps: 'transform,opacity,visibility' }) })
+  }
+}
+
 /**
  * Page choreography from attributes inside `scope`. Only transform, opacity, clip-path and
  * `scale` are animated, so every reveal stays on the compositor and phones scroll smoothly.
@@ -106,6 +164,8 @@ export function useReveals(scope, initialTheme = 'ivory') {
         const img = el.querySelector('img') || el
         gsap.fromTo(img, { yPercent: -amt / 2 }, { yPercent: amt / 2, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } })
       })
+
+      revealRest(root)
 
       requestAnimationFrame(() => ScrollTrigger.refresh())
     },

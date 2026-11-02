@@ -22,7 +22,7 @@ const two = (n) => String(n).padStart(2, '0')
 // what the running head reads before the first chapter, or on a page without chapters
 const PAGE = (p) => {
   if (p === '/') return 'Introduction'
-  if (p === '/work') return 'Selected work'
+  if (p === '/work') return 'Selected works'
   if (p.startsWith('/work/')) return 'Case study'
   if (p.startsWith('/products/')) return 'Product'
   if (p === '/about') return 'About'
@@ -132,7 +132,7 @@ export default function Header() {
 
           <div className="fo__end">
             <nav className="fo__nav" aria-label="Main">
-              <TLink to="/work" aria-current={current('/work')}>Work<sup>{two(works.length)}</sup></TLink>
+              <TLink to="/work" aria-current={current('/work')}>Works<sup>{two(works.length)}</sup></TLink>
               <TLink to="/about" aria-current={current('/about')}>About</TLink>
             </nav>
             <TLink to="/contact" className="fo__cta">Let’s talk <Icon name="arrowUpRight" size={14} /></TLink>

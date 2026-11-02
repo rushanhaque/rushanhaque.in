@@ -83,7 +83,7 @@ export default function Case() {
     <div className="page page--case" ref={root}>
       <section className="case" data-theme="ivory">
         <header className="case__head wrap">
-          <TLink to="/work" className="case__back"><Icon name="arrowLeft" size={14} /> All work</TLink>
+          <TLink to="/work" className="case__back"><Icon name="arrowLeft" size={14} /> All works</TLink>
           <Kicker n={String(i + 1).padStart(2, '0')} label={p.field} />
           <h1 className="case__title" aria-label={p.title}>
             {p.title.split(' ').map((w, k) => (

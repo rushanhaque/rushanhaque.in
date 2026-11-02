@@ -11,7 +11,8 @@ const labelFor = (to) => {
   const path = to.split('#')[0]
   if (path === '/') return 'Index'
   const [, a, b] = path.split('/')
-  if (a === 'work' && b) return projectBySlug(b)?.title || 'Work'
+  if (a === 'work' && b) return projectBySlug(b)?.title || 'Works'
+  if (a === 'work') return 'Works'
   if (a === 'products' && b) return productBySlug(b)?.title || 'Products'
   return a.charAt(0).toUpperCase() + a.slice(1)
 }

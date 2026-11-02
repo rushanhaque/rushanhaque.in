@@ -104,7 +104,7 @@ const llms = `# Rushan Haque
 ## Main pages
 
 ${link('Home', '/', 'recent client sites, current builds, products, clientele, areas served, services, reviews, writing')}
-${link('Work', '/work', 'selected client websites and software')}
+${link('Works', '/work', 'selected client websites and software')}
 ${link('About', '/about', 'journey, credentials, writing')}
 ${link('Contact', '/contact', 'start a project')}
 

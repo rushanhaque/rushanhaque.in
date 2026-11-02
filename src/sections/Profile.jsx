@@ -49,7 +49,7 @@ export default function Profile() {
           </aside>
 
           <div className="pro__main">
-            <p className="pro__bio" data-reveal>I’m a developer and writer based in India, studying Computer Science (IoT). I specialise in UI/UX design, client relationships and the development work in between: discovery, interface design, builds, hosting and handover. I stay in touch long after a project goes live.</p>
+            <p className="pro__bio" data-reveal>I’m a website designer and full-stack developer based in India, studying Computer Science (IoT). I take client websites from first conversation to launch: discovery, design, development, hosting and handover, and I stay in touch long after the site goes live.</p>
             <dl className="pro__facts" data-stagger>
               {facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>

@@ -97,10 +97,10 @@ export function routes() {
       ld: [siteGraph()],
     },
     {
-      path: '/work', priority: '0.8', title: T('Work — Websites, Stores & Software Built in India'),
-      description: `Selected work by Rushan Haque: websites for ${works.slice(0, 4).map((w) => w.title).join(', ')} and more, plus inventory software and Mailwright.`,
+      path: '/work', priority: '0.8', title: T('Works — Websites, Stores & Software Built in India'),
+      description: `Selected works by Rushan Haque: websites for ${works.slice(0, 4).map((w) => w.title).join(', ')} and more, plus inventory software and Mailwright.`,
       images: works.map((w) => w.image),
-      ld: [crumbs([['Work', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Selected work', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })), ...products.map((p) => ({ '@type': 'SoftwareApplication', name: p.title, url: `${ORIGIN}/products/${p.slug}` }))] }],
+      ld: [crumbs([['Works', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Selected works', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })), ...products.map((p) => ({ '@type': 'SoftwareApplication', name: p.title, url: `${ORIGIN}/products/${p.slug}` }))] }],
     },
     {
       path: '/about', priority: '0.8', title: T('About — Developer & Writer from Moradabad, India'),
@@ -116,7 +116,7 @@ export function routes() {
       path: `/work/${p.slug}`, priority: '0.7', images: [p.image],
       title: T(`${p.title} — ${p.field} website`),
       description: p.description,
-      ld: [crumbs([['Work', '/work'], [p.title, `/work/${p.slug}`]]), {
+      ld: [crumbs([['Works', '/work'], [p.title, `/work/${p.slug}`]]), {
         '@context': 'https://schema.org', '@type': 'CreativeWork', name: p.title, description: p.description,
         url: `${ORIGIN}/work/${p.slug}`, image: ORIGIN + p.image, creator: { '@id': ids.person }, dateCreated: p.year,
         ...(p.url ? { sameAs: p.url } : {}),

@@ -59,8 +59,10 @@ export default function OtherServices() {
           const d = (r.left + r.width / 2 - lead) / window.innerWidth
           if (!touch) {
             c.style.setProperty('--d', Math.min(1, Math.abs(d) * 1.6).toFixed(3))
-            // sheets already read leave quickly; the ones ahead stay half seen
-            c.style.setProperty('--o', (d < 0 ? 1 - Math.min(1, -d * 3.2) : 1 - Math.min(1, d * 1.6) * 0.5).toFixed(3))
+            // sheets already read stay whole while on screen and fade only as they slide off the
+            // left edge; the ones ahead stay half seen
+            const off = Math.min(1, Math.max(0, (view.left - r.left) / r.width))
+            c.style.setProperty('--o', (d < 0 ? 1 - off : 1 - Math.min(1, d * 1.6) * 0.5).toFixed(3))
             c.style.setProperty('--x', d.toFixed(3))
           }
           if (Math.abs(d) < bd) { bd = Math.abs(d); best = k }

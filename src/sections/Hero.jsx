@@ -115,7 +115,7 @@ export default function Hero() {
         <HeroRoles ready={ready} />
         <span className="hero__cue" aria-hidden="true"><i /></span>
         <p className="hero__meta hero__meta--l">{site.city}, India <span>28.84° N, 78.77° E</span></p>
-        <p className="hero__meta hero__meta--r">Selected work <span>2024 — {new Date().getFullYear()}</span></p>
+        <p className="hero__meta hero__meta--r">Selected works <span>2024 — {new Date().getFullYear()}</span></p>
       </div>
       <span className="hero__ring" aria-hidden="true" />
       <div className="hero__aperture" aria-hidden="true">

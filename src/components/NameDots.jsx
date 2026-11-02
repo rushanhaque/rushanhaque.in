@@ -5,9 +5,12 @@ import { tier } from '../lib/device'
 const INK = ['#f6eee4', '#e4c78f']
 
 /**
- * The name in a few thousand dots. The real name stays in the page, laid out but invisible,
- * and each word is sampled from exactly where it sits, so the dots match the type at any size.
- * The dots gather into the name, part around the cursor, and blow apart as the hero scrolls on.
+ * The name in a few thousand dots. The real name stays in the page, and each word is sampled
+ * from exactly where it sits, so the dots match the type at any size. On a wide screen the name
+ * is shown in dots: they gather into it, part around the cursor, and blow apart as the hero
+ * scrolls on. On a phone the name is the real, crisp type at rest; the dots wait hidden on its
+ * letters and take over only once the page moves, shattering as the hero leaves (and settling
+ * back into the type when you return to the top).
  * `progress` is the hero's scroll progress; the dots are fully scattered by `spreadEnd`.
  */
 export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) {
@@ -24,6 +27,9 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
     // cost lies in the number of dots, which `lite` lowers, not in the canvas resolution
     const dpr = Math.min(window.devicePixelRatio || 1, tier() === 'low' ? 2 : 3)
     const phone = window.innerWidth < 900
+    // on a phone the type stands until the scroll begins
+    const typeFirst = phone
+    let shattering = false
     // a length in whole device pixels, so a dot never ends on a half-lit pixel
     const px = (v) => Math.max(1, Math.round(v * dpr)) / dpr
     let W = 0
@@ -90,20 +96,39 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
           const [x, y] = t[Math.floor((i / n) * t.length)] || [W / 2, H / 2]
           p.tx = x
           p.ty = y
+          // waiting under the type, each dot already sits on its letter
+          if (typeFirst && !old[i]) { p.x = x; p.y = y }
           return p
         })
       })
-      section.classList.add('is-dots')
+      if (!typeFirst) section.classList.add('is-dots')
+      else s.intro = 1
       calm = 0
     }
 
     const draw = () => {
       if (disposed || !visible || document.hidden || !W) return
       const pr = progress?.current || 0
+      if (typeFirst) {
+        // at rest the type shows and the dots keep still on its letters; past the first step of
+        // scroll the dots take its place and come apart
+        const live = pr > 0.004
+        if (live !== shattering) {
+          shattering = live
+          section.classList.toggle('is-shatter', live)
+          if (!live) {
+            ctx.clearRect(0, 0, W, H)
+            groups.forEach((ps) => ps.forEach((p) => { p.x = p.tx; p.y = p.ty; p.vx = 0; p.vy = 0 }))
+          }
+          calm = 0
+        }
+        if (!live) { last = pr; return }
+      }
       if (calm > 20 && pr === last && !pointer.on) return
       const e = Math.min(1, pr / spreadEnd)
       const spread = e * e
-      const alpha = Math.max(0, 1 - spread * 1.15)
+      // (on a phone the dots fade in over the first moment of scroll as the type fades out)
+      const alpha = Math.max(0, 1 - spread * 1.15) * (typeFirst ? Math.min(1, pr / 0.03) : 1)
       const t = s.intro
       ctx.clearRect(0, 0, W, H)
       let motion = 0
@@ -179,7 +204,7 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
       window.removeEventListener('resize', resize)
       section.removeEventListener('pointermove', move)
       section.removeEventListener('pointerleave', leave)
-      section.classList.remove('is-dots')
+      section.classList.remove('is-dots', 'is-shatter')
       api.current = null
     }
   }, [])
@@ -187,7 +212,7 @@ export default function NameDots({ intro = false, progress, spreadEnd = 0.55 }) 
   // the dots gather into the name when the intro lifts
   useEffect(() => {
     const a = api.current
-    if (!intro || !a) return
+    if (!intro || !a || a.s.intro >= 1) return
     gsap.to(a.s, { intro: 1, duration: 2.4, ease: 'expo.out', onUpdate: a.wake })
   }, [intro])
 

@@ -19,7 +19,7 @@ export default function CommandPalette() {
   const actions = useMemo(() => {
     const nav = [
       { group: 'Pages', label: 'Index', hint: 'Home', run: () => go('/') },
-      { group: 'Pages', label: 'All work', hint: 'Index of everything', run: () => go('/work') },
+      { group: 'Pages', label: 'All works', hint: 'Every client site', run: () => go('/work') },
       { group: 'Pages', label: 'About', hint: 'Journey, credentials, writing', run: () => go('/about') },
       { group: 'Pages', label: 'Contact', hint: 'Start a project', run: () => go('/contact') },
     ]

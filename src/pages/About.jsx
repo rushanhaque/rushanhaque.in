@@ -68,9 +68,7 @@ export default function About() {
               {['Rushan', 'Haque'].map((w, k) => <Fragment key={w}>{k > 0 && ' '}<span className={`ab__w ${k ? 'is-em' : ''}`}>{w.split('').map((c, j) => <span className="ch" key={j}>{c}</span>)}</span></Fragment>)}
             </h1>
             <div className="ab__intro">
-              <p className="ab__lede">My name means <em>light</em> — and that is the job, really: to bring good businesses into the light, where the people looking for them can find them.</p>
-              <p>I’m a developer and writer based in India, studying Computer Science (IoT). I specialise in UI/UX design, client relationships and the development work in between: discovery, interface design, builds, hosting and handover. I stay in touch long after a project goes live.</p>
-              <p>Most of my clients are makers in Moradabad, India’s City of Brass: export houses working in brass, copper and wood. And I write: research on what AI does to the way we think, a book contribution, and Urdu poetry.</p>
+              <p className="ab__lede">I’m a website designer and full-stack developer based in India, studying Computer Science (IoT). I take client websites from first conversation to launch: discovery, design, development, hosting and handover, and I stay in touch long after the site goes live.</p>
               <div className="ab__ctas"><Button to="/contact" variant="solid">Work with me</Button><Button href={site.booking} variant="ghost" icon="calendar">Book a call</Button></div>
             </div>
           </div>

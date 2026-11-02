@@ -13,7 +13,7 @@ export const site = {
   // the contact form's Formspree id (public: it ships in the page either way); VITE_FORMSPREE_ID overrides it
   formspree: import.meta.env.VITE_FORMSPREE_ID || 'mdeanqre',
   nav: [
-    { label: 'Work', to: '/work' },
+    { label: 'Works', to: '/work' },
     { label: 'About', to: '/about' },
     { label: 'Contact', to: '/contact' },
   ],
