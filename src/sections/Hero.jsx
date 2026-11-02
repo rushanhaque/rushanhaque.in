@@ -65,16 +65,16 @@ export default function Hero() {
       if (reduced()) return
       const q = gsap.utils.selector(root)
       const phone = window.innerWidth < 900
-      // a phone scrolls on its own thread, and a pin set from script lands a frame late and
-      // jolts; there the hero is held by CSS (sticky in a taller run, see .hero-run) instead
+      // on touch screens nothing is held (a held scene shakes under a phone's own scrolling): the
+      // hero scrolls away and its scene plays out as it leaves the screen
       const touch = isTouch()
       gsap
         .timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
-            trigger: touch ? root.current.parentElement : root.current,
+            trigger: root.current,
             start: 'top top',
-            end: touch ? 'bottom bottom' : phone ? '+=110%' : '+=150%',
+            end: touch ? 'bottom top' : phone ? '+=110%' : '+=150%',
             scrub: 0.9,
             pin: !touch,
             onUpdate: (s) => {

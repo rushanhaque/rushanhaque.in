@@ -468,14 +468,14 @@
    its own thread there, and a pin set from script lands a frame late and jolts. The section is
    made as tall as the scroll its scene needs and the stage sticks to the top through it. */
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
-  .hero-run { height: 250vh; height: 250svh; }
-  .hero-run > .hero { position: sticky; top: 0; }
   /* the map repaints whole while a route's traffic runs, so on a phone the routes stay still */
   .sv__run.is-on { animation: none; opacity: 0; }
   .serve__bar { transition: none; }
 }
-@media (hover: none) and (prefers-reduced-motion: no-preference) and (max-width: 899px) {
-  .hero-run { height: 210vh; height: 210svh; }
+/* on touch screens Where I serve is one screen that plays its story; nothing is held */
+@media (hover: none) {
+  .serve { height: auto; }
+  .serve__stage { position: relative; }
 }
 @media (max-width: 899px) {
   .serve__scale { font-size: 10px; }

@@ -181,17 +181,30 @@ export default function Serve() {
       layout()
       if (still) { arrive = 1; goal = shown = 0; paint() }
       const enter = ScrollTrigger.create({ trigger: root.current, start: 'top 75%', end: 'top top', onUpdate: (s) => { arrive = still ? 1 : s.progress; dirty = true } })
-      // on a phone the scroll only chooses the stage and the camera flies there in its own time:
-      // a camera tied to a momentum scroll trails it by a frame and shakes
+      // On touch screens nothing is held (a stage kept still while a phone scrolls shakes), so the
+      // story plays itself while the map is on screen: Moradabad, India, the world, and round again.
+      // With a mouse the scroll walks through it while the stage holds.
       const touch = isTouch()
-      const at = (p) => (touch ? Math.round(p * (frames.length - 1)) : p * (frames.length - 1))
-      const st = ScrollTrigger.create({ trigger: root.current, start: 'top top', end: 'bottom bottom', onUpdate: (s) => { goal = at(s.progress); if (still) shown = Math.round(goal); dirty = true } })
-      goal = shown = touch ? Math.round(st.progress * (serve.steps.length - 1)) : st.progress * (serve.steps.length - 1)
-      arrive = enter.progress || (st.progress > 0 ? 1 : 0)
+      let st = null
+      let play = null
+      if (touch && !still) {
+        const steps = serve.steps.length
+        let i = 0
+        const next = () => { i = (i + 1) % steps; goal = i; dirty = true; play = gsap.delayedCall(i === steps - 1 ? 4.2 : 3, next) }
+        st = ScrollTrigger.create({
+          trigger: root.current, start: 'top 60%', end: 'bottom 40%',
+          onToggle: (s) => { play?.kill(); play = null; if (s.isActive) play = gsap.delayedCall(2.4, next) },
+        })
+        arrive = enter.progress
+      } else {
+        st = ScrollTrigger.create({ trigger: root.current, start: 'top top', end: 'bottom bottom', onUpdate: (s) => { goal = s.progress * (frames.length - 1); if (still) shown = Math.round(goal); dirty = true } })
+        goal = shown = st.progress * (serve.steps.length - 1)
+        arrive = enter.progress || (st.progress > 0 ? 1 : 0)
+      }
       gsap.ticker.add(tick)
       const ro = new ResizeObserver(layout)
       ro.observe(el)
-      return () => { gsap.ticker.remove(tick); st.kill(); enter.kill(); ro.disconnect() }
+      return () => { gsap.ticker.remove(tick); play?.kill(); st.kill(); enter.kill(); ro.disconnect() }
     },
     { scope: root, dependencies: [data] },
   )
