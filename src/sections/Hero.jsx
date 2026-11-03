@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
 import { setTheme } from '../lib/theme'
 import { useApp } from '../lib/app'
+import { createHold } from '../lib/hold'
 import { site } from '../config/site'
 import HeroShader from '../components/HeroShader'
 import NameDots from '../components/NameDots'
@@ -65,24 +66,25 @@ export default function Hero() {
       if (reduced()) return
       const q = gsap.utils.selector(root)
       const phone = window.innerWidth < 900
-      // on touch screens nothing is held (a held scene shakes under a phone's own scrolling): the
-      // hero scrolls away and its scene plays out as it leaves the screen
       const touch = isTouch()
-      gsap
+      const tl = gsap
         .timeline({
           defaults: { ease: 'none' },
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top top',
-            end: touch ? 'bottom top' : phone ? '+=110%' : '+=150%',
-            scrub: 0.9,
-            pin: !touch,
-            onUpdate: (s) => {
-              progress.current = s.progress
-              // only while the hero holds the screen: past it, the rooms below choose the colour
-              if (s.isActive) setTheme(s.progress > 0.78 ? 'ivory' : 'night')
+          // with a mouse the scroll plays the opening while the hero is pinned
+          ...(touch ? { paused: true, onUpdate: () => { progress.current = tl.progress() } } : {
+            scrollTrigger: {
+              trigger: root.current,
+              start: 'top top',
+              end: phone ? '+=110%' : '+=150%',
+              scrub: 0.9,
+              pin: true,
+              onUpdate: (s) => {
+                progress.current = s.progress
+                // only while the hero holds the screen: past it, the rooms below choose the colour
+                if (s.isActive) setTheme(s.progress > 0.78 ? 'ivory' : 'night')
+              },
             },
-          },
+          }),
         })
         .to(q('.hero__cue'), { autoAlpha: 0, duration: 0.15 }, 0)
         .to(q('.hero__roles'), { autoAlpha: 0, y: -24, duration: 0.2 }, 0)
@@ -90,6 +92,28 @@ export default function Hero() {
         .fromTo(q('.hero__ring'), { scale: 0.2, autoAlpha: 0 }, { scale: 3.2, autoAlpha: 1, ease: 'power2.in', duration: 0.85 }, 0.02)
         .fromTo(q('.hero__next > *'), { y: 70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.05, ease: 'power3.out', duration: 0.32 }, 0.62)
         .to({}, { duration: 0.12 })
+      if (!touch) return
+
+      // On a touch screen the hero holds at the top of the page and the first swipe plays its
+      // opening in full: the name shatters and the light opens onto the next line. Then the page
+      // is free to scroll on. Back at the top, the opening closes again and the hero holds once more.
+      let playing = null
+      const open = () => {
+        if (playing || tl.progress() > 0.99) return
+        playing = gsap.to(tl, { progress: 1, duration: 1.9, ease: 'power2.inOut', onComplete: () => { playing = null; setTheme('ivory'); hold.unlock() } })
+      }
+      const close = () => {
+        playing?.kill()
+        hold.lock()
+        setTheme('night')
+        playing = gsap.to(tl, { progress: 0, duration: 1.2, ease: 'power2.inOut', onComplete: () => { playing = null } })
+      }
+      const hold = createHold((dir) => { if (dir > 0) open() })
+      if (window.scrollY < 4) hold.lock()
+      else { tl.progress(1); setTheme('ivory') }
+      const onScroll = () => { if (window.scrollY <= 1 && tl.progress() > 0.99 && !hold.on) close() }
+      window.addEventListener('scroll', onScroll, { passive: true })
+      return () => { playing?.kill(); window.removeEventListener('scroll', onScroll); hold.kill() }
     },
     { scope: root },
   )
