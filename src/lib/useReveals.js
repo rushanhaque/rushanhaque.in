@@ -90,7 +90,7 @@ export function useReveals(scope, initialTheme = 'ivory') {
       // Start-only triggers, as in the Halcyon template: each section owns the palette from the
       // moment its top passes 55% of the screen until the next one's does, and scrolling back
       // past it hands the palette back to the one before. Robust to pins and to instant jumps.
-      const themed = [...root.querySelectorAll('[data-theme]')]
+      const themed = [...root.querySelectorAll('section[data-theme]')]
       themed.forEach((el, i) => {
         const prev = i ? themed[i - 1].dataset.theme : initialTheme
         ScrollTrigger.create({

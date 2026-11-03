@@ -7,7 +7,7 @@ import Icon from '../components/Icon'
  * 08 — Writing. Papers, notes and books stand on a shelf as 3D volumes — cover, spine, page
  * block. Hover, focus or tap one and it turns to face you; phones show the whole shelf at once.
  */
-export default function Library({ id = 'writing', n = '08', theme = 'stone' }) {
+export default function Library({ id = 'writing', n = '08', theme = 'ivory' }) {
   const [sel, setSel] = useState(0)
   const shelf = useRef(null)
   const b = writings[sel]

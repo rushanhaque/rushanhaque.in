@@ -26,7 +26,7 @@ export default function Instruments() {
     { scope: root },
   )
   return (
-    <section className="prod sec" ref={root} data-theme="stone" data-chapter="Products" id="products">
+    <section className="prod sec" ref={root} data-theme="ivory" data-chapter="Products" id="products">
       <div className="wrap">
         <Head n="03" label="Software" title={<em>Products</em>} count={products.length} lede="Beyond websites: tools that teams open every morning, built for the jobs people used to do by hand." />
         {products.map((p, i) => (

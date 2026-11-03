@@ -25,8 +25,15 @@ export function createHold(onSwipe) {
     // `y`: where the page should stand while it holds (cuts a flick short and lines the scene up)
     lock(y) {
       on = true
+      // stopping the scroll comes first: an iPhone ignores a jump while its flick still runs, so
+      // the page is lined up again once the flick has ended
       html.style.overflow = 'hidden'
-      if (y != null) window.scrollTo(0, y)
+      if (y == null) return
+      const put = () => { if (on && Math.abs(window.scrollY - y) > 0.5) window.scrollTo(0, y) }
+      put()
+      requestAnimationFrame(() => { put(); requestAnimationFrame(put) })
+      setTimeout(put, 120)
+      setTimeout(put, 320)
     },
     unlock() {
       on = false

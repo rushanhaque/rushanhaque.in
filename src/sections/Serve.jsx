@@ -183,46 +183,66 @@ export default function Serve() {
       if (still) { arrive = 1; goal = shown = 0; paint() }
       const enter = ScrollTrigger.create({ trigger: root.current, start: 'top 75%', end: 'top top', onUpdate: (s) => { arrive = still ? 1 : s.progress; dirty = true } })
       // On a touch screen the map holds when it reaches the top of the screen, by stopping the page
-      // itself (a stage pinned while a phone scrolls under it shakes). Each swipe flies the camera
-      // one stage on, Moradabad, India, the world, or back; left alone it moves on every few
-      // seconds. A swipe past the last stage (or back past the first) gives the page back.
+      // itself (a stage pinned while a phone scrolls under it shakes). Every time, from above or
+      // below, the story plays from the start on its own: Moradabad, India, the world. A swipe the
+      // way you were going skips ahead and, once the world is shown, carries on; a swipe the other
+      // way gives the page back in that direction.
       // With a mouse the scroll walks through it while the stage holds.
       const touch = isTouch()
       let st = null
       let hold = null
       let auto = null
+      let armed = false
+      const arm = () => { armed = true }
       if (touch && !still) {
         const steps = serve.steps.length
         let i = 0
+        let way = 1
         let skipBack = false
         const go = (k) => {
           i = k
           goal = k
           dirty = true
           auto?.kill()
-          if (k < steps - 1) auto = gsap.delayedCall(3, () => hold.on && go(i + 1))
+          if (k < steps - 1) auto = gsap.delayedCall(2.2, () => hold.on && go(i + 1))
         }
-        hold = createHold((dir) => {
-          if (!hold.on) return
-          const k = i + dir
-          if (k >= 0 && k < steps) return go(k)
+        const release = (dir) => {
           auto?.kill()
           // leaving upwards crosses the start again; that crossing must not hold it once more
           if (dir < 0) skipBack = true
           hold.unlock()
+        }
+        hold = createHold((dir) => {
+          if (!hold.on) return
+          if (dir !== way) return release(dir)
+          if (i < steps - 1) return go(i + 1)
+          release(dir)
         })
-        const top = () => root.current.getBoundingClientRect().top
-        const at = () => Math.round(top() + window.scrollY) + 1
-        // only as the map actually reaches the top: not on a reload far below it, or a jump past it
-        const arriving = () => Math.abs(top()) < window.innerHeight * 0.5
+        const at = () => Math.round(root.current.getBoundingClientRect().top + window.scrollY) + 1
+        const engage = (from) => {
+          // only once the visitor is scrolling: never on a reload part way down the page
+          if (hold.on || !armed) return
+          way = from
+          hold.lock(at())
+          // the camera starts at home each time, so the whole flight plays
+          i = 0
+          goal = shown = 0
+          dirty = true
+          go(0)
+        }
         st = ScrollTrigger.create({
           trigger: root.current, start: 'top top', end: 'bottom top',
-          onEnter: () => { if (!hold.on && arriving()) { hold.lock(at()); go(0) } },
+          onEnter: () => engage(1),
           onLeaveBack: () => {
             if (skipBack) { skipBack = false; return }
-            if (!hold.on && arriving()) { hold.lock(at()); go(steps - 1) }
+            engage(-1)
           },
         })
+        // a page that loads above the map may hold at once; one that loads already past it (a reload
+        // part way down) waits for the visitor's own scroll, so it never jumps back on its own
+        armed = window.scrollY < st.start
+        window.addEventListener('touchstart', arm, { passive: true, once: true })
+        window.addEventListener('scroll', arm, { passive: true, once: true })
         goal = shown = 0
         arrive = enter.progress
       } else {
@@ -233,7 +253,7 @@ export default function Serve() {
       gsap.ticker.add(tick)
       const ro = new ResizeObserver(layout)
       ro.observe(el)
-      return () => { gsap.ticker.remove(tick); auto?.kill(); hold?.kill(); st.kill(); enter.kill(); ro.disconnect() }
+      return () => { gsap.ticker.remove(tick); auto?.kill(); hold?.kill(); window.removeEventListener('touchstart', arm); window.removeEventListener('scroll', arm); st.kill(); enter.kill(); ro.disconnect() }
     },
     { scope: root, dependencies: [data] },
   )

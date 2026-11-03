@@ -24,14 +24,14 @@ export default function Home() {
       <RecentWorks />
       <Drafting />
       <Instruments />
-      <Bridge theme="wine">Behind every build is a business, and most of them <em>make things by hand</em> in brass, copper and wood.</Bridge>
-      <Clientele theme="wine" />
+      <Bridge>Behind every build is a business, and most of them <em>make things by hand</em> in brass, copper and wood.</Bridge>
+      <Clientele />
       <Serve />
       <OtherServices />
       <Bridge>The work is half the story. <em>The rest is what clients say</em> once it’s live.</Bridge>
       <Voices />
-      <Bridge theme="night">And when the screens go quiet, <em>I write.</em></Bridge>
-      <Library theme="night" />
+      <Bridge>And when the screens go quiet, <em>I write.</em></Bridge>
+      <Library />
       <Profile />
       <Footer />
     </div>
