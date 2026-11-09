@@ -1,8 +1,7 @@
-// Identity, contact and navigation. Re-skin a client build by editing this file and src/data/content.js.
+// Identity, contact and navigation.
 export const site = {
   name: 'Rushan Haque',
   url: 'https://www.rushanhaque.in',
-  short: 'RH',
   role: 'Developer & writer',
   location: 'Moradabad, Uttar Pradesh, India',
   city: 'Moradabad',
@@ -10,10 +9,10 @@ export const site = {
   email: 'rushanulhaque@gmail.com',
   phone: { label: '+91 76680 47608', href: 'tel:+917668047608', whatsapp: 'https://wa.me/917668047608' },
   booking: 'https://cal.com/rushan-haque-emssbo/call',
-  // the contact form's Formspree id (public: it ships in the page either way); VITE_FORMSPREE_ID overrides it
+  // the contact form's Formspree id (public: it ships in the page either way)
   formspree: import.meta.env.VITE_FORMSPREE_ID || 'mdeanqre',
   nav: [
-    { label: 'Works', to: '/work' },
+    { label: 'Work', to: '/work' },
     { label: 'About', to: '/about' },
     { label: 'Contact', to: '/contact' },
   ],
@@ -24,3 +23,7 @@ export const site = {
     { label: 'WhatsApp', href: 'https://wa.me/917668047608' },
   ],
 }
+
+// the time where I am, formatted the same everywhere; building the formatter is slow, so there is only ever one
+let clock = null
+export const localTime = () => (clock ??= new Intl.DateTimeFormat('en-GB', { timeZone: site.tz, hour: '2-digit', minute: '2-digit' })).format(new Date())

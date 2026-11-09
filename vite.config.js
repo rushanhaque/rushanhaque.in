@@ -1,18 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig(({ isSsrBuild }) => ({
+export default defineConfig({
   plugins: [react()],
-  server: { port: 5190, strictPort: true },
-  preview: { port: 5191 },
+  server: { port: 5300, strictPort: false },
+  preview: { port: 5301 },
+  // bundled into the server build, because their packages are not all clean Node modules
+  ssr: { noExternal: ['gsap', '@gsap/react', 'lenis', 'react-router', 'react-router-dom'] },
   build: {
     target: 'es2020',
-    cssCodeSplit: true,
-    // the server build only renders pages to HTML at build time; chunking matters for the browser
-    rollupOptions: isSsrBuild ? {} : {
-      output: {
-        manualChunks: { gsap: ['gsap', 'gsap/ScrollTrigger', 'gsap/SplitText', 'gsap/ScrambleTextPlugin', 'gsap/DrawSVGPlugin', 'gsap/CustomEase'], react: ['react', 'react-dom', 'react-router-dom'] },
-      },
-    },
+    assetsInlineLimit: 0,
+    chunkSizeWarningLimit: 900,
   },
-}))
+})

@@ -9,7 +9,7 @@ import extras from '../data/seo/seo-extras.json'
 import { services, areas, industries, articles, LEGAL } from './pages'
 
 export const ORIGIN = site.url.replace(/\/$/, '')
-const OG = `${ORIGIN}/og.png`
+const OG = `${ORIGIN}/og.jpg`
 export const ids = { person: `${ORIGIN}/#person`, business: `${ORIGIN}/#business`, website: `${ORIGIN}/#website` }
 const phone = site.phone.label.replace(/\s/g, '')
 
@@ -91,30 +91,30 @@ export function routes() {
   const list = [
     {
       path: '/', priority: '1.0', changefreq: 'weekly',
-      title: 'Rushan Haque — Website Developer & Designer in Moradabad, India',
+      title: 'Rushan Haque: Website Developer & Designer in Moradabad, India',
       description: 'Website developer, designer and writer in Moradabad, India. Rushan Haque builds custom websites, online stores and software for businesses across India and abroad.',
       images: [...works, ...products].map((p) => p.image),
       ld: [siteGraph()],
     },
     {
-      path: '/work', priority: '0.8', title: T('Works — Websites, Stores & Software Built in India'),
+      path: '/work', priority: '0.8', title: T('Works: Websites, Stores & Software Built in India'),
       description: `Selected works by Rushan Haque: websites for ${works.slice(0, 4).map((w) => w.title).join(', ')} and more, plus inventory software and Mailwright.`,
       images: works.map((w) => w.image),
       ld: [crumbs([['Works', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Selected works', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })), ...products.map((p) => ({ '@type': 'SoftwareApplication', name: p.title, url: `${ORIGIN}/products/${p.slug}` }))] }],
     },
     {
-      path: '/about', priority: '0.8', title: T('About — Developer & Writer from Moradabad, India'),
+      path: '/about', priority: '0.8', title: T('About: Developer & Writer from Moradabad, India'),
       description: 'About Rushan Haque: developer and writer from Moradabad, India. Experience, education, seventeen certificates, research papers and Urdu poetry.',
       ld: [crumbs([['About', '/about']]), { '@context': 'https://schema.org', '@type': 'ProfilePage', url: `${ORIGIN}/about`, mainEntity: { '@id': ids.person }, about: { '@id': ids.person } }],
     },
     {
-      path: '/contact', priority: '0.8', title: T('Contact — Hire a Website Developer in Moradabad'),
+      path: '/contact', priority: '0.8', title: T('Contact: Hire a Website Developer in Moradabad'),
       description: `Start a website project with Rushan Haque in Moradabad, India. WhatsApp ${site.phone.label}, email ${site.email} or book a call. Replies within a day.`,
       ld: [crumbs([['Contact', '/contact']]), { '@context': 'https://schema.org', '@type': 'ContactPage', url: `${ORIGIN}/contact`, about: { '@id': ids.business } }],
     },
     ...works.map((p) => ({
       path: `/work/${p.slug}`, priority: '0.7', images: [p.image],
-      title: T(`${p.title} — ${p.field} website`),
+      title: T(`${p.title}: ${p.field} website`),
       description: p.description,
       ld: [crumbs([['Works', '/work'], [p.title, `/work/${p.slug}`]]), {
         '@context': 'https://schema.org', '@type': 'CreativeWork', name: p.title, description: p.description,
@@ -125,7 +125,7 @@ export function routes() {
     // the products, each with its own page to read about it and ask for a quote
     ...products.map((p) => ({
       path: `/products/${p.slug}`, priority: '0.8', images: [p.image],
-      title: T(`${p.title} — ${p.field} for businesses`),
+      title: T(`${p.title}: ${p.field} for businesses`),
       description: `${p.description} Request a quote or book a call.`,
       ld: [crumbs([['Products', '/#products'], [p.title, `/products/${p.slug}`]]), {
         '@context': 'https://schema.org', '@type': 'SoftwareApplication', '@id': `${ORIGIN}/products/${p.slug}#app`, name: p.title, description: p.description,
@@ -174,7 +174,7 @@ export function headFor(path) {
   return index.get(clean) ?? { path: clean, title: 'Page not found | Rushan Haque', description: 'This page does not exist. Find websites, guides and contact details on rushanhaque.in.', robots: 'noindex, follow', ld: [] }
 }
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const esc = (s) => String(s).replace(/ — /g, ', ').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 /** The head tags as an HTML string, for the pre-rendered pages. */
 export function headHtml(h, { verify = {} } = {}) {
   const url = ORIGIN + (h.path === '/' ? '/' : h.path)
@@ -193,7 +193,7 @@ export function headHtml(h, { verify = {} } = {}) {
     `<meta property="og:image" content="${OG}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
-    `<meta property="og:image:alt" content="Rushan Haque — website developer, designer and writer" />`,
+    `<meta property="og:image:alt" content="Rushan Haque, website developer, designer and writer" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${esc(h.title)}" />`,
     `<meta name="twitter:description" content="${esc(h.description)}" />`,

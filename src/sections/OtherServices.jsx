@@ -1,8 +1,10 @@
-import { useRef } from 'react'
-import { gsap, ScrollTrigger, useGSAP, reduced, isTouch } from '../lib/gsap'
+import { useEffect, useRef, useState } from 'react'
+import { useChapter } from '../lib/director'
+import { useReveals } from '../lib/reveal'
 import { services } from '../data/content'
+import Btn from '../components/Btn'
 import Head from '../components/Head'
-import Button from '../components/Button'
+import { ArrowLeft, ArrowRight } from '../components/glyphs'
 
 const GLYPH = {
   design: 'M32 6 L46 38 L32 58 L18 38 Z M32 6 V33 M28 37 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M12 58 H52',
@@ -17,122 +19,108 @@ const GLYPH = {
   play: 'M8 12 H56 V52 H8 Z M26 22 L42 32 L26 42 Z',
 }
 const two = (n) => String(n).padStart(2, '0')
+const TOTAL = services.length + 1
 
-/**
- * 06 — Other services, laid out like sheets on a drawing board. On wide screens the section
- * holds still and the scroll slides the sheets past: the one in the middle comes forward and
- * its pictogram is drawn, the rest wait a step back. On phones it is a row you swipe.
- */
+// Other services, laid out like sheets on a drawing board. On wide screens the section holds still and the
+// scroll slides the row along, and each
+// pictogram is drawn as its sheet arrives. On narrow screens it is a row you swipe, a page at a time.
 export default function OtherServices() {
   const root = useRef(null)
+  const track = useRef(null)
+  const row = useRef(null)
+  const m = useRef({ wide: false, n: 3, w: 1, gap: 0, step: 1, cur: 0, last: -1, first: -1 })
+  const [page, setPage] = useState({ at: 1, of: TOTAL })
 
-  useGSAP(
-    () => {
-      const el = root.current
-      const track = el.querySelector('.osv__track')
-      const cards = gsap.utils.toArray('.osv__card', el)
-      const paths = cards.map((c) => c.querySelector('.osv__glyph path'))
-      const drawn = new Set()
-      let on = -1
+  const show = (first) => {
+    const s = m.current
+    if (first === s.first) return
+    s.first = first
+    const cards = track.current.children
+    for (let k = 0; k < cards.length; k++) {
+      const on = k >= first && k < first + s.n
+      cards[k].classList.toggle('is-on', on)
+      if (on) cards[k].classList.add('is-drawn')
+    }
+    setPage({ at: first + 1, of: Math.max(1, TOTAL - s.n + 1) })
+  }
 
-      const draw = (i, d = 1.6) => paths[i] && gsap.fromTo(paths[i], { drawSVG: '0%' }, { drawSVG: '100%', duration: d, ease: 'silk', overwrite: true })
-      const select = (i) => {
-        if (i === on) return
-        on = i
-        cards.forEach((c, k) => c.classList.toggle('is-on', k === i))
-        if (!drawn.has(i)) { drawn.add(i); draw(i) }
-      }
-      // the lead sheet stands at the left margin as the row starts and travels to the right one as
-      // it ends, so the last sheet leads once it has come in; the others ease back by distance
-      // (on touch screens only the lead is marked: reshaping cards under a swipe makes them wobble)
-      const touch = isTouch()
-      let travelled = () => 0
-      const measure = () => {
-        const view = el.querySelector('.osv__viewport').getBoundingClientRect()
-        const pad = parseFloat(getComputedStyle(track).paddingLeft)
-        const w = cards[0].offsetWidth
-        const lead = view.left + pad + w / 2 + Math.min(1, Math.max(0, travelled())) * Math.max(0, view.width - pad * 2 - w)
-        let best = 0
-        let bd = Infinity
-        cards.forEach((c, k) => {
-          const r = c.getBoundingClientRect()
-          const d = (r.left + r.width / 2 - lead) / window.innerWidth
-          if (!touch) {
-            c.style.setProperty('--d', Math.min(1, Math.abs(d) * 1.6).toFixed(3))
-            // sheets already read stay whole while on screen and fade only as they slide off the
-            // left edge; the ones ahead stay half seen
-            const off = Math.min(1, Math.max(0, (view.left - r.left) / r.width))
-            c.style.setProperty('--o', (d < 0 ? 1 - off : 1 - Math.min(1, d * 1.6) * 0.5).toFixed(3))
-            c.style.setProperty('--x', d.toFixed(3))
-          }
-          if (Math.abs(d) < bd) { bd = Math.abs(d); best = k }
-        })
-        select(best)
-      }
+  useEffect(() => {
+    const el = root.current
+    const s = m.current
+    const size = () => {
+      const view = row.current.clientWidth - (parseFloat(getComputedStyle(row.current).paddingLeft) || 0) * 2
+      const vw = innerWidth
+      s.wide = vw >= 900 && innerHeight >= 620 && !document.documentElement.classList.contains('static')
+      s.n = vw >= 1200 ? 3 : vw >= 640 ? 2 : 1
+      const pad = parseFloat(getComputedStyle(track.current).paddingLeft) || 0
+      // on narrow screens the gap equals the margin, so the next sheet starts exactly off the edge
+      s.gap = s.wide ? Math.max(14, Math.min(22, vw * 0.014)) : pad
+      s.w = (view - pad * 2 - (s.n - 1) * s.gap) / s.n
+      s.step = s.w + s.gap
+      track.current.style.setProperty('--cw', `${s.w.toFixed(2)}px`)
+      track.current.style.setProperty('--cg', `${s.gap.toFixed(2)}px`)
+      el.style.height = s.wide ? `calc(100vh + ${(TOTAL - s.n) * 36}vh)` : ''
+      if (s.wide) { s.last = -1 } else { track.current.style.transform = '' }
+      s.first = -1
+      // every sheet gives its words the same room, so the titles and text line up across the row
+      const bodies = [...track.current.querySelectorAll('.osv__body')]
+      track.current.style.setProperty('--osv-body', '0px')
+      track.current.style.setProperty('--osv-body', `${Math.max(...bodies.map((b) => b.offsetHeight))}px`)
+      show(s.wide ? Math.round(s.cur / s.step) : Math.round(row.current.scrollLeft / s.step))
+    }
+    size()
+    addEventListener('resize', size)
+    document.fonts?.ready.then(size)
+    let queued = false
+    const onRow = () => {
+      if (queued || s.wide) return
+      queued = true
+      requestAnimationFrame(() => { queued = false; show(Math.round(row.current.scrollLeft / s.step)) })
+    }
+    const r = row.current
+    r.addEventListener('scroll', onRow, { passive: true })
+    return () => { removeEventListener('resize', size); r.removeEventListener('scroll', onRow) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-      if (!isTouch()) cards.forEach((c, i) => c.addEventListener('mouseenter', () => draw(i, 0.9)))
-
-      const mm = gsap.matchMedia()
-      mm.add({ wide: '(min-width: 900px)', narrow: '(max-width: 899px)', still: '(prefers-reduced-motion: reduce)' }, (ctx) => {
-        if (!ctx.conditions.wide || ctx.conditions.still) {
-          // a native swipe row: the lead sheet follows the row's own scroll
-          const row = el.querySelector('.osv__viewport')
-          // read the row at most once a frame, however fast the swipe reports
-          let queued = false
-          const onScroll = () => {
-            if (queued) return
-            queued = true
-            requestAnimationFrame(() => { queued = false; measure() })
-          }
-          travelled = () => row.scrollLeft / Math.max(1, row.scrollWidth - row.clientWidth)
-          row.addEventListener('scroll', onScroll, { passive: true })
-          const st = ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: onScroll })
-          return () => { row.removeEventListener('scroll', onScroll); st.kill() }
-        }
-        // travel until the last sheet reaches the right margin, with nothing left to come in
-        const dist = () => {
-          const last = cards[cards.length - 1]
-          const pad = parseFloat(getComputedStyle(track).paddingLeft)
-          return Math.max(0, last.offsetLeft - cards[0].offsetLeft + last.offsetWidth + pad * 2 - el.querySelector('.osv__viewport').clientWidth)
-        }
-        travelled = () => -gsap.getProperty(track, 'x') / Math.max(1, dist())
-        const tween = gsap.to(track, {
-          x: () => -dist(),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top top',
-            end: () => `+=${dist()}`,
-            pin: el.querySelector('.osv__stage'),
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-          },
-        })
-        // the cards are measured every frame while the section is in view, so the scrub's glide shows
-        const st = ScrollTrigger.create({ trigger: el, start: 'top bottom', end: 'bottom top', onToggle: (s) => (s.isActive ? gsap.ticker.add(measure) : gsap.ticker.remove(measure)) })
-        measure()
-        return () => { gsap.ticker.remove(measure); st.kill(); tween.scrollTrigger?.kill(); tween.kill(); gsap.set(track, { clearProps: 'x' }) }
-      })
-      return () => mm.revert()
+  useChapter(root, {
+    id: 'services',
+    name: 'Other services',
+    time: [17.2, 18.2],
+    frame: ({ stick }) => {
+      const s = m.current
+      if (!s.wide) return
+      // the row slides along with the scroll, evenly, and stops where the scroll stops
+      const goal = Math.min(1, Math.max(0, stick * 1.04 - 0.02)) * (TOTAL - s.n) * s.step
+      s.cur += (goal - s.cur) * 0.3
+      if (Math.abs(goal - s.cur) < 0.05) s.cur = goal
+      if (s.cur === s.last) return
+      s.last = s.cur
+      track.current.style.transform = `translate3d(${(-s.cur).toFixed(1)}px,0,0)`
+      show(Math.round(s.cur / s.step))
     },
-    { scope: root },
-  )
+  })
+  useReveals(root)
+
+  const swipe = (dir) => {
+    const s = m.current
+    row.current.scrollBy({ left: dir * s.step, behavior: 'smooth' })
+  }
 
   return (
-    <section className="osv" ref={root} data-theme="ivory" data-chapter="Other services" id="services">
-      <div className="osv__stage">
-        <div className="wrap osv__head">
-          <Head n="06" label="What else I do" title={<>Other <em>services</em></>} count={services.length} lede="Design and development lead, and the rest of what a business needs online comes with them, handled by the same person." />
+    <section className="osv" ref={root} id="services" data-tone="ivory">
+      <div className="osv__stage pin__stage">
+        <div className="wrap">
+          <Head label="What else I do" title={<>Other <em>services</em></>} count={services.length} lede="Design and development lead, and the rest of what a business needs online comes with them, handled by the same person." />
         </div>
-        <div className="osv__viewport">
-          <ul className="osv__track">
+        <div className="osv__viewport" ref={row}>
+          <ul className="osv__track" ref={track}>
             {services.map((s, i) => (
               <li className="osv__card" key={s.title}>
                 <div className="osv__plate">
-                  <span className="osv__no">06.{two(i + 1)}</span>
+                  <span className="osv__no">{two(i + 1)}</span>
                   <span className="osv__of">{s.items[0]}</span>
-                  <svg className="osv__glyph" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d={GLYPH[s.icon]} /></svg>
-                  <span className="osv__big" aria-hidden="true">{two(i + 1)}</span>
+                  <svg className="osv__glyph" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path pathLength="1" d={GLYPH[s.icon]} /></svg>
                   <i className="osv__tick" aria-hidden="true" />
                 </div>
                 <div className="osv__body">
@@ -142,12 +130,19 @@ export default function OtherServices() {
                 </div>
               </li>
             ))}
-            <li className="osv__card osv__card--cta">
-              <span className="osv__no">Not on the list?</span>
+            <li className="osv__card osv__card--cta" data-fixed="wine">
+              <span className="osv__ctaNo note">Not on the list?</span>
               <p className="osv__ask">If it lives online, <em>ask me.</em></p>
-              <Button to="/contact" variant="solid">Start a conversation</Button>
+              <Btn to="/contact" title="Contact" variant="solid">Start a conversation</Btn>
             </li>
           </ul>
+        </div>
+        <div className="osv__pager wrap">
+          <span className="note">{two(page.at)} / {two(page.of)}</span>
+          <span className="pager">
+            <button type="button" onClick={() => swipe(-1)} disabled={page.at <= 1} aria-label="Previous services"><ArrowLeft size={16} /></button>
+            <button type="button" onClick={() => swipe(1)} disabled={page.at >= page.of} aria-label="More services"><ArrowRight size={16} /></button>
+          </span>
         </div>
       </div>
     </section>

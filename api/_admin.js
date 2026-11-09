@@ -1,6 +1,6 @@
 // Shared by the admin functions (files starting with _ are not routes on Vercel).
-// The admin signs in with ADMIN_PUBLISH_SECRET and publishes by committing src/data/editable.json
-// to GitHub with GITHUB_TOKEN; the commit makes Vercel rebuild the site. These are the names the
+// The admin signs in with ADMIN_PUBLISH_SECRET and publishes by committing src/data/editable.json and any
+// client logos to GitHub with GITHUB_TOKEN; the commit makes Vercel rebuild the site. These are the names the
 // previous site's admin used, so settings already on Vercel carry over.
 import { createHmac, timingSafeEqual } from 'node:crypto'
 
@@ -62,5 +62,46 @@ export function validate(input) {
   if (bio.length < 40) return { error: 'The About text needs at least 40 characters.' }
   if (bio.length > 1200) return { error: 'The About text can be at most 1,200 characters.' }
   if (/[<>]/.test(bio)) return { error: 'The About text cannot contain < or >.' }
-  return { value: { aboutBio: bio } }
+  const list = input?.clients
+  if (!Array.isArray(list) || list.length > 40) return { error: 'The client list could not be read, or has more than 40 clients.' }
+  const clients = []
+  const seen = new Set()
+  for (const c of list) {
+    const name = typeof c?.name === 'string' ? c.name.replace(/\s+/g, ' ').trim() : ''
+    if (!name || name.length > 60 || /[<>]/.test(name)) return { error: 'Every client needs a name of up to 60 characters, without < or >.' }
+    if (seen.has(name.toLowerCase())) return { error: `${name} is on the list twice.` }
+    seen.add(name.toLowerCase())
+    const logo = typeof c.logo === 'string' ? c.logo : ''
+    if (logo && !LOGO.test(logo)) return { error: `The logo for ${name} has an address the site cannot use.` }
+    clients.push({ name, logo, tone: c.tone === 'dark' ? 'dark' : 'light' })
+  }
+  return { value: { aboutBio: bio, clients } }
+}
+
+const LOGO = /^\/img\/clients\/[a-z0-9-]+\.(webp|png)$/
+const MAX_LOGO = 400 * 1024
+const MAX_TOTAL = 3 * 1024 * 1024
+export const logosIn = (content) => new Set((content?.clients || []).map((c) => c.logo).filter(Boolean))
+
+// A new logo must be a real WebP or PNG of a sensible size, at the address a client is using. A logo a client points
+// at has to be either new or already on the site.
+export function validateUploads(input, value, had) {
+  const files = []
+  const entries = Object.entries(input && typeof input === 'object' ? input : {})
+  const using = logosIn(value)
+  let total = 0
+  for (const [path, base64] of entries) {
+    if (!LOGO.test(path) || !using.has(path) || typeof base64 !== 'string') return { error: 'A logo could not be read. Choose it again.' }
+    const bytes = Buffer.from(base64, 'base64')
+    total += bytes.length
+    const webp = bytes.subarray(0, 4).toString('latin1') === 'RIFF' && bytes.subarray(8, 12).toString('latin1') === 'WEBP'
+    const png = bytes.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
+    if (!(path.endsWith('.webp') ? webp : png)) return { error: 'A logo is not the kind of picture it says it is. Choose it again.' }
+    if (bytes.length > MAX_LOGO) return { error: 'A logo is too large. Choose a simpler file.' }
+    files.push([path, base64])
+  }
+  if (total > MAX_TOTAL) return { error: 'That is too many new logos to publish at once. Publish a few, then the rest.' }
+  const fresh = new Set(files.map(([p]) => p))
+  for (const logo of using) if (!fresh.has(logo) && !had.has(logo)) return { error: 'A logo is missing. Choose it again.' }
+  return { files }
 }

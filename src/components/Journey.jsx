@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap, ScrollTrigger, useGSAP, reduced } from '../lib/gsap'
+import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
+import { device } from '../lib/device'
 import { education, experience } from '../data/content'
-import { Kicker } from './Head'
+import Head from './Head'
 
 const items = [
   ...experience.map((e) => ({ title: e.role, place: e.company, period: e.period, note: e.text, study: false })),
   ...education.map((e) => ({ title: e.title, place: e.institution, period: e.period, note: '', study: true })),
 ]
 
-/**
- * The journey, as in the previous portfolio: roles alternate either side of a centre lane, and
- * a path winds down through their markers. The scroll inks the path, a marker rides its tip,
- * and each role lights up and slides in as the reader reaches it.
- */
-export default function Journey({ n = '01' }) {
+// The journey: roles alternate either side of a centre lane, and a path winds down through their markers.
+// The scroll inks the path, a marker rides its tip, and each role lights up and slides in as you reach it.
+export default function Journey() {
   const root = useRef(null)
   const line = useRef(null)
   const tip = useRef(null)
@@ -24,7 +22,10 @@ export default function Journey({ n = '01' }) {
     const list = root.current.querySelector('.jr__list')
     const measure = () => {
       const box = list.getBoundingClientRect()
-      const pts = [...list.querySelectorAll('.jr__dot')].map((dot) => { const r = dot.getBoundingClientRect(); return [r.left + r.width / 2 - box.left, r.top + r.height / 2 - box.top] })
+      const pts = [...list.querySelectorAll('.jr__dot')].map((dot) => {
+        const r = dot.getBoundingClientRect()
+        return [r.left + r.width / 2 - box.left, r.top + r.height / 2 - box.top]
+      })
       if (pts.length < 2) return
       // the line sways inside the centre lane only, so it never crosses the text
       const sway = box.width >= 900 ? 58 : 9
@@ -45,36 +46,42 @@ export default function Journey({ n = '01' }) {
     return () => ro.disconnect()
   }, [])
 
-  useGSAP(
-    () => {
-      const el = root.current
-      if (!d || reduced()) return
-      const path = line.current
-      const len = path.getTotalLength()
-      const follow = (p) => {
-        const pt = path.getPointAtLength(len * p)
-        tip.current.setAttribute('transform', `translate(${pt.x} ${pt.y})`)
-        tip.current.style.opacity = p > 0.002 && p < 0.998 ? '1' : '0'
-      }
-      gsap.fromTo(path, { drawSVG: '0%' }, { drawSVG: '100%', ease: 'none', scrollTrigger: { trigger: '.jr__list', start: 'top 82%', end: 'bottom 78%', scrub: 0.3 }, onUpdate() { follow(this.progress()) } })
-      gsap.utils.toArray('.jr__item', el).forEach((item) => ScrollTrigger.create({ trigger: item, start: 'top 84%', onEnter: () => item.classList.add('is-lit'), onLeaveBack: () => item.classList.remove('is-lit') }))
-      el.classList.add('is-live')
-      return () => el.classList.remove('is-live')
-    },
-    { scope: root, dependencies: [d] },
-  )
+  useGSAP(() => {
+    const el = root.current
+    if (!d || device().reduced) return undefined
+    const path = line.current
+    const len = path.getTotalLength()
+    path.style.strokeDasharray = `${len} ${len}`
+    const follow = (p) => {
+      const pt = path.getPointAtLength(len * p)
+      tip.current.setAttribute('transform', `translate(${pt.x} ${pt.y})`)
+      const on = p > 0.002 && p < 0.998
+      tip.current.style.opacity = on ? '1' : '0'
+      tip.current.classList.toggle('is-on', on)
+    }
+    const s = { p: 0 }
+    gsap.to(s, {
+      p: 1,
+      ease: 'none',
+      scrollTrigger: { trigger: el.querySelector('.jr__list'), start: 'top 82%', end: 'bottom 78%', scrub: 0.3 },
+      onUpdate: () => { path.style.strokeDashoffset = len * (1 - s.p); follow(s.p) },
+    })
+    path.style.strokeDashoffset = len
+    gsap.utils.toArray('.jr__item', el).forEach((item) => ScrollTrigger.create({ trigger: item, start: 'top 84%', onEnter: () => item.classList.add('is-lit'), onLeaveBack: () => item.classList.remove('is-lit') }))
+    el.classList.add('is-live')
+    return () => el.classList.remove('is-live')
+  }, { scope: root, dependencies: [d] })
 
   return (
-    <section className="jr wrap" ref={root} data-theme="ivory" data-chapter="Journey" id="journey">
+    <section className="jr wrap" ref={root} id="journey" data-tone="ivory">
       <header className="jr__head">
-        <Kicker n={n} label="Journey" />
-        <h2 data-split>Roles, rooms <em>and lessons.</em></h2>
+        <Head label="Journey" title={<>Roles, rooms <em>and lessons.</em></>} />
         <span className="jr__legend" aria-hidden="true"><i className="is-work" />Experience<i />Education</span>
       </header>
       <div className="jr__list">
         <svg className="jr__svg" aria-hidden="true">
           <defs>
-            <linearGradient id="jr-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset=".3" stopColor="#42242d" /><stop offset="1" stopColor="#241419" /></linearGradient>
+            <linearGradient id="jr-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" className="jr__stop-a" /><stop offset=".3" className="jr__stop-b" /><stop offset="1" className="jr__stop-c" /></linearGradient>
           </defs>
           <path className="jr__track" d={d} />
           <path className="jr__ink" ref={line} d={d} />

@@ -99,8 +99,8 @@ export const products = [
 ]
 
 export const building = [
-  { slug: 'filigrana', title: 'Filigrana', field: 'Ethnic wear', sheet: 'A–101', url: 'https://filigrana-seven.vercel.app/', image: '/img/work/filigrana-v2.webp', plan: '/img/plan/filigrana-v2.webp', w: 1600, h: 808, description: 'Website for an ethnic wear brand.' },
-  { slug: 'svg-express', title: 'SVG Express', field: 'Online platform', sheet: 'A–102', url: 'https://svg-express-demo.vercel.app/', image: '/img/work/svg-express-v2.webp', plan: '/img/plan/svg-express-v2.webp', w: 1199, h: 573, description: 'Online platform for SVG Express.' },
+  { slug: 'filigrana', title: 'Filigrana', field: 'Ethnic wear', sheet: 'A-101', url: 'https://filigrana-seven.vercel.app/', image: '/img/work/filigrana-v2.webp', plan: '/img/plan/filigrana-v2.webp', w: 1600, h: 808, description: 'Website for an ethnic wear brand.' },
+  { slug: 'svg-express', title: 'SVG Express', field: 'Online platform', sheet: 'A-102', url: 'https://svg-express-demo.vercel.app/', image: '/img/work/svg-express-v2.webp', plan: '/img/plan/svg-express-v2.webp', w: 1199, h: 573, description: 'Online platform for SVG Express.' },
 ]
 
 export const experiments = [
@@ -124,7 +124,7 @@ export const services = [
   { title: 'UI/UX design', text: 'Interfaces designed around the people who use them: websites, apps and software that feel obvious to use and look considered.', items: ['Interface design', 'User flows', 'Prototypes', 'Motion'], icon: 'design' },
   { title: 'Web development', text: 'Full-stack builds that load in a blink on any phone, stay easy to update, and keep working long after launch.', items: ['React', 'Full-stack', 'Performance', 'Accessibility'], icon: 'code' },
   { title: 'E-commerce & catalogues', text: 'Online stores and digital catalogues for product businesses and exporters, made for buyers anywhere.', items: ['Online stores', 'Catalogues', 'Exporters', 'Payments'], icon: 'bag' },
-  { title: 'ERPs & CRMs', text: 'Software to run your operations and keep track of customers — inventories, quotations, invoices and logs.', items: ['Inventory', 'Quotations', 'Dashboards', 'Activity logs'], icon: 'grid' },
+  { title: 'ERPs & CRMs', text: 'Software to run your operations and keep track of customers - inventories, quotations, invoices and logs.', items: ['Inventory', 'Quotations', 'Dashboards', 'Activity logs'], icon: 'grid' },
   { title: 'SEO & AI search', text: 'Get found on Google, and in AI answers like ChatGPT and Gemini.', items: ['Technical SEO', 'Structured data', 'AI visibility', 'Local search'], icon: 'search' },
   { title: 'Mobile apps', text: 'iOS and Android apps, published to the App Store and Google Play.', items: ['iOS', 'Android', 'Store listing', 'Releases'], icon: 'phone' },
   { title: 'Cloud solutions', text: 'Hosting and servers that keep up as you grow.', items: ['AWS', 'Hosting', 'Domains', 'Monitoring'], icon: 'cloud' },
@@ -135,10 +135,10 @@ export const services = [
 
 export const process = [
   { no: 'I', room: 'The conversation', title: 'Discovery', text: 'It starts with listening: what the business makes, who buys it, and what the website must do for them. Then a clear scope everyone can hold.', tags: ['Goals', 'Audience', 'Scope'] },
-  { no: 'II', room: 'The drawing', title: 'Design', text: 'Structure first, then surface. Wireframes become a visual language — type, colour, motion — designed around your products, not a template.', tags: ['Wireframes', 'Visual design', 'Prototype'] },
+  { no: 'II', room: 'The drawing', title: 'Design', text: 'Structure first, then surface. Wireframes become a visual language - type, colour, motion - designed around your products, not a template.', tags: ['Wireframes', 'Visual design', 'Prototype'] },
   { no: 'III', room: 'The building', title: 'Development', text: 'Hand-built and responsive, fast on any phone, accessible, and simple for your team to update.', tags: ['Front-end', 'Back-end', 'CMS'] },
-  { no: 'IV', room: 'The opening', title: 'Launch', text: 'Domains, hosting, analytics and search set up properly, then a careful release — checked on real devices.', tags: ['Hosting', 'SEO', 'QA'] },
-  { no: 'V', room: 'The keys', title: 'Handover', text: 'Everything explained and documented, so the site belongs to you — not to whoever built it.', tags: ['Training', 'Docs', 'Access'] },
+  { no: 'IV', room: 'The opening', title: 'Launch', text: 'Domains, hosting, analytics and search set up properly, then a careful release - checked on real devices.', tags: ['Hosting', 'SEO', 'QA'] },
+  { no: 'V', room: 'The keys', title: 'Handover', text: 'Everything explained and documented, so the site belongs to you - not to whoever built it.', tags: ['Training', 'Docs', 'Access'] },
   { no: 'VI', room: 'The years after', title: 'Care', text: 'I stay in touch long after the site goes live: updates, improvements and a person to call.', tags: ['Updates', 'Support', 'Growth'] },
 ]
 
@@ -146,15 +146,15 @@ export const stats = [
   { value: '40', suffix: '+', label: 'Projects worked on, and counting' },
   { value: '17', suffix: '+', label: 'Certificates, trainings & simulations' },
   { value: '5.0', suffix: '', label: 'Average rating across nine client reviews' },
-  { value: '3', suffix: '', label: 'Languages spoken — English, Hindi, French' },
+  { value: '3', suffix: '', label: 'Languages spoken - English, Hindi, French' },
 ]
 
 export const writings = [
-  { slug: 'borrowed-brilliance', title: 'Borrowed Brilliance', sub: 'A thesis on the erosion of human skill through AI dependency', kind: 'Research paper', year: '2026', status: 'Published', url: 'https://doi.org/10.13140/RG.2.2.25183.83367', source: 'DOI · ResearchGate', page: '/img/write/writing-borrowed-brilliance-v2.webp', color: '#4b2631', ink: '#F0DFC0', text: 'Work produced by AI but presented by a person is borrowed brilliance: competence displayed by the individual, owned by the model. The paper names the cost — Competence Debt — and closes with the Deliberate Friction Framework.' },
+  { slug: 'borrowed-brilliance', title: 'Borrowed Brilliance', sub: 'A thesis on the erosion of human skill through AI dependency', kind: 'Research paper', year: '2026', status: 'Published', url: 'https://doi.org/10.13140/RG.2.2.25183.83367', source: 'DOI · ResearchGate', page: '/img/write/writing-borrowed-brilliance-v2.webp', color: '#4b2631', ink: '#F0DFC0', text: 'Work produced by AI but presented by a person is borrowed brilliance: competence displayed by the individual, owned by the model. The paper names the cost - Competence Debt - and closes with the Deliberate Friction Framework.' },
   { slug: 'algorithmic-empathy', title: 'The Paradox of Algorithmic Empathy', sub: 'Can a machine understand suffering?', kind: 'Research paper', year: '2026', status: 'Published', url: 'https://zenodo.org/records/23289920', source: 'Zenodo', color: '#371f27', ink: '#EFE7CF', text: 'Can a machine truly understand human suffering, or does it only sound like it does?' },
   { slug: 'feedback-loop-collapse', title: 'Feedback Loop Collapse', sub: 'When AI learns from its own reflection', kind: 'Technical note', year: '2026', status: 'Published', url: 'https://zenodo.org/records/19024124', source: 'DOI 10.5281/zenodo.19024124', page: '/img/write/writing-feedback-loop-collapse.webp', color: '#2A211D', ink: '#D9B97E', text: 'As models learn from model-made text, their training data drifts from the real world. This note names the effect Corpus Entropy Decay and traces its cost to diversity, correctness and creativity. Published on Zenodo, 14 March 2026.' },
   { slug: 'to-the-moon-and-beyond', title: 'To the Moon and Beyond', sub: 'A book contribution', kind: 'Book contribution', year: '2021', status: 'Published', url: 'https://www.amazon.in/Moon-Beyond-Insha-Haque-ebook/dp/B09HKYJLFW', source: 'Blue Rose Publishers · Kindle', color: '#9C7A45', ink: '#231A15', text: 'A contribution to a book published by Blue Rose Publishers on 29 September 2021. Available as a Kindle ebook.' },
-  { slug: 'aabshar-e-khayaal', title: 'Aabshar-e-Khayaal', sub: 'Urdu poetry & reflective writing', kind: 'Poetry', year: 'Ongoing', status: 'On Instagram', url: 'https://www.instagram.com/aabshar_e_khayaal/', source: 'Instagram', color: '#3B1B2C', ink: '#E9CFA0', text: 'A waterfall of thought — Urdu poetry and reflective writing, published as an ongoing series.' },
+  { slug: 'aabshar-e-khayaal', title: 'Aabshar-e-Khayaal', sub: 'Urdu poetry & reflective writing', kind: 'Poetry', year: 'Ongoing', status: 'On Instagram', url: 'https://www.instagram.com/aabshar_e_khayaal/', source: 'Instagram', color: '#3B1B2C', ink: '#E9CFA0', text: 'A waterfall of thought - Urdu poetry and reflective writing, published as an ongoing series.' },
   { slug: 'the-psychology-framework', title: 'The Psychology Framework', sub: 'The architecture of how we think', kind: 'Book in progress', year: '2026', status: 'Forthcoming', url: '', source: 'In progress', color: '#D9CFBD', ink: '#3B302B', text: 'An upcoming book on the architecture of how we think. Details soon.' },
 ]
 
@@ -162,31 +162,15 @@ export const reviews = [
   { name: 'Danish Faiz', company: 'Erfolg Living', location: 'India', date: 'Nov 2025', quote: 'Completely transformed erfolg’s online presence, great working with you' },
   { name: 'Laiba Masood', company: 'SIAAM Logistics', location: 'Saudi Arabia', date: 'Dec 2025', quote: 'Excellent overall experience. very thoughtful, collaborative and impressive. Thank you so much Rushan' },
   { name: 'MO. Saud', company: 'AF International', location: 'India', date: 'Apr 2026', quote: 'I got website for my sister concern firm Aurelio. Loved the ideas, great design, keep going' },
-  { name: 'Kanishka', company: 'Nublin', location: 'Poland', date: 'Apr 2026', quote: 'Amazing person amazing work, Loved it🤩' },
+  { name: 'Kanishka', company: 'Nublin', location: 'Poland', date: 'Apr 2026', quote: 'Amazing person amazing work, Loved it' },
   { name: 'Sufiyan', company: 'Casa&Crop', location: 'India', date: 'Jan 2026', quote: 'quite creative, very impressive' },
   { name: 'Rafay Zahid', company: 'Barha', location: 'India', date: 'Feb 2026', quote: 'Really happy with my website. Good work' },
   { name: 'Hammad', company: 'Velora International', location: 'India', date: 'Aug 2026', quote: 'Good work and amazing design' },
-  { name: 'Kanchan', company: '', location: 'Nepal', date: 'Apr 2026', quote: 'good tool really helps alot👍🏻' },
-  { name: 'MO. Ubaid', company: 'Sr. Merchandiser · Oliver McInroy & Co', location: 'India', date: 'Mar 2026', quote: 'Good work👍🏻👍🏻' },
+  { name: 'Kanchan', company: '', location: 'Nepal', date: 'Apr 2026', quote: 'good tool really helps alot' },
+  { name: 'MO. Ubaid', company: 'Sr. Merchandiser · Oliver McInroy & Co', location: 'India', date: 'Mar 2026', quote: 'Good work' },
 ]
 
-// Clientele. Add a logo later by dropping an SVG or PNG into /public/img/clients and setting
-// its `logo` path (e.g. '/img/clients/taif.svg'); until then each client is set as a wordmark.
-export const clients = [
-  { name: 'Taif International', field: 'Handicrafts · Export', place: 'Moradabad', url: 'https://taifinternational.co', logo: '' },
-  { name: 'Erfolg Living', field: 'Interiors', place: 'Moradabad', url: 'https://erfolgliving.com', logo: '' },
-  { name: 'Casa&Crop', field: 'Homeware · Export', place: 'Moradabad', url: 'https://casaandcrop.com', logo: '' },
-  { name: 'Aurelio', field: 'Furniture · Lighting', place: 'Moradabad', url: 'https://aurelio.in', logo: '' },
-  { name: 'AF International', field: 'Export manufacturing', place: 'Moradabad', url: '', logo: '' },
-  { name: 'Velora', field: 'Atelier · Metalware', place: 'Moradabad', url: 'https://www.veloralivings.in', logo: '' },
-  { name: 'IBM Consultancy', field: 'Immigration · Visas', place: 'New Delhi', url: 'https://www.ibmconsultancy.com', logo: '' },
-  { name: 'SIAAM Logistics', field: 'Logistics', place: 'Saudi Arabia', url: '', logo: '' },
-  { name: 'Nublin', field: 'Technology', place: 'Poland', url: '', logo: '' },
-  { name: 'Barha', field: 'Client website', place: 'India', url: '', logo: '' },
-  { name: 'Chaudharysons & Co.', field: 'Client website', place: 'India', url: '', logo: '' },
-]
-
-// Where I serve — the camera travels from home, across India, out to the world.
+// Where I serve - the camera travels from home, across India, out to the world.
 // Cities and copy carried over from the previous site's map.
 export const serve = {
   home: { name: 'Moradabad', lat: 28.84, lon: 78.77 },
@@ -242,15 +226,15 @@ export const serve = {
 }
 
 export const experience = [
-  { role: 'Project Manager', company: 'TechBuzz Ideas', period: 'Jul 2026 — Present', text: 'Leading end-to-end delivery of client web and software projects: scope, timelines and the client relationship.' },
-  { role: 'UI/UX Developer', company: 'TechBuzz Ideas', period: 'Apr 2026 — Jul 2026', text: 'Responsive interfaces for websites, custom software and mobile apps, with careful motion and interaction.' },
-  { role: 'Merchandiser', company: 'A.F. International', period: 'Jul 2025 — Jan 2026', text: 'Product development and production schedules for an export manufacturer, coordinating international buyers and vendors.' },
-  { role: 'Freelance Developer', company: 'Independent', period: '2024 — Present', text: 'Websites for commercial clients worldwide, including e-commerce stores and digital catalogues. The full lifecycle, from requirements to post-launch support.' },
+  { role: 'Project Manager', company: 'TechBuzz Ideas', period: 'Jul 2026 - Present', text: 'Leading end-to-end delivery of client web and software projects: scope, timelines and the client relationship.' },
+  { role: 'UI/UX Developer', company: 'TechBuzz Ideas', period: 'Apr 2026 - Jul 2026', text: 'Responsive interfaces for websites, custom software and mobile apps, with careful motion and interaction.' },
+  { role: 'Merchandiser', company: 'A.F. International', period: 'Jul 2025 - Jan 2026', text: 'Product development and production schedules for an export manufacturer, coordinating international buyers and vendors.' },
+  { role: 'Freelance Developer', company: 'Independent', period: '2024 - Present', text: 'Websites for commercial clients worldwide, including e-commerce stores and digital catalogues. The full lifecycle, from requirements to post-launch support.' },
 ]
 
 export const education = [
-  { title: 'B.Tech, Computer Science (IoT)', institution: 'Moradabad Institute of Technology', period: '2023 — 2027' },
-  { title: 'Senior Secondary (CBSE)', institution: 'Bonny Anne Public School', period: '2021 — 2023' },
+  { title: 'B.Tech, Computer Science (IoT)', institution: 'Moradabad Institute of Technology', period: '2023 - 2027' },
+  { title: 'Senior Secondary (CBSE)', institution: 'Bonny Anne Public School', period: '2021 - 2023' },
 ]
 
 export const certifications = [
@@ -259,7 +243,7 @@ export const certifications = [
   { title: 'Software Engineering Job Simulation', issuer: 'JPMorgan Chase · Forage', date: 'Feb 2026', kind: 'Simulation', image: '/img/cert/credential-jpmorgan-se.webp' },
   { title: 'Claude Code in Action', issuer: 'Anthropic', date: 'Mar 2026', kind: 'Training', image: '/img/cert/credential-claude-ai.webp' },
   { title: 'Model Context Protocol', issuer: 'Anthropic', date: '', kind: 'Training', image: '/img/cert/credential-anthropic-mcp.webp' },
-  { title: 'Gemini Certified Student — University', issuer: 'Google for Education', date: '2026', kind: 'Training', image: '/img/cert/credential-google-gemini.webp' },
+  { title: 'Gemini Certified Student - University', issuer: 'Google for Education', date: '2026', kind: 'Training', image: '/img/cert/credential-google-gemini.webp' },
   { title: 'Google Play Store Listing', issuer: 'Google Play Academy', date: 'Feb 2026', kind: 'Training' },
   { title: 'OCI 2025 Certified AI Foundations Associate', issuer: 'Oracle University', date: 'Oct 2025', kind: 'Training', image: '/img/cert/credential-oracle-cloud.webp' },
   { title: 'Oracle Fusion AI', issuer: 'Oracle University', date: '', kind: 'Training', image: '/img/cert/credential-oracle-fusion-ai.webp' },
@@ -281,7 +265,7 @@ export const skills = {
 export const languages = ['English', 'Hindi', 'French']
 
 export const insights = [
-  { tag: 'Design', title: 'Make room for the idea.', text: 'A crowded screen asks the reader to make all the decisions. White space is not a pause in the design. It is part of the sentence — it gives an image its scale, a line its emphasis, and an idea enough room to land.' },
+  { tag: 'Design', title: 'Make room for the idea.', text: 'A crowded screen asks the reader to make all the decisions. White space is not a pause in the design. It is part of the sentence - it gives an image its scale, a line its emphasis, and an idea enough room to land.' },
   { tag: 'Interaction', title: 'Motion needs a reason.', text: 'A transition can explain a relationship; a small response can confirm an action. When everything moves with equal urgency, nothing has emphasis. Motion works best when it has a hierarchy, just like typography.' },
   { tag: 'Thinking', title: 'Stay with the question.', text: 'Writing is a way to test an idea. Assumptions become visible when they have to fit inside a sentence. The aim is clarity about what is known, what is inferred, and what still needs a better question.' },
 ]
@@ -290,8 +274,8 @@ export const faq = [
   { q: 'Do you work with clients outside India?', a: 'Yes. Clients so far are in India, Saudi Arabia, Poland and Nepal, and most of the export businesses I build for sell to buyers in dozens of countries. Everything runs smoothly over calls, WhatsApp and email.' },
   { q: 'What does a project include?', a: 'The whole lifecycle: discovery, design, development, hosting and handover. You get a site that is fast on phones, set up for search, and simple for your team to update.' },
   { q: 'Can you redesign the website I already have?', a: 'Yes. We start from what works on your current site, keep what you have earned in search, and rebuild the rest around your products and buyers.' },
-  { q: 'What happens after launch?', a: 'I stay in touch long after the site goes live — updates, improvements, new pages, and a person to call when something needs doing.' },
-  { q: 'Do you build online stores and software too?', a: 'Yes — e-commerce stores, digital catalogues, inventory systems, CRMs and tools like Mailwright. If your team does it by hand today, it can probably be software tomorrow.' },
+  { q: 'What happens after launch?', a: 'I stay in touch long after the site goes live - updates, improvements, new pages, and a person to call when something needs doing.' },
+  { q: 'Do you build online stores and software too?', a: 'Yes - e-commerce stores, digital catalogues, inventory systems, CRMs and tools like Mailwright. If your team does it by hand today, it can probably be software tomorrow.' },
 ]
 
 export const allProjects = [...works, ...products]

@@ -1,0 +1,151 @@
+/* -- what stays still: one solid bar ------------------------------------------------------- */
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: var(--z-chrome); height: var(--bar-h); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
+  padding-inline: var(--m); color: var(--ink);
+}
+.bar::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgb(var(--paper-rgb) / 0.985); box-shadow: inset 0 -1px 0 var(--line); opacity: 0; transition: opacity 0.35s linear; }
+.bar.is-stuck::before { opacity: 1; }
+@media (hover: hover) { .bar::before { background: rgb(var(--paper-rgb) / 0.84); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); } }
+.bar__line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; opacity: 0; transition: opacity 0.35s linear; }
+.bar.is-stuck .bar__line { opacity: 1; }
+.bar__home { justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--t-sm); font-weight: 500; font-stretch: 108%; letter-spacing: -0.012em; }
+.bar__mark { display: block; will-change: transform; }
+/* on the first screen the name is the screen: the bar doesn't say it twice */
+.bar__home > span:last-child { transition: opacity 0.5s var(--ease); }
+.bar.is-first .bar__home > span:last-child { opacity: 0; }
+.mark { display: block; }
+.bar__nav { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: clamp(4px, 1vw, 14px); font-size: var(--t-sm); font-weight: 450; }
+.bar__link { display: inline-flex; align-items: center; height: 40px; padding-inline: 8px; transition: color 0.3s var(--ease); }
+.bar__link[aria-current='page'] { color: var(--accent); }
+.bar__link--cta { height: 38px; margin-left: 4px; padding-inline: 16px; border-radius: 99px; background: var(--ink); color: var(--on-ink); font-weight: 500; }
+.bar__link--cta[aria-current='page'] { color: var(--on-ink); }
+.bar__menu { display: none; position: relative; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--on-ink); }
+.bar__menu i { position: absolute; left: 12px; right: 12px; top: 50%; height: 1.4px; margin-top: -0.7px; background: currentColor; transition: transform 0.65s var(--ease); }
+.bar__menu i:nth-child(1) { transform: translateY(-3.2px); }
+.bar__menu i:nth-child(2) { transform: translateY(3.2px); }
+.is-menu .bar__menu i:nth-child(1) { transform: rotate(45deg); }
+.is-menu .bar__menu i:nth-child(2) { transform: rotate(-45deg); }
+.is-menu .bar { z-index: calc(var(--z-menu) + 1); }
+.is-menu .bar::before, .is-menu .bar__line { opacity: 0; }
+
+/* Where you are on the page, in the middle of the bar. */
+.dial { grid-column: 2; position: relative; transition: opacity 0.4s var(--ease), visibility 0.4s; }
+.dial.is-away:not(.is-open) { opacity: 0; visibility: hidden; }
+.dial__face { display: flex; align-items: center; gap: 9px; min-height: 40px; padding-inline: 12px; font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; transition: color 0.3s; }
+.dial__face:hover { color: var(--ink); }
+.dial__face i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.dial__face svg { transition: rotate 0.4s var(--ease); }
+.dial__name { display: inline-block; overflow: hidden; line-height: 1.5; }
+.dial__name > span { display: inline-block; animation: dialRoll 0.75s var(--ease) both; }
+@keyframes dialRoll { from { transform: translateY(105%); opacity: 0; } }
+.dial.is-open .dial__face svg { rotate: 180deg; }
+.dial__list { position: absolute; left: 50%; top: calc(100% + 6px); translate: -50% 0; min-width: 230px; padding: 10px 8px; border-radius: 14px; background: var(--paper-2); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -20px rgb(0 0 0 / 0.8); opacity: 0; transform: translateY(-6px); visibility: hidden; transition: opacity 0.3s var(--ease), transform 0.5s var(--ease), visibility 0.3s; }
+.dial.is-open .dial__list { opacity: 1; transform: none; visibility: visible; }
+.dial__list button { width: 100%; min-height: 34px; padding: 6px 10px; border-radius: 8px; text-align: left; font-size: var(--t-sm); color: var(--ink-2); transition: color 0.2s, background 0.2s; }
+.dial__list button:hover { color: var(--ink); background: var(--panel); }
+.dial__list li.is-on button { color: var(--accent); }
+@media (max-width: 899px), (max-height: 500px) { .dial { display: none; } }
+
+/* a quiet link draws its own underline */
+.bar__link:not(.bar__link--cta), .foot__col a, .foot__dir a, .foot__base a, .menu__line, .names__meta a {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.6s var(--ease), color 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .bar__link:not(.bar__link--cta):hover, .foot__col a:hover, .foot__dir a:hover, .foot__base a:hover, .menu__line:hover { background-size: 100% 1px; }
+}
+.bar__link:not(.bar__link--cta) { background-position: 8px calc(100% - 7px); background-size: 0 1px; }
+@media (hover: hover) { .bar__link:not(.bar__link--cta):hover { background-size: calc(100% - 16px) 1px; } }
+
+/* -- buttons ---------------------------------------------------------------------------- */
+.btn {
+  position: relative; display: inline-flex; align-items: center; gap: 12px; isolation: isolate; overflow: hidden; min-height: 46px;
+  padding: 5px 5px 5px 20px; border-radius: 99px; font-size: var(--t-sm); font-weight: 500; white-space: nowrap; color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition: color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.btn__fill {
+  position: absolute; z-index: -1; left: var(--x, 50%); top: var(--y, 50%); width: 340%; aspect-ratio: 1; background: var(--accent);
+  translate: -50% -50%; scale: 0;
+  clip-path: polygon(50% 0%, 61.2% 22.9%, 85.4% 14.6%, 77.1% 38.8%, 100% 50%, 77.1% 61.2%, 85.4% 85.4%, 61.2% 77.1%, 50% 100%, 38.8% 77.1%, 14.6% 85.4%, 22.9% 61.2%, 0% 50%, 22.9% 38.8%, 14.6% 14.6%, 38.8% 22.9%);
+  transition: scale 0.8s var(--ease);
+}
+.btn__label { position: relative; display: inline-block; overflow: hidden; line-height: 1.4; }
+.btn__label > span { display: inline-block; transition: transform 0.65s var(--ease); }
+.btn__label > span[data-t]::after { content: attr(data-t); position: absolute; left: 0; top: 100%; }
+.btn__socket {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--panel); flex: none;
+  transition: transform 0.65s var(--ease), background 0.4s var(--ease);
+}
+@media (hover: hover) {
+  .btn:hover .btn__fill { scale: 1; }
+  .btn:hover { color: var(--on-accent); box-shadow: none; }
+  .btn:hover .btn__label > span[data-t] { transform: translateY(-100%); }
+  .btn:hover .btn__socket { transform: translate(2px, -1px) scale(1.05); background: color-mix(in srgb, currentColor 16%, transparent); }
+}
+.btn--solid { background: var(--ink); color: var(--on-ink); box-shadow: none; }
+.btn--solid .btn__socket { background: color-mix(in srgb, currentColor 14%, transparent); }
+.btn[disabled] { opacity: 0.55; pointer-events: none; }
+
+/* -- the label that follows the pointer over a picture ------------------------------------ */
+.cursor { position: fixed; left: 0; top: 0; z-index: var(--z-cursor); pointer-events: none; will-change: transform; }
+.cursor span {
+  display: block; translate: 14px 14px; padding: 5px 11px; border-radius: 99px; background: var(--ink); color: var(--on-ink); white-space: nowrap;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.01em; opacity: 0; scale: 0.8; transform-origin: 0 0;
+  transition: opacity 0.25s var(--ease), scale 0.45s var(--ease);
+}
+.cursor.is-on span { opacity: 1; scale: 1; }
+
+/* -- menu: shutters --------------------------------------------------------------------- */
+.menu {
+  position: fixed; inset: 0; z-index: var(--z-menu); visibility: hidden;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); padding: clamp(84px, 14vh, 130px) var(--m) calc(clamp(24px, 5vh, 56px) + var(--safe-b));
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.menu__slats { position: fixed; inset: 0; display: flex; perspective: 1600px; }
+.menu__slat { flex: 1 1 0; height: 100%; margin-right: -1px; background: var(--paper-2); transform-origin: 50% 50%; backface-visibility: hidden; box-shadow: inset 1px 0 0 rgb(var(--ink-rgb) / 0.05); }
+.menu__nav { position: relative; grid-column: 1 / span 7; align-self: end; }
+.menu__mask { overflow: hidden; padding-block: 0.05em; }
+.menu__big { display: inline-grid; padding-block: 0.04em; align-items: center; font-size: clamp(44px, 10.5vh, 104px); font-stretch: 112%; font-weight: 400; letter-spacing: -0.038em; line-height: 1.08; }
+.menu__big { transition: color 0.3s var(--ease); }
+@media (hover: hover) { .menu__big:hover { color: var(--accent); } }
+.menu__side { position: relative; grid-column: 9 / -1; align-self: end; display: grid; gap: 20px; padding-bottom: 0.6em; }
+.menu__line { display: block; font-size: var(--t-md); }
+.menu__soc { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; font-size: var(--t-md); }
+.menu__fade .note { margin-bottom: 3px; }
+.menu a:not(.menu__big):hover { color: var(--accent); }
+
+/* -- iris: between pages ------------------------------------------------------------------ */
+.iris { position: fixed; inset: 0; z-index: var(--z-iris); display: none; place-items: center; background: var(--wine); color: var(--gold); pointer-events: all; }
+.iris__word { display: flex; flex-direction: column; align-items: center; gap: 6px; visibility: hidden; font-size: clamp(30px, 4.6vw, 64px); font-stretch: 112%; letter-spacing: -0.03em; }
+
+/* a picture you click flies to its place on the next page, and the two pages cross behind it; the browser runs all of it off the main thread */
+::view-transition-group(plate) { z-index: 3; animation-duration: 0.95s; animation-timing-function: var(--door); }
+::view-transition-old(plate), ::view-transition-new(plate) { height: 100%; object-fit: cover; animation-duration: 0.95s; mix-blend-mode: normal; }
+::view-transition-old(root) { animation: pageOut 0.55s var(--ease) both; }
+::view-transition-new(root) { animation: pageIn 0.85s 0.12s var(--ease) both; }
+@keyframes pageOut { to { opacity: 0; transform: scale(0.985); } }
+@keyframes pageIn { from { opacity: 0; transform: translateY(26px); } }
+
+/* -- the very first frame: sandstone, and the word written across it ------------------------ */
+.intro .bar, .intro .thr__cue, .intro .thr__meta { opacity: 0; }
+
+@media (max-width: 760px) {
+  .bar { grid-template-columns: 1fr auto; }
+  .bar__nav { grid-column: 2; }
+  .bar__nav .bar__link { display: none; }
+  .bar__menu { display: block; }
+  .menu { display: flex; flex-direction: column; justify-content: flex-end; gap: 30px; padding-top: calc(var(--bar-h) + 16px); }
+  .menu__nav, .menu__side { align-self: stretch; }
+  .menu__big { font-size: clamp(40px, min(13.5vw, 9.5vh), 70px); }
+  .menu__side { grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+  .menu__side .menu__fade:first-child { grid-column: 1 / -1; }
+  .menu__line { font-size: var(--t-sm); }
+}
+/* a phone on its side: names on the left, details on the right, all of it on screen */
+@media (max-height: 520px) {
+  .menu { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); padding-top: calc(var(--bar-h) + 8px); padding-bottom: 14px; align-items: center; }
+  .menu__nav { grid-column: 1 / span 6; align-self: center; }
+  .menu__side { grid-column: 7 / -1; align-self: center; grid-template-columns: 1fr 1fr; gap: 10px 16px; padding: 0; }
+  .menu__big { font-size: clamp(30px, 14vh, 58px); }
+  .menu__line, .menu__soc { font-size: var(--t-sm); }
+}

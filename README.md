@@ -1,118 +1,71 @@
-# Rushan Haque — Portfolio
+# Rushan Haque
 
-A multi-page portfolio built with **React 18, Vite 6, GSAP 3.15 (ScrollTrigger, SplitText, ScrambleText, DrawSVG, Draggable, Inertia) and Lenis**, with self-hosted fonts. The palette is white first and wine second, with wine-black for the dark rooms and brushed brass for detail.
+The portfolio of Rushan Haque, website developer and designer in Moradabad, India. Live at [rushanhaque.in](https://www.rushanhaque.in).
 
-**Type.** The same pairing as the previous portfolio: **Geist** for reading and display, with **Instrument Serif** italic as its italic, so every emphasised word turns to a fine serif. Labels are **Martian Mono**. All self-hosted in `public/fonts` (licences included), wired in `src/styles/base.css`.
+A dark, clean site in the wine and brass of the previous portfolio. The Work page opens with the one 3D background on the site: a walk down a sunlit corridor of arches, one client site in each bay.
 
-**Motion vocabulary** (`src/lib/useReveals.js`):
-- Section labels settle letter by letter, like a departure board.
-- Titles rise word by word out of masks; a small figure count sits against each one.
-- Image frames wipe open while the picture settles from a zoom.
-- Work images bloom from grey to colour as they cross the middle of the screen.
-- Links and buttons roll letter by letter on hover. No hover overshoots or springs anywhere.
-- The header palette follows whichever section is under it, however far you jump.
+## Stack
+
+- React 19, Vite 8, React Router 7. Every page is prerendered to HTML at build time, then React takes over.
+- GSAP (ScrollTrigger, SplitText) for scroll and reveals. Draggable and Inertia load only with the Work page.
+- Lenis for wheel smoothing, on desktop only. Touch devices never download it.
+- Raw WebGL2 with no 3D library, for the Work page corridor and the Where I serve globe. It lives in its own chunk (`src/gl`), and the page is complete without it.
+
+## Commands
 
 ```bash
 npm install
-npm run dev       # http://localhost:5190
-npm run build     # pre-rendered site in dist/: every page as finished HTML, plus sitemap, robots.txt and llms.txt
-npm run preview   # serve the build on :5191
-npm run indexnow  # after a deploy is live: tell Bing, Yandex and other IndexNow engines about every page
+npm run dev       # http://localhost:5300
+npm run build     # browser build, server build, then prerenders every page into dist/
+npm run preview   # serves dist/
+npm run globe     # rebuilds the globe map in public/data
+npm run indexnow  # tells search engines what changed
 ```
 
-## Home, in order
+Deployed on Vercel. See `vercel.json` for redirects, clean URLs and headers.
 
-| # | Section | What happens |
-|---|---------|--------------|
-| — | **Hero** | Only the name, drawn in a few thousand dots (ivory and brass) over a live WebGL liquid in wine. Beneath it, the roles line from the previous portfolio: "Developer" decodes out of `<developer />`, then "& writer." joins in serif italic. The dots gather on arrival, part around the cursor, and blow apart as an aperture opens onto the next chapter. |
-| 01 | **Recent works** | A deck of cases. Each site is a large dark card: its home page edge to edge, and a bar with number, field, name, line, year, status and the ways in. On wide screens the cards are held in a stack: the next rises over the last, which recedes and dims, leaving a sliver of each at the top; a picture settles and the name lifts in as its card arrives, and a round "View case" follows the pointer over a picture. On phones the cards simply follow one another down the page; nothing is held. |
-| 02 | **Currently building** | The window from the previous portfolio's recent works: the names scroll by on the left, and as each reaches the middle a liquid, noise-edged front rises through the window (falls, scrolling back) with the next site behind it, in one wipe. Under the cursor the page bulges softly and a brass-ringed lens shows the line drawing beneath it. On touch screens nothing is held: each site shows its own picture in the list. |
-| 03 | **Products** | Inventory software and Mailwright. Each screen settles flat as you scroll, and the steps light up in turn. |
-| 04 | **Clientele** | A ledger of the brands: number, city, logo (or wordmark) and trade on each card, a light tint and brass corner marks under the pointer, and an open card for the next brand. The cards are not links. |
-| — | *Narration* | Between some chapters a single line carries the story on ("Behind every build is a business…"); its words brighten as you read down. Also before Reviews and Writing. |
-| 05 | **Where I serve** | A white paper map opens as the section arrives, and the scroll itself drives it: the camera glides from Moradabad to India to the world, routes draw in dark maroon, pins and labels land as each route arrives, and the counters count up. Live coordinates, a scale bar and local clocks. |
-| 06 | **Other services** | Ten services as sheets on a drawing board. On wide screens the section holds still and the scroll slides the sheets past: the one at the margin comes forward, its pictogram draws and its outlined numeral warms; the last sheet asks for anything not on the list. On phones it is a row you swipe. |
-| 07 | **Reviews** | Client notes pinned to a drawing board. Pick one up and throw it on a desktop; swipe on phones. |
-| 08 | **Writing** | Papers and books on a walnut shelf. |
-| 09 | **About** | The working sentence with client sites set into it, then a dossier: a profile card with local time and availability, beside the bio, facts and numbers. |
+## Environment
 
-The other pages are `/work` (the client sites one at a time in a single browser window that wipes between them), `/work/:slug` (case study with a drawing-vs-built slider), `/about` (with the previous portfolio's journey: roles either side of a path the scroll inks, a marker riding its tip), `/contact` and a 404 page.
+Copy `.env.example`. All of these are optional for local work.
 
-The hero carries small print in its corners (where, and the years of selected work), and the footer ends with a colophon.
+| Variable | Used for |
+| --- | --- |
+| `VITE_FORMSPREE_ID` | The form endpoint. Falls back to the id in `src/config/site.js`. |
+| `ADMIN_PUBLISH_SECRET` | The password for `/admin`. |
+| `CMS_SESSION_SECRET` | Signs the admin session cookie. |
+| `GITHUB_TOKEN` | Lets `/admin` commit the edited About text. |
+| `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION` | Search console tags, added at build. |
 
-**Header — the Folio.** The RH mark leads, with the name beside it on wide screens (it folds away once you leave the top and returns under the pointer); the middle names the chapter you are reading and rolls over as the next begins; the bar's bottom edge is a ruler of the whole page with a tick where each chapter starts. Hover the ruler and it opens into a labelled timeline: click a chapter to go to it, or drag to scrub the page. Work, About and "Let's talk" sit at the right on every screen, phones included. Chapters are read from `[data-chapter]` on any page.
+## Where things live
 
-**The mark.** R and H as one ligature: the R's bowl rounds into the stem both letters share, its leg lands at that stem's foot, one hairline is the bowl's close and the H's crossbar, and a brass full stop is the point of light (Rushan means light). It lives in `src/components/Logo.jsx`; `node scripts/brand.mjs` renders the favicon, the app and Apple icons and the 1200×630 share image (`public/og.png`) from the same drawing.
-
-**Footer signature.** The name in ivory with an engraved-brass copy laid over it: as it arrives the letters rise and a light sweeps once across, and after that the light follows the pointer (a tap places it on phones), turning the letters to engraved brass wherever it falls. The letters never move.
-
-**Client logos.** Drop a file named after the client into `src/assets/clients/` (`taif-international.svg`, `erfolg-living.png`, …; the folder's README lists every name) and it replaces the wordmark in the Clientele ledger on the next build.
-
-**Contact** comes from the previous portfolio: a one-screen Connect page over a softened OpenStreetMap view of Moradabad, with WhatsApp and email cards, a booking button and a two-field form. Buttons fill with the old hatch-then-solid sweep.
-
-## Adding client logos
-
-Put each logo in `public/img/clients/`, as SVG preferably (a transparent PNG also works). Then set its path in `src/data/content.js`:
-
-```js
-{ name: 'Taif International', field: 'Handicrafts · Export', place: 'Moradabad', url: 'https://taifinternational.co', logo: '/img/clients/taif.svg' },
+```
+src/
+  sections/     the rooms of the home page, in walking order (see pages/Home.jsx)
+  pages/        Home, Work, Case, Product, About, Contact, Landing (guides, services, areas), Admin
+  components/   Chrome, Menu, Loader, Transition (the star between pages), Sundial (section list), Btn, Ur, Lens, Footer
+  lib/
+    director.js   turns scroll position into the current section and the scene to draw
+    sun.js        the hour, which sets the angle of the sun in the corridor
+    corridor.js   the gallery's geometry, shared by the canvas and the real picture elements
+    places.js     the globe camera and projection, shared by the canvas and the city labels
+    reveal.js     the scroll reveals, asked for in markup with data-r
+    seo.js        titles, descriptions and structured data for every route
+  gl/           Engine, and one file per scene in gl/stages
+  data/         content.js holds the words; editable.json is what /admin edits; seo/ holds the guides
+  styles/       tokens, base, chrome, sections (home), pages (everything else)
+scripts/        prerender, atlas and search helpers
+api/            the admin endpoints (Vercel functions)
 ```
 
-Logos show in greyscale and turn to full colour on hover. Clients without a logo keep their wordmark.
+## How it stays fast
 
-## Admin
+- The page is finished HTML before any script runs. The canvas loads when the browser is idle and fades in over it.
+- The canvas draws only when something changed, each scene at its own resolution, and quality steps down by itself if frames run long. If it keeps struggling, it turns off.
+- Devices with no usable GPU, or that ask for reduced motion, get a plain version with the same words and pictures: the corridor becomes a simple list.
+- Three fonts, subset, about 85 kB.
 
-`/admin` (kept out of search and the sitemap) edits the About text, shown on the About page and the home page's About section. Sign in with the admin password, change the text, press Publish: the change is committed to `src/data/editable.json` on GitHub, Vercel rebuilds, and it is live about a minute later. Two Vercel serverless functions do the work (`api/admin/session.js`, `api/admin/content.js`) and need these environment variables on Vercel, the same names the previous site's admin used:
+Add `?tier=low`, `?tier=mid` or `?tier=high` to any URL to force a quality level, and `?skip` to skip the opening.
 
-| Variable | What it is |
-|---|---|
-| `ADMIN_PUBLISH_SECRET` | the admin password |
-| `GITHUB_TOKEN` | a GitHub fine-grained token with *Contents: Read and write* on `rushanhaque/rushanhaque.in` |
-| `CMS_SESSION_SECRET` | optional: a long random string that signs the sign-in cookie (the password is used if absent) |
+## Editing content
 
-## Deploying
-
-`npm run build` builds the browser bundle, then a server bundle (`src/entry-server.jsx`) that `scripts/prerender.mjs` uses to write every route as a finished HTML page: words, title, description, canonical, language alternates and structured data already in place. The browser app then takes over. Unknown addresses get a real 404 page.
-
-- **Vercel** (the live site): `vercel.json` sets the build, clean URLs (`/about` serves `about.html`), the bare domain → `www` move, permanent redirects from every address the previous site used (`/projects`, `/connect`, `/reviews`, `/pricing`…), and caching and security headers.
-- **Contact form**: sends through Formspree (form `mdeanqre`, set in `src/config/site.js`; `VITE_FORMSPREE_ID` overrides it). If Formspree is unreachable, the form offers email or WhatsApp with the message already written.
-- **Search Console and Bing**: set `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION` in Vercel's environment variables (the same names the previous site used) and the meta tags are written into every page at build time. DNS verification works too and needs nothing here.
-- **Domain**: `https://www.rushanhaque.in` lives in `src/config/site.js` (`url`); everything else, including the sitemap and robots.txt, is generated from it.
-
-## Search (SEO) and AI answers (GEO)
-
-- **Every page is real HTML** before any JavaScript runs, so Google, Bing and the AI crawlers that don't run scripts (ChatGPT, Claude, Perplexity) read the full words of every page.
-- **Head**: one source, `src/lib/seo.js`: a title and description per page, canonical, robots, Open Graph and Twitter cards, `hreflang` pairs for the Hindi pages, `lang="hi"` on them. `<Seo />` keeps the head right as you move between pages.
-- **Structured data**: Person, ProfessionalService (Moradabad address, geo, every area served, the service catalogue) and WebSite as one linked graph on the home page; Service, Article, FAQPage, BreadcrumbList, CreativeWork, SoftwareApplication, ProfilePage, CollectionPage and ContactPage on the pages they describe.
-- **Landing pages**: the 44 guides, service pages and area pages from the previous site, at the same addresses and with their words unchanged (`src/data/seo/`, laid out by `src/pages/Landing.jsx`). They stay out of the main navigation and are listed in the footer's small directory and in each page's Explore block. Hindi: `/website-kaise-banwaye`, `/website-banwaye-moradabad`.
-- **Files**: `/sitemap.xml` (with images and language pairs), `/robots.txt` (search engines and AI assistants all welcome), `/llms.txt` and `/llms-full.txt` (plain-text summaries for AI assistants), the IndexNow key file, `/site.webmanifest`.
-
-**Still yours to do, and they matter more than anything in the code** (the full playbook from the previous site still applies):
-1. Google Search Console: verify, submit `/sitemap.xml`, request indexing for the home page and the Moradabad pages. Then Bing Webmaster Tools (it also feeds ChatGPT search and DuckDuckGo), then `npm run indexnow`.
-2. Google Business Profile as a website designer in Moradabad, linked to `/website-designer-in-moradabad`. This is what wins "near me" searches and the map pack.
-3. Google reviews from every client, and a "Website by Rushan Haque" footer link on every client site.
-4. The same name, address and phone on JustDial, IndiaMART, Sulekha, Clutch, LinkedIn and the rest.
-
-## Re-skinning for a client
-
-| What | Where |
-|------|-------|
-| Name, contact, socials, navigation, domain | `src/config/site.js` |
-| Projects, products, clients, map cities, services, process, reviews, writing, roles, credentials, FAQ | `src/data/content.js` |
-| Palettes (night / ivory (white) / stone / wine) | `src/lib/theme.js` and the scoped blocks in `src/styles/base.css` |
-| Hero liquid colours | the `colors` prop of `HeroShader` in `src/sections/Hero.jsx` |
-| Spacing, grid and type scale | `:root` in `src/styles/base.css` |
-
-Every section opens with the same heading component (`src/components/Head.jsx`): number and label on a hairline, the title across seven columns with its count, the lede across the right four.
-
-## Speed
-
-- Work images ship at 1600px and 800px (`src/lib/img.js`); the browser picks the one it needs.
-- The name dots are sampled from the real type at its laid-out size, so they match at any screen width; the dot count drops on phones and low-power devices, and the canvas sleeps when nothing moves.
-- The hero shader is one fragment shader drawn at a fraction of screen resolution, and only while the hero is on screen. Without WebGL a CSS gradient shows instead.
-- The map data and the drag library load only when they are needed.
-- Reveals animate transform, opacity and clip-path only.
-- The loader, "Light.", plays about three seconds on a first visit to the home page only (a tap or key skips ahead); anyone arriving deeper, returning, on reduced motion or on an entry-level phone goes straight to the page. Its first frame, the point of light, is written into the home page's HTML, so it shows before any script loads. It animates only transform and opacity, plus one small canvas of dust (110 specks on phones).
-- **Three device tiers** (`src/lib/device.js`). Entry-level phones (2 GB memory or 2 cores), Data Saver and 2G connections get the CSS gradient instead of the WebGL hero, the plain wipe instead of the liquid window, native scrolling, and no frosted glass. Mid-range devices keep every scene at fewer pixels.
-- The landing pages' text stays out of the main bundle: the header and footer carry only a small generated index (`scripts/seo-index.mjs`).
-- `prefers-reduced-motion` turns off smooth scroll, the pinned scenes and the shader animation.
+Nearly all copy is in `src/data/content.js`. Contact details and navigation are in `src/config/site.js`. Each picture needs a 1600px file and a matching `-800.webp`.

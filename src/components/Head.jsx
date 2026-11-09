@@ -1,35 +1,14 @@
-const two = (n) => String(n).padStart(2, '0')
-
-/**
- * The one way every section opens: number and label on a hairline, the title on the left
- * seven columns with an optional count, the lede bottom-aligned on the right four.
- */
-export function Kicker({ n, label, line = true }) {
+// The one way every section opens: a label on a hairline, the title on the left and its summary on the right.
+export default function Head({ label, title, count, lede, aside, as: Tag = 'h2', className = '', id }) {
   return (
-    <div className="kick">
-      {n && <span className="kick__no">{n}</span>}
-      <span className="kick__label">{label}</span>
-      {line && <i className="kick__rule" data-line />}
-    </div>
-  )
-}
-
-/** A small count set against the top of a title, like a figure number. */
-export function Count({ n }) {
-  return <sup className="count" aria-hidden="true">({two(n)})</sup>
-}
-
-export default function Head({ n, label, title, count, lede, aside, className = '' }) {
-  return (
-    <header className={`sh ${className}`}>
-      <Kicker n={n} label={label} />
-      <h2 className="sh__title"><span data-split>{title}</span>{count != null && <Count n={count} />}</h2>
-      {(lede || aside) && (
-        <div className="sh__side">
-          {lede && <p className="sh__lede" data-reveal>{lede}</p>}
-          {aside}
-        </div>
-      )}
+    <header className={`sh ${className}`} data-r="head">
+      <div className="kick"><span>{label}</span><i /></div>
+      <Tag className="sh__title" id={id}>
+        {title}
+        {count != null && <sup className="count" aria-hidden="true">({String(count).padStart(2, '0')})</sup>}
+      </Tag>
+      {lede && <p className="sh__lede lede">{lede}</p>}
+      {aside && <div className="sh__lede">{aside}</div>}
     </header>
   )
 }

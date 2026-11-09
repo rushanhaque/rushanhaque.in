@@ -1,25 +1,55 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="static no-gl">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#120a0c" />
-    <meta name="author" content="Rushan Haque" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="geo.region" content="IN-UP" />
-    <meta name="geo.placename" content="Moradabad" />
-    <meta name="geo.position" content="28.8386;78.7733" />
-    <meta name="ICBM" content="28.8386, 78.7733" />
-    <!--app-head-->
-    <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/instrument-italic.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI assistants" />
+    <link rel="preload" href="/fonts/mona.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/six-caps.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/fraunces-name-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/fraunces-name-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <!--app-head-->
+    <style>
+      @font-face { font-family: 'Mona Sans'; src: url(/fonts/mona.woff2) format('woff2'); font-weight: 300 700; font-stretch: 100% 125%; font-style: normal; font-display: swap; }
+      @font-face { font-family: 'Mona Sans'; src: url(/fonts/mona-ext.woff2) format('woff2'); font-weight: 300 700; font-stretch: 100% 125%; font-style: normal; font-display: swap; unicode-range: U+0100-017F; }
+      @font-face { font-family: 'Six Caps'; src: url(/fonts/six-caps.woff2) format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+      /* only the letters of the name, for the first screen */
+      @font-face { font-family: 'Fraunces'; src: url(/fonts/fraunces-name-normal.woff2) format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
+      @font-face { font-family: 'Fraunces'; src: url(/fonts/fraunces-name-italic.woff2) format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
+      @font-face { font-family: 'DM Mono'; src: url(/fonts/dm-mono.woff2) format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+      html { background: #120a0c; } body { margin: 0; }
+      #cover { display: none; }
+      .intro #cover { display: grid; position: fixed; inset: 0; z-index: 90; place-items: center; background: #120a0c; color: #d9b97e; }
+      #cover svg { display: block; width: min(52vw, 340px); height: auto; overflow: visible; animation: write 1.15s cubic-bezier(.65, 0, .35, 1) .12s both; }
+      #cover i { display: block; width: min(30vw, 150px); height: 1px; margin: 22px auto 0; background: currentColor; opacity: .55; transform-origin: 100% 50%; animation: draw 1.15s cubic-bezier(.65, 0, .35, 1) .12s both; }
+      @keyframes write { from { clip-path: inset(-20% -5% -20% 105%); } to { clip-path: inset(-20% -5% -20% -5%); } }
+      @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+      @media (prefers-reduced-motion: reduce) { #cover { display: none !important; } }
+    </style>
+    <script>
+      (function () {
+        var h = document.documentElement, c = h.classList, r = matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (!r) c.remove('static')
+        try {
+          var n = navigator, t = new URLSearchParams(location.search).get('tier')
+          var low = n.connection && (n.connection.saveData || /(^|-)2g/.test(n.connection.effectiveType || '')) || (n.deviceMemory || 8) <= 2 || (n.hardwareConcurrency || 8) <= 2
+          if (!r && window.WebGL2RenderingContext && t !== 'low' && (t || !low)) c.add('can-gl')
+        } catch (e) {}
+        try {
+          if (!r && location.pathname === '/' && !sessionStorage.getItem('rh-seen') && location.search.indexOf('skip') < 0) {
+            c.add('intro')
+            setTimeout(function () { c.remove('intro'); var e = document.getElementById('cover'); if (e) e.remove() }, 7000)
+          }
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
+    <div id="cover" aria-hidden="true"><div><svg viewBox="40 -1119 1665 1490" fill="currentColor"><path d="M424 -104Q420 -104 415 -104Q410 -105 405 -106Q362 -117 341 -142Q320 -167 320 -189Q320 -209 330 -224Q340 -239 348 -249L388 -300L393 -300Q409 -272 432 -255Q454 -238 489 -231Q509 -228 509 -215Q509 -207 500 -195L447 -117Q441 -109 437 -106Q432 -104 424 -104ZM270 361Q196 361 147 325Q98 288 74 227Q50 165 50 91Q50 -7 80 -104Q110 -202 149 -296L181 -287Q152 -205 129 -134Q106 -63 106 15Q106 101 160 155Q213 209 311 209Q377 209 439 184Q501 159 552 109Q602 59 632 -15Q654 -68 661 -135Q668 -203 668 -269Q668 -307 666 -328Q663 -350 663 -362Q663 -379 670 -392Q677 -405 688 -405Q695 -395 705 -374Q715 -354 715 -317Q715 -224 706 -146Q696 -69 673 0Q650 69 608 138Q572 198 521 249Q470 299 407 330Q344 361 270 361ZM1007 -947Q1004 -947 1000 -947Q996 -948 991 -949Q959 -957 944 -976Q929 -996 929 -1015Q929 -1032 937 -1045Q945 -1058 952 -1066L985 -1109L990 -1109Q1000 -1085 1022 -1071Q1044 -1058 1066 -1054Q1082 -1051 1082 -1040Q1082 -1034 1075 -1024L1026 -958Q1019 -947 1007 -947ZM951 -753Q944 -753 933 -756Q902 -766 884 -786Q866 -807 866 -828Q866 -845 875 -859Q884 -873 891 -882L927 -929L933 -929Q941 -902 966 -886Q990 -870 1015 -865L1082 -955L1088 -955Q1096 -929 1118 -915Q1140 -901 1165 -896Q1182 -892 1182 -879Q1182 -871 1175 -861L1126 -791Q1117 -779 1105 -779Q1098 -779 1087 -782Q1063 -791 1045 -804Q1027 -818 1018 -831L972 -765Q963 -753 951 -753ZM704 -292Q692 -318 688 -349Q684 -380 688 -405Q714 -397 738 -400Q761 -404 782 -414Q820 -433 848 -466Q875 -499 888 -521L903 -521Q908 -512 921 -506Q933 -501 947 -501Q973 -501 998 -522Q1023 -544 1045 -594L1064 -594Q1070 -570 1089 -570Q1106 -570 1124 -589Q1142 -609 1155 -658L1178 -655Q1171 -610 1157 -571Q1142 -532 1120 -508Q1098 -484 1067 -484Q1064 -484 1060 -484Q1055 -485 1049 -486Q1028 -446 997 -424Q965 -403 933 -403Q906 -403 880 -418Q865 -391 845 -370Q825 -350 804 -335Q773 -313 746 -302Q718 -292 704 -292ZM1079 15L1071 -11L1167 -67Q1234 -106 1271 -136Q1284 -147 1292 -159Q1300 -171 1300 -179Q1300 -190 1295 -197Q1289 -204 1285 -204Q1281 -200 1265 -189Q1249 -179 1219 -179Q1194 -179 1171 -195Q1147 -211 1147 -257L1201 -410Q1212 -419 1225 -423Q1238 -427 1248 -427Q1289 -427 1314 -384Q1339 -342 1339 -271Q1339 -226 1327 -181Q1314 -137 1296 -100Q1277 -63 1259 -39Q1244 -19 1233 -13Q1221 -8 1198 -4L1079 15ZM1397 7L1389 -19L1453 -56Q1498 -82 1528 -104Q1558 -126 1577 -145Q1608 -177 1620 -208Q1632 -239 1642 -277L1666 -365L1695 -359L1668 -226Q1649 -135 1628 -92Q1607 -49 1584 -29Q1571 -17 1560 -12Q1548 -8 1531 -6L1397 7Z" /></svg><i></i></div></div>
     <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

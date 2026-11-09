@@ -1,6 +1,6 @@
-// After the browser and server builds: writes every route as a finished HTML page (words, head
-// tags and structured data already in place), then the sitemap, robots.txt, and the llms.txt
-// summaries that AI assistants read. Run by `npm run build`.
+// After the browser and server builds: writes every route as a finished HTML page (words, head tags
+// and structured data already in place), then the sitemap, robots.txt, and the llms.txt summaries that
+// AI assistants read. Run by `npm run build`.
 import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -9,7 +9,6 @@ const root = path.resolve(import.meta.dirname, '..')
 const dist = path.join(root, 'dist')
 const ssr = path.join(root, 'dist-ssr')
 
-// React warns about layout effects when rendering on the server; they only run in the browser
 const warn = console.error
 console.error = (msg, ...rest) => { if (!String(msg).includes('useLayoutEffect')) warn(msg, ...rest) }
 
@@ -21,26 +20,15 @@ const verify = {
   bing: process.env.BING_SITE_VERIFICATION || process.env.VITE_BING_SITE_VERIFICATION || '',
 }
 
-// The home page's first frame, in the HTML itself: the dark and the point of light the loader
-// opens on, painted before any script arrives. The loader takes it over on mount; anyone who
-// won't see the intro (a repeat visit, reduced motion, an entry-level phone) never sees it.
-const BOOT = `<style>#boot{position:fixed;inset:0;z-index:290;background:#0c0607}#boot i{position:absolute;left:50%;top:50%;width:46vmin;height:46vmin;margin:-23vmin 0 0 -23vmin;border-radius:50%;scale:.8;background:radial-gradient(closest-side,rgba(228,199,143,.5),rgba(217,185,126,.14) 38%,transparent 72%)}#boot i::after{content:'';position:absolute;left:50%;top:50%;width:5px;height:5px;margin:-2.5px;border-radius:50%;background:#fff6e2;box-shadow:0 0 12px 3px rgba(255,238,200,.8),0 0 40px 10px rgba(228,199,143,.35)}</style>
-    <noscript><style>#boot{display:none}</style></noscript>`
-const BOOT_BODY = `<div id="boot" aria-hidden="true"><i></i></div>
-    <script>try{var n=navigator,c=n.connection||{};if(sessionStorage.getItem('rh:intro')||matchMedia('(prefers-reduced-motion: reduce)').matches||(n.deviceMemory||8)<=2||(n.hardwareConcurrency||8)<=2||c.saveData||/(^|-)2g$/.test(c.effectiveType||''))document.getElementById('boot').remove()}catch(e){}</script>
-    `
-
+const GROUNDS = { ivory: '#f7f4f1', wine: '#241419' }
 function page(head, html) {
-  const home = head.path === '/'
-  const out = template
-    .replace('<html lang="en">', `<html lang="${head.lang === 'hi' ? 'hi' : 'en'}">`)
-    .replace('<!--app-head-->', headHtml(head, { verify }) + (home ? `\n    ${BOOT}` : ''))
-    .replace('<div id="root">', `${home ? BOOT_BODY : ''}<div id="root">`)
+  const tone = html.match(/data-(?:tone|fixed)="(\w+)"/)?.[1]
+  const opens = GROUNDS[tone]
+  return template
+    .replace('<html lang="en"', `<html lang="${head.lang === 'hi' ? 'hi' : 'en'}"${opens ? ` data-tone="${tone}"` : ''}`)
+    .replace('content="#120a0c"', `content="${opens || '#120a0c'}"`)
+    .replace('<!--app-head-->', headHtml(head, { verify }))
     .replace('<!--app-html-->', html)
-  // a page that failed to render must stop the build, not ship empty
-  const failed = html.match(/data-msg="([^"]*)"/)
-  if (failed) throw new Error(`${head.path} did not render: ${failed[1]}`)
-  return out
 }
 const write = (file, text) => {
   const to = path.join(dist, file)
@@ -51,13 +39,14 @@ const write = (file, text) => {
 // 1. every page, as /about.html served at /about (Vercel's clean URLs)
 const list = routes()
 for (const r of list) write(r.path === '/' ? 'index.html' : `${r.path.slice(1)}.html`, page(r, render(r.path)))
-write('404.html', page(headFor('/404'), render('/404')))
-write('admin.html', page({ path: '/admin', title: 'Admin | Rushan Haque', description: 'Owner admin.', robots: 'noindex, nofollow', ld: [] }, render('/admin')))
+write('404.html', page(headFor('/404'), render('/this-page-does-not-exist')))
+// the owner's admin screen exists as a page, kept out of search
+write('admin.html', page({ path: '/admin', title: 'Admin | Rushan Haque', description: 'Private.', robots: 'noindex, nofollow', ld: [] }, render('/admin')))
 
 // 2. the sitemap, with language pairs and the screenshots each page shows
 const today = new Date().toISOString().slice(0, 10)
 const xml = (s) => s.replace(/&/g, '&amp;')
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${list.map((r) => `  <url>
     <loc>${ORIGIN}${r.path === '/' ? '/' : r.path}</loc>
@@ -68,16 +57,13 @@ ${list.map((r) => `  <url>
     <image:image><image:loc>${xml(ORIGIN + i)}</image:loc></image:image>`).join('')}
   </url>`).join('\n')}
 </urlset>
-`
-write('sitemap.xml', sitemap)
+`)
 
 // 3. robots.txt: every search engine and AI assistant is welcome to read and cite the site
 const bots = ['Googlebot', 'Bingbot', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot', 'Applebot-Extended', 'DuckDuckBot', 'YandexBot', 'CCBot', 'Meta-ExternalAgent', 'Amazonbot']
-write('robots.txt', `# rushanhaque.in — open to search engines and AI assistants alike
+write('robots.txt', `# rushanhaque.in: open to search engines and AI assistants alike
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /api/
 
 ${bots.map((b) => `User-agent: ${b}`).join('\n')}
 Allow: /
@@ -97,7 +83,7 @@ const llms = `# Rushan Haque
 - Name: Rushan Haque (Rushan Ul Haque)
 - Role: Website developer and designer; writer. Specialises in UI/UX design, client relationships and development.
 - Based in: Moradabad, Uttar Pradesh 244001, India. Works with clients anywhere, remotely.
-- Contact: ${site.email} · WhatsApp ${site.phone.label} · ${site.booking}
+- Contact: ${site.email}, WhatsApp ${site.phone.label}, ${site.booking}
 - Languages: ${languages.join(', ')}
 - Education: ${education[0].title}, ${education[0].institution} (${education[0].period})
 - Experience: ${experience.map((e) => `${e.role}, ${e.company} (${e.period})`).join('; ')}
@@ -107,8 +93,8 @@ const llms = `# Rushan Haque
 ## Main pages
 
 ${link('Home', '/', 'recent client sites, current builds, products, clientele, areas served, services, reviews, writing')}
-${link('Works', '/work', 'selected client websites and software')}
-${link('About', '/about', 'journey, credentials, writing')}
+${link('Work', '/work', 'selected client websites, software and experiments')}
+${link('About', '/about', 'journey, process, credentials, writing')}
 ${link('Contact', '/contact', 'start a project')}
 
 ## Services
@@ -141,8 +127,7 @@ ${writings.map((w) => `- ${w.title} (${w.kind}, ${w.year})${w.url ? `: ${w.url}`
 `
 write('llms.txt', llms)
 
-// 5. llms-full.txt: the words of every landing page and the common questions, for assistants
-// that want more than the summary
+// 5. llms-full.txt: the words of every landing page and the common questions
 const guideText = (g) => [
   `## ${g.title}`, `${ORIGIN}/${g.slug}`, '', g.intro, '',
   ...g.facts.map(([k, v]) => `- ${k}: ${strip(v)}`), '',
@@ -162,6 +147,28 @@ ${guides.filter((g) => g.lang !== 'hi').map(guideText).join('\n\n')}
 
 ${sourcePages.map(sourceText).join('\n\n')}
 `)
+
+// 5. The search side of every page, exactly as on the live site: the same titles, descriptions, links, social cards and
+// structured data, and the same sitemap, robots.txt and llms files (snapshot kept in /seo by scripts/snapshot-seo.mjs).
+const kept = path.join(root, 'seo', 'heads.json')
+if (fs.existsSync(kept)) {
+  const heads = JSON.parse(fs.readFileSync(kept, 'utf8'))
+  const SEO = /<title>[\s\S]*?<\/title>|<meta\s+(?:name|property)="(?!viewport|theme-color)[^"]+"[^>]*>|<link\s+rel="(?:canonical|alternate)"[^>]*>|<script type="application\/ld\+json">[\s\S]*?<\/script>/g
+  let n = 0
+  for (const [rel, h] of Object.entries(heads)) {
+    const file = path.join(dist, rel)
+    if (!fs.existsSync(file)) continue
+    let html = fs.readFileSync(file, 'utf8')
+    const end = html.indexOf('</head>')
+    const head = html.slice(0, end).replace(SEO, '').replace(/\n\s*\n/g, '\n')
+    html = head.replace(/(<meta name="viewport"[^>]*>)/, (m) => `${m}\n    ${h.tags.join('\n    ')}`) + html.slice(end)
+    html = html.replace(/<html lang="[^"]*"/, `<html lang="${h.lang}"`)
+    fs.writeFileSync(file, html)
+    n++
+  }
+  for (const f of ['sitemap.xml', 'robots.txt', 'llms.txt', 'llms-full.txt']) if (fs.existsSync(path.join(root, 'seo', f))) fs.copyFileSync(path.join(root, 'seo', f), path.join(dist, f))
+  console.log(`kept the live site's search side on ${n} pages`)
+}
 
 fs.rmSync(ssr, { recursive: true, force: true })
 console.log(`prerendered ${list.length} pages + 404, sitemap, robots.txt, llms.txt, llms-full.txt${verify.google || verify.bing ? ' (with site verification)' : ''}`)

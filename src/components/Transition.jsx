@@ -1,158 +1,149 @@
-import { createContext, useCallback, useContext, useEffect, useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { gsap } from '../lib/gsap'
-import { scrollTo } from '../lib/lenis'
-import { projectBySlug, productBySlug } from '../data/content'
+import { createContext, useCallback, useContext, useRef, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { gsap, ScrollTrigger } from '../lib/gsap'
+import { device } from '../lib/device'
+import { holePath, solidPath, coverRadius } from '../lib/star'
+import { jumpTop, lockScroll, unlockScroll } from '../lib/scroll'
+import { pointer } from '../lib/pointer'
+import { director } from '../lib/director'
 
 const Ctx = createContext({ go: () => {} })
-export const usePageTransition = () => useContext(Ctx)
+export const useGo = () => useContext(Ctx).go
 
-const labelFor = (to) => {
-  const path = to.split('#')[0]
-  if (path === '/') return 'Index'
-  const [, a, b] = path.split('/')
-  if (a === 'work' && b) return projectBySlug(b)?.title || 'Works'
-  if (a === 'work') return 'Works'
-  if (a === 'products' && b) return productBySlug(b)?.title || 'Products'
-  return a.charAt(0).toUpperCase() + a.slice(1)
+const NAMES = { '/': 'Home', '/work': 'Work', '/about': 'About', '/contact': 'Contact' }
+const wait = (ms) => new Promise((r) => setTimeout(r, ms))
+// timers, not frames: the browser holds back rendering, and with it animation frames, while it waits for the new page
+async function until(test, ms) {
+  const end = performance.now() + ms
+  while (performance.now() < end) {
+    const v = test()
+    if (v) return v
+    await wait(16)
+  }
+  return null
+}
+const plateOf = (link) => (link.matches('[data-morph]') ? link : link.querySelector('[data-morph]'))
+const PAGES = { work: () => import('../pages/Case'), products: () => import('../pages/Product') }
+const warmed = new Set()
+// reaching for a picture loads what its page will need, so the flight starts without waiting
+function warm(link) {
+  const plate = plateOf(link)
+  if (!plate || warmed.has(link.href)) return
+  warmed.add(link.href)
+  PAGES[new URL(link.href).pathname.split('/')[1]]?.()
+  const img = plate.querySelector('img')
+  if (!img?.srcset) return
+  const next = new Image()
+  next.sizes = '90vw'
+  next.srcset = img.srcset
 }
 
-// The leading edge of each curtain is an arch: the middle rises first.
-const cover = (p, c) => `M0 100 L0 ${100 - p} Q50 ${100 - p - c} 100 ${100 - p} L100 100 Z`
-const uncover = (p, c) => `M0 0 L100 0 L100 ${100 - p} Q50 ${100 - p - c} 0 ${100 - p} Z`
-
-/**
- * Two transitions:
- *  · arch curtain — brass then wine panels rise with an arched leading edge, the
- *    destination is named in italic, then the panels keep rising and reveal the page
- *  · zoom — the clicked image grows to fill the screen and becomes the next page
- */
+// Between pages: a star of sandstone opens where you clicked and fills the screen. Then a star-shaped hole
+// opens in it, and the next room is behind it.
 export function TransitionProvider({ children }) {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const sheet = useRef(null)
+  const word = useRef(null)
   const busy = useRef(false)
-  const via = useRef(false)
-  const root = useRef(null)
-
-  const land = useCallback(
-    (to) => {
-      scrollTo(0, { immediate: true, force: true })
-      window.scrollTo(0, 0)
-      navigate(to)
-    },
-    [navigate],
-  )
-
-  const zoom = useCallback(
-    (to, from) => {
-      const img = from?.querySelector('img:last-of-type') || from?.querySelector('img')
-      const src = img?.currentSrc || img?.src
-      if (!src) return false
-      const r = from.getBoundingClientRect()
-      const clone = document.createElement('div')
-      clone.className = 'pt-zoom'
-      Object.assign(clone.style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px`, backgroundImage: `url("${src}")` })
-      document.body.appendChild(clone)
-      const main = document.querySelector('main')
-      gsap
-        .timeline({ onComplete: () => { clone.remove(); busy.current = false } })
-        .to(main, { autoAlpha: 0, duration: 0.5, ease: 'power2.out' }, 0)
-        .to(clone, { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight, borderRadius: 0, duration: 1.1, ease: 'snap' }, 0)
-        .add(() => land(to))
-        .set(main, { autoAlpha: 1 }, '+=0.1')
-        .to(clone, { autoAlpha: 0, scale: 1.04, duration: 0.9, ease: 'power2.inOut' }, '+=0.15')
-      return true
-    },
-    [land],
-  )
+  const nav = useNavigate()
+  const loc = useLocation()
+  const [label, setLabel] = useState('')
 
   const go = useCallback(
-    (to, label, opts = {}) => {
+    (to, { title, from } = {}) => {
       if (busy.current) return
-      const [path, hash] = to.split('#')
-      if (path === location.pathname) {
-        scrollTo(hash ? `#${hash}` : 0)
+      if (to === loc.pathname) { jumpSmooth(); return }
+      if (device().reduced) { nav(to); jumpTop(); return }
+      busy.current = true
+      // where the browser can do it, the picture you clicked flies to its place on the next page
+      if (from && document.startViewTransition) {
+        const old = document.querySelector('[data-plate]')
+        let plate = null
+        lockScroll()
+        from.style.viewTransitionName = 'plate'
+        const flight = document.startViewTransition(async () => {
+          from.style.viewTransitionName = ''
+          nav(to)
+          jumpTop()
+          plate = await until(() => { const p = document.querySelector('[data-plate]'); return p && p !== old ? p : null }, 1500)
+          if (!plate) return
+          plate.style.viewTransitionName = 'plate'
+          const img = plate.matches('img') ? plate : plate.querySelector('img')
+          await Promise.race([img?.decode?.().catch(() => {}), wait(450)])
+        })
+        flight.ready.catch(() => {})
+        flight.finished.catch(() => {}).finally(() => {
+          if (plate) plate.style.viewTransitionName = ''
+          busy.current = false
+          unlockScroll()
+          ScrollTrigger.refresh()
+          director.measure()
+        })
         return
       }
-      busy.current = true
-      via.current = true
-      if (opts.from && zoom(to, opts.from)) return
-
-      const el = root.current
-      const [a, b] = el.querySelectorAll('path')
-      el.querySelector('.pt__text').textContent = label || labelFor(to)
-      const s = { pa: 0, pb: 0, ca: 0, cb: 0 }
-      const draw = (fn) => () => {
-        a.setAttribute('d', fn(s.pa, s.ca))
-        b.setAttribute('d', fn(s.pb, s.cb))
-      }
-      const arc = (k) => (t) => Math.sin(t * Math.PI) * k
-      gsap
-        .timeline({ onComplete: () => { busy.current = false } })
-        .set(el, { autoAlpha: 1 })
-        .to(s, { pa: 100, duration: 0.85, ease: 'power3.inOut', onUpdate: () => { s.ca = arc(28)(s.pa / 100); draw(cover)() } }, 0)
-        .to(s, { pb: 100, duration: 0.85, ease: 'power3.inOut', onUpdate: () => { s.cb = arc(28)(s.pb / 100); draw(cover)() } }, 0.12)
-        .fromTo(el.querySelectorAll('.pt__label > *'), { yPercent: 120 }, { yPercent: 0, duration: 0.7, stagger: 0.06, ease: 'expo' }, 0.6)
-        .add(() => land(hash ? path : to))
-        .add(() => { s.pa = 0; s.pb = 0 }, '+=0.25')
-        .to(el.querySelectorAll('.pt__label > *'), { yPercent: -120, duration: 0.45, stagger: 0.04, ease: 'expo.in' })
-        .to(s, { pb: 100, duration: 0.9, ease: 'power3.inOut', onUpdate: () => { s.cb = arc(30)(s.pb / 100); draw(uncover)() } }, '-=0.1')
-        .to(s, { pa: 100, duration: 0.9, ease: 'power3.inOut', onUpdate: () => { s.ca = arc(30)(s.pa / 100); draw(uncover)() } }, '<0.1')
-        .add(() => hash && setTimeout(() => scrollTo(`#${hash}`, { offset: -40 }), 300))
-        .set(el, { autoAlpha: 0 })
+      const key = '/' + to.split('/')[1]
+      setLabel(title || NAMES[key] || '')
+      const w = innerWidth
+      const h = innerHeight
+      const cx = pointer.x || w / 2
+      const cy = pointer.y || h / 2
+      const R = coverRadius(w, h, cx, cy)
+      const el = sheet.current
+      lockScroll()
+      const s = { r: 0 }
+      gsap.set(el, { display: 'grid', clipPath: solidPath(cx, cy, 0) })
+      const hole = { r: 0 }
+      const hcx = w / 2
+      const hcy = h / 2
+      const HR = coverRadius(w, h, hcx, hcy)
+      gsap.timeline({
+        onComplete: () => {
+          gsap.set(el, { display: 'none', clipPath: 'none' })
+          busy.current = false
+          unlockScroll()
+          ScrollTrigger.refresh()
+          director.measure()
+        },
+      })
+        .to(s, { r: R, duration: 0.5, ease: 'expo.inOut', onUpdate: () => { el.style.clipPath = solidPath(cx, cy, s.r) } })
+        .fromTo(word.current, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power3.out' }, 0.22)
+        .call(() => { nav(to); jumpTop() })
+        .to({}, { duration: 0.1 })
+        .to(word.current, { autoAlpha: 0, duration: 0.14, ease: 'power2.in' })
+        .to(hole, { r: HR, duration: 0.6, ease: 'expo.inOut', onUpdate: () => { el.style.clipPath = holePath(w, h, hcx, hcy, hole.r) } }, '-=0.1')
     },
-    [location.pathname, zoom, land],
+    [loc.pathname, nav],
   )
-
-  // Back and Forward: return to the top before the next page renders, so its scroll scenes are
-  // measured from the top rather than from wherever the last page was left
-  useEffect(() => {
-    const top = () => { scrollTo(0, { immediate: true, force: true }); window.scrollTo(0, 0) }
-    window.addEventListener('popstate', top)
-    return () => window.removeEventListener('popstate', top)
-  }, [])
-
-  useEffect(() => {
-    if (!via.current) {
-      scrollTo(0, { immediate: true, force: true })
-      window.scrollTo(0, 0)
-    }
-    via.current = false
-  }, [location.pathname])
 
   return (
     <Ctx.Provider value={{ go }}>
       {children}
-      <div className="pt" ref={root} aria-hidden="true">
-        <svg className="pt__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path className="pt__a" d="M0 100 L100 100 Z" />
-          <path className="pt__b" d="M0 100 L100 100 Z" />
-        </svg>
-        <div className="pt__label">
-          <span className="pt__text" />
+      <div className="iris" ref={sheet} aria-hidden="true">
+        <div className="iris__word" ref={word}>
+          <span>{label}</span>
         </div>
       </div>
     </Ctx.Provider>
   )
 }
 
-/** Router link that runs the curtain. `zoom` turns the link's first .media into a shared element. */
-export function TLink({ to, label, children, onClick, className = '', zoom = false, ...rest }) {
-  const { go } = usePageTransition()
+const jumpSmooth = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+// a link that walks through the iris instead of cutting
+export function TLink({ to, onClick, title, children, ...rest }) {
+  const go = useGo()
   return (
-    <a
-      href={to}
-      className={className}
-      onClick={(e) => {
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return
-        e.preventDefault()
-        // a handler can return false to cancel the navigation (e.g. after a drag)
-        if (onClick?.(e) === false) return
-        go(to, label, zoom ? { from: e.currentTarget.querySelector('.media') } : undefined)
-      }}
+    <Link
+      to={to}
       {...rest}
+      onPointerEnter={(e) => { rest.onPointerEnter?.(e); warm(e.currentTarget) }}
+      onClick={(e) => {
+        onClick?.(e)
+        if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+        e.preventDefault()
+        go(to, { title, from: plateOf(e.currentTarget) })
+      }}
     >
       {children}
-    </a>
+    </Link>
   )
 }
