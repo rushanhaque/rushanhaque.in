@@ -4,6 +4,7 @@ import { useChapter } from '../lib/director'
 import { useReady } from '../lib/ready'
 import { device } from '../lib/device'
 import HeroShader from '../components/HeroShader'
+import NameDots from '../components/NameDots'
 import { site } from '../config/site'
 import Wordmark from '../components/Wordmark'
 
@@ -54,8 +55,9 @@ function Roles({ ready, line }) {
   )
 }
 
-// The first screen, as on the previous portfolio and finished: the name, set large in Fraunces, over liquid wine with a
-// brass horizon, and what it does written out of code beneath it. Scrolling holds the screen, lifts the name away and
+// The first screen, as on the previous portfolio and finished: the name, drawn stroke by stroke and then carried by a
+// few thousand dots, over liquid wine with a brass horizon, and what it does written out of code beneath it. Scrolling
+// holds the screen, blows the name apart and
 // opens a ring of light; inside it is ivory and the next line, and as the ring fills the screen the whole page turns
 // from night to day (lib/tone.js, at the marker below). The real letters stay in the page for search engines, screen
 // readers and anyone without motion.
@@ -147,6 +149,7 @@ export default function Threshold() {
       <i className="thr__dawn" data-tone="ivory" aria-hidden="true" />
       <div className="pin__stage thr__stage">
         <HeroShader intro={ready} progress={progress} />
+        <NameDots intro={ready} progress={progress} />
         <div className="thr__center">
           <h1 className="thr__name" ref={name}>
             <span className="sr-only">{site.name}</span>
