@@ -29,9 +29,12 @@ export function plateLayout(w, h) {
 
 // p runs 0 to 1 through the section; clip is the radius of the disc
 export function camera(p, clip) {
-  const t1 = smooth(range(p, 0.24, 0.44))
-  const t2 = smooth(range(p, 0.58, 0.76))
-  const spin = smooth(range(p, 0.74, 1))
+  // The three movements overlap, so that every turn of the wheel moves the globe. Left with gaps between them
+  // the camera sits perfectly still for a few hundred pixels at a time, and a scene that answers the scroll
+  // everywhere except there reads as jammed rather than as holding.
+  const t1 = smooth(range(p, 0.02, 0.46))
+  const t2 = smooth(range(p, 0.42, 0.74))
+  const spin = smooth(range(p, 0.7, 1))
   const logR = lerp(lerp(Math.log(clip / Math.sin(2.5 * RAD)), Math.log(clip / Math.sin(19 * RAD)), t1), Math.log(clip * 0.93), t2)
   return {
     R: Math.exp(logR),
