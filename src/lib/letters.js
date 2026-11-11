@@ -6,10 +6,8 @@
 // The grid: cap height 100, baseline at 100, the axis at 50. Stems meet the cap line and the baseline exactly. The
 // only stroke that leaves the frame is the tail of the Q, which is the signature of the whole thing.
 export const CAP = 100
-export const AXIS = 50
 export const STROKE = 5.6
 export const TRACK = 22 // between letters
-export const WORDS = 74 // between the two words
 
 // R  a half-circle bowl closing on the axis, and the leg leaving from exactly where it closes
 const R = { w: 62, d: 'M0 100V0h30a25 25 0 0 1 0 50H0m27 0 35 50' }
@@ -47,9 +45,3 @@ export function word(text, track = TRACK) {
   return { text, letters, w, viewBox: `${-pad} ${top} ${w + pad * 2} ${height}`, aspect: (w + pad * 2) / height, height }
 }
 
-// How wide the name is for a given height: side by side, and stacked one word above the other. The first screen
-// sizes itself from these, so the name is always as large as the room allows and never a pixel wider.
-export function lockup(a, b) {
-  const box = CAP + STROKE + 2
-  return { wide: a.aspect + b.aspect + WORDS / box, stack: Math.max(a.aspect, b.aspect), lead: 0.16 }
-}

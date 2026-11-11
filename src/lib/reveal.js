@@ -55,13 +55,10 @@ const PLAY = {
     arrive(el, { delay: parseFloat(el.dataset.delay || 0) })
   },
 
-  // A set of them, dealt out. The hairline above a group, where there is one, draws first and the cards follow it.
+  // A set of them, dealt out one after another. Always the direct children, so a single rule in the stylesheet
+  // can hold the whole group back before it arrives.
   deal: (el) => {
-    const rule = el.querySelector(':scope > .r-rule')
-    if (rule) gsap.fromTo(rule, { scaleX: 0 }, { scaleX: 1, transformOrigin: '0 50%', duration: 1.4, ease: 'expo.inOut', clearProps: 'transform' })
-    // always the direct children, so one rule in the stylesheet can hold them all back before they arrive
-    const kids = el.children
-    arrive(kids, { stagger: parseFloat(el.dataset.gap || 0.085), delay: rule ? 0.12 : 0 })
+    arrive(el.children, { stagger: parseFloat(el.dataset.gap || 0.085) })
   },
 
   stagger: (el) => {

@@ -135,8 +135,8 @@ export default function Admin() {
           <div className="adm__clients">
             {clients.map((c) => (
               <div className="adm__client" key={c.key}>
-                <div className={`logo ${c.tone === 'dark' ? 'logo--dark' : ''}`}>
-                  {c.logo ? <img src={fresh[c.logo]?.preview || c.logo} alt="" /> : <span className="logo__name">{c.name || 'New client'}</span>}
+                <div className={`plate ${c.tone === 'dark' ? 'plate--dark' : ''}`}>
+                  {c.logo ? <img src={fresh[c.logo]?.preview || c.logo} alt="" /> : <span className="plate__name">{c.name || 'New client'}</span>}
                 </div>
                 <label className="field"><span className="sr-only">Client name</span>
                   <input value={c.name} onChange={(e) => setClient(c.key, { name: e.target.value })} maxLength={60} placeholder="Client name" aria-label="Client name" />

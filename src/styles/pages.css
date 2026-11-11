@@ -367,13 +367,13 @@ a.wlist__row:hover .wlist__go { transform: translate(2px, -2px); opacity: 1; }
 .card.form { background: var(--paper-2); border-radius: 18px; padding: clamp(20px, 2.2vw, 34px); width: min(100%, 720px); box-shadow: 0 0 0 1px rgb(var(--ink-rgb) / 0.06), 0 34px 70px -42px rgb(0 0 0 / 0.48); }
 .adm__clients { display: grid; gap: 10px; width: 100%; }
 .adm__client { display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; gap: 10px 14px; align-items: center; padding-top: 10px; box-shadow: inset 0 1px 0 var(--line); }
-.adm__client .logo { width: 112px; padding: 10px 14px; border-radius: 8px; }
-.adm__client .logo__name { font-size: 11px; }
+.adm__client .plate { width: 112px; padding: 10px 14px; border-radius: 8px; }
+.adm__client .plate__name { font-size: 11px; }
 .adm__tools { display: flex; align-items: center; gap: 8px 14px; flex-wrap: wrap; justify-content: flex-end; }
 .adm__file { position: relative; cursor: pointer; font-size: var(--t-sm); box-shadow: 0 1px 0 var(--line-2); }
 .adm__file input { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
 .adm__file:focus-within { outline: 2px solid var(--accent); outline-offset: 3px; }
-@media (max-width: 560px) { .adm__client { grid-template-columns: 96px minmax(0, 1fr); } .adm__tools { grid-column: 1 / -1; justify-content: flex-start; } .adm__client .logo { width: 96px; } }
+@media (max-width: 560px) { .adm__client { grid-template-columns: 96px minmax(0, 1fr); } .adm__tools { grid-column: 1 / -1; justify-content: flex-start; } .adm__client .plate { width: 96px; } }
 .adm__meta { display: flex; justify-content: space-between; gap: 10px; width: 100%; }
 .adm__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 .adm__ghost { font-size: var(--t-sm); box-shadow: 0 1px 0 var(--line-2); }

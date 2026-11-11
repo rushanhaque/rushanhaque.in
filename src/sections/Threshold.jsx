@@ -8,7 +8,6 @@ import NameDots from '../components/NameDots'
 import { site } from '../config/site'
 import Wordmark from '../components/Wordmark'
 
-const WORDS = ['Rushan', 'Haque']
 const LINE = ['Interfaces,', 'builds', 'and', 'the', 'client', 'care', 'in', 'between.']
 const CODE = 'abcdefghijklmnopqrstuvwxyz{}[]()<>/=;:.*+-_'
 const range = (v, a, b) => Math.min(1, Math.max(0, (v - a) / (b - a)))

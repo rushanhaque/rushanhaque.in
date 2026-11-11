@@ -47,7 +47,7 @@
 @media (max-width: 899px), (max-height: 500px) { .dial { display: none; } }
 
 /* a quiet link draws its own underline */
-.bar__link:not(.bar__link--cta), .foot__col a, .foot__dir a, .foot__base a, .menu__line, .names__meta a {
+.bar__link:not(.bar__link--cta), .foot__col a, .foot__dir a, .foot__base a, .menu__line {
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.6s var(--ease), color 0.3s var(--ease);
 }
 @media (hover: hover) {

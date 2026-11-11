@@ -76,7 +76,7 @@ html.no-gl .gl { display: none; }
 
 /* -- things that wait to be revealed ---------------------------------------------------- */
 .r-wait[data-r='fade'], .r-wait[data-r='lift'], .r-wait[data-r='lines'], .r-wait[data-r='count'], .r-wait[data-r='stagger'] > *, .r-wait[data-r='deal'] > *, .r-wait[data-r='shelve'] .shelf__item, .r-wait[data-r='head'] .kick span, .r-wait[data-r='head'] .sh__title, .r-wait[data-r='head'] .sh__lede { opacity: 0; }
-.r-wait[data-r='rule'], .r-wait[data-r='head'] .kick i, .r-wait[data-r='deal'] > .r-rule { transform: scaleX(0); }
+.r-wait[data-r='rule'], .r-wait[data-r='head'] .kick i { transform: scaleX(0); }
 .r-wait[data-r='plate'] { clip-path: inset(100% -80px -80px -80px); }
 .fit { display: inline-block; white-space: nowrap; }
 
