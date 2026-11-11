@@ -19,7 +19,6 @@ export default function Home() {
       <Threshold />
       <RecentWorks />
       <Drafting />
-      <Bridge tone="night">Behind every build is a business, and most of them make things by hand in brass, copper and wood.</Bridge>
       <Workshop />
       <Names />
       <Astrolabe />

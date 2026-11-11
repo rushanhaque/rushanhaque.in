@@ -24,7 +24,7 @@ export default function Drafting() {
             <a href={b.url} target="_blank" rel="noopener noreferrer" data-r="plate" data-cursor="Open preview" aria-label={`${b.title}, open the preview`}>
               <Lens image={b.image} plan={b.plan} width={b.w} height={b.h} alt={`${b.title} home page`} radius={0.24} />
             </a>
-            <div className="draft__info" data-r="stagger">
+            <div className="draft__info" data-r="deal" data-gap="0.07">
               <h3 className="h3">{b.title}</h3>
               <p className="small">{b.description}</p>
               <p className="note">{b.field}</p>

@@ -126,7 +126,7 @@ export default function Astrolabe() {
       <div className="pin__stage atl__stage">
         {/* not lazy: it has to be able to stand in the instant the canvas cannot, with no wait */}
         <img className="atl__still" src="/img/atlas.webp" alt="" decoding="async" />
-        <div className="atl__copy">
+        <div className="atl__copy" data-r="head">
           <div className="kick"><span>Moradabad, India, world</span><i /></div>
           <h2 className="sh__title">Where I <em>serve</em></h2>
           <div className="atl__steps">

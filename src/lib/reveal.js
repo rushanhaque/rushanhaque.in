@@ -12,11 +12,27 @@ import { device } from './device'
 //   plate   a picture opens upward from its bottom edge while it settles in its frame
 //   shelve  books standing edge-on turn to face you, one after another
 //   count   digits roll up like a mechanical counter
+//   lift    a card arrives: it comes up out of the page and settles, on a long curve
+//   deal    a set of cards arrives, one after another, as sheets laid onto a board
 //
 // Nothing is prepared until it is about to be seen. A page of sixty pictures sets up nothing when it loads: the
 // browser's observer says when each is arriving, and only then is its text split or its tween made. Everything
 // is visible in the HTML by default. Whatever is not on the first screen is hidden by one class, from the
 // stylesheet, once the page is running, and only transforms and opacity move, apart from the clip a plate opens.
+
+// Far enough to be a movement rather than a twitch, on a curve that spends almost all of its time slowing down:
+// the card is nearly home before you have finished noticing it left. The whisper of scale is what separates this
+// from a slide — it reads as something coming up out of the page rather than across it.
+const TRAVEL = 56
+const SETTLE = { duration: 1.15, ease: 'expo.out' }
+
+function arrive(targets, extra = {}) {
+  return gsap.fromTo(
+    targets,
+    { y: TRAVEL, scale: 0.985, opacity: 0 },
+    { y: 0, scale: 1, opacity: 1, ...SETTLE, ...extra, clearProps: 'transform,opacity' },
+  )
+}
 
 function rise(el, delay = 0) {
   const split = SplitText.create(el, { type: 'lines', mask: 'lines', aria: 'none', tag: 'span', linesClass: 'split-line' })
@@ -33,6 +49,19 @@ const PLAY = {
 
   rule: (el) => {
     gsap.from(el, { scaleX: 0, transformOrigin: '0 50%', duration: 1.5, ease: 'expo.inOut', clearProps: 'transform' })
+  },
+
+  lift: (el) => {
+    arrive(el, { delay: parseFloat(el.dataset.delay || 0) })
+  },
+
+  // A set of them, dealt out. The hairline above a group, where there is one, draws first and the cards follow it.
+  deal: (el) => {
+    const rule = el.querySelector(':scope > .r-rule')
+    if (rule) gsap.fromTo(rule, { scaleX: 0 }, { scaleX: 1, transformOrigin: '0 50%', duration: 1.4, ease: 'expo.inOut', clearProps: 'transform' })
+    // always the direct children, so one rule in the stylesheet can hold them all back before they arrive
+    const kids = el.children
+    arrive(kids, { stagger: parseFloat(el.dataset.gap || 0.085), delay: rule ? 0.12 : 0 })
   },
 
   stagger: (el) => {

@@ -279,6 +279,16 @@ html:not(.can-gl) .gal__title { font-size: min(34vh, calc((100vw - 2 * var(--m))
 .osv__glyph path { stroke: var(--accent); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0.05, 0.36, 1); }
 html:not(.static) .osv__glyph path { stroke-dashoffset: 1; }
 html:not(.static) .osv__card.is-drawn .osv__glyph path { stroke-dashoffset: 0; }
+/* and the sheet itself comes up out of the page as it arrives, on the same curve as every other arrival, with
+   its words following just behind it. In a column that is the scroll reaching it; across the board it is the
+   sheet sliding into the row. */
+html:not(.static) .osv__card { opacity: 0; transform: translateY(56px) scale(0.985); transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 1.15s cubic-bezier(0.16, 1, 0.3, 1); }
+html:not(.static) .osv__card.is-drawn { opacity: 1; transform: none; }
+html:not(.static) .osv__body > * { opacity: 0; transform: translateY(16px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+html:not(.static) .osv__card.is-drawn .osv__body > * { opacity: 1; transform: none; }
+html:not(.static) .osv__card.is-drawn .osv__body > :nth-child(1) { transition-delay: 0.14s; }
+html:not(.static) .osv__card.is-drawn .osv__body > :nth-child(2) { transition-delay: 0.21s; }
+html:not(.static) .osv__card.is-drawn .osv__body > :nth-child(3) { transition-delay: 0.28s; }
 .osv__body { flex: none; display: flex; flex-direction: column; gap: 8px; min-height: var(--osv-body, 0); padding: 0 clamp(6px, 0.8vw, 12px); }
 .osv__name { font-size: clamp(1.3rem, 1.7vw, 1.9rem); font-stretch: 108%; font-weight: 400; letter-spacing: -0.028em; line-height: 1.08; }
 .osv__text { font-size: var(--t-sm); line-height: 1.5; color: var(--ink-2); }

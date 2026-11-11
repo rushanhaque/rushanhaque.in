@@ -32,14 +32,14 @@ export default function Workshop() {
 
   return (
     <section className="prod wrap" ref={root} id="products" data-tone="night">
-      <Head label="Software" title="Products" count={products.length} lede="Beyond websites: tools that teams open every morning, built for the jobs people used to do by hand." />
+      <Head label="Software" title="Products" count={products.length} lede="Beyond websites: tools teams open every morning, for the jobs once done by hand." />
       {products.map((p, i) => (
         <article className={`prod__item ${i % 2 ? 'is-flip' : ''}`} key={p.slug}>
           <div className="prod__copy">
             <span className="prod__no note">{String(i + 1).padStart(2, '0')}, {p.field}</span>
             <h3 className="h2"><TLink to={`/products/${p.slug}`} title={p.short} className="prod__name">{p.title}</TLink></h3>
             <p className="prod__desc">{p.description}</p>
-            <ul className="prod__does" data-r="stagger">
+            <ul className="prod__does" data-r="deal" data-gap="0.07">
               {p.does.map((d) => <li key={d}><Check size={16} />{d}</li>)}
             </ul>
             <Btn to={`/products/${p.slug}`} title={p.short} variant="solid" icon={ArrowRight}>Explore the product and request a quote</Btn>

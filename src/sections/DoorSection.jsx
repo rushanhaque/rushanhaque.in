@@ -19,7 +19,7 @@ export default function DoorSection() {
       <section className="exit wrap" ref={root} id="door" aria-label="Start a project" data-tone="wine">
         <h2 className="h1" data-r="lines">So, what are we building?</h2>
         <p className="lede" data-r="fade">A project, a half-formed idea, or just hello. I reply to everything myself, usually within a day.</p>
-        <div className="exit__row" data-r="fade">
+        <div className="exit__row" data-r="deal" data-gap="0.07">
           <Btn href={site.phone.whatsapp} variant="solid" icon={WhatsappLogo}>WhatsApp</Btn>
           <Btn href={`mailto:${site.email}?subject=Hello%20from%20your%20site`} icon={EnvelopeSimple}>Email</Btn>
           <Btn href={site.booking} icon={CalendarBlank}>Book a call</Btn>

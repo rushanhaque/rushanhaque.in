@@ -16,7 +16,7 @@ export default function Names() {
   return (
     <section className="names wrap" ref={root} id="clientele" data-tone="night">
       <Head label="Brands I work with" title="Clientele" count={clients.length} lede="Brands in India, Saudi Arabia, Poland and Nepal, most of them export houses selling to buyers in dozens of countries." />
-      <ul className="logos" data-r="stagger" data-gap="0.045">
+      <ul className="logos" data-r="deal" data-gap="0.05">
         {clients.map((c) => (
           <li className={`logo ${c.tone === 'dark' ? 'logo--dark' : ''}`} key={c.name}>
             {c.logo

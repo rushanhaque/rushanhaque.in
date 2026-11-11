@@ -21,7 +21,7 @@ export default function RecentWorks() {
           <h2 className="h1">Recent <em>works</em><sup className="count" aria-hidden="true">({String(CLIENTS.length).padStart(2, '0')})</sup></h2>
         </div>
         <div className="work__tools">
-          <p className="lede phead__lede">Websites for businesses that make beautiful things, each designed and built from the first conversation to launch.</p>
+          <p className="lede phead__lede" data-r="lift">Websites for businesses that make beautiful things, each designed and built from the first conversation to launch.</p>
           <div className="tabs work__view" role="group" aria-label="Choose a view">
             <button type="button" aria-pressed={mode === 'grid'} className={mode === 'grid' ? 'is-on' : ''} onClick={() => setMode('grid')}>Grid</button>
             <button type="button" aria-pressed={mode === 'plan'} className={mode === 'plan' ? 'is-on' : ''} onClick={() => setMode('plan')}>Floor plan</button>
@@ -31,7 +31,7 @@ export default function RecentWorks() {
       {mode === 'plan'
         ? <Suspense fallback={<div className="plan" />}><FloorPlan items={CLIENTS} /></Suspense>
         : <div className="rw__grid wrap"><Cards items={CLIENTS} even /></div>}
-      <div className="rw__more wrap">
+      <div className="rw__more wrap" data-r="lift">
         <Btn to="/work" title="Works" variant="solid">See all works</Btn>
       </div>
     </section>
