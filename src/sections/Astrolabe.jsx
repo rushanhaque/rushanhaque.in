@@ -113,7 +113,8 @@ export default function Astrolabe() {
   return (
     <section className="atl pin" ref={root} id="serve" aria-label="Where I serve" data-fixed="night">
       <div className="pin__stage atl__stage">
-        <img className="atl__still" src="/img/atlas.webp" alt="" loading="lazy" decoding="async" />
+        {/* not lazy: it has to be able to stand in the instant the canvas cannot, with no wait */}
+        <img className="atl__still" src="/img/atlas.webp" alt="" decoding="async" />
         <div className="atl__copy">
           <div className="kick"><span>Moradabad, India, world</span><i /></div>
           <h2 className="sh__title">Where I <em>serve</em></h2>

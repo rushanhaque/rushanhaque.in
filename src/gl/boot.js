@@ -2,8 +2,7 @@ import { director } from '../lib/director'
 import { Engine } from './Engine'
 import { Gallery } from './stages/Gallery'
 import { Atlas } from './stages/Atlas'
-
-const SOFTWARE = /swiftshader|llvmpipe|softpipe|software|microsoft basic/i
+import { SOFTWARE } from './opts'
 
 export function boot(canvas) {
   if (director.engine) return director.engine

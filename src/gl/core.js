@@ -1,3 +1,5 @@
+import { GL_OPTS } from './opts'
+
 // A very small WebGL2 layer: programs, render targets, textures. Everything this site draws is a
 // fragment shader, some instanced quads or some lines, so a full 3D library would be 150 kB of code
 // nobody runs. This file is all of it.
@@ -12,17 +14,8 @@ void main(){
 }`
 
 export function createContext(canvas) {
-  return canvas.getContext('webgl2', {
-    alpha: false,
-    antialias: false,
-    depth: false,
-    stencil: false,
-    powerPreference: 'high-performance',
-    // kept, so that a frame the engine chooses not to redraw cannot be dropped and leave the canvas blank
-    preserveDrawingBuffer: true,
-    // software rendering is never worth it: the page looks right without a canvas at all
-    failIfMajorPerformanceCaveat: true,
-  })
+  // the same canvas Stage already tested, so this hands back that very context rather than making another
+  return canvas.getContext('webgl2', GL_OPTS)
 }
 
 // Compiles in the background where the browser can, so shaders never block scrolling.

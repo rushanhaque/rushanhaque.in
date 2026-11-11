@@ -1,17 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { device } from '../lib/device'
 import { director } from '../lib/director'
+import { GL_OPTS, SOFTWARE } from '../gl/opts'
 
-const SOFTWARE = /swiftshader|llvmpipe|softpipe|software|microsoft basic/i
-// Asked before anything is downloaded, so a device without a real graphics chip waits for nothing.
-function canDraw() {
+// Asked before anything is downloaded, so a device without a real graphics chip waits for nothing. It asks the
+// real canvas for the real context: a browser returns the same context for the same canvas every time after that,
+// so what is tested here is exactly what the engine goes on to draw with. Nothing is made twice or thrown away.
+function canDraw(canvas) {
   try {
-    const gl = document.createElement('canvas').getContext('webgl2', { failIfMajorPerformanceCaveat: true })
+    const gl = canvas.getContext('webgl2', GL_OPTS)
     if (!gl) return false
     const info = gl.getExtension('WEBGL_debug_renderer_info')
-    const name = info ? gl.getParameter(info.UNMASKED_RENDERER_WEBGL) : ''
-    gl.getExtension('WEBGL_lose_context')?.loseContext()
-    return !SOFTWARE.test(name)
+    return !SOFTWARE.test(info ? gl.getParameter(info.UNMASKED_RENDERER_WEBGL) : '')
   } catch {
     return false
   }
@@ -30,7 +30,7 @@ export default function Stage() {
     let asked = false
     const start = () => {
       if (cancelled) return
-      if (!canDraw()) { document.documentElement.classList.remove('can-gl'); return }
+      if (!canDraw(ref.current)) { document.documentElement.classList.remove('can-gl'); return }
       import('../gl/boot').then(({ boot }) => { if (!cancelled) boot(ref.current) }).catch(() => { document.documentElement.classList.remove('can-gl') })
     }
     let id = 0

@@ -80,6 +80,9 @@ export class Engine {
     this.lastStage = null
     this.lastDraw = -1
     this.forceFrames = 4
+    this.proveAt = 0
+    this.strikes = 0
+    this.probe = null
     this.times = []
     this.tunedAt = 0
     this.badStreak = 0
@@ -154,6 +157,31 @@ export class Engine {
       this.badStreak = 0
       this.stages.forEach((s) => s.onLevel?.(this.level))
     }
+  }
+
+  // Some drivers say yes to everything and then put nothing on the screen, which leaves a room empty instead of
+  // falling back to its picture. A moment after the first frame, and once more to be sure, look at what actually
+  // came out: every scene is finished through a fine grain, so no real frame is ever perfectly flat. One that is
+  // has had nothing drawn on it at all, and the canvas is better given up than left blank.
+  prove(time) {
+    const gl = this.gl
+    const n = 24
+    if (!this.probe) this.probe = new Uint8Array(n * n * 4)
+    const px = this.probe
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null)
+    gl.readPixels(Math.max(0, (this.canvas.width - n) >> 1), Math.max(0, (this.canvas.height - n) >> 1), n, n, gl.RGBA, gl.UNSIGNED_BYTE, px)
+    let min = 1e9
+    let max = -1
+    for (let i = 0; i < px.length; i += 4) {
+      const v = px[i] + px[i + 1] + px[i + 2]
+      if (v < min) min = v
+      if (v > max) max = v
+    }
+    if (max > min) { this.proveAt = 0; return }
+    this.strikes++
+    if (this.strikes >= 2) { this.kill(); return }
+    this.proveAt = time + 1.5
+    this.forceFrames = 2
   }
 
   kill() {
@@ -249,8 +277,10 @@ export class Engine {
       this.canvas.classList.add('is-on')
       document.documentElement.classList.remove('no-gl')
       document.documentElement.classList.add('has-gl')
+      if (!this.strikes) this.proveAt = time + 1
     }
     this.lastDraw = time
+    if (this.proveAt && time >= this.proveAt) this.prove(time)
   }
 }
 

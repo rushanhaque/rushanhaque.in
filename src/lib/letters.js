@@ -5,9 +5,6 @@
 //
 // The grid: cap height 100, baseline at 100, the axis at 50. Stems meet the cap line and the baseline exactly. The
 // only stroke that leaves the frame is the tail of the Q, which is the signature of the whole thing.
-//
-// Every separate stroke of a letter begins with an absolute M, so the parts of a letter can be told apart and
-// measured one by one; components/NameDots.jsx needs that to draw them on in the order a hand would.
 export const CAP = 100
 export const AXIS = 50
 export const STROKE = 5.6
@@ -15,7 +12,7 @@ export const TRACK = 22 // between letters
 export const WORDS = 74 // between the two words
 
 // R  a half-circle bowl closing on the axis, and the leg leaving from exactly where it closes
-const R = { w: 62, d: 'M0 100V0h30a25 25 0 0 1 0 50H0M27 50 62 100' }
+const R = { w: 62, d: 'M0 100V0h30a25 25 0 0 1 0 50H0m27 0 35 50' }
 // U  two stems and one half-circle, its radius exactly half the width
 const U = { w: 64, d: 'M0 0v68a32 32 0 0 0 64 0V0' }
 // S  two half-circles of one radius, turned against each other and meeting on the axis
@@ -27,7 +24,7 @@ const A = { w: 68, d: 'M0 100 34 0l34 100M17 50h34' }
 // N  one diagonal, drawn in a single line with its stems
 const N = { w: 64, d: 'M0 100V0l64 100V0' }
 // Q  a circle, and the one stroke in the name that leaves the frame
-const Q = { w: 76, d: 'M38 0a38 50 0 1 0 0 100 38 50 0 1 0 0-100M44 68 76 114' }
+const Q = { w: 76, d: 'M38 0a38 50 0 1 0 0 100 38 50 0 1 0 0-100m6 68 32 46' }
 // E  the axis again, shortened, between the cap line and the baseline
 const E = { w: 56, d: 'M56 0H0v100h56M0 50h42' }
 
