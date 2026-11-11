@@ -49,6 +49,8 @@ void main(){
 // How many CSS pixels' worth of detail each kind of scene asks for. Soft light needs far fewer pixels
 // than you would think, which is most of why this runs on phones.
 const LEVELS = [1, 0.84, 0.7, 0.58, 0.46]
+// how long a still scene may go without being drawn again
+const IDLE = 0.9
 
 export class Engine {
   constructor(canvas) {
@@ -83,8 +85,11 @@ export class Engine {
     this.badStreak = 0
     this.visible = !document.hidden
     this.alive = true
+    // coming back to the tab, or to the window, can hand back a canvas with nothing in it: draw again at once
     this.onVisibility = () => { this.visible = !document.hidden; this.forceFrames = 3; this.times.length = 0 }
     document.addEventListener('visibilitychange', this.onVisibility)
+    addEventListener('focus', this.onVisibility)
+    addEventListener('pageshow', this.onVisibility)
     canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); this.kill() })
     this.resize = this.resize.bind(this)
     this.tick = this.tick.bind(this)
@@ -157,6 +162,8 @@ export class Engine {
     gsap.ticker.remove(this.tick)
     removeEventListener('resize', this.onResize)
     document.removeEventListener('visibilitychange', this.onVisibility)
+    removeEventListener('focus', this.onVisibility)
+    removeEventListener('pageshow', this.onVisibility)
     director.engine = null
     this.canvas.classList.remove('is-on')
     document.documentElement.classList.remove('has-gl', 'can-gl')
@@ -187,8 +194,9 @@ export class Engine {
       || Math.abs(pointer.nx - pointer.sx) + Math.abs(pointer.ny - pointer.sy) > 0.0015
     const eased = stage.update?.(ctx)
     const anim = stage.animating?.(ctx) || eased
-    if (!moved && !anim && this.forceFrames <= 0) {
-      // nothing has changed, so nothing is drawn: the page costs no battery while you read it
+    if (!moved && !anim && this.forceFrames <= 0 && time - this.lastDraw < IDLE) {
+      // nothing has changed, so nothing is drawn: the page costs no battery while you read it. A canvas left
+      // untouched for too long can still be dropped by the browser, so one frame a second keeps it alive.
       this.times.length = 0
       this.wasMoving = false
       return

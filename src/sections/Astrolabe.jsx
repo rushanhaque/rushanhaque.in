@@ -42,13 +42,16 @@ export default function Astrolabe() {
     name: 'Where I serve',
     time: [16, 17.2],
     stage: 'atlas',
-    frame: ({ stick, stageH, engine }) => {
+    frame: ({ stick, stageH, time, engine }) => {
       const p = stick
       const a = engine?.stages.get('atlas')
       if (a) a.progress = p
       // the picture stands in whenever the canvas is not drawing this scene right now, whatever the reason: the
       // shaders still compiling, the context lost, the engine given up. The section is never empty.
-      const live = !!engine?.alive && engine.shown && director.state.stage === 'atlas'
+      // A still scene is drawn again about once a second (gl/Engine.js), so if nothing has been drawn for a good
+      // while, something has gone wrong wherever we are: the picture takes over rather than leaving a blank.
+      const drawing = !!engine?.alive && engine.shown && director.state.stage === 'atlas'
+      const live = drawing && (engine.forceFrames > 0 || time - engine.lastDraw < 2.5)
       if (root.current && live !== root.current.classList.contains('is-live')) root.current.classList.toggle('is-live', live)
       const H = engine ? engine.ctx.h : stageH
       const l = plateLayout(innerWidth, H)

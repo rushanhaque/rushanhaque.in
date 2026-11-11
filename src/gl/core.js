@@ -18,7 +18,8 @@ export function createContext(canvas) {
     depth: false,
     stencil: false,
     powerPreference: 'high-performance',
-    preserveDrawingBuffer: false,
+    // kept, so that a frame the engine chooses not to redraw cannot be dropped and leave the canvas blank
+    preserveDrawingBuffer: true,
     // software rendering is never worth it: the page looks right without a canvas at all
     failIfMajorPerformanceCaveat: true,
   })

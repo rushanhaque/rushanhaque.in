@@ -121,7 +121,7 @@ export const director = {
     if (!stage && c.stage) stage = c.stage
     this.state.stage = stage
 
-    c.frame?.({ owned, stick, y, vh, top: c.top, height: c.height, stageH: c.stageH, line, engine: this.engine })
+    c.frame?.({ owned, stick, y, vh, top: c.top, height: c.height, stageH: c.stageH, line, time, engine: this.engine })
 
     if (this.current !== c) {
       this.current?.leave?.()
