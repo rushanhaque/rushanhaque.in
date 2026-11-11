@@ -17,6 +17,7 @@ export default function Astrolabe() {
   const stepEls = useRef([])
   const counted = useRef([])
   const widths = useRef(null)
+  const hold = useRef({ live: false, n: 0 })
   useReveals(root)
 
   // the canvas starts, and the map data loads, when the section is two screens away
@@ -46,13 +47,23 @@ export default function Astrolabe() {
       const p = stick
       const a = engine?.stages.get('atlas')
       if (a) a.progress = p
-      // the picture stands in whenever the canvas is not drawing this scene right now, whatever the reason: the
-      // shaders still compiling, the context lost, the engine given up. The section is never empty.
+      // The picture stands in whenever the canvas is not drawing this scene, whatever the reason: the shaders
+      // still compiling, the map data not here yet, the context lost, the engine given up. The room is never empty.
       // A still scene is drawn again about once a second (gl/Engine.js), so if nothing has been drawn for a good
-      // while, something has gone wrong wherever we are: the picture takes over rather than leaving a blank.
+      // while, something has gone wrong wherever we are and the picture takes over rather than leaving a blank.
+      //
+      // The room changes hands only once the answer has held for a few frames running. Taken on a single frame's
+      // reading it can strobe — a globe part way through gathering its data can be ready one frame and not the
+      // next — and a room flickering between a canvas and a picture is worse than either.
       const drawing = !!engine?.alive && engine.shown && director.state.stage === 'atlas'
-      const live = drawing && (engine.forceFrames > 0 || time - engine.lastDraw < 2.5)
-      if (root.current && live !== root.current.classList.contains('is-live')) root.current.classList.toggle('is-live', live)
+      const want = drawing && !!a?.full && (engine.forceFrames > 0 || time - engine.lastDraw < 2.5)
+      const h = hold.current
+      if (want === h.live) h.n = 0
+      else if (++h.n >= 8) {
+        h.live = want
+        h.n = 0
+        root.current?.classList.toggle('is-live', want)
+      }
       const H = engine ? engine.ctx.h : stageH
       const l = plateLayout(innerWidth, H)
       const cam = camera(p, l.R)

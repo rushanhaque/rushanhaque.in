@@ -122,10 +122,29 @@ export class Atlas {
     this.routes = [[], [], []]
     this.points = [[], [], []]
     this.build()
-    fetch('/data/globe.bin').then((r) => r.arrayBuffer()).then((b) => this.load(b)).catch(() => {})
-    const img = new Image()
-    img.src = '/data/globe-mask.png'
-    img.decode().then(() => this.upload(img)).catch(() => {})
+    // The globe IS these two files: the coastlines it is drawn from and the mask that fills in the land. Until
+    // both are here there is no globe to draw, only an empty sphere on a dark background, so the room waits for
+    // them and the picture stands in meanwhile. One bad moment on a connection must not cost the globe for the
+    // rest of the visit either, so each one is given a few goes before it is let go.
+    this.fetchTwice('/data/globe.bin', (url) => fetch(url)
+      .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer() })
+      .then((b) => this.load(b)))
+    this.fetchTwice('/data/globe-mask.png', (url) => {
+      const img = new Image()
+      img.src = url
+      return img.decode().then(() => this.upload(img))
+    })
+  }
+
+  // four goes, backing off, with the last ones going past whatever cached the failure
+  fetchTwice(url, go) {
+    let tries = 0
+    const run = () => {
+      go(tries ? `${url}?again=${tries}` : url)
+        .then(() => { this.e.forceFrames = 3 })
+        .catch(() => { if (++tries < 4) setTimeout(run, 400 * tries * tries) })
+    }
+    run()
   }
 
   vao(pos, t) {
@@ -172,11 +191,16 @@ export class Atlas {
     this.home = this.vao(home)
   }
 
+  // A body that arrives cut short is worse than one that does not arrive at all: read on, and it throws part way
+  // through or quietly draws half a world. It is checked whole before it is believed, and a bad one is fetched again.
   load(buf) {
+    if (!buf || buf.byteLength < 16 || buf.byteLength % 2) throw new Error('globe: short')
     const head = new Int32Array(buf, 0, 3)
     const body = new Int16Array(buf, 12)
+    if (head.some((n) => n < 0) || head[0] + head[1] + head[2] > body.length) throw new Error('globe: cut short')
     let at = 0
     const names = ['coast', 'borders', 'states']
+    const made = {}
     names.forEach((name, i) => {
       const end = at + head[i]
       const pos = []
@@ -188,8 +212,9 @@ export class Atlas {
         prev = v
       }
       at = end
-      this.lines[name] = this.vao(pos)
+      made[name] = this.vao(pos)
     })
+    this.lines = made
     this.e.forceFrames = 2
   }
 
@@ -208,6 +233,9 @@ export class Atlas {
   }
 
   ready() { return this.prog.ready && this.back.ready }
+  // Shaders alone are not a globe. Until the coastlines and the land mask are both here there is nothing on the
+  // screen but an empty sphere on a dark background, so the room asks this before it hides its picture.
+  get full() { return !!this.lines.coast && !!this.mask }
   update() { return false }
   animating() { return false }
 
