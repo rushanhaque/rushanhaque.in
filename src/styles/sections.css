@@ -30,26 +30,20 @@
   --fs: min(calc((100vw - 2 * var(--m)) / 5.7), calc((100vh - var(--bar-h)) * 0.3));
   position: relative; z-index: 2; display: grid; gap: clamp(14px, 2.6vh, 30px);
 }
-/* The name, drawn (components/Wordmark.jsx). Both words are given one height, so their cap heights match, and the
-   pair is sized to whatever room the first screen has: never wider than the margins, never taller than its share. */
-.thr__name { display: grid; justify-items: center; margin: 0 auto; transform-origin: 50% 55%; pointer-events: none; }
+/* The name on the first screen (components/Wordmark.jsx), and the dots that carry it (NameDots.jsx):
+   where the dots have it, the words themselves step aside. */
 .mark {
-  --h: min(calc((100vh - var(--bar-h)) * 0.3), calc((100svh - var(--bar-h)) * 0.3), calc((100vw - 2 * var(--m)) / var(--wide)));
-  display: flex; align-items: flex-start; height: var(--h); gap: calc(var(--h) * 0.609); color: #f6eee4;
+  display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: 0.22em;
+  white-space: nowrap; font-family: var(--display);
+  /* the previous portfolio's measure, held back so the name can never outgrow the first screen */
+  font-size: min(clamp(52px, 12.6vw, 230px), calc((100vh - var(--bar-h)) * 0.34), calc((100svh - var(--bar-h)) * 0.34));
+  font-weight: 500; line-height: 0.95; letter-spacing: -0.055em; color: #f6eee4;
 }
-.mark__word { display: block; height: 100%; width: auto; overflow: visible; stroke: currentColor; }
-/* a phone has the height to spare and not the width: the two words stack, and each one is far bigger for it */
-@media (max-aspect-ratio: 5/4) {
-  .mark { flex-direction: column; align-items: center; height: auto; gap: calc(var(--h) * var(--lead)); }
-  .mark { --h: min(calc((100vh - var(--bar-h)) * 0.2), calc((100svh - var(--bar-h)) * 0.2), calc((100vw - 2 * var(--m)) / var(--stack))); }
-  .mark__word { height: var(--h); }
-}
+.mark__word { display: block; }
 .mark__word.is-lit { color: #e4c78f; }
-/* each letter is one path of length 1, so it draws itself on from nothing */
-.mark__ch { stroke-dasharray: 1; }
-html:not(.static) .mark:not(.is-drawn) .mark__ch { stroke-dashoffset: 1; }
-.mark.is-drawn .mark__ch { animation: markDraw 1s calc(var(--i) * 85ms + 150ms) cubic-bezier(0.62, 0.02, 0.2, 1) both; }
-@keyframes markDraw { from { stroke-dashoffset: 1; } }
+@media (max-width: 760px) {
+  .mark { font-size: min(13.4vw, calc((100svh - var(--bar-h)) * 0.3)); }
+}
 /* The same name in a few thousand dots (components/NameDots.jsx), traced from those very paths. Where the dots run
    they are the name, so the strokes step aside: at once on a desktop, and on a phone only once the scroll starts. */
 .thr__dots { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; pointer-events: none; }
@@ -213,15 +207,33 @@ html:not(.can-gl) .gal__title { font-size: min(34vh, calc((100vw - 2 * var(--m))
 
 /* -- Clientele: a wall of small cards --------------------------------------------------------- */
 .names { padding-block: var(--room); }
-.logos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 0.9vw, 14px); margin-top: var(--head); }
-.logo { position: relative; display: grid; place-items: center; aspect-ratio: 3 / 2; padding: 13% 14%; border-radius: 12px; background: #f7f4f1; color: #201814; transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
-.logo--dark { background: var(--stone); color: #fff; box-shadow: inset 0 0 0 1px var(--line); }
-.logo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; padding: inherit; object-fit: contain; }
-.logo__name { font-size: clamp(12px, 1vw, 15px); font-stretch: 106%; letter-spacing: -0.016em; line-height: 1.18; text-align: center; text-wrap: balance; }
-@media (hover: hover) { .logo:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -18px rgb(0 0 0 / 0.7); } }
-@media (max-width: 1100px) { .logos { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (max-width: 700px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
-@media (max-width: 440px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Clientele, on two rails (sections/Names.jsx). Each row carries its names twice, so one transform of exactly
+   half the row plus half a gap loops with no seam. The edges are faded rather than cut, so names arrive and
+   leave rather than appearing and vanishing at a hard line. */
+.rail { --rg: clamp(10px, 1.1vw, 16px); display: grid; gap: var(--rg); margin-top: var(--head); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.rail__row { display: flex; gap: var(--rg); width: max-content; margin: 0; padding: 0; list-style: none; animation: railRun calc(var(--n, 6) * 5.2s) linear infinite; }
+.rail__row.is-back { animation-direction: reverse; }
+@keyframes railRun { to { transform: translateX(calc(-50% - var(--rg) / 2)); } }
+/* nobody is watching: it stops dead rather than turning the page over forever */
+.rail.is-off .rail__row { animation-play-state: paused; }
+.plate { flex: none; position: relative; display: grid; place-items: center; width: clamp(146px, 14.5vw, 226px); aspect-ratio: 3 / 2; padding: clamp(13px, 1.2vw, 20px) clamp(15px, 1.5vw, 26px); border-radius: 14px; background: #f7f4f1; color: #201814; transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+.plate--dark { background: var(--stone); color: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.plate img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; padding: inherit; object-fit: contain; }
+.plate__name { font-size: clamp(13px, 1.05vw, 16px); font-stretch: 106%; letter-spacing: -0.016em; line-height: 1.18; text-align: center; text-wrap: balance; }
+@media (hover: hover) {
+  /* it holds still while you are reading it, and the name under the pointer comes forward */
+  .rail:hover .rail__row { animation-play-state: paused; }
+  .plate:hover { transform: translateY(-5px); box-shadow: 0 18px 34px -20px rgb(0 0 0 / 0.75); }
+}
+/* without motion, and on the page as it is written out, the names simply sit in rows */
+@media (prefers-reduced-motion: reduce) {
+  .rail { -webkit-mask-image: none; mask-image: none; }
+  .rail__row { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .plate[data-copy] { display: none; }
+}
+.static .rail { -webkit-mask-image: none; mask-image: none; }
+.static .rail__row { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+.static .plate[data-copy] { display: none; }
 
 /* -- Where I serve ----------------------------------------------------------------------- */
 .atl { height: 270vh; }
@@ -474,7 +486,7 @@ html:not(.static) .osv__card.is-drawn .osv__body > :nth-child(3) { transition-de
 @media (min-width: 900px) {
   .rw .phead--sec { padding-top: clamp(48px, 8vh, 96px); }
   .rw .wg__list--even { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.4vh, 30px) var(--gap); }
-  .rw .wg__list--even .card__pic { aspect-ratio: 16 / 10; }
+  .rw .wg__list--even .card__pic { aspect-ratio: 1600 / 773; }
   .rw .wg__list--even .card__text { display: none; }
   .rw__grid, .rw__more { margin-top: clamp(20px, 3.4vh, 40px); }
   .rw { padding-bottom: clamp(48px, 8vh, 96px); }
@@ -502,7 +514,7 @@ html:not(.static) .osv__card.is-drawn .osv__body > :nth-child(3) { transition-de
   .rw .wg__list--even { grid-template-columns: minmax(0, 1fr); gap: clamp(26px, 6vw, 40px); }
   /* one under the next, so there is no height to equalise: each work says its whole piece */
   .rw .wg__list--even .card__text { display: block; min-height: 0; }
-  .rw .wg__list--even .card__pic { aspect-ratio: 4 / 3; }
+  .rw .wg__list--even .card__pic { aspect-ratio: 1600 / 773; }
   .draft__plates { gap: 16px; }
   .rw, .draft, .shelf { padding-bottom: clamp(48px, 8vh, 72px); }
   .shelf__row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; }
@@ -515,6 +527,6 @@ html:not(.static) .osv__card.is-drawn .osv__body > :nth-child(3) { transition-de
 @media (min-width: 900px) {
   .rw .phead { gap: 10px; }
   .rw .phead .h1 { font-size: var(--t-2xl); }
-  .rw .wg__list--even .card__pic { aspect-ratio: 16 / 9; }
+  .rw .wg__list--even .card__pic { aspect-ratio: 1600 / 773; }
   .ref .sh { margin-bottom: clamp(18px, 3vh, 36px); }
 }

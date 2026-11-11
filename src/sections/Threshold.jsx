@@ -55,8 +55,7 @@ function Roles({ ready, line }) {
   )
 }
 
-// The first screen, as on the previous portfolio and finished: the name, drawn stroke by stroke and then carried by a
-// few thousand dots, over liquid wine with a brass horizon, and what it does written out of code beneath it. Scrolling
+// The first screen, as on the previous portfolio and finished: the name set in Geist and carried by a few thousand dots, over liquid wine with a brass horizon, and what it does written out of code beneath it. Scrolling
 // holds the screen, blows the name apart and
 // opens a ring of light; inside it is ivory and the next line, and as the ring fills the screen the whole page turns
 // from night to day (lib/tone.js, at the marker below). The real letters stay in the page for search engines, screen
@@ -153,7 +152,7 @@ export default function Threshold() {
         <div className="thr__center">
           <h1 className="thr__name" ref={name}>
             <span className="sr-only">{site.name}</span>
-            <Wordmark drawn={ready} />
+            <Wordmark />
           </h1>
           <div ref={roles}><Roles ready={ready} line={line} /></div>
         </div>

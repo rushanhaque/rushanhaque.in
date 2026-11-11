@@ -30,7 +30,7 @@ export default function RecentWorks() {
       </header>
       {mode === 'plan'
         ? <Suspense fallback={<div className="plan" />}><FloorPlan items={CLIENTS} /></Suspense>
-        : <div className="rw__grid wrap"><Cards items={CLIENTS} even /></div>}
+        : <div className="rw__grid wrap"><Cards items={CLIENTS} even live /></div>}
       <div className="rw__more wrap" data-r="lift">
         <Btn to="/work" title="Works" variant="solid">See all works</Btn>
       </div>

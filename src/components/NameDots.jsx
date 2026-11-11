@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from '../lib/gsap'
 import { device } from '../lib/device'
-import { STROKE } from '../lib/letters'
 
 // "Rushan" in pale ivory, "Haque" in brass
 const INK = ['#f6eee4', '#e4c78f']
@@ -37,35 +36,38 @@ export default function NameDots({ intro, progress, spreadEnd = 0.55 }) {
     const s = { intro: 0 }
     const pointer = { x: -9999, y: -9999, on: false }
 
-    // Trace one word's letters onto a small canvas, exactly where the page has put them, and keep the inked pixels.
-    const sample = (svg, step) => {
+    // One word, read off the page. It is drawn once onto a small canvas in the very font, size and spacing the
+    // page has given it, and every inked pixel becomes a dot. Nothing in here knows the letterforms: whatever the
+    // stylesheet says the name is set in, the dots take that shape.
+    const sample = (el, step, wobble) => {
       const box = canvas.getBoundingClientRect()
-      const r = svg.getBoundingClientRect()
+      const range = document.createRange()
+      range.selectNodeContents(el)
+      const r = range.getBoundingClientRect()
       if (!r.width) return []
-      const vb = svg.viewBox.baseVal
-      const k = r.width / vb.width // screen pixels per unit of the drawing
       const w = Math.ceil(W / step)
       const h = Math.ceil(H / step)
       const c = document.createElement('canvas')
       c.width = w
       c.height = h
       const g = c.getContext('2d', { willReadFrequently: true })
-      const scale = k / step
-      g.setTransform(scale, 0, 0, scale, (r.left - box.left) / step - vb.x * scale, (r.top - box.top) / step - vb.y * scale)
-      g.strokeStyle = '#000'
-      g.lineWidth = STROKE
-      g.lineCap = 'butt'
-      g.lineJoin = 'miter'
-      for (const path of svg.querySelectorAll('path')) {
-        const at = path.transform.baseVal.consolidate()?.matrix
-        g.save()
-        if (at) g.transform(at.a, at.b, at.c, at.d, at.e, at.f)
-        g.stroke(new Path2D(path.getAttribute('d')))
-        g.restore()
-      }
+      const cs = getComputedStyle(el)
+      g.scale(1 / step, 1 / step)
+      g.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`
+      if ('letterSpacing' in g) g.letterSpacing = cs.letterSpacing
+      g.fillStyle = '#000'
+      g.textBaseline = 'alphabetic'
+      const text = el.textContent
+      const m = g.measureText(text)
+      g.translate(r.left - box.left, r.top - box.top + m.fontBoundingBoxAscent)
+      // a canvas cannot reach the font's optical-size axis, so the word is stretched to the width the page gave it
+      if (m.width) g.scale(r.width / m.width, 1)
+      g.fillText(text, 0, 0)
       const data = g.getImageData(0, 0, w, h).data
       const pts = []
-      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 120) pts.push([(x + 0.5) * step, (y + 0.5) * step])
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 140) pts.push({ x: (x + 0.5 + (Math.random() - 0.5) * wobble) * step, y: (y + 0.5 + (Math.random() - 0.5) * wobble) * step })
+      }
       return pts
     }
 
@@ -79,20 +81,20 @@ export default function NameDots({ intro, progress, spreadEnd = 0.55 }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       const words = [...section.querySelectorAll('.mark__word')]
       if (words.length < 2) return
-      const step = phone ? 1.3 : W > 1700 ? 2.1 : 1.8
-      const budget = phone ? (d.tier === 'low' ? 4000 : 6500) : (lite ? 8000 : 13000)
-      const targets = words.map((el) => sample(el, step))
+      const step = phone ? 1.3 : W > 1700 ? 3.5 : 3
+      const budget = phone ? (d.tier === 'low' ? 4000 : d.tier === 'mid' ? 6000 : 8000) : (lite ? 6000 : 10000)
+      const targets = words.map((el) => sample(el, step, phone ? 0 : 0.5))
       const total = targets.reduce((n, t) => n + t.length, 0)
       if (!total) return
       groups = targets.map((t, k) => {
         const n = Math.min(t.length, Math.round((budget * t.length) / total))
         const old = groups[k] || []
         return Array.from({ length: n }, (_, i) => {
-          const p = old[i] || { x: W / 2 + (Math.random() - 0.5) * W, y: H / 2 + (Math.random() - 0.5) * H, vx: 0, vy: 0, dx: Math.random() - 0.5, dy: Math.random() - 0.5, seed: Math.random(), size: px(Math.random() < 0.12 ? (phone ? 1.6 : 2.2) : phone ? 1.2 : 1.5) }
-          const [x, y] = t[Math.floor((i / n) * t.length)] || [W / 2, H / 2]
-          p.tx = x
-          p.ty = y
-          if (typeFirst && !old[i]) { p.x = x; p.y = y }
+          const p = old[i] || { x: W / 2 + (Math.random() - 0.5) * W, y: H / 2 + (Math.random() - 0.5) * H, vx: 0, vy: 0, dx: Math.random() - 0.5, dy: Math.random() - 0.5, seed: Math.random(), size: px(Math.random() < 0.12 ? (phone ? 1.7 : 2.6) : phone ? 1.25 : 1.8) }
+          const q = t[Math.floor((i / n) * t.length)] || { x: W / 2, y: H / 2 }
+          p.tx = q.x
+          p.ty = q.y
+          if (typeFirst && !old[i]) { p.x = q.x; p.y = q.y }
           return p
         })
       })

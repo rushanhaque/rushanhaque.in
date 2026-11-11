@@ -2,9 +2,10 @@ import { small, srcSet } from '../lib/img'
 import { works, products, building, experiments } from '../data/content'
 import { TLink } from './Transition'
 import { ArrowUpRight } from './glyphs'
+import Preview from './Preview'
 
 export const ALL = [
-  ...works.map((w) => ({ key: w.slug, group: 'Client sites', title: w.title, short: w.short, sub: w.field.replace(' · ', ', '), year: w.year, status: w.status, image: w.image, to: `/work/${w.slug}`, text: w.description, w: w.w, h: w.h })),
+  ...works.map((w) => ({ key: w.slug, group: 'Client sites', title: w.title, short: w.short, sub: w.field.replace(' · ', ', '), year: w.year, status: w.status, image: w.image, to: `/work/${w.slug}`, live: w.url, text: w.description, w: w.w, h: w.h })),
   ...products.map((p) => ({ key: p.slug, group: 'Products', title: p.short, short: p.short, sub: p.field, year: p.year, status: p.status, image: p.image, to: `/products/${p.slug}`, text: p.tags.join(', '), w: p.w, h: p.h })),
   ...building.map((b) => ({ key: b.slug, group: 'In progress', title: b.title, short: b.title, sub: b.field, year: '2026', status: 'In progress', image: b.image, href: b.url, text: b.description, w: b.w, h: b.h })),
   ...experiments.map((e) => ({ key: e.title, group: 'Experiments', title: e.title, short: e.title, sub: e.kind, year: e.year, status: '', image: e.image, thumb: true, href: e.url, text: e.text, w: 19, h: 10 })),
@@ -21,7 +22,8 @@ export function ItemLink({ it, className, children, ...rest }) {
 export const picture = (it, sizes) => (it.thumb ? { src: it.image } : { src: small(it.image), srcSet: srcSet(it.image), sizes })
 
 // even: every card the same size, whatever its picture or words
-export function Cards({ items, small: compact, even }) {
+// live: the client sites play in their cards rather than sitting there as pictures (components/Preview.jsx)
+export function Cards({ items, small: compact, even, live }) {
   return (
     <ul className={`wg__list ${compact ? 'wg__list--small' : ''} ${even ? 'wg__list--even' : ''}`}>
       {items.map((it) => (
@@ -31,6 +33,7 @@ export function Cards({ items, small: compact, even }) {
               {it.image
                 ? <img {...picture(it, '(max-width: 760px) 92vw, 44vw')} alt={`${it.title} home page`} width={it.w} height={it.h} loading="lazy" decoding="async" />
                 : <span className="card__type pillar" aria-hidden="true">{it.title}</span>}
+              {live && it.live ? <Preview url={it.live} title={it.title} /> : null}
             </span>
             <span className="card__txt" data-r="fade">
               <span className="card__head">

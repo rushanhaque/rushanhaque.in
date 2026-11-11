@@ -62,6 +62,8 @@
      Six Caps carries the structure: tall as a column, and only ever set big.
      Mona Sans is everything you read, set wide and light when it speaks up.
      DM Mono is the annotation on the drawing. */
+  /* Geist carries the name on the first screen, as it did on the previous portfolio, and nothing else. */
+  --display: 'Geist', 'Mona Sans', ui-sans-serif, -apple-system, sans-serif;
   --pillar: 'Six Caps', 'Arial Narrow', 'Liberation Sans Narrow', sans-serif;
   --sans: 'Mona Sans', ui-sans-serif, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
