@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { gsap } from '../lib/gsap'
 import { site } from '../config/site'
-import { onSun } from '../lib/sun'
 import { TLink } from './Transition'
 import Mark from './Mark'
 import Menu from './Menu'
@@ -21,10 +20,6 @@ export default function Chrome() {
   useEffect(() => { setOpen(false) }, [loc.pathname])
   const sized = useRef(null)
   useEffect(() => { sized.current?.() }, [loc.pathname])
-
-  useEffect(() => onSun((s) => {
-    if (mark.current) mark.current.style.transform = `rotate(${(s.hour - 6) * 15}deg)`
-  }), [])
 
   useEffect(() => {
     document.documentElement.classList.toggle('is-menu', open)
@@ -66,8 +61,7 @@ export default function Chrome() {
       <a href="#main" className="skip">Skip to content</a>
       <header className="bar" ref={bar}>
         <TLink to="/" className="bar__home" aria-label="Rushan Haque, home" title="Home">
-          <span ref={mark} className="bar__mark"><Mark size={22} /></span>
-          <span>Rushan Haque</span>
+          <span ref={mark} className="bar__mark"><Mark /></span>
         </TLink>
         <Sundial />
         <nav className="bar__nav" aria-label="Main">

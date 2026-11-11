@@ -51,7 +51,7 @@ function CaseInner({ w, next }) {
       <div ref={first}>
         <div data-tone="ivory">
         <header className="case__head wrap">
-          <nav className="crumb note" aria-label="Breadcrumb"><TLink to="/work" title="Work">Work</TLink><span aria-hidden="true">/</span><span aria-current="page">{w.short}</span></nav>
+          <nav className="crumb note" aria-label="Breadcrumb"><TLink to="/work" title="Works">Works</TLink><span aria-hidden="true">/</span><span aria-current="page">{w.short}</span></nav>
           <h1 className="h1">{w.title}</h1>
           <div className="case__intro">
             <p className="lede">{w.line}</p>

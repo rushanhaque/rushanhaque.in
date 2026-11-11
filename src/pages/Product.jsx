@@ -123,7 +123,7 @@ function Inner({ p }) {
   return (
     <article className="pp" ref={root}>
       <header className="pp__head wrap">
-        <nav className="crumb note" aria-label="Breadcrumb"><TLink to="/work" title="Work">Work</TLink><span aria-hidden="true">/</span><span aria-current="page">{p.short}</span></nav>
+        <nav className="crumb note" aria-label="Breadcrumb"><TLink to="/work" title="Works">Works</TLink><span aria-hidden="true">/</span><span aria-current="page">{p.short}</span></nav>
         <h1 className="h1">{p.title}</h1>
         <p className="lede pp__intro">{p.description}</p>
         <ul className="tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>

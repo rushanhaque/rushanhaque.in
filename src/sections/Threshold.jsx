@@ -5,6 +5,7 @@ import { useReady } from '../lib/ready'
 import { device } from '../lib/device'
 import HeroShader from '../components/HeroShader'
 import { site } from '../config/site'
+import Wordmark from '../components/Wordmark'
 
 const WORDS = ['Rushan', 'Haque']
 const LINE = ['Interfaces,', 'builds', 'and', 'the', 'client', 'care', 'in', 'between.']
@@ -147,12 +148,9 @@ export default function Threshold() {
       <div className="pin__stage thr__stage">
         <HeroShader intro={ready} progress={progress} />
         <div className="thr__center">
-          <h1 className={`thr__name ${ready ? 'is-up' : ''}`} ref={name} aria-label={site.name}>
-            {WORDS.map((word, w) => (
-              <span className={`thr__word ${w ? 'is-lit' : ''}`} key={word} aria-hidden="true">
-                {word.split('').map((c) => { const i = k++; return <i className="thr__ch" style={{ '--i': i }} key={i}>{c}</i> })}
-              </span>
-            )).reduce((a, b, i) => (i ? [...a, ' ', b] : [b]), [])}
+          <h1 className="thr__name" ref={name}>
+            <span className="sr-only">{site.name}</span>
+            <Wordmark drawn={ready} />
           </h1>
           <div ref={roles}><Roles ready={ready} line={line} /></div>
         </div>

@@ -8,12 +8,12 @@
 @media (hover: hover) { .bar::before { background: rgb(var(--paper-rgb) / 0.84); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); } }
 .bar__line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; opacity: 0; transition: opacity 0.35s linear; }
 .bar.is-stuck .bar__line { opacity: 1; }
-.bar__home { justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--t-sm); font-weight: 500; font-stretch: 108%; letter-spacing: -0.012em; }
-.bar__mark { display: block; will-change: transform; }
+.bar__home { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding-right: 8px; }
+/* the monogram: one height, its width from its own drawing */
+.bar__mark { display: block; }
 /* on the first screen the name is the screen: the bar doesn't say it twice */
-.bar__home > span:last-child { transition: opacity 0.5s var(--ease); }
-.bar.is-first .bar__home > span:last-child { opacity: 0; }
-.mark { display: block; }
+.mono { display: block; height: clamp(21px, 2.4vh, 26px); width: auto; overflow: visible; transition: opacity 0.4s var(--ease); }
+@media (hover: hover) { .bar__home:hover .mono { opacity: 0.66; } }
 .bar__nav { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: clamp(4px, 1vw, 14px); font-size: var(--t-sm); font-weight: 450; }
 .bar__link { display: inline-flex; align-items: center; height: 40px; padding-inline: 8px; transition: color 0.3s var(--ease); }
 .bar__link[aria-current='page'] { color: var(--accent); }

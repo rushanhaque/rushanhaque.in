@@ -49,15 +49,19 @@ const KIND = (t) => {
   if (/^(secondary|tertiary)$/.test(t.highway)) return 'mid'
   return 'minor'
 }
-const TOL = { minor: 0.9, mid: 0.6, major: 0.5, rail: 0.6, river: 0.6, canal: 0.8, water: 0.7 }
+const TOL = { minor: 2.6, mid: 1.1, major: 0.6, rail: 0.9, river: 0.8, canal: 1.4, water: 1.2 }
+// the smallest lanes add weight and nothing you can see at this size
+const MIN = { minor: 7, mid: 3, major: 0, rail: 0, river: 0, canal: 5, water: 4 }
+const span = (p) => { let n = 0; for (let i = 1; i < p.length; i++) n += Math.hypot(p[i][0] - p[i-1][0], p[i][1] - p[i-1][1]); return n }
 const paths = {}
 for (const el of data.elements) {
   if (!el.geometry || !el.tags) continue
   const kind = KIND(el.tags)
   const pts = simplify(el.geometry.map((g) => [X(g.lon), Y(g.lat)]), TOL[kind])
   if (pts.length < 2) continue
+  if (span(pts) < MIN[kind]) continue
   if (pts.every(([x, y]) => x < -50 || x > W + 50 || y < -50 || y > H + 50)) continue
-  const d = 'M' + pts.map(([x, y], i) => `${i ? 'L' : ''}${x.toFixed(1)} ${y.toFixed(1)}`).join('') + (kind === 'water' ? 'Z' : '')
+  const d = 'M' + pts.map(([x, y], i) => `${i ? 'L' : ''}${x.toFixed(0)} ${y.toFixed(0)}`).join('') + (kind === 'water' ? 'Z' : '')
   ;(paths[kind] ||= []).push(d.replace(/L/g, ' '))
 }
 

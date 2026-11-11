@@ -32,7 +32,7 @@ export default function RecentWorks() {
         ? <Suspense fallback={<div className="plan" />}><FloorPlan items={CLIENTS} /></Suspense>
         : <div className="rw__grid wrap"><Cards items={CLIENTS} even /></div>}
       <div className="rw__more wrap">
-        <Btn to="/work" title="Work" variant="solid">See all work</Btn>
+        <Btn to="/work" title="Works" variant="solid">See all works</Btn>
       </div>
     </section>
   )

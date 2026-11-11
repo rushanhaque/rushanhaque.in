@@ -15,7 +15,7 @@ export default function NotFound() {
       <p className="lede">The address may have changed, or it may never have existed. These will get you back on track.</p>
       <div className="lost__links">
         <Btn to="/" title="Home" variant="solid">Back to home</Btn>
-        <TLink to="/work" className="tlink" title="Work">See the work</TLink>
+        <TLink to="/work" className="tlink" title="Works">See the works</TLink>
         <TLink to="/about" className="tlink" title="About">About me</TLink>
         <TLink to="/contact" className="tlink" title="Contact">Get in touch</TLink>
       </div>

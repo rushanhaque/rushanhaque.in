@@ -1,13 +1,16 @@
-// The mark: a jali's single opening. Two squares, one turned, and in the middle the point the light
-// comes through. It turns very slowly with the hour (see Chrome).
-export default function Mark({ size = 26, className = '' }) {
+import { STROKE, word } from '../lib/letters'
+
+// The monogram: the R and the H of the drawn name (lib/letters.js), set close enough to read as one piece. Both
+// letters close on the same axis, so at this size the eye sees a single band straight through the middle, which is
+// what the whole alphabet is built around. Same hand as the name on the first screen, and nothing else uses it.
+const RH = word('RH', 13)
+
+export default function Mark({ className = '' }) {
   return (
-    <svg className={`mark ${className}`} width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
-      <g fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="9" y="9" width="30" height="30" />
-        <rect x="9" y="9" width="30" height="30" transform="rotate(45 24 24)" />
+    <svg className={`mono ${className}`} viewBox={RH.viewBox} fill="none" aria-hidden="true" focusable="false">
+      <g strokeWidth={STROKE} strokeLinecap="butt" strokeLinejoin="miter" stroke="currentColor">
+        {RH.letters.map((l) => <path key={l.c} transform={`translate(${l.x} 0)`} d={l.d} />)}
       </g>
-      <circle cx="24" cy="24" r="3.6" fill="var(--accent)" />
     </svg>
   )
 }

@@ -117,6 +117,8 @@ export const director = {
       const ends = k.stageShare ? k.top + (k.height - k.stageH) * k.stageShare : k.top + k.height
       if (k.stage && y + vh > k.top && y < ends) stage = k.stage
     }
+    // being inside the room is enough: a stale measurement must never leave its scene switched off
+    if (!stage && c.stage) stage = c.stage
     this.state.stage = stage
 
     c.frame?.({ owned, stick, y, vh, top: c.top, height: c.height, stageH: c.stageH, line, engine: this.engine })

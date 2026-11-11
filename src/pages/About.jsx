@@ -4,7 +4,7 @@ import { useChapter } from '../lib/director'
 import { useReveals } from '../lib/reveal'
 import { useMeta } from '../lib/meta'
 import { site } from '../config/site'
-import { certifications, insights, stats, languages, process, skills, writings } from '../data/content'
+import { certifications, stats, languages, skills, writings } from '../data/content'
 import editable from '../data/editable.json'
 import Btn from '../components/Btn'
 import Footer from '../components/Footer'
@@ -87,33 +87,6 @@ export default function About() {
       </div>
 
       <Journey />
-
-      <section className="ab__sect wrap" data-tone="ivory">
-        <Head label="Process" title={<>How it <em>goes</em></>} />
-        <ol className="proc">
-          {process.map((p) => (
-            <li className="proc__row" key={p.no} data-r="fade">
-              <span className="proc__no pillar" aria-hidden="true">{p.no}</span>
-              <div className="proc__name"><p className="note">{p.room}</p><h3 className="h4">{p.title}</h3></div>
-              <p className="small">{p.text}</p>
-              <ul className="note proc__tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="ab__sect wrap" data-tone="ivory">
-        <Head label="Beliefs" title={<>What I <em>think</em></>} />
-        <div className="think">
-          {insights.map((i) => (
-            <article key={i.title} data-r="fade">
-              <p className="note">{i.tag}</p>
-              <h3 className="h4">{i.title}</h3>
-              <p className="small">{i.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
 
       <section className="ab__sect wrap" id="credentials" data-tone="ivory">
         <Head label="Credentials" title={<>Seventeen <em>certificates,</em> trainings &amp; simulations.</>} />

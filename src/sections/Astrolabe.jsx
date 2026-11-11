@@ -46,8 +46,9 @@ export default function Astrolabe() {
       const p = stick
       const a = engine?.stages.get('atlas')
       if (a) a.progress = p
-      // the picture stays until the globe has really been drawn, so the section is never empty
-      const live = !!a?.drawn && document.documentElement.classList.contains('has-gl')
+      // the picture stands in whenever the canvas is not drawing this scene right now, whatever the reason: the
+      // shaders still compiling, the context lost, the engine given up. The section is never empty.
+      const live = !!engine?.alive && engine.shown && director.state.stage === 'atlas'
       if (root.current && live !== root.current.classList.contains('is-live')) root.current.classList.toggle('is-live', live)
       const H = engine ? engine.ctx.h : stageH
       const l = plateLayout(innerWidth, H)

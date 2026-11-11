@@ -30,18 +30,26 @@
   --fs: min(calc((100vw - 2 * var(--m)) / 5.7), calc((100vh - var(--bar-h)) * 0.3));
   position: relative; z-index: 2; display: grid; gap: clamp(14px, 2.6vh, 30px);
 }
-/* The name in Fraunces: a soft, wonky old-style serif at its display size, upright and then in italic brass */
-.thr__name {
-  display: flex; justify-content: center; align-items: baseline; gap: 0.22em; margin: 0 auto; white-space: nowrap; font-family: 'Fraunces', Georgia, serif; font-size: var(--fs);
-  font-weight: 330; line-height: 0.95; letter-spacing: -0.045em; color: #f6eee4; font-variation-settings: 'opsz' 144, 'SOFT' 60, 'WONK' 1; transform-origin: 50% 55%; pointer-events: none;
+/* The name, drawn (components/Wordmark.jsx). Both words are given one height, so their cap heights match, and the
+   pair is sized to whatever room the first screen has: never wider than the margins, never taller than its share. */
+.thr__name { display: grid; justify-items: center; margin: 0 auto; transform-origin: 50% 55%; pointer-events: none; }
+.mark {
+  --h: min(calc((100vh - var(--bar-h)) * 0.3), calc((100svh - var(--bar-h)) * 0.3), calc((100vw - 2 * var(--m)) / var(--wide)));
+  display: flex; align-items: flex-start; height: var(--h); gap: calc(var(--h) * 0.609); color: #f6eee4;
 }
-.thr__word { display: block; overflow: hidden; padding: 0.1em 0.06em 0.2em; margin: -0.1em -0.06em -0.2em; }
-.thr__word.is-lit { color: #e4c78f; font-style: italic; font-weight: 300; letter-spacing: -0.035em; }
-.thr__ch { display: inline-block; font-style: inherit; }
-/* the letters come up into place, one after another, as the page opens */
-html:not(.static) .thr__name:not(.is-up) .thr__ch { transform: translateY(110%); }
-.thr__name.is-up .thr__ch { animation: nameUp 1.4s calc(var(--i) * 45ms + 120ms) var(--ease) both; }
-@keyframes nameUp { from { transform: translateY(110%); } }
+.mark__word { display: block; height: 100%; width: auto; overflow: visible; stroke: currentColor; }
+/* a phone has the height to spare and not the width: the two words stack, and each one is far bigger for it */
+@media (max-aspect-ratio: 5/4) {
+  .mark { flex-direction: column; align-items: center; height: auto; gap: calc(var(--h) * var(--lead)); }
+  .mark { --h: min(calc((100vh - var(--bar-h)) * 0.2), calc((100svh - var(--bar-h)) * 0.2), calc((100vw - 2 * var(--m)) / var(--stack))); }
+  .mark__word { height: var(--h); }
+}
+.mark__word.is-lit { color: #e4c78f; }
+/* each letter is one path of length 1, so it draws itself on from nothing */
+.mark__ch { stroke-dasharray: 1; }
+html:not(.static) .mark:not(.is-drawn) .mark__ch { stroke-dashoffset: 1; }
+.mark.is-drawn .mark__ch { animation: markDraw 1s calc(var(--i) * 85ms + 150ms) cubic-bezier(0.62, 0.02, 0.2, 1) both; }
+@keyframes markDraw { from { stroke-dashoffset: 1; } }
 .thr__roles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 0.3em; align-items: baseline; min-height: 1.3em; font-size: clamp(19px, 2.3vw, 36px); font-stretch: 112%; font-weight: 400; letter-spacing: -0.03em; line-height: 1.3; white-space: nowrap; contain: layout; }
 .thr__role:nth-of-type(2) { text-align: right; }
 .thr__role.is-lit { color: var(--gold); }
@@ -94,7 +102,7 @@ html:not(.static) .thr__w i { transform: translateY(116%); }
 .galp { display: none; }
 html:not(.can-gl) .gal { display: none; }
 html:not(.can-gl) .galp { display: block; padding-block: var(--room) 0; }
-.gal__scrim { position: absolute; left: 0; right: 0; bottom: 0; height: 52%; pointer-events: none; background: linear-gradient(to top, rgb(247 244 241 / 0.95), rgb(247 244 241 / 0.78) 46%, transparent); }
+.gal__scrim { position: absolute; left: 0; right: 0; bottom: 0; height: 34%; pointer-events: none; background: linear-gradient(to top, rgb(247 244 241 / 0.55), rgb(247 244 241 / 0.18) 54%, transparent); }
 .gal__lead { position: absolute; left: 0; right: 0; bottom: clamp(28px, 6vh, 64px); display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
 .gal__title { font-size: min(32vh, calc((100vw - 2 * var(--m) - 320px) / 3.25)); line-height: 0.9; white-space: nowrap; }
 .gal__intro { display: grid; gap: 10px; justify-items: end; padding-bottom: 8px; text-align: right; }
@@ -197,19 +205,17 @@ html:not(.can-gl) .gal__title { font-size: min(34vh, calc((100vw - 2 * var(--m))
   .prod__step .small { grid-column: 2; }
 }
 
-/* -- Clientele: logos on cards, in an endless row ------------------------------------------- */
-.names { padding-block: var(--room); overflow: hidden; }
-.logos { overflow-x: auto; scrollbar-width: none; padding-inline: var(--m); }
-.logos::-webkit-scrollbar { display: none; }
-.logos.is-live { overflow: visible; padding-inline: 0; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-.logos.is-held { cursor: grabbing; }
-.logos__track { display: flex; column-gap: clamp(12px, 1.3vw, 20px); width: max-content; will-change: transform; }
-.logo { position: relative; flex: none; display: grid; place-items: center; width: clamp(210px, 21vw, 320px); aspect-ratio: 8 / 5; padding: clamp(24px, 2.6vw, 42px) clamp(30px, 3.2vw, 52px); border-radius: 18px; background: #f7f4f1; color: #201814; contain: strict; transition: transform 0.7s var(--ease); }
+/* -- Clientele: a wall of small cards --------------------------------------------------------- */
+.names { padding-block: var(--room); }
+.logos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 0.9vw, 14px); margin-top: var(--head); }
+.logo { position: relative; display: grid; place-items: center; aspect-ratio: 3 / 2; padding: 13% 14%; border-radius: 12px; background: #f7f4f1; color: #201814; transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
 .logo--dark { background: var(--stone); color: #fff; box-shadow: inset 0 0 0 1px var(--line); }
-.logo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; padding: inherit; object-fit: contain; pointer-events: none; -webkit-user-drag: none; }
-.logo__name { font-size: clamp(19px, 1.7vw, 26px); font-stretch: 110%; letter-spacing: -0.028em; line-height: 1.12; text-align: center; text-wrap: balance; }
-@media (hover: hover) { .logos:not(.is-held) .logo:hover { transform: translateY(-6px); } }
-.logos__foot { display: flex; justify-content: flex-end; margin-top: clamp(16px, 2vw, 26px); }
+.logo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; padding: inherit; object-fit: contain; }
+.logo__name { font-size: clamp(12px, 1vw, 15px); font-stretch: 106%; letter-spacing: -0.016em; line-height: 1.18; text-align: center; text-wrap: balance; }
+@media (hover: hover) { .logo:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -18px rgb(0 0 0 / 0.7); } }
+@media (max-width: 1100px) { .logos { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
+@media (max-width: 440px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* -- Where I serve ----------------------------------------------------------------------- */
 .atl { height: 270vh; }
@@ -227,8 +233,10 @@ html:not(.can-gl) .gal__title { font-size: min(34vh, calc((100vw - 2 * var(--m))
 .atl__city b { display: inline-block; font-weight: 400; color: #fff; text-shadow: 0 0 3px var(--paper), 0 0 6px var(--paper), 0 0 10px var(--paper); }
 .atl__city.is-client b { color: var(--accent); }
 .atl__city.is-home b { font-weight: 500; font-size: 12px; }
-.atl__still { display: none; }
-.atl:not(.is-live) .atl__still { display: block; position: absolute; right: var(--m); top: calc(var(--bar-h) + 16px); width: min(54vw, calc(100vh - var(--bar-h) - 32px)); height: auto; border-radius: 50%; }
+.atl__still { opacity: 0; visibility: hidden; transition: opacity 0.5s linear, visibility 0.5s; }
+/* the names are placed for the live camera, so they stand down while the picture is standing in */
+.atl:not(.is-live) .atl__labels { opacity: 0; transition: opacity 0.3s linear; }
+.atl:not(.is-live) .atl__still { opacity: 1; visibility: visible; position: absolute; right: var(--m); top: calc(var(--bar-h) + 16px); width: min(54vw, calc(100vh - var(--bar-h) - 32px)); height: auto; border-radius: 50%; }
 @media (max-height: 520px) {
   .atl__stats, .atl__copy .kick, .atl__step .note { display: none; }
   .atl__copy .sh__title { font-size: 30px; }
@@ -284,14 +292,19 @@ html:not(.static) .osv__card.is-drawn .osv__glyph path { stroke-dashoffset: 0; }
 @media (max-width: 899px), (max-height: 619px) {
   .osv { height: auto; }
   .osv__stage { position: static; height: auto; overflow: visible; padding: var(--room) 0; }
-  .osv__viewport { margin-inline: 0; padding: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); scrollbar-width: none; }
-  .osv__viewport::-webkit-scrollbar { display: none; }
-  .osv__track { width: max-content; height: auto; padding: 2px var(--m); transform: none !important; }
-  .osv__card { height: auto; scroll-snap-align: start; }
-  .osv__plate { flex: none; aspect-ratio: 16 / 9; }
-  .osv__tags { display: flex; }
-  .osv__card--cta { min-height: 300px; }
-  .osv__pager { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
+  .osv__viewport { margin-inline: 0; padding: 0; overflow: visible; }
+  .osv__track { display: grid; gap: 10px; width: auto; height: auto; padding-inline: var(--m); transform: none !important; }
+  /* one service to a row: its drawing on the left, what it is on the right */
+  .osv__card { width: auto; height: auto; display: grid; grid-template-columns: clamp(74px, 22vw, 96px) minmax(0, 1fr); align-items: center; gap: 15px; padding: 11px; border-radius: 16px; }
+  .osv__plate { flex: none; aspect-ratio: 1; min-height: 0; border-radius: 11px; background-size: 15px 15px; }
+  .osv__glyph { width: 46%; }
+  .osv__no, .osv__of, .osv__tick, .osv__tags { display: none; }
+  .osv__body { min-height: 0; gap: 4px; padding: 0; }
+  .osv__name { font-size: clamp(1.06rem, 4.6vw, 1.3rem); }
+  .osv__text { font-size: 13.5px; line-height: 1.45; }
+  .osv__card--cta { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 14px; min-height: 0; padding: clamp(22px, 6vw, 32px); }
+  .osv__ask { font-size: clamp(1.7rem, 7.4vw, 2.3rem); }
+  .osv__pager { display: none; }
 }
 
 /* -- Reviews: notes pinned to a drawing board ------------------------------------------------ */
@@ -429,7 +442,7 @@ html:not(.static) .osv__card.is-drawn .osv__glyph path { stroke-dashoffset: 0; }
 .static .atl__stats { position: static; margin-top: 24px; }
 .static .atl__stats dd { opacity: 1; }
 .static .atl__labels { display: none; }
-.static .atl__still { display: block; position: static; translate: none; width: min(100% - 2 * var(--m), 720px); margin: 30px auto 0; }
+.static .atl__still { opacity: 1; visibility: visible; position: static; translate: none; width: min(100% - 2 * var(--m), 720px); margin: 30px auto 0; }
 .static .osv { height: auto; }
 .static .osv__stage { padding-block: var(--room) 0; }
 .static .osv__viewport { overflow: visible; margin-inline: 0; }
@@ -466,12 +479,21 @@ html:not(.static) .osv__card.is-drawn .osv__glyph path { stroke-dashoffset: 0; }
 }
 @media (max-width: 899px) {
   /* rows you swipe, each item whole on screen with the next just showing */
-  .rw .wg__list--even, .draft__plates { display: flex; gap: 14px; margin-inline: calc(-1 * var(--m)); padding-inline: var(--m); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); scrollbar-width: none; overscroll-behavior-x: contain; }
-  .rw .wg__list--even::-webkit-scrollbar, .draft__plates::-webkit-scrollbar { display: none; }
-  .rw .wg__list--even > li, .draft__plate { flex: none; width: min(84vw, 380px); scroll-snap-align: start; }
+  .draft__plates { display: flex; gap: 14px; margin-inline: calc(-1 * var(--m)); padding-inline: var(--m); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); scrollbar-width: none; overscroll-behavior-x: contain; }
+  .draft__plates::-webkit-scrollbar { display: none; }
+  .draft__plate { flex: none; width: min(84vw, 380px); scroll-snap-align: start; }
+  /* one work under the next, each opening as it arrives */
+  .rw .wg__list--even { grid-template-columns: minmax(0, 1fr); gap: clamp(26px, 6vw, 40px); }
+  /* one under the next, so there is no height to equalise: each work says its whole piece */
+  .rw .wg__list--even .card__text { display: block; min-height: 0; }
+  .rw .wg__list--even .card__pic { aspect-ratio: 4 / 3; }
   .draft__plates { gap: 16px; }
   .rw, .draft, .shelf { padding-bottom: clamp(48px, 8vh, 72px); }
   .shelf__row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; }
+}
+/* the narrowest phones: two covers across, so a long kind still fits on one */
+@media (max-width: 380px) {
+  .shelf__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .shelf__sub { font-size: 13px; }
 }
 @media (min-width: 900px) {

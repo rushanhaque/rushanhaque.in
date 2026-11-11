@@ -120,9 +120,9 @@ vec3 surface(Hit h, vec3 ro, vec3 rd){
     // honed dark stone, laid in big slabs
     vec2 sl = fract(P.xz / vec2(7.4)) - .5;
     float seam = smoothstep(.494, .4985, max(abs(sl.x), abs(sl.y)));
-    alb = vec3(.5, .46, .41) * (.86 + m * .28) * (1. - seam * .3);
+    alb = vec3(.44, .4, .36) * (.86 + m * .28) * (1. - seam * .34);
   } else {
-    alb = vec3(.74, .7, .64) * (.82 + b * .3) * (.95 + noise(st * 26.) * .1);
+    alb = vec3(.66, .62, .56) * (.82 + b * .3) * (.95 + noise(st * 26.) * .1);
     if (h.id == 4) alb *= 1.12;
   }
   float lit = sunLit(P + N * .03, .018);
@@ -136,16 +136,17 @@ vec3 surface(Hit h, vec3 ro, vec3 rd){
   if (h.id <= 2) ao = smoothstep(0., 2.6, min(dx, h.id == 0 ? dy : 2.6)) * .7 + .3;
   ao *= smoothstep(-.1, 3., min(zLocal, D - zLocal)) * .55 + .45;
   if (h.id == 3) ao *= smoothstep(0., 1.6, archSD(P.xy)) * .35 + .65;
-  col += alb * uSkyTint * uAmb * ao * (.45 + P.y * .05) * 3.4;
+  col += alb * uSkyTint * uAmb * ao * (.45 + P.y * .05) * 2.5;
   return col;
 }
 
 vec3 picture(int which, vec2 uv, vec4 P){
   vec3 real = which == 5 ? texture(uRealA, uv, -.6).rgb : texture(uRealB, uv, -.6).rgb;
   vec3 plan = which == 5 ? texture(uPlanA, uv).rgb : texture(uPlanB, uv).rgb;
-  // drawings are ink on paper, as they were drawn
+  // Before it arrives, the plate is a dark panel set into the wall, with the drawing the site began as etched on
+  // it in brass. No sheet of white paper: the real site simply comes up out of the dark.
   float ink = 1. - dot(plan, vec3(.333));
-  vec3 lines = mix(vec3(.93, .9, .85), vec3(.16, .12, .11), clamp(ink * 1.6, 0., 1.));
+  vec3 lines = mix(vec3(.055, .05, .047), vec3(.38, .29, .17), clamp(ink * 1.5, 0., 1.));
   // the picture arrives through a lattice opening outward from its centre
   float aspect = PW / P.y;
   vec2 g = (uv - .5) * vec2(aspect, 1.);
@@ -154,7 +155,7 @@ vec3 picture(int which, vec2 uv, vec4 P){
   vec3 c = mix(lines, real, wave >= 1. ? 1. : cell);
   // the frame's edge catches the sun
   vec2 e = min(uv, 1. - uv) * vec2(aspect, 1.);
-  c += uSun * smoothstep(.006, .0, min(e.x, e.y)) * .4;
+  c += uSun * smoothstep(.005, .0, min(e.x, e.y)) * .16;
   return c;
 }
 
@@ -195,8 +196,10 @@ void main(){
     float phase = 1. + 1.6 * pow(max(dot(rd, uSunDir), 0.), 5.);
     col += uSun * acc * uVol * phase * (h.id >= 5 ? .0022 : .0075);
   }
-  // and a little haze, so the far bays fall away into soft light
-  col = mix(col, vec3(.86, .82, .76), (1. - exp(-h.t * .022)) * .75);
+  // and a little haze, so the far bays fall away into soft light. A picture is left out of it: a client's site
+  // should be seen as it really is, not through the air of the room.
+  float haze = (1. - exp(-h.t * .02)) * (h.id >= 5 ? .14 : .42);
+  col = mix(col, vec3(.70, .66, .61), haze);
   o = vec4(col, 1.);
 }`
 

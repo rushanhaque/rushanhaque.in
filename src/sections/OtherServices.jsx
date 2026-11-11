@@ -21,9 +21,9 @@ const GLYPH = {
 const two = (n) => String(n).padStart(2, '0')
 const TOTAL = services.length + 1
 
-// Other services, laid out like sheets on a drawing board. On wide screens the section holds still and the
-// scroll slides the row along, and each
-// pictogram is drawn as its sheet arrives. On narrow screens it is a row you swipe, a page at a time.
+// Other services, laid out like sheets on a drawing board. On wide screens the section holds still and the scroll
+// slides the row along, and each pictogram is drawn as its sheet arrives. On a phone they become a column of compact
+// rows, each one drawing its own pictogram as you reach it.
 export default function OtherServices() {
   const root = useRef(null)
   const track = useRef(null)
@@ -66,7 +66,19 @@ export default function OtherServices() {
       const bodies = [...track.current.querySelectorAll('.osv__body')]
       track.current.style.setProperty('--osv-body', '0px')
       track.current.style.setProperty('--osv-body', `${Math.max(...bodies.map((b) => b.offsetHeight))}px`)
-      show(s.wide ? Math.round(s.cur / s.step) : Math.round(row.current.scrollLeft / s.step))
+      show(s.wide ? Math.round(s.cur / s.step) : 0)
+      watch()
+    }
+    // in a column, each sheet draws its own pictogram as it arrives
+    let io = null
+    const watch = () => {
+      io?.disconnect()
+      io = null
+      if (s.wide) return
+      io = new IntersectionObserver((list) => {
+        for (const e of list) if (e.isIntersecting) { e.target.classList.add('is-on', 'is-drawn'); io.unobserve(e.target) }
+      }, { rootMargin: '0px 0px -12% 0px' })
+      for (const c of track.current.children) io.observe(c)
     }
     size()
     addEventListener('resize', size)
@@ -79,7 +91,7 @@ export default function OtherServices() {
     }
     const r = row.current
     r.addEventListener('scroll', onRow, { passive: true })
-    return () => { removeEventListener('resize', size); r.removeEventListener('scroll', onRow) }
+    return () => { io?.disconnect(); removeEventListener('resize', size); r.removeEventListener('scroll', onRow) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

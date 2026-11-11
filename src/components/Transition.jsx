@@ -10,7 +10,7 @@ import { director } from '../lib/director'
 const Ctx = createContext({ go: () => {} })
 export const useGo = () => useContext(Ctx).go
 
-const NAMES = { '/': 'Home', '/work': 'Work', '/about': 'About', '/contact': 'Contact' }
+const NAMES = { '/': 'Home', '/work': 'Works', '/about': 'About', '/contact': 'Contact' }
 const wait = (ms) => new Promise((r) => setTimeout(r, ms))
 // timers, not frames: the browser holds back rendering, and with it animation frames, while it waits for the new page
 async function until(test, ms) {

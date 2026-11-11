@@ -221,12 +221,6 @@ html[data-tone='ivory'] .field, [data-fixed='ivory'] .field, [data-tone='ivory']
   .jr.is-live .jr__item > div, .jr.is-live .jr__item.is-right > div { transform: translateX(12px); }
   .jr.is-live .jr__item.is-lit > div { transform: none; }
 }
-.proc { display: grid; }
-.proc__row { display: grid; grid-template-columns: 54px minmax(0, 4fr) minmax(0, 8fr); column-gap: var(--gap); row-gap: 7px; padding-block: 16px; box-shadow: inset 0 1px 0 var(--line); align-items: start; }
-.proc__no { font-size: 46px; color: var(--accent); grid-row: span 2; }
-.proc__tags { grid-column: 3; display: flex; flex-wrap: wrap; gap: 0 12px; }
-.think { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 28px var(--gap); }
-.think article { display: grid; gap: 6px; align-content: start; padding-top: 12px; box-shadow: inset 0 1px 0 var(--line); }
 .creds { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(22px, 2.4vw, 36px) var(--gap); }
 .cred { display: grid; gap: 4px; align-content: start; text-align: left; font-size: var(--t-sm); }
 .cred__media { display: block; aspect-ratio: 1.36; overflow: hidden; background: var(--stone); margin-bottom: 7px; box-shadow: 0 0 0 1px rgb(var(--ink-rgb) / 0.08); }
@@ -255,9 +249,6 @@ a.wlist__row:hover .wlist__go { transform: translate(2px, -2px); opacity: 1; }
   .ab__bio, .ab__facts { grid-column: 1 / -1; }
   .ab__facts { grid-template-columns: 1fr 1fr; gap: 14px var(--gap); }
   .creds { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .proc__row { grid-template-columns: 40px minmax(0, 1fr); }
-  .proc__no { font-size: 38px; grid-row: span 3; }
-  .proc__tags { grid-column: 2; }
 }
 
 /* -- Contact ---------------------------------------------------------------------------- */
@@ -265,8 +256,8 @@ a.wlist__row:hover .wlist__go { transform: translate(2px, -2px); opacity: 1; }
 .cn-map { --w: max(2000px, 150vw); --px: 55%; --py: 15%; position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--paper); }
 .cn-map img { position: absolute; left: calc(var(--px) - var(--w) * 0.4945); top: calc(var(--py) - var(--w) * 0.7735 * 0.5067); width: var(--w); height: auto; max-width: none; animation: mapIn 2.2s var(--ease) both; }
 @keyframes mapIn { from { opacity: 0; transform: scale(1.06); transform-origin: 49.45% 50.67%; } }
-/* the map fades into the page at its edges, and quietly behind the words on the left */
-.cn-map::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(var(--paper-rgb) / 0.92) 0%, rgb(var(--paper-rgb) / 0.72) 38%, rgb(var(--paper-rgb) / 0) 62%), radial-gradient(ellipse 90% 90% at var(--px) var(--py), transparent 45%, rgb(var(--paper-rgb) / 0.8) 100%); }
+/* the map meets the page only at its far edges; nothing is laid over the middle of it */
+.cn-map::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 86% 86% at var(--px) var(--py), transparent 58%, rgb(var(--paper-rgb) / 0.9) 100%); }
 .cn-pin { position: absolute; z-index: 1; left: var(--px); top: var(--py); width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgb(var(--paper-rgb) / 0.95), 0 6px 18px rgb(66 36 45 / 0.35); }
 .cn-pin b { position: absolute; left: 22px; top: 50%; translate: 0 -50%; display: grid; gap: 1px; padding: 6px 10px; border-radius: 8px; background: rgb(var(--paper-rgb) / 0.92); box-shadow: 0 0 0 1px var(--line); color: var(--ink); font-weight: 400; white-space: nowrap; }
 .cn-pin b span { color: var(--ink-3); }
@@ -389,7 +380,7 @@ a.wlist__row:hover .wlist__go { transform: translate(2px, -2px); opacity: 1; }
 .adm__ghost:disabled { opacity: 0.45; cursor: default; }
 .route-wait { min-height: 100vh; }
 
-@media (max-width: 560px) { .cn-text strong { font-size: 16px; } .cn-icon { width: 40px; height: 40px; } .cn-card { gap: 12px; } .cn-map { --py: 9%; --px: 84%; --w: 1500px; } .cn-map::after { background: linear-gradient(180deg, transparent 0%, rgb(var(--paper-rgb) / 0.55) 13%, rgb(var(--paper-rgb) / 0.94) 24%); } .cn-pin b { display: none; } }
+@media (max-width: 560px) { .cn-text strong { font-size: 16px; } .cn-icon { width: 40px; height: 40px; } .cn-card { gap: 12px; } .cn-map { --py: 9%; --px: 84%; --w: 1500px; } }
 
 /* -- Every section fits the screen it is read on ---------------------------------------------- */
 .ab__bio .h3 { font-size: var(--t-lg); line-height: 1.38; }
