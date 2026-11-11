@@ -67,7 +67,6 @@ export default function Preview({ url, title }) {
       card.addEventListener('pointerleave', end)
       card.addEventListener('focusin', over)
       card.addEventListener('focusout', end)
-      ro.observe(el)
       return () => {
         clearTimeout(timer)
         if (mine) stop()
