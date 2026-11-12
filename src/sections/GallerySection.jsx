@@ -166,19 +166,33 @@ export default function GallerySection() {
       </section>
 
       <section className="galp wrap" aria-label="Selected works">
-        <p className="gal__title pillar" aria-hidden="true">Selected works</p>
-        <ul className="galp__list">
-          {works.map((w) => (
-            <li key={w.slug}>
-              <TLink to={`/work/${w.slug}`} title={w.short} className="galp__card">
-                <img src={small(w.image)} srcSet={srcSet(w.image)} sizes="(max-width: 760px) 92vw, 90vw" alt={`${w.title} home page`} loading="lazy" decoding="async" width={w.w} height={w.h} />
-                <span className="galp__name pillar">{w.title}</span>
-                <span className="body">{w.line}</span>
-                <span className="note">{w.field.replace(' · ', ', ')}, {w.year}. {w.status}.</span>
+        <header className="galp__head">
+          <p className="gal__title pillar" aria-hidden="true">Selected works</p>
+          <p className="galp__count note">{two(works.length)} client sites, each one built by hand</p>
+        </header>
+        <ol className="galp__list">
+          {works.map((w, i) => (
+            <li key={w.slug} className={`galp__item${i % 2 ? ' is-flip' : ''}`}>
+              <TLink to={`/work/${w.slug}`} title={w.short} className="galp__pic" tabIndex={-1} aria-hidden="true">
+                <img src={small(w.image)} srcSet={srcSet(w.image)} sizes="(max-width: 760px) 92vw, 58vw" alt="" loading="lazy" decoding="async" width={w.w} height={w.h} />
               </TLink>
+              <div className="galp__meta">
+                <p className="galp__no note">{two(i + 1)} / {two(works.length)}</p>
+                <h3 className="galp__name pillar"><TLink to={`/work/${w.slug}`} title={w.short}>{w.title}</TLink></h3>
+                <p className="galp__line">{w.line}</p>
+                <dl className="galp__facts note">
+                  <div><dt>Field</dt><dd>{w.field.replace(' · ', ', ')}</dd></div>
+                  <div><dt>Year</dt><dd>{w.year}</dd></div>
+                  <div><dt>Status</dt><dd>{w.status}</dd></div>
+                </dl>
+                <div className="gal__cta">
+                  <Btn to={`/work/${w.slug}`} title={w.short}>View case</Btn>
+                  {w.url && <a className="gal__visit" href={w.url} target="_blank" rel="noopener noreferrer">Visit site</a>}
+                </div>
+              </div>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
     </div>
   )
