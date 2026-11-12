@@ -121,12 +121,13 @@ export default function Contact() {
   useChapter(root, { id: 'contact', name: 'Contact', hidden: true, time: [6.9, 9] })
   return (
     <div className="cn" ref={root}>
+      {/* Moradabad's real roads, railways and the Ramganga, drawn from OpenStreetMap (scripts/build-contact-map.mjs),
+          held still and softly out of focus behind the whole page */}
+      <div className="cn-map" aria-hidden="true">
+        <img src="/img/bg/moradabad.svg" alt="" width="2000" height="1547" decoding="async" />
+        <span className="cn-pin"><i /><b className="note">Moradabad<span>28.84° N, 78.77° E</span></b></span>
+      </div>
       <section className="cn__top" aria-labelledby="cn-title" data-tone="ivory">
-        {/* Moradabad's real roads, railways and the Ramganga, drawn from OpenStreetMap (scripts/build-contact-map.mjs) */}
-        <div className="cn-map" aria-hidden="true">
-          <img src="/img/bg/moradabad.svg" alt="" width="2000" height="1547" decoding="async" />
-          <span className="cn-pin"><i /><b className="note">Moradabad<span>28.84° N, 78.77° E</span></b></span>
-        </div>
         <small className="cn-credit">Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors</small>
         <div className="cn__in wrap grid">
           <div className="cn__say">

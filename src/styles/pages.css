@@ -253,12 +253,15 @@ a.wlist__row:hover .wlist__go { transform: translate(2px, -2px); opacity: 1; }
 }
 
 /* -- Contact ---------------------------------------------------------------------------- */
-.cn__top { position: relative; isolation: isolate; overflow: hidden; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding-top: calc(var(--bar-h) + 24px); padding-bottom: 48px; }
-.cn-map { --w: max(2000px, 150vw); --px: 55%; --py: 15%; position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--paper); }
-.cn-map img { position: absolute; left: calc(var(--px) - var(--w) * 0.4945); top: calc(var(--py) - var(--w) * 0.7735 * 0.5067); width: var(--w); height: auto; max-width: none; animation: mapIn 2.2s var(--ease) both; }
+.cn { position: relative; isolation: isolate; }
+/* the map shows through every room of the page; only the footer covers it */
+.cn > [data-tone] { background-color: transparent !important; }
+.cn__top { position: relative; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding-top: calc(var(--bar-h) + 24px); padding-bottom: 48px; }
+.cn-map { --w: max(2000px, 150vw); --px: 55%; --py: 15%; position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--paper); }
+.cn-map img { position: absolute; left: calc(var(--px) - var(--w) * 0.4945); top: calc(var(--py) - var(--w) * 0.7735 * 0.5067); width: var(--w); height: auto; max-width: none; filter: blur(2.4px) brightness(0.72) saturate(1.3); will-change: transform; animation: mapIn 2.2s var(--ease) both; }
 @keyframes mapIn { from { opacity: 0; transform: scale(1.06); transform-origin: 49.45% 50.67%; } }
-/* the map meets the page only at its far edges; nothing is laid over the middle of it */
-.cn-map::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 86% 86% at var(--px) var(--py), transparent 58%, rgb(var(--paper-rgb) / 0.9) 100%); }
+/* a light wash where the words sit, so the map stays a backdrop and never competes with them */
+.cn-map::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(var(--paper-rgb) / 0.72), rgb(var(--paper-rgb) / 0.3) 46%, rgb(var(--paper-rgb) / 0.12) 70%, rgb(var(--paper-rgb) / 0.4)); }
 .cn-pin { position: absolute; z-index: 1; left: var(--px); top: var(--py); width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgb(var(--paper-rgb) / 0.95), 0 6px 18px rgb(66 36 45 / 0.35); }
 .cn-pin b { position: absolute; left: 22px; top: 50%; translate: 0 -50%; display: grid; gap: 1px; padding: 6px 10px; border-radius: 8px; background: rgb(var(--paper-rgb) / 0.92); box-shadow: 0 0 0 1px var(--line); color: var(--ink); font-weight: 400; white-space: nowrap; }
 .cn-pin b span { color: var(--ink-3); }
