@@ -74,6 +74,8 @@ function palette(name) {
 // itself, or its words stay the page's ink over that block's ground — which is how a dark room under a light page
 // loses its header altogether.
 function dressBar() {
+  // found here too: a page that opens on a block with its own tone never cross-fades, which is where it was found before
+  bar ??= document.querySelector('.bar')
   if (!bar) return
   const y = scrollY + 32
   const over = wears.find((w) => w.top < y && w.bottom > y)

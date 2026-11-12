@@ -43,17 +43,22 @@ function warm(link) {
 export function TransitionProvider({ children }) {
   const sheet = useRef(null)
   const word = useRef(null)
-  const busy = useRef(false)
+  const busy = useRef(0)
+  const pending = useRef(null)
+  const latest = useRef(null)
   const nav = useNavigate()
   const loc = useLocation()
   const [label, setLabel] = useState('')
 
   const go = useCallback(
     (to, { title, from } = {}) => {
-      if (busy.current) return
+      // A click while a page is still changing is not thrown away: the last place asked for is where you end up.
+      // And a change that never reported back (a tab put away mid-flight) cannot hold the links shut for good.
+      if (busy.current && performance.now() - busy.current < 4000) { pending.current = { to, title }; return }
+      pending.current = null
       if (to === loc.pathname) { jumpSmooth(); return }
       if (device().reduced) { nav(to); jumpTop(); return }
-      busy.current = true
+      busy.current = performance.now()
       // where the browser can do it, the picture you clicked flies to its place on the next page
       if (from && document.startViewTransition) {
         const old = document.querySelector('[data-plate]')
@@ -73,7 +78,8 @@ export function TransitionProvider({ children }) {
         flight.ready.catch(() => {})
         flight.finished.catch(() => {}).finally(() => {
           if (plate) plate.style.viewTransitionName = ''
-          busy.current = false
+          busy.current = 0
+          next()
           unlockScroll()
           ScrollTrigger.refresh()
           director.measure()
@@ -98,7 +104,8 @@ export function TransitionProvider({ children }) {
       gsap.timeline({
         onComplete: () => {
           gsap.set(el, { display: 'none', clipPath: 'none' })
-          busy.current = false
+          busy.current = 0
+          next()
           unlockScroll()
           ScrollTrigger.refresh()
           director.measure()
@@ -113,6 +120,13 @@ export function TransitionProvider({ children }) {
     },
     [loc.pathname, nav],
   )
+  latest.current = go
+  // once a change lands, a click that came in during it is carried out, by the go that knows the new page
+  const next = () => {
+    const p = pending.current
+    pending.current = null
+    if (p) setTimeout(() => latest.current(p.to, { title: p.title }), 0)
+  }
 
   return (
     <Ctx.Provider value={{ go }}>

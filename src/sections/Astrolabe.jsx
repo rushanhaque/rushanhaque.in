@@ -18,7 +18,7 @@ export default function Astrolabe() {
   const stepEls = useRef([])
   const counted = useRef([])
   const widths = useRef(null)
-  const hold = useRef({ live: false, n: 0 })
+  const hold = useRef({ live: false, n: 0, off: 0 })
   const plate = useRef(null)
   useReveals(root)
 
@@ -66,13 +66,13 @@ export default function Astrolabe() {
         h.n = 0
         root.current?.classList.toggle('is-live', want)
       }
-      // When the plate is standing in, it follows the walk: one ring lit for each step, the bezel turning.
+      // When the chart is standing in, it walks with the scroll. If it has been standing in for a moment, the canvas
+      // is not coming soon, so its map is fetched.
       const pl = plate.current
-      if (!h.live && pl) {
-        const st = String(p < 0.33 ? 0 : p < 0.66 ? 1 : 2)
-        if (pl.dataset.stage !== st) pl.dataset.stage = st
-        const turn = (-p * 48).toFixed(1)
-        if (pl._t !== turn) { pl._t = turn; pl.style.setProperty('--turn', `${turn}deg`) }
+      if (pl && !h.live) {
+        pl.update(p)
+        if (want) h.off = 0
+        else if (++h.off === 45) pl.load()
       }
       const H = engine ? engine.ctx.h : stageH
       const l = plateLayout(innerWidth, H)
