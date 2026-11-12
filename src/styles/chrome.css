@@ -134,12 +134,16 @@
   .bar__nav { grid-column: 2; }
   .bar__nav .bar__link { display: none; }
   .bar__menu { display: block; }
-  .menu { display: flex; flex-direction: column; justify-content: flex-end; gap: 30px; padding-top: calc(var(--bar-h) + 16px); }
+  /* a phone: the pages at the top left under the bar, the ways to reach me gathered at the foot */
+  .menu { display: flex; flex-direction: column; justify-content: flex-start; gap: 28px; padding: calc(var(--bar-h) + 28px) var(--m) calc(20px + var(--safe-b)); }
   .menu__nav, .menu__side { align-self: stretch; }
-  .menu__big { font-size: clamp(40px, min(13.5vw, 9.5vh), 70px); }
-  .menu__side { grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+  .menu__nav ul { display: grid; gap: 2px; }
+  .menu__big { font-size: clamp(32px, min(10vw, 6.4vh), 44px); font-stretch: 108%; letter-spacing: -0.03em; line-height: 1.12; }
+  .menu__side { margin-top: auto; grid-template-columns: 1fr 1fr; gap: 18px 16px; padding: 20px 0 0; box-shadow: inset 0 1px 0 rgb(var(--ink-rgb) / 0.12); }
   .menu__side .menu__fade:first-child { grid-column: 1 / -1; }
-  .menu__line { font-size: var(--t-sm); }
+  .menu__fade .note { font-size: 11px; margin-bottom: 4px; }
+  .menu__line, .menu__soc { font-size: 14px; line-height: 1.45; }
+  .menu__soc { gap: 2px 14px; }
 }
 /* a phone on its side: names on the left, details on the right, all of it on screen */
 @media (max-height: 520px) {
