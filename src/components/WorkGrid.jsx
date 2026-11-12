@@ -26,10 +26,13 @@ export const picture = (it, sizes) => (it.thumb ? { src: it.image } : { src: sma
 export function Cards({ items, small: compact, even, live }) {
   return (
     <ul className={`wg__list ${compact ? 'wg__list--small' : ''} ${even ? 'wg__list--even' : ''}`}>
-      {items.map((it) => (
+      {items.map((it) => {
+        // where a card plays the real site, it also opens it: the case page is not what the card is showing
+        const go = live && it.live ? { ...it, to: undefined, href: it.live } : it
+        return (
         <li key={it.key}>
-          <ItemLink it={it} className="card" data-cursor={it.to ? 'View' : 'Open'}>
-            <span className={`card__pic ${it.thumb ? 'is-thumb' : ''}`} style={it.thumb || even ? undefined : { aspectRatio: `${it.w} / ${it.h}` }} data-r="plate" data-drift={it.thumb || !it.image ? undefined : ''} data-morph={it.to && it.image ? '' : undefined}>
+          <ItemLink it={go} className="card" data-cursor={go.to ? 'View' : 'Open'}>
+            <span className={`card__pic ${it.thumb ? 'is-thumb' : ''}`} style={it.thumb || even ? undefined : { aspectRatio: `${it.w} / ${it.h}` }} data-r="plate" data-drift={it.thumb || !it.image ? undefined : ''} data-morph={go.to && it.image ? '' : undefined}>
               {it.image
                 ? <img {...picture(it, '(max-width: 760px) 92vw, 44vw')} alt={`${it.title} home page`} width={it.w} height={it.h} loading="lazy" decoding="async" />
                 : <span className="card__type pillar" aria-hidden="true">{it.title}</span>}
@@ -45,7 +48,8 @@ export function Cards({ items, small: compact, even, live }) {
             </span>
           </ItemLink>
         </li>
-      ))}
+        )
+      })}
     </ul>
   )
 }
