@@ -19,7 +19,7 @@ export default function Work() {
   return (
     <div className="work">
       <GallerySection />
-      <section className="work__all wrap" ref={list} id="all-work" data-tone="ivory">
+      <section className="work__all wrap" ref={list} id="all-work" data-tone="night">
         <Head label="The full list" title={<>All <em>works</em></>} count={count('All')} lede="Client websites, software products, sites still in progress, and a few experiments." />
         <div className="tabs" role="group" aria-label="Filter the works">
           {GROUPS.map((g) => (
@@ -30,7 +30,7 @@ export default function Work() {
         </div>
         <Grid filter={filter} />
       </section>
-      <Footer />
+      <Footer dark />
     </div>
   )
 }

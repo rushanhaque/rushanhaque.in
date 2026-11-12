@@ -2,7 +2,7 @@
 /* The palettes. The page wears one at a time and turns as you walk (see lib/tone.js); a block can also keep its own.
    Night and wine are the previous portfolio's dark, ivory its warm daylight, with brushed brass and deep wine as accents.
    Without motion, or without JavaScript, every block simply wears its own tone. */
-:root, [data-fixed='night'], .static [data-tone='night'] {
+:root, [data-fixed='night'], [data-wear='night'], .static [data-tone='night'] {
   --paper-rgb: 18 10 12;
   --card-rgb: 26 15 18;
   --stone-rgb: 38 20 25;
@@ -13,7 +13,7 @@
   /* a line drawing is ink on white paper; on a dark ground it is turned to light */
   --drawn: grayscale(1) invert(1) brightness(0.86) sepia(0.35);
 }
-:root[data-tone='ivory'], [data-fixed='ivory'], .static [data-tone='ivory'] {
+:root[data-tone='ivory'], [data-fixed='ivory'], [data-wear='ivory'], .static [data-tone='ivory'] {
   --paper-rgb: 247 244 241;
   --card-rgb: 239 233 228;
   --stone-rgb: 231 223 216;
@@ -23,7 +23,7 @@
   --on-ink-rgb: 247 244 241;
   --drawn: grayscale(1) sepia(0.14);
 }
-:root[data-tone='wine'], [data-fixed='wine'], .static [data-tone='wine'] {
+:root[data-tone='wine'], [data-fixed='wine'], [data-wear='wine'], .static [data-tone='wine'] {
   --paper-rgb: 36 20 25;
   --card-rgb: 46 26 32;
   --stone-rgb: 55 31 39;
@@ -34,7 +34,7 @@
   --drawn: grayscale(1) invert(1) brightness(0.86) sepia(0.35);
 }
 /* everything worked out from the palette, wherever a palette can change */
-:root, [data-tone], [data-fixed], .bar {
+:root, [data-tone], [data-fixed], [data-wear], .bar {
   --paper: rgb(var(--paper-rgb));
   --paper-2: rgb(var(--card-rgb));
   --stone: rgb(var(--stone-rgb));
@@ -48,7 +48,7 @@
   --on-accent: rgb(var(--on-accent-rgb));
   --on-ink: rgb(var(--on-ink-rgb));
 }
-[data-tone], [data-fixed] { background-color: var(--paper); color: var(--ink); }
+[data-tone], [data-fixed], [data-wear] { background-color: var(--paper); color: var(--ink); }
 
 :root {
   /* what never changes */

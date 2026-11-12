@@ -31,7 +31,7 @@ export default function Workshop() {
   }, { scope: root })
 
   return (
-    <section className="prod wrap" ref={root} id="products" data-tone="night">
+    <section className="prod wrap" ref={root} id="products" data-tone="ivory">
       <Head label="Software" title="Products" count={products.length} lede="Beyond websites: tools teams open every morning, for the jobs once done by hand." />
       {products.map((p, i) => (
         <article className={`prod__item ${i % 2 ? 'is-flip' : ''}`} key={p.slug}>

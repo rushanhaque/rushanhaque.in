@@ -13,7 +13,7 @@ export default function Stacks() {
   useChapter(root, { id: 'writing', name: 'Writing', time: [19.4, 20.6] })
 
   return (
-    <section className="shelf wrap" ref={root} id="writing" data-tone="night">
+    <section className="shelf wrap" ref={root} id="writing" data-tone="ivory">
       <Head label="Papers and books" title="Writing" count={writings.length} lede="Research on what AI does to the way we think, a book contribution, Urdu poetry, and a book on the architecture of thought." />
       <ul className="shelf__row" data-r="shelve">
         {writings.map((w, i) => {

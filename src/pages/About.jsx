@@ -125,7 +125,7 @@ export default function About() {
         </ul>
       </section>
 
-      <Footer />
+      <Footer dark />
 
       {open && (
         <div className="lightbox" data-fixed="night" role="dialog" aria-modal="true" aria-label={open.title} onClick={() => setOpen(null)}>

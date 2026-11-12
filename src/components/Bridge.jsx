@@ -3,7 +3,7 @@ import { useReveals } from '../lib/reveal'
 
 // A line of the story between two sections, with the screen to itself. It fills in as you read it, and the
 // page turns to the next tone in the middle of it.
-export default function Bridge({ children, tone = 'night' }) {
+export default function Bridge({ children, tone = 'ivory' }) {
   const root = useRef(null)
   useReveals(root)
   return (

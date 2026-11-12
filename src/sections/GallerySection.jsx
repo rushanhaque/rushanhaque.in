@@ -117,7 +117,7 @@ export default function GallerySection() {
   })
 
   return (
-    <div className="galw" id="gallery" ref={root} data-fixed="ivory">
+    <div className="galw" id="gallery" ref={root} data-wear="ivory">
       <section className="gal" aria-label="Selected works">
         <div className="pin__stage" ref={stage}>
           <div className="gal__scrim" aria-hidden="true" />

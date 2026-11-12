@@ -258,7 +258,7 @@ function LandingPage({ slug }) {
         {body}
       </article>
       {!legal && <div className="wrap lp__explore"><h2 className="h3">Explore</h2><Directory current={slug} /></div>}
-      <Footer />
+      <Footer dark />
     </div>
   )
 }

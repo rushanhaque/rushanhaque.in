@@ -129,7 +129,7 @@ function CaseInner({ w, next }) {
             <img src={small(next.image)} srcSet={srcSet(next.image)} sizes="(max-width: 760px) 92vw, 46vw" alt="" loading="lazy" decoding="async" />
           </span>
         </TLink>
-        <Footer />
+        <Footer dark />
       </div>
     </article>
   )

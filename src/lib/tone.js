@@ -6,6 +6,9 @@ import { device } from './device'
 //
 //   data-tone="ivory"   this block follows the page, and asks for ivory when it arrives
 //   data-fixed="night"  this block always wears night; a top-level one also asks the page to turn
+//   data-wear="night"   this block always wears night and leaves the page alone; the bar borrows its palette
+//                       while it is the thing behind the bar, or its words would be the page's ink on this
+//                       block's ground, which is how a dark room under a light page loses its header
 //   data-at="0.5"       ask when this far down the block reaches the line, rather than its top
 //
 // Writing colours on the root would restyle every element on the page, every frame (measured: 78ms a frame on a
@@ -31,6 +34,8 @@ let vh = 1
 let scheduled = false
 let dirty = false
 let bar = null
+let wears = [] // blocks that wear their own tone without asking the page to turn
+let worn = null // which of them the bar is sitting on, if any
 const live = new Set()
 const fresh = new Set()
 const palettes = {}
@@ -65,6 +70,27 @@ function palette(name) {
   return palettes[name]
 }
 
+// What the bar is sitting on. A block that wears its own tone leaves the page alone, so the bar has to notice it
+// itself, or its words stay the page's ink over that block's ground — which is how a dark room under a light page
+// loses its header altogether.
+function dressBar() {
+  if (!bar) return
+  const y = scrollY + 32
+  const over = wears.find((w) => w.top < y && w.bottom > y)
+  const name = over ? over.tone : null
+  if (name === worn) return
+  worn = name
+  if (name) {
+    // hand the bar to the stylesheet, which already knows every palette by name
+    for (const t of TOKENS) bar.style.removeProperty(t)
+    bar.dataset.wear = name
+    return
+  }
+  // and take it back: until the next crossing writes them again, the bar reads the page's own tokens
+  delete bar.dataset.wear
+  dirty = true
+}
+
 const smooth = (t, a, b) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k) }
 
 // -- on screen ---------------------------------------------------------------------------------
@@ -87,8 +113,9 @@ function paint(inside) {
     if (inside || fresh.has(el)) writeTokens(el, strings)
   }
   fresh.clear()
-  // the bar has little in it, and sits on the ground itself, so it simply keeps pace
-  if (bar) {
+  // The bar has little in it and sits on the ground itself, so it simply keeps pace — unless what is behind it
+  // is a block wearing its own tone, in which case it wears that one too and stays readable against it.
+  if (bar && !worn) {
     if (strings) writeTokens(bar, strings)
     bar.style.setProperty(TOKENS[0], toRgb(shown.ground))
   }
@@ -196,6 +223,14 @@ function measure() {
       tone: el.dataset.tone || el.dataset.fixed,
     }
   }).sort((a, b) => a.at - b.at)
+  // A pinned room is held still by the scroll, so while it is pinned its own box says where it is on the screen
+  // rather than where it sits on the page. The spacer left in its place is the one that still knows.
+  wears = [...main.querySelectorAll('[data-wear]')].map((el) => {
+    const box = el.closest('.pin-spacer') || el
+    const r = box.getBoundingClientRect()
+    const top = r.top + y
+    return { top, bottom: top + r.height, tone: el.dataset.wear }
+  })
   // a new page starts in its own tone, with nothing to cross from
   const isNew = found[0] !== first
   first = found[0]
@@ -219,4 +254,5 @@ export function toneTick() {
   dirty = false
   const tone = want(y)
   if (tone) setTone(tone, false)
+  dressBar()
 }

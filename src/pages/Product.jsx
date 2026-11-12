@@ -169,7 +169,7 @@ function Inner({ p }) {
           <img src={small(other.image)} srcSet={srcSet(other.image)} sizes="(max-width: 760px) 92vw, 46vw" alt="" loading="lazy" decoding="async" />
         </span>
       </TLink>
-      <Footer />
+      <Footer dark />
     </article>
   )
 }

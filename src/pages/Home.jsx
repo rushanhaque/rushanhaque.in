@@ -25,7 +25,7 @@ export default function Home() {
       <OtherServices />
       <Bridge tone="ivory">The work is half the story. The rest is what clients say once it’s live.</Bridge>
       <Reflections />
-      <Bridge tone="night">And when the screens go quiet, I write.</Bridge>
+      <Bridge>And when the screens go quiet, I write.</Bridge>
       <Stacks />
       <DoorSection />
     </>

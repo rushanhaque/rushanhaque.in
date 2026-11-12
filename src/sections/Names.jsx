@@ -32,7 +32,7 @@ export default function Names() {
   const rows = [clients.filter((_, i) => i % 2 === 0), clients.filter((_, i) => i % 2 === 1)]
 
   return (
-    <section className="names" ref={root} id="clientele" data-tone="night">
+    <section className="names" ref={root} id="clientele" data-tone="ivory">
       <div className="wrap">
         <Head label="Brands I work with" title="Clientele" count={clients.length} lede="Brands in India, Saudi Arabia, Poland and Nepal, most of them export houses selling to buyers in dozens of countries." />
       </div>

@@ -155,7 +155,7 @@ export default function Contact() {
         </div>
       </section>
       <Faq />
-      <Footer lead={false} />
+      <Footer lead={false} dark />
     </div>
   )
 }
