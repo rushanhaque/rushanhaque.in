@@ -7,6 +7,8 @@ import { CITIES, HOME, camera, plateLayout, placeOn } from '../lib/places'
 
 const STEPS = serve.steps
 const LABEL_H = 16
+// where Moradabad sits on /img/atlas.webp, in percent of the picture
+const STILL_HOME = [31.7, 41.5]
 
 // Where I serve, on the real earth. The camera starts just above Moradabad, pulls back over India until the
 // whole globe fits the disc, then turns it west past every client country. See lib/places.js for how.
@@ -18,6 +20,7 @@ export default function Astrolabe() {
   const counted = useRef([])
   const widths = useRef(null)
   const hold = useRef({ live: false, n: 0 })
+  const still = useRef(null)
   useReveals(root)
 
   // the canvas starts, and the map data loads, when the section is two screens away
@@ -63,6 +66,20 @@ export default function Astrolabe() {
         h.live = want
         h.n = 0
         root.current?.classList.toggle('is-live', want)
+      }
+      // When the picture is standing in, it still follows the walk: it starts close over home and pulls back to
+      // the whole earth, the way the camera does. Only a transform and a clip, so it costs the page nothing.
+      if (!h.live && still.current) {
+        const z = 1 - ramp(p, 0, 0.6)
+        const k = +(1 + z * 1.6).toFixed(3)
+        if (still.current._k !== k) {
+          still.current._k = k
+          // zoomed about home; the clip keeps the visible disc where the round picture sits
+          const [ox, oy] = STILL_HOME
+          still.current.style.transformOrigin = `${ox}% ${oy}%`
+          still.current.style.transform = k === 1 ? '' : `scale(${k})`
+          still.current.style.clipPath = k === 1 ? '' : `circle(${(50 / k).toFixed(2)}% at ${(ox + (50 - ox) / k).toFixed(2)}% ${(oy + (50 - oy) / k).toFixed(2)}%)`
+        }
       }
       const H = engine ? engine.ctx.h : stageH
       const l = plateLayout(innerWidth, H)
@@ -125,7 +142,7 @@ export default function Astrolabe() {
     <section className="atl pin" ref={root} id="serve" aria-label="Where I serve" data-wear="night">
       <div className="pin__stage atl__stage">
         {/* not lazy: it has to be able to stand in the instant the canvas cannot, with no wait */}
-        <img className="atl__still" src="/img/atlas.webp" alt="" decoding="async" />
+        <img className="atl__still" ref={still} src="/img/atlas.webp" alt="" decoding="async" />
         <div className="atl__copy" data-r="head">
           <div className="kick"><span>Moradabad, India, world</span><i /></div>
           <h2 className="sh__title">Where I <em>serve</em></h2>

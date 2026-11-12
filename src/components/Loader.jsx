@@ -40,10 +40,18 @@ export default function Loader({ onDone }) {
         onComplete: finish,
       })
     }
-    // long enough to finish writing the word, and no longer than the page needs
-    const wait = Math.max(0, 900 - performance.now())
-    const fonts = Promise.race([document.fonts?.load?.('400 200px "Six Caps"'), new Promise((r) => setTimeout(r, 1800))])
-    const timer = setTimeout(() => { fonts.finally(open) }, wait)
+    // Long enough to finish writing the word, and no longer than the page needs. The word's own animation says
+    // when it is written (it starts at first paint, not at navigation, so a clock from navigation cuts it short);
+    // then it is held a breath so it can be read before the star opens.
+    const HOLD = 260
+    const later = (ms) => new Promise((r) => setTimeout(r, ms))
+    const anims = cover.querySelector('svg')?.getAnimations?.() || []
+    const written = anims.length
+      ? Promise.race([Promise.all(anims.map((a) => a.finished)), later(2600)])
+      : later(Math.max(0, 1300 - performance.now()))
+    const fonts = Promise.race([document.fonts?.load?.('400 200px "Six Caps"'), later(1800)])
+    let timer = 0
+    Promise.all([written, fonts]).catch(() => {}).then(() => { timer = setTimeout(open, HOLD) })
     return () => {
       cancelled = true
       clearTimeout(timer)
