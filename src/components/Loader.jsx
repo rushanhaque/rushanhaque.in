@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { gsap } from '../lib/gsap'
+import { lockScroll, unlockScroll } from '../lib/scroll'
 import { holePath, coverRadius } from '../lib/star'
 
 // The first seconds of a first visit to the home page. The cover is painted by the HTML itself, before
@@ -9,7 +10,11 @@ export default function Loader({ onDone }) {
   useEffect(() => {
     const html = document.documentElement
     const cover = document.getElementById('cover')
+    // the page is held still under the cover, and let go exactly once, however this ends
+    let held = false
+    const release = () => { if (held) { held = false; unlockScroll() } }
     const finish = () => {
+      release()
       try { sessionStorage.setItem('rh-seen', '1') } catch { /* private mode */ }
       cover?.remove()
       html.classList.remove('intro')
@@ -19,6 +24,10 @@ export default function Loader({ onDone }) {
       onDone()
       return
     }
+    held = true
+    lockScroll()
+    // the cover lifts itself after seven seconds whatever happens (index.html); the page is never held longer
+    const safety = setTimeout(release, 7500)
     let tween
     let cancelled = false
     const open = () => {
@@ -55,7 +64,9 @@ export default function Loader({ onDone }) {
     return () => {
       cancelled = true
       clearTimeout(timer)
+      clearTimeout(safety)
       tween?.kill()
+      release()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

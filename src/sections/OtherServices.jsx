@@ -4,7 +4,8 @@ import { useReveals } from '../lib/reveal'
 import { services } from '../data/content'
 import Btn from '../components/Btn'
 import Head from '../components/Head'
-import { ArrowLeft, ArrowRight } from '../components/glyphs'
+import { ArrowLeft, ArrowRight, ArrowUpRight } from '../components/glyphs'
+import { TLink } from '../components/Transition'
 
 const GLYPH = {
   design: 'M32 6 L46 38 L32 58 L18 38 Z M32 6 V33 M28 37 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M12 58 H52',
@@ -139,6 +140,9 @@ export default function OtherServices() {
                   <h3 className="osv__name">{s.title}</h3>
                   <p className="osv__text">{s.text}</p>
                   <ul className="osv__tags">{s.items.map((t) => <li key={t}>{t}</li>)}</ul>
+                  {s.page
+                    ? <TLink to={`/${s.page}`} title={s.title} className="osv__more tlink">Read more<span className="sr-only"> about {s.title}</span><ArrowUpRight size={14} /></TLink>
+                    : <TLink to="/contact" title="Contact" className="osv__more tlink">Ask about this<span className="sr-only">: {s.title}</span><ArrowUpRight size={14} /></TLink>}
                 </div>
               </li>
             ))}

@@ -213,13 +213,8 @@
       "permanent": true
     },
     {
-      "source": "/services",
-      "destination": "/#services",
-      "permanent": true
-    },
-    {
       "source": "/collaborations",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {

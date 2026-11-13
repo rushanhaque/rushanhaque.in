@@ -6,9 +6,18 @@ import { TLink } from './Transition'
 import Mark from './Mark'
 import Menu from './Menu'
 import Sundial from './Sundial'
+import { LEGAL, titleFor } from '../lib/pages'
 
 // What stays still while the page moves: a solid bar with the name, where you are, and the way around.
 // Nothing shows through it, so nothing ever collides with it.
+// the section a page belongs to is marked in the bar too: a case or product under Works, and every service,
+// industry, guide and area page under Services
+function within(to, path) {
+  if (to === '/work') return path.startsWith('/work/') || path.startsWith('/products/')
+  if (to === '/services') { const slug = path.slice(1); return !slug.includes('/') && !LEGAL[slug] && !!titleFor(slug) }
+  return false
+}
+
 export default function Chrome() {
   const [open, setOpen] = useState(false)
   const close = useCallback(() => setOpen(false), [])
@@ -71,7 +80,7 @@ export default function Chrome() {
         <Sundial />
         <nav className="bar__nav" aria-label="Main">
           {site.nav.map((n) => (
-            <TLink key={n.to} to={n.to} className={`bar__link ${n.to === '/contact' ? 'bar__link--cta' : ''}`} title={n.label} aria-current={loc.pathname === n.to ? 'page' : undefined}>
+            <TLink key={n.to} to={n.to} className={`bar__link ${n.to === '/contact' ? 'bar__link--cta' : ''}`} title={n.label} aria-current={loc.pathname === n.to ? 'page' : within(n.to, loc.pathname) ? 'true' : undefined}>
               {n.label}
             </TLink>
           ))}

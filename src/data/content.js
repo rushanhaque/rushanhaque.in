@@ -120,15 +120,16 @@ export const experiments = [
   { title: 'DeadDrop', kind: 'IoT', year: '2025', text: 'A pocket file server with its own Wi-Fi: send files between devices with no internet.', url: 'https://github.com/rushanhaque/NordeMCU_FileServer' },
 ]
 
+// page: the service's own page, where it has one (the others are asked about directly)
 export const services = [
-  { title: 'UI/UX design', text: 'Interfaces designed around the people who use them: websites, apps and software that feel obvious to use and look considered.', items: ['Interface design', 'User flows', 'Prototypes', 'Motion'], icon: 'design' },
-  { title: 'Web development', text: 'Full-stack builds that load in a blink on any phone, stay easy to update, and keep working long after launch.', items: ['React', 'Full-stack', 'Performance', 'Accessibility'], icon: 'code' },
-  { title: 'E-commerce & catalogues', text: 'Online stores and digital catalogues for product businesses and exporters, made for buyers anywhere.', items: ['Online stores', 'Catalogues', 'Exporters', 'Payments'], icon: 'bag' },
-  { title: 'ERPs & CRMs', text: 'Software to run your operations and keep track of customers - inventories, quotations, invoices and logs.', items: ['Inventory', 'Quotations', 'Dashboards', 'Activity logs'], icon: 'grid' },
-  { title: 'SEO & AI search', text: 'Get found on Google, and in AI answers like ChatGPT and Gemini.', items: ['Technical SEO', 'Structured data', 'AI visibility', 'Local search'], icon: 'search' },
+  { title: 'UI/UX design', page: 'website-design-development', text: 'Interfaces designed around the people who use them: websites, apps and software that feel obvious to use and look considered.', items: ['Interface design', 'User flows', 'Prototypes', 'Motion'], icon: 'design' },
+  { title: 'Web development', page: 'website-design-development', text: 'Full-stack builds that load in a blink on any phone, stay easy to update, and keep working long after launch.', items: ['React', 'Full-stack', 'Performance', 'Accessibility'], icon: 'code' },
+  { title: 'E-commerce & catalogues', page: 'ecommerce-website-development', text: 'Online stores and digital catalogues for product businesses and exporters, made for buyers anywhere.', items: ['Online stores', 'Catalogues', 'Exporters', 'Payments'], icon: 'bag' },
+  { title: 'ERPs & CRMs', page: 'web-application-development', text: 'Software to run your operations and keep track of customers - inventories, quotations, invoices and logs.', items: ['Inventory', 'Quotations', 'Dashboards', 'Activity logs'], icon: 'grid' },
+  { title: 'SEO & AI search', page: 'seo-services', text: 'Get found on Google, and in AI answers like ChatGPT and Gemini.', items: ['Technical SEO', 'Structured data', 'AI visibility', 'Local search'], icon: 'search' },
   { title: 'Mobile apps', text: 'iOS and Android apps, published to the App Store and Google Play.', items: ['iOS', 'Android', 'Store listing', 'Releases'], icon: 'phone' },
   { title: 'Cloud solutions', text: 'Hosting and servers that keep up as you grow.', items: ['AWS', 'Hosting', 'Domains', 'Monitoring'], icon: 'cloud' },
-  { title: 'Digital marketing', text: 'Ad campaigns judged by the enquiries and sales they bring.', items: ['Campaigns', 'Landing pages', 'Analytics', 'Enquiries'], icon: 'spark' },
+  { title: 'Digital marketing', page: 'landing-page-design', text: 'Ad campaigns judged by the enquiries and sales they bring.', items: ['Campaigns', 'Landing pages', 'Analytics', 'Enquiries'], icon: 'spark' },
   { title: 'Social media', text: 'Regular, on-brand posts across your channels.', items: ['Content calendar', 'Brand voice', 'Posts', 'Reels'], icon: 'chat' },
   { title: 'Video editing', text: 'Edits for launches, reels and ads.', items: ['Launch films', 'Reels', 'Ads', 'Captions'], icon: 'play' },
 ]

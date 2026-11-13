@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { gsap, ScrollTrigger, SplitText, useGSAP } from './gsap'
 import { device } from './device'
+import { whenStill } from './scroll'
 
 // The site's vocabulary of arrival, kept deliberately short. Asked for in markup with data-r.
 //   lines   text comes up out of a mask, line by line
@@ -23,8 +24,11 @@ import { device } from './device'
 // Far enough to be a movement rather than a twitch, on a curve that spends almost all of its time slowing down:
 // the card is nearly home before you have finished noticing it left. The whisper of scale is what separates this
 // from a slide — it reads as something coming up out of the page rather than across it.
-const TRAVEL = 56
-const SETTLE = { duration: 1.15, ease: 'expo.out' }
+const TRAVEL = 44
+// One curve for every arrival: it glides in and eases off evenly, rather than jumping most of the way at once
+// and then creeping, which reads as a pop. Things start as they come into view, not once they are well inside it.
+const EASE = 'power3.out'
+const SETTLE = { duration: 1.35, ease: EASE }
 
 function arrive(targets, extra = {}) {
   return gsap.fromTo(
@@ -37,32 +41,32 @@ function arrive(targets, extra = {}) {
 function rise(el, delay = 0) {
   const split = SplitText.create(el, { type: 'lines', mask: 'lines', aria: 'none', tag: 'span', linesClass: 'split-line' })
   // once it has landed the text goes back to being plain text, which also lets it rewrap on any later resize
-  gsap.from(split.lines, { yPercent: 108, duration: 1.25, delay, stagger: 0.08, ease: 'expo.out', onComplete: () => split.revert() })
+  gsap.from(split.lines, { yPercent: 108, duration: 1.35, delay, stagger: 0.06, ease: EASE, onComplete: () => split.revert() })
 }
 
 const PLAY = {
   lines: (el) => rise(el),
 
   fade: (el) => {
-    gsap.from(el, { y: 22, opacity: 0, duration: 1.2, delay: parseFloat(el.dataset.delay || 0), ease: 'expo.out', clearProps: 'transform,opacity' })
+    gsap.from(el, { y: 18, opacity: 0, duration: 1.4, delay: parseFloat(el.dataset.delay || 0) * 0.6, ease: EASE, clearProps: 'transform,opacity' })
   },
 
   rule: (el) => {
-    gsap.from(el, { scaleX: 0, transformOrigin: '0 50%', duration: 1.5, ease: 'expo.inOut', clearProps: 'transform' })
+    gsap.from(el, { scaleX: 0, transformOrigin: '0 50%', duration: 1.4, ease: 'power2.inOut', clearProps: 'transform' })
   },
 
   lift: (el) => {
-    arrive(el, { delay: parseFloat(el.dataset.delay || 0) })
+    arrive(el, { delay: parseFloat(el.dataset.delay || 0) * 0.6 })
   },
 
   // A set of them, dealt out one after another. Always the direct children, so a single rule in the stylesheet
   // can hold the whole group back before it arrives.
   deal: (el) => {
-    arrive(el.children, { stagger: parseFloat(el.dataset.gap || 0.085) })
+    arrive(el.children, { stagger: parseFloat(el.dataset.gap || 0.085) * 0.75 })
   },
 
   stagger: (el) => {
-    gsap.from(el.children, { y: 20, opacity: 0, duration: 1.1, stagger: parseFloat(el.dataset.gap || 0.06), ease: 'expo.out', clearProps: 'transform,opacity' })
+    gsap.from(el.children, { y: 18, opacity: 0, duration: 1.3, stagger: parseFloat(el.dataset.gap || 0.06) * 0.75, ease: EASE, clearProps: 'transform,opacity' })
   },
 
   head: (el) => {
@@ -70,18 +74,18 @@ const PLAY = {
     const label = el.querySelector('.kick span')
     const title = el.querySelector('.sh__title')
     const lede = el.querySelector('.sh__lede')
-    if (rule) gsap.from(rule, { scaleX: 0, transformOrigin: '0 50%', duration: 1.6, ease: 'expo.inOut', clearProps: 'transform' })
-    if (label) gsap.from(label, { opacity: 0, y: 10, duration: 1, ease: 'expo.out', clearProps: 'transform,opacity' })
-    if (title) rise(title, 0.06)
-    if (lede) gsap.from(lede, { opacity: 0, y: 16, duration: 1.2, delay: 0.24, ease: 'expo.out', clearProps: 'transform,opacity' })
+    if (rule) gsap.from(rule, { scaleX: 0, transformOrigin: '0 50%', duration: 1.5, ease: 'power2.inOut', clearProps: 'transform' })
+    if (label) gsap.from(label, { opacity: 0, y: 10, duration: 1.2, ease: EASE, clearProps: 'transform,opacity' })
+    if (title) rise(title, 0.04)
+    if (lede) gsap.from(lede, { opacity: 0, y: 14, duration: 1.4, delay: 0.12, ease: EASE, clearProps: 'transform,opacity' })
   },
 
   plate: (el, { drifts }) => {
     const pics = el.querySelectorAll('img')
     // the margins leave room for the frame's shadow, which would otherwise appear all at once at the end
-    gsap.fromTo(el, { clipPath: 'inset(100% -80px -80px -80px)' }, { clipPath: 'inset(-80px -80px -80px -80px)', duration: 1.5, ease: 'expo.out', clearProps: 'clipPath' })
+    gsap.fromTo(el, { clipPath: 'inset(100% -80px -80px -80px)' }, { clipPath: 'inset(-80px -80px -80px -80px)', duration: 1.6, ease: 'power3.inOut', clearProps: 'clipPath' })
     const drift = drifts && el.dataset.drift != null
-    if (pics.length) gsap.fromTo(pics, { scale: drift ? 1.22 : 1.14 }, { scale: drift ? 1.07 : 1, duration: 1.9, ease: 'expo.out' })
+    if (pics.length) gsap.fromTo(pics, { scale: drift ? 1.18 : 1.1 }, { scale: drift ? 1.07 : 1, duration: 2, ease: EASE })
   },
 
   shelve: (el) => {
@@ -90,9 +94,9 @@ const PLAY = {
       transformPerspective: 1100,
       transformOrigin: '0% 50%',
       opacity: 0,
-      duration: 1.5,
-      stagger: 0.09,
-      ease: 'expo.out',
+      duration: 1.6,
+      stagger: 0.07,
+      ease: EASE,
       clearProps: 'transform,opacity',
     })
   },
@@ -182,7 +186,7 @@ export function useReveals(root, deps = []) {
 
       const arriving = new IntersectionObserver((list) => {
         for (const e of list) if (e.isIntersecting) { arriving.unobserve(e.target); play(e.target) }
-      }, { rootMargin: '0px 0px -6% 0px' })
+      }, { rootMargin: '0px 0px 4% 0px' })
       const near = new IntersectionObserver((list) => {
         for (const e of list) if (e.isIntersecting) { near.unobserve(e.target); prepare(e.target) }
       }, { rootMargin: '70% 0px' })
@@ -215,5 +219,5 @@ export function useReveals(root, deps = []) {
 
 // fonts and late images move things: measure again once they have settled
 export function refreshSoon() {
-  requestAnimationFrame(() => ScrollTrigger.refresh())
+  whenStill(() => requestAnimationFrame(() => ScrollTrigger.refresh()))
 }

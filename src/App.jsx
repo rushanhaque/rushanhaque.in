@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
-import { initScroll, getLenis, jumpTo, scrollTo } from './lib/scroll'
+import { initScroll, getLenis, jumpTo, scrollTo, whenStill } from './lib/scroll'
 import { ScrollTrigger } from './lib/gsap'
 import { ReadyContext } from './lib/ready'
 import { director } from './lib/director'
@@ -19,6 +19,7 @@ const LAZY = {
   Product: lazy(() => import('./pages/Product')),
   About: lazy(() => import('./pages/About')),
   Contact: lazy(() => import('./pages/Contact')),
+  Services: lazy(() => import('./pages/Services')),
   Admin: lazy(() => import('./pages/Admin')),
   Landing: lazy(() => import('./pages/Landing')),
 }
@@ -31,7 +32,7 @@ export default function App({ pages = LAZY }) {
   const navType = useNavigationType()
   const first = useRef(true)
   const done = useCallback(() => setReady(true), [])
-  const { Home: HomePage, Work, Case, Product, About, Contact, Admin, Landing } = pages
+  const { Home: HomePage, Work, Case, Product, About, Contact, Services, Admin, Landing } = pages
 
   useEffect(() => {
     initScroll()
@@ -42,7 +43,7 @@ export default function App({ pages = LAZY }) {
     let timer = 0
     const refresh = () => {
       clearTimeout(timer)
-      timer = setTimeout(() => { ScrollTrigger.refresh(); director.measure() }, 180)
+      timer = setTimeout(() => whenStill(() => { ScrollTrigger.refresh(); director.measure() }), 180)
     }
     const main = document.getElementById('main')
     let last = main.getBoundingClientRect().height
@@ -113,6 +114,7 @@ export default function App({ pages = LAZY }) {
               <Route path="/products/:slug" element={<Product />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/:slug" element={<Landing />} />
               <Route path="*" element={<Landing />} />

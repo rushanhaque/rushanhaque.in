@@ -33,10 +33,11 @@ export default function Lens({ image, plan, width, height, alt, sizes = '(max-wi
         if (!e.isIntersecting) return
         gsap.killTweensOf(s)
         el.classList.add('is-on')
+        // brisk enough to catch while scrolling past or swiping the row, and it starts as soon as the card is in sight
         gsap.timeline({ onUpdate: write, onComplete: () => el.classList.remove('is-on') })
-          .to(s, { x: 0.62, duration: 1.6, ease: 'power2.inOut', onUpdate: write })
-          .to(s, { x: 0, duration: 1.3, ease: 'power2.inOut', onUpdate: write }, '+=0.6')
-      }, { threshold: 0.6 })
+          .to(s, { x: 0.7, duration: 0.9, ease: 'power2.inOut', onUpdate: write })
+          .to(s, { x: 0, duration: 0.8, ease: 'power2.inOut', onUpdate: write }, '+=0.35')
+      }, { threshold: 0.35 })
       io.observe(el)
     }
     return () => {

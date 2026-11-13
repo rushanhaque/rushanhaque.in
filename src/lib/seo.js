@@ -100,12 +100,20 @@ export function routes() {
       path: '/work', priority: '0.8', title: T('Works: Websites, Stores & Software Built in India'),
       description: `Selected works by Rushan Haque: websites for ${works.slice(0, 4).map((w) => w.title).join(', ')} and more, plus inventory software and Mailwright.`,
       images: works.map((w) => w.image),
-      ld: [crumbs([['Works', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Selected works', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })), ...products.map((p) => ({ '@type': 'SoftwareApplication', name: p.title, url: `${ORIGIN}/products/${p.slug}` }))] }],
+      ld: [crumbs([['Works', '/work']]), { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'All works', url: `${ORIGIN}/work`, about: { '@id': ids.business }, hasPart: [...works.map((p) => ({ '@type': 'CreativeWork', name: p.title, url: `${ORIGIN}/work/${p.slug}` })), ...products.map((p) => ({ '@type': 'SoftwareApplication', name: p.title, url: `${ORIGIN}/products/${p.slug}` }))] }],
     },
     {
       path: '/about', priority: '0.8', title: T('About: Developer & Writer from Moradabad, India'),
       description: 'About Rushan Haque: developer and writer from Moradabad, India. Experience, education, seventeen certificates, research papers and Urdu poetry.',
       ld: [crumbs([['About', '/about']]), { '@context': 'https://schema.org', '@type': 'ProfilePage', url: `${ORIGIN}/about`, mainEntity: { '@id': ids.person }, about: { '@id': ids.person } }],
+    },
+    {
+      path: '/services', priority: '0.9', title: 'Services: Website Design, Development and SEO | Rushan Haque',
+      description: 'Website design and development, online stores, web applications, SEO and speed work for businesses in India and abroad, designed and built by Rushan Haque in Moradabad.',
+      ld: [crumbs([['Services', '/services']]), {
+        '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Services', url: `${ORIGIN}/services`, about: { '@id': ids.business },
+        hasPart: [...guides, ...sourcePages].map((p) => ({ '@type': 'WebPage', name: p.title, url: `${ORIGIN}/${p.slug}` })),
+      }],
     },
     {
       path: '/contact', priority: '0.8', title: T('Contact: Hire a Website Developer in Moradabad'),
@@ -143,7 +151,7 @@ export function routes() {
         path, lang: hi ? 'hi' : 'en', priority: g.slug === 'hire-website-developer' || g.slug === 'website-developer-in-moradabad' ? '0.9' : '0.8', lastmod: g.updated <= BUILT ? g.updated : BUILT,
         title: g.metaTitle.includes('Rushan') ? g.metaTitle : T(g.metaTitle), description: g.description,
         alternates: g.alternate ? (hi ? { 'en-IN': g.alternate, 'hi-IN': path, 'x-default': g.alternate } : { 'en-IN': path, 'hi-IN': g.alternate, 'x-default': path }) : null,
-        ld: [page, faqPage(g.faqs), crumbs([[g.title, path]])].filter(Boolean),
+        ld: [page, faqPage(g.faqs), crumbs([['Services', '/services'], [g.title, path]])].filter(Boolean),
       }
     }),
     ...sourcePages.map((p) => {
@@ -153,7 +161,7 @@ export function routes() {
         path, priority: p.slug === 'website-designer-in-moradabad' || p.slug === 'website-designer-in-india' ? '0.9' : p.kind === 'Service' ? '0.8' : '0.7',
         title: T(extra?.metaTitle ?? p.title), description: p.description,
         alternates: extra?.alternate ? { 'en-IN': path, 'hi-IN': extra.alternate, 'x-default': path } : null,
-        ld: [servicePage({ path, name: p.title, description: p.description, area: p.kind === 'Location' ? areaName(p.title) : undefined }), faqPage(faqsFromHtml(p.sections)), crumbs([[p.title, path]])].filter(Boolean),
+        ld: [servicePage({ path, name: p.title, description: p.description, area: p.kind === 'Location' ? areaName(p.title) : undefined }), faqPage(faqsFromHtml(p.sections)), crumbs([['Services', '/services'], [p.title, path]])].filter(Boolean),
       }
     }),
     ...Object.entries(LEGAL).map(([slug, l]) => ({ path: `/${slug}`, priority: '0.2', title: T(l.title), description: l.description, ld: [crumbs([[l.title, `/${slug}`]])] })),

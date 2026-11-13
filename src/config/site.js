@@ -13,6 +13,7 @@ export const site = {
   formspree: import.meta.env.VITE_FORMSPREE_ID || 'mdeanqre',
   nav: [
     { label: 'Works', to: '/work' },
+    { label: 'Services', to: '/services' },
     { label: 'About', to: '/about' },
     { label: 'Contact', to: '/contact' },
   ],

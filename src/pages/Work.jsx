@@ -4,11 +4,10 @@ import { useChapter } from '../lib/director'
 import { useReveals } from '../lib/reveal'
 import { useMeta } from '../lib/meta'
 import { GROUPS, Grid, count } from '../components/WorkGrid'
-import GallerySection from '../sections/GallerySection'
 import Head from '../components/Head'
 import Footer from '../components/Footer'
 
-// The Work page: first the walk down the corridor, one client site in each bay, then everything in one list.
+// The Work page: everything in one list, and every card that has a live site plays it.
 export default function Work() {
   const list = useRef(null)
   const [filter, setFilter] = useState('All')
@@ -18,9 +17,8 @@ export default function Work() {
   useEffect(() => { ScrollTrigger.refresh() }, [filter])
   return (
     <div className="work">
-      <GallerySection />
       <section className="work__all wrap" ref={list} id="all-work" data-tone="night">
-        <Head label="The full list" title={<>All <em>works</em></>} count={count('All')} lede="Client websites, software products, sites still in progress, and a few experiments." />
+        <Head as="h1" label="The full list" title={<>All <em>works</em></>} count={count('All')} lede="Client websites, software products, sites still in progress, and a few experiments." />
         <div className="tabs" role="group" aria-label="Filter the works">
           {GROUPS.map((g) => (
             <button key={g} type="button" aria-pressed={filter === g} className={filter === g ? 'is-on' : ''} onClick={() => setFilter(g)}>

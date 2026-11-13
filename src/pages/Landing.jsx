@@ -254,7 +254,7 @@ function LandingPage({ slug }) {
     <div className="lpage" ref={root}>
       <article className="lp wrap" lang={hi ? 'hi' : undefined} data-tone="ivory">
         <header className="lp__intro">
-          <nav className="lp__crumb note" aria-label="Breadcrumb"><TLink to="/" title="Home">{hi ? 'होम' : 'Home'}</TLink><span aria-hidden="true">/</span><span aria-current="page">{eyebrow}</span></nav>
+          <nav className="lp__crumb note" aria-label="Breadcrumb"><TLink to="/" title="Home">{hi ? 'होम' : 'Home'}</TLink><span aria-hidden="true">/</span>{!legal && <><TLink to="/services" title="Services">{hi ? 'सेवाएं' : 'Services'}</TLink><span aria-hidden="true">/</span></>}<span aria-current="page">{eyebrow}</span></nav>
           <h1 className="h1 lp__title">{title}</h1>
           {intro && <p className="lede">{intro}</p>}
         </header>

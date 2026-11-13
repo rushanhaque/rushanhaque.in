@@ -4,6 +4,7 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 html.scroll-lock, html.scroll-lock body { overflow: hidden; }
+html.scroll-lock { scrollbar-gutter: stable; }
 
 body {
   margin: 0;
@@ -89,5 +90,4 @@ h1 em, h2 em, h3 em, .h1 em, .h2 em, .osv__ask em { font-style: normal; color: v
 
 /* words and lines rise out of masks: room is added round each mask so no ascender or descender is ever shaved */
 .split-line-mask, [class*='-mask'] { padding-block: 0.14em 0.2em; margin-block: -0.14em -0.2em; }
-.gal__mask { margin-block: 0; }
 #main:focus { outline: none; }

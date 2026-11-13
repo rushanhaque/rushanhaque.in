@@ -19,7 +19,7 @@
 @media (hover: hover) { .bar__home:hover .mono { opacity: 0.66; } }
 .bar__nav { grid-column: 3; justify-self: end; display: flex; align-items: center; gap: clamp(4px, 1vw, 14px); font-size: var(--t-sm); font-weight: 450; }
 .bar__link { display: inline-flex; align-items: center; height: 40px; padding-inline: 8px; transition: color 0.3s var(--ease); }
-.bar__link[aria-current='page'] { color: var(--accent); }
+.bar__link[aria-current] { color: var(--accent); }
 .bar__link--cta { height: 38px; margin-left: 4px; padding-inline: 16px; border-radius: 99px; background: var(--ink); color: var(--on-ink); font-weight: 500; transition: background-color var(--tone-ease), color var(--tone-ease); }
 .bar__link--cta[aria-current='page'] { color: var(--on-ink); }
 .bar__menu { display: none; position: relative; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--on-ink); }
@@ -47,7 +47,8 @@
 .dial__list button { width: 100%; min-height: 34px; padding: 6px 10px; border-radius: 8px; text-align: left; font-size: var(--t-sm); color: var(--ink-2); transition: color 0.2s, background 0.2s; }
 .dial__list button:hover { color: var(--ink); background: var(--panel); }
 .dial__list li.is-on button { color: var(--accent); }
-@media (max-width: 899px), (max-height: 500px) { .dial { display: none; } }
+/* the section picker needs the middle of the bar to itself: below a laptop width the links have it instead */
+@media (max-width: 1023px), (max-height: 500px) { .dial { display: none; } }
 
 /* a quiet link draws its own underline */
 .bar__link:not(.bar__link--cta), .foot__col a, .foot__dir a, .foot__base a, .menu__line {

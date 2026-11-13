@@ -48,16 +48,18 @@ write('admin.html', page({ path: '/admin', title: 'Admin | Rushan Haque', descri
 // 2. the sitemap, with language pairs and the screenshots each page shows
 const today = new Date().toISOString().slice(0, 10)
 const xml = (s) => s.replace(/&/g, '&amp;')
-write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${list.map((r) => `  <url>
-    <loc>${ORIGIN}${r.path === '/' ? '/' : r.path}</loc>
+const loc = (r) => `${ORIGIN}${r.path === '/' ? '/' : r.path}`
+const urlXml = (r) => `  <url>
+    <loc>${loc(r)}</loc>
     <lastmod>${r.lastmod || today}</lastmod>
     <changefreq>${r.changefreq || 'monthly'}</changefreq>
     <priority>${r.priority}</priority>${Object.entries(r.alternates || {}).map(([l, p]) => `
     <xhtml:link rel="alternate" hreflang="${l}" href="${ORIGIN}${p}"/>`).join('')}${(r.images || []).map((i) => `
     <image:image><image:loc>${xml(ORIGIN + i)}</image:loc></image:image>`).join('')}
-  </url>`).join('\n')}
+  </url>`
+write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${list.map(urlXml).join('\n')}
 </urlset>
 `)
 
@@ -169,6 +171,15 @@ if (fs.existsSync(kept)) {
     n++
   }
   for (const f of ['sitemap.xml', 'robots.txt', 'llms.txt', 'llms-full.txt']) if (fs.existsSync(path.join(root, 'seo', f))) fs.copyFileSync(path.join(root, 'seo', f), path.join(dist, f))
+  // a page that has been added since the snapshot is added to its sitemap too, so search can find it; every
+  // entry the snapshot already has stays exactly as it was
+  const sm = path.join(dist, 'sitemap.xml')
+  if (fs.existsSync(sm)) {
+    const map = fs.readFileSync(sm, 'utf8')
+    const added = list.filter((r) => !map.includes(`<loc>${loc(r)}</loc>`))
+    if (added.length) fs.writeFileSync(sm, map.replace('</urlset>', `${added.map(urlXml).join('\n')}\n</urlset>`))
+    if (added.length) console.log(`sitemap: added ${added.map((r) => r.path).join(', ')}`)
+  }
   console.log(`kept the live site's search side on ${n} pages`)
 }
 

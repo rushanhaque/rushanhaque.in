@@ -1,6 +1,5 @@
 import { director } from '../lib/director'
 import { Engine } from './Engine'
-import { Gallery } from './stages/Gallery'
 import { Atlas } from './stages/Atlas'
 import { SOFTWARE } from './opts'
 
@@ -20,7 +19,6 @@ export function boot(canvas) {
     engine.kill()
     return null
   }
-  engine.register('gallery', (e) => new Gallery(e))
   engine.register('atlas', (e) => new Atlas(e))
   director.setEngine(engine)
   if (import.meta.env.DEV) window.__engine = engine

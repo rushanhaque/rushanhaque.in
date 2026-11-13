@@ -12,6 +12,8 @@ export async function initScroll() {
   const { default: Lenis } = await import('lenis')
   if (lenis) return lenis
   lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 0.85, smoothWheel: true, syncTouch: false, autoRaf: false })
+  // something already holding the page (the intro, an open menu) holds the smooth scroll too, from its first frame
+  if (locks > 0) lenis.stop()
   lenis.on('scroll', ScrollTrigger.update)
   gsap.ticker.add((t) => lenis.raf(t * 1000))
   gsap.ticker.lagSmoothing(0)
@@ -35,6 +37,26 @@ export function jumpTo(y) {
 export function jumpTop() {
   if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
   window.scrollTo(0, 0)
+}
+
+// Measuring the page again while a finger is on the glass, or while a flick is still carrying the page, can stop the
+// flick dead or nudge the page under it: on a phone that reads as a jump to somewhere you did not scroll to. So the
+// page is only measured again once the hand is off and the scroll has come to rest.
+let lastScroll = 0
+let touching = false
+if (typeof window !== 'undefined') {
+  const moved = () => { lastScroll = performance.now() }
+  addEventListener('scroll', moved, { passive: true })
+  addEventListener('touchstart', () => { touching = true }, { passive: true })
+  addEventListener('touchend', () => { touching = false; moved() }, { passive: true })
+  addEventListener('touchcancel', () => { touching = false; moved() }, { passive: true })
+}
+export function whenStill(fn) {
+  const check = () => {
+    if (touching || performance.now() - lastScroll < 240) setTimeout(check, 120)
+    else fn()
+  }
+  check()
 }
 
 let locks = 0
