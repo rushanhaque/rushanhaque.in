@@ -11,17 +11,17 @@ import Chrome from './components/Chrome'
 import Cursor from './components/Cursor'
 import Loader from './components/Loader'
 import Home from './pages/Home'
+import { loaders } from './lib/routes'
 
 const LAZY = {
   Home,
-  Work: lazy(() => import('./pages/Work')),
-  Case: lazy(() => import('./pages/Case')),
-  Product: lazy(() => import('./pages/Product')),
-  About: lazy(() => import('./pages/About')),
-  Contact: lazy(() => import('./pages/Contact')),
-  Services: lazy(() => import('./pages/Services')),
-  Admin: lazy(() => import('./pages/Admin')),
-  Landing: lazy(() => import('./pages/Landing')),
+  Work: lazy(loaders.Work),
+  Case: lazy(loaders.Case),
+  Product: lazy(loaders.Product),
+  About: lazy(loaders.About),
+  Contact: lazy(loaders.Contact),
+  Admin: lazy(loaders.Admin),
+  Landing: lazy(loaders.Landing),
 }
 
 // The site. In the browser pages load as they are needed; at build time the prerenderer passes them in
@@ -32,7 +32,7 @@ export default function App({ pages = LAZY }) {
   const navType = useNavigationType()
   const first = useRef(true)
   const done = useCallback(() => setReady(true), [])
-  const { Home: HomePage, Work, Case, Product, About, Contact, Services, Admin, Landing } = pages
+  const { Home: HomePage, Work, Case, Product, About, Contact, Admin, Landing } = pages
 
   useEffect(() => {
     initScroll()
@@ -114,7 +114,6 @@ export default function App({ pages = LAZY }) {
               <Route path="/products/:slug" element={<Product />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/services" element={<Services />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/:slug" element={<Landing />} />
               <Route path="*" element={<Landing />} />

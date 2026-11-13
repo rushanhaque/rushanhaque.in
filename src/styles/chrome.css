@@ -121,6 +121,11 @@
 /* -- iris: between pages ------------------------------------------------------------------ */
 .iris { position: fixed; inset: 0; z-index: var(--z-iris); display: none; place-items: center; background: var(--wine); color: var(--gold); pointer-events: all; }
 .iris__word { display: flex; flex-direction: column; align-items: center; gap: 6px; visibility: hidden; font-size: clamp(30px, 4.6vw, 64px); font-stretch: 112%; letter-spacing: -0.03em; }
+/* the next page is still on its way: its name breathes, slowly, so the wait reads as loading and not as stuck */
+.iris__word.is-waiting span { animation: iris-wait 1.6s ease-in-out infinite; }
+@keyframes iris-wait { 50% { opacity: 0.45; } }
+/* a picture flight waits for its page too: the pointer says so */
+html.is-going, html.is-going * { cursor: progress !important; }
 
 /* a picture you click flies to its place on the next page, and the two pages cross behind it; the browser runs all of it off the main thread */
 ::view-transition-group(plate) { z-index: 3; animation-duration: 0.95s; animation-timing-function: var(--door); }

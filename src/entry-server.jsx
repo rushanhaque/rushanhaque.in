@@ -11,12 +11,11 @@ import Case from './pages/Case'
 import Product from './pages/Product'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Services from './pages/Services'
 import Admin from './pages/Admin'
 import Landing from './pages/Landing'
 import { providePages } from './lib/seoPage'
 
-const pages = { Home, Work, Case, Product, About, Contact, Services, Admin, Landing }
+const pages = { Home, Work, Case, Product, About, Contact, Admin, Landing }
 
 // every landing page's words, settled before anything renders, so the prerender never waits for one
 providePages(Object.fromEntries(Object.entries(import.meta.glob('./data/seo/pages/*.json', { eager: true, import: 'default' }))

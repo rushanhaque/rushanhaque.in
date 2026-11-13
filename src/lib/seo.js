@@ -108,14 +108,6 @@ export function routes() {
       ld: [crumbs([['About', '/about']]), { '@context': 'https://schema.org', '@type': 'ProfilePage', url: `${ORIGIN}/about`, mainEntity: { '@id': ids.person }, about: { '@id': ids.person } }],
     },
     {
-      path: '/services', priority: '0.9', title: 'Services: Website Design, Development and SEO | Rushan Haque',
-      description: 'Website design and development, online stores, web applications, SEO and speed work for businesses in India and abroad, designed and built by Rushan Haque in Moradabad.',
-      ld: [crumbs([['Services', '/services']]), {
-        '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Services', url: `${ORIGIN}/services`, about: { '@id': ids.business },
-        hasPart: [...guides, ...sourcePages].map((p) => ({ '@type': 'WebPage', name: p.title, url: `${ORIGIN}/${p.slug}` })),
-      }],
-    },
-    {
       path: '/contact', priority: '0.8', title: T('Contact: Hire a Website Developer in Moradabad'),
       description: `Start a website project with Rushan Haque in Moradabad, India. WhatsApp ${site.phone.label}, email ${site.email} or book a call. Replies within a day.`,
       ld: [crumbs([['Contact', '/contact']]), { '@context': 'https://schema.org', '@type': 'ContactPage', url: `${ORIGIN}/contact`, about: { '@id': ids.business } }],
@@ -151,7 +143,7 @@ export function routes() {
         path, lang: hi ? 'hi' : 'en', priority: g.slug === 'hire-website-developer' || g.slug === 'website-developer-in-moradabad' ? '0.9' : '0.8', lastmod: g.updated <= BUILT ? g.updated : BUILT,
         title: g.metaTitle.includes('Rushan') ? g.metaTitle : T(g.metaTitle), description: g.description,
         alternates: g.alternate ? (hi ? { 'en-IN': g.alternate, 'hi-IN': path, 'x-default': g.alternate } : { 'en-IN': path, 'hi-IN': g.alternate, 'x-default': path }) : null,
-        ld: [page, faqPage(g.faqs), crumbs([['Services', '/services'], [g.title, path]])].filter(Boolean),
+        ld: [page, faqPage(g.faqs), crumbs([[g.title, path]])].filter(Boolean),
       }
     }),
     ...sourcePages.map((p) => {
@@ -161,7 +153,7 @@ export function routes() {
         path, priority: p.slug === 'website-designer-in-moradabad' || p.slug === 'website-designer-in-india' ? '0.9' : p.kind === 'Service' ? '0.8' : '0.7',
         title: T(extra?.metaTitle ?? p.title), description: p.description,
         alternates: extra?.alternate ? { 'en-IN': path, 'hi-IN': extra.alternate, 'x-default': path } : null,
-        ld: [servicePage({ path, name: p.title, description: p.description, area: p.kind === 'Location' ? areaName(p.title) : undefined }), faqPage(faqsFromHtml(p.sections)), crumbs([['Services', '/services'], [p.title, path]])].filter(Boolean),
+        ld: [servicePage({ path, name: p.title, description: p.description, area: p.kind === 'Location' ? areaName(p.title) : undefined }), faqPage(faqsFromHtml(p.sections)), crumbs([[p.title, path]])].filter(Boolean),
       }
     }),
     ...Object.entries(LEGAL).map(([slug, l]) => ({ path: `/${slug}`, priority: '0.2', title: T(l.title), description: l.description, ld: [crumbs([[l.title, `/${slug}`]])] })),

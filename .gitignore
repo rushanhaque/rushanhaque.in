@@ -11,4 +11,3 @@ dist-ssr
 unused-images/
 # written by scripts/seo-index.mjs before every dev and build
 src/data/seo/pages/
-src/data/seo/hub.json

@@ -129,8 +129,12 @@ const ReachPlate = forwardRef(function ReachPlate(_, ref) {
   const [map, setMap] = useState(null)
   const s = useRef({ w: 0, h: 0, p: 0, vb: '', z: '', grid: '', stage: '0', coord: '', km: '', bar: '' })
 
+  // asked for as often as it likes (every frame while the chart stands in): only the first ask does anything
+  const asked = useRef(false)
   const load = useCallback(() => {
-    wantMap().then((m) => setMap((was) => was || m)).catch(() => { /* asked for again the next time it is needed */ })
+    if (asked.current) return
+    asked.current = true
+    wantMap().then((m) => setMap(m)).catch(() => { asked.current = false /* asked for again the next time it is needed */ })
   }, [])
 
   const update = useCallback((p) => {
@@ -190,13 +194,12 @@ const ReachPlate = forwardRef(function ReachPlate(_, ref) {
       update(st.p)
     })
     ro.observe(el)
-    // a device with no canvas at all will certainly need the map, so it comes when the section is near
-    let io = null
-    if (still || !html.classList.contains('can-gl')) {
-      io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { load(); io.disconnect() } }, { rootMargin: '200% 0px' })
-      io.observe(el)
-    }
-    return () => { ro.disconnect(); io?.disconnect() }
+    // The map comes while the section is still two screens away, for everyone. Even a device that can draw the globe
+    // may find, on the day, that it does not (a busy GPU, a lost context, a canvas handed back empty), and a chart
+    // that arrives as routes over nothing reads as broken. Being ready costs one small file, fetched in good time.
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { load(); io.disconnect() } }, { rootMargin: '200% 0px' })
+    io.observe(el)
+    return () => { ro.disconnect(); io.disconnect() }
   }, [update, load])
 
   return (

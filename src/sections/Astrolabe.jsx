@@ -18,7 +18,7 @@ export default function Astrolabe() {
   const stepEls = useRef([])
   const counted = useRef([])
   const widths = useRef(null)
-  const hold = useRef({ live: false, n: 0, off: 0 })
+  const hold = useRef({ live: false, n: 0 })
   const plate = useRef(null)
   useReveals(root)
 
@@ -66,13 +66,11 @@ export default function Astrolabe() {
         h.n = 0
         root.current?.classList.toggle('is-live', want)
       }
-      // When the chart is standing in, it walks with the scroll. If it has been standing in for a moment, the canvas
-      // is not coming soon, so its map is fetched.
+      // When the chart is standing in, it walks with the scroll, and its map is asked for at once if it is not here yet
       const pl = plate.current
       if (pl && !h.live) {
         pl.update(p)
-        if (want) h.off = 0
-        else if (++h.off === 45) pl.load()
+        if (!want) pl.load()
       }
       const H = engine ? engine.ctx.h : stageH
       const l = plateLayout(innerWidth, H)

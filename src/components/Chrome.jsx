@@ -6,16 +6,12 @@ import { TLink } from './Transition'
 import Mark from './Mark'
 import Menu from './Menu'
 import Sundial from './Sundial'
-import { LEGAL, titleFor } from '../lib/pages'
 
 // What stays still while the page moves: a solid bar with the name, where you are, and the way around.
 // Nothing shows through it, so nothing ever collides with it.
-// the section a page belongs to is marked in the bar too: a case or product under Works, and every service,
-// industry, guide and area page under Services
+// the section a page belongs to is marked in the bar too: a case or a product under Works
 function within(to, path) {
-  if (to === '/work') return path.startsWith('/work/') || path.startsWith('/products/')
-  if (to === '/services') { const slug = path.slice(1); return !slug.includes('/') && !LEGAL[slug] && !!titleFor(slug) }
-  return false
+  return to === '/work' && (path.startsWith('/work/') || path.startsWith('/products/'))
 }
 
 export default function Chrome() {
