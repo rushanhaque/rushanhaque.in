@@ -1,10 +1,10 @@
-import { Fragment, useEffect, useRef } from 'react'
+import { Fragment, use, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useChapter } from '../lib/director'
 import { useReveals } from '../lib/reveal'
 import { parseSection } from '../lib/sections'
-import { guideBySlug, sourceBySlug, extraFor, headFor } from '../lib/seo'
-import { LEGAL, services, areas, industries, articles } from '../lib/pages'
+import { seoPage } from '../lib/seoPage'
+import { LEGAL, services, areas, industries, articles, titleFor } from '../lib/pages'
 import { site } from '../config/site'
 import { works } from '../data/content'
 import { TLink } from '../components/Transition'
@@ -191,24 +191,27 @@ function Legal({ slug }) {
 
 export default function Landing() {
   const { slug } = useParams()
-  return guideBySlug(slug) || sourceBySlug(slug) || LEGAL[slug] ? <LandingPage slug={slug} key={slug} /> : <NotFound />
+  return titleFor(slug) ? <LandingPage slug={slug} key={slug} /> : <NotFound />
 }
 
 function LandingPage({ slug }) {
   const root = useRef(null)
   useReveals(root)
-  const guide = guideBySlug(slug)
-  const page = !guide && sourceBySlug(slug)
+  // this page's words alone, from its own file (lib/seoPage.js); the legal pages carry theirs here
+  const data = LEGAL[slug] ? null : use(seoPage(slug))
+  const guide = data?.guide
+  const page = !guide && data?.page
   const legal = !guide && !page && LEGAL[slug]
   const hi = guide?.lang === 'hi'
+  const headTitle = data?.title || (legal && (legal.title.length + 15 <= 70 ? `${legal.title} | Rushan Haque` : legal.title))
+  const headDescription = guide?.description || page?.description || legal?.description
   useEffect(() => {
-    const h = headFor(`/${slug}`)
-    document.title = h.title
-    document.head.querySelector('meta[name="description"]')?.setAttribute('content', h.description)
+    if (headTitle) document.title = headTitle
+    document.head.querySelector('meta[name="description"]')?.setAttribute('content', headDescription)
     document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', `${site.url}/${slug}`)
     if (hi) document.documentElement.lang = 'hi'
     return () => { document.documentElement.lang = 'en' }
-  }, [slug, hi])
+  }, [slug, hi, headTitle, headDescription])
   useChapter(root, { id: 'reading', name: 'The reading room', hidden: true, time: [10.6, 12.4] })
 
   const title = guide?.title || page?.title || legal?.title
@@ -234,7 +237,7 @@ function LandingPage({ slug }) {
     )
   } else if (page) {
     const sections = page.sections.map(parseSection)
-    const extra = extraFor(slug)
+    const extra = data.extra
     const at = Math.max(0, sections.findIndex((s) => s.kind === 'faq'))
     body = sections.map((s, i) => (
       <Fragment key={i}>

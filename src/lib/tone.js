@@ -20,9 +20,10 @@ import { device } from './device'
 
 const TOKENS = ['--paper-rgb', '--card-rgb', '--stone-rgb', '--ink-rgb', '--accent-rgb', '--on-accent-rgb', '--on-ink-rgb']
 const LINE = 0.55
-const DURATION = 0.95
-const TEXT_FROM = 0.26 // the part of the crossing in which the contents change colour
-const TEXT_TO = 0.74
+// slow enough to feel like the light changing rather than a switch being thrown
+const DURATION = 1.7
+const TEXT_FROM = 0.28 // the part of the crossing in which the contents change colour
+const TEXT_TO = 0.72
 
 let current = null
 let shown = null // what the screen shows right now, as OKLab: { ground, tokens }
@@ -93,7 +94,8 @@ function dressBar() {
   dirty = true
 }
 
-const smooth = (t, a, b) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * (3 - 2 * k) }
+// smootherstep: it leaves and arrives with no speed at all, so neither end of a crossing can be seen to start or stop
+const smooth = (t, a, b) => { const k = Math.min(1, Math.max(0, (t - a) / (b - a))); return k * k * k * (k * (k * 6 - 15) + 10) }
 
 // -- on screen ---------------------------------------------------------------------------------
 function gather(y) {

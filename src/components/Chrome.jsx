@@ -39,8 +39,13 @@ export default function Chrome() {
       stuckAt = first ? hero.offsetHeight - innerHeight * 1.02 : 8
       lastY = -1
     }
+    // the scroll position is taken when the page scrolls, not read mid-frame, where it would force the browser to
+    // work out the whole layout again after whatever else this frame has changed
+    let at = scrollY
+    const onScroll = () => { at = scrollY }
+    addEventListener('scroll', onScroll, { passive: true })
     const tick = () => {
-      const y = scrollY
+      const y = at
       if (y === lastY) return
       lastY = y
       bar.current?.classList.toggle('is-stuck', y > stuckAt)
@@ -53,7 +58,7 @@ export default function Chrome() {
     ro.observe(document.body)
     addEventListener('resize', size)
     gsap.ticker.add(tick)
-    return () => { ro.disconnect(); removeEventListener('resize', size); gsap.ticker.remove(tick) }
+    return () => { ro.disconnect(); removeEventListener('resize', size); removeEventListener('scroll', onScroll); gsap.ticker.remove(tick) }
   }, [])
 
   return (

@@ -13,7 +13,7 @@
 /* Every block is a clean, solid sheet in its tone. The canvas only shows behind the two that are left open: the
    gallery and the map. The sheets slide over it like a curtain. */
 #main > * { position: relative; }
-#main > .atl.is-live, html.has-gl .galw { background: none; }
+#main > .atl.is-live, html.has-gl .galw.is-live { background: none; }
 .work__all { position: relative; padding-top: var(--room); }
 .work__all .tabs { margin-bottom: var(--head); }
 .work > .foot { margin-top: 0; }
@@ -109,6 +109,12 @@ html:not(.can-gl) .galp { display: block; padding-block: var(--room) 0; }
 .gal__intro .tlink { pointer-events: auto; }
 .gal__lead .note { max-width: 30ch; color: var(--ink); }
 .gal__hit { position: absolute; left: 0; top: 0; display: none; z-index: 2; will-change: transform; }
+/* what stands in for the corridor whenever the canvas is not drawing it: the work in focus, framed on the lit wall */
+.gal__still { position: absolute; left: 50%; top: 12vh; height: 56vh; aspect-ratio: 16 / 10; max-width: calc(100vw - 2 * var(--m)); translate: -50% 0; z-index: 1; border-radius: 6px; overflow: hidden; background: var(--stone); box-shadow: 0 0 0 1px var(--line), 0 50px 90px -50px rgb(32 24 20 / 0.55); transition: opacity 0.6s var(--ease), visibility 0.6s; }
+.galw.is-live .gal__still { opacity: 0; visibility: hidden; pointer-events: none; }
+.gal__shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 0.7s var(--ease); }
+.gal__shot.is-on { opacity: 1; }
+@media (max-width: 760px) { .gal__still { aspect-ratio: auto; width: calc(100vw - 2 * var(--m)); } }
 .gal__label {
   position: absolute; left: 0; right: 0; bottom: clamp(20px, 4.5vh, 48px); visibility: hidden; pointer-events: none; z-index: 3;
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: end;
@@ -267,7 +273,7 @@ html:not(.can-gl) .gal__title { font-size: min(34vh, calc((100vw - 2 * var(--m))
 .atl__stats dd { font-size: clamp(40px, 8vh, 88px); line-height: 0.9; opacity: 0.55; transition: opacity 0.7s var(--ease); }
 .atl__stats > div[data-on='1'] dd { opacity: 1; }
 .atl__labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.atl__city { position: absolute; left: 0; top: 0; height: 16px; opacity: 0; transition: opacity 0.4s var(--ease); will-change: transform; font-family: var(--mono); font-size: 11px; line-height: 16px; letter-spacing: 0.01em; white-space: nowrap; }
+.atl__city { position: absolute; left: 0; top: 0; height: 16px; opacity: 0; transition: opacity 0.4s var(--ease); font-family: var(--mono); font-size: 11px; line-height: 16px; letter-spacing: 0.01em; white-space: nowrap; }
 .atl__city b { display: inline-block; font-weight: 400; color: #fff; text-shadow: 0 0 3px var(--paper), 0 0 6px var(--paper), 0 0 10px var(--paper); }
 .atl__city.is-client b { color: var(--accent); }
 .atl__city.is-home b { font-weight: 500; font-size: 12px; }

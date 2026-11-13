@@ -13,8 +13,13 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
 import Landing from './pages/Landing'
+import { providePages } from './lib/seoPage'
 
 const pages = { Home, Work, Case, Product, About, Contact, Admin, Landing }
+
+// every landing page's words, settled before anything renders, so the prerender never waits for one
+providePages(Object.fromEntries(Object.entries(import.meta.glob('./data/seo/pages/*.json', { eager: true, import: 'default' }))
+  .map(([file, value]) => [file.slice(file.lastIndexOf('/') + 1, -5), value])))
 
 export function render(url) {
   return renderToString(

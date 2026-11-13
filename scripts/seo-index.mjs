@@ -14,4 +14,19 @@ const pages = [
   ...guides.map((g) => ({ slug: g.slug, title: g.title, kind: g.group || 'guide', ...(g.lang === 'hi' ? { lang: 'hi' } : {}) })),
 ]
 fs.writeFileSync(path.join(dir, 'index.json'), JSON.stringify(pages, null, 1) + '\n')
+
+// And each page's own words in a file of its own, so a landing page downloads only itself rather than all of them
+// (lib/seoPage.js). The title is the one its <head> carries (lib/seo.js), for when it is reached inside the site.
+const extras = read('seo-extras.json')
+const T = (s) => (s.length + 15 <= 70 ? `${s} | Rushan Haque` : s)
+const out = path.join(dir, 'pages')
+fs.rmSync(out, { recursive: true, force: true })
+fs.mkdirSync(out)
+for (const g of guides) {
+  fs.writeFileSync(path.join(out, `${g.slug}.json`), JSON.stringify({ guide: g, title: g.metaTitle.includes('Rushan') ? g.metaTitle : T(g.metaTitle) }))
+}
+for (const p of sources) {
+  const extra = extras[p.slug] || null
+  fs.writeFileSync(path.join(out, `${p.slug}.json`), JSON.stringify({ page: p, extra, title: T(extra?.metaTitle ?? p.title) }))
+}
 console.log(`seo index: ${pages.length} pages`)

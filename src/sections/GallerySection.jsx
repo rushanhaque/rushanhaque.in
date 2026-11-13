@@ -25,6 +25,9 @@ export default function GallerySection() {
   const blocks = useRef([])
   const leadTl = useRef(null)
   const active = useRef(-1)
+  const still = useRef(null)
+  const shown = useRef(-1)
+  const hold = useRef({ live: false, n: 0 })
   const go = useGo()
 
   useEffect(() => {
@@ -42,6 +45,12 @@ export default function GallerySection() {
         lead: ((lead.current?.offsetTop ?? st.offsetHeight * 0.6) - 16) / H,
       }
       corridor.update(corridor.u, innerWidth, H)
+      // the picture that stands in for the corridor takes the same room the corridor frames its pictures in
+      const f = still.current
+      if (f) {
+        f.style.top = `${(corridor.region.top * H).toFixed(0)}px`
+        f.style.height = `${((corridor.region.bottom - corridor.region.top) * H).toFixed(0)}px`
+      }
     }
     measure()
     addEventListener('resize', measure)
@@ -76,8 +85,20 @@ export default function GallerySection() {
     hidden: true,
     time: [7.5, 11.8],
     stage: 'gallery',
-    frame: ({ stick, engine }) => {
+    frame: ({ stick, engine, time }) => {
       const n = works.length
+      // The corridor is only shown when the canvas is really drawing it, and has been for a few frames running.
+      // Otherwise (the shaders still compiling, a canvas handed back empty, the context lost, the engine given up)
+      // the room keeps its own wall and a picture of the work in focus stands in, so it is never a dark hole.
+      const g = engine?.stages.get('gallery')
+      const want = !!engine?.alive && engine.shown && director.state.stage === 'gallery' && !!g?.ready?.() && (engine.forceFrames > 0 || time - engine.lastDraw < 2.5)
+      const h = hold.current
+      if (want === h.live) h.n = 0
+      else if (++h.n >= 8) {
+        h.live = want
+        h.n = 0
+        root.current?.classList.toggle('is-live', want)
+      }
       // the walk starts a little way back from the first arch, and only sets off once the title has gone
       const u = -0.5 + stick * (n + 0.75)
       corridor.update(u, innerWidth, engine ? engine.ctx.h : innerHeight)
@@ -91,9 +112,26 @@ export default function GallerySection() {
         if (tl && Math.abs(tl.progress() - a) > 0.0005) tl.progress(a)
         b.style.visibility = a > 0.001 && a < 0.999 ? 'visible' : 'hidden'
       })
+      // the stand-in shows the work in focus, or the nearest one between two
+      const pick = Math.max(0, Math.min(n - 1, now >= 0 ? now : Math.round(u)))
+      const sc = still.current
+      const shots = sc?.querySelectorAll('.gal__shot')
+      if (sc && (pick !== shown.current || (!h.live && !shots[pick].getAttribute('src')))) {
+        shown.current = pick
+        shots.forEach((im, i) => im.classList.toggle('is-on', i === pick))
+        sc.href = `/work/${works[pick].slug}`
+        // its pictures are only fetched while it is standing in: this one, and the next to come
+        if (!h.live) {
+          for (const i of [pick, pick + 1]) {
+            const im = shots[i]
+            if (im && !im.getAttribute('src')) { im.srcset = im.dataset.srcset; im.src = im.dataset.src }
+          }
+        }
+      }
       // a real link lies exactly over the picture in focus
       const el = hit.current
       if (!el) return
+      if (!h.live) { el.style.display = 'none'; return }
       const r = now >= 0 ? corridor.plates[now]?.rect : null
       const held = r && r.w > 40
       if (now !== active.current) {
@@ -121,6 +159,24 @@ export default function GallerySection() {
       <section className="gal" aria-label="Selected works">
         <div className="pin__stage" ref={stage}>
           <div className="gal__scrim" aria-hidden="true" />
+          <a
+            className="gal__still"
+            ref={still}
+            href={`/work/${works[0].slug}`}
+            data-cursor="View case"
+            tabIndex={-1}
+            aria-hidden="true"
+            onClick={(e) => {
+              if (e.metaKey || e.ctrlKey) return
+              e.preventDefault()
+              const w = works[Math.max(0, shown.current)]
+              if (w) go(`/work/${w.slug}`, { title: w.short })
+            }}
+          >
+            {works.map((w, i) => (
+              <img key={w.slug} className={`gal__shot${i === 0 ? ' is-on' : ''}`} data-src={small(w.image)} data-srcset={srcSet(w.image)} sizes="(max-width: 760px) 92vw, 64vw" alt="" decoding="async" width={w.w} height={w.h} />
+            ))}
+          </a>
           <div className="gal__lead wrap" ref={lead}>
             <h1 className="gal__title pillar">Selected works</h1>
             <div className="gal__intro">

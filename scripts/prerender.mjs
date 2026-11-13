@@ -29,6 +29,8 @@ function page(head, html) {
     .replace('content="#120a0c"', `content="${opens || '#120a0c'}"`)
     .replace('<!--app-head-->', headHtml(head, { verify }))
     .replace('<!--app-html-->', html)
+    // Geist sets only the name on the home page's first screen; every other page would download it for nothing
+    .replace(head.path === '/' ? /^$/ : /\s*<link rel="preload" href="\/fonts\/geist\.woff2"[^>]*>/, '')
 }
 const write = (file, text) => {
   const to = path.join(dist, file)
