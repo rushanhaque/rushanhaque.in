@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
 import { device } from '../lib/device'
+import { scrub } from '../lib/motion'
 import { education, experience } from '../data/content'
 import Head from './Head'
 
@@ -11,7 +11,7 @@ const items = [
 
 // The journey: roles alternate either side of a centre lane, and a path winds down through their markers.
 // The scroll inks the path, a marker rides its tip, and each role lights up and slides in as you reach it.
-export default function Journey() {
+export default function Journey({ no }) {
   const root = useRef(null)
   const line = useRef(null)
   const tip = useRef(null)
@@ -46,12 +46,13 @@ export default function Journey() {
     return () => ro.disconnect()
   }, [])
 
-  useGSAP(() => {
+  useEffect(() => {
     const el = root.current
     if (!d || device().reduced) return undefined
     const path = line.current
     const len = path.getTotalLength()
     path.style.strokeDasharray = `${len} ${len}`
+    path.style.strokeDashoffset = len
     const follow = (p) => {
       const pt = path.getPointAtLength(len * p)
       tip.current.setAttribute('transform', `translate(${pt.x} ${pt.y})`)
@@ -59,23 +60,23 @@ export default function Journey() {
       tip.current.style.opacity = on ? '1' : '0'
       tip.current.classList.toggle('is-on', on)
     }
-    const s = { p: 0 }
-    gsap.to(s, {
-      p: 1,
-      ease: 'none',
-      scrollTrigger: { trigger: el.querySelector('.jr__list'), start: 'top 82%', end: 'bottom 78%', scrub: 0.3 },
-      onUpdate: () => { path.style.strokeDashoffset = len * (1 - s.p); follow(s.p) },
-    })
-    path.style.strokeDashoffset = len
-    gsap.utils.toArray('.jr__item', el).forEach((item) => ScrollTrigger.create({ trigger: item, start: 'top 84%', onEnter: () => item.classList.add('is-lit'), onLeaveBack: () => item.classList.remove('is-lit') }))
+    const stop = scrub(el.querySelector('.jr__list'), { start: 0.82, end: 0.78, smooth: 0.3, onUpdate: (p) => { path.style.strokeDashoffset = len * (1 - p); follow(p) } })
+    const lit = new IntersectionObserver((list) => {
+      for (const e of list) {
+        const below = e.boundingClientRect.top > innerHeight * 0.5
+        if (e.isIntersecting) e.target.classList.add('is-lit')
+        else if (below) e.target.classList.remove('is-lit')
+      }
+    }, { rootMargin: '0px 0px -16% 0px' })
+    el.querySelectorAll('.jr__item').forEach((it) => lit.observe(it))
     el.classList.add('is-live')
-    return () => el.classList.remove('is-live')
-  }, { scope: root, dependencies: [d] })
+    return () => { stop(); lit.disconnect(); el.classList.remove('is-live') }
+  }, [d])
 
   return (
-    <section className="jr wrap" ref={root} id="journey" data-tone="ivory">
+    <section className="jr wrap" ref={root} id="journey" data-tone="ivory" data-chapter={no} data-name="Experience">
       <header className="jr__head">
-        <Head label="Journey" title={<>Roles, rooms <em>and lessons.</em></>} />
+        <Head no={no} label="Journey" title={<>Roles, rooms <em>and lessons.</em></>} />
         <span className="jr__legend" aria-hidden="true"><i className="is-work" />Experience<i />Education</span>
       </header>
       <div className="jr__list">

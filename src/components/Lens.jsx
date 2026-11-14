@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from '../lib/gsap'
 import { device } from '../lib/device'
+import { follow, tween, killTweensOf, ease } from '../lib/motion'
 import { small, srcSet } from '../lib/img'
 
 // The finished site, with the drawing it began as underneath. With a mouse, a brass line follows the pointer across
 // the picture: everything to its left is the drawing, everything to its right is the site, so you can sweep between
 // the two. On a phone the line crosses once by itself each time the picture comes into view.
-export default function Lens({ image, plan, width, height, alt, sizes = '(max-width: 760px) 92vw, 62vw', className = '' }) {
+export default function Lens({ image, plan, width, height, alt, sizes = '(max-width: 760px) 92vw, 46vw', className = '' }) {
   const root = useRef(null)
   useEffect(() => {
     const el = root.current
@@ -16,14 +16,16 @@ export default function Lens({ image, plan, width, height, alt, sizes = '(max-wi
     write()
     if (d.reduced) return undefined
     let to = null
-    const go = (x, duration = 0.55) => {
-      to ??= gsap.quickTo(s, 'x', { duration, ease: 'power3.out', onUpdate: write })
-      to(Math.max(0, Math.min(1, x)))
-    }
+    const go = (x) => { to ??= follow(s, 'x', { duration: 0.55, onUpdate: write }); to(Math.max(0, Math.min(1, x))) }
     const at = (e) => { const r = el.getBoundingClientRect(); return (e.clientX - r.left) / r.width }
     const move = (e) => { if (e.pointerType === 'mouse') go(at(e)) }
-    const enter = (e) => { if (e.pointerType !== 'mouse') return; el.classList.add('is-on'); go(at(e)) }
-    const leave = (e) => { if (e.pointerType !== 'mouse') return; el.classList.remove('is-on'); gsap.killTweensOf(s); to = null; gsap.to(s, { x: 0, duration: 0.8, ease: 'expo.out', onUpdate: write }) }
+    const enter = (e) => { if (e.pointerType !== 'mouse') return; killTweensOf(s); el.classList.add('is-on'); go(at(e)) }
+    const leave = (e) => {
+      if (e.pointerType !== 'mouse') return
+      el.classList.remove('is-on')
+      to?.stop(); to = null
+      tween(s, { x: 0 }, { duration: 0.8, ease: ease.expoOut, onUpdate: write })
+    }
     el.addEventListener('pointermove', move)
     el.addEventListener('pointerenter', enter)
     el.addEventListener('pointerleave', leave)
@@ -31,18 +33,19 @@ export default function Lens({ image, plan, width, height, alt, sizes = '(max-wi
     if (d.touch) {
       io = new IntersectionObserver(([e]) => {
         if (!e.isIntersecting) return
-        gsap.killTweensOf(s)
+        killTweensOf(s)
         el.classList.add('is-on')
-        // brisk enough to catch while scrolling past or swiping the row, and it starts as soon as the card is in sight
-        gsap.timeline({ onUpdate: write, onComplete: () => el.classList.remove('is-on') })
-          .to(s, { x: 0.7, duration: 0.9, ease: 'power2.inOut', onUpdate: write })
-          .to(s, { x: 0, duration: 0.8, ease: 'power2.inOut', onUpdate: write }, '+=0.35')
-      }, { threshold: 0.35 })
+        tween(s, { x: 0.62 }, {
+          duration: 1.6, ease: ease.power2InOut, onUpdate: write,
+          onComplete: () => tween(s, { x: 0 }, { duration: 1.3, delay: 0.6, ease: ease.power2InOut, onUpdate: write, onComplete: () => el.classList.remove('is-on') }),
+        })
+      }, { threshold: 0.6 })
       io.observe(el)
     }
     return () => {
       io?.disconnect()
-      gsap.killTweensOf(s)
+      killTweensOf(s)
+      to?.stop()
       el.removeEventListener('pointermove', move)
       el.removeEventListener('pointerenter', enter)
       el.removeEventListener('pointerleave', leave)

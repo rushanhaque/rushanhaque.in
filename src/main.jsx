@@ -1,26 +1,26 @@
-import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 import App from './App'
-import { seoPage } from './lib/seoPage'
+import { resolve } from './lib/routes'
 import './styles/tokens.css'
 import './styles/base.css'
+import './styles/ui.css'
 import './styles/chrome.css'
-import './styles/sections.css'
+import './styles/header.css'
+import './styles/hero.css'
+import './styles/home.css'
+import './styles/works.css'
+import './styles/services.css'
 import './styles/pages.css'
 
-// a landing page's words start loading now, alongside its code rather than after it
-const one = location.pathname.match(/^\/([a-z0-9-]+)\/?$/)
-if (one) seoPage(one[1])
-
-const root = document.getElementById('root')
-const app = (
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
-)
-// every built page arrives finished: React takes over the words that are already there
-if (root.firstElementChild) hydrateRoot(root, app)
-else createRoot(root).render(app)
+// Every built page arrives finished. The page's own code and words load first (they were preloaded with the HTML),
+// then React takes over the markup that is already there.
+async function start() {
+  const el = document.getElementById('root')
+  const route = await resolve(location.href)
+  document.documentElement.dataset.page = route.key
+  const app = <App initial={route} />
+  // a page whose markup does not match is repaired by React; it is noted so a build can be checked for it
+  if (el.firstElementChild) hydrateRoot(el, app, { onRecoverableError: (e) => { (window.__rhHydration ??= []).push(String(e?.message || e).slice(0, 300)) } })
+  else createRoot(el).render(app)
+}
+start()

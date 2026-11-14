@@ -1,33 +1,26 @@
-import Threshold from '../sections/Threshold'
-import RecentWorks from '../sections/RecentWorks'
-import Drafting from '../sections/Drafting'
-import Workshop from '../sections/Workshop'
-import Names from '../sections/Names'
-import Astrolabe from '../sections/Astrolabe'
-import OtherServices from '../sections/OtherServices'
-import Reflections from '../sections/Reflections'
-import Stacks from '../sections/Stacks'
-import DoorSection from '../sections/DoorSection'
-import Bridge from '../components/Bridge'
-import { useMeta } from '../lib/meta'
+import Hero from '../sections/Hero'
+import SelectedWorks from '../sections/SelectedWorks'
+import Building from '../sections/Building'
+import Products from '../sections/Products'
+import Services from '../sections/Services'
+import Clientele from '../sections/Clientele'
+import Reviews from '../sections/Reviews'
+import Writing from '../sections/Writing'
+import Closing from '../sections/Closing'
 
-// The home page, in walking order.
+// The home page, told in chapters.
 export default function Home() {
-  useMeta({ title: 'Rushan Haque, Website Developer and Designer in Moradabad, India', path: '/' })
   return (
     <>
-      <Threshold />
-      <RecentWorks />
-      <Drafting />
-      <Workshop />
-      <Names />
-      <Astrolabe />
-      <OtherServices />
-      <Bridge tone="ivory">The work is half the story. The rest is what clients say once it’s live.</Bridge>
-      <Reflections />
-      <Bridge>And when the screens go quiet, I write.</Bridge>
-      <Stacks />
-      <DoorSection />
+      <Hero />
+      <SelectedWorks />
+      <Building />
+      <Products />
+      <Services />
+      <Clientele />
+      <Reviews />
+      <Writing />
+      <Closing />
     </>
   )
 }

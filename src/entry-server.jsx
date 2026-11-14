@@ -1,34 +1,43 @@
-// The build's server entry: renders any route to HTML, so every page ships with its words already in
-// it, for search engines and AI crawlers that don't run JavaScript. Effects never run here, so nothing
-// about WebGL or the scroll exists on the server. It is the same App as the browser's, so the first paint
-// and the page React takes over are one and the same.
+// The build's server entry: renders any route to HTML, so every page ships with its words already in it, for search
+// engines and AI crawlers that don't run JavaScript. Effects never run here. It is the same App as the browser's, so
+// the first paint and the page React takes over are one and the same.
 import { renderToString } from 'react-dom/server'
-import { StaticRouter } from 'react-router'
 import App from './App'
+import { match } from './lib/routes'
+import { LEGAL, seoIndex } from './lib/pages'
+import { works, products } from './data/content'
 import Home from './pages/Home'
-import Work from './pages/Work'
+import Works from './pages/Works'
 import Case from './pages/Case'
 import Product from './pages/Product'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Admin from './pages/Admin'
 import Landing from './pages/Landing'
-import { providePages } from './lib/seoPage'
+import Admin from './pages/Admin'
+import NotFound from './pages/NotFound'
 
-const pages = { Home, Work, Case, Product, About, Contact, Admin, Landing }
+const PAGES = { home: Home, works: Works, case: Case, product: Product, about: About, contact: Contact, landing: Landing, admin: Admin, notfound: NotFound }
+const SEO = import.meta.glob('./data/seo/pages/*.json', { eager: true, import: 'default' })
 
-// every landing page's words, settled before anything renders, so the prerender never waits for one
-providePages(Object.fromEntries(Object.entries(import.meta.glob('./data/seo/pages/*.json', { eager: true, import: 'default' }))
-  .map(([file, value]) => [file.slice(file.lastIndexOf('/') + 1, -5), value])))
-
-export function render(url) {
-  return renderToString(
-    <StaticRouter location={url}>
-      <App pages={pages} />
-    </StaticRouter>,
-  )
+export function render(path) {
+  const r = match(path)
+  const data = r.key === 'landing' ? SEO[`./data/seo/pages/${r.params.slug}.json`] || null : null
+  const html = renderToString(<App initial={{ ...r, hash: '', search: '', Page: PAGES[r.key], data }} />)
+  return { html, key: r.key, lang: data?.guide?.lang === 'hi' ? 'hi' : 'en' }
 }
 
-export { routes, headFor, headHtml, ORIGIN, services, areas, industries, articles, guides, sourcePages } from './lib/seo'
-export { site } from './config/site'
-export { works, products, writings, reviews, faq, experience, education, languages, chapters } from './data/content'
+/** Every public address, in the order the sitemap lists them. */
+export function paths() {
+  return [
+    '/', '/work', '/about', '/contact',
+    ...works.map((w) => `/work/${w.slug}`),
+    ...products.map((p) => `/products/${p.slug}`),
+    ...seoIndex.map((p) => `/${p.slug}`),
+    ...Object.keys(LEGAL).map((s) => `/${s}`),
+  ]
+}
+
+export const PAGE_FILES = {
+  home: 'src/pages/Home.jsx', works: 'src/pages/Works.jsx', case: 'src/pages/Case.jsx', product: 'src/pages/Product.jsx',
+  about: 'src/pages/About.jsx', contact: 'src/pages/Contact.jsx', landing: 'src/pages/Landing.jsx', admin: 'src/pages/Admin.jsx', notfound: 'src/pages/NotFound.jsx',
+}

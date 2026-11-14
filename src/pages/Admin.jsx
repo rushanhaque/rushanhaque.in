@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { useChapter } from '../lib/director'
 import editable from '../data/editable.json'
 import { logoPath, prepareLogo } from '../lib/logo'
 import Btn from '../components/Btn'
@@ -28,8 +27,6 @@ export default function Admin() {
   const [sha, setSha] = useState('')
   const [busy, setBusy] = useState(false)
   const [note, setNote] = useState({ kind: '', text: '' })
-
-  useChapter(root, { id: 'admin', name: 'Admin', time: [10, 10.1], hidden: true })
 
   const load = async () => {
     setPhase('loading')
@@ -115,7 +112,7 @@ export default function Admin() {
       {(phase === 'checking' || phase === 'loading') && <p className="small">{phase === 'checking' ? 'Checking your session' : 'Loading the content'}</p>}
 
       {phase === 'login' && (
-        <form className="form card" onSubmit={signIn}>
+        <form className="form panel" onSubmit={signIn}>
           <label className="field"><span>Admin password</span>
             <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" required />
           </label>
@@ -125,7 +122,7 @@ export default function Admin() {
       )}
 
       {phase === 'edit' && (
-        <form className="form card" onSubmit={publish}>
+        <form className="form panel" onSubmit={publish}>
           <label className="field"><span>About text <small>On the About page and the home page’s About section</small></span>
             <textarea value={text} onChange={(e) => setText(e.target.value)} rows={7} maxLength={MAX} />
           </label>

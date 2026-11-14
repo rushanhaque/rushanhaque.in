@@ -1,0 +1,86 @@
+/* ===== 04 Other services: one bench of tiles, sized to the screen ============================== */
+.svc { padding-block: var(--room); }
+.svc .sh { margin-bottom: clamp(22px, 3vh, 40px); }
+.glyph { overflow: visible; }
+.glyph path { fill: none; stroke: var(--accent); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+/* four rows that share what is left of the screen once the heading is above them */
+.bento {
+  --rh: clamp(136px, calc((100svh - 230px) / 4), 196px);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(var(--rh), auto); gap: clamp(8px, 0.8vw, 12px);
+  grid-template-areas: 'a a b b' 'a a c d' 'e e f g' 'h i j k';
+}
+.bento__tile {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: 20px; background-color: color-mix(in srgb, var(--paper) 40%, #fff); box-shadow: inset 0 0 0 1px var(--line);
+  transition: opacity 1.15s var(--ease) calc(var(--i, 0) * 0.06s), transform 1.15s var(--ease) calc(var(--i, 0) * 0.06s), translate 0.6s var(--ease), box-shadow 0.6s var(--ease);
+}
+.bento__tile::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--gilt-rgb) / 0.2), transparent 65%); opacity: 0; transition: opacity 0.5s var(--ease); pointer-events: none; }
+.bento__link { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; height: 100%; padding: clamp(16px, 1.4vw, 22px); }
+.bento__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.bento__glyph { width: 30px; height: 30px; flex: none; }
+.bento__glyph path { stroke-width: 1.3; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1.7s cubic-bezier(0.65, 0.05, 0.36, 1) calc(0.35s + var(--i, 0) * 0.07s); }
+.r-wait .bento__glyph path { stroke-dashoffset: 1; }
+.bento__tag { display: grid; justify-items: end; letter-spacing: 0.1em; }
+.bento__tag > span { grid-area: 1 / 1; transition: opacity 0.35s var(--ease), transform 0.5s var(--ease); }
+.bento__go { display: inline-flex; align-items: center; gap: 5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); opacity: 0; transform: translateY(6px); }
+.bento__body { display: grid; gap: 5px; }
+.bento__name { font-size: clamp(17px, 1.35vw, 22px); font-weight: 450; font-stretch: 108%; letter-spacing: -0.025em; line-height: 1.12; }
+.bento__text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+@media (hover: hover) {
+  .bento__tile:hover { translate: 0 -3px; box-shadow: inset 0 0 0 1px var(--line-2), 0 26px 50px -36px rgb(60 30 20 / 0.45); }
+  .bento__tile:hover::before { opacity: 1; }
+  .bento__tile:hover .bento__no { opacity: 0; transform: translateY(-6px); }
+  .bento__tile:hover .bento__go { opacity: 1; transform: none; }
+  .bento__tile:hover .bento__glyph path { animation: redraw 1.3s cubic-bezier(0.65, 0.05, 0.36, 1); }
+}
+@keyframes redraw { from { stroke-dashoffset: 1; } }
+
+/* the first: four cells of wine, with the engraving's rings behind its pictogram */
+.bento__tile.is-feature { background: radial-gradient(130% 120% at 100% 0%, var(--wine-3) 0%, var(--wine-2) 32%, var(--wine) 78%); box-shadow: none; }
+.bento__tile.is-feature::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: repeating-radial-gradient(circle at 82% 22%, rgb(217 185 126 / 0.13) 0 1px, transparent 1px 18px); -webkit-mask-image: radial-gradient(60% 60% at 82% 22%, #000 20%, transparent 100%); mask-image: radial-gradient(60% 60% at 82% 22%, #000 20%, transparent 100%); }
+.bento__tile.is-feature::before { background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgb(217 185 126 / 0.16), transparent 65%); }
+.is-feature .bento__link { padding: clamp(20px, 2vw, 32px); }
+.is-feature .bento__glyph { width: clamp(52px, 5vw, 76px); height: auto; aspect-ratio: 1; }
+.is-feature .bento__glyph path { stroke: var(--gold); stroke-width: 1.1; }
+.is-feature .bento__name { font-size: clamp(30px, 3vw, 52px); font-weight: 350; font-stretch: 114%; letter-spacing: -0.045em; line-height: 1; }
+.is-feature .bento__text { -webkit-line-clamp: 3; font-size: var(--t-md); line-height: 1.45; max-width: 30ch; margin-top: 6px; }
+.is-feature .bento__go { color: var(--gold); }
+.bento__pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.bento__pills span { padding: 5px 11px; border-radius: 99px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.22); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.02em; color: rgb(255 255 255 / 0.82); }
+
+/* the two wide ones, on drafting paper */
+.bento__tile.is-wide { background-image: linear-gradient(rgb(var(--ink-rgb) / 0.035) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--ink-rgb) / 0.035) 1px, transparent 1px); background-size: 24px 24px; background-position: center; }
+.is-wide .bento__name { font-size: clamp(21px, 1.8vw, 30px); font-weight: 400; letter-spacing: -0.03em; }
+.is-wide .bento__text { max-width: 46ch; }
+
+/* the last slot is left open */
+.bento__tile.is-ask { background: transparent; box-shadow: none; border: 1.5px dashed rgb(var(--ink-rgb) / 0.22); transition: opacity 1.15s var(--ease) calc(var(--i, 0) * 0.06s), transform 1.15s var(--ease) calc(var(--i, 0) * 0.06s), translate 0.6s var(--ease), border-color 0.4s, background 0.4s; }
+.is-ask .bento__name { font-size: clamp(19px, 1.5vw, 25px); font-weight: 400; letter-spacing: -0.03em; line-height: 1.08; }
+.is-ask .bento__name em { font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; font-size: 1.1em; color: var(--accent); }
+.bento__cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 6px; font-size: 13.5px; font-weight: 500; }
+.bento__cta i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--on-ink); transition: transform 0.6s var(--ease), background 0.4s; }
+@media (hover: hover) {
+  .bento__tile.is-ask:hover { border-color: var(--accent); background: rgb(var(--accent-rgb) / 0.03); box-shadow: none; }
+  .bento__tile.is-ask:hover .bento__cta i { transform: rotate(45deg); background: var(--accent); }
+}
+
+/* tablets: two across */
+@media (max-width: 1080px) {
+  .bento { --rh: 150px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: 'a a' 'b b' 'c d' 'e e' 'f g' 'h i' 'j k'; }
+  .bento__tile.is-feature { min-height: 300px; }
+}
+/* phones: still two across, so the whole bench reads at a glance */
+@media (max-width: 600px) {
+  .bento { --rh: 0px; gap: 8px; }
+  .bento__link { gap: 18px; padding: 16px; }
+  .bento__glyph { width: 28px; height: 28px; }
+  .bento__name { font-size: 16.5px; }
+  .bento__text { font-size: 12.5px; -webkit-line-clamp: 3; }
+  .bento__tile.is-feature { min-height: 0; }
+  .is-feature .bento__link { padding: 22px; gap: 26px; }
+  .is-feature .bento__name { font-size: 36px; }
+  .is-feature .bento__text { font-size: 15px; -webkit-line-clamp: unset; }
+  .bento__no, .bento__go { font-size: 10.5px; }
+  .bento__go { opacity: 1; transform: none; }
+  .bento__tag .bento__no { opacity: 0; }
+}

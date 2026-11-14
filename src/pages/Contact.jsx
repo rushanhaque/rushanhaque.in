@@ -1,13 +1,12 @@
 import { useRef, useState } from 'react'
-import { useChapter } from '../lib/director'
-import { useReveals } from '../lib/reveal'
-import { useMeta } from '../lib/meta'
 import { site } from '../config/site'
 import { faq } from '../data/content'
 import { contactKind, mailto, send, whatsapp } from '../lib/forms'
+import { useReveals } from '../lib/reveal'
 import Btn from '../components/Btn'
-import Footer from '../components/Footer'
 import Head from '../components/Head'
+import Split from '../components/Split'
+import { BookBtn, useCalInline } from '../components/Booking'
 import { CalendarBlank, CheckCircle, EnvelopeSimple, Plus, WhatsappLogo, ArrowUpRight } from '../components/glyphs'
 
 function ContactForm() {
@@ -91,11 +90,36 @@ function CopyEmail() {
   return <button type="button" className="tlink" onClick={copy} aria-live="polite">{done ? 'Email address copied' : 'Copy email address'}</button>
 }
 
+// The scheduler, in the page: it loads only when the visitor asks for it, so the page stays light.
+function Schedule() {
+  const box = useRef(null)
+  const [want, setWant] = useState(false)
+  const state = useCalInline(box, want)
+  return (
+    <section className="cal wrap" id="book" data-tone="ivory" data-chapter="02" data-name="Book a call">
+      <Head no="02" label="Book a call" title={<>Prefer to talk? <em>Pick a time.</em></>} lede="A short call to understand what you are building. Choose a slot that suits you; it arrives in both our calendars." />
+      <div className={`cal__box is-${want ? state : 'idle'}`}>
+        <div ref={box} className="cal__frame" />
+        {(!want || state !== 'ready') && (
+          <div className="cal__cover">
+            <CalendarBlank size={34} />
+            {state === 'failed'
+              ? <><p className="small">The calendar could not load here.</p><Btn href={site.booking} variant="solid">Open the booking page</Btn></>
+              : want
+                ? <p className="note">Opening the calendar</p>
+                : <><p className="lede">The calendar opens here, without leaving the page.</p><Btn variant="solid" icon={CalendarBlank} onClick={() => setWant(true)}>Show available times</Btn><a className="tlink" href={site.booking} target="_blank" rel="noopener noreferrer">or open it on Cal.com</a></>}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
 function Faq() {
   const [open, setOpen] = useState(0)
   return (
-    <section className="faq wrap" data-tone="ivory">
-      <Head label="Questions" title={<>Asked <em>often</em></>} />
+    <section className="faq wrap" data-tone="ivory" data-chapter="03" data-name="Questions">
+      <Head no="03" label="Questions" title={<>Asked <em>often</em></>} />
       <ul className="faq__list">
         {faq.map((f, i) => (
           <li key={f.q} className={open === i ? 'is-open' : ''}>
@@ -116,26 +140,23 @@ function Faq() {
 // The easiest page on the site to leave a note on.
 export default function Contact() {
   const root = useRef(null)
-  useMeta({ title: 'Contact. Rushan Haque', description: 'Write to Rushan Haque about a website, a store or software. He replies to everything himself, usually within a day.', path: '/contact' })
   useReveals(root)
-  useChapter(root, { id: 'contact', name: 'Contact', hidden: true, time: [6.9, 9] })
   return (
     <div className="cn" ref={root}>
-      {/* Moradabad's real roads, railways and the Ramganga, drawn from OpenStreetMap (scripts/build-contact-map.mjs),
-          held still and softly out of focus behind the whole page */}
-      <div className="cn-map" aria-hidden="true">
-        <img src="/img/bg/moradabad.svg" alt="" width="2000" height="1547" decoding="async" />
-        <span className="cn-pin"><i /><b className="note">Moradabad<span>28.84° N, 78.77° E</span></b></span>
-      </div>
-      <section className="cn__top" aria-labelledby="cn-title" data-tone="ivory">
+      <section className="cn__top" aria-labelledby="cn-title" data-tone="ivory" data-chapter="01" data-name="Write">
+        {/* Moradabad's real roads, railways and the Ramganga, drawn from OpenStreetMap (scripts/build-contact-map.mjs) */}
+        <div className="cn-map" aria-hidden="true">
+          <img src="/img/bg/moradabad.svg" alt="" width="2000" height="1547" decoding="async" />
+          <span className="cn-pin"><i /><b className="note">Moradabad<span>28.84° N, 78.77° E</span></b></span>
+        </div>
         <small className="cn-credit">Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors</small>
         <div className="cn__in wrap grid">
           <div className="cn__say">
             <span className="cn-kicker">Connect</span>
-            <h1 className="h1" id="cn-title">So, what are we <em>building?</em></h1>
+            <h1 className="h1" id="cn-title"><Split>So, what are we <em>building?</em></Split></h1>
             <p className="lede">A project, a half-formed idea, or just hello. I reply to everything myself, usually within a day.</p>
             <div className="cn__direct">
-              <a className="cn-card is-primary" data-fixed="wine" href={site.phone.whatsapp} target="_blank" rel="noopener noreferrer">
+              <a className="cn-card is-primary" data-tone="wine" href={site.phone.whatsapp} target="_blank" rel="noopener noreferrer">
                 <span className="cn-icon"><WhatsappLogo size={22} /></span>
                 <span className="cn-text"><small>WhatsApp, fastest</small><strong>{site.phone.label}</strong></span>
                 <ArrowUpRight size={20} className="cn-go" />
@@ -146,7 +167,7 @@ export default function Contact() {
                 <ArrowUpRight size={20} className="cn-go" />
               </a>
               <div className="cn__row">
-                <Btn href={site.booking} icon={CalendarBlank}>Book a call</Btn>
+                <BookBtn />
                 <CopyEmail />
               </div>
             </div>
@@ -155,8 +176,8 @@ export default function Contact() {
           <div className="panel cn__card"><ContactForm /></div>
         </div>
       </section>
+      <Schedule />
       <Faq />
-      <Footer lead={false} dark />
     </div>
   )
 }

@@ -1,0 +1,85 @@
+/* ===== Hero: the promise, with the work set into it ============================================ */
+.hx { position: relative; min-height: 100vh; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px)); overflow: clip; isolation: isolate; }
+/* a soft brass light, drifting after the pointer; only its position ever changes */
+.hx__glow { position: absolute; z-index: -1; left: 0; top: 0; width: 70vmax; height: 70vmax; margin: -35vmax 0 0 -35vmax; border-radius: 50%; background: radial-gradient(closest-side, rgb(217 185 126 / 0.34), rgb(217 185 126 / 0.1) 55%, transparent 100%); transform: translate3d(72vw, 30vh, 0); will-change: transform; pointer-events: none; }
+.hx__in { display: grid; grid-template-rows: auto 1fr auto; gap: clamp(24px, 4vh, 48px); padding-block: clamp(18px, 3.4vh, 40px) clamp(26px, 4.6vh, 56px); }
+.hx__head { display: flex; justify-content: space-between; align-items: center; gap: 12px 30px; flex-wrap: wrap; }
+.hx__who { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 15px; }
+.hx__sig { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 1.8vw, 28px); line-height: 1; letter-spacing: -0.01em; color: var(--accent); }
+.hx__sep { width: 26px; height: 1px; background: var(--line-2); }
+.hx__roles { display: inline-flex; gap: 0.3em; min-width: 10.5em; min-height: 1.4em; align-items: center; font-stretch: 108%; letter-spacing: -0.01em; white-space: nowrap; }
+.hx__role.is-lit { color: var(--ink-2); }
+.hx__role.is-code { font-family: var(--mono); font-size: 0.82em; letter-spacing: 0.02em; color: var(--brass); }
+.hx__where { display: flex; align-items: center; gap: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+.hx__pin { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgb(var(--accent-rgb) / 0.12); }
+.hx__coord { color: var(--ink-3); }
+
+.hx__title { align-self: center; max-width: 15.5em; font-size: clamp(44px, 7.1vw, 128px); font-weight: 320; font-stretch: 112%; letter-spacing: -0.048em; line-height: 1.02; text-wrap: balance; }
+.hx__title .w { padding-block: 0.08em 0.14em; margin-block: -0.08em -0.14em; }
+.hx__title em { font-size: 1.1em; }
+/* the windows in the sentence */
+.hx__pill { position: relative; display: inline-block; vertical-align: -0.04em; height: 0.8em; border-radius: 99px; overflow: hidden; margin-inline: 0.04em; }
+.hx__pill--work { width: 1.9em; background: var(--stone); box-shadow: 0 0 0 1px var(--line), 0 14px 30px -18px rgb(60 30 20 / 0.6); }
+.hx__pill--work img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; clip-path: inset(0 0 0 100%); transform: scale(1.18); }
+.hx__pill--work img.is-prev { z-index: 1; clip-path: inset(0); transform: none; }
+.hx__pill--work img.is-on { z-index: 2; clip-path: inset(0); transform: none; transition: clip-path 0.95s var(--expo-io), transform 1.6s var(--ease); }
+.hx__pill--work img:only-child, .hx__pill--work img:first-child:not(.is-prev):not(.is-on) { clip-path: inset(0); }
+.hx__pill--star { width: 1.32em; display: inline-grid; place-items: center; background: radial-gradient(120% 120% at 70% 0%, var(--wine-2), var(--wine) 70%); box-shadow: 0 14px 30px -18px rgb(36 20 25 / 0.7); }
+.hx__star { width: 0.44em; height: 0.44em; color: var(--gold); }
+.motion:not([data-tier='low']) .hx__star { animation: spin 14s linear infinite; }
+
+.hx__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px 40px; flex-wrap: wrap; }
+.hx__say { max-width: 21em; font-size: var(--t-lg); line-height: 1.38; letter-spacing: -0.012em; color: var(--ink-2); text-wrap: balance; }
+.hx__cta { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.hx__bar { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-block: 18px calc(18px + var(--safe-b)); }
+.hx__bar::before { content: ''; position: absolute; left: var(--m); right: var(--m); top: 0; height: 1px; background: var(--line); transform-origin: 0 50%; }
+.hx__proof { display: flex; gap: clamp(24px, 4vw, 64px); }
+.hx__proof div { display: flex; align-items: baseline; gap: 12px; }
+.hx__proof dd { font-size: clamp(36px, 3.2vw, 52px); color: var(--accent); line-height: 0.86; }
+.hx__proof dt { max-width: 7em; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.3; }
+.hx__meta { display: flex; gap: 26px; letter-spacing: 0.1em; text-transform: uppercase; }
+.hx__cue { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+.hx__cue svg { animation: cue 2.2s var(--ease-io) infinite; }
+
+@media (max-width: 900px) {
+  .hx__foot { align-items: flex-start; }
+}
+@media (max-width: 760px) {
+  .hx__glow { width: 120vw; height: 120vw; margin: -60vw 0 0 -60vw; transform: translate3d(85vw, 18vh, 0); }
+  .hx__head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hx__title { font-size: clamp(40px, 11.6vw, 64px); line-height: 1.04; }
+  .hx__in { gap: 28px; }
+  .hx__meta { display: none; }
+  .hx__proof { width: 100%; justify-content: space-between; gap: 12px; }
+  .hx__proof div { flex-direction: column; gap: 6px; }
+  .hx__proof dd { font-size: 38px; }
+  .hx__proof dt { font-size: 10.5px; }
+}
+
+/* the entrance: plain CSS, held while the opening cover is up */
+.motion .hx__title .w > span { animation: chUp 1.3s var(--ease) both; animation-delay: calc(0.2s + var(--i) * 0.055s); }
+.motion .hx__pill { animation: pillOpen 1.2s var(--ease-io) both; }
+.motion .hx__pill--work { animation-delay: 0.75s; }
+.motion .hx__pill--star { animation-delay: 1.05s; }
+.motion .hx__head, .motion .hx__foot > *, .motion .hx__proof > div, .motion .hx__meta { animation: fadeUp 1.2s var(--ease) both; }
+.motion .hx__head { animation-delay: 0.1s; }
+.motion .hx__say { animation-delay: 0.85s; }
+.motion .hx__cta { animation-delay: 0.95s; }
+.motion .hx__proof > div:nth-child(1) { animation-delay: 1.05s; }
+.motion .hx__proof > div:nth-child(2) { animation-delay: 1.12s; }
+.motion .hx__proof > div:nth-child(3) { animation-delay: 1.19s; }
+.motion .hx__meta { animation-delay: 1.25s; }
+.motion .hx__bar::before { animation: drawX 1.6s var(--expo-io) 0.8s both; }
+.intro:not(.cv-out) .hx *, .intro:not(.cv-out) .hx *::before, .intro:not(.cv-out) .hx__bar::before { animation-play-state: paused !important; }
+@keyframes pillOpen { from { transform: scaleX(0); opacity: 0; } 40% { opacity: 1; } }
+@keyframes chUp { from { transform: translateY(104%); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } }
+@keyframes drawX { from { transform: scaleX(0); } }
+@keyframes cue { 0%, 100% { transform: translateY(-2px); opacity: 0.4; } 50% { transform: translateY(3px); opacity: 1; } }
+
+/* as you leave it, the sentence lifts and fades: a scroll-driven animation, off the main thread */
+@supports (animation-timeline: scroll()) {
+  .motion:not([data-tier='low']) .hx__in { animation: heroOut linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+  @keyframes heroOut { to { transform: translateY(-12vh); opacity: 0.1; } }
+}

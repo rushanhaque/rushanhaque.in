@@ -3,13 +3,14 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  server: { port: 5300, strictPort: false },
-  preview: { port: 5301 },
-  // bundled into the server build, because their packages are not all clean Node modules
-  ssr: { noExternal: ['gsap', '@gsap/react', 'lenis', 'react-router', 'react-router-dom'] },
+  server: { port: 5310, strictPort: false },
+  preview: { port: 5311 },
   build: {
     target: 'es2020',
     assetsInlineLimit: 0,
-    chunkSizeWarningLimit: 900,
+    cssCodeSplit: false,
+    // the prerender reads this to preload each page's own chunk, so nothing waits on a waterfall
+    manifest: true,
+    modulePreload: { polyfill: false },
   },
 })

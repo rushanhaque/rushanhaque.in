@@ -1,57 +1,57 @@
-/* The whole system: the previous portfolio's night and wine, with brushed brass. */
-/* The palettes. The page wears one at a time and turns as you walk (see lib/tone.js); a block can also keep its own.
-   Night and wine are the previous portfolio's dark, ivory its warm daylight, with brushed brass and deep wine as accents.
-   Without motion, or without JavaScript, every block simply wears its own tone. */
-:root, [data-fixed='night'], [data-wear='night'], .static [data-tone='night'] {
-  --paper-rgb: 18 10 12;
-  --card-rgb: 26 15 18;
-  --stone-rgb: 38 20 25;
-  --ink-rgb: 255 255 255;
-  --accent-rgb: 217 185 126;
-  --on-accent-rgb: 18 10 12;
-  --on-ink-rgb: 18 10 12;
-  /* a line drawing is ink on white paper; on a dark ground it is turned to light */
-  --drawn: grayscale(1) invert(1) brightness(0.86) sepia(0.35);
-}
-:root[data-tone='ivory'], [data-fixed='ivory'], [data-wear='ivory'], .static [data-tone='ivory'] {
+/* The system: ivory daylight, deep wine and brushed brass, carried over from the previous portfolio and turned to
+   the light. A block can wear its own tone with data-tone; everything below is worked out from the palette. */
+:root, [data-tone='ivory'] {
   --paper-rgb: 247 244 241;
   --card-rgb: 239 233 228;
   --stone-rgb: 231 223 216;
   --ink-rgb: 32 24 20;
   --accent-rgb: 66 36 45;
+  --gilt-rgb: 176 138 79;
   --on-accent-rgb: 255 255 255;
   --on-ink-rgb: 247 244 241;
+  /* a line drawing is ink on white paper */
   --drawn: grayscale(1) sepia(0.14);
 }
-:root[data-tone='wine'], [data-fixed='wine'], [data-wear='wine'], .static [data-tone='wine'] {
+[data-tone='wine'] {
   --paper-rgb: 36 20 25;
   --card-rgb: 46 26 32;
   --stone-rgb: 55 31 39;
   --ink-rgb: 255 255 255;
   --accent-rgb: 217 185 126;
+  --gilt-rgb: 217 185 126;
   --on-accent-rgb: 18 10 12;
   --on-ink-rgb: 36 20 25;
   --drawn: grayscale(1) invert(1) brightness(0.86) sepia(0.35);
 }
-/* everything worked out from the palette, wherever a palette can change */
-:root, [data-tone], [data-fixed], [data-wear], .bar {
+[data-tone='night'] {
+  --paper-rgb: 18 10 12;
+  --card-rgb: 26 15 18;
+  --stone-rgb: 38 20 25;
+  --ink-rgb: 255 255 255;
+  --accent-rgb: 217 185 126;
+  --gilt-rgb: 217 185 126;
+  --on-accent-rgb: 18 10 12;
+  --on-ink-rgb: 18 10 12;
+}
+:root, [data-tone] {
   --paper: rgb(var(--paper-rgb));
   --paper-2: rgb(var(--card-rgb));
   --stone: rgb(var(--stone-rgb));
   --ink: rgb(var(--ink-rgb));
-  --ink-2: rgb(var(--ink-rgb) / 0.68);
-  --ink-3: rgb(var(--ink-rgb) / 0.62);
-  --line: rgb(var(--ink-rgb) / 0.14);
-  --line-2: rgb(var(--ink-rgb) / 0.3);
+  --ink-2: rgb(var(--ink-rgb) / 0.7);
+  --ink-3: rgb(var(--ink-rgb) / 0.6);
+  --line: rgb(var(--ink-rgb) / 0.13);
+  --line-2: rgb(var(--ink-rgb) / 0.28);
   --panel: rgb(var(--ink-rgb) / 0.07);
   --accent: rgb(var(--accent-rgb));
+  --gilt: rgb(var(--gilt-rgb));
   --on-accent: rgb(var(--on-accent-rgb));
   --on-ink: rgb(var(--on-ink-rgb));
 }
-[data-tone], [data-fixed], [data-wear] { background-color: var(--paper); color: var(--ink); }
+[data-tone] { color: var(--ink); }
+[data-tone='wine'], [data-tone='night'] { background-color: var(--paper); }
 
 :root {
-  /* what never changes */
   --wine: #241419;
   --wine-2: #42242d;
   --wine-3: #5f3a45;
@@ -59,46 +59,41 @@
   --gold: #d9b97e;
 
   /* The voices.
-     Six Caps carries the structure: tall as a column, and only ever set big.
      Mona Sans is everything you read, set wide and light when it speaks up.
+     Instrument Serif, in italic, is the inflection: the one word in a line that is said a little differently.
+     Six Caps carries the structure: tall as a column, and only ever set big.
      DM Mono is the annotation on the drawing. */
-  /* Geist carries the name on the first screen, as it did on the previous portfolio, and nothing else. */
-  --display: 'Geist', 'Mona Sans', ui-sans-serif, -apple-system, sans-serif;
+  --sans: 'Mona Sans', ui-sans-serif, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
   --pillar: 'Six Caps', 'Arial Narrow', 'Liberation Sans Narrow', sans-serif;
-  --sans: 'Mona Sans', ui-sans-serif, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-  /* A 12-column grid, whose margins grow to keep a huge screen from stretching anything. */
+  /* a 12-column grid, whose margins grow to keep a huge screen from stretching anything */
   --m: max(clamp(20px, 4vw, 64px), calc((100vw - 1680px) / 2));
   --gap: clamp(14px, 1.4vw, 24px);
-  --col: calc((100vw - 2 * var(--m) - 11 * var(--gap)) / 12);
 
-  /* type */
-  --t-label: clamp(12px, 0.8vw, 13px);
+  --t-label: clamp(11.5px, 0.8vw, 13px);
   --t-sm: clamp(14px, 0.96vw, 15px);
   --t-md: clamp(15.5px, 1.04vw, 17px);
   --t-lg: clamp(18px, 1.4vw, 22px);
   --t-xl: clamp(23px, 2.3vw, 36px);
   --t-2xl: clamp(29px, 3.5vw, 56px);
-  --t-3xl: clamp(36px, 5vw, 80px);
+  --t-3xl: clamp(38px, 5vw, 84px);
 
-  /* the rhythm of the rooms */
-  --room: clamp(72px, 8.5vw, 140px);
-  --head: clamp(28px, 3.6vw, 56px);
-  --bar-h: 64px;
+  --room: clamp(84px, 9vw, 150px);
+  --head: clamp(30px, 3.8vw, 60px);
+  --bar-h: 72px;
 
-  /* motion */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --door: cubic-bezier(0.76, 0, 0.18, 1);
-  --press: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+  --expo-io: cubic-bezier(0.87, 0, 0.13, 1);
 
   --safe-b: env(safe-area-inset-bottom, 0px);
-
-  --z-gl: 0;
   --z-page: 1;
-  --z-chrome: 40;
+  --z-bar: 40;
   --z-menu: 60;
-  --z-iris: 80;
+  --z-sheet: 70;
+  --z-curtain: 80;
   --z-cursor: 100;
 }
-@media (max-width: 760px) { :root { --bar-h: 56px; } }
+@media (max-width: 760px) { :root { --bar-h: 64px; --room: 72px; --head: 28px; } }

@@ -1,128 +1,98 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
-import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
-import { initScroll, getLenis, jumpTo, scrollTo, whenStill } from './lib/scroll'
-import { ScrollTrigger } from './lib/gsap'
-import { ReadyContext } from './lib/ready'
-import { director } from './lib/director'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
+import { RouterCtx } from './lib/router'
+import { match, resolve } from './lib/routes'
+import { applyMeta } from './lib/meta'
 import { device } from './lib/device'
-import Stage from './components/Stage'
-import { TransitionProvider } from './components/Transition'
-import Chrome from './components/Chrome'
+import { initScroll, jumpTo, scrollToEl, scrollToY } from './lib/scroll'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Curtain from './components/Curtain'
 import Cursor from './components/Cursor'
-import Loader from './components/Loader'
-import Home from './pages/Home'
-import { loaders } from './lib/routes'
+import Intro from './components/Intro'
+import { BookingProvider } from './components/Booking'
 
-const LAZY = {
-  Home,
-  Work: lazy(loaders.Work),
-  Case: lazy(loaders.Case),
-  Product: lazy(loaders.Product),
-  About: lazy(loaders.About),
-  Contact: lazy(loaders.Contact),
-  Admin: lazy(loaders.Admin),
-  Landing: lazy(loaders.Landing),
-}
+const findHash = (hash) => { try { return hash ? document.querySelector(decodeURIComponent(hash)) : null } catch { return null } }
 
-// The site. In the browser pages load as they are needed; at build time the prerenderer passes them in
-// directly and leaves out what only makes sense on screen.
-export default function App({ pages = LAZY }) {
-  const [ready, setReady] = useState(false)
-  const location = useLocation()
-  const navType = useNavigationType()
+// The site: one page at a time between the bar and the footer, and the curtain that passes between them.
+export default function App({ initial }) {
+  const [route, setRoute] = useState(initial)
+  const curtain = useRef(null)
+  const busy = useRef(false)
   const first = useRef(true)
-  const done = useCallback(() => setReady(true), [])
-  const { Home: HomePage, Work, Case, Product, About, Contact, Admin, Landing } = pages
 
   useEffect(() => {
     initScroll()
-    if (!device().reduced) director.start()
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
-    // Everything that moves the page changes its height: a font arriving, a section opening, a late picture. So the
-    // page is only measured again when its height really has changed, and however many ask, they share one measure.
-    let timer = 0
-    const refresh = () => {
-      clearTimeout(timer)
-      timer = setTimeout(() => whenStill(() => { ScrollTrigger.refresh(); director.measure() }), 180)
+    history.replaceState({ ...(history.state || {}), y: scrollY }, '')
+    const save = () => { clearTimeout(save.t); save.t = setTimeout(() => history.replaceState({ ...(history.state || {}), y: scrollY }, ''), 120) }
+    addEventListener('scroll', save, { passive: true })
+    const pop = async () => {
+      const next = await resolve(location.href)
+      const y = history.state?.y || 0
+      flushSync(() => setRoute(next))
+      requestAnimationFrame(() => (next.hash && findHash(next.hash) ? scrollToEl(findHash(next.hash), { smooth: false }) : jumpTo(y)))
     }
-    const main = document.getElementById('main')
-    let last = main.getBoundingClientRect().height
-    const ro = new ResizeObserver(([e]) => {
-      const h = e.contentRect.height
-      if (Math.abs(h - last) < 2) return
-      last = h
-      refresh()
-    })
-    ro.observe(main)
-    return () => { ro.disconnect(); clearTimeout(timer) }
+    addEventListener('popstate', pop)
+    // the page the visitor landed on, if it pointed at a part of itself
+    if (location.hash) setTimeout(() => scrollToEl(findHash(location.hash), { smooth: false }), 80)
+    return () => { removeEventListener('scroll', save); removeEventListener('popstate', pop) }
   }, [])
 
-  // a new page has moved everything; the first page was measured as it was made
-  const landed = useRef(false)
-  useEffect(() => {
-    if (!landed.current) { landed.current = true; return }
-    requestAnimationFrame(() => { ScrollTrigger.refresh(); getLenis()?.resize() })
-  }, [location.pathname])
-
-  // Remember how far down each page was, so the back button returns you to where you were. A link to a
-  // part of a page goes there, and a new page moves keyboard focus to its content.
-  useEffect(() => {
-    const key = `y:${location.key}`
-    let timer = 0
-    const save = () => {
-      clearTimeout(timer)
-      timer = setTimeout(() => { try { sessionStorage.setItem(key, String(Math.round(scrollY))) } catch { /* private mode */ } }, 120)
+  const navigate = useCallback(async (to) => {
+    const u = new URL(to, location.href)
+    if (u.origin !== location.origin) { location.href = to; return }
+    const same = u.pathname.replace(/\/+$/, '') === location.pathname.replace(/\/+$/, '')
+    if (same) {
+      if (u.hash) { history.pushState({ y: scrollY }, '', u.pathname + u.hash); scrollToEl(findHash(u.hash)) } else scrollToY(0)
+      return
     }
-    addEventListener('scroll', save, { passive: true })
-    return () => { clearTimeout(timer); removeEventListener('scroll', save) }
-  }, [location.key])
-
-  useEffect(() => {
-    const isFirst = first.current
-    first.current = false
-    let tries = 0
-    let id = 0
-    const until = (test, act) => {
-      if (test()) { act(); return }
-      if (tries++ < 30) id = setTimeout(() => until(test, act), 100)
-    }
-    if (location.hash) {
-      const sel = location.hash
-      until(() => { try { return document.querySelector(sel) } catch { return true } }, () => { try { const el = document.querySelector(sel); if (el) setTimeout(() => (isFirst ? jumpTo(el.getBoundingClientRect().top + scrollY) : scrollTo(el)), 60) } catch { /* not a selector */ } })
-    } else if (navType === 'POP' && !isFirst) {
-      let y = 0
-      try { y = Number(sessionStorage.getItem(`y:${location.key}`)) || 0 } catch { /* private mode */ }
-      until(() => document.documentElement.scrollHeight - innerHeight >= y, () => jumpTo(y))
-    } else if (navType === 'PUSH') {
+    if (busy.current) return
+    busy.current = true
+    const calm = device().reduced
+    try {
+      // a page that cannot load in time is simply opened the ordinary way
+      const slow = new Promise((_, no) => setTimeout(() => no(new Error('slow')), 9000))
+      const [next] = await Promise.race([Promise.all([resolve(u.href), calm ? null : curtain.current.cover(nameOf(u.pathname))]), slow])
+      history.replaceState({ ...(history.state || {}), y: scrollY }, '')
+      history.pushState({ y: 0 }, '', u.pathname + u.search + u.hash)
+      flushSync(() => setRoute(next))
+      const target = u.hash && findHash(u.hash)
+      if (target) scrollToEl(target, { smooth: false })
+      else jumpTo(0)
       document.getElementById('main')?.focus({ preventScroll: true })
+      if (!calm) await curtain.current.reveal()
+    } catch {
+      location.href = u.href
+    } finally {
+      busy.current = false
     }
-    return () => clearTimeout(id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.key])
+  }, [])
 
+  useLayoutEffect(() => {
+    if (first.current) { first.current = false; return }
+    applyMeta(route)
+    document.documentElement.dataset.page = route.key
+  }, [route])
+
+  const ctx = useMemo(() => ({ route, navigate }), [route, navigate])
+  const { Page } = route
   return (
-    <ReadyContext.Provider value={ready}>
-      <TransitionProvider>
-        <Stage />
-        <Chrome />
-        <main id="main" tabIndex={-1}>
-          <Suspense fallback={<div className="route-wait" />}>
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:slug" element={<Case />} />
-              <Route path="/products/:slug" element={<Product />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/:slug" element={<Landing />} />
-              <Route path="*" element={<Landing />} />
-            </Routes>
-          </Suspense>
+    <RouterCtx.Provider value={ctx}>
+      <BookingProvider>
+        <Header />
+        <main id="main" tabIndex={-1} key={route.path}>
+          <Page params={route.params} data={route.data} />
         </main>
-        <Loader onDone={done} />
+        {route.key !== 'admin' && <Footer lead={route.key !== 'home' && route.key !== 'contact'} />}
+        <Curtain ref={curtain} />
         <Cursor />
-      </TransitionProvider>
-    </ReadyContext.Provider>
+        <Intro />
+      </BookingProvider>
+    </RouterCtx.Provider>
   )
+}
+
+function nameOf(path) {
+  return match(path).name
 }

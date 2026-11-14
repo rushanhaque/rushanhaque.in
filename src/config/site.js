@@ -5,11 +5,13 @@ export const site = {
   role: 'Developer & writer',
   location: 'Moradabad, Uttar Pradesh, India',
   city: 'Moradabad',
+  coords: '28.84° N, 78.77° E',
   tz: 'Asia/Kolkata',
   email: 'rushanulhaque@gmail.com',
   phone: { label: '+91 76680 47608', href: 'tel:+917668047608', whatsapp: 'https://wa.me/917668047608' },
   booking: 'https://cal.com/rushan-haque-emssbo/call',
-  // the contact form's Formspree id (public: it ships in the page either way)
+  calLink: 'rushan-haque-emssbo/call',
+  // the Formspree id for the forms (public: it ships in the page either way)
   formspree: import.meta.env.VITE_FORMSPREE_ID || 'mdeanqre',
   nav: [
     { label: 'Works', to: '/work' },
@@ -24,6 +26,6 @@ export const site = {
   ],
 }
 
-// the time where I am, formatted the same everywhere; building the formatter is slow, so there is only ever one
+// the time where I am; building the formatter is slow, so there is only ever one
 let clock = null
 export const localTime = () => (clock ??= new Intl.DateTimeFormat('en-GB', { timeZone: site.tz, hour: '2-digit', minute: '2-digit' })).format(new Date())

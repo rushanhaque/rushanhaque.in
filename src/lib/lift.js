@@ -1,4 +1,4 @@
-import { gsap } from './gsap'
+import { ticker } from './motion'
 
 // A row of letters as columns you can push: the ones nearest the pointer lift. The height is kept apart from any
 // other transform on the letter, and nothing runs once they have settled. Returns a function that stops it.
@@ -17,9 +17,9 @@ export function lift(el, letters, { gain = 0.16, spread = 90, when = () => true 
       letters[i].style.scale = `1 ${cur[i].toFixed(4)}`
       moving = true
     }
-    if (!moving) { gsap.ticker.remove(tick); running = false }
+    if (!moving) { ticker.remove(tick); running = false }
   }
-  const run = () => { if (!running) { running = true; gsap.ticker.add(tick) } }
+  const run = () => { if (!running) { running = true; ticker.add(tick) } }
   const rest = () => { aim.fill(1); run() }
   const move = (e) => {
     if (!when()) { rest(); return }
@@ -39,12 +39,14 @@ export function lift(el, letters, { gain = 0.16, spread = 90, when = () => true 
   el.addEventListener('pointerleave', leave)
   el.addEventListener('pointerup', up)
   addEventListener('resize', forget)
+  addEventListener('scroll', forget, { passive: true })
   return () => {
-    gsap.ticker.remove(tick)
+    ticker.remove(tick)
     el.removeEventListener('pointermove', move)
     el.removeEventListener('pointerdown', move)
     el.removeEventListener('pointerleave', leave)
     el.removeEventListener('pointerup', up)
     removeEventListener('resize', forget)
+    removeEventListener('scroll', forget)
   }
 }

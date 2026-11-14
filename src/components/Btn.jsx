@@ -1,10 +1,10 @@
 import { useRef } from 'react'
 import { ArrowUpRight } from './glyphs'
-import { TLink } from './Transition'
+import { A } from '../lib/router'
 
-// The pill. Its arrow sits in its own socket; on hover a star of colour opens from exactly where the
-// pointer came in, and the label rolls.
-export default function Btn({ to, href, children, icon: Icon = ArrowUpRight, variant = 'ghost', cursor, className = '', onClick, type, disabled, title, ...rest }) {
+// The pill. Its arrow sits in its own socket; on hover a star of colour opens from exactly where the pointer came
+// in, and the label rolls.
+export default function Btn({ to, href, children, icon: Icon = ArrowUpRight, variant = 'ghost', className = '', onClick, type, disabled, ...rest }) {
   const ref = useRef(null)
   const aim = (e) => {
     const el = ref.current
@@ -21,7 +21,10 @@ export default function Btn({ to, href, children, icon: Icon = ArrowUpRight, var
     </>
   )
   const props = { ref, className: `btn btn--${variant} ${className}`, onPointerEnter: aim, onPointerLeave: aim, ...rest }
-  if (to) return <TLink to={to} title={title} onClick={onClick} {...props}>{inner}</TLink>
-  if (href) return <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={onClick} {...props}>{inner}</a>
+  if (to) return <A to={to} onClick={onClick} {...props}>{inner}</A>
+  if (href) {
+    const out = /^https?:/.test(href)
+    return <a href={href} target={out ? '_blank' : undefined} rel={out ? 'noopener noreferrer' : undefined} onClick={onClick} {...props}>{inner}</a>
+  }
   return <button type={type || 'button'} disabled={disabled} onClick={onClick} {...props}>{inner}</button>
 }

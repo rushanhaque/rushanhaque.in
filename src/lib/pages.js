@@ -1,9 +1,9 @@
-// The guides, services and areas by name only (from data/seo/index.json, written by
-// scripts/seo-index.mjs). Light enough for the header and footer to carry on every page; the
-// pages' full text loads only with the landing page itself.
+// The guides, services and areas by name only (src/data/seo/index.json, written by scripts/seo-split.mjs). Light
+// enough for the footer to carry on every page; each page's own words load only with that page.
 import index from '../data/seo/index.json'
 
 const name = (t) => t.replace(/^Website designer in /, '')
+export const seoIndex = index
 export const services = index.filter((p) => p.kind === 'service')
 export const areas = index.filter((p) => p.kind === 'area').map((p) => ({ slug: p.slug, name: name(p.title) }))
   .sort((a, b) => (a.name === 'Moradabad' ? -1 : b.name === 'Moradabad' ? 1 : a.name.localeCompare(b.name)))
@@ -17,3 +17,4 @@ export const LEGAL = {
 
 const titles = new Map(index.map((p) => [p.slug, p.title]))
 export const titleFor = (slug) => titles.get(slug) || LEGAL[slug]?.title
+export const isLanding = (slug) => titles.has(slug) || !!LEGAL[slug]

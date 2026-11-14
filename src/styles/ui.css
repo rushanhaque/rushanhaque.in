@@ -1,0 +1,98 @@
+/* -- The one way a section opens: a numbered label on a hairline, the title, its summary on the right -- */
+.kick { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: var(--t-label); line-height: 1.2; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.kick i { flex: 1; height: 1px; background: var(--line); }
+.kick__no { font-weight: 400; color: var(--accent); }
+.sh { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: clamp(14px, 1.6vw, 24px); align-items: end; margin-bottom: var(--head); }
+.sh .kick { grid-column: 1 / -1; }
+.sh__title { grid-column: 1 / span 7; font-size: var(--t-3xl); font-weight: 400; font-stretch: 112%; letter-spacing: -0.034em; line-height: 1.04; text-wrap: balance; }
+.sh__lede { grid-column: 8 / -1; max-width: 30em; }
+.count { display: inline-block; vertical-align: top; margin: 0.5em 0 0 0.5em; font-family: var(--mono); font-size: clamp(11px, 0.9vw, 14px); font-stretch: 100%; font-weight: 400; letter-spacing: 0.04em; line-height: 1; color: var(--accent); }
+@media (max-width: 900px) {
+  .sh__title, .sh__lede { grid-column: 1 / -1; }
+}
+
+/* -- buttons: the pill, with a star of colour that opens from where the pointer came in ------- */
+.btn {
+  position: relative; display: inline-flex; align-items: center; gap: 12px; isolation: isolate; overflow: hidden; min-height: 48px;
+  padding: 5px 5px 5px 21px; border-radius: 99px; font-size: var(--t-sm); font-weight: 500; white-space: nowrap; color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line-2); transition: color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.btn__fill {
+  position: absolute; z-index: -1; left: var(--x, 50%); top: var(--y, 50%); width: 340%; aspect-ratio: 1; background: var(--accent);
+  translate: -50% -50%; scale: 0;
+  clip-path: polygon(50% 0%, 61.2% 22.9%, 85.4% 14.6%, 77.1% 38.8%, 100% 50%, 77.1% 61.2%, 85.4% 85.4%, 61.2% 77.1%, 50% 100%, 38.8% 77.1%, 14.6% 85.4%, 22.9% 61.2%, 0% 50%, 22.9% 38.8%, 14.6% 14.6%, 38.8% 22.9%);
+  transition: scale 0.8s var(--ease);
+}
+.btn__label { position: relative; display: inline-block; overflow: hidden; line-height: 1.4; }
+.btn__label > span { display: inline-block; transition: transform 0.65s var(--ease); }
+.btn__label > span[data-t]::after { content: attr(data-t); position: absolute; left: 0; top: 100%; }
+.btn__socket { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--panel); flex: none; transition: transform 0.65s var(--ease), background 0.4s var(--ease); }
+@media (hover: hover) {
+  .btn:hover .btn__fill { scale: 1; }
+  .btn:hover { color: var(--on-accent); box-shadow: none; }
+  .btn:hover .btn__label > span[data-t] { transform: translateY(-100%); }
+  .btn:hover .btn__socket { transform: translate(2px, -1px) scale(1.05); background: color-mix(in srgb, currentColor 16%, transparent); }
+}
+.btn:active { transform: scale(0.97); }
+.btn--solid { background: var(--ink); color: var(--on-ink); box-shadow: none; }
+.btn--solid .btn__socket { background: color-mix(in srgb, currentColor 14%, transparent); }
+.btn[disabled] { opacity: 0.55; pointer-events: none; }
+
+.tlink { display: inline-flex; align-items: center; gap: 5px; font-size: var(--t-sm); box-shadow: 0 1px 0 var(--line-2); transition: color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.tlink:hover { color: var(--accent); box-shadow: 0 1px 0 var(--accent); }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.tabs button { padding: 8px 14px; border-radius: 99px; font-size: var(--t-sm); line-height: 1.3; color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); transition: background 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.tabs button:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tabs button.is-on { background: var(--ink); color: var(--on-ink); box-shadow: none; }
+.tabs sup { font-family: var(--mono); font-size: 0.72em; margin-left: 4px; vertical-align: 0.34em; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li { padding: 4px 11px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; line-height: 1.4; color: var(--ink-2); }
+
+.crumb { display: flex; gap: 8px; flex-wrap: wrap; }
+.crumb a { color: var(--ink-2); box-shadow: 0 1px 0 var(--line-2); }
+.crumb a:hover { color: var(--accent); }
+
+.panel { background: var(--paper-2); border-radius: 20px; padding: clamp(20px, 2.2vw, 34px); box-shadow: 0 0 0 1px rgb(var(--ink-rgb) / 0.06), 0 34px 70px -42px rgb(60 30 20 / 0.42); }
+
+/* -- forms ---------------------------------------------------------------------------- */
+.form { display: grid; gap: 15px; justify-items: start; }
+.form > .field { width: 100%; }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+.field { display: grid; gap: 6px; font-size: var(--t-sm); color-scheme: light; }
+.field > span { display: flex; justify-content: space-between; gap: 10px; font-weight: 500; }
+.field small { font-size: 12.5px; font-weight: 400; color: var(--ink-3); }
+.field input, .field textarea, .field select {
+  width: 100%; padding: 12px 14px; border: 0; border-radius: 11px; background: var(--paper); font-size: 16px; line-height: 1.4;
+  box-shadow: inset 0 0 0 1px var(--line-2); outline: 0; transition: box-shadow 0.25s var(--ease); appearance: none;
+}
+.field select { background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%), linear-gradient(135deg, var(--ink-2) 50%, transparent 50%); background-position: right 17px center, right 12px center; background-size: 5px 5px; background-repeat: no-repeat; }
+.field textarea { resize: vertical; min-height: 96px; }
+.field input:hover, .field textarea:hover, .field select:hover { box-shadow: inset 0 0 0 1px rgb(var(--ink-rgb) / 0.45); }
+.field input:focus-visible, .field textarea:focus-visible, .field select:focus-visible, .field [aria-invalid='true'] { box-shadow: inset 0 0 0 2px var(--accent); }
+.field ::placeholder { color: var(--ink-3); opacity: 1; }
+.form__err { color: var(--accent); font-size: var(--t-sm); font-weight: 500; line-height: 1.4; }
+.form__alt { display: flex; flex-wrap: wrap; gap: 8px; }
+.form--done { color: var(--ink); gap: 10px; }
+.form--done svg { color: var(--accent); }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+@media (max-width: 560px) { .form__row { grid-template-columns: 1fr; } }
+
+/* -- the label that follows the pointer over a picture --------------------------------- */
+.cursor { position: fixed; left: 0; top: 0; z-index: var(--z-cursor); pointer-events: none; will-change: transform; }
+.cursor span {
+  display: block; translate: 16px 16px; padding: 6px 12px; border-radius: 99px; background: var(--wine-2); color: #fff; white-space: nowrap;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.02em; opacity: 0; scale: 0.6; transform-origin: 0 0;
+  transition: opacity 0.25s var(--ease), scale 0.45s var(--ease);
+}
+.cursor.is-on span { opacity: 1; scale: 1; }
+
+/* -- a picture, opened large ------------------------------------------------------------ */
+.lightbox { position: fixed; inset: 0; z-index: var(--z-sheet); display: grid; place-items: center; padding: 20px; background: rgb(18 10 12 / 0.92); animation: fade-in 0.3s var(--ease); }
+.lightbox figure { position: relative; display: grid; gap: 10px; max-width: min(960px, 100%); }
+.lightbox img { max-height: 78svh; width: auto; margin-inline: auto; box-shadow: 0 44px 90px -40px rgb(0 0 0 / 0.5); }
+.lightbox figcaption { display: grid; gap: 1px; font-size: var(--t-sm); }
+.lightbox figcaption strong { font-weight: 500; }
+.lightbox__x { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--on-ink); }
+@keyframes fade-in { from { opacity: 0; } }

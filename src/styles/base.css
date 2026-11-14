@@ -1,25 +1,16 @@
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-padding-top: var(--bar-h); scrollbar-width: thin; scrollbar-color: rgb(var(--ink-rgb) / 0.22) transparent; color-scheme: dark; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; background: var(--paper); }
+html {
+  scroll-padding-top: 24px; -webkit-tap-highlight-color: transparent; color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  overflow-x: clip; background: var(--paper); scrollbar-width: thin; scrollbar-color: rgb(var(--ink-rgb) / 0.25) transparent;
+}
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
-html.scroll-lock, html.scroll-lock body { overflow: hidden; }
-html.scroll-lock { scrollbar-gutter: stable; }
+.lenis.lenis-stopped, html.scroll-lock, html.scroll-lock body { overflow: hidden; }
 
 body {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: var(--t-md);
-  font-weight: 400;
-  line-height: 1.55;
-  font-stretch: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: clip;
+  margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--t-md); font-weight: 400; line-height: 1.55;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; overflow-x: clip;
 }
-
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; padding: 0; font: inherit; }
 ul, ol { list-style: none; }
 a { color: inherit; text-decoration: none; }
@@ -27,67 +18,95 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 input, textarea, select { font: inherit; color: inherit; }
 img { display: block; max-width: 100%; height: auto; }
 svg { display: block; }
+sup { line-height: 0; }
 ::selection { background: var(--accent); color: var(--on-accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+#main { position: relative; z-index: var(--z-page); outline: none; background: var(--paper); }
 
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
-.skip {
-  position: fixed; top: 10px; left: 10px; z-index: 200; padding: 10px 16px; border-radius: 99px;
-  background: var(--ink); color: var(--on-ink); transform: translateY(-200%);
-}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: fixed; top: 10px; left: 10px; z-index: 200; padding: 10px 16px; border-radius: 99px; background: var(--ink); color: var(--on-ink); transform: translateY(-200%); }
 .skip:focus { transform: none; }
 
-/* The canvas. It sits behind the page and is only switched on for the rooms left open to it. */
-.gl {
-  position: fixed; left: 0; top: 0; z-index: var(--z-gl); width: 100vw; height: 100vh; height: 100lvh; display: block;
-  pointer-events: none; opacity: 0; transition: opacity 0.6s linear;
-}
-.gl.is-on { opacity: 1; }
-html.no-gl .gl { display: none; }
-#main { position: relative; z-index: var(--z-page); }
-
-/* -- the grid --------------------------------------------------------------------------- */
+/* -- the grid ---------------------------------------------------------------------------- */
 .wrap { padding-inline: var(--m); }
 .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
 
-/* -- the voices ------------------------------------------------------------------------- */
-.pillar {
-  font-family: var(--pillar);
-  font-weight: 400;
-  line-height: 0.86;
-  letter-spacing: 0.006em;
-  text-transform: uppercase;
-}
+/* -- the voices -------------------------------------------------------------------------- */
+.pillar { font-family: var(--pillar); font-weight: 400; line-height: 0.86; letter-spacing: 0.006em; text-transform: uppercase; }
 .h1 { font-size: var(--t-3xl); font-weight: 400; font-stretch: 112%; letter-spacing: -0.034em; line-height: 1.02; text-wrap: balance; }
 .h2 { font-size: var(--t-2xl); font-weight: 400; font-stretch: 112%; letter-spacing: -0.032em; line-height: 1.05; text-wrap: balance; }
 .h3 { font-size: var(--t-xl); font-weight: 400; font-stretch: 110%; letter-spacing: -0.026em; line-height: 1.12; text-wrap: balance; }
 .h4 { font-size: var(--t-lg); font-weight: 450; font-stretch: 106%; letter-spacing: -0.016em; line-height: 1.22; }
-.lede { font-size: var(--t-lg); font-weight: 400; line-height: 1.38; letter-spacing: -0.012em; color: var(--ink-2); text-wrap: pretty; }
-.body { color: var(--ink-2); max-width: 60ch; text-wrap: pretty; }
+.lede { font-size: var(--t-lg); font-weight: 400; line-height: 1.4; letter-spacing: -0.012em; color: var(--ink-2); text-wrap: pretty; }
 .small { font-size: var(--t-sm); color: var(--ink-2); line-height: 1.5; }
 .note { font-family: var(--mono); font-size: var(--t-label); font-weight: 400; letter-spacing: 0.012em; line-height: 1.5; color: var(--ink-3); }
-.lit { color: var(--accent); }
 
-/* a pinned room: the outer box sets how long you stay, the inner one stays */
-.pin { position: relative; }
-.pin__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+/* the inflection: one word said differently, in the serif's italic and the wine */
+h1 em, h2 em, h3 em, .h1 em, .h2 em, .h3 em, .lede em, .sh__title em, .hx__say em, .phead__title em, .lp__title em {
+  font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; letter-spacing: -0.012em; color: var(--accent); font-size: 1.1em; line-height: 0.9;
+}
 
-/* -- things that wait to be revealed ---------------------------------------------------- */
-.r-wait[data-r='fade'], .r-wait[data-r='lift'], .r-wait[data-r='lines'], .r-wait[data-r='count'], .r-wait[data-r='stagger'] > *, .r-wait[data-r='deal'] > *, .r-wait[data-r='shelve'] .shelf__item, .r-wait[data-r='head'] .kick span, .r-wait[data-r='head'] .sh__title, .r-wait[data-r='head'] .sh__lede { opacity: 0; }
-.r-wait[data-r='rule'], .r-wait[data-r='head'] .kick i { transform: scaleX(0); }
-.r-wait[data-r='plate'] { clip-path: inset(100% -80px -80px -80px); }
-.fit { display: inline-block; white-space: nowrap; }
+/* -- arrivals (lib/reveal.js) -------------------------------------------------------------
+   Everything is visible in the HTML. Only what is below the first screen is put in its waiting pose, by script, and
+   released as it arrives; the transitions below carry it home. Only transforms and opacity move. */
+.w { display: inline-block; vertical-align: top; overflow: clip; padding-block: 0.12em 0.2em; margin-block: -0.12em -0.2em; }
+.w > span { display: inline-block; }
+.r-wait, .r-wait * { transition: none !important; }
+
+[data-r='up'], [data-r='lift'], [data-r='deal'] > *, [data-r='stagger'] > *, [data-r='rule'], [data-r='plate'], [data-r='plate'] img, [data-r='shelve'] .shelf__item,
+[data-r='rise'] .w > span, [data-r='head'] .sh__title .w > span, [data-r='head'] .kick i, [data-r='head'] .kick span, [data-r='head'] .kick b, [data-r='head'] .sh__lede {
+  transition-property: opacity, transform, clip-path, scale; transition-timing-function: var(--ease);
+}
+[data-r='up'] { transition-duration: 1.2s; }
+.r-wait[data-r='up'] { opacity: 0; transform: translateY(24px); }
+[data-r='lift'] { transition-duration: 1.15s; }
+.r-wait[data-r='lift'] { opacity: 0; transform: translateY(56px) scale(0.985); }
+[data-r='deal'] > * { transition-duration: 1.15s; transition-delay: calc(var(--i, 0) * 0.085s); }
+.r-wait[data-r='deal'] > * { opacity: 0; transform: translateY(56px) scale(0.985); }
+[data-r='stagger'] > * { transition-duration: 1.1s; transition-delay: calc(var(--i, 0) * 0.06s); }
+.r-wait[data-r='stagger'] > * { opacity: 0; transform: translateY(20px); }
+[data-r='rule'] { transition-duration: 1.5s; transition-timing-function: var(--expo-io); transform-origin: 0 50%; }
+.r-wait[data-r='rule'] { transform: scaleX(0); }
+[data-r='plate'] { transition-duration: 1.5s; }
+[data-r='plate'] img { transition-duration: 1.9s; }
+.r-wait[data-r='plate'] { clip-path: inset(100% 0 0 0); }
+.r-wait[data-r='plate'] img { scale: 1.14; }
+[data-r='rise'] .w > span, [data-r='head'] .sh__title .w > span { transition-duration: 1.25s; transition-delay: calc(0.06s + var(--i, 0) * 0.045s); }
+.r-wait[data-r='rise'] .w > span, .r-wait[data-r='head'] .sh__title .w > span { transform: translateY(108%); }
+[data-r='head'] .kick i { transition-duration: 1.6s; transition-timing-function: var(--expo-io); transform-origin: 0 50%; }
+.r-wait[data-r='head'] .kick i { transform: scaleX(0); }
+[data-r='head'] .kick span, [data-r='head'] .kick b { transition-duration: 1s; }
+.r-wait[data-r='head'] .kick span, .r-wait[data-r='head'] .kick b { opacity: 0; transform: translateY(10px); }
+[data-r='head'] .sh__lede { transition-duration: 1.2s; transition-delay: 0.24s; }
+.r-wait[data-r='head'] .sh__lede { opacity: 0; transform: translateY(16px); }
+[data-r='shelve'] { perspective: 1100px; }
+[data-r='shelve'] .shelf__item { transition-duration: 1.5s; transition-delay: calc(var(--i, 0) * 0.09s); transform-origin: 0% 50%; }
+.r-wait[data-r='shelve'] .shelf__item { opacity: 0; transform: rotateY(74deg); }
+
+/* read it and it fills in, word by word, tied to the scroll */
+.is-sweep .w > span { opacity: clamp(0.2, calc((var(--sp, 0) * (var(--n, 20) + 6) - var(--i, 0)) / 6), 1); }
+
+/* the counter's reels: same line height and baseline as the plain number, so nothing moves when they hand over */
+.reels { display: inline-flex; vertical-align: baseline; }
+.reel { position: relative; display: block; overflow: hidden; overflow: clip; }
+.reel__size { display: block; visibility: hidden; }
+.reel__col { position: absolute; left: 0; right: 0; top: 0; display: block; text-align: center; transition: transform 2.1s cubic-bezier(0.77, 0, 0.175, 1); will-change: transform; }
+.reel__col b { display: block; font-weight: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-/* emphasis turns brass */
-h1 em, h2 em, h3 em, .h1 em, .h2 em, .osv__ask em { font-style: normal; color: var(--accent); }
+/* Long, quiet stretches of a page are not laid out or painted until they are nearly on screen: a large saving on
+   an old phone, and nothing a visitor can see. */
+.shelf, .names, .wk__group, .lp__explore, .faq, .creds { content-visibility: auto; contain-intrinsic-block-size: auto 900px; }
 
-/* words and lines rise out of masks: room is added round each mask so no ascender or descender is ever shaved */
-.split-line-mask, [class*='-mask'] { padding-block: 0.14em 0.2em; margin-block: -0.14em -0.2em; }
-#main:focus { outline: none; }
+/* -- in the hand: every link and control is at least a fingertip tall, without moving a pixel of the layout ----- */
+@media (pointer: coarse) {
+  .tlink, .foot__col a, .foot__top, .foot__base a, .foot__dir a, .crumb a, .lp__crumb a, .lp__dir a, .cn-credit a, .lp__link, .dw__foot a, .xp__row, .lp__shots a { position: relative; }
+  .tlink::before, .foot__col a::before, .foot__top::before, .foot__base a::before, .foot__dir a::before, .crumb a::before, .lp__crumb a::before, .lp__dir a::before, .cn-credit a::before, .lp__link::before, .dw__foot a::before {
+    content: ''; position: absolute; inset: -10px -6px;
+  }
+  .tabs button { min-height: 42px; padding-inline: 16px; }
+  .field input, .field select { min-height: 48px; }
+}

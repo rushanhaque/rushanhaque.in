@@ -1,19 +1,15 @@
 import { useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { gsap, useGSAP } from '../lib/gsap'
-import { useChapter } from '../lib/director'
-import { useReveals } from '../lib/reveal'
-import { useMeta } from '../lib/meta'
-import { small, srcSet } from '../lib/img'
 import { products, productBySlug } from '../data/content'
 import { contactKind, mailto, send, whatsapp } from '../lib/forms'
-import { device } from '../lib/device'
-import { TLink } from '../components/Transition'
+import { useReveals } from '../lib/reveal'
+import { small, srcSet } from '../lib/img'
+import { A } from '../lib/router'
 import Btn from '../components/Btn'
-import Footer from '../components/Footer'
 import Head from '../components/Head'
-import NotFound from './NotFound'
+import Split from '../components/Split'
+import { BookBtn } from '../components/Booking'
 import { CheckCircle } from '../components/glyphs'
+import NotFound from './NotFound'
 
 const SIZES = ['Just me', '2-10 people', '11-50 people', 'More than 50']
 
@@ -99,50 +95,40 @@ function QuoteForm({ product }) {
   )
 }
 
-export default function Product() {
-  const { slug } = useParams()
-  const p = productBySlug(slug)
+export default function Product({ params }) {
+  const p = productBySlug(params?.slug)
   if (!p) return <NotFound />
-  return <Inner p={p} key={slug} />
+  return <Inner p={p} />
 }
 
 function Inner({ p }) {
   const root = useRef(null)
   const other = products.find((x) => x.slug !== p.slug)
-  useMeta({ title: `${p.short}. Rushan Haque`, description: p.description, path: `/products/${p.slug}` })
   useReveals(root)
-  useGSAP(() => {
-    if (device().reduced) return
-    // it rises off the desk and settles flat as it comes up the page
-    gsap.fromTo('.pp__stack', { rotateX: 24, scale: 0.88, y: 60 }, {
-      rotateX: 0, scale: 1, y: 0, ease: 'none',
-      scrollTrigger: { trigger: '.pp__view', start: 'top 92%', end: 'top 22%', scrub: 0.5 },
-    })
-  }, { scope: root })
-  useChapter(root, { id: 'product', name: p.short, hidden: true, time: [12.1, 14.4] })
   return (
-    <article className="pp" ref={root}>
+    <article className="pp" ref={root} data-tone="ivory">
       <header className="pp__head wrap">
-        <nav className="crumb note" aria-label="Breadcrumb"><TLink to="/work" title="Works">Works</TLink><span aria-hidden="true">/</span><span aria-current="page">{p.short}</span></nav>
-        <h1 className="h1">{p.title}</h1>
-        <p className="lede pp__intro">{p.description}</p>
+        <nav className="crumb note" aria-label="Breadcrumb"><A to="/work">Works</A><span aria-hidden="true">/</span><span aria-current="page">{p.short}</span></nav>
+        <h1 className="case__title"><Split>{p.title}</Split></h1>
+        <p className="lede pp__intro" data-r="up">{p.description}</p>
         <ul className="tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+        <div className="pp__cta"><Btn href="#quote" variant="solid">Request a quote</Btn><BookBtn /></div>
       </header>
       <div className="pp__view wrap">
-        <div className="pp__stack prod__frame" data-plate>
+        <div className="prod__frame pp__frame">
           <span className="prod__bar" aria-hidden="true"><i /><i /><i /></span>
-          <img src={small(p.image)} srcSet={srcSet(p.image)} sizes="(max-width: 760px) 92vw, 90vw" alt={`${p.title} interface`} width={p.w} height={p.h} decoding="async" />
+          <img src={small(p.image)} srcSet={srcSet(p.image)} sizes="(max-width: 760px) 92vw, 90vw" alt={`${p.title} interface`} width={p.w} height={p.h} fetchPriority="high" decoding="async" />
         </div>
       </div>
-      <section className="pp__does wrap" data-tone="ivory">
+      <section className="pp__does wrap">
         <Head label="What it does" title={<>Built for the work <em>you do every day.</em></>} />
         <ul className="pp__doeslist" data-r="stagger">
           {p.does.map((d) => <li key={d} className="h4">{d}</li>)}
         </ul>
       </section>
-      <section className="pp__how wrap" data-tone="ivory">
+      <section className="pp__how wrap">
         <Head label="How it works" title={<>From first step <em>to finished.</em></>} />
-        <ol className="pp__steps" data-r="stagger">
+        <ol className="pp__steps" data-r="deal">
           {p.steps.map((s, i) => (
             <li key={s.title}>
               <span className="pillar" aria-hidden="true">{i + 1}</span>
@@ -152,24 +138,23 @@ function Inner({ p }) {
           ))}
         </ol>
       </section>
-      <section className="pp__quote wrap grid" id="quote" data-tone="ivory">
+      <section className="pp__quote wrap grid" id="quote">
         <div className="pp__quotehead">
-          <h2 className="h2" data-r="lines">Request a <em>quote.</em></h2>
-          <p className="lede" data-r="fade">Tell me about your team and I will send you a price. I read everything myself and reply within a day.</p>
+          <h2 className="h2" data-r="rise"><Split>Request a <em>quote.</em></Split></h2>
+          <p className="lede" data-r="up">Tell me about your team and I will send you a price. I read everything myself and reply within a day.</p>
         </div>
-        <div className="panel pp__quoteform" data-r="fade"><QuoteForm product={p} /></div>
+        <div className="panel pp__quoteform" data-r="lift"><QuoteForm product={p} /></div>
       </section>
-      <TLink to={`/products/${other.slug}`} title={other.short} className="case__next wrap" data-cursor="Next" data-tone="ivory">
+      <A to={`/products/${other.slug}`} className="case__next wrap" data-cursor="Next">
         <span className="case__nexttxt">
           <span className="note">Also in the workshop</span>
           <span className="h2">{other.short}</span>
           <span className="small">{other.field}</span>
         </span>
-        <span className="case__nextpic" style={{ aspectRatio: `${other.w} / ${other.h}` }} data-r="plate" data-morph="">
+        <span className="case__nextpic" style={{ aspectRatio: `${other.w} / ${other.h}` }} data-r="plate">
           <img src={small(other.image)} srcSet={srcSet(other.image)} sizes="(max-width: 760px) 92vw, 46vw" alt="" loading="lazy" decoding="async" />
         </span>
-      </TLink>
-      <Footer dark />
+      </A>
     </article>
   )
 }
