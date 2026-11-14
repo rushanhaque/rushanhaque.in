@@ -1,15 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import { site } from '../config/site'
-import { works, stats, serve } from '../data/content'
+import { useEffect, useRef } from 'react'
 import { device } from '../lib/device'
 import { follow } from '../lib/motion'
-import { small } from '../lib/img'
 import Btn from '../components/Btn'
-import Clock from '../components/Clock'
-import Split from '../components/Split'
-import Star from '../components/Star'
 import { BookBtn } from '../components/Booking'
-import { ArrowDown } from '../components/glyphs'
 
 const CODE = 'abcdefghijklmnopqrstuvwxyz{}[]()<>/=;:.*+-_'
 const pick = () => CODE[Math.floor(Math.random() * CODE.length)]
@@ -36,7 +29,7 @@ function scramble(el, text, duration) {
   })
 }
 
-// As on the previous site: "Developer" resolves out of code, then "& writer." joins it, and they play again while seen.
+// "Developer" resolves out of code, then "& writer." joins it, and they play again while they are on screen.
 function Roles() {
   const dev = useRef(null)
   const wri = useRef(null)
@@ -57,7 +50,7 @@ function Roles() {
       await scramble(el, text, 850)
     }
     const run = async () => {
-      await sleep(document.documentElement.classList.contains('intro') ? 3000 : 1600)
+      await sleep(document.documentElement.classList.contains('intro') ? 3200 : 1900)
       while (alive) {
         if (seen) {
           a.textContent = ''
@@ -73,63 +66,32 @@ function Roles() {
     return () => { alive = false; io.disconnect() }
   }, [])
   return (
-    <span className="hx__roles">
-      <span className="sr-only">Developer and writer</span>
+    <p className="hx__roles">
+      <span className="sr-only">Developer and writer.</span>
       <span className="hx__role" ref={dev} aria-hidden="true">Developer</span>{' '}
       <span className="hx__role is-lit" ref={wri} aria-hidden="true">&amp; writer.</span>
-    </span>
+    </p>
   )
 }
 
-// A window set into the sentence, cycling through the client sites. Only the first picture loads with the page; the
-// rest follow once it has settled.
-function WorkPill() {
-  const [now, setNow] = useState(0)
-  const [all, setAll] = useState(false)
-  const box = useRef(null)
-  useEffect(() => {
-    const t = setTimeout(() => setAll(true), 1800)
-    if (device().reduced) return () => clearTimeout(t)
-    let seen = true
-    const io = new IntersectionObserver(([e]) => { seen = e.isIntersecting })
-    io.observe(box.current)
-    const i = setInterval(() => { if (seen && !document.hidden) setNow((n) => (n + 1) % works.length) }, 2600)
-    return () => { clearTimeout(t); clearInterval(i); io.disconnect() }
-  }, [])
-  return (
-    <span className="hx__pill hx__pill--work" ref={box} aria-hidden="true">
-      {works.map((w, i) => (all || i === 0) && (
-        <img key={w.slug} className={i === now ? 'is-on' : i === (now + works.length - 1) % works.length ? 'is-prev' : ''} src={small(w.image)} alt="" width="800" height="387" decoding="async" fetchPriority={i ? 'low' : 'high'} />
-      ))}
-    </span>
-  )
-}
+let n = 0
+const letters = (word) => word.split('').map((c) => <span className="hx__ch" key={n} style={{ '--i': n++ }}>{c}</span>)
 
-function StarPill() {
-  return <span className="hx__pill hx__pill--star" aria-hidden="true"><Star className="hx__star" /></span>
-}
-
-const PROOF = [
-  { value: stats[0].value + stats[0].suffix, label: 'Projects shipped' },
-  { value: stats[2].value, label: 'Average review' },
-  { value: serve.stats[2].value, label: 'Client countries' },
-]
-
-// The first screen: the promise, in one sentence, with the work set right into it. Words rise into place and the two
-// windows open after them; a soft brass light drifts after the pointer. All of it is HTML and CSS first, so it paints
-// before any script on any device.
+// The first screen, and nothing more than it needs: the name, what I do, and the two ways in.
 export default function Hero() {
   const root = useRef(null)
   const glow = useRef(null)
+  n = 0
 
+  // a soft brass light drifts after the pointer; only its position ever changes
   useEffect(() => {
     const d = device()
     if (!d.fine || d.reduced || d.tier === 'low') return undefined
     const el = root.current
-    const p = { x: 0.72, y: 0.3 }
+    const p = { x: 0.5, y: 0.42 }
     const write = () => { glow.current.style.transform = `translate3d(${(p.x * 100).toFixed(2)}vw, ${(p.y * 100).toFixed(2)}vh, 0)` }
-    const fx = follow(p, 'x', { duration: 1.6, onUpdate: write })
-    const fy = follow(p, 'y', { duration: 1.6, onUpdate: write })
+    const fx = follow(p, 'x', { duration: 1.8, onUpdate: write })
+    const fy = follow(p, 'y', { duration: 1.8, onUpdate: write })
     const move = (e) => { fx(e.clientX / innerWidth); fy(e.clientY / innerHeight) }
     el.addEventListener('pointermove', move, { passive: true })
     return () => { el.removeEventListener('pointermove', move); fx.stop(); fy.stop() }
@@ -139,26 +101,15 @@ export default function Hero() {
     <section className="hx" ref={root} id="top" data-tone="ivory" aria-label="Rushan Haque">
       <span className="hx__glow" ref={glow} aria-hidden="true" />
       <div className="hx__in wrap">
-        <div className="hx__head">
-          <p className="hx__who"><span className="hx__sig">Rushan Haque</span><i className="hx__sep" aria-hidden="true" /><Roles /></p>
-          <p className="hx__where note"><span className="hx__pin" aria-hidden="true" />{site.city}, India <span className="hx__coord">{site.coords}</span></p>
-        </div>
-        <h1 className="hx__title">
-          <Split>I design &amp; build websites <WorkPill /> for the <em>makers</em> <StarPill /> of beautiful things.</Split>
+        <h1 className="hx__name">
+          <span className="hx__word">{letters('Rushan')}</span>{' '}
+          <span className="hx__word">{letters('Haque')}</span>
         </h1>
-        <div className="hx__foot">
-          <p className="hx__say">Interfaces, builds and the <em>client care</em> in between.</p>
-          <div className="hx__cta">
-            <Btn to="/work" variant="solid">See the work</Btn>
-            <BookBtn />
-          </div>
+        <Roles />
+        <div className="hx__cta">
+          <Btn to="/work" variant="solid">See the work</Btn>
+          <BookBtn />
         </div>
-      </div>
-      <div className="hx__bar wrap">
-        <dl className="hx__proof">
-          {PROOF.map((s) => <div key={s.label}><dd className="pillar">{s.value}</dd><dt className="note">{s.label}</dt></div>)}
-        </dl>
-        <p className="hx__meta note" aria-hidden="true"><span className="hx__cue"><ArrowDown size={13} /> Scroll</span><span><Clock /> IST</span></p>
       </div>
     </section>
   )

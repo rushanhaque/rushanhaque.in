@@ -14,11 +14,11 @@ export default function Building() {
       <Head no="02" label="On the drafting table" title={<>Currently <em>building</em></>} count={building.length} lede="Work in progress, open to preview today. Sweep across a site to see the drawing beneath it." />
       <div className="draft__plates">
         {building.map((b, i) => (
-          <article className="draft__plate" key={b.slug}>
-            <a href={b.url} target="_blank" rel="noopener noreferrer" className="draft__pic" data-r="plate" data-cursor="Open preview" aria-label={`${b.title}, open the preview`}>
+          <article className="draft__plate" key={b.slug} data-r="card" style={{ '--d': `${i * 0.12}s` }}>
+            <a href={b.url} target="_blank" rel="noopener noreferrer" className="draft__pic card-pic" data-cursor="Open preview" aria-label={`${b.title}, open the preview`}>
               <Lens image={b.image} plan={b.plan} width={b.w} height={b.h} alt={`${b.title} home page`} />
             </a>
-            <div className="draft__info">
+            <div className="draft__info card-txt">
               <p className="note draft__sheet"><span className="draft__pulse" aria-hidden="true" />In progress <span>Sheet {b.sheet}</span></p>
               <h3 className="h3">{b.title}</h3>
               <p className="small">{b.description} <span className="draft__field">{b.field}</span></p>

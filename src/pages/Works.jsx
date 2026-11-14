@@ -25,12 +25,12 @@ function Go({ it, className, children, ...rest }) {
 
 function Card({ it, big }) {
   return (
-    <li className={`wk__card ${big ? 'is-big' : ''}`}>
+    <li className={`wk__card ${big ? 'is-big' : ''}`} data-r="card">
       <Go it={it} className="wk__link" data-cursor={it.to ? 'View' : 'Open'}>
-        <span className="wk__pic" data-r="plate">
+        <span className="wk__pic card-pic">
           <img src={small(it.image)} srcSet={srcSet(it.image)} sizes={big ? '(max-width: 760px) 92vw, 46vw' : '(max-width: 760px) 92vw, 30vw'} alt={`${it.title} home page`} width={it.w} height={it.h} loading="lazy" decoding="async" />
         </span>
-        <span className="wk__txt">
+        <span className="wk__txt card-txt">
           <span className="wk__head"><strong className="h4">{it.title}</strong><ArrowUpRight size={17} /></span>
           <span className="small">{it.text}</span>
           <span className="note">{[it.sub, it.year, it.status && it.status !== 'Live' ? it.status : ''].filter(Boolean).join(', ')}</span>
@@ -71,7 +71,7 @@ function Experiments({ items }) {
     <div className="xp" ref={list}>
       <ol className="xp__list">
         {items.map((it, i) => (
-          <li key={it.key} data-img={it.image || undefined}>
+          <li key={it.key} data-img={it.image || undefined} data-r="up">
             <a className="xp__row" href={it.href} target="_blank" rel="noopener noreferrer">
               <span className="note xp__no">{two(i + 1)}</span>
               <strong className="xp__name">{it.title}</strong>

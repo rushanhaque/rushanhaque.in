@@ -17,7 +17,7 @@ const KINDS = ['All', ...new Set(certifications.map((c) => c.kind))]
 function Cred({ c, onOpen }) {
   const inner = (
     <>
-      <span className="cred__media">
+      <span className="cred__media card-pic">
         {c.image ? <img src={c.image} alt="" loading="lazy" decoding="async" /> : <span className="cred__seal pillar">{(c.issuer || c.title).split(' ')[0]}</span>}
       </span>
       <span className="note">{[c.kind, c.date].filter(Boolean).join(', ')}</span>
@@ -26,8 +26,8 @@ function Cred({ c, onOpen }) {
     </>
   )
   return c.image
-    ? <button type="button" className="cred" onClick={() => onOpen(c)} data-cursor="Open">{inner}</button>
-    : <div className="cred">{inner}</div>
+    ? <button type="button" className="cred" onClick={() => onOpen(c)} data-cursor="Open" data-r="card">{inner}</button>
+    : <div className="cred" data-r="card">{inner}</div>
 }
 
 function Credentials({ no }) {
@@ -58,7 +58,7 @@ function Credentials({ no }) {
           </button>
         ))}
       </div>
-      <div className="creds" data-r="deal" key={kind + all}>{list.map((c) => <Cred key={c.title} c={c} onOpen={setOpen} />)}</div>
+      <div className="creds" key={kind + all}>{list.map((c) => <Cred key={c.title} c={c} onOpen={setOpen} />)}</div>
       <div className="creds__foot">
         <p className="note">Job simulations are virtual experience programmes, not employment.</p>
         {matching.length > 8 && (

@@ -71,12 +71,12 @@ export default function Services() {
   return (
     <section className="svc wrap" ref={root} id="services" data-tone="ivory" data-chapter="04" data-name="Other services">
       <Head no="04" label="Beyond the website" title={<>Other <em>services</em></>} count={services.length} lede="Ten disciplines, one standard: considered, measurable and built to last." />
-      <ul className="bento" ref={bench} data-r="deal">
+      <ul className="bento" ref={bench}>
         {services.map((s, i) => {
           const page = PAGE[s.title]
           const to = page || `/contact?project=${encodeURIComponent(s.title)}`
           return (
-            <li className={`bento__tile ${SHAPE[i] || ''}`} key={s.title} style={{ gridArea: AREA[i] }} {...(i === 0 ? { 'data-tone': 'wine' } : {})}>
+            <li className={`bento__tile ${SHAPE[i] || ''}`} key={s.title} style={{ gridArea: AREA[i], '--d': `${(i % 4) * 0.06}s` }} data-r="card" {...(i === 0 ? { 'data-tone': 'wine' } : {})}>
               <A to={to} className="bento__link" data-cursor={page ? 'Explore' : 'Enquire'}>
                 <span className="bento__top">
                   <Glyph name={s.icon} className="bento__glyph" />
@@ -91,7 +91,7 @@ export default function Services() {
             </li>
           )
         })}
-        <li className="bento__tile is-ask" style={{ gridArea: 'k' }}>
+        <li className="bento__tile is-ask" style={{ gridArea: 'k', '--d': '0.18s' }} data-r="card">
           <A to="/contact" className="bento__link" data-cursor="Write">
             <span className="bento__top"><span className="bento__tag note"><span className="bento__no">{two(services.length + 1)}</span></span></span>
             <div className="bento__body">
