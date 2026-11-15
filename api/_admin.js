@@ -3,6 +3,7 @@
 // client logos to GitHub with GITHUB_TOKEN; the commit makes Vercel rebuild the site. These are the names the
 // previous site's admin used, so settings already on Vercel carry over.
 import { createHmac, timingSafeEqual } from 'node:crypto'
+import { LISTS, LOGO, UPLOAD, cleanList, picturesIn, small800 } from './_schema.js'
 
 const env = (...names) => names.map((n) => process.env[n]).find(Boolean) || ''
 export const password = () => env('ADMIN_PUBLISH_SECRET', 'ADMIN_PASSWORD')
@@ -75,33 +76,45 @@ export function validate(input) {
     if (logo && !LOGO.test(logo)) return { error: `The logo for ${name} has an address the site cannot use.` }
     clients.push({ name, logo, tone: c.tone === 'dark' ? 'dark' : 'light' })
   }
-  return { value: { aboutBio: bio, clients } }
+  const value = { aboutBio: bio, clients }
+  // the other lists; one the admin did not send is left out, so the site keeps its original version of it
+  for (const key of Object.keys(LISTS)) {
+    if (input?.[key] === undefined) continue
+    const r = cleanList(key, input[key])
+    if (r.error) return r
+    value[key] = r.value
+  }
+  return { value }
 }
 
-const LOGO = /^\/img\/clients\/[a-z0-9-]+\.(webp|png)$/
 const MAX_LOGO = 400 * 1024
-const MAX_TOTAL = 3 * 1024 * 1024
-export const logosIn = (content) => new Set((content?.clients || []).map((c) => c.logo).filter(Boolean))
+const MAX_BIG = 1200 * 1024
+const MAX_SMALL = 400 * 1024
+const MAX_TOTAL = 2900 * 1024
+// pictures the admin uploaded (and so may remove again): client logos and everything in /img/up/
+const owned = (p) => LOGO.test(p) || UPLOAD.test(p)
+export const logosIn = (content) => new Set([...picturesIn(content)].filter(owned))
 
-// A new logo must be a real WebP or PNG of a sensible size, at the address a client is using. A logo a client points
-// at has to be either new or already on the site.
+// A new picture must be a real WebP or PNG of a sensible size, at an address the content is using; a picture in
+// /img/up/ comes with its 800px version. A picture the content points at has to be new or already on the site.
 export function validateUploads(input, value, had) {
   const files = []
-  const entries = Object.entries(input && typeof input === 'object' ? input : {})
   const using = logosIn(value)
+  const wanted = new Set([...using].flatMap((p) => (UPLOAD.test(p) ? [p, small800(p)] : [p])))
   let total = 0
-  for (const [path, base64] of entries) {
-    if (!LOGO.test(path) || !using.has(path) || typeof base64 !== 'string') return { error: 'A logo could not be read. Choose it again.' }
+  for (const [path, base64] of Object.entries(input && typeof input === 'object' ? input : {})) {
+    if (!wanted.has(path) || typeof base64 !== 'string') return { error: 'A picture could not be read. Choose it again.' }
     const bytes = Buffer.from(base64, 'base64')
     total += bytes.length
     const webp = bytes.subarray(0, 4).toString('latin1') === 'RIFF' && bytes.subarray(8, 12).toString('latin1') === 'WEBP'
     const png = bytes.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
-    if (!(path.endsWith('.webp') ? webp : png)) return { error: 'A logo is not the kind of picture it says it is. Choose it again.' }
-    if (bytes.length > MAX_LOGO) return { error: 'A logo is too large. Choose a simpler file.' }
+    if (!(path.endsWith('.webp') ? webp : png)) return { error: 'A picture is not the kind of file it says it is. Choose it again.' }
+    const limit = LOGO.test(path) ? MAX_LOGO : path.endsWith('-800.webp') ? MAX_SMALL : MAX_BIG
+    if (bytes.length > limit) return { error: 'A picture is too large. Choose a smaller one.' }
     files.push([path, base64])
   }
-  if (total > MAX_TOTAL) return { error: 'That is too many new logos to publish at once. Publish a few, then the rest.' }
+  if (total > MAX_TOTAL) return { error: 'That is too many new pictures to publish at once. Publish a few, then the rest.' }
   const fresh = new Set(files.map(([p]) => p))
-  for (const logo of using) if (!fresh.has(logo) && !had.has(logo)) return { error: 'A logo is missing. Choose it again.' }
+  for (const p of wanted) if (!fresh.has(p) && !had.has(p.replace(/-800\.webp$/, '.webp'))) return { error: 'A picture is missing. Choose it again.' }
   return { files }
 }

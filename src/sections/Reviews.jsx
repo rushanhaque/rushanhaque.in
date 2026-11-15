@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { reviews } from '../data/content'
+import { reviews } from '../data/live'
 import { useReveals } from '../lib/reveal'
 import { device } from '../lib/device'
 import { ticker, tween, killTweensOf, ease, shuffle } from '../lib/motion'

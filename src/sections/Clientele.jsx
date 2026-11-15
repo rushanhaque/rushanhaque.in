@@ -4,7 +4,7 @@ import { useReveals } from '../lib/reveal'
 import Head from '../components/Head'
 
 const clients = editable.clients || []
-const FACTS = [['11', 'Brands'], ['4', 'Countries'], ['40+', 'Projects']]
+const FACTS = [[String(clients.length), 'Brands'], ['4', 'Countries'], ['40+', 'Projects']]
 
 // Clientele, on a pair of rails that drift past one another and never end. A rail arranges itself: it takes whatever
 // the admin adds and simply runs longer. Each row holds its names twice over, so the loop is one CSS transform with

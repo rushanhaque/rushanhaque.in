@@ -1,5 +1,6 @@
 import { site } from '../config/site'
 import live from '../../seo/titles.json'
+import added from '../data/seo/added-meta.json'
 
 // The title, description and canonical of the current page, once the visitor moves between pages inside the site.
 // The page they arrive on already has every tag in place, written at build time from the live site's own snapshot
@@ -8,7 +9,7 @@ const FALLBACK = 'Rushan Haque designs and builds websites and software for busi
 
 export function applyMeta(route) {
   const path = route.path
-  const kept = live[path]
+  const kept = live[path] || added[path]
   const title = kept?.title || (route.key === 'notfound' ? 'Page not found | Rushan Haque' : `${route.name} | Rushan Haque`)
   const description = kept?.description || FALLBACK
   document.title = title

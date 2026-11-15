@@ -80,3 +80,37 @@ export const logoPath = (name, ext) => {
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'client'
   return `/img/clients/${slug}-${Date.now().toString(36)}.${ext}`
 }
+
+// Gets a screenshot or photo ready in the browser: a 1600px WebP for large screens and an 800px one for phones,
+// squeezed until each fits what the site accepts, so any picture from a phone or a camera works.
+const fit = async (img, width, limit) => {
+  const w = Math.min(width, img.naturalWidth || width)
+  const c = document.createElement('canvas')
+  c.width = w
+  c.height = Math.max(1, Math.round(((img.naturalHeight || w) * w) / (img.naturalWidth || w)))
+  c.getContext('2d').drawImage(img, 0, 0, c.width, c.height)
+  for (const q of [0.84, 0.74, 0.62, 0.5]) {
+    const blob = await blobOf(c, 'image/webp', q)
+    if (!blob || blob.type !== 'image/webp') throw new Error('This browser cannot prepare pictures. Try Chrome, Edge or Firefox.')
+    if (blob.size <= limit) return { url: await dataUrl(blob), w: c.width, h: c.height }
+  }
+  throw new Error('That picture is too detailed to store. Try a smaller one.')
+}
+
+export async function preparePicture(file) {
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) throw new Error('Use a PNG, JPG or WebP picture.')
+  if (file.size > 20 * 1024 * 1024) throw new Error('That file is over 20 MB.')
+  const { img, done } = await load(file)
+  try {
+    const big = await fit(img, 1600, 1150 * 1024)
+    const small = await fit(img, 800, 380 * 1024)
+    return { w: big.w, h: big.h, big: { preview: big.url, base64: big.url.split(',')[1] }, small: { base64: small.url.split(',')[1] } }
+  } finally {
+    done()
+  }
+}
+
+export const picturePath = (kind, name) => {
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 36) || 'item'
+  return `/img/up/${kind}-${slug}-${Date.now().toString(36)}.webp`
+}

@@ -1,7 +1,8 @@
-// GET reads the editable content as it is on GitHub; PUT publishes a change as one commit: the text, the client list
-// and any new logos together, with logos nobody uses any more removed. The commit makes Vercel rebuild the site, so a
+// GET reads the editable content as it is on GitHub; PUT publishes a change as one commit: the text, the lists and
+// any new pictures together, with uploaded pictures nobody uses any more removed. The commit makes Vercel rebuild the site, so a
 // change is live about a minute later.
 import { github, FILE, signedIn, sameOrigin, send, validate, validateUploads, logosIn } from '../_admin.js'
+import { small800 } from '../_schema.js'
 
 async function gh(path, init = {}) {
   return fetch(`https://api.github.com/repos/${github.repo()}/${path}`, {
@@ -63,7 +64,7 @@ export default async function handler(req, res) {
       tree.push({ path: `public${path}`, mode: '100644', type: 'blob', sha: (await blob.json()).sha })
     }
     const using = logosIn(value)
-    for (const old of had) if (!using.has(old)) tree.push({ path: `public${old}`, mode: '100644', type: 'blob', sha: null })
+    for (const old of had) if (!using.has(old)) for (const f of old.startsWith('/img/up/') ? [old, small800(old)] : [old]) tree.push({ path: `public${f}`, mode: '100644', type: 'blob', sha: null })
 
     const made = await post('git/trees', { base_tree: baseTree, tree })
     if (!made.ok) return fail(made, 'prepare the change')

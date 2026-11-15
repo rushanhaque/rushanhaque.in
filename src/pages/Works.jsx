@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { works, products, building, experiments } from '../data/content'
+import { works, products, building, experiments } from '../data/live'
 import { useReveals } from '../lib/reveal'
 import { small, srcSet } from '../lib/img'
 import { device } from '../lib/device'
@@ -12,7 +12,7 @@ import { ArrowUpRight, X } from '../components/glyphs'
 
 const ALL = [
   ...works.map((w) => ({ key: w.slug, group: 'Client sites', title: w.title, sub: w.field.replace(' · ', ', '), year: w.year, status: w.status, image: w.image, href: w.url, text: w.line, w: w.w, h: w.h })),
-  ...products.map((p) => ({ key: p.slug, group: 'Products', title: p.title, sub: p.field, year: p.year, status: p.status, image: p.image, to: `/products/${p.slug}`, text: p.tags.join(', '), w: p.w, h: p.h })),
+  ...products.map((p) => ({ key: p.slug, group: 'Products', title: p.title, sub: p.field, year: p.year, status: p.status, image: p.image, to: p.to, href: p.href, text: p.tags.length ? p.tags.join(', ') : p.description, w: p.w, h: p.h })),
   ...building.map((b) => ({ key: b.slug, group: 'In progress', title: b.title, sub: b.field, year: '2026', status: 'In progress', image: b.image, href: b.url, text: b.description, w: b.w, h: b.h })),
   ...experiments.map((e) => ({ key: e.title, group: 'Experiments', title: e.title, sub: e.kind, year: e.year, image: e.image, href: e.url, text: e.text })),
 ]

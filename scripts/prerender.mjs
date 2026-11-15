@@ -5,6 +5,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { loadAdded, headFor, withSitemap, withLlms, withLlmsFull } from './added-pages.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const dist = path.join(root, 'dist')
@@ -15,6 +16,9 @@ const { render, paths, PAGE_FILES } = await import(pathToFileURL(path.join(ssr, 
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 const manifest = JSON.parse(fs.readFileSync(path.join(dist, '.vite/manifest.json'), 'utf8'))
 const heads = JSON.parse(fs.readFileSync(path.join(root, 'seo/heads.json'), 'utf8'))
+// pages written after the live snapshot: their own tags, and a place at the end of the sitemap and llms files
+const added = loadAdded(root)
+const addedHeads = new Map(added.map((g) => [`${g.slug}.html`, headFor(g)]))
 const verify = {
   google: process.env.GOOGLE_SITE_VERIFICATION || process.env.VITE_GOOGLE_SITE_VERIFICATION || '',
   bing: process.env.BING_SITE_VERIFICATION || process.env.VITE_BING_SITE_VERIFICATION || '',
@@ -50,7 +54,7 @@ function page(p, { robots } = {}) {
   const r = render(p === '/404' ? '/this-page-does-not-exist' : p)
   const file = p === '/404' ? '404.html' : fileFor(p)
   const kept = heads[file]
-  const tags = kept ? kept.tags : fallbackHead(p, 'Rushan Haque', 'Rushan Haque designs and builds websites and software for businesses in India and abroad.', robots)
+  const tags = kept ? kept.tags : addedHeads.get(file) || fallbackHead(p, 'Rushan Haque', 'Rushan Haque designs and builds websites and software for businesses in India and abroad.', robots)
   if (verify.google && !tags.some((t) => t.includes('google-site-verification'))) tags.push(`<meta name="google-site-verification" content="${esc(verify.google)}" />`)
   if (verify.bing && !tags.some((t) => t.includes('msvalidate.01'))) tags.push(`<meta name="msvalidate.01" content="${esc(verify.bing)}" />`)
   const pre = preload([PAGE_FILES[r.key], ...(r.key === 'landing' && p !== '/privacy' && p !== '/accessibility' ? [`src/data/seo/pages/${p.slice(1)}.json`] : [])])
@@ -72,12 +76,19 @@ page('/admin', { robots: 'noindex, nofollow' })
 
 // the live site's sitemap, robots.txt and llms files, unchanged
 for (const f of ['sitemap.xml', 'robots.txt', 'llms.txt', 'llms-full.txt']) fs.copyFileSync(path.join(root, 'seo', f), path.join(dist, f))
+// ...then the added pages appended after everything that is already there
+if (added.length) {
+  const grow = (f, fn) => fs.writeFileSync(path.join(dist, f), fn(fs.readFileSync(path.join(dist, f), 'utf8'), added))
+  grow('sitemap.xml', withSitemap)
+  grow('llms.txt', withLlms)
+  grow('llms-full.txt', withLlmsFull)
+}
 
 // every address in the sitemap must have been written, or search would find a hole
-const sitemap = fs.readFileSync(path.join(root, 'seo/sitemap.xml'), 'utf8')
+const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8')
 const missing = [...sitemap.matchAll(/<loc>https:\/\/www\.rushanhaque\.in([^<]*)<\/loc>/g)].map((m) => m[1] || '/').filter((p) => !fs.existsSync(path.join(dist, fileFor(p))))
 fs.rmSync(ssr, { recursive: true, force: true })
 fs.rmSync(path.join(dist, '.vite'), { recursive: true, force: true })
 if (missing.length) { console.error('missing pages for sitemap entries:', missing); process.exit(1) }
-console.log(`prerendered ${list.length} pages (${matched} with the live site's own head tags) + 404 and admin; sitemap, robots and llms files kept`)
+console.log(`prerendered ${list.length} pages (${matched} with the live site's own head tags, ${added.length} added) + 404 and admin; sitemap, robots and llms files kept, added pages appended`)
 void entry

@@ -1,0 +1,2255 @@
+[
+ {
+  "slug": "custom-software-development",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Software",
+  "title": "Custom software development for businesses",
+  "metaTitle": "Custom Software Development for Businesses",
+  "description": "Custom software for small and growing businesses anywhere: web apps, internal tools, inventory systems, CRMs and automations, designed and built by one developer.",
+  "intro": "If your team runs part of the business on spreadsheets, WhatsApp threads and copy-and-paste, that work can usually become software. I design and build custom web applications for businesses in India and abroad, and look after them after launch.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Custom software development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Builds",
+    "Web apps, internal tools, ERPs, CRMs and automations"
+   ],
+   [
+    "Built with",
+    "React, Next.js and cloud hosting on AWS"
+   ],
+   [
+    "Clients in",
+    "India, Saudi Arabia, Poland and Nepal"
+   ],
+   [
+    "You own",
+    "The code, the data and every account"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What custom software is, in plain terms",
+    "body": [
+     "Custom software is built around the way your business already works, instead of changing the business to fit a product. It runs in the browser, so your team opens it on a laptop or a phone with nothing to install, and only the people you allow can sign in.",
+     "It makes sense when ready-made tools almost fit but leave gaps that people fill by hand, when the same information is typed into three places, or when a large platform costs more every year than building exactly what you use."
+    ]
+   },
+   {
+    "label": "02",
+    "title": "What I build",
+    "items": [
+     {
+      "title": "Internal tools and dashboards",
+      "text": "One screen that shows the numbers and tasks your team checks every morning, instead of five spreadsheets."
+     },
+     {
+      "title": "Inventory and catalogue systems",
+      "text": "Products, codes, prices and photos in one library, with catalogues you can share in a click.",
+      "href": "/erp-crm-development"
+     },
+     {
+      "title": "CRMs, quotations and invoices",
+      "text": "Every customer and conversation in one place, and documents generated from the data instead of retyped."
+     },
+     {
+      "title": "Customer portals and bookings",
+      "text": "Places where your customers sign in to place orders, track work, upload documents or book a time."
+     },
+     {
+      "title": "Automations and integrations",
+      "text": "Email, PDFs, payment gateways and the tools you already use, connected so the repetitive steps happen on their own."
+     },
+     {
+      "title": "AI features",
+      "text": "Drafting, summaries and search built into the tool, with a person checking what matters.",
+      "href": "/ai-integration-development"
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Software already in daily use",
+    "body": [
+     "The inventory software I built keeps a whole product library in one place and turns it into catalogues, quotations and pro forma invoices in a few clicks, with a log of every change. Mailwright sends personalised bulk email: write once with fields such as a name or company, import a contact list, and every recipient gets their own version."
+    ],
+    "links": [
+     [
+      "Inventory management software",
+      "/products/inventory-software"
+     ],
+     [
+      "Mailwright",
+      "/products/mailwright"
+     ],
+     [
+      "All work",
+      "/work"
+     ]
+    ]
+   },
+   {
+    "label": "04",
+    "title": "How a software project runs",
+    "steps": [
+     {
+      "title": "Map the work as it happens today",
+      "text": "Who does what, in which tool, and where time is lost or mistakes creep in."
+     },
+     {
+      "title": "Agree the first version in writing",
+      "text": "The smallest version that removes the most manual work, with screens, features and a timeline."
+     },
+     {
+      "title": "Build in short rounds",
+      "text": "You use each round on a live preview link and say what to change, so nothing is a surprise at the end."
+     },
+     {
+      "title": "Launch, train and improve",
+      "text": "Your data is moved across, your team is shown how it works, and the next improvements are planned from real use."
+     }
+    ]
+   },
+   {
+    "label": "05",
+    "title": "What you should own at the end",
+    "items": [
+     {
+      "title": "The code",
+      "text": "In a repository in your name, so any developer can work on it later."
+     },
+     {
+      "title": "The data",
+      "text": "In your own database, exportable whenever you want it."
+     },
+     {
+      "title": "The accounts",
+      "text": "Hosting, domain and any paid services registered to your business, not to the developer."
+     },
+     {
+      "title": "The documentation",
+      "text": "A plain description of how the system works and how to run it."
+     }
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "How much does custom software cost?",
+    "a": "It depends on the scope: the number of screens, the user roles, the integrations and how much data has to move from your current tools. Every project gets a written quote and timeline before work starts, and the first version is kept small so you see the benefit early."
+   },
+   {
+    "q": "How long does it take to build?",
+    "a": "Timelines are agreed in writing before work starts. A focused first version is usually a matter of weeks; larger systems are built in stages, each one usable on its own."
+   },
+   {
+    "q": "Can it work with the tools we already use?",
+    "a": "Usually, yes. Data can be imported from spreadsheets and existing systems, and the software can send email, create PDFs and connect to any service that offers an API."
+   },
+   {
+    "q": "Is our data safe?",
+    "a": "Everyone signs in, each person sees only what their role allows, the data is stored with established cloud providers and backed up, and you can export it at any time."
+   },
+   {
+    "q": "Do you maintain the software after launch?",
+    "a": "Yes. Fixes, updates and new features come from the same person who built it, quoted as small projects when you need them."
+   },
+   {
+    "q": "Do you work with businesses outside India?",
+    "a": "Yes. Projects run remotely over email, WhatsApp and video calls with a live preview link. Clients so far are in India, Saudi Arabia, Poland and Nepal."
+   }
+  ],
+  "related": [
+   "web-application-development",
+   "erp-crm-development",
+   "custom-software-vs-off-the-shelf"
+  ],
+  "cta": "Describe the work your team does by hand today, and you will get a written plan for the software that can take it over."
+ },
+ {
+  "slug": "erp-crm-development",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Software",
+  "title": "Custom ERP and CRM software",
+  "metaTitle": "Custom ERP & CRM Software Development",
+  "description": "Custom ERP and CRM software for manufacturers, exporters and growing businesses: inventory, catalogues, quotations, pro forma invoices, customers and activity logs in one place.",
+  "intro": "An ERP keeps your products, stock and paperwork in one place; a CRM keeps your customers and conversations in one place. I build both around the way your business already works, starting with the part that costs your team the most time.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "ERP and CRM software development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Built for",
+    "Manufacturers, exporters, traders and service firms"
+   ],
+   [
+    "Covers",
+    "Inventory, catalogues, quotations, invoices, customers"
+   ],
+   [
+    "Runs on",
+    "Any browser, with logins and roles"
+   ],
+   [
+    "Background",
+    "Export merchandising before export software"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "Why build your own instead of buying one",
+    "body": [
+     "Large ERP and CRM products are designed for every business at once. Smaller companies end up paying for modules they never open, and still keep spreadsheets for the steps that do not fit.",
+     "A custom system contains only what you use, speaks your terms, prints your document formats, and grows one module at a time as the business needs it."
+    ]
+   },
+   {
+    "label": "02",
+    "title": "What it can cover",
+    "items": [
+     {
+      "title": "Product library",
+      "text": "Codes, categories, materials, prices, photos and specifications, searchable in a second."
+     },
+     {
+      "title": "Catalogues",
+      "text": "A selection of products shared as a link or a PDF, with a record of when it was opened."
+     },
+     {
+      "title": "Quotations and pro forma invoices",
+      "text": "Generated from the library in your layout, currency and terms, ready to send."
+     },
+     {
+      "title": "Customers and enquiries",
+      "text": "Every buyer, every conversation and the next follow-up date, so no enquiry goes cold."
+     },
+     {
+      "title": "Orders and production status",
+      "text": "Where each order stands, from confirmation to dispatch, visible to the people who need it."
+     },
+     {
+      "title": "Activity log",
+      "text": "Who changed what, and when, for every product, price and document."
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Built from inside an export business",
+    "body": [
+     "Before building software for manufacturers, I worked as a merchandiser at an export manufacturer: product development, production schedules, and coordinating international buyers and vendors. The inventory software I built since covers exactly that work, with one product library, catalogues, quotations and pro formas in a few clicks, and a log of every change."
+    ],
+    "links": [
+     [
+      "Inventory management software",
+      "/products/inventory-software"
+     ],
+     [
+      "Custom software development",
+      "/custom-software-development"
+     ]
+    ]
+   },
+   {
+    "label": "04",
+    "title": "How the switch happens",
+    "steps": [
+     {
+      "title": "List what you track and where",
+      "text": "Products, prices, customers and documents, and the spreadsheets or tools they live in today."
+     },
+     {
+      "title": "Import, do not retype",
+      "text": "Existing sheets and product data are brought in, cleaned and checked."
+     },
+     {
+      "title": "Run side by side",
+      "text": "For a short period the new system runs next to the old way, until the team trusts it."
+     },
+     {
+      "title": "Add the next module",
+      "text": "Once the first part is in daily use, the next one is planned from what the team actually needs."
+     }
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "What is the difference between an ERP and a CRM?",
+    "a": "An ERP (enterprise resource planning) system manages the inside of the business: products, stock, orders and documents. A CRM (customer relationship management) system manages the outside: customers, enquiries, conversations and follow-ups. A custom build can do both in one place."
+   },
+   {
+    "q": "Can you import our existing Excel sheets?",
+    "a": "Yes. Product lists, price lists and customer lists can be imported, so nobody retypes them."
+   },
+   {
+    "q": "Can it make quotations and invoices in our format?",
+    "a": "Yes. Your layout, logo, terms, currencies and units, generated from the data in the system."
+   },
+   {
+    "q": "Can our team use it on a phone?",
+    "a": "Yes. It runs in the browser and works on phones, tablets and laptops, with each person seeing only what their role allows."
+   },
+   {
+    "q": "Who owns the system?",
+    "a": "You do: the code, the database and the hosting account are in your name."
+   }
+  ],
+  "related": [
+   "custom-software-development",
+   "custom-software-vs-off-the-shelf",
+   "website-for-exporters-moradabad"
+  ],
+  "cta": "Tell me which spreadsheets your team lives in, and you will get a written plan for the system that replaces them."
+ },
+ {
+  "slug": "mobile-app-development",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Software",
+  "title": "Mobile app development for iOS and Android",
+  "metaTitle": "Mobile App Development for iOS & Android",
+  "description": "Mobile apps for iOS and Android, designed and built for businesses and founders and published to the App Store and Google Play, with the backend and admin panel to run them.",
+  "intro": "A mobile app is worth building when people use it often, need the phone's camera, location or notifications, or need it to work on a weak connection. When a fast website would do the same job for less, I will tell you so.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Mobile app development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Platforms",
+    "iOS and Android"
+   ],
+   [
+    "Includes",
+    "Design, build, backend and store listing"
+   ],
+   [
+    "Also",
+    "An admin panel to manage content and users"
+   ],
+   [
+    "After launch",
+    "Updates and new releases"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "App or website: an honest answer first",
+    "items": [
+     {
+      "title": "Build an app when",
+      "text": "Customers or staff use it daily, it needs the camera, location, notifications or offline use, or it lives on the home screen as part of a routine."
+     },
+     {
+      "title": "A website is enough when",
+      "text": "People visit now and then, mainly to read, compare, enquire or buy. A fast website is cheaper to build, found on Google, and needs no download."
+     },
+     {
+      "title": "Often it is both",
+      "text": "A website to be found and to win new customers, and an app for the ones who come back."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "What a project includes",
+    "items": [
+     {
+      "title": "Design for thumbs",
+      "text": "Screens designed for one hand and small displays, checked on real phones."
+     },
+     {
+      "title": "The app",
+      "text": "Built for iOS and Android, with sign-in, the core features and notifications where they help."
+     },
+     {
+      "title": "Backend and admin panel",
+      "text": "The server, the database and a web panel where you manage users, content and orders."
+     },
+     {
+      "title": "Store publishing",
+      "text": "App Store and Google Play listings, screenshots and the review process, handled for you."
+     },
+     {
+      "title": "Releases",
+      "text": "Updates shipped as the operating systems and your needs change."
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "How it runs",
+    "steps": [
+     {
+      "title": "Define the one job",
+      "text": "What the app must let someone do in under a minute, and who that someone is."
+     },
+     {
+      "title": "A clickable prototype",
+      "text": "The key screens, tappable on your own phone, before any code is written."
+     },
+     {
+      "title": "Build and test",
+      "text": "Test builds on real devices, with your feedback after every round."
+     },
+     {
+      "title": "Publish and improve",
+      "text": "Released to the stores, then improved from how people actually use it."
+     }
+    ]
+   },
+   {
+    "label": "04",
+    "title": "Experience",
+    "body": [
+     "As a UI/UX developer at TechBuzz Ideas I designed interfaces for websites, custom software and mobile apps, and I now lead delivery of client web and software projects there as project manager. My own experiments include a camera-based live translator and several AI tools."
+    ],
+    "links": [
+     [
+      "All work and experiments",
+      "/work"
+     ],
+     [
+      "UI/UX design",
+      "/ui-ux-design"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "How long does it take to build an app?",
+    "a": "It depends on the number of screens, features and integrations. You get a written scope and timeline before work starts, and a first version focused on one core job comes much sooner than a full product."
+   },
+   {
+    "q": "Do I need both iOS and Android?",
+    "a": "Usually yes, because your customers use both. Building both from one codebase is often the sensible choice, and the right approach is decided per project."
+   },
+   {
+    "q": "Whose account is the app published under?",
+    "a": "Yours. The app goes out under your own Apple and Google developer accounts. Apple charges a yearly developer fee and Google a one-time fee, paid to them directly."
+   },
+   {
+    "q": "Can you turn my website into an app?",
+    "a": "Yes, but first check whether you need to: a well-built website can be added to the home screen and work much like an app. If you need native features, the app can share content and data with the website."
+   },
+   {
+    "q": "Do you maintain the app after launch?",
+    "a": "Yes. Operating system updates, fixes and new features, from the person who built it."
+   }
+  ],
+  "related": [
+   "custom-software-development",
+   "mvp-development",
+   "ui-ux-design"
+  ],
+  "cta": "Tell me what the app has to let people do, and you will get an honest answer on app or website, and a written plan."
+ },
+ {
+  "slug": "ai-integration-development",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Software",
+  "title": "AI integration for businesses",
+  "metaTitle": "AI Integration & AI Tools for Businesses",
+  "description": "Practical AI built into your website and software: assistants that answer from your own information, drafting, summaries, smart search and automations, with clear limits and a person in the loop.",
+  "intro": "Useful AI in a business is rarely a general chatbot. It is one specific job done faster: answering customers from your own information, drafting replies and quotations, summarising long threads, or finding the right product in a large catalogue.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "AI integration and development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Builds",
+    "Assistants, drafting, summaries, search and automations"
+   ],
+   [
+    "Models",
+    "Chosen per task, from the leading AI providers"
+   ],
+   [
+    "Your data",
+    "Kept in your accounts, sent only where needed"
+   ],
+   [
+    "Research",
+    "Published work on what AI does to how we think"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "Where AI pays for itself",
+    "items": [
+     {
+      "title": "Answers from your own information",
+      "text": "An assistant on your website or in your tools that answers from your FAQs, product data and policies, and hands over to a person when it is not sure."
+     },
+     {
+      "title": "Drafting",
+      "text": "Replies, quotations, product descriptions and emails drafted in your tone, then checked and sent by your team."
+     },
+     {
+      "title": "Summaries",
+      "text": "Long email threads, documents and call notes turned into the few lines someone needs before acting."
+     },
+     {
+      "title": "Search that understands meaning",
+      "text": "Finding the right product, document or past answer even when the words do not match exactly."
+     },
+     {
+      "title": "Sorting and routing",
+      "text": "Incoming enquiries tagged by type and urgency and sent to the right person."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "Already built",
+    "body": [
+     "Mailwright suggests subject lines and rephrases messages in your own tone. CodeSense AI explains pasted code in plain English. LinguaLens points a phone camera at text and translates it live. Novellect and Upside Sound use AI for reading recommendations and music profiles."
+    ],
+    "links": [
+     [
+      "Mailwright",
+      "/products/mailwright"
+     ],
+     [
+      "All work and experiments",
+      "/work"
+     ]
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Doing it responsibly",
+    "items": [
+     {
+      "title": "A person where it matters",
+      "text": "AI drafts and suggests; people approve anything that goes to a customer or changes money."
+     },
+     {
+      "title": "Clear limits",
+      "text": "The assistant says when it does not know, instead of guessing."
+     },
+     {
+      "title": "Privacy",
+      "text": "Only the information a task needs is sent to the AI provider, using business settings that keep your data out of model training."
+     },
+     {
+      "title": "Measured",
+      "text": "Every AI feature is judged by the time it saves or the enquiries it handles, and removed if it does not earn its place."
+     }
+    ]
+   },
+   {
+    "label": "04",
+    "title": "How it runs",
+    "steps": [
+     {
+      "title": "Pick one job",
+      "text": "The task that takes the most repetitive time and has clear right answers."
+     },
+     {
+      "title": "Test on real examples",
+      "text": "A prototype run on your own past emails, documents or questions, to see the quality before anything is built."
+     },
+     {
+      "title": "Build it into your tools",
+      "text": "Inside your website, software or inbox, not in yet another app."
+     },
+     {
+      "title": "Review and improve",
+      "text": "Check the results with your team and tune it over the first weeks."
+     }
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Will AI replace my staff?",
+    "a": "In a small business it mostly removes the repetitive part of their work: first drafts, summaries and sorting. People keep the judgement, the relationships and the final say."
+   },
+   {
+    "q": "Which AI model do you use?",
+    "a": "Whichever suits the task and the budget, from providers such as OpenAI, Anthropic or Google. The integration is built so the model can be changed later."
+   },
+   {
+    "q": "Can an assistant answer from our own documents?",
+    "a": "Yes. It can be given your FAQs, product data, policies and documents, answer from them, and point to where the answer came from."
+   },
+   {
+    "q": "What does it cost to run?",
+    "a": "AI providers charge per use, so running costs depend on volume. You get an estimate before anything is built, and usage limits can be set."
+   },
+   {
+    "q": "Can you also make my business show up in ChatGPT and Google AI answers?",
+    "a": "Yes, that is generative engine optimization: making your website easy for AI assistants to read, trust and cite."
+   }
+  ],
+  "related": [
+   "custom-software-development",
+   "generative-engine-optimization",
+   "web-application-development"
+  ],
+  "cta": "Tell me which task eats your team's time, and you will get an honest view of whether AI can do it, and a written plan if it can."
+ },
+ {
+  "slug": "mvp-development",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Software",
+  "title": "MVP and SaaS development for startups",
+  "metaTitle": "MVP & SaaS Development for Startups",
+  "description": "MVP and SaaS development for founders: a first version that real users can sign up to and pay for, designed, built and launched by one developer, then grown with you.",
+  "intro": "An MVP is the smallest version of your product that real people can use and pay for, so you learn whether the idea works before spending on everything else. I design, build and launch MVPs and small SaaS products for founders in India and abroad.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "MVP and SaaS development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Ships",
+    "Sign-up, the core feature, payments and an admin view"
+   ],
+   [
+    "Built with",
+    "React, Next.js and cloud hosting"
+   ],
+   [
+    "Shipped",
+    "Mailwright, inventory software and a dozen experiments"
+   ],
+   [
+    "You own",
+    "The code, the accounts and the product"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What goes into a first version",
+    "items": [
+     {
+      "title": "One core job",
+      "text": "The single thing your product promises, done well, from first click to result."
+     },
+     {
+      "title": "Accounts",
+      "text": "Sign-up and sign-in, so you know who your first users are."
+     },
+     {
+      "title": "Payments",
+      "text": "Subscriptions or one-off payments through Stripe or Razorpay, if you are testing whether people will pay."
+     },
+     {
+      "title": "An admin view",
+      "text": "Where you see users, activity and payments without asking a developer."
+     },
+     {
+      "title": "A way to learn",
+      "text": "Simple analytics and feedback, so the next version is decided by evidence."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "What stays out",
+    "body": [
+     "Everything that does not test the idea: extra settings, every edge case, a mobile app when the web will do, and features that one early user asked for once. They come later, if the first version earns them."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Products I have shipped",
+    "body": [
+     "Mailwright, a mail merge and bulk email tool; an inventory and quotation system for product businesses; and public experiments such as Quorum, where four people answer privately about you, and Superlatives, anonymous nominations for groups. Each went from idea to something people could use."
+    ],
+    "links": [
+     [
+      "Mailwright",
+      "/products/mailwright"
+     ],
+     [
+      "Inventory management software",
+      "/products/inventory-software"
+     ],
+     [
+      "All work and experiments",
+      "/work"
+     ]
+    ]
+   },
+   {
+    "label": "04",
+    "title": "How it runs",
+    "steps": [
+     {
+      "title": "Write down the one promise",
+      "text": "Who the product is for and the job it does for them, in one sentence."
+     },
+     {
+      "title": "Design the key screens",
+      "text": "A clickable prototype you can show to potential users before the build."
+     },
+     {
+      "title": "Build in short rounds",
+      "text": "Working software on a live link after each round, so you can test it as it grows."
+     },
+     {
+      "title": "Launch and learn",
+      "text": "Released to your first users, then improved from what they actually do."
+     }
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "How long does it take to build an MVP?",
+    "a": "Weeks rather than months when the scope is kept to one core job. The timeline and the feature list are agreed in writing before work starts."
+   },
+   {
+    "q": "Do you work with non-technical founders?",
+    "a": "Yes. You bring the idea and the customers; I turn it into a product, explain the decisions in plain language, and keep the technical choices simple to hand over later."
+   },
+   {
+    "q": "Who owns the code and the product?",
+    "a": "You do. The code lives in a repository in your name and every account is registered to you."
+   },
+   {
+    "q": "Can the MVP grow into a full product?",
+    "a": "Yes. It is built on the same tools a larger product would use, so growing it means adding to it, not starting again."
+   },
+   {
+    "q": "Can you help design the product too?",
+    "a": "Yes. User flows, screens and the visual design are part of the work, not an extra."
+   }
+  ],
+  "related": [
+   "custom-software-development",
+   "web-application-development",
+   "ui-ux-design"
+  ],
+  "cta": "Tell me the one thing your product has to do, and you will get a written plan for a first version people can use."
+ },
+ {
+  "slug": "ui-ux-design",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Design",
+  "title": "UI/UX design for websites, apps and software",
+  "metaTitle": "UI/UX Design for Websites, Apps & Software",
+  "description": "UI/UX design for websites, web apps and mobile apps: user flows, wireframes, prototypes and interfaces designed around the people who use them, by a designer who also builds them.",
+  "intro": "Good UX means people find what they came for without thinking about it; good UI means it looks considered while they do. I design both, and because I also build what I design, every design is made to work in real code, on real phones.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "UI/UX design",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Designs",
+    "Websites, web apps, mobile apps and dashboards"
+   ],
+   [
+    "Delivers",
+    "Flows, wireframes, prototypes and final screens"
+   ],
+   [
+    "Experience",
+    "UI/UX developer at TechBuzz Ideas"
+   ],
+   [
+    "Then",
+    "Builds it, or hands it to your team"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What you get",
+    "items": [
+     {
+      "title": "Understanding the users",
+      "text": "Who uses it, what they are trying to do, and where they get stuck today."
+     },
+     {
+      "title": "User flows",
+      "text": "The paths people take from arriving to finishing, with every unnecessary step removed."
+     },
+     {
+      "title": "Wireframes",
+      "text": "The structure of each screen, agreed before any visual design."
+     },
+     {
+      "title": "An interactive prototype",
+      "text": "Clickable on a laptop or a phone, so decisions are made by trying, not imagining."
+     },
+     {
+      "title": "Visual design and components",
+      "text": "Type, colour, spacing and reusable parts, consistent across every screen."
+     },
+     {
+      "title": "Handover",
+      "text": "Everything a developer needs, or the build itself if I am doing it."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "Design that survives the build",
+    "body": [
+     "Many designs look good in a mock-up and fall apart in the browser: text that does not fit, animations that stutter on a mid-range phone, layouts that break on a small screen. Designing and building as one person means those problems are solved in the design, not discovered after launch."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Live examples",
+    "body": [
+     "The websites for Taif International, Erfolg Living, Aurelio and Casa & Crop, the inventory software and Mailwright were all designed and built this way. Open them on your own phone."
+    ],
+    "links": [
+     [
+      "Client websites",
+      "/work"
+     ],
+     [
+      "Website redesign",
+      "/website-redesign"
+     ]
+    ]
+   },
+   {
+    "label": "04",
+    "title": "How it runs",
+    "steps": [
+     {
+      "title": "A conversation about the users",
+      "text": "Who they are, what they need and what success looks like for the business."
+     },
+     {
+      "title": "Flows and wireframes",
+      "text": "Agreed with you before the visual design starts."
+     },
+     {
+      "title": "Prototype and test",
+      "text": "Tried by you and, ideally, a few real users."
+     },
+     {
+      "title": "Final design and build",
+      "text": "Polished screens, then built or handed over."
+     }
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Can you redesign only part of an existing product?",
+    "a": "Yes. A single flow, such as sign-up or checkout, can be redesigned without touching the rest."
+   },
+   {
+    "q": "Do you also build what you design?",
+    "a": "Yes, and that is the usual way: the same person designs and builds, so nothing is lost in between. Designs can also be handed to your own developers."
+   },
+   {
+    "q": "How do you test a design?",
+    "a": "With a clickable prototype on real phones, tried by you and a few people who match your users, before it is built."
+   },
+   {
+    "q": "Do your designs follow accessibility basics?",
+    "a": "Yes: readable sizes, enough contrast, clear labels, keyboard use and motion that steps aside for people who turn it off."
+   }
+  ],
+  "related": [
+   "website-design-development",
+   "mobile-app-development",
+   "website-redesign"
+  ],
+  "cta": "Send me the website, app or software that is not working for its users, and you will get a plain view of what to change first."
+ },
+ {
+  "slug": "outsource-web-development-india",
+  "lang": "en",
+  "eyebrow": "Guide",
+  "title": "Outsourcing website and software development to India",
+  "metaTitle": "Outsource Web & Software Development to India",
+  "description": "A practical guide for businesses abroad hiring a developer in India: time zones, communication, payments, ownership, and how to avoid the common mistakes.",
+  "intro": "Outsourcing to India works best when you hire a person, not a pipeline: someone who speaks to you directly, shows progress on a live link, and hands over every account and line of code in your name. This guide is written by a developer in India who works with clients abroad.",
+  "updated": "2026-11-15",
+  "schema": "article",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "India time",
+    "IST, UTC+5:30, no daylight saving"
+   ],
+   [
+    "Overlap",
+    "Your morning in Europe and the Gulf; your evening in the US"
+   ],
+   [
+    "Languages",
+    "English, Hindi and French"
+   ],
+   [
+    "My clients",
+    "India, Saudi Arabia, Poland and Nepal"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "Why businesses outsource to India",
+    "body": [
+     "India has one of the largest pools of software developers in the world, English is the everyday language of business and tech, and the cost of skilled work is lower than in most of Europe, North America and the Gulf.",
+     "The time difference can be an advantage: with a clear plan, work moves forward while you sleep, and you wake up to progress on a preview link."
+    ]
+   },
+   {
+    "label": "02",
+    "title": "Working hours across time zones",
+    "body": [
+     "India does not change its clocks, so the difference shifts by an hour when your country moves to summer time."
+    ],
+    "table": {
+     "head": [
+      "Where you are",
+      "India is",
+      "Best time for calls"
+     ],
+     "rows": [
+      [
+       "United Kingdom",
+       "4.5 to 5.5 hours ahead",
+       "Your morning, India's afternoon"
+      ],
+      [
+       "Central Europe (Poland, Germany, France)",
+       "3.5 to 4.5 hours ahead",
+       "Your morning, India's afternoon"
+      ],
+      [
+       "Saudi Arabia",
+       "2.5 hours ahead",
+       "Most of the working day"
+      ],
+      [
+       "United Arab Emirates",
+       "1.5 hours ahead",
+       "Most of the working day"
+      ],
+      [
+       "US East Coast",
+       "9.5 to 10.5 hours ahead",
+       "Your morning, India's evening"
+      ],
+      [
+       "US West Coast",
+       "12.5 to 13.5 hours ahead",
+       "Your late afternoon, India's early morning"
+      ],
+      [
+       "Australia (Sydney)",
+       "4.5 to 5.5 hours behind",
+       "Your afternoon, India's morning"
+      ]
+     ]
+    }
+   },
+   {
+    "label": "03",
+    "title": "Agree these in writing before work starts",
+    "items": [
+     {
+      "title": "Scope",
+      "text": "The pages, features and integrations, written down, with what is not included."
+     },
+     {
+      "title": "Timeline and milestones",
+      "text": "Dates for the design, the build and the launch, each with something you can see."
+     },
+     {
+      "title": "Payment terms",
+      "text": "Payments tied to finished milestones, in an agreed currency, against invoices."
+     },
+     {
+      "title": "Ownership",
+      "text": "Domain, hosting, code and every account in your name at the end."
+     },
+     {
+      "title": "After launch",
+      "text": "Who fixes things, how fast, and what changes cost."
+     }
+    ]
+   },
+   {
+    "label": "04",
+    "title": "Paying a developer in India from abroad",
+    "body": [
+     "International clients usually pay by bank transfer or an online payment service, against invoices, in milestones tied to finished work. Agree the currency and who covers transfer fees before the project starts, and keep every invoice for your accounts."
+    ]
+   },
+   {
+    "label": "05",
+    "title": "Red flags",
+    "items": [
+     {
+      "title": "No live work",
+      "text": "Mock-ups and screenshots only, nothing you can open on your own phone."
+     },
+     {
+      "title": "Accounts kept by the developer",
+      "text": "The domain or hosting registered in their name, so you can never leave."
+     },
+     {
+      "title": "A price before any questions",
+      "text": "A fixed figure without asking what the website has to do usually means a template."
+     },
+     {
+      "title": "Hand-offs",
+      "text": "The person you talk to is not the person who builds, and details get lost in between."
+     },
+     {
+      "title": "Silence",
+      "text": "No preview link and no written updates between the deposit and the deadline."
+     }
+    ]
+   },
+   {
+    "label": "06",
+    "title": "Working with me from abroad",
+    "body": [
+     "I am a freelance developer and designer in Moradabad, India. Clients so far are in India, Saudi Arabia, Poland and Nepal. Progress is shared in writing and on a live preview link, calls are booked at a time that suits you, and everything is in your name at the end."
+    ],
+    "links": [
+     [
+      "Hire a website developer",
+      "/hire-website-developer"
+     ],
+     [
+      "Custom software development",
+      "/custom-software-development"
+     ],
+     [
+      "Client reviews",
+      "/#reviews"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Is it safe to hire a developer in India?",
+    "a": "Yes, if you check live work and reviews, agree the scope and payments in writing, pay in milestones, and make sure every account and the code are in your name."
+   },
+   {
+    "q": "How do we communicate across time zones?",
+    "a": "Written updates and a live preview link for day-to-day progress, and video calls booked in the hours your time zones overlap."
+   },
+   {
+    "q": "Will the quality match a local agency?",
+    "a": "It depends on the developer, not the country. Judge by live websites you can open, reviews from real clients, and how clearly they explain their plan."
+   },
+   {
+    "q": "Do I need a contract?",
+    "a": "At minimum, a written scope with the timeline, payment milestones and ownership terms that both sides agree to before work starts."
+   },
+   {
+    "q": "What happens after launch?",
+    "a": "Agree it up front: who fixes problems, how quickly, and how new work is quoted. With a freelancer it is usually the same person who built the site."
+   }
+  ],
+  "related": [
+   "hire-website-developer",
+   "freelancer-vs-agency",
+   "website-designer-in-india"
+  ],
+  "cta": "Wherever your business is, tell me what the website or software has to do, and you will get a written plan with a timeline."
+ },
+ {
+  "slug": "freelancer-vs-agency",
+  "lang": "en",
+  "eyebrow": "Guide",
+  "title": "Freelancer or agency: who should build your website?",
+  "metaTitle": "Freelancer vs Agency for Your Website",
+  "description": "Freelance web developer or web design agency? An honest comparison of cost, communication, quality, speed and risk, and how to choose for your own project.",
+  "intro": "Hire a freelancer when one skilled person can own the whole project and you want to speak to the person doing the work. Hire an agency when the project needs several specialists at once, or a team that can absorb someone leaving. Most small and mid-sized business websites are the first case.",
+  "updated": "2026-11-15",
+  "schema": "article",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Short answer",
+    "A freelancer, for most business websites"
+   ],
+   [
+    "An agency, for",
+    "Large projects that need a team at once"
+   ],
+   [
+    "Watch for",
+    "Hand-offs, and accounts you do not own"
+   ],
+   [
+    "Written by",
+    "A freelancer, so the agency case is made fairly"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "Side by side",
+    "table": {
+     "head": [
+      "",
+      "Freelancer",
+      "Agency"
+     ],
+     "rows": [
+      [
+       "Who you talk to",
+       "The person doing the work",
+       "An account or project manager"
+      ],
+      [
+       "Who does the work",
+       "One person, sometimes with trusted partners",
+       "A team of specialists"
+      ],
+      [
+       "Cost",
+       "Lower, with no agency overheads",
+       "Higher, covering the team and the office"
+      ],
+      [
+       "Speed of small changes",
+       "Fast, one message",
+       "Slower, through a process"
+      ],
+      [
+       "Range of skills",
+       "Deep in one area, broad if experienced",
+       "Wide, across several people"
+      ],
+      [
+       "Risk if someone leaves",
+       "Higher, unless code and accounts are yours",
+       "Lower, someone else takes over"
+      ],
+      [
+       "Best for",
+       "Business websites, stores, catalogues, focused software",
+       "Large platforms, big brands, many parallel workstreams"
+      ]
+     ]
+    }
+   },
+   {
+    "label": "02",
+    "title": "When a freelancer is the better choice",
+    "items": [
+     {
+      "title": "You want one point of contact",
+      "text": "The person on the call is the person who designs and builds, so nothing is lost in translation."
+     },
+     {
+      "title": "The budget should go into the work",
+      "text": "Not into account management, offices and sales."
+     },
+     {
+      "title": "You need changes quickly",
+      "text": "A fix or a new page is a message away, not a ticket in a queue."
+     },
+     {
+      "title": "The project fits one strong person",
+      "text": "Most business websites, online stores, catalogues and focused web apps do."
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "When an agency is the better choice",
+    "items": [
+     {
+      "title": "Several specialists at once",
+      "text": "Brand, content, design, development and marketing running in parallel on a tight deadline."
+     },
+     {
+      "title": "Very large builds",
+      "text": "Platforms with many integrations, teams and long roadmaps."
+     },
+     {
+      "title": "Continuity guarantees",
+      "text": "Contracts that require a team to cover holidays and departures."
+     }
+    ]
+   },
+   {
+    "label": "04",
+    "title": "Questions to ask either one",
+    "items": [
+     {
+      "title": "Can I open your recent work?",
+      "text": "Live websites on your own phone, not screenshots."
+     },
+     {
+      "title": "Who exactly will build my site?",
+      "text": "A name, not a department."
+     },
+     {
+      "title": "Will everything be in my name?",
+      "text": "Domain, hosting, code and accounts."
+     },
+     {
+      "title": "What happens after launch?",
+      "text": "Support, response times and how changes are priced."
+     }
+    ]
+   },
+   {
+    "label": "05",
+    "title": "How I work",
+    "body": [
+     "I am a freelancer: I design and build every website myself, and bring in trusted partners only for work such as ad campaigns or social media, while staying your single point of contact. The domain, hosting and code are yours at the end."
+    ],
+    "links": [
+     [
+      "Hire a website developer",
+      "/hire-website-developer"
+     ],
+     [
+      "Website builder or web designer?",
+      "/website-builder-vs-web-designer"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Is a freelancer cheaper than an agency?",
+    "a": "Usually, because you are not paying for account managers, offices and sales. Compare what is included, not only the price."
+   },
+   {
+    "q": "Is a freelancer riskier?",
+    "a": "Only if you do not own your accounts and code. With the domain, hosting and code in your name, any developer can pick up the work later."
+   },
+   {
+    "q": "Can a freelancer handle e-commerce or software?",
+    "a": "An experienced one can. Ask for live stores or software they built and speak to their clients."
+   },
+   {
+    "q": "What if I need marketing as well?",
+    "a": "Many freelancers work with trusted partners for ads and social media while staying your main contact, which gives you a team without agency overheads."
+   }
+  ],
+  "related": [
+   "hire-website-developer",
+   "website-builder-vs-web-designer",
+   "how-to-get-a-website-made"
+  ],
+  "cta": "Tell me what your website has to do, and you will get an honest view of whether a freelancer is right for it."
+ },
+ {
+  "slug": "custom-software-vs-off-the-shelf",
+  "lang": "en",
+  "eyebrow": "Guide",
+  "title": "Custom software or off-the-shelf: which does your business need?",
+  "metaTitle": "Custom vs Off-the-Shelf Software: How to Choose",
+  "description": "When to buy software and when to build your own: a plain comparison of cost over time, fit, ownership and risk, with a simple test to run on your own business.",
+  "intro": "Buy off-the-shelf software when your process is standard and a tool fits most of it. Build custom software when the tool forces workarounds every day, when subscriptions keep growing with your team, or when the way you work is part of what makes your business better.",
+  "updated": "2026-11-15",
+  "schema": "article",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Buy when",
+    "Your process is standard"
+   ],
+   [
+    "Build when",
+    "Workarounds and spreadsheets fill the gaps daily"
+   ],
+   [
+    "Often best",
+    "Buy the standard parts, build the rest"
+   ],
+   [
+    "Written by",
+    "A developer who builds custom software"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "Side by side",
+    "table": {
+     "head": [
+      "",
+      "Off-the-shelf",
+      "Custom"
+     ],
+     "rows": [
+      [
+       "Upfront cost",
+       "Low",
+       "Higher, a one-time build"
+      ],
+      [
+       "Ongoing cost",
+       "Subscription per user, rising as you grow",
+       "Hosting and changes when you need them"
+      ],
+      [
+       "Fit",
+       "Your process adapts to the tool",
+       "The tool fits your process"
+      ],
+      [
+       "Time to start",
+       "Today",
+       "Weeks, for a focused first version"
+      ],
+      [
+       "Ownership",
+       "You rent access; your data is in their system",
+       "You own the code and the data"
+      ],
+      [
+       "Changes",
+       "Wait for the vendor, or work around it",
+       "Built when you ask"
+      ]
+     ]
+    }
+   },
+   {
+    "label": "02",
+    "title": "A five-minute test",
+    "steps": [
+     {
+      "title": "List the steps of one daily process",
+      "text": "From enquiry to invoice, for example."
+     },
+     {
+      "title": "Mark where people copy, retype or check by hand",
+      "text": "Every mark is time lost and a chance for mistakes."
+     },
+     {
+      "title": "Ask whether a ready-made tool removes those marks",
+      "text": "Without making new ones somewhere else."
+     },
+     {
+      "title": "Read the result",
+      "text": "If a tool removes most of them, buy it. If the marks stay, custom software will usually pay for itself."
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "The middle path",
+    "body": [
+     "Most businesses do not need to replace everything. Keep standard tools for standard jobs such as accounting and email, and build a small custom system for the part that is unique to you, connected to the tools you already use."
+    ]
+   },
+   {
+    "label": "04",
+    "title": "A real example",
+    "body": [
+     "Export manufacturers often run their product library in spreadsheets and build every catalogue and quotation by hand, because general inventory tools do not fit how they sell. The inventory software I built does that one job: a single product library that turns into catalogues, quotations and pro formas in a few clicks."
+    ],
+    "links": [
+     [
+      "Inventory management software",
+      "/products/inventory-software"
+     ],
+     [
+      "Custom software development",
+      "/custom-software-development"
+     ],
+     [
+      "Custom ERP and CRM software",
+      "/erp-crm-development"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Is custom software expensive?",
+    "a": "It costs more upfront and often less over time, because there are no per-user subscriptions and no paying for features you do not use. A small first version keeps the starting cost down."
+   },
+   {
+    "q": "What if the developer disappears?",
+    "a": "That is why the code, the data and the accounts must be in your name, with documentation. Then any developer can continue the work."
+   },
+   {
+    "q": "Can custom software connect to tools we already use?",
+    "a": "Usually, yes, through imports, exports and the APIs most modern tools provide."
+   },
+   {
+    "q": "How do I know if my process is standard?",
+    "a": "If a well-known tool covers it without workarounds, it is standard. If your team keeps side spreadsheets next to the tool, it is not."
+   }
+  ],
+  "related": [
+   "custom-software-development",
+   "erp-crm-development",
+   "web-application-development"
+  ],
+  "cta": "Describe the process that frustrates your team most, and you will get an honest answer on whether to buy or build."
+ },
+ {
+  "slug": "website-for-logistics-companies",
+  "lang": "en",
+  "group": "industry",
+  "eyebrow": "Industry",
+  "title": "Websites for logistics and freight companies",
+  "metaTitle": "Website Design for Logistics & Freight Companies",
+  "description": "Websites for logistics, freight forwarding and transport companies: clear services, quick quote requests, tracking links and pages that build trust with shippers in India, the Gulf and beyond.",
+  "intro": "Shippers choose a logistics partner on trust and response time. A logistics website has to say clearly what you move, where and how, make a quote request take a minute, and look as reliable as the service you promise.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Website design and development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Built for",
+    "Freight forwarders, transporters, 3PLs and couriers"
+   ],
+   [
+    "Includes",
+    "Services, routes, quote requests and tracking links"
+   ],
+   [
+    "Client",
+    "SIAAM Logistics, Saudi Arabia"
+   ],
+   [
+    "Markets",
+    "India, the Gulf and worldwide"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What shippers look for",
+    "items": [
+     {
+      "title": "What you move and how",
+      "text": "Air, sea, road, warehousing or last mile, each explained in a sentence or two."
+     },
+     {
+      "title": "Where you operate",
+      "text": "Routes, ports, cities and countries you cover, and where you have partners."
+     },
+     {
+      "title": "Proof of reliability",
+      "text": "Licences, memberships, years in business and the kinds of clients you serve."
+     },
+     {
+      "title": "A fast way to get a price",
+      "text": "A quote request that takes a minute, not a phone call during office hours."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "What the website includes",
+    "items": [
+     {
+      "title": "A quote form that asks the right things",
+      "text": "Origin, destination, cargo type, weight and dates, so you can reply with a price, not a question."
+     },
+     {
+      "title": "A page for every service",
+      "text": "Separate pages for each mode and service, which also helps you appear in search for each one."
+     },
+     {
+      "title": "Tracking",
+      "text": "A link or a box that opens your existing tracking system, so clients check status on their own."
+     },
+     {
+      "title": "WhatsApp and calls",
+      "text": "One tap to message or call, for urgent shipments."
+     },
+     {
+      "title": "A second language when buyers need it",
+      "text": "Arabic or another language can be added for regional markets."
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "A client in the Gulf",
+    "body": [
+     "SIAAM Logistics in Saudi Arabia is among my clients. In their words: “Excellent overall experience. very thoughtful, collaborative and impressive.” The project ran fully remotely across the time difference."
+    ],
+    "links": [
+     [
+      "Client reviews",
+      "/#reviews"
+     ],
+     [
+      "Outsourcing development to India",
+      "/outsource-web-development-india"
+     ]
+    ]
+   },
+   {
+    "label": "04",
+    "title": "Being found by shippers",
+    "body": [
+     "Shippers search for the route and the service: freight forwarder in a city, sea freight to a country, warehousing near a port. Pages built around those searches, fast on a phone and marked up with structured data, put you in front of them on Google and in AI assistants."
+    ],
+    "links": [
+     [
+      "SEO services",
+      "/seo-services"
+     ],
+     [
+      "Generative engine optimization",
+      "/generative-engine-optimization"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Can the website connect to our tracking system?",
+    "a": "Yes. A tracking box or link can send clients straight to your existing system, or show status from it if it offers an API."
+   },
+   {
+    "q": "Can you build a website for a logistics company outside India?",
+    "a": "Yes. Projects run remotely; a current client is a logistics company in Saudi Arabia."
+   },
+   {
+    "q": "Can the site be in English and Arabic?",
+    "a": "Yes, a second language can be added, including right-to-left layouts for Arabic."
+   },
+   {
+    "q": "How do we get more quote requests from the website?",
+    "a": "A short quote form on every page, clear service pages that rank in search, and fast replies. The form can also send each request to WhatsApp or email instantly."
+   }
+  ],
+  "related": [
+   "hire-website-developer",
+   "seo-services",
+   "outsource-web-development-india"
+  ],
+  "cta": "Tell me what you move and where, and you will get a written plan for a website that brings in quote requests."
+ },
+ {
+  "slug": "website-for-immigration-consultants",
+  "lang": "en",
+  "group": "industry",
+  "eyebrow": "Industry",
+  "title": "Websites for immigration and visa consultants",
+  "metaTitle": "Website Design for Immigration & Visa Consultants",
+  "description": "Websites for immigration, visa and study-abroad consultants: a clear page for every visa type, simple eligibility enquiries, honest trust signals and pages that rank for the countries clients want to reach.",
+  "intro": "People choosing an immigration consultant are making one of the biggest decisions of their lives, and they are wary of being misled. Your website has to be clear, honest and easy to act on: every service explained, the process laid out, and a simple way to ask about their own case.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Website design and development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Built for",
+    "Immigration, visa and study-abroad consultants"
+   ],
+   [
+    "Includes",
+    "Visa pages, eligibility enquiries and WhatsApp"
+   ],
+   [
+    "Client",
+    "IBM Consultancy, New Delhi"
+   ],
+   [
+    "Search",
+    "Pages for each country and visa type"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What clients need to see",
+    "items": [
+     {
+      "title": "Every service, clearly",
+      "text": "Passports, tourist and business visas, study abroad, work permits and permanent residence, each on its own page."
+     },
+     {
+      "title": "The process",
+      "text": "What happens after they enquire, what documents they will need, and roughly how long each stage takes."
+     },
+     {
+      "title": "Who you are",
+      "text": "Your office, your team, your registrations and how long you have been helping people."
+     },
+     {
+      "title": "An easy first step",
+      "text": "A short eligibility enquiry or a WhatsApp message, not a long form."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "Honesty builds more trust than promises",
+    "body": [
+     "Visa decisions are made by governments, not consultants. Websites that promise guaranteed visas lose the careful clients and attract complaints. A site that explains the process plainly, shows what you can and cannot control, and is open about your fees earns more serious enquiries."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Recent work",
+    "items": [
+     {
+      "title": "IBM Consultancy",
+      "text": "Website for a New Delhi immigration and visa consultancy: passports, visas, study and work abroad.",
+      "href": "https://www.ibmconsultancy.com"
+     }
+    ]
+   },
+   {
+    "label": "04",
+    "title": "Being found by the right people",
+    "body": [
+     "People search by country and purpose: study visa for a country, work permit, tourist visa from their city. A page for each country and visa type you handle, written to answer their real questions, ranks better and is more likely to be quoted by AI assistants than one long services page."
+    ],
+    "links": [
+     [
+      "SEO services",
+      "/seo-services"
+     ],
+     [
+      "Website design and development",
+      "/website-design-development"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "What should an immigration consultant's website include?",
+    "a": "A page for each service and destination, the process and documents explained, your registrations and office details, real client reviews, and a quick way to enquire by form or WhatsApp."
+   },
+   {
+    "q": "Can clients upload documents through the website?",
+    "a": "Yes. A secure upload area or client portal can be built so documents do not travel over chat."
+   },
+   {
+    "q": "Can the website be in more than one language?",
+    "a": "Yes. English with Hindi or another language your clients prefer can be added."
+   },
+   {
+    "q": "How do we get more enquiries?",
+    "a": "Pages that answer the questions people search for, quick contact on every page, and fast replies, with every enquiry sent straight to your email or WhatsApp."
+   }
+  ],
+  "related": [
+   "website-for-professionals",
+   "seo-services",
+   "website-design-development"
+  ],
+  "cta": "Tell me which countries and visas you handle, and you will get a written plan for a website that earns trust and enquiries."
+ },
+ {
+  "slug": "website-for-furniture-home-decor-brands",
+  "lang": "en",
+  "group": "industry",
+  "eyebrow": "Industry",
+  "title": "Websites for furniture, lighting and home decor brands",
+  "metaTitle": "Website Design for Furniture & Home Decor Brands",
+  "description": "Websites for furniture, lighting and home decor makers and exporters: photography-led product pages, catalogues and enquiry forms for retailers, designers and buyers worldwide.",
+  "intro": "In furniture and home decor, the website is the showroom. Buyers judge the craft from the photographs and the finish from the details, so the site has to show the products beautifully, load quickly on a phone, and make it easy for a retailer or designer to ask for a price.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Website design and development",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Built for",
+    "Makers, ateliers, exporters and retailers"
+   ],
+   [
+    "Includes",
+    "Collections, product pages, catalogues and enquiries"
+   ],
+   [
+    "Recent work",
+    "Erfolg Living, Aurelio and Casa & Crop"
+   ],
+   [
+    "Buyers",
+    "Retail, interior designers and export"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What buyers look for",
+    "items": [
+     {
+      "title": "The photographs",
+      "text": "Large, sharp images of the piece, the details and the piece in a room."
+     },
+     {
+      "title": "The facts",
+      "text": "Dimensions, materials, finishes, weights and lead times, in a consistent format."
+     },
+     {
+      "title": "The range",
+      "text": "Collections they can browse by room, material or style."
+     },
+     {
+      "title": "A way to buy or ask",
+      "text": "A cart for retail customers, or a trade enquiry and catalogue for designers and importers."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "What the website includes",
+    "items": [
+     {
+      "title": "Collections and filters",
+      "text": "Browse by category, room, material and finish."
+     },
+     {
+      "title": "Product pages",
+      "text": "Image galleries, specifications and related pieces, built for both buyers and search."
+     },
+     {
+      "title": "Catalogues and trade enquiries",
+      "text": "Downloadable catalogues and enquiry forms that capture quantities, finishes and destinations."
+     },
+     {
+      "title": "Speed with large images",
+      "text": "Modern image formats and careful loading, so big photographs still open fast on mobile data."
+     },
+     {
+      "title": "A store, if you sell retail",
+      "text": "Cart, checkout and payments for customers buying directly.",
+      "href": "/ecommerce-website-development"
+     }
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Recent work",
+    "items": [
+     {
+      "title": "Erfolg Living",
+      "text": "Handmade luxury metalwork: copper bathtubs, sinks, lighting and furniture.",
+      "href": "https://erfolgliving.com"
+     },
+     {
+      "title": "Aurelio",
+      "text": "The metal and wood atelier of AF International: furniture, lighting and decor.",
+      "href": "https://aurelio.in"
+     },
+     {
+      "title": "Casa & Crop",
+      "text": "Home metalware manufactured and exported to 34 countries.",
+      "href": "https://casaandcrop.com"
+     },
+     {
+      "title": "Taif International",
+      "text": "Metal and wooden handicrafts exported to 42 countries.",
+      "href": "https://taifinternational.co"
+     }
+    ]
+   },
+   {
+    "label": "04",
+    "title": "Being found by buyers",
+    "body": [
+     "Designers and importers search by product and material: copper bathtub manufacturer, handmade brass lighting, wooden furniture exporter. A page for each product family, with real specifications and photographs, ranks on Google and gives AI assistants something concrete to recommend."
+    ],
+    "links": [
+     [
+      "Websites for exporters",
+      "/website-for-exporters-moradabad"
+     ],
+     [
+      "SEO services",
+      "/seo-services"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Should a furniture brand have an online store or an enquiry website?",
+    "a": "It depends on who buys. Retail customers expect a cart and checkout; interior designers, retailers and importers usually want a catalogue, trade prices and an enquiry form. Many brands need both."
+   },
+   {
+    "q": "Will large product photos make the website slow?",
+    "a": "Not if the site is built properly: modern image formats, the right size for each screen, and images loading only when they are needed."
+   },
+   {
+    "q": "Can buyers download a catalogue?",
+    "a": "Yes, as a PDF or a shareable online catalogue, and you can see when it is opened."
+   },
+   {
+    "q": "Do you build for brands that export?",
+    "a": "Yes. Most of my furniture and decor clients sell to buyers in dozens of countries."
+   }
+  ],
+  "related": [
+   "website-for-exporters-moradabad",
+   "ecommerce-website-development",
+   "website-design-development"
+  ],
+  "cta": "Send me your products and who buys them, and you will get a written plan for a website that sells them as well as your showroom does."
+ },
+ {
+  "slug": "cloud-hosting-solutions",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Cloud",
+  "title": "Cloud hosting and server solutions",
+  "metaTitle": "Cloud Hosting & AWS Solutions for Businesses",
+  "description": "Cloud hosting, AWS setup, domains, email and monitoring for business websites and software: fast, secure, backed up and in your own name.",
+  "intro": "Your website and software are only as reliable as where they run. I set up hosting on AWS and other established cloud providers, connect your domain and email, and watch the site so problems are caught before your customers notice them.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Cloud hosting and infrastructure",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Platforms",
+    "AWS and established cloud hosts"
+   ],
+   [
+    "Covers",
+    "Hosting, domains, email, SSL, backups, monitoring"
+   ],
+   [
+    "Built for",
+    "Websites, online stores and web apps"
+   ],
+   [
+    "You own",
+    "Every account, in your business name"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What the setup covers",
+    "items": [
+     {
+      "title": "Hosting that fits the traffic",
+      "text": "A small, fast site costs very little to host; busier stores and apps get room to grow without moving house."
+     },
+     {
+      "title": "Domain and DNS",
+      "text": "Your domain connected properly, with redirects so every old address still works."
+     },
+     {
+      "title": "Business email",
+      "text": "Addresses at your own domain, set up so messages reach inboxes instead of spam folders."
+     },
+     {
+      "title": "SSL and security",
+      "text": "HTTPS everywhere, safe defaults and access only for the people who need it."
+     },
+     {
+      "title": "Backups",
+      "text": "Regular copies of the site and the data, kept somewhere separate."
+     },
+     {
+      "title": "Monitoring",
+      "text": "Alerts if the site goes down or slows down, so it is fixed before anyone complains."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "Moving an existing site",
+    "body": [
+     "Moving a site to better hosting is planned so nothing is lost: the files and data are copied, the new home is tested on a private address, and only then is the domain switched, at a quiet time, with every old address redirected. Search rankings stay where they are."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Why it should all be in your name",
+    "body": [
+     "Hosting, domains and email registered to a developer are the most common reason businesses get stuck. Everything I set up is registered to your business, with your own login, and you pay the providers directly."
+    ],
+    "links": [
+     [
+      "Website speed optimization",
+      "/website-speed-optimization"
+     ],
+     [
+      "Custom software development",
+      "/custom-software-development"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Which cloud provider do you use?",
+    "a": "Amazon Web Services and other established hosts, chosen by what the site needs and what it will cost to run. A simple website rarely needs a complex setup."
+   },
+   {
+    "q": "How much does hosting cost?",
+    "a": "It depends on traffic and what the site does. A small business website is inexpensive to host; online stores and web apps cost more as they grow. You get an estimate before anything is set up, and you pay the provider directly."
+   },
+   {
+    "q": "Can you move my website to new hosting without downtime?",
+    "a": "Yes. The new home is tested before the switch, and the domain is moved at a quiet time with redirects in place."
+   },
+   {
+    "q": "Do you set up business email?",
+    "a": "Yes, at your own domain, with the records that help your messages reach the inbox."
+   },
+   {
+    "q": "Will you look after the server after setup?",
+    "a": "Yes. Monitoring, updates and fixes can continue after launch, from the person who set it up."
+   }
+  ],
+  "related": [
+   "website-speed-optimization",
+   "custom-software-development",
+   "website-design-development"
+  ],
+  "cta": "Tell me where your website runs today and what it needs to do, and you will get a plain plan for hosting it properly."
+ },
+ {
+  "slug": "digital-marketing-services",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Marketing",
+  "title": "Digital marketing that brings enquiries",
+  "metaTitle": "Digital Marketing Services for Enquiries & Sales",
+  "description": "Digital marketing judged by enquiries and sales: Google and Meta ad campaigns, landing pages and analytics, run with trusted partners and one point of contact.",
+  "intro": "Marketing is worth paying for when you can see what it brings in. Campaigns are planned around the enquiries and sales they produce, sent to landing pages built to convert, and measured, so money moves to what works.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Digital marketing",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Covers",
+    "Google and Meta ads, landing pages, analytics"
+   ],
+   [
+    "Judged by",
+    "Enquiries and sales, not clicks"
+   ],
+   [
+    "Run with",
+    "Trusted partners for campaign management"
+   ],
+   [
+    "Your contact",
+    "Me, from start to finish"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What is included",
+    "items": [
+     {
+      "title": "Campaign plan",
+      "text": "Who you want to reach, where they search or scroll, and what a good enquiry is worth to you."
+     },
+     {
+      "title": "Ad campaigns",
+      "text": "Google Search and Meta (Facebook and Instagram) campaigns, set up and managed."
+     },
+     {
+      "title": "Landing pages",
+      "text": "A page for each campaign with one clear action, built and tested by me.",
+      "href": "/landing-page-design"
+     },
+     {
+      "title": "Tracking",
+      "text": "Enquiries, calls, WhatsApp clicks and sales measured, so every rupee or dollar can be traced."
+     },
+     {
+      "title": "Monthly review",
+      "text": "What worked, what did not, and where the budget goes next, in plain language."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "How the work is shared",
+    "body": [
+     "I build the landing pages, the tracking and the website side, and plan the campaigns with you. Ad campaigns are run with trusted marketing partners, while I stay your single point of contact, so you never chase three people for one answer."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "The website comes first",
+    "body": [
+     "Ads sent to a slow or confusing page waste money. Before spending on campaigns, the page they lead to should load fast on a phone, say clearly what you offer and make the next step obvious."
+    ],
+    "links": [
+     [
+      "Landing page design",
+      "/landing-page-design"
+     ],
+     [
+      "SEO services",
+      "/seo-services"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "How much should I spend on ads?",
+    "a": "Enough to learn what works: start with a modest test budget, measure enquiries and their value, then increase spending only on what pays back. You pay the ad platforms directly."
+   },
+   {
+    "q": "Do you guarantee results?",
+    "a": "No honest marketer can guarantee sales. What you get is a clear plan, proper tracking and monthly decisions based on real numbers."
+   },
+   {
+    "q": "Who runs the campaigns?",
+    "a": "Campaigns are run with trusted marketing partners, and I build the landing pages and tracking and stay your single point of contact."
+   },
+   {
+    "q": "Should I do ads or SEO?",
+    "a": "Ads bring enquiries from the first week but stop when you stop paying; SEO takes months but keeps working. Most businesses benefit from a little of both."
+   }
+  ],
+  "related": [
+   "landing-page-design",
+   "seo-services",
+   "social-media-management"
+  ],
+  "cta": "Tell me what a good enquiry looks like for your business, and you will get a plan for campaigns judged by the enquiries they bring."
+ },
+ {
+  "slug": "social-media-management",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Marketing",
+  "title": "Social media management",
+  "metaTitle": "Social Media Management for Businesses",
+  "description": "Regular, on-brand social media for businesses: a content calendar, posts and reels in your brand voice, managed with trusted partners and one point of contact.",
+  "intro": "Social media works when it is consistent and sounds like you. A monthly content calendar, posts and reels in your brand voice, and a feed that sends people to your website and WhatsApp, not just to likes.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Social media management",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Platforms",
+    "Instagram, Facebook and LinkedIn"
+   ],
+   [
+    "Includes",
+    "Content calendar, posts, reels and captions"
+   ],
+   [
+    "Run with",
+    "Trusted creative partners"
+   ],
+   [
+    "Your contact",
+    "Me, from start to finish"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What is included",
+    "items": [
+     {
+      "title": "A content calendar",
+      "text": "A month planned ahead around your products, offers and seasons, approved by you before anything goes out."
+     },
+     {
+      "title": "Posts and reels",
+      "text": "Designed in your brand style, with captions in your voice."
+     },
+     {
+      "title": "Profile set-up",
+      "text": "Bios, highlights and links tidied so visitors know what you do and how to reach you."
+     },
+     {
+      "title": "Links that lead somewhere",
+      "text": "Every post points to a page, a product or a WhatsApp chat, so attention turns into enquiries."
+     },
+     {
+      "title": "A monthly look back",
+      "text": "What people engaged with, and what to make more of."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "How the work is shared",
+    "body": [
+     "I plan the content with you and keep it consistent with your website and brand. Day-to-day creation and posting are done with trusted creative partners, while I stay your single point of contact."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Social media and your website",
+    "body": [
+     "Social media borrows attention; your website keeps it. Posts work best when they lead to fast product pages and a simple way to enquire, which is where the website comes in."
+    ],
+    "links": [
+     [
+      "Digital marketing",
+      "/digital-marketing-services"
+     ],
+     [
+      "Video editing",
+      "/video-editing-services"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "How often should a business post?",
+    "a": "Consistently rather than often: a steady few posts a week in your own voice beats daily posts that look like everyone else."
+   },
+   {
+    "q": "Do I approve posts before they go out?",
+    "a": "Yes. The month is planned and approved in advance, so nothing appears that you have not seen."
+   },
+   {
+    "q": "Can you manage just one platform?",
+    "a": "Yes. Many businesses start with Instagram alone, or LinkedIn for business-to-business work."
+   },
+   {
+    "q": "Who creates the content?",
+    "a": "It is planned with me and created with trusted creative partners, with me as your single point of contact."
+   }
+  ],
+  "related": [
+   "digital-marketing-services",
+   "video-editing-services",
+   "website-for-small-business"
+  ],
+  "cta": "Tell me who your customers are and where they scroll, and you will get a plan for a feed that brings enquiries."
+ },
+ {
+  "slug": "video-editing-services",
+  "lang": "en",
+  "group": "service",
+  "eyebrow": "Video",
+  "title": "Video editing for launches, reels and ads",
+  "metaTitle": "Video Editing for Reels, Ads & Launches",
+  "description": "Video editing for businesses: launch films, reels, ads and product videos, cut for each platform with captions, and made to work with your website and campaigns.",
+  "intro": "Short videos sell products and explain services faster than text. Footage you already have, or new clips from your phone, is edited into launch films, reels and ads, cut for each platform and captioned for people watching without sound.",
+  "updated": "2026-11-15",
+  "schema": "service",
+  "serviceType": "Video editing",
+  "area": "Worldwide",
+  "facts": [
+   [
+    "Makes",
+    "Launch films, reels, ads and product videos"
+   ],
+   [
+    "Formats",
+    "Vertical, square and widescreen"
+   ],
+   [
+    "Includes",
+    "Captions, music and your branding"
+   ],
+   [
+    "Works with",
+    "Your website and ad campaigns"
+   ]
+  ],
+  "sections": [
+   {
+    "label": "01",
+    "title": "What can be made",
+    "items": [
+     {
+      "title": "Launch films",
+      "text": "A short film for a new website, product or collection."
+     },
+     {
+      "title": "Reels and shorts",
+      "text": "Vertical videos for Instagram, YouTube Shorts and other short-form platforms."
+     },
+     {
+      "title": "Ads",
+      "text": "Cuts made for Google and Meta campaigns, with the message in the first seconds."
+     },
+     {
+      "title": "Product videos",
+      "text": "Your products shown in use, for product pages and catalogues."
+     },
+     {
+      "title": "Website videos",
+      "text": "Short, light loops for a home page, compressed so the site stays fast."
+     }
+    ]
+   },
+   {
+    "label": "02",
+    "title": "Made for where it is watched",
+    "body": [
+     "Most videos are watched on a phone, often without sound. Every edit is cut for its platform's shape and length, captioned, and opens with what matters, not a logo."
+    ]
+   },
+   {
+    "label": "03",
+    "title": "Video on your website, without slowing it down",
+    "body": [
+     "A video on a website should never make it slow. Clips are compressed, load only after the page is ready, and show a still image on older phones and for people who prefer less motion."
+    ],
+    "links": [
+     [
+      "Website speed optimization",
+      "/website-speed-optimization"
+     ],
+     [
+      "Social media management",
+      "/social-media-management"
+     ]
+    ]
+   }
+  ],
+  "faqs": [
+   {
+    "q": "Can you edit footage shot on a phone?",
+    "a": "Yes. Good light and steady clips from a modern phone are enough for reels, ads and product videos."
+   },
+   {
+    "q": "How long should a reel or an ad be?",
+    "a": "Short: most work best under thirty seconds, with the main message in the first three."
+   },
+   {
+    "q": "Do you add captions?",
+    "a": "Yes, because many people watch without sound."
+   },
+   {
+    "q": "Can a video be added to my website?",
+    "a": "Yes, compressed and loaded carefully so the page stays fast, with a still image for slower devices."
+   }
+  ],
+  "related": [
+   "social-media-management",
+   "digital-marketing-services",
+   "landing-page-design"
+  ],
+  "cta": "Send me the footage you have and where the video will be shown, and you will get a plan for the edit."
+ }
+]

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { works } from '../data/content'
+import { works } from '../data/live'
 import { useReveals } from '../lib/reveal'
 import { small, srcSet } from '../lib/img'
 import Head from '../components/Head'

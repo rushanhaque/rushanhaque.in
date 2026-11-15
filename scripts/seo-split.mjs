@@ -6,7 +6,9 @@ import path from 'node:path'
 
 const dir = path.resolve(import.meta.dirname, '../src/data/seo')
 const read = (f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
-const guides = read('guides.json')
+// guides-added.json: pages written after the live snapshot, kept apart so the live guides stay exactly as they are
+const added = fs.existsSync(path.join(dir, 'guides-added.json')) ? read('guides-added.json') : []
+const guides = [...read('guides.json'), ...added]
 const sources = read('source-pages.json')
 const extras = read('seo-extras.json')
 
@@ -21,4 +23,6 @@ fs.rmSync(out, { recursive: true, force: true })
 fs.mkdirSync(out, { recursive: true })
 for (const g of guides) fs.writeFileSync(path.join(out, `${g.slug}.json`), JSON.stringify({ guide: g }))
 for (const p of sources) fs.writeFileSync(path.join(out, `${p.slug}.json`), JSON.stringify({ page: p, extra: extras[p.slug] || null }))
-console.log(`seo: ${index.length} pages split`)
+// the titles and descriptions of the added pages, for moving between pages inside the site (src/lib/meta.js)
+fs.writeFileSync(path.join(dir, 'added-meta.json'), JSON.stringify(Object.fromEntries(added.map((g) => [`/${g.slug}`, { title: `${g.metaTitle} | Rushan Haque`, description: g.description }]))) + '\n')
+console.log(`seo: ${index.length} pages split (${added.length} added)`)

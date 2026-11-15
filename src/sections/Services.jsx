@@ -31,11 +31,16 @@ export function Glyph({ name, className = '' }) {
 
 // Where each service leads: its own page where the site has one, otherwise an enquiry that already names it.
 const PAGE = {
-  'UI/UX design': '/website-design-development',
-  'Web development': '/web-application-development',
+  'UI/UX design': '/ui-ux-design',
+  'Web development': '/website-design-development',
   'E-commerce & catalogues': '/ecommerce-website-development',
+  'ERPs & CRMs': '/erp-crm-development',
   'SEO & AI search': '/seo-services',
-  'Digital marketing': '/landing-page-design',
+  'Mobile apps': '/mobile-app-development',
+  'Cloud solutions': '/cloud-hosting-solutions',
+  'Digital marketing': '/digital-marketing-services',
+  'Social media': '/social-media-management',
+  'Video editing': '/video-editing-services',
 }
 const AREA = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 const SHAPE = { 0: 'is-feature', 1: 'is-wide', 4: 'is-wide' }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { site } from '../config/site'
-import { certifications, stats, languages, skills } from '../data/content'
+import { stats, languages, skills } from '../data/content'
+import { certifications } from '../data/live'
 import editable from '../data/editable.json'
 import { useReveals } from '../lib/reveal'
 import { lockScroll, unlockScroll } from '../lib/scroll'
