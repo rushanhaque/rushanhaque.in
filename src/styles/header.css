@@ -16,14 +16,10 @@
 .cv-out .top { animation-delay: 0.55s; }
 @keyframes topIn { from { opacity: 0; transform: translateY(-10px); } }
 
-/* the logo: the seal and the name */
+/* the logo: the Ruh monogram */
 .top__brand { display: inline-flex; align-items: center; min-height: 44px; }
-.logo { display: inline-flex; align-items: center; gap: 12px; }
-.logo__mark { width: 38px; height: 38px; flex: none; filter: drop-shadow(0 6px 10px rgb(36 20 25 / 0.25)); transition: transform 0.7s var(--ease); }
-.logo__type { display: grid; line-height: 1.15; }
-.logo__type b { font-size: 15.5px; font-weight: 520; font-stretch: 112%; letter-spacing: -0.02em; }
-.logo__type small { font-family: var(--serif); font-style: italic; font-size: 14px; letter-spacing: 0; color: var(--accent); }
-@media (hover: hover) { .top__brand:hover .logo__mark { transform: rotate(-8deg) scale(1.04); } }
+.logo { display: block; height: 40px; aspect-ratio: 635 / 327; background: var(--wine-2); -webkit-mask: url(/img/logo-rh.png) center / contain no-repeat; mask: url(/img/logo-rh.png) center / contain no-repeat; transition: background 0.3s, transform 0.6s var(--ease); }
+@media (hover: hover) { .top__brand:hover .logo { transform: translateY(-1px); background: var(--accent); } }
 
 /* the pages */
 .top__nav { display: flex; align-items: center; gap: clamp(22px, 2.6vw, 40px); }
@@ -50,14 +46,12 @@
 .top.is-open .top__bars i:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 .top.is-open { color: #fff; z-index: calc(var(--z-menu) + 1); }
 .top.is-open::before { opacity: 0; }
-.top.is-open .logo__type small { color: var(--gold); }
+.top.is-open .logo { background: #f7f4f1; }
 
 @media (max-width: 860px) {
   .top__nav { display: none; }
   .top__menu { display: grid; }
-  .logo__mark { width: 34px; height: 34px; }
-  .logo__type b { font-size: 14.5px; }
-  .logo__type small { font-size: 13px; }
+  .logo { height: 34px; }
   .top.is-solid { --bar-h: 60px; }
 }
 
