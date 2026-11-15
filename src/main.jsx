@@ -15,6 +15,9 @@ import './styles/pages.css'
 // Every built page arrives finished. The page's own code and words load first (they were preloaded with the HTML),
 // then React takes over the markup that is already there.
 async function start() {
+  // some in-app browsers (Instagram, Facebook) can run this file twice; two apps on one page would both add to it
+  if (window.__rhStarted) return
+  window.__rhStarted = true
   const el = document.getElementById('root')
   const route = await resolve(location.href)
   document.documentElement.dataset.page = route.key

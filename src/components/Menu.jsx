@@ -18,7 +18,7 @@ export default function Menu({ open, onClose, path }) {
     if (open) {
       lockScroll()
       was.current = true
-      setChapters([...document.querySelectorAll('[data-chapter]')].map((el) => ({ el, no: el.dataset.chapter, name: el.dataset.name })))
+      setChapters([...new Map([...document.querySelectorAll('[data-chapter]')].map((el) => [el.dataset.chapter, { el, no: el.dataset.chapter, name: el.dataset.name }])).values()])
       const back = document.activeElement
       const first = setTimeout(() => panel.current?.querySelector('a')?.focus({ preventScroll: true }), 420)
       const key = (e) => {
@@ -60,8 +60,9 @@ export default function Menu({ open, onClose, path }) {
                 </li>
               ))}
             </ol>
-            {chapters.length > 1 && (
-              <div className="dw__chap" style={{ '--i': LINKS.length }}>
+            {/* always in the page, only hidden when empty, so it can never be added twice */}
+            {(
+              <div className="dw__chap" style={{ '--i': LINKS.length }} hidden={chapters.length < 2}>
                 <p className="note dw__label">On this page</p>
                 <ul>
                   {chapters.map((c) => (
