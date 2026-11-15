@@ -9,7 +9,7 @@ import { A } from '../lib/router'
 import Btn from '../components/Btn'
 import Split from '../components/Split'
 import NotFound from './NotFound'
-import { ArrowUpRight, Plus, WhatsappLogo } from '../components/glyphs'
+import { ArrowLeft, ArrowUpRight, Plus, WhatsappLogo } from '../components/glyphs'
 
 // The guides, service pages and area pages, with their words exactly as they are on the live site. These are for
 // reading, so the house steps back: a calm column of text, its heading held beside it as you read.
@@ -245,6 +245,7 @@ function LandingPage({ slug, data }) {
         {body}
       </article>
       {!legal && <div className="wrap lp__explore"><h2 className="h3">Explore</h2><Directory current={slug} /></div>}
+      <div className="wrap lp__home"><Btn to="/" variant="solid" icon={ArrowLeft} className="lp__homebtn">{hi ? 'होम पेज पर जाएँ' : 'Go to home page'}</Btn></div>
     </div>
   )
 }
