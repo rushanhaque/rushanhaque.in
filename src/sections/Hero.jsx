@@ -98,8 +98,35 @@ export default function Hero() {
     return () => { el.removeEventListener('pointermove', move); fx.stop(); fy.stop() }
   }, [])
 
+  // The film behind the name: a diary and a laptop, the camera drifting slowly between them, softened and veiled so
+  // it never competes with the words. Its still frame is there from the first paint (a few kilobytes); the moving
+  // version (about 100 KB) loads only after the page has settled, never on a slow device, with reduced motion or
+  // when data is being saved, and it rests whenever the hero is out of view.
+  const film = useRef(null)
+  useEffect(() => {
+    const d = device()
+    const v = film.current
+    if (!v || d.reduced || d.tier === 'low' || navigator.connection?.saveData || matchMedia('(prefers-reduced-data: reduce)').matches) return undefined
+    let io = null
+    let idle = 0
+    const start = () => {
+      const kind = innerWidth > innerHeight ? 'wide' : 'tall'
+      const type = v.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4'
+      v.src = `/video/hero-${kind}.${type}`
+      v.addEventListener('playing', () => v.classList.add('is-on'), { once: true })
+      io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause() })
+      io.observe(root.current)
+    }
+    const later = () => { idle = (window.requestIdleCallback || setTimeout)(start, { timeout: 2500 }) }
+    if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true })
+    return () => { removeEventListener('load', later); (window.cancelIdleCallback || clearTimeout)(idle); io?.disconnect(); v.pause(); v.removeAttribute('src'); v.load() }
+  }, [])
+
   return (
     <section className="hx" ref={root} id="top" data-tone="ivory" aria-label="Rushan Haque">
+      <div className="hx__film" aria-hidden="true">
+        <video ref={film} className="hx__video" muted loop playsInline preload="none" disablePictureInPicture disableRemotePlayback tabIndex={-1} />
+      </div>
       <span className="hx__glow" ref={glow} aria-hidden="true" />
       <div className="hx__in wrap">
         <h1 className="hx__name">

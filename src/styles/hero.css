@@ -48,3 +48,18 @@
   .motion:not([data-tier='low']) .hx__down { animation: fadeUp 1.3s var(--ease) 1.3s both, hxDownOut linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 30vh; }
   @keyframes hxDownOut { to { opacity: 0; } }
 }
+
+/* the film behind the name: the still frame first, the moving one fading in over it, then a veil of paper: lightest
+   at the edges, densest where the name sits, and melting into the page at the top and bottom */
+.hx__film { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: var(--paper) url(/video/hero-wide.webp) center / cover no-repeat; pointer-events: none; }
+.hx__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity 1.6s var(--ease); }
+.hx__video.is-on { opacity: 1; }
+.hx__film::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 58% 46% at 50% 50%, rgb(var(--paper-rgb) / 0.62), rgb(var(--paper-rgb) / 0.2) 100%),
+    linear-gradient(180deg, rgb(var(--paper-rgb) / 0.9) 0%, rgb(var(--paper-rgb) / 0.42) 22%, rgb(var(--paper-rgb) / 0.5) 64%, var(--paper) 100%),
+    linear-gradient(rgb(66 36 45 / 0.06), rgb(66 36 45 / 0.06));
+}
+@media (max-aspect-ratio: 1/1) { .hx__film { background-image: url(/video/hero-tall.webp); } }
+@media print { .hx__film { display: none; } }
