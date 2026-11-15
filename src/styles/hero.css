@@ -57,9 +57,8 @@
 .hx__film::after {
   content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 58% 46% at 50% 50%, rgb(var(--paper-rgb) / 0.62), rgb(var(--paper-rgb) / 0.2) 100%),
-    linear-gradient(180deg, rgb(var(--paper-rgb) / 0.9) 0%, rgb(var(--paper-rgb) / 0.42) 22%, rgb(var(--paper-rgb) / 0.5) 64%, var(--paper) 100%),
-    linear-gradient(rgb(66 36 45 / 0.06), rgb(66 36 45 / 0.06));
+    radial-gradient(ellipse 56% 42% at 50% 50%, rgb(var(--paper-rgb) / 0.36), rgb(var(--paper-rgb) / 0) 100%),
+    linear-gradient(180deg, rgb(var(--paper-rgb) / 0.6) 0%, rgb(var(--paper-rgb) / 0.12) 20%, rgb(var(--paper-rgb) / 0.14) 70%, var(--paper) 100%);
 }
 @media (max-aspect-ratio: 1/1) { .hx__film { background-image: url(/video/hero-tall.webp); } }
 @media print { .hx__film { display: none; } }
