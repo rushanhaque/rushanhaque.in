@@ -8,7 +8,7 @@ export const site = {
   coords: '28.84° N, 78.77° E',
   tz: 'Asia/Kolkata',
   email: 'rushanulhaque@gmail.com',
-  phone: { label: '+91 76680 47608', href: 'tel:+917668047608', whatsapp: 'https://wa.me/917668047608' },
+  phone: { label: 'Call', href: 'tel:+917668047608', whatsapp: 'https://wa.me/917668047608' },
   booking: 'https://cal.com/rushan-haque-emssbo/call',
   calLink: 'rushan-haque-emssbo/call',
   // the Formspree id for the forms (public: it ships in the page either way)

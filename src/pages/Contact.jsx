@@ -7,7 +7,7 @@ import Btn from '../components/Btn'
 import Head from '../components/Head'
 import Split from '../components/Split'
 import { BookBtn } from '../components/Booking'
-import { CheckCircle, EnvelopeSimple, Plus, WhatsappLogo, ArrowUpRight } from '../components/glyphs'
+import { CheckCircle, EnvelopeSimple, Plus, WhatsappLogo, ArrowUpRight, Phone } from '../components/glyphs'
 
 function ContactForm() {
   const [contact, setContact] = useState('')
@@ -135,7 +135,12 @@ export default function Contact() {
             <div className="cn__direct">
               <a className="cn-card is-primary" data-tone="wine" href={site.phone.whatsapp} target="_blank" rel="noopener noreferrer">
                 <span className="cn-icon"><WhatsappLogo size={22} /></span>
-                <span className="cn-text"><small>WhatsApp, fastest</small><strong>{site.phone.label}</strong></span>
+                <span className="cn-text"><small>WhatsApp, fastest</small><strong>Message me on WhatsApp</strong></span>
+                <ArrowUpRight size={20} className="cn-go" />
+              </a>
+              <a className="cn-card" href={site.phone.href}>
+                <span className="cn-icon"><Phone size={22} /></span>
+                <span className="cn-text"><small>Phone</small><strong>Call me</strong></span>
                 <ArrowUpRight size={20} className="cn-go" />
               </a>
               <a className="cn-card" href={`mailto:${site.email}?subject=Hello%20from%20your%20site`}>

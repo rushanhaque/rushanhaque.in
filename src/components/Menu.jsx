@@ -75,7 +75,8 @@ export default function Menu({ open, onClose, path }) {
             <div>
               <p className="note dw__label">Get in touch</p>
               <a href={`mailto:${site.email}`}>{site.email}</a>
-              <a href={site.phone.whatsapp} target="_blank" rel="noopener noreferrer">{site.phone.label}</a>
+              <a href={site.phone.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <a href={site.phone.href}>Call</a>
               <BookLink>Book a call</BookLink>
             </div>
             <div>

@@ -80,7 +80,8 @@ export default function Footer({ lead = true }) {
           <p className="note">Direct</p>
           <ul>
             <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            <li><a href={site.phone.href}>{site.phone.label}</a></li>
+            <li><a href={site.phone.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            <li><a href={site.phone.href}>Call</a></li>
             <li><BookLink>Book a call</BookLink></li>
           </ul>
         </div>
