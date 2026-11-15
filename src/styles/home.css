@@ -40,7 +40,14 @@
 @media (max-width: 899px) {
   .draft__plates { display: flex; gap: 14px; margin-inline: calc(-1 * var(--m)); padding-inline: var(--m); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m); scrollbar-width: none; overscroll-behavior-x: contain; }
   .draft__plates::-webkit-scrollbar { display: none; }
-  .draft__plate { flex: none; width: min(86vw, 420px); scroll-snap-align: start; }
+  .draft__plate { flex: none; width: min(74vw, 340px); gap: 12px; padding: 10px; border-radius: 18px; scroll-snap-align: start; }
+  .draft__pic { border-radius: 11px; }
+  .draft__info { gap: 7px; padding: 2px 4px 4px; }
+  .draft__info .h3 { font-size: 21px; }
+  .draft__info .small { font-size: 13.5px; }
+  .draft__info .btn { min-height: 38px; padding: 3px 3px 3px 14px; font-size: 13px; }
+  .draft__info .btn__socket { width: 32px; height: 32px; }
+  .draft__no { font-size: 56px; right: 14px; bottom: 8px; }
 }
 
 /* ===== 03 Products ============================================================================ */
@@ -52,6 +59,8 @@
 .prod__item.is-flip .prod__stage { grid-column: 1 / span 7; grid-row: 1; }
 .prod__no { letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .prod__name { transition: color 0.3s; }
+.prod__copy .h2 { font-size: clamp(26px, 3vw, 44px); letter-spacing: -0.028em; }
+@media (max-width: 600px) { .prod__copy .h2 { font-size: 24px; } }
 .prod__name:hover { color: var(--accent); }
 .prod__desc { max-width: 46ch; color: var(--ink-2); }
 .prod__does { display: grid; gap: 10px; }

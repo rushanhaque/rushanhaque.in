@@ -455,7 +455,12 @@
 
 /* works page: the card's picture and its button both lead out */
 .wk__link > .wk__pic { display: block; }
-.wk__visit { justify-self: start; margin-top: 8px; }
+.wk__visit { justify-self: end; margin-top: 8px; }
+@media (max-width: 760px) { .wk__visit { justify-self: start; } }
+@media (max-width: 760px) {
+  .wg__visit, .wk__visit { min-height: 36px; padding: 3px 3px 3px 13px; gap: 9px; font-size: 13px; }
+  .wg__visit .btn__socket, .wk__visit .btn__socket { width: 30px; height: 30px; }
+}
 button.xp__row { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
 
 /* an experiment, opened */
