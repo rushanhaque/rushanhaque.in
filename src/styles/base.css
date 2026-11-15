@@ -1,6 +1,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 html {
-  scroll-padding-top: 24px; -webkit-tap-highlight-color: transparent; color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--bar-h) + 16px); -webkit-tap-highlight-color: transparent; color-scheme: light; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
   overflow-x: clip; background: var(--paper); scrollbar-width: thin; scrollbar-color: rgb(var(--ink-rgb) / 0.25) transparent;
 }
 html.lenis, html.lenis body { height: auto; }

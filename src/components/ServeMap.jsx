@@ -57,14 +57,22 @@ export default function ServeMap({ no }) {
   useReveals(root)
 
   // which step you are reading
+  // wide: the step crossing the middle of the screen; narrow: the card mostly in view in the swiped row
+  const row = useRef(null)
   useEffect(() => {
     const steps = [...root.current.querySelectorAll('.srv__step')]
+    const narrow = innerWidth < 900
     const io = new IntersectionObserver((list) => {
       for (const e of list) if (e.isIntersecting) setStep(steps.indexOf(e.target))
-    }, { rootMargin: innerWidth < 900 ? '-62% 0px -22% 0px' : '-42% 0px -42% 0px' })
+    }, narrow ? { root: row.current, threshold: 0.6 } : { rootMargin: '-42% 0px -42% 0px' })
     steps.forEach((s) => io.observe(s))
     return () => io.disconnect()
   }, [])
+  const go = (i) => {
+    setStep(i)
+    const card = row.current?.children[i]
+    if (card && innerWidth < 900) row.current.scrollTo({ left: card.offsetLeft - row.current.offsetLeft - parseFloat(getComputedStyle(row.current).paddingLeft || 0), behavior: 'smooth' })
+  }
 
   const draw = () => {
     const s = m.current
@@ -204,14 +212,18 @@ export default function ServeMap({ no }) {
 
   return (
     <section className="srv wrap" ref={root} id="serve" data-tone="ivory" data-chapter={no} data-name="Where I serve">
-      <Head no={no} label="Moradabad, India, the world" title={<>Where I <em>serve</em></>} lede="Rooted in the Brass City, working with businesses wherever they are." />
+      <Head no={no} label="Moradabad, India, the world" title={<>Where I <em>serve</em></>} lede="Based in Moradabad, working with clients wherever they are." />
       <div className="srv__grid">
-        <ol className="srv__steps">
+        <div className="srv__tabs" role="group" aria-label="Choose a view">
+          {serve.steps.map((st, i) => <button key={st.key} type="button" className={i === step ? 'is-on' : ''} aria-pressed={i === step} onClick={() => go(i)}>{st.key}</button>)}
+        </div>
+        <ol className="srv__steps" ref={row}>
           {serve.steps.map((st, i) => (
             <li className={`srv__step ${i === step ? 'is-on' : ''}`} key={st.key}>
               <p className="note srv__label"><b>{String(i + 1).padStart(2, '0')}</b> {st.label}</p>
               <h3 className="h3">{st.title}</h3>
               <p className="small">{st.text}</p>
+              <ul className="srv__places">{serve.places.filter((p) => p.stage === i).map((p) => <li key={p.name} className={p.client ? 'is-client' : ''}>{p.name}</li>)}</ul>
             </li>
           ))}
         </ol>

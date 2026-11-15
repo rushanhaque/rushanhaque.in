@@ -63,7 +63,7 @@ export default function Footer({ lead = true }) {
       <div className="foot__in wrap">
       <div className="foot__cols grid">
         <div className="foot__col foot__col--lead">
-          <p className="lede">{lead ? 'A project, a half-formed idea, or just hello. I reply to everything myself, usually within a day.' : 'Websites and software for businesses in India and abroad, designed and built by one person.'}</p>
+          <p className="lede">{lead ? 'A project, a half-formed idea, or just hello. I reply to everything myself, usually within a day.' : 'I build websites and software, and I write. Based in Moradabad, working with clients anywhere.'}</p>
         </div>
         <div className="foot__col">
           <p className="note">Pages</p>

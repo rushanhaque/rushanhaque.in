@@ -25,7 +25,7 @@ export default function Menu({ open, onClose, path }) {
         if (e.key === 'Escape') onClose()
         // the keyboard stays inside the sheet while it is open
         if (e.key === 'Tab' && panel.current) {
-          const list = [...panel.current.querySelectorAll('a, button'), document.querySelector('.fab')].filter(Boolean)
+          const list = [...panel.current.querySelectorAll('a, button'), document.querySelector('.top__menu')].filter(Boolean)
           const i = list.indexOf(document.activeElement)
           if (e.shiftKey && i <= 0) { e.preventDefault(); list[list.length - 1].focus() } else if (!e.shiftKey && i === list.length - 1) { e.preventDefault(); list[0].focus() }
         }

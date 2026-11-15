@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { device } from '../lib/device'
 import { follow } from '../lib/motion'
+import { scrollToEl } from '../lib/scroll'
 import Btn from '../components/Btn'
 import { BookBtn } from '../components/Booking'
 
@@ -83,7 +84,7 @@ export default function Hero() {
   const glow = useRef(null)
   n = 0
 
-  // a soft brass light drifts after the pointer; only its position ever changes
+  // a soft light drifts after the pointer; only its position ever changes
   useEffect(() => {
     const d = device()
     if (!d.fine || d.reduced || d.tier === 'low') return undefined
@@ -111,6 +112,9 @@ export default function Hero() {
           <BookBtn />
         </div>
       </div>
+      <button type="button" className="hx__down" aria-label="Scroll down" onClick={() => { const next = root.current?.nextElementSibling; if (next) scrollToEl(next) }}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6" /></svg>
+      </button>
     </section>
   )
 }

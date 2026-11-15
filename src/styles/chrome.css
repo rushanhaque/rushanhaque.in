@@ -34,7 +34,7 @@
 
 /* -- Footer: its own wine, wherever it lands (as on the previous site) ---------------------- */
 .foot { --ink-2: rgb(var(--ink-rgb) / 0.72); --ink-3: rgb(var(--ink-rgb) / 0.66); position: relative; z-index: 0; overflow: clip; view-timeline-name: --foot; }
-.foot__in { padding-top: clamp(80px, 9vw, 140px); padding-bottom: calc(clamp(18px, 2.4vw, 32px) + var(--safe-b)); }
+.foot__in { padding-top: clamp(56px, 6vw, 96px); padding-bottom: calc(clamp(18px, 2.4vw, 32px) + var(--safe-b)); }
 /* the page's last edge, in the page's own colour, hanging over the footer */
 .foot__curve { position: absolute; z-index: 2; left: -10%; top: -1px; width: 120%; height: clamp(60px, 11vw, 190px); border-radius: 0 0 50% 50%; background: #f7f4f1; box-shadow: 0 36px 60px -34px rgb(0 0 0 / 0.55); transform-origin: 50% 0; transform: scaleY(0); pointer-events: none; }
 @supports (animation-timeline: view()) {
@@ -43,25 +43,25 @@
   @keyframes footCurve { from { transform: scaleY(1); } to { transform: scaleY(0); } }
   @keyframes footRise { from { transform: translate3d(0, -32%, 0); } to { transform: none; } }
 }
-.foot__cols { row-gap: 32px; }
+.foot__cols { row-gap: 24px; }
 .foot__col { grid-column: span 2; display: grid; gap: 8px; align-content: start; font-size: var(--t-sm); }
 .foot__col li { line-height: 1.6; }
 .foot__col a { display: inline-block; padding-block: 3px; transition: color 0.3s var(--ease); }
 .foot__col a:hover { color: var(--accent); }
 .foot__col--lead { grid-column: 1 / span 6; }
-.foot__col--lead .lede { max-width: 26em; }
-.foot__more { margin-top: 34px; }
+.foot__col--lead .lede { max-width: 24em; font-size: clamp(17px, 1.5vw, 21px); }
+.foot__more { margin-top: 26px; }
 .foot__more summary { cursor: pointer; list-style: none; display: inline-block; padding-block: 3px; box-shadow: 0 1px 0 var(--line-2); color: var(--ink); }
 .foot__more summary::-webkit-details-marker { display: none; }
 .foot__dir { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px var(--gap); margin-top: 18px; font-size: 13.5px; line-height: 1.58; }
 .foot__dir a { display: inline-block; padding-block: 3px; }
 .foot__dir a:hover { color: var(--accent); }
-.foot__name { display: flex; align-items: flex-end; justify-content: space-between; font-size: min(calc((100vw - 2 * var(--m)) / 2.95), 40vh); line-height: 0.98; margin-top: clamp(40px, 6vw, 84px); padding-bottom: 0.07em; white-space: nowrap; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
+.foot__name { display: flex; align-items: flex-end; justify-content: space-between; font-size: min(calc((100vw - 2 * var(--m)) / 2.95), 25vh); line-height: 0.98; margin-top: clamp(28px, 4vw, 56px); padding-bottom: 0.07em; white-space: nowrap; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
 .foot__name i { display: inline-block; font-style: normal; transform-origin: 50% 100%; }
 .foot__name.is-low i { transform: scaleY(0); transition: transform 1.5s var(--ease) calc(var(--i) * 0.04s); }
 .foot__name.is-low.is-up i { transform: none; }
 .foot__gap { flex: 0 0 0.16em; }
-.foot__base { display: flex; justify-content: space-between; align-items: center; gap: 6px 30px; flex-wrap: wrap; margin-top: 18px; }
+.foot__base { display: flex; justify-content: space-between; align-items: center; gap: 6px 30px; flex-wrap: wrap; margin-top: 14px; }
 .foot__base a:hover, .foot__top:hover { color: var(--accent); }
 .foot__top { font: inherit; color: inherit; min-height: 24px; box-shadow: 0 1px 0 var(--line-2); }
 @media (max-width: 1100px) {
@@ -70,7 +70,14 @@
   .foot__col--wide { grid-column: span 6; }
 }
 @media (max-width: 760px) {
-  .foot__col { grid-column: span 6; }
+  .foot__in { padding-top: 44px; }
+  .foot__cols { row-gap: 20px; }
+  .foot__col { grid-column: span 6; gap: 4px; }
+  .foot__col li { line-height: 1.45; }
   .foot__col--lead, .foot__col--wide { grid-column: 1 / -1; }
+  .foot__col--lead .lede { font-size: 16px; }
+  .foot__more { margin-top: 18px; }
   .foot__dir { grid-template-columns: 1fr 1fr; }
+  .foot__name { margin-top: 22px; }
+  .foot__base { gap: 4px 18px; justify-content: flex-start; }
 }

@@ -135,11 +135,11 @@ function RecentWork({ hi }) {
       <ul className="lp__shots">
         {works.slice(0, 4).map((w) => (
           <li key={w.slug}>
-            <A to={`/work/${w.slug}`} data-cursor="View">
+            <a href={w.url} target="_blank" rel="noopener noreferrer" data-cursor="Visit site">
               <span className="lp__shot"><img src={small(w.image)} alt={`${w.title} website`} width={w.w} height={w.h} loading="lazy" decoding="async" /></span>
               <strong>{w.title}</strong>
               <span>{w.description}</span>
-            </A>
+            </a>
           </li>
         ))}
       </ul>

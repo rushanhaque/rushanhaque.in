@@ -34,3 +34,9 @@
 .stk__bar i { width: 9px; height: 9px; border-radius: 50%; background: rgb(var(--ink-rgb) / 0.18); }
 .stk__bar i:first-child { background: var(--accent); }
 .stk__bar > span { margin-left: 10px; padding: 2px 12px; border-radius: 99px; background: rgb(var(--paper-rgb) / 0.7); }
+
+/* each card's way out to the live site */
+.wg__txt { grid-template-columns: 38px minmax(0, 1fr); }
+.wg__visit { justify-self: start; margin-top: 10px; }
+@media (max-width: 760px) { .wg__txt { grid-template-columns: 30px minmax(0, 1fr); } }
+@media (hover: hover) { .wg__card:hover .wg__name { color: var(--accent); } }

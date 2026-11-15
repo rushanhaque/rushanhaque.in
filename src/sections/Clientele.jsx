@@ -23,7 +23,7 @@ export default function Clientele() {
   return (
     <section className="names" ref={root} id="clientele" data-tone="ivory" data-chapter="05" data-name="Clientele">
       <div className="wrap">
-        <Head no="05" label="In good company" title="Clientele" count={clients.length} lede="Brands across India, Saudi Arabia, Poland and Nepal, most of them export houses selling to buyers in dozens of countries." />
+        <Head no="05" label="In good company" title="Clientele" count={clients.length} lede="Businesses across India, Saudi Arabia, Poland and Nepal." />
       </div>
       <div className="rail is-off" ref={rail} data-r="lift">
         {rows.map((row, k) => (

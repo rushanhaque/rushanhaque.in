@@ -35,3 +35,16 @@
   .motion:not([data-tier='low']) .hx__in { animation: heroOut linear both; animation-timeline: scroll(root); animation-range: 0 90vh; }
   @keyframes heroOut { to { transform: translateY(-10vh) scale(0.96); opacity: 0; } }
 }
+
+
+/* the quiet cue to scroll: a chevron at the foot of the first screen, drifting down and back */
+.hx__down { position: absolute; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); display: grid; place-items: center; width: 56px; height: 56px; margin-left: -28px; color: var(--ink-2); transition: color 0.3s; }
+.hx__down svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.hx__down:hover { color: var(--accent); }
+.motion .hx__down { animation: fadeUp 1.3s var(--ease) 1.3s both; }
+.motion .hx__down svg { animation: hxDown 2.4s cubic-bezier(0.45, 0, 0.55, 1) 2.6s infinite; }
+@keyframes hxDown { 0%, 100% { transform: translateY(-3px); opacity: 0.55; } 50% { transform: translateY(5px); opacity: 1; } }
+@supports (animation-timeline: scroll()) {
+  .motion:not([data-tier='low']) .hx__down { animation: fadeUp 1.3s var(--ease) 1.3s both, hxDownOut linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 30vh; }
+  @keyframes hxDownOut { to { opacity: 0; } }
+}
