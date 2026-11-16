@@ -51,7 +51,10 @@ export async function resolve(url) {
   return { ...r, hash: u.hash, search: u.search, Page: mod.default, data }
 }
 
+const done = new Set()
 export const prefetch = (to) => {
+  if (done.has(to)) return
+  done.add(to)
   try {
     const u = new URL(to, location.origin)
     if (u.origin !== location.origin) return
@@ -59,4 +62,18 @@ export const prefetch = (to) => {
     PAGES[r.key]()
     dataFor(r)
   } catch { /* not a page */ }
+}
+
+// Once the page has settled: the code of the main pages, then the words behind every page link as it comes into
+// view, so a click or a tap never waits for the network. Skipped when the visitor is saving data.
+export function warm() {
+  if (typeof window === 'undefined' || navigator.connection?.saveData || /(^|-)2g/.test(navigator.connection?.effectiveType || '')) return
+  const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300))
+  idle(() => ['home', 'works', 'about', 'contact', 'landing'].forEach((k) => PAGES[k]()), { timeout: 3000 })
+  const io = new IntersectionObserver((list) => {
+    for (const e of list) if (e.isIntersecting) { io.unobserve(e.target); idle(() => prefetch(e.target.getAttribute('href')), { timeout: 2000 }) }
+  }, { rootMargin: '200px' })
+  const watch = () => document.querySelectorAll('a[href^="/"]:not([data-warm])').forEach((a) => { a.dataset.warm = ''; io.observe(a) })
+  watch()
+  new MutationObserver(() => idle(watch, { timeout: 1000 })).observe(document.getElementById('root'), { childList: true, subtree: true })
 }

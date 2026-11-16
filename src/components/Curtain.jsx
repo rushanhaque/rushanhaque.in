@@ -20,12 +20,12 @@ const Curtain = forwardRef(function Curtain(_, ref) {
       el.className = 'curtain is-ready'
       el.getBoundingClientRect()
       el.className = 'curtain is-cover'
-      await wait(el, 700)
+      await wait(el, 440)
     },
     async reveal() {
       const el = root.current
       el.className = 'curtain is-reveal'
-      await wait(el, 900)
+      await wait(el, 620)
       el.className = 'curtain'
     },
   }), [])

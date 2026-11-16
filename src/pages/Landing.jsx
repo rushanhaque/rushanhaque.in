@@ -4,7 +4,7 @@ import { LEGAL, services, areas, industries, articles } from '../lib/pages'
 import { site } from '../config/site'
 import { works } from '../data/content'
 import { useReveals } from '../lib/reveal'
-import { small } from '../lib/img'
+import { small, blur } from '../lib/img'
 import { A } from '../lib/router'
 import Btn from '../components/Btn'
 import Split from '../components/Split'
@@ -136,7 +136,7 @@ function RecentWork({ hi }) {
         {works.slice(0, 4).map((w) => (
           <li key={w.slug}>
             <a href={w.url} target="_blank" rel="noopener noreferrer" data-cursor="Visit site">
-              <span className="lp__shot"><img src={small(w.image)} alt={`${w.title} website`} width={w.w} height={w.h} loading="lazy" decoding="async" /></span>
+              <span className="lp__shot"><img src={small(w.image)} alt={`${w.title} website`} width={w.w} height={w.h} loading="lazy" decoding="async" style={blur(w.image)} /></span>
               <strong>{w.title}</strong>
               <span>{w.description}</span>
             </a>

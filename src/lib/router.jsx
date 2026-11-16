@@ -19,5 +19,5 @@ export function A({ to, children, onClick, onPointerEnter, ...rest }) {
   }
   // reaching for a link loads what its page needs, so the switch never waits
   const enter = (e) => { onPointerEnter?.(e); if (internal(to)) prefetch(to) }
-  return <a href={to} onClick={click} onPointerEnter={enter} onFocus={enter} {...rest}>{children}</a>
+  return <a href={to} onClick={click} onPointerEnter={enter} onPointerDown={enter} onFocus={enter} {...rest}>{children}</a>
 }

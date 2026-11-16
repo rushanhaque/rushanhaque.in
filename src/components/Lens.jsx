@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { device } from '../lib/device'
 import { follow, tween, killTweensOf, ease } from '../lib/motion'
-import { small, srcSet } from '../lib/img'
+import { small, srcSet, blur } from '../lib/img'
 
 // The finished site, with the drawing it began as underneath. With a mouse, a brass line follows the pointer across
 // the picture: everything to its left is the drawing, everything to its right is the site, so you can sweep between
@@ -53,7 +53,7 @@ export default function Lens({ image, plan, width, height, alt, sizes = '(max-wi
   }, [])
   return (
     <div className={`lens ${className}`} ref={root} style={{ aspectRatio: `${width} / ${height}` }}>
-      <img className="lens__real" src={small(image)} srcSet={srcSet(image)} sizes={sizes} alt={alt} loading="lazy" decoding="async" width={width} height={height} />
+      <img className="lens__real" src={small(image)} srcSet={srcSet(image)} sizes={sizes} alt={alt} loading="lazy" decoding="async" width={width} height={height} style={blur(image)} />
       <img className="lens__plan" src={small(plan)} srcSet={srcSet(plan)} sizes={sizes} alt="" loading="lazy" decoding="async" width={width} height={height} />
       <span className="lens__line" aria-hidden="true" />
       <span className="lens__tag lens__tag--l note" aria-hidden="true">Drawing</span>

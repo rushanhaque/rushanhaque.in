@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { products } from '../data/live'
 import { useReveals } from '../lib/reveal'
-import { small, srcSet } from '../lib/img'
+import { small, srcSet, blur } from '../lib/img'
 import { A } from '../lib/router'
 import Btn from '../components/Btn'
 import Head from '../components/Head'
@@ -34,7 +34,7 @@ export default function Products() {
           <div className="prod__stage">
             <Go p={p} className="prod__frame" aria-label={`${p.title}: explore the product`} data-cursor="Explore" tabIndex={-1}>
               <span className="prod__bar" aria-hidden="true"><i /><i /><i /></span>
-              <img src={small(p.image)} srcSet={srcSet(p.image)} sizes="(max-width: 899px) 92vw, 58vw" alt={`${p.title} interface`} width={p.w} height={p.h} loading="lazy" decoding="async" />
+              <img src={small(p.image)} srcSet={srcSet(p.image)} sizes="(max-width: 899px) 92vw, 58vw" alt={`${p.title} interface`} width={p.w} height={p.h} loading="lazy" decoding="async" style={blur(p.image)} />
             </Go>
           </div>
           {p.steps.length > 0 && <ol className="prod__steps" style={{ '--n': p.steps.length }} data-r="stagger">

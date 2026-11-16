@@ -4,6 +4,7 @@ import { stats, languages, skills } from '../data/content'
 import { certifications } from '../data/live'
 import editable from '../data/editable.json'
 import { useReveals } from '../lib/reveal'
+import { blur } from '../lib/img'
 import { lockScroll, unlockScroll } from '../lib/scroll'
 import Btn from '../components/Btn'
 import Head from '../components/Head'
@@ -19,7 +20,7 @@ function Cred({ c, onOpen }) {
   const inner = (
     <>
       <span className="cred__media card-pic">
-        {c.image ? <img src={c.image} alt="" loading="lazy" decoding="async" /> : <span className="cred__seal pillar">{(c.issuer || c.title).split(' ')[0]}</span>}
+        {c.image ? <img src={c.image} alt="" loading="lazy" decoding="async" style={blur(c.image)} /> : <span className="cred__seal pillar">{(c.issuer || c.title).split(' ')[0]}</span>}
       </span>
       <span className="note">{[c.kind, c.date].filter(Boolean).join(', ')}</span>
       <strong className="cred__t">{c.title}</strong>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { works, products, building, experiments } from '../data/live'
 import { useReveals } from '../lib/reveal'
-import { small, srcSet } from '../lib/img'
+import { small, srcSet, blur } from '../lib/img'
 import { device } from '../lib/device'
 import { follow } from '../lib/motion'
 import { A } from '../lib/router'
@@ -32,7 +32,7 @@ function Card({ it, big }) {
     <li className={`wk__card ${big ? 'is-big' : ''}`} data-r="card">
       <div className="wk__link">
         <Go it={it} className="wk__pic card-pic" data-cursor={live ? 'Visit site' : 'View'} aria-label={live ? `${it.title}, visit the live site` : it.title}>
-          <img src={small(it.image)} srcSet={srcSet(it.image)} sizes={big ? '(max-width: 760px) 92vw, 46vw' : '(max-width: 760px) 92vw, 30vw'} alt={`${it.title} home page`} width={it.w} height={it.h} loading="lazy" decoding="async" />
+          <img src={small(it.image)} srcSet={srcSet(it.image)} sizes={big ? '(max-width: 760px) 92vw, 46vw' : '(max-width: 760px) 92vw, 30vw'} alt={`${it.title} home page`} width={it.w} height={it.h} loading="lazy" decoding="async" style={blur(it.image)} />
         </Go>
         <span className="wk__txt card-txt">
           <span className="wk__head"><strong className="h4">{it.title}</strong></span>

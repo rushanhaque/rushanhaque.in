@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { RouterCtx } from './lib/router'
-import { match, resolve } from './lib/routes'
+import { match, resolve, warm } from './lib/routes'
 import { applyMeta } from './lib/meta'
 import { device } from './lib/device'
 import { initScroll, jumpTo, scrollToEl, scrollToY } from './lib/scroll'
@@ -34,6 +34,8 @@ export default function App({ initial }) {
       requestAnimationFrame(() => (next.hash && findHash(next.hash) ? scrollToEl(findHash(next.hash), { smooth: false }) : jumpTo(y)))
     }
     addEventListener('popstate', pop)
+    // warm the other pages once this one has finished loading
+    if (document.readyState === 'complete') warm(); else addEventListener('load', warm, { once: true })
     // the page the visitor landed on, if it pointed at a part of itself
     if (location.hash) setTimeout(() => scrollToEl(findHash(location.hash), { smooth: false }), 80)
     return () => { removeEventListener('scroll', save); removeEventListener('popstate', pop) }

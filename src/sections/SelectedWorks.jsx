@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { works } from '../data/live'
 import { useReveals } from '../lib/reveal'
-import { small, srcSet } from '../lib/img'
+import { small, srcSet, blur } from '../lib/img'
 import Head from '../components/Head'
 import Btn from '../components/Btn'
 import { device } from '../lib/device'
@@ -52,7 +52,7 @@ export default function SelectedWorks() {
               <a href={w.url} target="_blank" rel="noopener noreferrer" className="wg__frame card-pic" data-cursor="Visit site" aria-label={`${w.title}, visit the live site`}>
                 <span className="stk__bar" aria-hidden="true"><i /><i /><i /><span>{host(w.url) || w.short}</span></span>
                 <span className="wg__pic">
-                  <img src={small(w.image)} srcSet={srcSet(w.image)} sizes="(max-width: 760px) 92vw, 46vw" alt={`${w.title} home page`} width={w.w} height={w.h} loading="lazy" decoding="async" />
+                  <img src={small(w.image)} srcSet={srcSet(w.image)} sizes="(max-width: 760px) 92vw, 46vw" alt={`${w.title} home page`} width={w.w} height={w.h} loading="lazy" decoding="async" style={blur(w.image)} />
                   {w.clip && <video className="wg__clip" data-clip={w.clip} muted loop playsInline preload="none" disablePictureInPicture disableRemotePlayback tabIndex={-1} aria-hidden="true" />}
                 </span>
               </a>
