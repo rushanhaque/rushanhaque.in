@@ -125,6 +125,12 @@ export default function Hero() {
   return (
     <section className="hx" ref={root} id="top" data-tone="ivory" aria-label="Rushan Haque">
       <div className="hx__film" aria-hidden="true">
+        {/* the film's still, painted at once: the moving film later lands on top at exactly its size, so the page's
+            largest paint is this instant still, not a film that fades in seconds later */}
+        <picture>
+          <source media="(max-aspect-ratio: 1/1)" srcSet="/video/hero-tall.webp" />
+          <img className="hx__still" src="/video/hero-wide.webp" alt="" fetchPriority="high" decoding="async" />
+        </picture>
         <video ref={film} className="hx__video" muted loop playsInline preload="none" disablePictureInPicture disableRemotePlayback tabIndex={-1} />
       </div>
       <span className="hx__glow" ref={glow} aria-hidden="true" />
