@@ -9,6 +9,14 @@ const CODE = 'abcdefghijklmnopqrstuvwxyz{}[]()<>/=;:.*+-_'
 const pick = () => CODE[Math.floor(Math.random() * CODE.length)]
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
+// The line's one text node, changed in place: a new node for every flicker would count, to the browser, as fresh
+// content painted late (and push the page's largest-paint time back by seconds).
+const setText = (el, value) => {
+  const t = el.firstChild
+  if (t && t.nodeType === 3 && !t.nextSibling) t.data = value
+  else el.textContent = value
+}
+
 // Text resolving out of noise: the finished letters arrive left to right, the rest keep flickering until they do.
 function scramble(el, text, duration) {
   return new Promise((done) => {
@@ -21,10 +29,10 @@ function scramble(el, text, duration) {
         last = now
         const keep = Math.floor(text.length * p)
         const len = Math.max(keep, Math.round(text.length * Math.min(1, p * 2.2)))
-        el.textContent = text.slice(0, keep) + Array.from({ length: len - keep }, pick).join('')
+        setText(el, text.slice(0, keep) + Array.from({ length: len - keep }, pick).join(''))
       }
       if (p < 1) requestAnimationFrame(step)
-      else { el.textContent = text; done() }
+      else { setText(el, text); done() }
     }
     requestAnimationFrame(step)
   })
@@ -54,8 +62,8 @@ function Roles() {
       await sleep(document.documentElement.classList.contains('intro') ? 3200 : 1900)
       while (alive) {
         if (seen) {
-          a.textContent = ''
-          b.textContent = ''
+          setText(a, '')
+          setText(b, '')
           await write(a, '<developer />', 'Developer', false)
           await sleep(150)
           await write(b, '// & writer', '& writer.', true)

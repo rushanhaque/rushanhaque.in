@@ -20,7 +20,9 @@
    opening cover is up */
 .motion .hx__ch { animation: chRise 1.5s var(--ease) both; animation-delay: calc(0.15s + var(--i) * 0.045s); }
 .motion .hx__roles, .motion .hx__cta { animation: fadeUp 1.3s var(--ease) both; }
-.motion .hx__roles { animation-delay: 0.75s; }
+.motion .hx__roles { animation-name: rolesUp; animation-delay: 0.75s; }
+/* starts a hair above zero, so the browser counts the line when the page first paints rather than seconds later */
+@keyframes rolesUp { from { opacity: 0.01; transform: translateY(18px); } }
 .motion .hx__cta { animation-delay: 0.9s; }
 .motion .hx__glow { animation: glowIn 2.4s var(--ease) 0.2s both; }
 .intro:not(.cv-out) .hx *, .intro:not(.cv-out) .hx__glow { animation-play-state: paused !important; }
