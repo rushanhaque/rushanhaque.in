@@ -1,9 +1,10 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { works } from '../data/live'
 import { useReveals } from '../lib/reveal'
 import { small, srcSet } from '../lib/img'
 import Head from '../components/Head'
 import Btn from '../components/Btn'
+import { device } from '../lib/device'
 
 const two = (n) => String(n).padStart(2, '0')
 const host = (u) => (u ? u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : '')
@@ -13,6 +14,34 @@ const host = (u) => (u ? u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''
 export default function SelectedWorks() {
   const root = useRef(null)
   useReveals(root)
+
+  // Each site's hero, playing: a short loop recorded from the live site sits over its screenshot. Nothing is fetched
+  // until the page has finished loading and a card comes near the screen; each loop plays only while its card is in
+  // view. Slow devices, reduced motion and data saving keep the screenshots.
+  useEffect(() => {
+    const d = device()
+    const clips = [...root.current.querySelectorAll('video[data-clip]')]
+    if (!clips.length || d.reduced || d.tier === 'low' || navigator.connection?.saveData || matchMedia('(prefers-reduced-data: reduce)').matches) return undefined
+    let io = null
+    let idle = 0
+    const type = clips[0].canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4'
+    const start = () => {
+      io = new IntersectionObserver((list) => {
+        for (const e of list) {
+          const v = e.target
+          if (e.isIntersecting) {
+            if (!v.src) { v.src = `${v.dataset.clip}.${type}`; v.addEventListener('playing', () => v.classList.add('is-on'), { once: true }) }
+            v.play().catch(() => {})
+          } else if (v.src) v.pause()
+        }
+      }, { rootMargin: '120px 0px', threshold: 0.2 })
+      clips.forEach((v) => io.observe(v))
+    }
+    const later = () => { idle = (window.requestIdleCallback || setTimeout)(start, { timeout: 2000 }) }
+    if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true })
+    return () => { removeEventListener('load', later); (window.cancelIdleCallback || clearTimeout)(idle); io?.disconnect(); clips.forEach((v) => { v.pause(); v.removeAttribute('src'); v.load() }) }
+  }, [])
+
   return (
     <section className="sw wrap" ref={root} id="work" data-tone="ivory" data-chapter="01" data-name="Selected works">
       <Head no="01" label="Client sites" title={<>Selected <em>works</em></>} count={works.length} lede="Sites I have designed, built and seen through to launch." />
@@ -24,6 +53,7 @@ export default function SelectedWorks() {
                 <span className="stk__bar" aria-hidden="true"><i /><i /><i /><span>{host(w.url) || w.short}</span></span>
                 <span className="wg__pic">
                   <img src={small(w.image)} srcSet={srcSet(w.image)} sizes="(max-width: 760px) 92vw, 46vw" alt={`${w.title} home page`} width={w.w} height={w.h} loading="lazy" decoding="async" />
+                  {w.clip && <video className="wg__clip" data-clip={w.clip} muted loop playsInline preload="none" disablePictureInPicture disableRemotePlayback tabIndex={-1} aria-hidden="true" />}
                 </span>
               </a>
               <span className="wg__txt card-txt">

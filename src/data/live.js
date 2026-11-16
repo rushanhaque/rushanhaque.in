@@ -9,8 +9,10 @@ const pick = (key) => (Array.isArray(editable[key]) ? editable[key] : base[key])
 export const slugify = (t = '') => t.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48)
 const keyed = (x, i) => ({ ...x, slug: x.slug || slugify(x.title) || `item-${i + 1}` })
 const PRODUCT_PAGES = new Set(base.products.map((p) => p.slug))
+// short loops of a live site's moving hero, recorded from the site itself (public/video/work/<slug>.webm and .mp4)
+const CLIPS = new Set(['taif', 'erfolg-living', 'aurelio', 'ibm-consultancy'])
 
-export const works = pick('works').map(keyed).map((w) => ({ w: 1600, h: 1000, status: 'Live', year: '', field: '', ...w, short: w.short || w.title, line: w.line || w.description || '' }))
+export const works = pick('works').map(keyed).map((w) => ({ w: 1600, h: 1000, status: 'Live', year: '', field: '', ...w, short: w.short || w.title, line: w.line || w.description || '', clip: CLIPS.has(w.slug) ? `/video/work/${w.slug}` : '' }))
 
 export const building = pick('building').map(keyed).map((b, i) => ({ w: 1600, h: 1000, field: '', description: '', ...b, sheet: b.sheet || `A-${101 + i}` }))
 

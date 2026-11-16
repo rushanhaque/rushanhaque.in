@@ -46,3 +46,9 @@
   .wg__visit { grid-column: 2; grid-row: 2; justify-self: start; margin-top: 10px; }
 }
 @media (hover: hover) { .wg__card:hover .wg__name { color: var(--accent); } }
+
+/* a site's hero, playing over its screenshot once it has loaded */
+.wg__pic { position: relative; }
+.wg__clip { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 0.8s var(--ease), transform 1.3s var(--ease); pointer-events: none; }
+@media (hover: hover) { .wg__card:hover .wg__clip { transform: scale(1.04); } }
+.wg__clip.is-on { opacity: 1; }
