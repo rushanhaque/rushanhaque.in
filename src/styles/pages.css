@@ -421,6 +421,11 @@
 .adm__order button { width: 36px; height: 36px; border-radius: 50%; font-size: 15px; color: var(--ink-2); }
 .adm__order button:hover:not(:disabled) { background: var(--paper); color: var(--accent); }
 .adm__order button:disabled { opacity: 0.25; }
+.adm__order .adm__del { display: grid; place-items: center; color: var(--ink-3); }
+.adm__order .adm__del:hover { background: #fbeaea; color: #a23a3a; }
+.adm__confirm { display: flex; align-items: center; gap: 6px; font-size: 13.5px; color: #a23a3a; }
+.adm__confirm button { min-height: 34px; padding: 0 12px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--line-2); font-size: 13px; color: var(--ink); }
+.adm__confirm button.is-danger { background: #a23a3a; color: #fff; box-shadow: none; }
 .adm__edit { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; padding: 6px 16px 16px; }
 .adm__edit .field { min-width: 0; }
 .adm__edit .field:has(textarea), .adm__edit .adm__pic, .adm__editfoot { grid-column: 1 / -1; }

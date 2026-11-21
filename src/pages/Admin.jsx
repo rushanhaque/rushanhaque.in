@@ -4,6 +4,7 @@ import * as base from '../data/content'
 import { LISTS, cleanList, small800 } from '../../api/_schema.js'
 import { logoPath, prepareLogo, preparePicture, picturePath } from '../lib/logo'
 import Btn from '../components/Btn'
+import { Trash } from '../components/glyphs'
 
 // The owner's admin. Sign in with the admin password, change anything on the tabs, and publish: the change is
 // committed to GitHub and Vercel rebuilds the site, so it is live about a minute later. Kept out of search.
@@ -128,10 +129,19 @@ function ListTab({ k, items, setItems, open, setOpen, preview, choosePicture }) 
                   {spec.fields.some((f) => f.type === 'image') && <span className="adm__thumb">{thumb ? <img src={thumb} alt="" /> : <i />}</span>}
                   <span className="adm__names"><strong>{titleOf(k, it)}</strong><small>{subOf(k, it)}</small></span>
                 </button>
-                <div className="adm__order">
-                  <button type="button" onClick={() => move(i, -1)} disabled={i === 0} aria-label={`Move ${titleOf(k, it)} up`}>↑</button>
-                  <button type="button" onClick={() => move(i, 1)} disabled={i === items.length - 1} aria-label={`Move ${titleOf(k, it)} down`}>↓</button>
-                </div>
+                {sure === it._k ? (
+                  <div className="adm__confirm" role="group" aria-label={`Delete ${titleOf(k, it)}?`}>
+                    <span>Delete?</span>
+                    <button type="button" className="is-danger" onClick={() => { setItems(items.filter((x) => x._k !== it._k)); setSure(null); if (isOpen) setOpen(null) }}>Yes</button>
+                    <button type="button" onClick={() => setSure(null)}>No</button>
+                  </div>
+                ) : (
+                  <div className="adm__order">
+                    <button type="button" onClick={() => move(i, -1)} disabled={i === 0} aria-label={`Move ${titleOf(k, it)} up`}>↑</button>
+                    <button type="button" onClick={() => move(i, 1)} disabled={i === items.length - 1} aria-label={`Move ${titleOf(k, it)} down`}>↓</button>
+                    <button type="button" className="adm__del" onClick={() => setSure(it._k)} aria-label={`Delete ${titleOf(k, it)}`} title="Delete"><Trash size={17} /></button>
+                  </div>
+                )}
               </div>
               {isOpen && (
                 <div className="adm__edit">
@@ -140,9 +150,7 @@ function ListTab({ k, items, setItems, open, setOpen, preview, choosePicture }) 
                   ))}
                   <div className="adm__editfoot">
                     <button type="button" className="adm__ghost" onClick={() => setOpen(null)}>Done</button>
-                    {sure === it._k
-                      ? <button type="button" className="adm__ghost is-danger" onClick={() => { setItems(items.filter((x) => x._k !== it._k)); setSure(null) }}>Yes, delete it</button>
-                      : <button type="button" className="adm__ghost" onClick={() => setSure(it._k)}>Delete</button>}
+                    <button type="button" className="adm__ghost" onClick={() => setSure(it._k)}>Delete this {spec.one}</button>
                   </div>
                 </div>
               )}
